@@ -9,3 +9,9 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Test {
+  id String @id @default(cuid())
+  name String
+  descr String
+}
