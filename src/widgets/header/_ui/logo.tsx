@@ -1,3 +1,4 @@
+"use client";
 import { IconLogo } from "@/shared/ui/icons/logo";
 import Link from "next/link";
 

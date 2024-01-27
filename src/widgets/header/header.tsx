@@ -1,8 +1,8 @@
 import { FC, HTMLAttributes } from "react";
-import { Layout } from "./_ui/layout";
-import { Logo } from "./_ui/logo";
-import { Nav } from "./_ui/nav";
-import { Profile } from "./_ui/profile";
+import { Layout } from "./_ui/Layout";
+import { Logo } from "./_ui/Logo";
+import { Nav } from "./_ui/Nav";
+import { Profile } from "./_ui/Profile";
 
 interface HeaderProps extends HTMLAttributes<HTMLDivElement> {}
 
