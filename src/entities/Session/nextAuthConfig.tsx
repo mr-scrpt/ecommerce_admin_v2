@@ -18,6 +18,13 @@ const {
 
 export const nextAuthConfig: AuthOptions = {
   adapter: PrismaAdapter(dbClient) as AuthOptions["adapter"],
+  pages: {
+    signIn: "/auth/sign-in",
+    newUser: "/auth/new-user",
+    verifyRequest: "/auth/verify-request",
+    error: "/when-error-page",
+    signOut: "/by-by",
+  },
   providers: compact([
     EmailProvider({
       // ...emailToken,
