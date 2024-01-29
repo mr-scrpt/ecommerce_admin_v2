@@ -1,7 +1,14 @@
 "use client";
+import { FC, HTMLAttributes } from "react";
+import { useSession } from "next-auth/react";
 import { SessionProvider as NextAuthSessionProvider } from "next-auth/react";
 
-import { FC, HTMLAttributes } from "react";
+export const useAppSession = useSession;
+
+export const useRole = () => {
+  const session = useAppSession();
+  return session?.data?.user?.role;
+};
 
 interface ProviderSessionProps extends HTMLAttributes<HTMLDivElement> {}
 

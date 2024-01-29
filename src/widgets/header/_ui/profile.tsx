@@ -1,7 +1,7 @@
 "use client";
-import { useAppSession } from "@/entities/Session/vm/useAppSession";
+import { useAppSession, useRole } from "@/entities/user/session";
 import { SignInButton } from "@/features/Auth/SignInButton";
-import { UseSignOut } from "@/features/Auth/vm/UseSignOut";
+import { UseSignOut } from "@/features/Auth/vm/useSignOut";
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
 import { Button } from "@/shared/ui/button";
 import {
@@ -40,7 +40,7 @@ export const Profile: FC<ProfileProps> = (props) => {
           className="p-px rounded-full self-center h-8 w-8"
         >
           <Avatar className="w-8 h-8">
-            <AvatarImage src={data?.user.image} />
+            <AvatarImage src={data?.user?.image ?? undefined} />
             <AvatarFallback>AC</AvatarFallback>
           </Avatar>
         </Button>
