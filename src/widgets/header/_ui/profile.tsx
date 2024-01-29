@@ -1,4 +1,5 @@
 "use client";
+import { ProfileAvatar, getProfileDisplayName } from "@/entities/user/profile";
 import { useAppSession, useRole } from "@/entities/user/session";
 import { SignInButton } from "@/features/Auth/SignInButton";
 import { UseSignOut } from "@/features/Auth/vm/useSignOut";
@@ -31,6 +32,7 @@ export const Profile: FC<ProfileProps> = (props) => {
   if (status === "unauthenticated") {
     return <SignInButton />;
   }
+  const user = data?.user;
 
   return (
     <DropdownMenu>
@@ -39,17 +41,14 @@ export const Profile: FC<ProfileProps> = (props) => {
           variant="ghost"
           className="p-px rounded-full self-center h-8 w-8"
         >
-          <Avatar className="w-8 h-8">
-            <AvatarImage src={data?.user?.image ?? undefined} />
-            <AvatarFallback>AC</AvatarFallback>
-          </Avatar>
+          <ProfileAvatar profile={user} className="w-8 h-8" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56 mr-2 ">
         <DropdownMenuLabel>
           <p>Мой аккаунт</p>
           <p className="text-xs text-muted-foreground overflow-hidden text-ellipsis">
-            {data?.user.name}
+            {user ? getProfileDisplayName(user) : undefined}
           </p>
         </DropdownMenuLabel>
         <DropdownMenuGroup></DropdownMenuGroup>
