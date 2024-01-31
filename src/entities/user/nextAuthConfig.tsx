@@ -5,7 +5,7 @@ import { compact } from "lodash-es";
 import { AuthOptions } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import EmailProvider from "next-auth/providers/email";
-import { createUserUseCase } from "./_useCase/userCreate";
+import { createUserUseCase } from "./_useCase/createUser";
 
 const {
   GITHUB_SECRET,

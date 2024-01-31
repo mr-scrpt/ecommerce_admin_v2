@@ -9,13 +9,13 @@ export class UserRepository {
     });
   }
 
-  // async getUserById(userId: UserId): Promise<UserEntity> {
-  //   return dbClient.user.findUniqueOrThrow({
-  //     where: {
-  //       id: userId,
-  //     },
-  //   });
-  // }
+  async getUserById(userId: UserId): Promise<UserEntity> {
+    return dbClient.user.findUniqueOrThrow({
+      where: {
+        id: userId,
+      },
+    });
+  }
 }
 
 export const userRepository = new UserRepository();

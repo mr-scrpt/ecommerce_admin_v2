@@ -55,7 +55,7 @@ export const Profile: FC<ProfileProps> = (props) => {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem asChild>
-            <Link href={`/profile/1`}>
+            <Link href={`/profile/${user?.id}`}>
               {/* <User className="mr-2 h-4 w-4" /> */}
               <span>Профиль</span>
               {/* </Link> */}
