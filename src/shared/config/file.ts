@@ -1,0 +1,1 @@
+export const FILE_SIZE_IMG_SIZE_MEDIUM = 10;
