@@ -7,18 +7,21 @@ import {
   getProfileQuery,
   profileFormSchema,
 } from "@/entities/user/profile";
-import { Spinner } from "@/shared/ui/spinner";
+import { Spinner } from "@/shared/ui/icons/spinner";
 import { z } from "zod";
 import { useUpdateProfile } from "../_vm/useUpdateProfile";
+import { cn } from "@/shared/ui/utils";
 
 interface ProfileFormProps extends HTMLAttributes<HTMLDivElement> {
   userId: string;
   callbackUrl?: string;
+  className?: string;
 }
 
 type ProfileFormValues = z.infer<typeof profileFormSchema>;
+
 export const ProfileFormUpdate: FC<ProfileFormProps> = (props) => {
-  const { userId, callbackUrl } = props;
+  const { userId, callbackUrl, className } = props;
 
   const { isPending, data } = useQuery({
     ...getProfileQuery(userId),
@@ -41,18 +44,19 @@ export const ProfileFormUpdate: FC<ProfileFormProps> = (props) => {
       userId,
       data,
     });
-    console.log("output_log:olol  =>>>");
     if (callbackUrl) {
       router.push(callbackUrl);
     }
   };
 
   return (
-    <ProfileForm
-      handleSubmit={handleSubmit}
-      isPending={isPending || isPendingUpdate}
-      profile={data.profile}
-      submitText={callbackUrl ? "Продолжить" : "Сохранить"}
-    />
+    <div className={cn(className, "w-full")}>
+      <ProfileForm
+        handleSubmit={handleSubmit}
+        isPending={isPending || isPendingUpdate}
+        profile={data.profile}
+        submitText={callbackUrl ? "Continue" : "Save change"}
+      />
+    </div>
   );
 };

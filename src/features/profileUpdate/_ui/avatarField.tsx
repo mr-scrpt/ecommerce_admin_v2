@@ -1,6 +1,6 @@
 import { ProfileAvatar } from "@/entities/user/profile";
 import { Button } from "@/shared/ui/button";
-import { Spinner } from "@/shared/ui/spinner";
+import { Spinner } from "@/shared/ui/icons/spinner";
 import { FC, HTMLAttributes } from "react";
 
 interface AvatarFieldProps {

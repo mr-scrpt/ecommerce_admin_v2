@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/shared/ui/button";
-import { Spinner } from "@/shared/ui/spinner";
+import { Spinner } from "@/shared/ui/icons/spinner";
 import { ClientSafeProvider } from "next-auth/react";
 import { FC, HTMLAttributes } from "react";
 import { useOAuthSignIn } from "../vm/useOauthSignIn";

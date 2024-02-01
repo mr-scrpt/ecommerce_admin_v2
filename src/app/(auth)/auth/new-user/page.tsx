@@ -1,9 +1,15 @@
+import { getAppSessionServerOrRedirect } from "@/entities/user/getAppSessionServer";
+import { ProfileFormUpdate } from "@/features/profileUpdate";
 import { Separator } from "@/shared/ui/separator";
 import { FC, HTMLAttributes } from "react";
 
-interface PageProps extends HTMLAttributes<HTMLDivElement> {}
+interface PageProps extends HTMLAttributes<HTMLDivElement> {
+  searchParams: { callbackUrl: string };
+}
 
-const NewUserPage: FC<PageProps> = (props) => {
+const NewUserPage: FC<PageProps> = async (props) => {
+  const { searchParams } = props;
+  const session = await getAppSessionServerOrRedirect();
   return (
     <main className="space-y-6 py-14 container">
       <div className="flex flex-col items-center">
@@ -13,10 +19,13 @@ const NewUserPage: FC<PageProps> = (props) => {
         </p>
       </div>
       <Separator />
-      {/* <UpdateProfileForm */}
-      {/*   userId={session.user.id} */}
-      {/*   callbackUrl={searchParams.callbackUrl} */}
-      {/* /> */}
+      <div className="flex justify-center">
+        <ProfileFormUpdate
+          userId={session.user.id}
+          callbackUrl={searchParams.callbackUrl}
+          className="max-w-[500px]"
+        />
+      </div>
     </main>
   );
 };

@@ -1,5 +1,5 @@
 import { FC, HTMLAttributes } from "react";
-import { Spinner } from "./spinner";
+import { Spinner } from "./icons/spinner";
 import { useAppearanceDelay } from "../lib/react";
 
 interface spinnerFullPageProps extends HTMLAttributes<HTMLDivElement> {

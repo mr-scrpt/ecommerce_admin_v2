@@ -9,7 +9,7 @@ import {
   FormMessage,
 } from "@/shared/ui/form";
 import { Input } from "@/shared/ui/input";
-import { Spinner } from "@/shared/ui/spinner";
+import { Spinner } from "@/shared/ui/icons/spinner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, HTMLAttributes } from "react";
 import { useForm } from "react-hook-form";

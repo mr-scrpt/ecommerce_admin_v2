@@ -17,7 +17,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { AvatarField } from "./avatarField";
 import { useUpdateProfile } from "../_vm/useUpdateProfile";
-import { Spinner } from "@/shared/ui/spinner";
+import { Spinner } from "@/shared/ui/icons/spinner";
 
 const profileFormSchema = z.object({
   name: z
