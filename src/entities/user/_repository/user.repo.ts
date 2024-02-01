@@ -1,6 +1,5 @@
 import { dbClient } from "@/shared/lib/db";
 import { UserEntity, UserId } from "../_domain/types";
-import { User } from "@prisma/client";
 
 export class UserRepository {
   async createUser(user: UserEntity): Promise<UserEntity> {

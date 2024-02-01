@@ -1,7 +1,7 @@
 "use server";
 import { z } from "zod";
-import { profileSchema } from "../_domain/schema";
-import { GetProfileUseCase, getProfileUseCase } from "../_useCase/getProfile";
+import { profileSchema } from "../_domain/profile.schema";
+import { getProfileUseCase } from "../_useCase/getProfile";
 import { getAppSessionStrictServer } from "../getAppSessionServer";
 
 const propsSchema = z.object({

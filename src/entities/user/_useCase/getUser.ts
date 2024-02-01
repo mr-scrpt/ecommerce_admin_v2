@@ -1,6 +1,6 @@
 import { SessionEntity, UserEntity, UserId } from "../_domain/types";
-import { userRepository } from "../_repository/user.repo";
-import { createUserAbility } from "../_domain/ability";
+import { UserRepository, userRepository } from "../_repository/user.repo";
+import { createUserAbility } from "../_domain/user.ability";
 import { AuthorizatoinError } from "@/shared/lib/errors";
 
 type GetUser = {
@@ -8,7 +8,8 @@ type GetUser = {
   session: SessionEntity;
 };
 
-export class GetUserUseCase {
+class GetUserUseCase {
+  constructor(private readonly userRepo: UserRepository) {}
   async exec(data: GetUser): Promise<UserEntity> {
     const { userId, session } = data;
     const userAbility = createUserAbility(session);
@@ -17,8 +18,8 @@ export class GetUserUseCase {
       throw new AuthorizatoinError();
     }
 
-    return await userRepository.getUserById(userId);
+    return await this.userRepo.getUserById(userId);
   }
 }
 
-export const getUserUseCase = new GetUserUseCase();
+export const getUserUseCase = new GetUserUseCase(userRepository);

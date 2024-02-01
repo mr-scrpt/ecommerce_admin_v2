@@ -1,7 +1,10 @@
 import { Profile, SessionEntity, UserId } from "../_domain/types";
-import { createProfileAbility } from "../_domain/ability";
 import { AuthorizatoinError } from "@/shared/lib/errors";
-import { profileRepository } from "../_repository/profile.repo";
+import {
+  ProfileRepository,
+  profileRepository,
+} from "../_repository/profile.repo";
+import { createProfileAbility } from "../_domain/profile.ability";
 
 type UpdateProfile = {
   userId: UserId;
@@ -9,7 +12,9 @@ type UpdateProfile = {
   session: SessionEntity;
 };
 
-export class UpdateProfileUseCase {
+class UpdateProfileUseCase {
+  constructor(private readonly profileRepo: ProfileRepository) {}
+
   async exec(data: UpdateProfile): Promise<Profile> {
     const { userId, profileData, session } = data;
     const profileAbility = createProfileAbility(session);
@@ -18,8 +23,8 @@ export class UpdateProfileUseCase {
       throw new AuthorizatoinError();
     }
 
-    return await profileRepository.update(userId, profileData);
+    return await this.profileRepo.update(userId, profileData);
   }
 }
 
-export const updateProfileUseCase = new UpdateProfileUseCase();
+export const updateProfileUseCase = new UpdateProfileUseCase(profileRepository);

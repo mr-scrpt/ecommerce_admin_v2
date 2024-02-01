@@ -1,8 +1,8 @@
-import { getUserProfileAction } from "../_action/getProfile";
+import { getUserProfileAction } from "../_action/profile.action";
 import { UserId } from "../_domain/types";
 import { useQueryClient } from "@tanstack/react-query";
 
-const baseKey = "user";
+const baseKey = "profile";
 
 export const getProfileQuery = (userId: UserId) => ({
   queryKey: [baseKey, "getProfileById", userId],

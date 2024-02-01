@@ -1,6 +1,4 @@
 "use client";
-import { Profile } from "@/entities/user/profile";
-import { UserId } from "@/entities/user/user";
 import { Button } from "@/shared/ui/button";
 import {
   Form,
@@ -11,60 +9,40 @@ import {
   FormMessage,
 } from "@/shared/ui/form";
 import { Input } from "@/shared/ui/input";
+import { Spinner } from "@/shared/ui/spinner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, HTMLAttributes } from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { Profile } from "../profile";
 import { AvatarField } from "./avatarField";
-import { useUpdateProfile } from "../_vm/useUpdateProfile";
-import { Spinner } from "@/shared/ui/spinner";
+import { ProfileFormValues, profileFormSchema } from "../_domain/form.schema";
+import { useAppearanceDelay } from "@/shared/lib/react";
 
-const profileFormSchema = z.object({
-  name: z
-    .string()
-    .max(30, {
-      message: "Username must not be longer than 30 characters.",
-    })
-    .transform((name) => name.trim())
-    .optional(),
-  email: z.string().email().optional(),
-  image: z.string().optional(),
-});
-
-type ProfileFormValues = z.infer<typeof profileFormSchema>;
-
-const getDefaultValues = (profile: Profile) => ({
-  email: profile.email,
-  image: profile.image ?? undefined,
-  name: profile.name ?? "",
-});
-
-interface ProfileFormProps extends HTMLAttributes<HTMLDivElement> {
-  userId: UserId;
+interface ProfileFormProps extends HTMLAttributes<HTMLFormElement> {
   profile: Profile;
-  onSuccess?: () => void;
+  handleSubmit: (data: ProfileFormValues) => void;
+  isPending: boolean;
   submitText?: string;
 }
 
 export const ProfileForm: FC<ProfileFormProps> = (props) => {
-  const { userId, profile, onSuccess, submitText } = props;
+  const { profile, handleSubmit: onSubmit, submitText, isPending } = props;
 
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
-    defaultValues: getDefaultValues(profile),
+    defaultValues: {
+      email: profile.email,
+      image: profile.image ?? undefined,
+      name: profile.name ?? "",
+    },
   });
-
-  const updateProfile = useUpdateProfile();
 
   const handleSubmit = form.handleSubmit(async (data) => {
-    const newProfile = await updateProfile.update({
-      userId,
-      data,
-    });
+    onSubmit(data);
 
-    form.reset(getDefaultValues(newProfile.profile));
-    onSuccess?.();
+    // form.reset();
   });
+  const isPendingAppearance = useAppearanceDelay(isPending);
 
   return (
     <Form {...form}>
@@ -110,8 +88,8 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
             </FormItem>
           )}
         />
-        <Button type="submit">
-          {updateProfile.isPending && (
+        <Button type="submit" disabled={isPendingAppearance}>
+          {isPendingAppearance && (
             <Spinner
               className="mr-2 h-4 w-4 animate-spin"
               aria-label="Обновление профиля"
