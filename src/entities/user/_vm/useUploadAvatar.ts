@@ -13,9 +13,10 @@ export const useUploadAvatar = (props: UseUploadAvatarProps) => {
 
   const { mutateAsync, isPending } = useMutation({
     mutationFn: uploadProfileAvatarAction,
-    // onSuccess(data) {
-    //   onSuccess?.(data.avatar.path);
-    // },
+    onSuccess(data) {
+      console.log("output_log:  =>>>", data);
+      onSuccess?.(data.avatar.path);
+    },
   });
 
   const openFileDialog = async () => {

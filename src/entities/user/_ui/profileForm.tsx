@@ -11,7 +11,7 @@ import {
 import { Input } from "@/shared/ui/input";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FC, HTMLAttributes } from "react";
+import { FC, HTMLAttributes, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Profile } from "../profile";
 import { AvatarField } from "./avatarField";
@@ -25,22 +25,26 @@ interface ProfileFormProps extends HTMLAttributes<HTMLFormElement> {
   submitText?: string;
 }
 
+const getDefaultValues = (profile: Profile) => ({
+  email: profile.email,
+  image: profile.image ?? undefined,
+  name: profile.name ?? "",
+});
+
 export const ProfileForm: FC<ProfileFormProps> = (props) => {
   const { profile, handleSubmit: onSubmit, submitText, isPending } = props;
 
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
-    defaultValues: {
-      email: profile.email,
-      image: profile.image ?? undefined,
-      name: profile.name ?? "",
-    },
+    defaultValues: getDefaultValues(profile),
   });
+
+  useEffect(() => {
+    form.reset(getDefaultValues(profile));
+  }, [profile, form]);
 
   const handleSubmit = form.handleSubmit(async (data) => {
     onSubmit(data);
-
-    // form.reset();
   });
   const isPendingAppearance = useAppearanceDelay(isPending);
 
@@ -77,7 +81,6 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
         <FormField
           control={form.control}
           name="image"
-          disabled
           render={({ field }) => (
             <FormItem>
               <FormLabel>Avatar</FormLabel>
