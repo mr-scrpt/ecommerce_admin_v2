@@ -1,4 +1,5 @@
 "use client";
+import { useAppearanceDelay } from "@/shared/lib/react";
 import { Button } from "@/shared/ui/button";
 import {
   Form,
@@ -8,15 +9,14 @@ import {
   FormLabel,
   FormMessage,
 } from "@/shared/ui/form";
-import { Input } from "@/shared/ui/input";
 import { Spinner } from "@/shared/ui/icons/spinner";
+import { Input } from "@/shared/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, HTMLAttributes, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { ProfileFormValues, profileFormSchema } from "../_domain/form.schema";
 import { Profile } from "../profile";
 import { AvatarField } from "./avatarField";
-import { ProfileFormValues, profileFormSchema } from "../_domain/form.schema";
-import { useAppearanceDelay } from "@/shared/lib/react";
 
 interface ProfileFormProps extends HTMLAttributes<HTMLFormElement> {
   profile: Profile;
@@ -27,7 +27,7 @@ interface ProfileFormProps extends HTMLAttributes<HTMLFormElement> {
 
 const getDefaultValues = (profile: Profile) => ({
   email: profile.email,
-  image: profile.image ?? undefined,
+  image: profile.image ?? "",
   name: profile.name ?? "",
 });
 
@@ -46,6 +46,7 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
   const handleSubmit = form.handleSubmit(async (data) => {
     onSubmit(data);
   });
+
   const isPendingAppearance = useAppearanceDelay(isPending);
 
   return (
@@ -85,7 +86,11 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
             <FormItem>
               <FormLabel>Avatar</FormLabel>
               <FormControl>
-                <AvatarField value={field.value} onChange={field.onChange} />
+                <AvatarField
+                  value={field.value}
+                  onChange={field.onChange}
+                  forLetters={profile.email}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>

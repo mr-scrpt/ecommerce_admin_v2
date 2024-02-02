@@ -7,10 +7,11 @@ import { useUploadAvatar } from "../_vm/useUploadAvatar";
 interface AvatarFieldProps {
   value?: string;
   onChange: (value?: string) => void;
+  forLetters: string;
 }
 
 export const AvatarField: FC<AvatarFieldProps> = (props) => {
-  const { value, onChange } = props;
+  const { value, onChange, forLetters } = props;
   const { openFileDialog, isPending } = useUploadAvatar({
     onSuccess: onChange,
   });
@@ -29,7 +30,7 @@ export const AvatarField: FC<AvatarFieldProps> = (props) => {
       )}
       <ProfileAvatar
         className="w-full h-full"
-        profile={{ email: "evgeny.paromov@gmail.com", image: value }}
+        profile={{ email: forLetters, image: value }}
       />
     </Button>
   );

@@ -36,7 +36,7 @@ export const ProfileFormUpdate: FC<ProfileFormProps> = (props) => {
   }
 
   if (!data) {
-    return <div>Не удалось загрузить профиль, возможно у вас нет прав</div>;
+    return <div>Failed to load profile, you may not have permissions</div>;
   }
 
   const handleSubmit = async (data: ProfileFormValues) => {

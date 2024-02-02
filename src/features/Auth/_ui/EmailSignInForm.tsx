@@ -53,7 +53,7 @@ export const EmailSignInForm: FC<EmailSignInFormProps> = (props) => {
             {emailSignIn.isPending && (
               <Spinner className="mr-2 h-4 w-4 " aria-label="Загрузка выхода" />
             )}
-            Войти через Email
+            Loggin by email
           </Button>
         </div>
       </form>

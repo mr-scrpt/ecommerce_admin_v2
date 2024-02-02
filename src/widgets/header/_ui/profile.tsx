@@ -46,7 +46,7 @@ export const Profile: FC<ProfileProps> = (props) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56 mr-2 ">
         <DropdownMenuLabel>
-          <p>Мой аккаунт</p>
+          <p>My account</p>
           <p className="text-xs text-muted-foreground overflow-hidden text-ellipsis">
             {user ? getProfileDisplayName(user) : undefined}
           </p>
@@ -57,7 +57,7 @@ export const Profile: FC<ProfileProps> = (props) => {
           <DropdownMenuItem asChild>
             <Link href={`/profile/${user?.id}`}>
               {/* <User className="mr-2 h-4 w-4" /> */}
-              <span>Профиль</span>
+              <span>Profile</span>
               {/* </Link> */}
             </Link>
           </DropdownMenuItem>
@@ -66,7 +66,7 @@ export const Profile: FC<ProfileProps> = (props) => {
             onClick={() => signOut()}
           >
             <IconLogOut className="mr-2 h-4 w-4" />
-            <span>Выход</span>
+            <span>Log out</span>
           </DropdownMenuItem>
         </DropdownMenuGroup>
       </DropdownMenuContent>

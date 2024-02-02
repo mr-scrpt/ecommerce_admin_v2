@@ -1,5 +1,5 @@
 "use client";
-import { FC, HTMLAttributes } from "react";
+import { Button } from "@/shared/ui/button";
 import {
   Form,
   FormControl,
@@ -7,11 +7,10 @@ import {
   FormItem,
   FormLabel,
 } from "@/shared/ui/form";
-import { useForm } from "react-hook-form";
-import { useEmailSignIn } from "../vm/useEmailSignIn";
-import { Button } from "@/shared/ui/button";
-import { Input } from "@/shared/ui/input";
 import { Spinner } from "@/shared/ui/icons/spinner";
+import { Input } from "@/shared/ui/input";
+import { FC, HTMLAttributes } from "react";
+import { useForm } from "react-hook-form";
 import { useTestEmailSignIn } from "../vm/useTestEmailSignIn";
 import { generateTestLink } from "../_lib/generateTestAuthLink";
 
@@ -27,13 +26,16 @@ export const TestEmailSignInForm: FC<TestEmailSignInFormProps> = (props) => {
     },
   });
 
-  const emailSignIn = useTestEmailSignIn();
+  const { isPending, isSuccess, signIn, callbackUrl } = useTestEmailSignIn();
+  const link = generateTestLink({
+    callbackUrl: callbackUrl ?? "",
+    token: testToken,
+    email: form.getValues("email"),
+  });
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit((data) => emailSignIn.signIn(data.email))}
-      >
+      <form onSubmit={form.handleSubmit((data) => signIn(data.email))}>
         <div className="grid gap-2">
           <FormField
             control={form.control}
@@ -48,29 +50,25 @@ export const TestEmailSignInForm: FC<TestEmailSignInFormProps> = (props) => {
                     autoCapitalize="none"
                     autoComplete="email"
                     autoCorrect="off"
-                    disabled={emailSignIn.isPending}
+                    disabled={isPending}
                     {...field}
                   />
                 </FormControl>
               </FormItem>
             )}
           />
-          <Button disabled={emailSignIn.isPending}>
-            {emailSignIn.isPending && (
+          <Button disabled={isPending}>
+            {isPending && (
               <Spinner className="mr-2 h-4 w-4 " aria-label="Загрузка выхода" />
             )}
-            Войти через Email
+            Loggin by email
           </Button>
-          {emailSignIn.isSuccess && (
+          {isSuccess && (
             <a
               className="text-sm text-muted-foreground text-underline"
-              href={generateTestLink({
-                callbackUrl: emailSignIn.callbackUrl ?? "",
-                token: testToken,
-                email: form.getValues("email"),
-              })}
+              href={link}
             >
-              Упрощённый тестовый вход
+              Simple login only for testing
             </a>
           )}
         </div>
