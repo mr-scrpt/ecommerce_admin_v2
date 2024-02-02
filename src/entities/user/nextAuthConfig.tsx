@@ -15,10 +15,20 @@ const {
   EMAIL_FROM,
   EMAIL_SERVER_USER,
   EMAIL_SERVER_PASSWORD,
+  TEST_EMAIL_TOKEN,
 } = configPrivate;
+
 const prismaAdapter = PrismaAdapter(dbClient);
+
+const emailToken = TEST_EMAIL_TOKEN
+  ? {
+      generateVerificationToken: () => TEST_EMAIL_TOKEN ?? "",
+      sendVerificationRequest: () =>
+        console.log("we don't send emails in test mode"),
+    }
+  : {};
+
 export const nextAuthConfig: AuthOptions = {
-  // adapter: PrismaAdapter(dbClient) as AuthOptions["adapter"],
   adapter: {
     ...prismaAdapter,
     createUser: (user) => {
@@ -48,7 +58,7 @@ export const nextAuthConfig: AuthOptions = {
   },
   providers: compact([
     EmailProvider({
-      // ...emailToken,
+      ...emailToken,
       server: {
         host: EMAIL_SERVER_HOST,
         port: EMAIL_SERVER_PORT,

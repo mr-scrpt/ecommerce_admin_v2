@@ -6,6 +6,8 @@ import { cn } from "@/shared/ui/utils";
 import { Divider } from "./_ui/Divider";
 import { EmailSignInForm } from "./_ui/EmailSignInForm";
 import { ProviderButton } from "./_ui/ProviderButton";
+import { TestEmailSignInForm } from "./_ui/TestEmailSignInForm";
+import { configPrivate } from "@/shared/config/private.config";
 // import { EmailSignInForm } from "./_ui/email-sign-in-form";
 // import { Divider } from "./_ui/divider";
 // import { ProviderButton } from "./_ui/provider-button";
@@ -22,15 +24,15 @@ export const SignInForm: FC<SignInFormProps> = async (props) => {
     (provider) => provider.type === "oauth",
   );
 
-  // const testToken = privateConfig.TEST_EMAIL_TOKEN;
+  const testToken = configPrivate.TEST_EMAIL_TOKEN;
 
   return (
     <div className={cn("grid gap-6", className)}>
-      {/* {testToken ? ( */}
-      {/*   <TestEmailSignInForm testToken={testToken} /> */}
-      {/* ) : ( */}
-      <EmailSignInForm />
-      {/* )} */}
+      {testToken ? (
+        <TestEmailSignInForm testToken={testToken} />
+      ) : (
+        <EmailSignInForm />
+      )}
       <Divider />
       {oauthProviders.map((provider) => (
         <ProviderButton key={provider.id} provider={provider} />

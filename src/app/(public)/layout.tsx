@@ -1,4 +1,4 @@
-import { Header } from "@/widgets/Header/Header";
+import { Header } from "@/widgets/Header/header";
 
 const Layout = async ({ children }: { children: React.ReactNode }) => {
   return (

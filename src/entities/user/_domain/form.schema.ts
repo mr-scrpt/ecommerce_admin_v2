@@ -9,7 +9,7 @@ export const profileFormSchema = z.object({
     .transform((name) => name.trim())
     .optional(),
   email: z.string().email().optional(),
-  image: z.string(),
+  image: z.string().optional(),
 });
 
 export type ProfileFormValues = z.infer<typeof profileFormSchema>;
