@@ -2,6 +2,10 @@ import { dbClient } from "@/shared/lib/db";
 import { Profile, UserId } from "../_domain/types";
 
 export class ProfileRepository {
+  async getProfileList(): Promise<Profile[]> {
+    return dbClient.user.findMany({});
+  }
+
   async getProfileById(userId: UserId): Promise<Profile> {
     return dbClient.user.findUniqueOrThrow({
       where: {

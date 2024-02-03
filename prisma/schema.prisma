@@ -43,6 +43,7 @@ model User {
   email         String   @unique
   role          ROLE     @default(USER)
   emailVerified DateTime?
+  createdAt     DateTime @default(now())
   image         String?
   accounts      Account[]
   sessions      Session[]

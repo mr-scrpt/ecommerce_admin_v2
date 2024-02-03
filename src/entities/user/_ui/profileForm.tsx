@@ -100,7 +100,7 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
           {isPendingAppearance && (
             <Spinner
               className="mr-2 h-4 w-4 animate-spin"
-              aria-label="Обновление профиля"
+              aria-label="Profile updating..."
             />
           )}
           {submitText}

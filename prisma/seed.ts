@@ -10,6 +10,7 @@ async function main() {
       role: ADMIN.role,
       name: ADMIN.name,
       emailVerified: new Date().toISOString(),
+      createdAt: new Date().toISOString(),
     },
   });
 
@@ -19,6 +20,7 @@ async function main() {
       email: USER.email,
       role: USER.role,
       emailVerified: new Date().toISOString(),
+      createdAt: new Date(Date.now() + 5000 * 1000 * 24).toISOString(),
     },
   });
 
@@ -28,6 +30,7 @@ async function main() {
       email: USER_2.email,
       role: USER_2.role,
       emailVerified: new Date().toISOString(),
+      createdAt: new Date(Date.now() + 51000 * 1000 * 24).toISOString(),
     },
   });
 

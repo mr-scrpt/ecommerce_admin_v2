@@ -15,6 +15,10 @@ export class UserRepository {
       },
     });
   }
+
+  async getUserList(): Promise<UserEntity[]> {
+    return dbClient.user.findMany();
+  }
 }
 
 export const userRepository = new UserRepository();
