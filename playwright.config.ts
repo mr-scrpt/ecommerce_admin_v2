@@ -1,5 +1,9 @@
 import { defineConfig, devices } from "@playwright/test";
 
+/**
+ * Read environment variables from file.
+ * https://github.com/motdotla/dotenv
+ */
 require("dotenv").config();
 
 /**
@@ -8,7 +12,7 @@ require("dotenv").config();
 export default defineConfig({
   testDir: "./tests",
   /* Run tests in files in parallel */
-  //fullyParallel: true,
+  // fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
@@ -35,14 +39,24 @@ export default defineConfig({
       dependencies: ["setup"],
     },
 
+    // {
+    //   name: "firefox",
+    //   use: { ...devices["Desktop Firefox"] },
+    // },
+    //
+    // {
+    //   name: "webkit",
+    //   use: { ...devices["Desktop Safari"] },
+    // },
+
     /* Test against mobile viewports. */
     // {
     //   name: 'Mobile Chrome',
     //   use: { ...devices['Pixel 5'] },
     // },
     // {
-    //   name: "Mobile Safari",
-    //   use: { ...devices["iPhone 12"] },
+    //   name: 'Mobile Safari',
+    //   use: { ...devices['iPhone 12'] },
     // },
 
     /* Test against branded browsers. */

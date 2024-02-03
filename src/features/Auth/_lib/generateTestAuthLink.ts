@@ -13,7 +13,6 @@ export const generateTestLink = ({
     url.searchParams.set("callbackUrl", callbackUrl);
     url.searchParams.set("token", token);
     url.searchParams.set("email", email);
-    console.log("output_log:  =>>>", url);
     return url.toString();
   }
   // const url = new URL(`${window.location.origin}/api/auth/callback/email`);

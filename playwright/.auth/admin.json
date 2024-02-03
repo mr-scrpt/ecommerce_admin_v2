@@ -2,7 +2,7 @@
   "cookies": [
     {
       "name": "next-auth.csrf-token",
-      "value": "922d1202b5273157571a1a63316b972d2537436534ab0acf86784e83de2192a4%7C615648c841f9d39cda7fd30dbd3f28accfdc8a2b6f59c1ce378c5ca37678b847",
+      "value": "75d2c7161ff6b2d840c462b76bec922235efb340699808aaf6d2e25f6681cfba%7C95fd89ca66cdd2e1732eb6aa72990775c7b38aa9bb136399afbf957d3ac7f59c",
       "domain": "localhost",
       "path": "/",
       "expires": -1,
@@ -22,10 +22,10 @@
     },
     {
       "name": "next-auth.session-token",
-      "value": "7b2c28af-04f1-43b3-8df2-3a3f52db28d4",
+      "value": "10d491ba-3dc1-40d4-81c2-2f8d6dfca201",
       "domain": "localhost",
       "path": "/",
-      "expires": 1709472391.385711,
+      "expires": 1709474014.709067,
       "httpOnly": true,
       "secure": false,
       "sameSite": "Lax"
@@ -37,7 +37,7 @@
       "localStorage": [
         {
           "name": "nextauth.message",
-          "value": "{\"event\":\"session\",\"data\":{\"trigger\":\"getSession\"},\"timestamp\":1706880391}"
+          "value": "{\"event\":\"session\",\"data\":{\"trigger\":\"getSession\"},\"timestamp\":1706882014}"
         }
       ]
     }

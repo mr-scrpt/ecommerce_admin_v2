@@ -32,6 +32,7 @@ export const TestEmailSignInForm: FC<TestEmailSignInFormProps> = (props) => {
     token: testToken,
     email: form.getValues("email"),
   });
+  console.log("output_log:  =>>> link:", link);
 
   return (
     <Form {...form}>
@@ -66,6 +67,7 @@ export const TestEmailSignInForm: FC<TestEmailSignInFormProps> = (props) => {
           {isSuccess && (
             <a
               className="text-sm text-muted-foreground text-underline"
+              onClick={() => console.log("on click;;;", link)}
               href={link}
             >
               Simple login only for testing
@@ -76,3 +78,6 @@ export const TestEmailSignInForm: FC<TestEmailSignInFormProps> = (props) => {
     </Form>
   );
 };
+
+// http://localhost:3000/api/auth/callback/email?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2F&token=tokentest&email=admin%40gmail.com
+// http://localhost:3000/api/auth/callback/email?callbackUrl=%2F&token=tokentest&email=admin%40gmail.com

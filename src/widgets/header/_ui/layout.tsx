@@ -38,7 +38,7 @@ export const Layout = ({
 
         <div className="mr-4 hidden md:flex">{logo}</div>
         <div className="items-center flex-1 flex">
-          <div className="hidden md:flex">{nav}</div>
+          <div className="hidden md:flex w-full">{nav}</div>
           <div className="flex flex-1 items-center justify-end space-x-3 ">
             {actions}
             {profile}
