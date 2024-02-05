@@ -9,6 +9,10 @@ export const userColumns: ColumnDef<UserColumnType>[] = [
     header: "Name",
   },
   {
+    accessorKey: "id",
+    header: "Id",
+  },
+  {
     accessorKey: "role",
     header: "Role",
   },

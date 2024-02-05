@@ -10,17 +10,18 @@ import { FC, HTMLAttributes, useMemo } from "react";
 import { UserColumnType } from "./_type/table.type";
 import { userColumns } from "./_data/columns";
 import { UserTableAction } from "./_ui/userTableAction";
-import { useUserTableList } from "@/entities/user/_query/user.query";
+import { useRemoveUser } from "./_vm/useRemoveUser";
+import { useUserTableList } from "./_query/getUserTableList.query";
 
 interface UserTableProps extends HTMLAttributes<HTMLDivElement> {}
 
 export const UserTable: FC<UserTableProps> = (props) => {
   const session = useAppSessionOrRedirect();
 
-  // const { isPending, data } = useQuery({
-  //   ...getUserListQuery(session!.user.id),
-  // });
-  const { userList, isPending } = useUserTableList(session!.user.id);
+  const { userList, isPending: isPendingUserList } = useUserTableList(
+    session!.user.id,
+  );
+  const { removeUser, isPending: isPendingRemoveUser } = useRemoveUser();
 
   // const userList = data.userList ?? [];
 
@@ -28,8 +29,9 @@ export const UserTable: FC<UserTableProps> = (props) => {
   //   () => userList.map((item) => buildBillboardRow(item)),
   //   [userList],
   // );
+  const isPendingComplexible = isPendingUserList || isPendingRemoveUser;
 
-  if (isPending) {
+  if (isPendingComplexible) {
     return <Spinner aria-label="Profile loade..." />;
   }
 
@@ -43,7 +45,7 @@ export const UserTable: FC<UserTableProps> = (props) => {
           data={row.original}
           onCopy={() => {}}
           hrefUpdate={""}
-          onDeletePopup={() => {}}
+          onDeletePopup={() => removeUser(row.original.id)}
         />
       ),
     },

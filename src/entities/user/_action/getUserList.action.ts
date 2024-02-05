@@ -21,7 +21,6 @@ export const getUserListAction = async (props: z.infer<typeof propsSchema>) => {
     session,
     userId,
   });
-  console.log("output_log: userList =>>>", userList);
 
   return resultSchema.parseAsync({
     userList: userList,

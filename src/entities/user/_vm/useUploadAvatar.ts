@@ -14,7 +14,6 @@ export const useUploadAvatar = (props: UseUploadAvatarProps) => {
   const { mutateAsync, isPending } = useMutation({
     mutationFn: uploadProfileAvatarAction,
     onSuccess(data) {
-      console.log("output_log:  =>>>", data);
       onSuccess?.(data.avatar.path);
     },
   });
