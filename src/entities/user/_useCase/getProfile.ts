@@ -1,10 +1,10 @@
 import { AuthorizatoinError } from "@/shared/lib/errors";
+import { createProfileAbility } from "../_domain/profile.ability";
 import { Profile, SessionEntity, UserId } from "../_domain/types";
 import {
   ProfileRepository,
   profileRepository,
 } from "../_repository/profile.repo";
-import { createUserAbility } from "../_domain/user.ability";
 
 type GetProfile = {
   userId: UserId;
@@ -16,9 +16,9 @@ class GetProfileUseCase {
 
   async exec(data: GetProfile): Promise<Profile> {
     const { userId, session } = data;
-    const userAbility = createUserAbility(session);
+    const { canGetProfile } = createProfileAbility(session);
 
-    if (!userAbility.canGetUser(userId)) {
+    if (!canGetProfile(userId)) {
       throw new AuthorizatoinError();
     }
 

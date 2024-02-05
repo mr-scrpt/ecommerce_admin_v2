@@ -13,9 +13,9 @@ class GetUserListUseCase {
 
   async exec(data: GetUserList): Promise<Profile[]> {
     const { userId, session } = data;
-    const userAbility = createUserAbility(session);
+    const { canGetUser } = createUserAbility(session);
 
-    if (!userAbility.canGetUser(userId)) {
+    if (!canGetUser(userId)) {
       throw new AuthorizatoinError();
     }
 

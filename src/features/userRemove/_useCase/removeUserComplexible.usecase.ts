@@ -11,7 +11,7 @@ type RemoveUser = {
 };
 
 class RemoveUserComplexibleUseCase {
-  constructor(private readonly userRepo: UserRemoveTx) {}
+  constructor(private readonly userRemoveTx: UserRemoveTx) {}
 
   async exec(data: RemoveUser): Promise<void> {
     const { userId, session } = data;
@@ -20,9 +20,8 @@ class RemoveUserComplexibleUseCase {
     if (!profileAbility.canRemoveUser(userId)) {
       throw new ForbiddenError();
     }
-    console.log("output_log: canRemoveUser =>>>");
 
-    return await this.userRepo.removeUserById(userId);
+    return await this.userRemoveTx.removeUserById(userId);
   }
 }
 

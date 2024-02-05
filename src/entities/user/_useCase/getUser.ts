@@ -10,11 +10,12 @@ type GetUser = {
 
 class GetUserUseCase {
   constructor(private readonly userRepo: UserRepository) {}
+
   async exec(data: GetUser): Promise<UserEntity> {
     const { userId, session } = data;
-    const userAbility = createUserAbility(session);
+    const { canGetUser } = createUserAbility(session);
 
-    if (!userAbility.canGetUser(userId)) {
+    if (!canGetUser(userId)) {
       throw new AuthorizatoinError();
     }
 

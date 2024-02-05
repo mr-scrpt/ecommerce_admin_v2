@@ -1,10 +1,10 @@
+import { ForbiddenError } from "@/shared/lib/errors";
+import { createProfileAbility } from "../_domain/profile.ability";
 import { Profile, SessionEntity, UserId } from "../_domain/types";
-import { AuthorizatoinError } from "@/shared/lib/errors";
 import {
   ProfileRepository,
   profileRepository,
 } from "../_repository/profile.repo";
-import { createProfileAbility } from "../_domain/profile.ability";
 
 type UpdateProfile = {
   userId: UserId;
@@ -17,10 +17,10 @@ class UpdateProfileUseCase {
 
   async exec(data: UpdateProfile): Promise<Profile> {
     const { userId, profileData, session } = data;
-    const profileAbility = createProfileAbility(session);
+    const { canUpdateProfile } = createProfileAbility(session);
 
-    if (!profileAbility.canUpdateProfile(userId)) {
-      throw new AuthorizatoinError();
+    if (!canUpdateProfile(userId)) {
+      throw new ForbiddenError();
     }
 
     return await this.profileRepo.update(userId, profileData);

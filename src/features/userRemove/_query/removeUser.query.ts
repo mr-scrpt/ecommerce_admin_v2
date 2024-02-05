@@ -1,12 +1,13 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { removeUserAction } from "../_action/removeUserComplexible.action";
 import { UserId } from "@/entities/user/user";
+import { useMutation } from "@tanstack/react-query";
+import { removeUserComplexibleAction } from "../_action/removeUserComplexible.action";
 
-const baseKey = "userRemove";
+const baseKey = "userRemoveComplexible";
+
 export const useUserRemoveQuery = () => {
   const { isPending, mutate } = useMutation({
-    mutationKey: [baseKey, "removeUser"],
-    mutationFn: (userId: UserId) => removeUserAction({ userId }),
+    mutationKey: [baseKey, "removeUserComplexible"],
+    mutationFn: (userId: UserId) => removeUserComplexibleAction({ userId }),
   });
   return {
     isPending,

@@ -1,7 +1,7 @@
-import { AuthorizatoinError } from "@/shared/lib/errors";
+import { AuthorizatoinError, ForbiddenError } from "@/shared/lib/errors";
 import { createProfileAbility } from "../_domain/profile.ability";
 import { UserRepository, userRepository } from "../_repository/user.repo";
-import { UserId } from "../user";
+import { UserId, createUserAbility } from "../user";
 import { SessionEntity } from "../_domain/types";
 
 type RemoveUser = {
@@ -14,10 +14,10 @@ class RemoveUserUseCase {
 
   async exec(data: RemoveUser): Promise<void> {
     const { userId, session } = data;
-    const profileAbility = createProfileAbility(session);
+    const { canRemoveUser } = createUserAbility(session);
 
-    if (!profileAbility.canUpdateProfile(userId)) {
-      throw new AuthorizatoinError();
+    if (!canRemoveUser(userId)) {
+      throw new ForbiddenError();
     }
 
     return await this.userRepo.removeUserById(userId);

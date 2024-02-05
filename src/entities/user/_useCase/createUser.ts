@@ -12,6 +12,7 @@ type CreateUser = {
 
 class CreateUserUseCase {
   constructor(private readonly userRepo: UserRepository) {}
+
   async exec(data: CreateUser) {
     const adminEmails = configPrivate.ADMIN_EMAILS?.split(",") ?? [];
     const role = adminEmails.includes(data.email) ? ROLES.ADMIN : ROLES.USER;

@@ -1,12 +1,8 @@
-import { dbClient } from "@/shared/lib/db";
+import { DbClient, Tx, dbClient } from "@/shared/lib/db";
 import { UserEntity, UserId } from "../_domain/types";
-import {
-  PrismaService,
-  Tx,
-} from "@/features/userRemove/_repository/userRemove.transaction";
 
 export class UserRepository {
-  constructor(readonly db: PrismaService) {}
+  constructor(readonly db: DbClient) {}
   async createUser(user: UserEntity, db: Tx = this.db): Promise<UserEntity> {
     return await db.user.create({
       data: user,
@@ -26,14 +22,7 @@ export class UserRepository {
   }
 
   async removeUserById(userId: UserId, db: Tx = this.db): Promise<void> {
-    console.log("output_log: current db remove =>>>", userId);
-    try {
-      // await dbClient.user.delete({ where: { id: userId } });
-      await db.user.delete({ where: { id: userId } });
-    } catch (e) {
-      console.log("output_log:  =>>>", e);
-    }
-    // db.user.delete({ where: { id: userId } });
+    await db.user.delete({ where: { id: userId } });
   }
 }
 
