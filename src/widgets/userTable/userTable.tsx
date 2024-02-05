@@ -1,17 +1,17 @@
 "use client";
 import { useAppSessionOrRedirect } from "@/entities/user/_vm/useAppSession";
 
-import { getUserListQuery, useUserList } from "@/entities/user/user";
+import { UserForm } from "@/entities/user/_ui/userForm";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { TableData } from "@/shared/ui/tableData/ui/tableData";
-import { useQuery } from "@tanstack/react-query";
 import { ColumnDef } from "@tanstack/react-table";
-import { FC, HTMLAttributes, useMemo } from "react";
-import { UserColumnType } from "./_type/table.type";
+import { FC, HTMLAttributes } from "react";
 import { userColumns } from "./_data/columns";
+import { useUserTableList } from "./_query/getUserTableList.query";
+import { UserColumnType } from "./_type/table.type";
 import { UserTableAction } from "./_ui/userTableAction";
 import { useRemoveUser } from "./_vm/useRemoveUser";
-import { useUserTableList } from "./_query/getUserTableList.query";
+import { useUpdateUser } from "./_vm/useUpdateUser";
 
 interface UserTableProps extends HTMLAttributes<HTMLDivElement> {}
 
@@ -22,13 +22,8 @@ export const UserTable: FC<UserTableProps> = (props) => {
     session!.user.id,
   );
   const { removeUser, isPending: isPendingRemoveUser } = useRemoveUser();
+  const { openUpdateModal } = useUpdateUser();
 
-  // const userList = data.userList ?? [];
-
-  // const listFormated = useMemo(
-  //   () => userList.map((item) => buildBillboardRow(item)),
-  //   [userList],
-  // );
   const isPendingComplexible = isPendingUserList || isPendingRemoveUser;
 
   if (isPendingComplexible) {
@@ -44,19 +39,48 @@ export const UserTable: FC<UserTableProps> = (props) => {
         <UserTableAction
           data={row.original}
           onCopy={() => {}}
-          hrefUpdate={""}
-          onDeletePopup={() => removeUser(row.original.id)}
+          onUpdateClick={() => {
+            openUpdateModal(
+              <UserForm
+                user={{
+                  name: "Test user",
+                  email: "email.com",
+                  emailVerified: new Date(),
+                  image: "imgurl",
+                  role: "ADMIN",
+                }}
+                handleSubmit={() => {}}
+                submitText="Update user"
+                isPending={false}
+              />,
+            );
+          }}
+          onDeleteClick={() => removeUser(row.original.id)}
         />
       ),
     },
   ];
 
   return (
-    <TableData
-      columns={userCollumnsWithAction}
-      data={userList}
-      filterKey="name"
-      isLoading={false}
-    />
+    <>
+      <TableData
+        columns={userCollumnsWithAction}
+        data={userList}
+        filterKey="name"
+        isLoading={false}
+      />
+      {/* <UserForm */}
+      {/*   user={{ */}
+      {/*     name: "Test user", */}
+      {/*     email: "email.com", */}
+      {/*     emailVerified: new Date(), */}
+      {/*     image: "imgurl", */}
+      {/*     role: "ADMIN", */}
+      {/*   }} */}
+      {/*   handleSubmit={() => {}} */}
+      {/*   submitText="Update user" */}
+      {/*   isPending={false} */}
+      {/* /> */}
+    </>
   );
 };

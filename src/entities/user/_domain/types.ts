@@ -15,6 +15,21 @@ export type UserEntity = {
   image?: string | null;
 };
 
+export type UserPartial = {
+  email: string;
+  name: string;
+  image: string;
+  role: Role;
+  emailVerified: Date | null;
+};
+
+export type UserUpdate = {
+  // id: UserId;
+  email?: string;
+  name?: string | null;
+  image?: string | null;
+};
+
 export type SessionEntity = {
   user: {
     id: UserId;

@@ -1,6 +1,7 @@
 import { z } from "zod";
 
-export const profileFormSchema = z.object({
+export const userFormSchema = z.object({
+  email: z.string().email().optional(),
   name: z
     .string()
     .max(30, {
@@ -8,8 +9,9 @@ export const profileFormSchema = z.object({
     })
     .transform((name) => name.trim())
     .optional(),
-  email: z.string().email().optional(),
   image: z.string().optional(),
+  emailVerified: z.date().nullable().optional(),
+  role: z.string(),
 });
 
-export type ProfileFormValues = z.infer<typeof profileFormSchema>;
+export type UserFormValues = z.infer<typeof userFormSchema>;

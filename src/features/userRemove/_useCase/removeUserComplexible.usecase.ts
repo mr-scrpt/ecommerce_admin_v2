@@ -15,9 +15,9 @@ class RemoveUserComplexibleUseCase {
 
   async exec(data: RemoveUser): Promise<void> {
     const { userId, session } = data;
-    const profileAbility = createUserAbility(session);
+    const { canRemoveUser } = createUserAbility(session);
 
-    if (!profileAbility.canRemoveUser(userId)) {
+    if (!canRemoveUser(userId)) {
       throw new ForbiddenError();
     }
 

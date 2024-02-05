@@ -1,12 +1,12 @@
 "use client";
 
 import {
+  ColumnFiltersState,
   flexRender,
   getCoreRowModel,
-  useReactTable,
-  getPaginationRowModel,
-  ColumnFiltersState,
   getFilteredRowModel,
+  getPaginationRowModel,
+  useReactTable,
 } from "@tanstack/react-table";
 
 import {
@@ -18,11 +18,11 @@ import {
   TableRow,
 } from "@/shared/ui/table";
 
-import { ITableDataProps } from "../type/props.type";
 import { Button } from "@/shared/ui/button";
 import { Input } from "@/shared/ui/input";
 import { useState } from "react";
 import { Spinner } from "../../icons/spinner";
+import { ITableDataProps } from "../type/props.type";
 
 export const TableData = <TData, TValue>(
   props: ITableDataProps<TData, TValue>,

@@ -1,13 +1,8 @@
 import { DbClient, Tx, dbClient } from "@/shared/lib/db";
-import { UserEntity, UserId } from "../_domain/types";
+import { UserEntity, UserId, UserUpdate } from "../_domain/types";
 
 export class UserRepository {
   constructor(readonly db: DbClient) {}
-  async createUser(user: UserEntity, db: Tx = this.db): Promise<UserEntity> {
-    return await db.user.create({
-      data: user,
-    });
-  }
 
   async getUserById(userId: UserId, db: Tx = this.db): Promise<UserEntity> {
     return db.user.findUniqueOrThrow({
@@ -19,6 +14,23 @@ export class UserRepository {
 
   async getUserList(db: Tx = this.db): Promise<UserEntity[]> {
     return db.user.findMany();
+  }
+
+  async createUser(user: UserEntity, db: Tx = this.db): Promise<UserEntity> {
+    return await db.user.create({
+      data: user,
+    });
+  }
+
+  async updateUser(
+    userData: UserUpdate,
+    targetId: UserId,
+    db: Tx = this.db,
+  ): Promise<void> {
+    await db.user.update({
+      where: { id: targetId },
+      data: userData,
+    });
   }
 
   async removeUserById(userId: UserId, db: Tx = this.db): Promise<void> {

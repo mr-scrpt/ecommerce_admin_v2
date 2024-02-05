@@ -15,12 +15,12 @@ import { UserColumnType } from "../_type/table.type";
 interface UserTableListActionProps extends HTMLAttributes<HTMLDivElement> {
   data: UserColumnType;
   onCopy: () => void;
-  hrefUpdate: string;
-  onDeletePopup: () => void;
+  onUpdateClick: () => void;
+  onDeleteClick: () => void;
 }
 
 export const UserTableAction: FC<UserTableListActionProps> = memo((props) => {
-  const { onCopy, onDeletePopup, hrefUpdate } = props;
+  const { onCopy, onDeleteClick: onDeletePopup, onUpdateClick } = props;
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -38,10 +38,8 @@ export const UserTableAction: FC<UserTableListActionProps> = memo((props) => {
         >
           <Copy className="mr-2 h-4 w-4" /> Copy Id
         </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <Link href={hrefUpdate}>
-            <Edit className="mr-2 h-4 w-4" /> Update
-          </Link>
+        <DropdownMenuItem onClick={onUpdateClick}>
+          <Edit className="mr-2 h-4 w-4" /> Update
         </DropdownMenuItem>
         <DropdownMenuItem onClick={onDeletePopup}>
           <Trash className="mr-2 h-4 w-4" /> Delete
