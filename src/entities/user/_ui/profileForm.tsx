@@ -14,8 +14,7 @@ import { Input } from "@/shared/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, HTMLAttributes, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { ProfileFormValues, profileFormSchema } from "../_domain/form.schema";
-import { Profile } from "../profile";
+import { Profile, ProfileFormValues, profileFormSchema } from "../profile";
 import { AvatarField } from "./avatarField";
 
 interface ProfileFormProps extends HTMLAttributes<HTMLFormElement> {
@@ -44,6 +43,7 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
   }, [profile, form]);
 
   const handleSubmit = form.handleSubmit(async (data) => {
+    console.log("output_log: in handle submit =>>>", data);
     onSubmit(data);
   });
 
@@ -55,12 +55,11 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
         <FormField
           control={form.control}
           name="email"
-          disabled
           render={({ field }) => (
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="" {...field} />
+                <Input readOnly placeholder="" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

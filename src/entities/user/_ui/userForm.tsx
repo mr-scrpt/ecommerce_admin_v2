@@ -14,7 +14,7 @@ import { Input } from "@/shared/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, HTMLAttributes, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { UserFormValues, userFormSchema } from "../_domain/form.schema";
+import { UserFormValues, userFormSchema } from "../_domain/user.schema";
 import { UserPartial } from "../user";
 import { AvatarField } from "./avatarField";
 import { buildDate } from "@/shared/lib/date";

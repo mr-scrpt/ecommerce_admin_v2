@@ -4,6 +4,7 @@ import { useMutation } from "@tanstack/react-query";
 import { updateProfileAction } from "../_action/profileUpdate.action";
 
 export const useUpdateProfile = () => {
+  console.log("output_log:  =>>>in update");
   const { update: updateSession } = useAppSession();
   const invalidateProfile = useInvalidateProfile();
 
