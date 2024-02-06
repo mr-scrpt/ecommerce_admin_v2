@@ -7,7 +7,7 @@ import { TableData } from "@/shared/ui/tableData/ui/tableData";
 import { ColumnDef } from "@tanstack/react-table";
 import { FC, HTMLAttributes } from "react";
 import { userColumns } from "./_data/columns";
-import { useUserTableList } from "./_query/getUserTableList.query";
+import { useGetUserTableList } from "./_query/getUserTableList.query";
 import { UserColumnType } from "./_type/table.type";
 import { UserTableAction } from "./_ui/userTableAction";
 import { useRemoveUser } from "./_vm/useRemoveUser";
@@ -18,10 +18,12 @@ interface UserTableProps extends HTMLAttributes<HTMLDivElement> {}
 export const UserTable: FC<UserTableProps> = (props) => {
   const session = useAppSessionOrRedirect();
 
-  const { userList, isPending: isPendingUserList } = useUserTableList(
+  const { userList, isPending: isPendingUserList } = useGetUserTableList(
     session!.user.id,
   );
+
   const { removeUser, isPending: isPendingRemoveUser } = useRemoveUser();
+
   const { openUpdateModal } = useUpdateUser();
 
   const isPendingComplexible = isPendingUserList || isPendingRemoveUser;

@@ -3,9 +3,9 @@ import { buildDate } from "@/shared/lib/date";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 const baseKey = "userTable";
-export const useUserTableList = (userId: UserId) => {
-  const { isPending, data } = useQuery({
-    queryKey: [baseKey, "getUserTableList", userId],
+export const useGetUserTableList = (userId: UserId) => {
+  const { isPending, isSuccess, isError, data } = useQuery({
+    queryKey: [baseKey, "getUserTableList"],
     queryFn: () => getUserListAction({ userId }),
   });
 
@@ -18,15 +18,16 @@ export const useUserTableList = (userId: UserId) => {
 
   return {
     isPending,
+    isSuccess,
     userList: userList ?? [],
   };
 };
 
-// export const useInvalidateUserTableList = () => {
-//   const queryClient = useQueryClient();
-//
-//   return (userId: UserId) =>
-//     queryClient.invalidateQueries({
-//       queryKey: [baseKey, "getUserTableList", userId],
-//     });
-// };
+export const useInvalidateUserTableList = () => {
+  const queryClient = useQueryClient();
+
+  return () =>
+    queryClient.invalidateQueries({
+      queryKey: [baseKey, "getUserTableList"],
+    });
+};

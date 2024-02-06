@@ -5,12 +5,13 @@ import { removeUserComplexibleAction } from "../_action/removeUserComplexible.ac
 const baseKey = "userRemoveComplexible";
 
 export const useUserRemoveQuery = () => {
-  const { isPending, mutate } = useMutation({
+  const { isPending, isSuccess, mutateAsync } = useMutation({
     mutationKey: [baseKey, "removeUserComplexible"],
     mutationFn: (userId: UserId) => removeUserComplexibleAction({ userId }),
   });
   return {
     isPending,
-    mutate,
+    isSuccess,
+    mutateAsync,
   };
 };

@@ -1,14 +1,13 @@
 import { UserId } from "@/entities/user/user";
-import { useUserRemoveQuery } from "@/features/userRemove";
 import { useGetConfirmation } from "@/shared/lib/confirmation";
+import { useRemoveUserTableList } from "../_query/removeUserTableList.query";
 
 export const useRemoveUser = () => {
   const getConfirmation = useGetConfirmation();
 
-  const { isPending, mutate } = useUserRemoveQuery();
+  const { isPending, isSuccess, mutateAsync } = useRemoveUserTableList();
 
   const removeUser = async (userId: UserId) => {
-    console.log("output_log: isUser id =>>>", userId);
     const confirmation = await getConfirmation({
       description:
         "Do you really want to remove a user? This action cannot be canceled",
@@ -16,8 +15,8 @@ export const useRemoveUser = () => {
 
     if (!confirmation) return;
 
-    mutate(userId);
+    await mutateAsync(userId);
   };
 
-  return { isPending, removeUser };
+  return { isPending, isSuccess, removeUser };
 };
