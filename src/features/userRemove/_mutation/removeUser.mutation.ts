@@ -4,7 +4,7 @@ import { removeUserComplexibleAction } from "../_action/removeUserComplexible.ac
 
 const baseKey = "userRemoveComplexible";
 
-export const useUserRemoveQuery = () => {
+export const useUserRemoveMutation = () => {
   const { isPending, isSuccess, mutateAsync } = useMutation({
     mutationKey: [baseKey, "removeUserComplexible"],
     mutationFn: (userId: UserId) => removeUserComplexibleAction({ userId }),

@@ -4,7 +4,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 const baseKey = "userTable";
 export const useGetUserTableList = (userId: UserId) => {
-  const { isPending, isSuccess, isError, data } = useQuery({
+  const { isPending, isSuccess, data } = useQuery({
     queryKey: [baseKey, "getUserTableList"],
     queryFn: () => getUserListAction({ userId }),
   });

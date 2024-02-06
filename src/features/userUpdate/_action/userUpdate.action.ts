@@ -1,33 +1,30 @@
 "use server";
-
 import { getAppSessionStrictServer } from "@/entities/user/getAppSessionServer";
-import { profileSchema } from "@/entities/user/profile";
-import { updateProfileUseCase } from "@/entities/user/profile.server";
+import { userSchema } from "@/entities/user/user";
+import { updateUserUseCase } from "@/entities/user/user.server";
 import { z } from "zod";
 
 const propsSchema = z.object({
   userId: z.string(),
-  data: profileSchema.partial(),
+  data: userSchema.partial(),
 });
 
 const resultSchema = z.object({
-  profile: profileSchema,
+  user: userSchema,
 });
 
-export const updateProfileAction = async (
-  props: z.infer<typeof propsSchema>,
-) => {
+export const updateUserAction = async (props: z.infer<typeof propsSchema>) => {
   const { userId, data } = propsSchema.parse(props);
 
   const session = await getAppSessionStrictServer();
 
-  const profile = await updateProfileUseCase.exec({
+  const user = await updateUserUseCase.exec({
     session,
-    profileData: data,
+    userData: data,
     userId,
   });
 
   return resultSchema.parseAsync({
-    profile,
+    user,
   });
 };

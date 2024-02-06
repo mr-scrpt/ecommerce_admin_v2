@@ -1,8 +1,7 @@
-import { AuthorizatoinError, ForbiddenError } from "@/shared/lib/errors";
-import { createProfileAbility } from "../_domain/profile.ability";
+import { ForbiddenError } from "@/shared/lib/errors";
+import { SessionEntity } from "../_domain/types";
 import { UserRepository, userRepository } from "../_repository/user.repo";
 import { UserId, createUserAbility } from "../user";
-import { SessionEntity } from "../_domain/types";
 
 type RemoveUser = {
   userId: UserId;

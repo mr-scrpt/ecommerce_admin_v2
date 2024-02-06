@@ -23,7 +23,7 @@ class UpdateProfileUseCase {
       throw new ForbiddenError();
     }
 
-    return await this.profileRepo.update(userId, profileData);
+    return await this.profileRepo.updateProfile(userId, profileData);
   }
 }
 

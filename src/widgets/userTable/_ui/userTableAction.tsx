@@ -8,7 +8,6 @@ import {
   DropdownMenuTrigger,
 } from "@/shared/ui/dropdown-menu";
 import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
-import Link from "next/link";
 import { FC, HTMLAttributes, memo } from "react";
 import { UserColumnType } from "../_type/table.type";
 

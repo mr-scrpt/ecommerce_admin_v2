@@ -1,10 +1,10 @@
 import { PrismaClient } from "@prisma/client";
 
 export class Transaction {
-  constructor(readonly prisma: DbClient) {}
+  constructor(readonly db: DbClient) {}
 
   async start<T>(callback: (tx: Tx) => Promise<T>): Promise<T> {
-    const result = await this.prisma.$transaction(async (transaction) => {
+    const result = await this.db.$transaction(async (transaction) => {
       return await callback(transaction);
     });
 

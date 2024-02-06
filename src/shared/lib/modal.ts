@@ -5,8 +5,6 @@ export type ModalParams = {
   title?: string;
   description?: string;
   element: ReactNode;
-  // closeText?: string;
-  // confirmText?: string;
 };
 
 export type ModalContext = {

@@ -1,11 +1,12 @@
 import { UserId } from "@/entities/user/user";
 import { useGetConfirmation } from "@/shared/lib/confirmation";
-import { useRemoveUserTableList } from "../_query/removeUserTableList.query";
+import { useRemoveUserTableListMutation } from "../_mutation/removeUserTableList.mutation";
 
-export const useRemoveUser = () => {
+export const useUserRemoveConfirm = () => {
   const getConfirmation = useGetConfirmation();
 
-  const { isPending, isSuccess, mutateAsync } = useRemoveUserTableList();
+  const { isPending, isSuccess, mutateAsync } =
+    useRemoveUserTableListMutation();
 
   const removeUser = async (userId: UserId) => {
     const confirmation = await getConfirmation({

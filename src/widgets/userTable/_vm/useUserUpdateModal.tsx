@@ -1,15 +1,19 @@
 import { UserId } from "@/entities/user/user";
-import { useGetConfirmation } from "@/shared/lib/confirmation";
+import { UserFormUpdate } from "@/features/userUpdate";
 import { useGetModal } from "@/shared/lib/modal";
 import { ReactNode } from "react";
 
-export const useUpdateUser = () => {
+export const useUserUpdateModal = () => {
   const getModal = useGetModal();
 
   // const { isPending, mutate } = useUpdateRemoveQuery();
 
-  const openUpdateModal = async (element: ReactNode) => {
-    const modal = await getModal({ element });
+  const openUpdateModal = async (targetId: UserId) => {
+    const modal = await getModal({
+      element: <UserFormUpdate userId={targetId} />,
+      // title: "Update user",
+      // description: "update user data",
+    });
 
     // if (!confirmation) return;
     //

@@ -1,1 +1,1 @@
-export { useUserRemoveQuery } from "./_query/removeUser.query";
+export { useUserRemoveMutation } from "./_mutation/removeUser.mutation";

@@ -1,5 +1,5 @@
 import { DbClient, Tx, dbClient } from "@/shared/lib/db";
-import { UserEntity, UserId, UserUpdate } from "../_domain/types";
+import { User, UserEntity, UserId } from "../_domain/types";
 
 export class UserRepository {
   constructor(readonly db: DbClient) {}
@@ -23,11 +23,11 @@ export class UserRepository {
   }
 
   async updateUser(
-    userData: UserUpdate,
     targetId: UserId,
+    userData: Partial<User>,
     db: Tx = this.db,
-  ): Promise<void> {
-    await db.user.update({
+  ): Promise<User> {
+    return await db.user.update({
       where: { id: targetId },
       data: userData,
     });

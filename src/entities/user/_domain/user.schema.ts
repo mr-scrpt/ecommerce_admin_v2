@@ -1,10 +1,11 @@
 import { z } from "zod";
+import { Role } from "./types";
 
 export const userSchema = z.object({
   id: z.string(),
   name: z.string().nullable().optional(),
   email: z.string(),
-  role: z.string(),
+  role: z.custom<Role>(),
   emailVerified: z.date().nullable(),
   createdAt: z.date(),
 
@@ -22,7 +23,8 @@ export const userFormSchema = z.object({
     .optional(),
   image: z.string().optional(),
   emailVerified: z.date().nullable().optional(),
-  role: z.string(),
+  // role: z.string(),
+  role: z.custom<Role>(),
 });
 
 export type UserFormValues = z.infer<typeof userFormSchema>;

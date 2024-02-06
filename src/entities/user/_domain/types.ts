@@ -17,18 +17,18 @@ export type UserEntity = {
 
 export type UserPartial = {
   email: string;
-  name: string;
-  image: string;
+  name?: string | null;
+  image?: string | null;
   role: Role;
   emailVerified: Date | null;
 };
 
-export type UserUpdate = {
-  // id: UserId;
-  email?: string;
-  name?: string | null;
-  image?: string | null;
-};
+// export type UserUpdate = {
+//   // id: UserId;
+//   email?: string;
+//   name?: string | null;
+//   image?: string | null;
+// };
 
 export type SessionEntity = {
   user: {
@@ -45,6 +45,13 @@ export type SessionEntity = {
 
 export type Profile = {
   email: string;
+  name?: string | null;
+  image?: string | null;
+};
+
+export type User = {
+  // id: UserId;
+  email?: string;
   name?: string | null;
   image?: string | null;
 };

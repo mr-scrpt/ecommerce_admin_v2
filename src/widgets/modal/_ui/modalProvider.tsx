@@ -23,7 +23,7 @@ export const ModalProvider: FC<ModalWindowProps> = (props) => {
           resolve(true);
         },
         onClose: () => {
-          closeModal();
+          // closeModal();
           setModalParams(undefined);
           resolve(false);
         },

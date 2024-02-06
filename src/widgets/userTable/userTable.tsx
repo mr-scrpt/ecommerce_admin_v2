@@ -1,7 +1,6 @@
 "use client";
 import { useAppSessionOrRedirect } from "@/entities/user/_vm/useAppSession";
 
-import { UserForm } from "@/entities/user/_ui/userForm";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { TableData } from "@/shared/ui/tableData/ui/tableData";
 import { ColumnDef } from "@tanstack/react-table";
@@ -10,8 +9,8 @@ import { userColumns } from "./_data/columns";
 import { useGetUserTableList } from "./_query/getUserTableList.query";
 import { UserColumnType } from "./_type/table.type";
 import { UserTableAction } from "./_ui/userTableAction";
-import { useRemoveUser } from "./_vm/useRemoveUser";
-import { useUpdateUser } from "./_vm/useUpdateUser";
+import { useUserRemoveConfirm } from "./_vm/useUserRemoveConfirm";
+import { useUserUpdateModal } from "./_vm/useUserUpdateModal";
 
 interface UserTableProps extends HTMLAttributes<HTMLDivElement> {}
 
@@ -22,9 +21,11 @@ export const UserTable: FC<UserTableProps> = (props) => {
     session!.user.id,
   );
 
-  const { removeUser, isPending: isPendingRemoveUser } = useRemoveUser();
+  const { removeUser, isPending: isPendingRemoveUser } = useUserRemoveConfirm();
+  // const { updateUser, isPending: isPendingUpdateUser } = useUserUpdateModal();
+  const { openUpdateModal } = useUserUpdateModal();
 
-  const { openUpdateModal } = useUpdateUser();
+  // const { openUpdateModal } = useUpdateUser();
 
   const isPendingComplexible = isPendingUserList || isPendingRemoveUser;
 
@@ -41,22 +42,23 @@ export const UserTable: FC<UserTableProps> = (props) => {
         <UserTableAction
           data={row.original}
           onCopy={() => {}}
-          onUpdateClick={() => {
-            openUpdateModal(
-              <UserForm
-                user={{
-                  name: "Test user",
-                  email: "email.com",
-                  emailVerified: new Date(),
-                  image: "imgurl",
-                  role: "ADMIN",
-                }}
-                handleSubmit={() => {}}
-                submitText="Update user"
-                isPending={false}
-              />,
-            );
-          }}
+          // onUpdateClick={() => {
+          //   openUpdateModal(
+          //     <UserForm
+          //       user={{
+          //         name: "Test user",
+          //         email: "email.com",
+          //         emailVerified: new Date(),
+          //         image: "imgurl",
+          //         role: "ADMIN",
+          //       }}
+          //       handleSubmit={() => {}}
+          //       submitText="Update user"
+          //       isPending={false}
+          //     />,
+          //   );
+          // }}
+          onUpdateClick={() => openUpdateModal(row.original.id)}
           onDeleteClick={() => removeUser(row.original.id)}
         />
       ),
