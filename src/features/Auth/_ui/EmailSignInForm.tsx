@@ -8,7 +8,7 @@ import {
   FormLabel,
 } from "@/shared/ui/form";
 import { useForm } from "react-hook-form";
-import { useEmailSignIn } from "../vm/useEmailSignIn";
+import { useEmailSignIn } from "../_vm/useEmailSignIn";
 import { Button } from "@/shared/ui/button";
 import { Input } from "@/shared/ui/input";
 import { Spinner } from "@/shared/ui/icons/spinner";

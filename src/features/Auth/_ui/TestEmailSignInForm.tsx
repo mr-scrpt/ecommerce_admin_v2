@@ -11,7 +11,7 @@ import { Spinner } from "@/shared/ui/icons/spinner";
 import { Input } from "@/shared/ui/input";
 import { FC, HTMLAttributes } from "react";
 import { useForm } from "react-hook-form";
-import { useTestEmailSignIn } from "../vm/useTestEmailSignIn";
+import { useTestEmailSignIn } from "../_vm/useTestEmailSignIn";
 import { generateTestLink } from "../_lib/generateTestAuthLink";
 
 interface TestEmailSignInFormProps extends HTMLAttributes<HTMLDivElement> {

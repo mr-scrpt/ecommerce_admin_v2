@@ -8,10 +8,10 @@ export const userColumns: ColumnDef<UserColumnType>[] = [
     accessorKey: "name",
     header: "Name",
   },
-  {
-    accessorKey: "id",
-    header: "Id",
-  },
+  // {
+  //   accessorKey: "id",
+  //   header: "Id",
+  // },
   {
     accessorKey: "role",
     header: "Role",

@@ -3,7 +3,7 @@ import { Button } from "@/shared/ui/button";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { ClientSafeProvider } from "next-auth/react";
 import { FC, HTMLAttributes } from "react";
-import { useOAuthSignIn } from "../vm/useOauthSignIn";
+import { useOAuthSignIn } from "../_vm/useOauthSignIn";
 import { providerIcons } from "./providerIconList";
 
 interface ProviderButtonProps extends HTMLAttributes<HTMLDivElement> {

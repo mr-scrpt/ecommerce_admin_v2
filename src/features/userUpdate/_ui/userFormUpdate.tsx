@@ -54,7 +54,7 @@ export const UserFormUpdate: FC<UserFormProps> = (props) => {
         handleSubmit={handleSubmit}
         isPending={isPending || isPendingUpdate}
         user={data.user}
-        submitText={callbackUrl ? "Continue" : "Save change"}
+        submitText={"Save change"}
       />
     </div>
   );

@@ -32,7 +32,7 @@ export const ProfileFormUpdate: FC<ProfileFormProps> = (props) => {
   const { update, isPending: isPendingUpdate } = useProfileUpdate();
 
   if (isPending) {
-    return <Spinner aria-label="Загрузка профиля" />;
+    return <Spinner aria-label="Loading profile..." />;
   }
 
   if (!data) {
