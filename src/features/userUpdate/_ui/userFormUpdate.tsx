@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes } from "react";
@@ -9,6 +9,7 @@ import { z } from "zod";
 import { cn } from "@/shared/ui/utils";
 import { useUserUpdateMutation } from "../_mutation/useUserUpdate.mutation";
 import { useUserUpdate } from "../_vm/useUserUpdate";
+import { Button } from "@/shared/ui/button";
 
 interface UserFormProps extends HTMLAttributes<HTMLDivElement> {
   userId: string;
@@ -27,7 +28,12 @@ export const UserFormUpdate: FC<UserFormProps> = (props) => {
   });
 
   const router = useRouter();
-  const { update, isPending: isPendingUpdate } = useUserUpdate();
+
+  const {
+    update,
+    // userUpdateEvent,
+    isPending: isPendingUpdate,
+  } = useUserUpdate();
 
   if (isPending) {
     return <Spinner aria-label="Loading profile..." />;
@@ -50,6 +56,7 @@ export const UserFormUpdate: FC<UserFormProps> = (props) => {
 
   return (
     <div className={cn(className, "w-full")}>
+      {/* <Button onClick={userUpdateEvent}>click</Button> */}
       <UserForm
         handleSubmit={handleSubmit}
         isPending={isPending || isPendingUpdate}

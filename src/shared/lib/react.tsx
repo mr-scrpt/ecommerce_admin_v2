@@ -14,7 +14,9 @@ import {
 } from "react";
 
 export function useStrictContext<T>(context: Context<T | null>) {
+  // console.log("output_log: passed context =>>>", context);
   const value = useContext(context);
+  // console.log("output_log: value =>>>", value);
   if (value === null) throw new Error("Strict context not passed");
   return value as T;
 }

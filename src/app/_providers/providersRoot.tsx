@@ -7,6 +7,7 @@ import { Confirmation } from "@/widgets/confirmation";
 import { ModalProvider } from "@/widgets/modal";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { FC, HTMLAttributes } from "react";
+import { ProviderSocketWithSession } from "./providerSocketWithSession";
 
 interface ProvidersRootProps extends HTMLAttributes<HTMLDivElement> {}
 
@@ -18,8 +19,8 @@ export const ProvidersRoot: FC<ProvidersRootProps> = (props) => {
       <SessionProvider />
       <QueryClientProvider client={queryClient} />
       <Confirmation />
+      <ProviderSocketWithSession />
       <ModalProvider />
-
       {children}
     </ComposeChildren>
   );

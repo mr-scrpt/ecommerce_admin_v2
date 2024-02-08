@@ -1,5 +1,6 @@
 import { UserId, getUserListAction } from "@/entities/user/user";
 import { buildDate } from "@/shared/lib/date";
+import { useSocketHandler } from "@/shared/lib/socket";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 const baseKey = "userTable";
@@ -30,4 +31,18 @@ export const useInvalidateUserTableList = () => {
     queryClient.invalidateQueries({
       queryKey: [baseKey, "getUserTableList"],
     });
+};
+export const useInvalidateUserTableListSocket = () => {
+  const queryClient = useQueryClient();
+
+  // return () =>
+  //   queryClient.invalidateQueries({
+  //     queryKey: [baseKey, "getUserTableList"],
+  //   });
+  useSocketHandler("user-refresh", () => {
+    console.log("output_log: emit user refresh =>>>");
+    queryClient.invalidateQueries({
+      queryKey: [baseKey, "getUserTableList"],
+    });
+  });
 };
