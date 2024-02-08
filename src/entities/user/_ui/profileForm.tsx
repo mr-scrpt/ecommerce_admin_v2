@@ -43,7 +43,6 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
   }, [profile, form]);
 
   const handleSubmit = form.handleSubmit(async (data) => {
-    console.log("output_log: in handle submit =>>>", data);
     onSubmit(data);
   });
 

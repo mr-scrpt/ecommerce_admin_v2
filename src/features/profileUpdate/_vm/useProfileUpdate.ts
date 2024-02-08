@@ -12,6 +12,7 @@ export const useProfileUpdate = () => {
     await updateSession({
       user: user,
     });
+    userUpdateEvent();
   };
 
   const { mutateAsync, isPending } = useProfileUpdateMutation(onSuccess);

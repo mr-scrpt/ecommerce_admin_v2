@@ -10,17 +10,24 @@ export const getUserQuery = (userId: UserId) => ({
   queryFn: () => getUserAction({ userId }),
 });
 
+export const useUserQuery = (userId: UserId) => {
+  const query = getUserQuery(userId);
+  const { isPending, isSuccess, data } = useQuery(query);
+  return {
+    isPending,
+    isSuccess,
+    data,
+  };
+};
+
 export const getUserListQuery = (userId: UserId) => ({
   queryKey: [baseKey, "getUserList"],
   queryFn: () => getUserListAction({ userId }),
 });
 
 export const useUserListQuery = (userId: UserId) => {
-  const { isPending, isSuccess, data } = useQuery({
-    queryKey: [baseKey, "getUserList"],
-    queryFn: () => getUserListAction({ userId }),
-  });
-  console.log("output_log: query data =>>>", data?.userList);
+  const query = getUserListQuery(userId);
+  const { isPending, isSuccess, data } = useQuery(query);
   return {
     isPending,
     isSuccess,

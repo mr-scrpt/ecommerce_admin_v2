@@ -8,6 +8,7 @@ import { z } from "zod";
 // import { useUserUpdate } from "../__vm/useUserUpdate";
 import { cn } from "@/shared/ui/utils";
 import { useUserUpdate } from "../_vm/useUserUpdate";
+import { useUserQuery } from "@/entities/user/_query/user.query";
 
 interface UserFormProps extends HTMLAttributes<HTMLDivElement> {
   userId: string;
@@ -21,11 +22,7 @@ type UserFormValues = z.infer<typeof userFormSchema>;
 export const UserFormUpdate: FC<UserFormProps> = (props) => {
   const { userId, callbackUrl, className, onSuccess } = props;
 
-  const { isPending, data } = useQuery({
-    ...getUserQuery(userId),
-    retry: 0,
-  });
-
+  const { isPending, data } = useUserQuery(userId);
   const router = useRouter();
 
   const { update, isPending: isPendingUpdate } = useUserUpdate();

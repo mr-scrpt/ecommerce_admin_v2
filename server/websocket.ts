@@ -9,7 +9,13 @@ const io = new Server(3334, {
 
 io.on(WSEventEnum.CONNECT, (socket) => {
   socket.on(WSEventEnum.USER_UPDATE, (data) => {
-    console.log("output_log: emit server user update =>>>");
+    console.log("output_log: user update =>>>");
+    socket.broadcast.emit(WSEventEnum.USER_LIST_REFRESH);
+    socket.broadcast.emit(WSEventEnum.USER_REFRESH, data);
+  });
+
+  socket.on(WSEventEnum.PROFILE_UPDATE, (data) => {
+    console.log("output_log: profile update =>>>");
     socket.broadcast.emit(WSEventEnum.USER_LIST_REFRESH);
     socket.broadcast.emit(WSEventEnum.USER_REFRESH, data);
   });
