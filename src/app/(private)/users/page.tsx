@@ -1,5 +1,10 @@
+import {
+  useListenUserListUpdate,
+  useListenUserUpdate,
+} from "@/entities/user/user";
 import { UserTable } from "@/widgets/userTable/userTable";
 import { FC, HTMLAttributes } from "react";
+// import { Listener } from "./(event)/listener";
 
 interface PageProps extends HTMLAttributes<HTMLDivElement> {}
 

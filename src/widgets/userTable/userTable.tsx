@@ -6,15 +6,15 @@ import { TableData } from "@/shared/ui/tableData/ui/tableData";
 import { ColumnDef } from "@tanstack/react-table";
 import { FC, HTMLAttributes } from "react";
 import { userColumns } from "./_data/columns";
-import {
-  useGetUserTableList,
-  useInvalidateUserTableList,
-} from "./_query/getUserTableList.query";
+import { useGetUserTableList } from "./_query/getUserTableList.query";
 import { UserColumnType } from "./_type/table.type";
 import { UserTableAction } from "./_ui/userTableAction";
 import { useUserRemoveConfirm } from "./_vm/useUserRemoveConfirm";
 import { useUserUpdateModal } from "./_vm/useUserUpdateModal";
-import { useListenUserListUpdate } from "@/entities/user/_vm/event/useListenUserListUpdate";
+import {
+  useListenUserListUpdate,
+  useListenUserUpdate,
+} from "@/entities/user/user";
 
 interface UserTableProps extends HTMLAttributes<HTMLDivElement> {}
 
@@ -25,8 +25,8 @@ export const UserTable: FC<UserTableProps> = (props) => {
     session!.user.id,
   );
 
-  // useInvalidateUserTableListSocket();
   useListenUserListUpdate();
+  useListenUserUpdate();
 
   const { removeUserConfirm, isPending: isPendingRemoveUser } =
     useUserRemoveConfirm();

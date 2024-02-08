@@ -14,7 +14,7 @@ export const useUserUpdate = () => {
     await updateSession({
       user: user,
     });
-    userUpdateEvent();
+    userUpdateEvent(userId);
   };
 
   const { mutateAsync, isPending } = useUserUpdateMutation(onSuccess);

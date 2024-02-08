@@ -1,15 +1,12 @@
 "use client";
-import { useQuery } from "@tanstack/react-query";
+import { useProfileQuery } from "@/entities/user/_query/profile.query";
+import { useListenProfileUpdate } from "@/entities/user/_vm/event/useListenProfileUpdate";
+import { ProfileForm, profileFormSchema } from "@/entities/user/profile";
+import { Spinner } from "@/shared/ui/icons/spinner";
+import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes } from "react";
-import {
-  ProfileForm,
-  getProfileQuery,
-  profileFormSchema,
-} from "@/entities/user/profile";
-import { Spinner } from "@/shared/ui/icons/spinner";
 import { z } from "zod";
-import { cn } from "@/shared/ui/utils";
 import { useProfileUpdate } from "../_vm/useProfileUpdate";
 
 interface ProfileFormProps extends HTMLAttributes<HTMLDivElement> {
@@ -23,12 +20,11 @@ type ProfileFormValues = z.infer<typeof profileFormSchema>;
 export const ProfileFormUpdate: FC<ProfileFormProps> = (props) => {
   const { userId, callbackUrl, className } = props;
 
-  const { isPending, data } = useQuery({
-    ...getProfileQuery(userId),
-    retry: 0,
-  });
-
+  const { isPending, data } = useProfileQuery(userId);
   const router = useRouter();
+
+  useListenProfileUpdate();
+
   const { update, isPending: isPendingUpdate } = useProfileUpdate();
 
   if (isPending) {

@@ -1,14 +1,15 @@
-// "use client";
-import { UserForm, getUserQuery, userFormSchema } from "@/entities/user/user";
+import {
+  UserForm,
+  useListenUserUpdate,
+  userFormSchema,
+} from "@/entities/user/user";
 import { Spinner } from "@/shared/ui/icons/spinner";
-import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes } from "react";
 import { z } from "zod";
-// import { useUserUpdate } from "../__vm/useUserUpdate";
+import { useUserQuery } from "@/entities/user/_query/user.query";
 import { cn } from "@/shared/ui/utils";
 import { useUserUpdate } from "../_vm/useUserUpdate";
-import { useUserQuery } from "@/entities/user/_query/user.query";
 
 interface UserFormProps extends HTMLAttributes<HTMLDivElement> {
   userId: string;
@@ -24,6 +25,8 @@ export const UserFormUpdate: FC<UserFormProps> = (props) => {
 
   const { isPending, data } = useUserQuery(userId);
   const router = useRouter();
+
+  useListenUserUpdate(userId);
 
   const { update, isPending: isPendingUpdate } = useUserUpdate();
 

@@ -1,8 +1,10 @@
 "use client";
 import { createStrictContext, useStrictContext } from "@/shared/lib/react";
 import { useEmitUserUpdate } from "./useEmitUserUpdate";
+import { UserId } from "@/entities/user/user";
 
-export const userUpdateContext = createStrictContext<() => void>();
+export const userUpdateContext =
+  createStrictContext<(userId: UserId) => void>();
 
 export function UserEventProvider({
   children,
