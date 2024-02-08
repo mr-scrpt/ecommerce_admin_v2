@@ -1,26 +1,25 @@
 // "use client";
+import { UserForm, getUserQuery, userFormSchema } from "@/entities/user/user";
+import { Spinner } from "@/shared/ui/icons/spinner";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes } from "react";
-import { UserForm, getUserQuery, userFormSchema } from "@/entities/user/user";
-import { Spinner } from "@/shared/ui/icons/spinner";
 import { z } from "zod";
 // import { useUserUpdate } from "../__vm/useUserUpdate";
 import { cn } from "@/shared/ui/utils";
-import { useUserUpdateMutation } from "../_mutation/useUserUpdate.mutation";
 import { useUserUpdate } from "../_vm/useUserUpdate";
-import { Button } from "@/shared/ui/button";
 
 interface UserFormProps extends HTMLAttributes<HTMLDivElement> {
   userId: string;
   callbackUrl?: string;
   className?: string;
+  onSuccess?: () => void;
 }
 
 type UserFormValues = z.infer<typeof userFormSchema>;
 
 export const UserFormUpdate: FC<UserFormProps> = (props) => {
-  const { userId, callbackUrl, className } = props;
+  const { userId, callbackUrl, className, onSuccess } = props;
 
   const { isPending, data } = useQuery({
     ...getUserQuery(userId),
@@ -29,11 +28,7 @@ export const UserFormUpdate: FC<UserFormProps> = (props) => {
 
   const router = useRouter();
 
-  const {
-    update,
-    // userUpdateEvent,
-    isPending: isPendingUpdate,
-  } = useUserUpdate();
+  const { update, isPending: isPendingUpdate } = useUserUpdate();
 
   if (isPending) {
     return <Spinner aria-label="Loading profile..." />;
@@ -49,6 +44,9 @@ export const UserFormUpdate: FC<UserFormProps> = (props) => {
       userId,
       data,
     });
+
+    onSuccess?.();
+
     if (callbackUrl) {
       router.push(callbackUrl);
     }

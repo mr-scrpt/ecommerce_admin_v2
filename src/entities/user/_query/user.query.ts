@@ -11,18 +11,20 @@ export const getUserQuery = (userId: UserId) => ({
 });
 
 export const getUserListQuery = (userId: UserId) => ({
-  queryKey: [baseKey, "getUserById", userId],
+  queryKey: [baseKey, "getUserList"],
   queryFn: () => getUserListAction({ userId }),
 });
 
 export const useUserListQuery = (userId: UserId) => {
-  const { isPending, data } = useQuery({
-    queryKey: [baseKey, "getUserById", userId],
+  const { isPending, isSuccess, data } = useQuery({
+    queryKey: [baseKey, "getUserList"],
     queryFn: () => getUserListAction({ userId }),
   });
+  console.log("output_log: query data =>>>", data?.userList);
   return {
     isPending,
-    userList: data ? data?.userList : [],
+    isSuccess,
+    data: data ? data.userList : [],
   };
 };
 
@@ -36,10 +38,11 @@ export const useInvalidateUser = () => {
 };
 
 export const useInvalidateUserList = () => {
+  console.log("output_log: useInvalidateUserList =>>>");
   const queryClient = useQueryClient();
 
-  return (userId: UserId) =>
+  return () =>
     queryClient.invalidateQueries({
-      queryKey: [baseKey, "getUserListQuery", userId],
+      queryKey: [baseKey, "getUserList"],
     });
 };

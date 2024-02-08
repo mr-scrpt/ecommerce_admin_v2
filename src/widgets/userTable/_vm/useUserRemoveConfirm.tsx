@@ -8,7 +8,7 @@ export const useUserRemoveConfirm = () => {
   const { isPending, isSuccess, mutateAsync } =
     useRemoveUserTableListMutation();
 
-  const removeUser = async (userId: UserId) => {
+  const removeUserConfirm = async (userId: UserId) => {
     const confirmation = await getConfirmation({
       description:
         "Do you really want to remove a user? This action cannot be canceled",
@@ -19,5 +19,5 @@ export const useUserRemoveConfirm = () => {
     await mutateAsync(userId);
   };
 
-  return { isPending, isSuccess, removeUser };
+  return { isPending, isSuccess, removeUserConfirm };
 };

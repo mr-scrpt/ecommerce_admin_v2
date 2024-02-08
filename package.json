@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "server:ws": "ts-node ./server/websocket.ts",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -11,8 +12,8 @@
     "test": "jest",
     "test:e2e": "prisma migrate reset --force && playwright test",
     "prettier": "prettier -w .",
-    "studio": "exec prisma studio",
-    "migrate:dev": "exec prisma migrate dev"
+    "studio": "prisma studio",
+    "migrate:dev": "prisma migrate dev"
   },
   "prisma": {
     "seed": "ts-node --project tsconfig.script.json prisma/seed.ts"

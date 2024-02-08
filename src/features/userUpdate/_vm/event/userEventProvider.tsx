@@ -1,6 +1,6 @@
 "use client";
 import { createStrictContext, useStrictContext } from "@/shared/lib/react";
-import { useEmitUserUpdate } from "./useUserUpdateEmit";
+import { useEmitUserUpdate } from "./useEmitUserUpdate";
 
 export const userUpdateContext = createStrictContext<() => void>();
 

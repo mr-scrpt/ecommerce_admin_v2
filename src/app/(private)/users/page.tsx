@@ -1,4 +1,4 @@
-import { UserEventProvider } from "@/features/userUpdate/_vm/event/userProvider";
+import { UserEventProvider } from "@/features/userUpdate/_vm/event/userEventProvider";
 import { UserTable } from "@/widgets/userTable/userTable";
 import { FC, HTMLAttributes } from "react";
 

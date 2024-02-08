@@ -1,23 +1,14 @@
 import { UserId } from "@/entities/user/user";
 import { UserFormUpdate } from "@/features/userUpdate";
-import { useGetModal } from "@/shared/lib/modal";
-import { ReactNode } from "react";
+import { useModalControl } from "@/shared/lib/modal";
 
 export const useUserUpdateModal = () => {
-  const getModal = useGetModal();
-
-  // const { isPending, mutate } = useUpdateRemoveQuery();
+  const { getModal, closeModal } = useModalControl();
 
   const openUpdateModal = async (targetId: UserId) => {
-    const modal = await getModal({
-      element: <UserFormUpdate userId={targetId} />,
-      // title: "Update user",
-      // description: "update user data",
+    await getModal({
+      element: <UserFormUpdate userId={targetId} onSuccess={closeModal} />,
     });
-
-    // if (!confirmation) return;
-    //
-    // mutate(userId);
   };
 
   return { openUpdateModal };

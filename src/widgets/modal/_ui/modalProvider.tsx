@@ -9,10 +9,6 @@ export const ModalProvider: FC<ModalWindowProps> = (props) => {
   const { children } = props;
   const [modalParams, setModalParams] = useState<ModalProviderParams>();
 
-  const closeModal = () => {
-    modalParams?.onClose();
-  };
-
   const getModal = (params: ModalParams) => {
     return new Promise<boolean>((resolve) => {
       setModalParams({
@@ -23,12 +19,15 @@ export const ModalProvider: FC<ModalWindowProps> = (props) => {
           resolve(true);
         },
         onClose: () => {
-          // closeModal();
           setModalParams(undefined);
           resolve(false);
         },
       });
     });
+  };
+
+  const closeModal = () => {
+    setModalParams(undefined);
   };
 
   return (
