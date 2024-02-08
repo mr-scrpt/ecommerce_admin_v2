@@ -1,6 +1,7 @@
 import { getProfileAction } from "../_action/getProfile.action";
 import { UserId } from "../_domain/types";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useListenProfileUpdate } from "../_vm/event/useListenProfileUpdate";
 
 const baseKey = "profile";
 
@@ -11,6 +12,9 @@ export const getProfileQuery = (userId: UserId) => ({
 export const useProfileQuery = (userId: UserId) => {
   const query = getProfileQuery(userId);
   const { isPending, isSuccess, data } = useQuery(query);
+
+  useListenProfileUpdate();
+
   return {
     isPending,
     isSuccess,

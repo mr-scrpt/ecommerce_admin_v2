@@ -2,7 +2,8 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getUserListAction } from "../_action/getUserList.action";
 import { UserId } from "../_domain/types";
 import { getUserAction } from "../_action/getUser.action";
-
+import { useListenUserListUpdate } from "../_vm/event/useListenUserListUpdate";
+import { useListenUserUpdate } from "../_vm/event/useListenUserUpdate";
 const baseKey = "user";
 
 export const getUserQuery = (userId: UserId) => ({
@@ -13,6 +14,9 @@ export const getUserQuery = (userId: UserId) => ({
 export const useUserQuery = (userId: UserId) => {
   const query = getUserQuery(userId);
   const { isPending, isSuccess, data } = useQuery(query);
+
+  useListenUserUpdate();
+
   return {
     isPending,
     isSuccess,
@@ -28,6 +32,9 @@ export const getUserListQuery = (userId: UserId) => ({
 export const useUserListQuery = (userId: UserId) => {
   const query = getUserListQuery(userId);
   const { isPending, isSuccess, data } = useQuery(query);
+
+  useListenUserListUpdate();
+
   return {
     isPending,
     isSuccess,

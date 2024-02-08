@@ -11,10 +11,6 @@ import { UserColumnType } from "./_type/table.type";
 import { UserTableAction } from "./_ui/userTableAction";
 import { useUserRemoveConfirm } from "./_vm/useUserRemoveConfirm";
 import { useUserUpdateModal } from "./_vm/useUserUpdateModal";
-import {
-  useListenUserListUpdate,
-  useListenUserUpdate,
-} from "@/entities/user/user";
 
 interface UserTableProps extends HTMLAttributes<HTMLDivElement> {}
 
@@ -24,9 +20,6 @@ export const UserTable: FC<UserTableProps> = (props) => {
   const { userList, isPending: isPendingUserList } = useGetUserTableList(
     session!.user.id,
   );
-
-  useListenUserListUpdate();
-  useListenUserUpdate();
 
   const { removeUserConfirm, isPending: isPendingRemoveUser } =
     useUserRemoveConfirm();
