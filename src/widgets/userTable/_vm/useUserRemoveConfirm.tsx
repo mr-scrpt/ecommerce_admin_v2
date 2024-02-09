@@ -1,14 +1,11 @@
-import { UserId, useInvalidateUser } from "@/entities/user/user";
+import { UserId } from "@/entities/user/user";
+import { useUserRemove } from "@/features/userRemove/_vm/useUserRemove";
 import { useGetConfirmation } from "@/shared/lib/confirmation";
-import { useUserRemoveTableListMutation } from "../_mutation/removeUserTableList.mutation";
 
 export const useUserRemoveConfirm = () => {
   const getConfirmation = useGetConfirmation();
 
-  const { isPending, isSuccess, mutateAsync } =
-    useUserRemoveTableListMutation();
-
-  // const invalidateUser = useInvalidateUser();
+  const { userRemove, isPending, isSuccess } = useUserRemove();
 
   const removeUserConfirm = async (userId: UserId) => {
     const confirmation = await getConfirmation({
@@ -18,15 +15,7 @@ export const useUserRemoveConfirm = () => {
 
     if (!confirmation) return;
 
-    // const onSuccess = async (user: User, userId: UserId) => {
-    //   await invalidateUser(userId);
-    //   await updateSession({
-    //     user: user,
-    //   });
-    //   userUpdateEvent(userId);
-    // };
-
-    await mutateAsync(userId);
+    await userRemove({ userId });
   };
 
   return { isPending, isSuccess, removeUserConfirm };

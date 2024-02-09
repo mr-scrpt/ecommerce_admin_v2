@@ -1,27 +1,25 @@
-// "use client";
-// import { useAppSession } from "@/entities/user/session";
-// import { User, UserId, useInvalidateUser } from "@/entities/user/user";
-// import { useUserUpdateMutation } from "../_mutation/useUserUpdate.mutation";
-// import { useEmitUserUpdate } from "./event/useEmitUserRemove";
+import { UserEntity } from "@/entities/user/_domain/types";
+import { useInvalidateUser } from "@/entities/user/user";
+import { useUserRemoveMutation } from "../_mutation/removeUser.mutation";
+import { useEmitUserRemove } from "./event/useEmitUserRemove";
 
-// export const useUserUpdate = () => {
-//   const { update: updateSession } = useAppSession();
-//   const invalidateUser = useInvalidateUser();
-//   const { userUpdateEvent } = useEmitUserUpdate();
-//
-//   const onSuccess = async (user: User, userId: UserId) => {
-//     await invalidateUser(userId);
-//     await updateSession({
-//       user: user,
-//     });
-//     userUpdateEvent(userId);
-//   };
-//
-//   const { mutateAsync, isPending } = useUserUpdateMutation(onSuccess);
-//
-//   return {
-//     userUpdateEvent,
-//     update: mutateAsync,
-//     isPending,
-//   };
-// };
+export const useUserRemove = () => {
+  const invalidateUser = useInvalidateUser();
+  const { userRemoveEvent } = useEmitUserRemove();
+
+  const onSuccess = async (user: UserEntity) => {
+    const { id } = user;
+    await invalidateUser(id);
+    userRemoveEvent(id);
+  };
+
+  const { mutateAsync, isPending, isSuccess } = useUserRemoveMutation({
+    onSuccess,
+  });
+
+  return {
+    userRemove: mutateAsync,
+    isPending,
+    isSuccess,
+  };
+};

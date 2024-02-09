@@ -26,15 +26,15 @@ export class UserRepository {
     targetId: UserId,
     userData: Partial<User>,
     db: Tx = this.db,
-  ): Promise<User> {
+  ): Promise<UserEntity> {
     return await db.user.update({
       where: { id: targetId },
       data: userData,
     });
   }
 
-  async removeUserById(userId: UserId, db: Tx = this.db): Promise<void> {
-    await db.user.delete({ where: { id: userId } });
+  async removeUserById(userId: UserId, db: Tx = this.db): Promise<UserEntity> {
+    return await db.user.delete({ where: { id: userId } });
   }
 }
 

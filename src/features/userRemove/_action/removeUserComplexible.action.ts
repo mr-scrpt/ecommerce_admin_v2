@@ -1,5 +1,7 @@
 "use server";
+import { UserEntity } from "@/entities/user/_domain/types";
 import { getAppSessionStrictServer } from "@/entities/user/getAppSessionServer";
+import { userSchema } from "@/entities/user/user";
 import { z } from "zod";
 import { removeUserComplexibleUseCase } from "../_useCase/removeUserComplexible.usecase";
 
@@ -7,15 +9,23 @@ const propsSchema = z.object({
   userId: z.string(),
 });
 
+const resultSchema = z.object({
+  user: userSchema,
+});
+
 export const removeUserComplexibleAction = async (
   props: z.infer<typeof propsSchema>,
-): Promise<void> => {
+): Promise<{ user: UserEntity }> => {
+  console.log("output_log: remove aciton =>>>");
   const { userId } = propsSchema.parse(props);
 
   const session = await getAppSessionStrictServer();
 
-  await removeUserComplexibleUseCase.exec({
+  const user = await removeUserComplexibleUseCase.exec({
     userId,
     session,
+  });
+  return resultSchema.parseAsync({
+    user,
   });
 };

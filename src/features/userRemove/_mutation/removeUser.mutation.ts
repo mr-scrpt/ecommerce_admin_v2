@@ -1,13 +1,21 @@
-import { UserId } from "@/entities/user/user";
+import { UserEntity } from "@/entities/user/_domain/types";
 import { useMutation } from "@tanstack/react-query";
 import { removeUserComplexibleAction } from "../_action/removeUserComplexible.action";
 
-const baseKey = "userRemoveComplexible";
+const baseKey = "userRemoveMutation";
 
-export const useUserRemoveMutation = () => {
+interface IUserRemoveMutation {
+  onSuccess: (user: UserEntity) => void;
+}
+
+export const useUserRemoveMutation = (props: IUserRemoveMutation) => {
+  const { onSuccess } = props;
   const { isPending, isSuccess, mutateAsync } = useMutation({
-    mutationKey: [baseKey, "removeUserComplexible"],
-    mutationFn: (userId: UserId) => removeUserComplexibleAction({ userId }),
+    mutationKey: [baseKey, "complexible"],
+    mutationFn: removeUserComplexibleAction,
+    async onSuccess({ user }) {
+      onSuccess(user);
+    },
   });
   return {
     isPending,

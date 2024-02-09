@@ -7,9 +7,8 @@ export const userSchema = z.object({
   email: z.string(),
   role: z.custom<Role>(),
   emailVerified: z.date().nullable(),
-  createdAt: z.date(),
-
   image: z.string().nullable().optional(),
+  createdAt: z.date(),
 });
 
 export const userFormSchema = z.object({

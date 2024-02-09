@@ -1,4 +1,10 @@
-import { UserId, UserRepository, userRepository } from "@/entities/user/user";
+import { UserEntity } from "@/entities/user/_domain/types";
+import {
+  User,
+  UserId,
+  UserRepository,
+  userRepository,
+} from "@/entities/user/user";
 import { DbClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
 
 export class UserRemoveTx extends Transaction {
@@ -9,12 +15,12 @@ export class UserRemoveTx extends Transaction {
     super(dbClient);
   }
 
-  async removeUserById(userId: UserId) {
+  async removeUserById(userId: UserId): Promise<UserEntity> {
     const action = async (tx: Tx) => {
-      await this.userRepo.removeUserById(userId, tx);
+      return await this.userRepo.removeUserById(userId, tx);
     };
 
-    await this.start(action);
+    return await this.start(action);
   }
 }
 

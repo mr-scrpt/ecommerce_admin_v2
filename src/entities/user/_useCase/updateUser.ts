@@ -1,5 +1,5 @@
 import { ForbiddenError } from "@/shared/lib/errors";
-import { SessionEntity, User, UserId } from "../_domain/types";
+import { SessionEntity, User, UserEntity, UserId } from "../_domain/types";
 import { UserRepository, createUserAbility, userRepository } from "../user";
 
 type UpdateUser = {
@@ -11,7 +11,7 @@ type UpdateUser = {
 class UpdateUserUseCase {
   constructor(private readonly userRepo: UserRepository) {}
 
-  async exec(data: UpdateUser): Promise<User> {
+  async exec(data: UpdateUser): Promise<UserEntity> {
     const { userId, userData, session } = data;
     const { canUpdateUser } = createUserAbility(session);
 

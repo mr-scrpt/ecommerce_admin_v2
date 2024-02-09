@@ -1,9 +1,15 @@
-import { SessionEntity, UserId, createUserAbility } from "@/entities/user/user";
+import {
+  SessionEntity,
+  User,
+  UserId,
+  createUserAbility,
+} from "@/entities/user/user";
 import { ForbiddenError } from "@/shared/lib/errors";
 import {
   UserRemoveTx,
   userRemoveTx,
 } from "../_repository/userRemove.transaction";
+import { UserEntity } from "@/entities/user/_domain/types";
 
 type RemoveUser = {
   userId: UserId;
@@ -13,7 +19,7 @@ type RemoveUser = {
 class RemoveUserComplexibleUseCase {
   constructor(private readonly userRemoveTx: UserRemoveTx) {}
 
-  async exec(data: RemoveUser): Promise<void> {
+  async exec(data: RemoveUser): Promise<UserEntity> {
     const { userId, session } = data;
     const { canRemoveUser } = createUserAbility(session);
 

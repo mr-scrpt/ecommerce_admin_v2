@@ -8,11 +8,12 @@ export const ROLES: Record<Role, Role> = {
 
 export type UserEntity = {
   id: UserId;
+  name?: string | null;
   email: string;
   role: Role;
   emailVerified?: Date | null;
-  name?: string | null;
   image?: string | null;
+  createdAt: Date;
 };
 
 export type UserPartial = {

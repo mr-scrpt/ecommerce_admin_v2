@@ -28,7 +28,7 @@ export const UserFormUpdate: FC<UserFormProps> = (props) => {
 
   // useListenUserUpdate();
 
-  const { update, isPending: isPendingUpdate } = useUserUpdate();
+  const { userUpdate, isPending: isPendingUpdate } = useUserUpdate();
 
   if (isPending) {
     return <Spinner aria-label="Loading profile..." />;
@@ -40,7 +40,7 @@ export const UserFormUpdate: FC<UserFormProps> = (props) => {
 
   // data.user.role
   const handleSubmit = async (data: UserFormValues) => {
-    await update({
+    await userUpdate({
       userId,
       data,
     });
