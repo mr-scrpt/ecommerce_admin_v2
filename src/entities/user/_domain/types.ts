@@ -1,10 +1,4 @@
-export type UserId = string;
-export type Role = "ADMIN" | "USER";
-
-export const ROLES: Record<Role, Role> = {
-  ADMIN: "ADMIN",
-  USER: "USER",
-};
+import { Role, UserId } from "@/shared/lib/user";
 
 export type UserEntity = {
   id: UserId;
@@ -13,7 +7,7 @@ export type UserEntity = {
   role: Role;
   emailVerified?: Date | null;
   image?: string | null;
-  createdAt: Date;
+  createdAt?: Date;
 };
 
 export type UserPartial = {
@@ -22,24 +16,6 @@ export type UserPartial = {
   image?: string | null;
   role: Role;
   emailVerified: Date | null;
-};
-
-// export type UserUpdate = {
-//   // id: UserId;
-//   email?: string;
-//   name?: string | null;
-//   image?: string | null;
-// };
-
-export type SessionEntity = {
-  user: {
-    id: UserId;
-    email: string;
-    role: Role;
-    name?: string | null;
-    image?: string | null;
-  };
-  expires: string;
 };
 
 // Projetions
