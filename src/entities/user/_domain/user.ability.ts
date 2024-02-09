@@ -5,7 +5,7 @@ export const createUserAbility = (session: SessionEntity) => ({
     session.user.id === userId || session.user.role === ROLES.ADMIN,
 
   canRemoveUser: (userId: UserId) =>
-    session.user.id === userId || session.user.role === ROLES.ADMIN,
+    session.user.id !== userId || session.user.role === ROLES.ADMIN,
 
   canUpdateUser: (userId: UserId) =>
     session.user.id === userId || session.user.role === ROLES.ADMIN,

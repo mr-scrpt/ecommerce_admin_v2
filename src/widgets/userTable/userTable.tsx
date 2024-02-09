@@ -20,6 +20,7 @@ export const UserTable: FC<UserTableProps> = (props) => {
 
   const { removeUserConfirm: onDeleteClick, isPending: isPendingRemoveUser } =
     useUserRemoveConfirm();
+
   const { openUpdateModal: onUpdateClick } = useUserUpdateModal();
 
   const isPendingComplexible = isPendingUserList || isPendingRemoveUser;

@@ -26,7 +26,7 @@ export const UserFormUpdate: FC<UserFormProps> = (props) => {
   const { isPending, data } = useUserQuery(userId);
   const router = useRouter();
 
-  useListenUserUpdate(userId);
+  // useListenUserUpdate();
 
   const { update, isPending: isPendingUpdate } = useUserUpdate();
 

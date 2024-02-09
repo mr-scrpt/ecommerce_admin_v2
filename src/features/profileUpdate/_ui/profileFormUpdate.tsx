@@ -23,7 +23,7 @@ export const ProfileFormUpdate: FC<ProfileFormProps> = (props) => {
   const { isPending, data } = useProfileQuery(userId);
   const router = useRouter();
 
-  useListenProfileUpdate();
+  // useListenProfileUpdate();
 
   const { update, isPending: isPendingUpdate } = useProfileUpdate();
 

@@ -1,2 +1,2 @@
 export { ProfileFormUpdate } from "./_ui/profileFormUpdate";
-export { ProfileEventProvider } from "./_vm/event/profileEventProvider";
+export { useEmitProfileUpdate } from "./_vm/event/useEmitProfileUpdate";
