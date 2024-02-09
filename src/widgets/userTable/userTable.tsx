@@ -4,7 +4,7 @@ import { useAppSessionOrRedirect } from "@/entities/user/_vm/useAppSession";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { TableData } from "@/shared/ui/tableData/ui/tableData";
 import { FC, HTMLAttributes } from "react";
-import { useGetUserTableList } from "./_query/getUserTableList.query";
+import { useGetUserTableList } from "./_vm/useUserTableList.query";
 import { useTableColumns } from "./_vm/useTabelColumns";
 import { useUserRemoveConfirm } from "./_vm/useUserRemoveConfirm";
 import { useUserUpdateModal } from "./_vm/useUserUpdateModal";

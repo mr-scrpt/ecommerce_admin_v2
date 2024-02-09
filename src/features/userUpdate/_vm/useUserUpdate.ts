@@ -12,13 +12,6 @@ export const useUserUpdate = () => {
 
   const { userUpdateEvent } = useEmitUserUpdate();
 
-  // const onSuccess = async (user: User, userId: UserId) => {
-  //   await invalidateUser(userId);
-  //   await updateSession({
-  //     user,
-  //   });
-  //   userUpdateEvent(userId);
-  // };
   const onSuccess = async (user: UserEntity) => {
     const { id } = user;
     await invalidateUser(id);
