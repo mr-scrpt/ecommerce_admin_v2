@@ -3,12 +3,9 @@ import { useAppSessionOrRedirect } from "@/entities/user/_vm/useAppSession";
 
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { TableData } from "@/shared/ui/tableData/ui/tableData";
-import { ColumnDef } from "@tanstack/react-table";
 import { FC, HTMLAttributes } from "react";
-import { userColumns } from "./_data/columns";
 import { useGetUserTableList } from "./_query/getUserTableList.query";
-import { UserColumnType } from "./_type/table.type";
-import { UserTableAction } from "./_ui/userTableAction";
+import { useTableColumns } from "./_vm/useTabelColumns";
 import { useUserRemoveConfirm } from "./_vm/useUserRemoveConfirm";
 import { useUserUpdateModal } from "./_vm/useUserUpdateModal";
 
@@ -21,34 +18,19 @@ export const UserTable: FC<UserTableProps> = (props) => {
     session!.user.id,
   );
 
-  const { removeUserConfirm, isPending: isPendingRemoveUser } =
+  const { removeUserConfirm: onDeleteClick, isPending: isPendingRemoveUser } =
     useUserRemoveConfirm();
-  const { openUpdateModal } = useUserUpdateModal();
+  const { openUpdateModal: onUpdateClick } = useUserUpdateModal();
 
   const isPendingComplexible = isPendingUserList || isPendingRemoveUser;
-
-  const userCollumnsWithAction: ColumnDef<UserColumnType>[] = [
-    ...userColumns,
-    {
-      header: "Actions",
-      id: "actions",
-      cell: ({ row }) => (
-        <UserTableAction
-          data={row.original}
-          onCopy={() => {}}
-          onUpdateClick={() => openUpdateModal(row.original.id)}
-          onDeleteClick={() => removeUserConfirm(row.original.id)}
-        />
-      ),
-    },
-  ];
+  const userColumns = useTableColumns({ onDeleteClick, onUpdateClick });
 
   if (isPendingComplexible) {
     return <Spinner aria-label="Profile loade..." />;
   }
   return (
     <TableData
-      columns={userCollumnsWithAction}
+      columns={userColumns}
       data={userList}
       filterKey="name"
       isLoading={false}

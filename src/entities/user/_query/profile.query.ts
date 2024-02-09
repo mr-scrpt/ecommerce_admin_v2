@@ -9,6 +9,7 @@ export const getProfileQuery = (userId: UserId) => ({
   queryKey: [baseKey, "getProfileById", userId],
   queryFn: () => getProfileAction({ userId }),
 });
+
 export const useProfileQuery = (userId: UserId) => {
   const query = getProfileQuery(userId);
   const { isPending, isSuccess, data } = useQuery(query);

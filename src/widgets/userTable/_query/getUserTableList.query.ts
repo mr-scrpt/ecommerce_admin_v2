@@ -1,20 +1,10 @@
-import {
-  UserId,
-  getUserListAction,
-  useUserListQuery,
-} from "@/entities/user/user";
+import { UserId, useUserListQuery } from "@/entities/user/user";
 import { buildDate } from "@/shared/lib/date";
-import { useSocketHandler } from "@/shared/lib/socket";
-import { WSEventEnum } from "@/shared/type/websokcetEvent.enum";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 
 const baseKey = "userTable";
 
 export const useGetUserTableList = (userId: UserId) => {
-  // const { isPending, isSuccess, data } = useQuery({
-  //   queryKey: [baseKey, "getUserTableList"],
-  //   queryFn: () => getUserListAction({ userId }),
-  // });
   const { isPending, isSuccess, data } = useUserListQuery(userId);
 
   const userList = data?.map((item) => ({
