@@ -1,13 +1,24 @@
-import { Server } from "socket.io";
+// import { Server } from "socket.io";
 import { WSEventEnum } from "../src/shared/type/websokcetEvent.enum";
+import { socketServer } from "../src/shared/lib/socketServer";
 
-const io = new Server(3334, {
-  cors: {
-    origin: "*",
-  },
-});
+const io = socketServer;
+// const io = new Server(3334, {
+//   cors: {
+//     origin: "*",
+//   },
+// });
 
 io.on(WSEventEnum.CONNECT, (socket) => {
+  socket.on(WSEventEnum.USER_CREATE, (data) => {
+    console.log("output_log: user created =>>>", data);
+    io.emit(WSEventEnum.USER_LIST_REFRESH);
+    io.emit(WSEventEnum.USER_REFRESH, data);
+
+    io.emit(WSEventEnum.PROFILE_LIST_REFRESH);
+    io.emit(WSEventEnum.PROFILE_REFRESH, data);
+  });
+
   socket.on(WSEventEnum.USER_UPDATE, (data) => {
     console.log("output_log: user update =>>>", data);
     io.emit(WSEventEnum.USER_LIST_REFRESH);

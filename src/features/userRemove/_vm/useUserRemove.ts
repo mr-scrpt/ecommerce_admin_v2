@@ -4,12 +4,12 @@ import { useUserRemoveMutation } from "../_mutation/removeUser.mutation";
 import { useEmitUserRemove } from "./event/useEmitUserRemove";
 
 export const useUserRemove = () => {
-  const invalidateUser = useInvalidateUser();
+  // const invalidateUser = useInvalidateUser();
   const { userRemoveEvent } = useEmitUserRemove();
 
   const onSuccess = async (user: UserEntity) => {
     const { id } = user;
-    await invalidateUser(id);
+    // await invalidateUser(id);
     userRemoveEvent(id);
   };
 

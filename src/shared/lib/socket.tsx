@@ -1,11 +1,12 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import { Socket } from "socket.io-client";
+import { socketClient } from "../config/socket";
 import {
   createStrictContext,
   useEventCallback,
   useStrictContext,
 } from "./react";
-import { Socket, io } from "socket.io-client";
 
 const socketContext = createStrictContext<Socket>();
 const isConnectedContext = createStrictContext<boolean>();
@@ -17,14 +18,7 @@ export const SocketProvider = ({
   children?: React.ReactNode;
   clientId: string;
 }) => {
-  const [socket] = useState(() =>
-    io("ws://localhost:3334", {
-      auth: {
-        clientId,
-      },
-      autoConnect: false,
-    }),
-  );
+  const [socket] = useState(() => socketClient(clientId));
 
   const [isConnected, setIsConnected] = useState(socket.connected);
 

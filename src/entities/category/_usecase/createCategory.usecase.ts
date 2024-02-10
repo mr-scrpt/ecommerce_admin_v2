@@ -1,25 +1,29 @@
-import { createId } from "@/shared/lib/id";
-import { CategoryEntity, CategorySlug } from "../_domain/types";
+import { AuthorizatoinError } from "@/shared/lib/errors";
+import { SessionEntity } from "@/shared/lib/user";
+import { createCategoryAbility } from "../_domain/category.ability";
+import { Category } from "../_domain/types";
 import {
   CategoryRepository,
   categoryRepository,
 } from "../_repository/category.repo";
 
 type CreateCategory = {
-  name: string;
-  slug: CategorySlug;
+  session: SessionEntity;
+  categoryData: Category;
 };
 
 class CreateCategoryUseCase {
   constructor(private readonly categoryRepo: CategoryRepository) {}
 
   async exec(data: CreateCategory) {
-    const category: CategoryEntity = {
-      id: createId(),
-      ...data,
-    };
+    const { categoryData, session } = data;
+    const { canCreateCategory } = createCategoryAbility(session);
 
-    return await this.categoryRepo.createCategory(category);
+    if (!canCreateCategory()) {
+      throw new AuthorizatoinError();
+    }
+
+    return await this.categoryRepo.createCategory(categoryData);
   }
 }
 

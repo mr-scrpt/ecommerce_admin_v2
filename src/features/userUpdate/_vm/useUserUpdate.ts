@@ -8,13 +8,13 @@ import { useEmitUserUpdate } from "./event/useEmitUserUpdate";
 export const useUserUpdate = () => {
   const { update: updateSession } = useAppSession();
 
-  const invalidateUser = useInvalidateUser();
+  // const invalidateUser = useInvalidateUser();
 
   const { userUpdateEvent } = useEmitUserUpdate();
 
   const onSuccess = async (user: UserEntity) => {
     const { id } = user;
-    await invalidateUser(id);
+    // await invalidateUser(id);
     await updateSession({
       user,
     });

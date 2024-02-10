@@ -16,7 +16,7 @@ class GetUserUseCase {
     const { userId, session } = data;
     const { canGetUser } = createUserAbility(session);
 
-    if (!canGetUser(userId)) {
+    if (!canGetUser()) {
       throw new AuthorizatoinError();
     }
 

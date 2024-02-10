@@ -9,6 +9,7 @@ interface PageProps extends HTMLAttributes<HTMLDivElement> {
 
 const NewUserPage: FC<PageProps> = async (props) => {
   const { searchParams } = props;
+  const { callbackUrl } = searchParams;
   const session = await getAppSessionServerOrRedirect();
   return (
     <main className="space-y-6 py-14 container">
@@ -22,7 +23,7 @@ const NewUserPage: FC<PageProps> = async (props) => {
       <div className="flex justify-center">
         <ProfileFormUpdate
           userId={session.user.id}
-          callbackUrl={searchParams.callbackUrl}
+          callbackUrl={callbackUrl}
           className="max-w-[500px]"
         />
       </div>

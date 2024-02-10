@@ -30,7 +30,7 @@ export class CategoryRepository {
   }
 
   async createCategory(
-    category: CategoryEntity,
+    category: Category,
     db: Tx = this.db,
   ): Promise<CategoryEntity> {
     return await db.category.create({

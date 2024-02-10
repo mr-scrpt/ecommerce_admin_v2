@@ -5,11 +5,15 @@ export type CategoryEntity = {
   id: CategoryId;
   name: string;
   slug: CategorySlug;
+  board: Array<string>;
   createdAt?: Date;
 };
+
+// Projetions
 
 export type Category = {
   name: string;
   slug: CategorySlug;
-  createdAt: Date;
+  board: Array<string>;
+  // createdAt: Date;
 };

@@ -52,7 +52,6 @@ export const useInvalidateUser = () => {
 };
 
 export const useInvalidateUserList = () => {
-  console.log("output_log: useInvalidateUserList =>>>");
   const queryClient = useQueryClient();
 
   return () =>
