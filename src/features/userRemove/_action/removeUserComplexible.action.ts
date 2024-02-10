@@ -16,7 +16,6 @@ const resultSchema = z.object({
 export const removeUserComplexibleAction = async (
   props: z.infer<typeof propsSchema>,
 ): Promise<{ user: UserEntity }> => {
-  console.log("output_log: remove aciton =>>>");
   const { userId } = propsSchema.parse(props);
 
   const session = await getAppSessionStrictServer();
@@ -25,6 +24,7 @@ export const removeUserComplexibleAction = async (
     userId,
     session,
   });
+
   return resultSchema.parseAsync({
     user,
   });

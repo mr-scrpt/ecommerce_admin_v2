@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { ADMIN, USER, USER_2 } from "../tests/stabs/users";
+import { CATEGORY, CATEGORY2, CATEGORY3 } from "../tests/stabs/category";
 const prisma = new PrismaClient();
 
 async function main() {
@@ -34,7 +35,38 @@ async function main() {
     },
   });
 
+  const category = await prisma.category.create({
+    data: {
+      id: CATEGORY.id,
+      name: CATEGORY.name,
+      slug: CATEGORY.slug,
+      board: CATEGORY.board,
+
+      createdAt: new Date().toISOString(),
+    },
+  });
+  const category2 = await prisma.category.create({
+    data: {
+      id: CATEGORY2.id,
+      name: CATEGORY2.name,
+      slug: CATEGORY2.slug,
+      board: CATEGORY2.board,
+
+      createdAt: new Date(Date.now() + 35000 * 400 * 24).toISOString(),
+    },
+  });
+  const category3 = await prisma.category.create({
+    data: {
+      id: CATEGORY3.id,
+      name: CATEGORY3.name,
+      slug: CATEGORY3.slug,
+      board: CATEGORY3.board,
+      createdAt: new Date(Date.now() + 51000 * 1200 * 24).toISOString(),
+    },
+  });
+
   console.log({ adminUser, user, user2 });
+  console.log({ category, category2, category3 });
 }
 
 main()

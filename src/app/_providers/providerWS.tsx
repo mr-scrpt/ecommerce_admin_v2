@@ -1,9 +1,9 @@
 import { useAppSession } from "@/entities/user/session";
-import { UserId } from "@/entities/user/user";
 import { useEmitProfileUpdate } from "@/features/profileUpdate";
 import { useEmitUserUpdate } from "@/features/userUpdate";
 import { ComposeChildren, createStrictContext } from "@/shared/lib/react";
 import { SocketProvider } from "@/shared/lib/socket";
+import { UserId } from "@/shared/lib/user";
 import { FC, HTMLAttributes } from "react";
 
 interface IEventContext {

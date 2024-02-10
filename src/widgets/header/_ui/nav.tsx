@@ -1,18 +1,19 @@
 "use client";
-import { ROUTING_DATA } from "@/shared/config/routing.config";
 import { cn } from "@/shared/ui/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FC, HTMLAttributes } from "react";
+import { useMenu } from "../_model/useMenu";
 
 interface NavProps extends HTMLAttributes<HTMLDivElement> {}
 
 export const Nav: FC<NavProps> = (props) => {
   const pathname = usePathname();
 
+  const menu = useMenu();
   return (
     <nav className="flex justify-center gap-6 text-sm font-medium flex-col md:flex-row md:items-center">
-      {ROUTING_DATA.map((item) => (
+      {menu.map((item) => (
         <Link
           key={item.href}
           className={cn(

@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { updateProfileAction } from "../_action/profileUpdate.action";
 import { Profile } from "@/entities/user/profile";
-import { UserId } from "@/entities/user/user";
+import { UserId } from "@/shared/lib/user";
 
 export const useProfileUpdateMutation = (
   onSuccess: (profile: Profile, userId: UserId) => void,

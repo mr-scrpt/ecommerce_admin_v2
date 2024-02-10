@@ -1,6 +1,7 @@
 import { ForbiddenError } from "@/shared/lib/errors";
-import { SessionEntity, User, UserEntity, UserId } from "../_domain/types";
+import { User, UserEntity } from "../_domain/types";
 import { UserRepository, createUserAbility, userRepository } from "../user";
+import { SessionEntity, UserId } from "@/shared/lib/user";
 
 type UpdateUser = {
   userId: UserId;
@@ -15,7 +16,7 @@ class UpdateUserUseCase {
     const { userId, userData, session } = data;
     const { canUpdateUser } = createUserAbility(session);
 
-    if (!canUpdateUser(userId)) {
+    if (!canUpdateUser()) {
       throw new ForbiddenError();
     }
 

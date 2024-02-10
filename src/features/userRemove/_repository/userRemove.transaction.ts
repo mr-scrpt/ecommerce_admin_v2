@@ -1,11 +1,7 @@
 import { UserEntity } from "@/entities/user/_domain/types";
-import {
-  User,
-  UserId,
-  UserRepository,
-  userRepository,
-} from "@/entities/user/user";
+import { UserRepository, userRepository } from "@/entities/user/user";
 import { DbClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
+import { UserId } from "@/shared/lib/user";
 
 export class UserRemoveTx extends Transaction {
   constructor(

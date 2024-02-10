@@ -1,9 +1,9 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getUserListAction } from "../_action/getUserList.action";
-import { UserId } from "../_domain/types";
 import { getUserAction } from "../_action/getUser.action";
 import { useListenUserListUpdate } from "../_vm/event/useListenUserListUpdate";
 import { useListenUserUpdate } from "../_vm/event/useListenUserUpdate";
+import { UserId } from "@/shared/lib/user";
 const baseKey = "user";
 
 export const getUserQuery = (userId: UserId) => ({

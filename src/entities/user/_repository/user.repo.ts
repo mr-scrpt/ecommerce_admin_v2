@@ -4,7 +4,7 @@ import { User, UserEntity, UserId } from "../_domain/types";
 export class UserRepository {
   constructor(readonly db: DbClient) {}
 
-  async getUserById(userId: UserId, db: Tx = this.db): Promise<UserEntity> {
+  async getUser(userId: UserId, db: Tx = this.db): Promise<UserEntity> {
     return db.user.findUniqueOrThrow({
       where: {
         id: userId,

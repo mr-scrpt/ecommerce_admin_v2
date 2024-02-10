@@ -11,5 +11,5 @@ export { UserForm } from "./_ui/userForm";
 export { useListenUserUpdate } from "./_vm/event/useListenUserUpdate";
 export { useListenUserListUpdate } from "./_vm/event/useListenUserListUpdate";
 
-export type { UserId, SessionEntity, UserPartial, User } from "./_domain/types";
+export type { UserPartial, User } from "./_domain/types";
 export type { UserFormValues } from "./_domain/user.schema";

@@ -1,3 +1,5 @@
+import { ROLE } from "@prisma/client";
+
 enum RoutePathEnum {
   HOME = "/",
 
@@ -54,6 +56,7 @@ export const ROUTING_DATA = [
   {
     href: `${RoutePathEnum.USERS}`,
     label: RouteNameEnum.USERS,
+    role: [ROLE.ADMIN],
   },
   {
     href: `${RoutePathEnum.SETTINGS}`,

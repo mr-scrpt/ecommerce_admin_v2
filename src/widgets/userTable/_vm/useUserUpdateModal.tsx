@@ -1,6 +1,6 @@
-import { UserId } from "@/entities/user/user";
 import { UserFormUpdate } from "@/features/userUpdate";
 import { useModalControl } from "@/shared/lib/modal";
+import { UserId } from "@/shared/lib/user";
 
 export const useUserUpdateModal = () => {
   const { getModal, closeModal } = useModalControl();

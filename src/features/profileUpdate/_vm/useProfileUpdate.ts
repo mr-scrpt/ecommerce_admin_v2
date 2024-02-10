@@ -1,8 +1,8 @@
 import { User, useInvalidateUser } from "@/entities/user/user";
 import { useAppSession } from "@/entities/user/session";
-import { UserId } from "@/entities/user/user";
 import { useProfileUpdateMutation } from "../_mutation/useProfileUpdate.mutation";
 import { useEmitProfileUpdate } from "./event/useEmitProfileUpdate";
+import { UserId } from "@/shared/lib/user";
 
 export const useProfileUpdate = () => {
   const { update: updateSession } = useAppSession();

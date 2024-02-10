@@ -1,6 +1,6 @@
-import { UserId } from "@/entities/user/user";
 import { useUserRemove } from "@/features/userRemove/_vm/useUserRemove";
 import { useGetConfirmation } from "@/shared/lib/confirmation";
+import { UserId } from "@/shared/lib/user";
 
 export const useUserRemoveConfirm = () => {
   const getConfirmation = useGetConfirmation();

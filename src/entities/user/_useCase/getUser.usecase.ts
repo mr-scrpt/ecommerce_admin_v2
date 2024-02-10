@@ -1,7 +1,8 @@
-import { SessionEntity, UserEntity, UserId } from "../_domain/types";
+import { UserEntity } from "../_domain/types";
 import { UserRepository, userRepository } from "../_repository/user.repo";
 import { createUserAbility } from "../_domain/user.ability";
 import { AuthorizatoinError } from "@/shared/lib/errors";
+import { SessionEntity, UserId } from "@/shared/lib/user";
 
 type GetUser = {
   userId: UserId;
@@ -19,7 +20,7 @@ class GetUserUseCase {
       throw new AuthorizatoinError();
     }
 
-    return await this.userRepo.getUserById(userId);
+    return await this.userRepo.getUser(userId);
   }
 }
 
