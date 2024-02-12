@@ -3,6 +3,7 @@ import { z } from "zod";
 import { profileSchema } from "../_domain/profile.schema";
 import { getProfileUseCase } from "../_useCase/getProfile.usecase";
 import { getAppSessionStrictServer } from "../getAppSessionServer";
+import { Profile } from "../profile";
 
 const propsSchema = z.object({
   userId: z.string(),
@@ -12,7 +13,11 @@ const resultSchema = z.object({
   profile: profileSchema,
 });
 
-export const getProfileAction = async (props: z.infer<typeof propsSchema>) => {
+type ResultT = { profile: Profile };
+
+export const getProfileAction = async (
+  props: z.infer<typeof propsSchema>,
+): Promise<ResultT> => {
   const { userId } = propsSchema.parse(props);
 
   const session = await getAppSessionStrictServer();

@@ -10,7 +10,11 @@ const resultSchema = z.object({
   }),
 });
 
-export const uploadProfileAvatarAction = async (formData: FormData) => {
+type ResultT = { avatar: { path: string } };
+
+export const uploadProfileAvatarAction = async (
+  formData: FormData,
+): Promise<ResultT> => {
   const file = formData.get(AVATAR_FILE_KEY);
 
   if (!(file instanceof File)) {

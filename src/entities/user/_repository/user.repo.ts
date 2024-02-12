@@ -1,5 +1,6 @@
 import { DbClient, Tx, dbClient } from "@/shared/lib/db";
-import { User, UserEntity, UserId } from "../_domain/types";
+import { User, UserEntity } from "../_domain/types";
+import { UserId } from "@/shared/lib/user";
 
 export class UserRepository {
   constructor(readonly db: DbClient) {}

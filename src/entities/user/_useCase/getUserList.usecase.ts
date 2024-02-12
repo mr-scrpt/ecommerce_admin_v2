@@ -1,8 +1,8 @@
 import { AuthorizatoinError } from "@/shared/lib/errors";
-import { Profile } from "../_domain/types";
+import { SessionEntity, UserId } from "@/shared/lib/user";
+import { UserEntity } from "../_domain/types";
 import { createUserAbility } from "../_domain/user.ability";
 import { UserRepository, userRepository } from "../_repository/user.repo";
-import { SessionEntity, UserId } from "@/shared/lib/user";
 
 type GetUserList = {
   userId: UserId;
@@ -12,7 +12,7 @@ type GetUserList = {
 class GetUserListUseCase {
   constructor(private readonly userRepo: UserRepository) {}
 
-  async exec(data: GetUserList): Promise<Profile[]> {
+  async exec(data: GetUserList): Promise<UserEntity[]> {
     const { session } = data;
     const { canGetUser } = createUserAbility(session);
 

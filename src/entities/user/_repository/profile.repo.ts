@@ -1,11 +1,11 @@
 import { DbClient, Tx, dbClient } from "@/shared/lib/db";
-import { Profile } from "../_domain/types";
 import { UserId } from "@/shared/lib/user";
+import { Profile, ProfileEntity } from "../_domain/types";
 
 export class ProfileRepository {
   constructor(readonly db: DbClient) {}
 
-  async getProfile(userId: UserId, db: Tx = this.db): Promise<Profile> {
+  async getProfile(userId: UserId, db: Tx = this.db): Promise<ProfileEntity> {
     return db.user.findUniqueOrThrow({
       where: {
         id: userId,
@@ -13,7 +13,7 @@ export class ProfileRepository {
     });
   }
 
-  async getProfileList(db: Tx = this.db): Promise<Profile[]> {
+  async getProfileList(db: Tx = this.db): Promise<ProfileEntity[]> {
     return db.user.findMany({});
   }
 
@@ -21,7 +21,7 @@ export class ProfileRepository {
     targetId: UserId,
     data: Partial<Profile>,
     db: Tx = this.db,
-  ): Promise<Profile> {
+  ): Promise<ProfileEntity> {
     return await db.user.update({
       where: { id: targetId },
       data,

@@ -9,6 +9,7 @@ export type UserEntity = {
   image?: string | null;
   createdAt?: Date;
 };
+export type ProfileEntity = UserEntity;
 
 export type UserPartial = {
   email: string;
