@@ -1,4 +1,4 @@
-import { useUserRemove } from "@/features/userRemove/_vm/useUserRemove";
+import { useUserRemove } from "@/features/userRemove";
 import { useGetConfirmation } from "@/shared/lib/confirmation";
 import { UserId } from "@/shared/lib/user";
 

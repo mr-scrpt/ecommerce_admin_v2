@@ -6,7 +6,7 @@ export type CategoryEntity = {
   name: string;
   slug: CategorySlug;
   board: Array<string>;
-  createdAt?: Date;
+  createdAt: Date;
 };
 
 // Projetions

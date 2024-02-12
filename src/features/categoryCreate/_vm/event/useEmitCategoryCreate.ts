@@ -2,12 +2,12 @@ import { useSocket } from "@/shared/lib/socket";
 import { UserId } from "@/shared/lib/user";
 import { WSEventEnum } from "@/shared/type/websokcetEvent.enum";
 
-export const useEmitUserRemove = () => {
+export const useEmitCategoryCreate = () => {
   const socket = useSocket();
 
   return {
-    userRemoveEvent: (userId: UserId) => {
-      socket.emit(WSEventEnum.USER_REMOVE, userId);
+    categoryCreateEvent: () => {
+      socket.emit(WSEventEnum.CATEGORY_CREATE);
     },
   };
 };

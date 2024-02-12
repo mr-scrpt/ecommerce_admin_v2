@@ -1,7 +1,7 @@
 import { AuthorizatoinError } from "@/shared/lib/errors";
 import { SessionEntity } from "@/shared/lib/user";
 import { createCategoryAbility } from "../_domain/category.ability";
-import { Category } from "../_domain/types";
+import { Category, CategoryEntity } from "../_domain/types";
 import {
   CategoryRepository,
   categoryRepository,
@@ -15,7 +15,7 @@ type CreateCategory = {
 class CreateCategoryUseCase {
   constructor(private readonly categoryRepo: CategoryRepository) {}
 
-  async exec(data: CreateCategory) {
+  async exec(data: CreateCategory): Promise<CategoryEntity> {
     const { categoryData, session } = data;
     const { canCreateCategory } = createCategoryAbility(session);
 
