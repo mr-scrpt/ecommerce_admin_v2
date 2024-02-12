@@ -2,7 +2,7 @@ import { userRepository } from "../_repository/user.repo";
 
 import { configPrivate } from "@/shared/config/private.config";
 import { createId } from "@/shared/lib/id";
-import { UserEntity } from "../_domain/types";
+import { User, UserEntity, UserToCreate } from "../_domain/types";
 import { UserRepository } from "../_repository/user.repo";
 import { ROLES } from "@/shared/lib/user";
 
@@ -20,8 +20,8 @@ export class CreateUserUseCase {
     const adminEmails = configPrivate.ADMIN_EMAILS?.split(",") ?? [];
     const role = adminEmails.includes(data.email) ? ROLES.ADMIN : ROLES.USER;
 
-    const user: UserEntity = {
-      id: createId(),
+    const user: UserToCreate = {
+      // id: createId(),
       role,
       ...data,
     };

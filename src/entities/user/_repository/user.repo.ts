@@ -1,5 +1,5 @@
 import { DbClient, Tx, dbClient } from "@/shared/lib/db";
-import { User, UserEntity } from "../_domain/types";
+import { User, UserEntity, UserToCreate } from "../_domain/types";
 import { UserId } from "@/shared/lib/user";
 
 export class UserRepository {
@@ -17,7 +17,7 @@ export class UserRepository {
     return db.user.findMany();
   }
 
-  async createUser(user: UserEntity, db: Tx = this.db): Promise<UserEntity> {
+  async createUser(user: UserToCreate, db: Tx = this.db): Promise<UserEntity> {
     return await db.user.create({
       data: user,
     });

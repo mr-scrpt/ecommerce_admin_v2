@@ -33,3 +33,11 @@ export type User = {
   name?: string | null;
   image?: string | null;
 };
+
+export type UserToCreate = {
+  // id: UserId;
+  email: string;
+  name?: string | null;
+  image?: string | null;
+  role: Role;
+};
