@@ -7,7 +7,7 @@ export type UserEntity = {
   role: Role;
   emailVerified?: Date | null;
   image?: string | null;
-  createdAt?: Date;
+  createdAt: Date;
 };
 export type ProfileEntity = UserEntity;
 

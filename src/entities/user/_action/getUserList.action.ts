@@ -1,9 +1,9 @@
 "use server";
 import { z } from "zod";
+import { UserEntity } from "../_domain/types";
 import { userSchema } from "../_domain/user.schema";
 import { getUserListUseCase } from "../_useCase/getUserList.usecase";
 import { getAppSessionStrictServer } from "../getAppSessionServer";
-import { User } from "../user";
 
 const propsSchema = z.object({
   userId: z.string(),
@@ -13,7 +13,7 @@ const resultSchema = z.object({
   userList: z.array(userSchema),
 });
 
-type ResultT = { userList: User[] };
+type ResultT = { userList: UserEntity[] };
 
 export const getUserListAction = async (
   props: z.infer<typeof propsSchema>,

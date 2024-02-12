@@ -4,6 +4,7 @@ import { userSchema } from "../_domain/user.schema";
 import { getUserUseCase } from "../_useCase/getUser.usecase";
 import { getAppSessionStrictServer } from "../getAppSessionServer";
 import { User } from "../user";
+import { UserEntity } from "../_domain/types";
 
 const propsSchema = z.object({
   userId: z.string(),
@@ -13,7 +14,7 @@ const resultSchema = z.object({
   user: userSchema,
 });
 
-type ResultT = { user: User };
+type ResultT = { user: UserEntity };
 
 export const getUserAction = async (
   props: z.infer<typeof propsSchema>,

@@ -1,5 +1,5 @@
+import { Role } from "@/shared/lib/user";
 import { z } from "zod";
-import { Role } from "./types";
 
 export const userSchema = z.object({
   id: z.string(),

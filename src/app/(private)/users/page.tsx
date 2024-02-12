@@ -1,4 +1,4 @@
-import { UserTable } from "@/widgets/userTable/userTable";
+import { UserTable } from "@/widgets/userTable";
 import { FC, HTMLAttributes } from "react";
 
 interface PageProps extends HTMLAttributes<HTMLDivElement> {}
