@@ -1,3 +1,10 @@
 export { CategoryForm } from "./_ui/categoryForm";
-export { categoryFormSchema } from "./_domain/category.schema";
+export { categoryFormSchema, categorySchema } from "./_domain/category.schema";
 export { useCategoryListQuery } from "./_query/category.query";
+export {
+  CategoryRepository,
+  categoryRepository,
+} from "./_repository/category.repo";
+export { createCategoryAbility } from "./_domain/category.ability";
+
+export type { CategoryId, CategoryEntity } from "./_domain/types";

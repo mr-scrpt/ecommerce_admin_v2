@@ -2,7 +2,7 @@ import { useUserListQuery } from "@/entities/user/user";
 import { buildDate } from "@/shared/lib/date";
 import { UserId } from "@/shared/lib/user";
 
-export const useGetUserTableList = (userId: UserId) => {
+export const useUserTableList = (userId: UserId) => {
   const { isPending, isSuccess, data } = useUserListQuery(userId);
 
   const userList = data?.map((item) => ({

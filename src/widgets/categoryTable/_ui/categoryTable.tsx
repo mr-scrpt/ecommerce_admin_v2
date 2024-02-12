@@ -4,8 +4,9 @@ import { useAppSessionOrRedirect } from "@/entities/user/_vm/useAppSession";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { TableData } from "@/shared/ui/tableData/ui/tableData";
 import { FC, HTMLAttributes } from "react";
-import { useGetCategoryTableList } from "../_vm/useCategoryTableList";
+import { useCategoryTableList } from "../_vm/useCategoryTableList";
 import { useTableColumns } from "../_vm/useTabelColumns";
+import { useCategoryRemoveConfirm } from "../_vm/useCategoryRemoveConfirm";
 // import { useCategoryRemoveConfirm } from "../_vm/useCategoryRemoveConfirm";
 // import { useCategoryUpdateModal } from "../_vm/useCategoryUpdateModal";
 
@@ -15,18 +16,18 @@ export const CategoryTable: FC<CategoryTableProps> = (props) => {
   const session = useAppSessionOrRedirect();
 
   const { categoryList, isPending: isPendingCategoryList } =
-    useGetCategoryTableList(session!.user.id);
+    useCategoryTableList(session!.user.id);
 
-  // const {
-  //   removeCategoryConfirm: onDeleteClick,
-  //   isPending: isPendingRemoveCategory,
-  // } = useCategoryRemoveConfirm();
+  const {
+    removeCategoryConfirm: onDeleteClick,
+    isPending: isPendingRemoveCategory,
+  } = useCategoryRemoveConfirm();
 
   // const { openUpdateModal: onUpdateClick } = useCategoryUpdateModal();
 
   // const isPendingComplexible = isPendingCategoryList || isPendingRemoveCategory;
   const categoryColumns = useTableColumns({
-    onDeleteClick: () => {},
+    onDeleteClick,
     onUpdateClick: () => {},
   });
 

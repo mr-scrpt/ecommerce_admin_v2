@@ -1,10 +1,9 @@
 "use server";
 import { z } from "zod";
+import { UserEntity } from "../_domain/types";
 import { userSchema } from "../_domain/user.schema";
 import { getUserUseCase } from "../_useCase/getUser.usecase";
 import { getAppSessionStrictServer } from "../getAppSessionServer";
-import { User } from "../user";
-import { UserEntity } from "../_domain/types";
 
 const propsSchema = z.object({
   userId: z.string(),
