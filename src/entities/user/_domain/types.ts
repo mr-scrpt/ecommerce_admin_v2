@@ -16,7 +16,7 @@ export type UserPartial = {
   name?: string | null;
   image?: string | null;
   role: Role;
-  emailVerified: Date | null;
+  emailVerified?: Date | null;
 };
 
 // Projetions
