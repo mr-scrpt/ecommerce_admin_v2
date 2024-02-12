@@ -1,12 +1,11 @@
 import { AuthorizatoinError } from "@/shared/lib/errors";
-import { CategoryEntity, CategoryId } from "../_domain/types";
+import { SessionEntity } from "@/shared/lib/user";
 import { createCategoryAbility } from "../_domain/category.ability";
+import { CategoryEntity, CategoryId } from "../_domain/types";
 import {
   CategoryRepository,
   categoryRepository,
 } from "../_repository/category.repo";
-import { SessionEntity, UserId } from "@/shared/lib/user";
-import { Category } from "@prisma/client";
 
 type GetCategoryList = {
   categoryId: CategoryId;

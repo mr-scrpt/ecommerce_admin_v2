@@ -18,10 +18,8 @@ import {
   CategoryFormValues,
   categoryFormSchema,
 } from "../_domain/category.schema";
-// import { CategoryPartial } from "../category";
-import { BoardField } from "./boardField";
-import { buildDate } from "@/shared/lib/date";
 import { Category } from "../_domain/types";
+import { BoardField } from "./boardField";
 
 interface CategoryFormProps extends HTMLAttributes<HTMLFormElement> {
   category?: Category;
@@ -55,7 +53,6 @@ export const CategoryForm: FC<CategoryFormProps> = (props) => {
     const list = form.getValues("board");
     const result = list.filter((item) => item !== path);
     form.setValue("board", result);
-    console.log("output_log:  =>>>", result);
   };
 
   const isPendingAppearance = useAppearanceDelay(isPending);

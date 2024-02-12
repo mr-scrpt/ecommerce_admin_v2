@@ -1,4 +1,3 @@
-import { Category } from "@/entities/category/_domain/types";
 import { useMutation } from "@tanstack/react-query";
 import { categoryCreateAction } from "../_action/categoryCreate.action";
 

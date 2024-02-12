@@ -1,10 +1,11 @@
 import { ROLE } from "@prisma/client";
 
-enum RoutePathEnum {
+export enum RoutePathEnum {
   HOME = "/",
 
   CATEGORIES = "/categories",
   CATEGORY = "/categories/:categorySlug",
+  CATEGORY_CREATE = "/categories/create",
   PRODUCTS = "/products",
 
   BOARDS = "/boards",
@@ -36,7 +37,7 @@ enum RouteNameEnum {
   VERIFY_REQUEST = "Verify request",
 }
 
-export const ROUTING_DATA = [
+export const ROUTING_MAIN_MENU_DATA = [
   {
     href: `${RoutePathEnum.HOME}`,
     label: RouteNameEnum.HOME,

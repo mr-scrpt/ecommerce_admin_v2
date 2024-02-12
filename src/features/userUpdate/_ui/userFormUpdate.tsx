@@ -1,14 +1,10 @@
-import {
-  UserForm,
-  useListenUserUpdate,
-  userFormSchema,
-} from "@/entities/user/user";
+import { useUserQuery } from "@/entities/user/_query/user.query";
+import { UserForm, userFormSchema } from "@/entities/user/user";
 import { Spinner } from "@/shared/ui/icons/spinner";
+import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes } from "react";
 import { z } from "zod";
-import { useUserQuery } from "@/entities/user/_query/user.query";
-import { cn } from "@/shared/ui/utils";
 import { useUserUpdate } from "../_vm/useUserUpdate";
 
 interface UserFormProps extends HTMLAttributes<HTMLDivElement> {

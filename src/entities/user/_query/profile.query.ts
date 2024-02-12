@@ -1,7 +1,7 @@
 import { getProfileAction } from "../_action/getProfile.action";
-import { UserId } from "../_domain/types";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useListenProfileUpdate } from "../_vm/event/useListenProfileUpdate";
+import { UserId } from "@/shared/lib/user";
 
 const baseKey = "profile";
 

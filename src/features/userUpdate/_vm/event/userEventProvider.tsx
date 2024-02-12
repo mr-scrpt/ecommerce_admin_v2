@@ -1,7 +1,7 @@
 "use client";
 import { createStrictContext, useStrictContext } from "@/shared/lib/react";
 import { useEmitUserUpdate } from "./useEmitUserUpdate";
-import { UserId } from "@/entities/user/user";
+import { UserId } from "@/shared/lib/user";
 
 export const userUpdateContext =
   createStrictContext<(userId: UserId) => void>();

@@ -1,10 +1,9 @@
 "use client";
 import { CategoryForm, categoryFormSchema } from "@/entities/category";
-import { Spinner } from "@/shared/ui/icons/spinner";
+import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes } from "react";
 import { z } from "zod";
-import { cn } from "@/shared/ui/utils";
 import { useCategoryCreate } from "../_vm/useCategoryCreate";
 
 interface CategoryCreateFormProps extends HTMLAttributes<HTMLDivElement> {
@@ -20,11 +19,8 @@ export const CategoryFormCreate: FC<CategoryCreateFormProps> = (props) => {
 
   const router = useRouter();
 
-  // useListenCategoryUpdate();
-
   const { categoryCreate, isPending: isPendingUpdate } = useCategoryCreate();
 
-  // data.category.role
   const handleSubmit = async (data: CategoryFormValues) => {
     await categoryCreate({
       data,
@@ -39,11 +35,9 @@ export const CategoryFormCreate: FC<CategoryCreateFormProps> = (props) => {
 
   return (
     <div className={cn(className, "w-full")}>
-      {/* <Button onClick={categoryUpdateEvent}>click</Button> */}
       <CategoryForm
         handleSubmit={handleSubmit}
         isPending={isPendingUpdate}
-        // category={data.category}
         submitText={"Create Category"}
       />
     </div>

@@ -1,4 +1,4 @@
-import { ROLES, SessionEntity, UserId } from "./types";
+import { ROLES, SessionEntity, UserId } from "@/shared/lib/user";
 
 export const createProfileAbility = (session: SessionEntity) => ({
   canGetProfile: (userId: UserId) => true,

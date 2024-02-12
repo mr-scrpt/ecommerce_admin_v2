@@ -1,13 +1,7 @@
-// import { Server } from "socket.io";
 import { WSEventEnum } from "../src/shared/type/websokcetEvent.enum";
 import { socketServer } from "../src/shared/lib/socketServer";
 
 const io = socketServer;
-// const io = new Server(3334, {
-//   cors: {
-//     origin: "*",
-//   },
-// });
 
 io.on(WSEventEnum.CONNECT, (socket) => {
   socket.on(WSEventEnum.USER_CREATE, (data) => {
