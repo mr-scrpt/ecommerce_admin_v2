@@ -4,7 +4,8 @@ export enum RoutePathEnum {
   HOME = "/",
 
   CATEGORIES = "/categories",
-  CATEGORY = "/categories/:categorySlug",
+  CATEGORY = "/categories/:slug",
+  CATEGORY_UPDATE = "/categories/update",
   CATEGORY_CREATE = "/categories/create",
   PRODUCTS = "/products",
 

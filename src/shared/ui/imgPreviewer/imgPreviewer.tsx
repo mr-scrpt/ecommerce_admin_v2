@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import { FC, HTMLAttributes } from "react";
 import { cn } from "../utils";

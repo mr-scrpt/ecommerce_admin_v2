@@ -13,6 +13,11 @@ export const categoryCreateSchema = z.object({
   board: z.array(z.string()),
 });
 
+export const categoryUpdateSchema = z.object({
+  name: z.string(),
+  board: z.array(z.string()),
+});
+
 export const categoryFormSchema = z.object({
   name: z
     .string()

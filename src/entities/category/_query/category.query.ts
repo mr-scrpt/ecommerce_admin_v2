@@ -1,9 +1,14 @@
+"use client";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getCategoryListAction } from "../_action/getCategoryList.action";
-import { getCategoryAction } from "../_action/getCategory.action";
+import {
+  getCategoryAction,
+  getCategoryBySlugAction,
+} from "../_action/getCategory.action";
 import { useListenCategoryListUpdate } from "../_vm/event/useListenCategoryListUpdate";
 import { useListenCategoryUpdate } from "../_vm/event/useListenCategoryUpdate";
 import { CategoryId } from "../_domain/types";
+import { Slug } from "@/shared/type/common.type";
 
 const baseKey = "category";
 
@@ -22,6 +27,24 @@ export const useCategoryQuery = (categoryId: CategoryId) => {
     isPending,
     isSuccess,
     data,
+  };
+};
+
+export const getCategoryBySlugQuery = (categorySlug: Slug) => ({
+  queryKey: [baseKey, "getCategoryBySlug", categorySlug],
+  queryFn: () => getCategoryBySlugAction({ categorySlug }),
+});
+
+export const useCategoryBySlugQuery = (categorySlug: Slug) => {
+  const query = getCategoryBySlugQuery(categorySlug);
+  const { isPending, isSuccess, data } = useQuery(query);
+
+  useListenCategoryUpdate();
+
+  return {
+    isPending,
+    isSuccess,
+    category: data?.category,
   };
 };
 

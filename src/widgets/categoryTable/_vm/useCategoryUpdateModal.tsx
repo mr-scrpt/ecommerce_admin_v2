@@ -1,11 +1,11 @@
-// import { CategoryFormUpdate } from "@/features/categoryUpdate";
+// import { CategoryId } from "@/entities/category";
 // import { useModalControl } from "@/shared/lib/modal";
-// import { CategoryId } from "@/shared/lib/category";
+// import { Slug } from "@/shared/type/common.type";
 //
 // export const useCategoryUpdateModal = () => {
 //   const { getModal, closeModal } = useModalControl();
 //
-//   const openUpdateModal = async (targetId: CategoryId) => {
+//   const openUpdateModal = async (catgorySlug: Slug) => {
 //     await getModal({
 //       element: (
 //         <CategoryFormUpdate categoryId={targetId} onSuccess={closeModal} />

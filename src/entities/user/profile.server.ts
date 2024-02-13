@@ -1,1 +1,1 @@
-export { updateProfileUseCase } from "./_useCase/updateProfile";
+export { updateProfileUseCase } from "./_useCase/updateProfile.usecase";

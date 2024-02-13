@@ -10,17 +10,18 @@ import {
 import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
 import { FC, HTMLAttributes, memo } from "react";
 import { CategoryColumnType } from "../_type/table.type";
+import Link from "next/link";
 
 interface CategoryTableListActionProps extends HTMLAttributes<HTMLDivElement> {
   data: CategoryColumnType;
   onCopy: () => void;
-  onUpdateClick: () => void;
+  hrefToUpdate: string;
   onDeleteClick: () => void;
 }
 
 export const CategoryTableAction: FC<CategoryTableListActionProps> = memo(
   (props) => {
-    const { onCopy, onDeleteClick: onDeletePopup, onUpdateClick } = props;
+    const { onCopy, onDeleteClick: onDeletePopup, hrefToUpdate } = props;
     return (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
@@ -38,8 +39,10 @@ export const CategoryTableAction: FC<CategoryTableListActionProps> = memo(
           >
             <Copy className="mr-2 h-4 w-4" /> Copy Id
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={onUpdateClick}>
-            <Edit className="mr-2 h-4 w-4" /> Update
+          <DropdownMenuItem>
+            <Link href={hrefToUpdate} className="flex items-center">
+              <Edit className="mr-2 h-4 w-4" /> Update
+            </Link>
           </DropdownMenuItem>
           <DropdownMenuItem onClick={onDeletePopup}>
             <Trash className="mr-2 h-4 w-4" /> Delete

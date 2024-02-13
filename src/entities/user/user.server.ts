@@ -1,1 +1,1 @@
-export { updateUserUseCase } from "./_useCase/updateUser";
+export { updateUserUseCase } from "./_useCase/updateUser.usecase";

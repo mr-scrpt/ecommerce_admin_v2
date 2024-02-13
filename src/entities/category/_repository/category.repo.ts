@@ -14,7 +14,7 @@ export class CategoryRepository {
       },
     });
   }
-  async getCategorySlug(
+  async getCategoryBySlug(
     slug: string,
     db: Tx = this.db,
   ): Promise<CategoryEntity> {

@@ -1,4 +1,4 @@
-import { ProfileAvatar } from "@/entities/user/profile";
+"use client";
 import { Button } from "@/shared/ui/button";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { FC } from "react";
@@ -15,7 +15,7 @@ interface AvatarFieldProps {
 export const BoardField: FC<AvatarFieldProps> = (props) => {
   const { value, onChange, onDelete } = props;
   const { openFileDialog, isPending } = useUploadBoardList({
-    onSuccess: onChange,
+    onSuccess: (imgs) => onChange([...value, ...imgs]),
   });
 
   return (

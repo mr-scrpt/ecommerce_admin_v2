@@ -2,14 +2,14 @@ import { ColumnDef } from "@tanstack/react-table";
 import { categoryColumns } from "../_data/columns";
 import { CategoryTableAction } from "../_ui/categoryTableAction";
 import { CategoryColumnType } from "../_type/table.type";
+import { RoutePathEnum } from "@/shared/config/routing.config";
 
 interface HandlersProps {
-  onUpdateClick: (id: string) => void;
   onDeleteClick: (id: string) => void;
 }
 
 export const useTableColumns = (handlers: HandlersProps) => {
-  const { onDeleteClick, onUpdateClick } = handlers;
+  const { onDeleteClick } = handlers;
 
   const categoryCollumnsWithAction: ColumnDef<CategoryColumnType>[] = [
     ...categoryColumns,
@@ -20,7 +20,7 @@ export const useTableColumns = (handlers: HandlersProps) => {
         <CategoryTableAction
           data={row.original}
           onCopy={() => {}}
-          onUpdateClick={() => onUpdateClick(row.original.id)}
+          hrefToUpdate={`${RoutePathEnum.CATEGORY_UPDATE}/${row.original.slug}`}
           onDeleteClick={() => onDeleteClick(row.original.id)}
         />
       ),
