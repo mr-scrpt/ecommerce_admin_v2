@@ -22,6 +22,7 @@ export const ProductFormCreate: FC<ProductCreateFormProps> = (props) => {
   const { productCreate, isPending: isPendingUpdate } = useProductCreate();
 
   const handleSubmit = async (data: ProductFormValues) => {
+    console.log("output_log:  =>>>", data);
     await productCreate({
       data,
     });

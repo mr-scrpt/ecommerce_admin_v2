@@ -10,7 +10,7 @@ const ProductCreatePage: FC<PageProps> = (props) => {
     <main className="flex min-h-screen flex-col  p-8">
       <TitlePage title="Categories create" />
 
-      <ProductCreate callbackUrl={RoutePathEnum.CATEGORIES} />
+      <ProductCreate callbackUrl={RoutePathEnum.PRODUCTS} />
     </main>
   );
 };

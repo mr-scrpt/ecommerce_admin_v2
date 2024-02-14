@@ -1,31 +1,31 @@
 import { ForbiddenError } from "@/shared/lib/errors";
-import { product, productEntity, productId } from "../_domain/types";
+import { Product, ProductEntity, ProductId } from "../_domain/types";
 import { SessionEntity } from "@/shared/lib/user";
 import {
-  productRepository,
+  ProductRepository,
   productRepository,
 } from "../_repository/product.repo";
-import { createproductAbility } from "../_domain/product.ability";
+import { createProductAbility } from "../_domain/product.ability";
 
 type Updateproduct = {
-  productId: productId;
-  productData: Partial<product>;
+  productData: Partial<Product>;
+  productId: ProductId;
   session: SessionEntity;
 };
 
-class UpdateproductUseCase {
-  constructor(private readonly productRepo: productRepository) {}
+class UpdateProductUseCase {
+  constructor(private readonly productRepo: ProductRepository) {}
 
-  async exec(data: Updateproduct): Promise<productEntity> {
+  async exec(data: Updateproduct): Promise<ProductEntity> {
     const { productId, productData, session } = data;
-    const { canUpdateproduct } = createproductAbility(session);
+    const { canUpdateProduct } = createProductAbility(session);
 
-    if (!canUpdateproduct()) {
+    if (!canUpdateProduct()) {
       throw new ForbiddenError();
     }
 
-    return await this.productRepo.updateproduct(productId, productData);
+    return await this.productRepo.updateProduct(productId, productData);
   }
 }
 
-export const updateproductUseCase = new UpdateproductUseCase(productRepository);
+export const updateProductUseCase = new UpdateProductUseCase(productRepository);

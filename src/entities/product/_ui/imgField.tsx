@@ -2,7 +2,7 @@
 import { Button } from "@/shared/ui/button";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { FC } from "react";
-import { useUploadBoardList } from "../_vm/useUploadBoardList";
+import { useUploadImgList } from "../_vm/useUploadImgList";
 import { ImgPreviewer } from "@/shared/ui/imgPreviewer/imgPreviewer";
 import { Image as ImgIcon } from "lucide-react";
 
@@ -12,9 +12,9 @@ interface AvatarFieldProps {
   onDelete: (path: string) => void;
 }
 
-export const BoardField: FC<AvatarFieldProps> = (props) => {
+export const ImgField: FC<AvatarFieldProps> = (props) => {
   const { value, onChange, onDelete } = props;
-  const { openFileDialog, isPending } = useUploadBoardList({
+  const { openFileDialog, isPending } = useUploadImgList({
     onSuccess: (imgs) => onChange([...value, ...imgs]),
   });
 

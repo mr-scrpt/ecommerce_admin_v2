@@ -19,7 +19,8 @@ import {
   productFormSchema,
 } from "../_domain/product.schema";
 import { Product } from "../_domain/types";
-import { BoardField } from "./boardField";
+import { ImgField } from "./imgField";
+import { Textarea } from "@/shared/ui/textarea";
 
 interface ProductFormProps extends HTMLAttributes<HTMLFormElement> {
   product?: Product;
@@ -30,7 +31,9 @@ interface ProductFormProps extends HTMLAttributes<HTMLFormElement> {
 
 const getDefaultValues = (product?: Product) => ({
   name: product?.name ?? "",
-  board: product?.board ?? [],
+  description: product?.description ?? "",
+  about: product?.about ?? "",
+  img: product?.img ?? [],
 });
 
 export const ProductForm: FC<ProductFormProps> = (props) => {
@@ -46,13 +49,14 @@ export const ProductForm: FC<ProductFormProps> = (props) => {
   }, [product, form]);
 
   const handleSubmit = form.handleSubmit(async (data) => {
+    console.log("output_log: clidck =>>>");
     onSubmit?.(data);
   });
 
-  const handleDeleteBoard = (path: string) => {
-    const list = form.getValues("board");
+  const handleDeleteimg = (path: string) => {
+    const list = form.getValues("img");
     const result = list.filter((item) => item !== path);
-    form.setValue("board", result);
+    form.setValue("img", result);
   };
 
   const isPendingAppearance = useAppearanceDelay(isPending);
@@ -75,15 +79,42 @@ export const ProductForm: FC<ProductFormProps> = (props) => {
         />
         <FormField
           control={form.control}
-          name="board"
+          name="description"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Description</FormLabel>
+              <FormControl>
+                <Input placeholder="Enter product description..." {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="about"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>About</FormLabel>
+              <FormControl>
+                <Textarea placeholder="Enter product about..." {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="img"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Avatar</FormLabel>
               <FormControl>
-                <BoardField
+                <ImgField
                   value={field.value}
                   onChange={field.onChange}
-                  onDelete={handleDeleteBoard}
+                  onDelete={handleDeleteimg}
                 />
               </FormControl>
               <FormMessage />
