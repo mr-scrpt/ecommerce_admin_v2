@@ -3,7 +3,6 @@ import {
   CategoryForm,
   CategoryId,
   categoryFormSchema,
-  useCategoryBySlugQuery,
   useCategoryQuery,
 } from "@/entities/category";
 import { Spinner } from "@/shared/ui/icons/spinner";
@@ -14,7 +13,6 @@ import { z } from "zod";
 import { useCategoryUpdate } from "../_vm/useCategoryUpdate";
 
 interface CategoryFormProps extends HTMLAttributes<HTMLDivElement> {
-  // categorySlug: string;
   categoryId: CategoryId;
   callbackUrl?: string;
   className?: string;

@@ -1,4 +1,4 @@
-import { UserEntity } from "@/entities/user/_domain/types";
+import { UserEntity } from "@/entities/user/_domain/user.types";
 import { useMutation } from "@tanstack/react-query";
 import { updateUserAction } from "../_action/userUpdate.action";
 

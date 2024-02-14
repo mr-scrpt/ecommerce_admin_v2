@@ -5,7 +5,7 @@ import { ProductId, baseQueryKey } from "../_domain/types";
 import { useListenProductUpdate } from "../_vm/event/useListenProductUpdate";
 
 export const getProductQuery = (productId: ProductId) => ({
-  queryKey: [baseQueryKey, "getProductById", productId],
+  queryKey: [baseQueryKey, "getProduct", productId],
   queryFn: () => getProductAction({ productId }),
 });
 
@@ -27,6 +27,6 @@ export const useInvalidateProduct = () => {
 
   return (productId: ProductId) =>
     queryClient.invalidateQueries({
-      queryKey: [baseQueryKey, "getProductById", productId],
+      queryKey: [baseQueryKey, "getProduct", productId],
     });
 };

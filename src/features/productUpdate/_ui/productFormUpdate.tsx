@@ -3,8 +3,7 @@ import {
   ProductForm,
   ProductId,
   productFormSchema,
-  useProductBySlugQuery,
-  useProductQuery,
+  useProductWithRelationQuery,
 } from "@/entities/product";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { cn } from "@/shared/ui/utils";
@@ -25,7 +24,8 @@ type ProductFormValues = z.infer<typeof productFormSchema>;
 export const ProductFormUpdate: FC<ProductFormProps> = (props) => {
   const { productId, callbackUrl, className, onSuccess } = props;
 
-  const { isPending, product } = useProductQuery(productId);
+  const { isPending, product } = useProductWithRelationQuery(productId);
+  console.log("output_log: product with relation =>>>", product);
   const router = useRouter();
 
   const { productUpdate, isPending: isPendingUpdate } = useProductUpdate();

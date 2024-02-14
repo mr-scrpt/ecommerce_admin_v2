@@ -1,5 +1,5 @@
 // "use client";
-import { UserEntity } from "@/entities/user/_domain/types";
+import { UserEntity } from "@/entities/user/_domain/user.types";
 import { useAppSession } from "@/entities/user/session";
 import { useInvalidateUser } from "@/entities/user/user";
 import { useUserUpdateMutation } from "../_mutation/useUserUpdate.mutation";

@@ -1,5 +1,5 @@
 import { DbClient, Tx, dbClient } from "@/shared/lib/db";
-import { User, UserEntity, UserToCreate } from "../_domain/types";
+import { User, UserEntity, UserToCreate } from "../_domain/user.types";
 import { UserId } from "@/shared/lib/user";
 
 export class UserRepository {

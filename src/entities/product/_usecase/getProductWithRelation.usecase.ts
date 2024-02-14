@@ -23,7 +23,7 @@ class GetProductWithRelationUseCase {
       throw new AuthorizatoinError();
     }
 
-    return await this.productRepo.getProduct(productId);
+    return await this.productRepo.getProductWithRelation(productId);
   }
 }
 

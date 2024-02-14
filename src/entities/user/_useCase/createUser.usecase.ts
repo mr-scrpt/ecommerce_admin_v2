@@ -2,7 +2,7 @@ import { userRepository } from "../_repository/user.repo";
 
 import { configPrivate } from "@/shared/config/private.config";
 import { ROLES } from "@/shared/lib/user";
-import { UserEntity, UserToCreate } from "../_domain/types";
+import { UserEntity, UserToCreate } from "../_domain/user.types";
 import { UserRepository } from "../_repository/user.repo";
 
 export type CreateUser = {

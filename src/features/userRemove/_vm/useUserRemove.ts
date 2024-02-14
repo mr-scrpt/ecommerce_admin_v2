@@ -1,4 +1,4 @@
-import { UserEntity } from "@/entities/user/_domain/types";
+import { UserEntity } from "@/entities/user/_domain/user.types";
 import { useInvalidateUser } from "@/entities/user/user";
 import { useUserRemoveMutation } from "../_mutation/removeUser.mutation";
 import { useEmitUserRemove } from "./event/useEmitUserRemove";

@@ -5,7 +5,7 @@ import { userBaseQueryKey } from "../_domain/user.types";
 import { useListenUserUpdate } from "../_vm/event/useListenUserUpdate";
 
 export const getUserQuery = (userId: UserId) => ({
-  queryKey: [userBaseQueryKey, "getUserById", userId],
+  queryKey: [userBaseQueryKey, "getUser", userId],
   queryFn: () => getUserAction({ userId }),
 });
 
@@ -27,6 +27,6 @@ export const useInvalidateUser = () => {
 
   return (userId: UserId) =>
     queryClient.invalidateQueries({
-      queryKey: [userBaseQueryKey, "getUserById", userId],
+      queryKey: [userBaseQueryKey, "getUser", userId],
     });
 };

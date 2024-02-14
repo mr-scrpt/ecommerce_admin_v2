@@ -1,5 +1,5 @@
 import { ForbiddenError } from "@/shared/lib/errors";
-import { User, UserEntity } from "../_domain/types";
+import { User, UserEntity } from "../_domain/user.types";
 import { UserRepository, createUserAbility, userRepository } from "../user";
 import { SessionEntity, UserId } from "@/shared/lib/user";
 

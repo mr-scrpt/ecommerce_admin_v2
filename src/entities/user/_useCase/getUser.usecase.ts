@@ -1,4 +1,4 @@
-import { UserEntity } from "../_domain/types";
+import { UserEntity } from "../_domain/user.types";
 import { UserRepository, userRepository } from "../_repository/user.repo";
 import { createUserAbility } from "../_domain/user.ability";
 import { AuthorizatoinError } from "@/shared/lib/errors";

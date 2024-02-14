@@ -4,7 +4,6 @@ import { z } from "zod";
 import { productSchema } from "../_domain/product.schema";
 import { ProductEntity } from "../_domain/types";
 import { getProductUseCase } from "../_usecase/getProduct.usecase";
-import { getProductBySlugUseCase } from "../_usecase/getProductBySlug.usecase";
 
 const getByIdSchema = z.object({
   productId: z.string(),

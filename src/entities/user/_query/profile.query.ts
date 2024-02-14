@@ -5,7 +5,7 @@ import { UserId } from "@/shared/lib/user";
 import { profileBaseQueryKey } from "../_domain/profile.types";
 
 export const getProfileQuery = (userId: UserId) => ({
-  queryKey: [profileBaseQueryKey, "getProfileById", userId],
+  queryKey: [profileBaseQueryKey, "getProfile", userId],
   queryFn: () => getProfileAction({ userId }),
 });
 
@@ -27,6 +27,6 @@ export const useInvalidateProfile = () => {
 
   return (userId: UserId) =>
     queryClient.invalidateQueries({
-      queryKey: [profileBaseQueryKey, "getProfileById", userId],
+      queryKey: [profileBaseQueryKey, "getProfile", userId],
     });
 };

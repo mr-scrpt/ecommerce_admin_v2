@@ -4,7 +4,7 @@ import {
   UserRemoveTx,
   userRemoveTx,
 } from "../_repository/userRemove.transaction";
-import { UserEntity } from "@/entities/user/_domain/types";
+import { UserEntity } from "@/entities/user/_domain/user.types";
 import { SessionEntity, UserId } from "@/shared/lib/user";
 
 type RemoveUser = {

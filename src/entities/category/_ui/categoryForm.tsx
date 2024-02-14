@@ -56,6 +56,7 @@ export const CategoryForm: FC<CategoryFormProps> = (props) => {
   };
 
   const isPendingAppearance = useAppearanceDelay(isPending);
+  // console.log("output_log: form =>>>", form);
 
   return (
     <Form {...form}>

@@ -1,4 +1,4 @@
-import { UserEntity } from "@/entities/user/_domain/types";
+import { UserEntity } from "@/entities/user/_domain/user.types";
 import { UserRepository, userRepository } from "@/entities/user/user";
 import { DbClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
 import { UserId } from "@/shared/lib/user";
