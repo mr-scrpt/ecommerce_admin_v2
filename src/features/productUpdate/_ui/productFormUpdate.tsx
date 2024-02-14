@@ -1,8 +1,10 @@
 "use client";
 import {
   ProductForm,
+  ProductId,
   productFormSchema,
   useProductBySlugQuery,
+  useProductQuery,
 } from "@/entities/product";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { cn } from "@/shared/ui/utils";
@@ -12,7 +14,7 @@ import { z } from "zod";
 import { useProductUpdate } from "../_vm/useProductUpdate";
 
 interface ProductFormProps extends HTMLAttributes<HTMLDivElement> {
-  productSlug: string;
+  productId: ProductId;
   callbackUrl?: string;
   className?: string;
   onSuccess?: () => void;
@@ -21,9 +23,9 @@ interface ProductFormProps extends HTMLAttributes<HTMLDivElement> {
 type ProductFormValues = z.infer<typeof productFormSchema>;
 
 export const ProductFormUpdate: FC<ProductFormProps> = (props) => {
-  const { productSlug, callbackUrl, className, onSuccess } = props;
+  const { productId, callbackUrl, className, onSuccess } = props;
 
-  const { isPending, product } = useProductBySlugQuery(productSlug);
+  const { isPending, product } = useProductQuery(productId);
   const router = useRouter();
 
   const { productUpdate, isPending: isPendingUpdate } = useProductUpdate();

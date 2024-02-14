@@ -26,7 +26,7 @@ export const useProductQuery = (productId: ProductId) => {
   return {
     isPending,
     isSuccess,
-    data,
+    product: data?.product,
   };
 };
 
