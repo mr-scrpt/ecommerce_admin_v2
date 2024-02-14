@@ -1,5 +1,10 @@
 export { ProductForm } from "./_ui/productForm";
-export { productFormSchema, productSchema } from "./_domain/product.schema";
+export {
+  productFormSchema,
+  productSchema,
+  productCreateSchema,
+  productUpdateSchema,
+} from "./_domain/product.schema";
 export {
   useProductListQuery,
   useProductQuery,
