@@ -1,11 +1,14 @@
 "use server";
-import { CategoryEntity } from "@/entities/category/_domain/types";
-import { getAppSessionStrictServer } from "@/entities/user/getAppSessionServer";
-import { categorySchema } from "@/entities/category";
 import { z } from "zod";
+
+import {
+  CategoryEntity,
+  categorySchema,
+  categoryUpdateSchema,
+} from "@/entities/category";
 import { updateCategoryUseCase } from "@/entities/category/server";
+import { getAppSessionStrictServer } from "@/entities/user/getAppSessionServer";
 import { slugGenerator } from "@/shared/lib/slugGenerator";
-import { categoryUpdateSchema } from "@/entities/category/_domain/category.schema";
 
 const propsSchema = z.object({
   categoryId: z.string(),

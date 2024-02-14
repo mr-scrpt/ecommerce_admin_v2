@@ -12,5 +12,5 @@ export { useListenUserUpdate } from "./_vm/event/useListenUserUpdate";
 export { useListenUserListUpdate } from "./_vm/event/useListenUserListUpdate";
 export { useAppSessionOrRedirect } from "./_vm/useAppSession";
 
-export type { UserPartial, User } from "./_domain/types";
+export type { UserPartial, User, UserEntity } from "./_domain/types";
 export type { UserFormValues } from "./_domain/user.schema";

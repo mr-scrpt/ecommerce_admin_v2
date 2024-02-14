@@ -1,5 +1,10 @@
 export { CategoryForm } from "./_ui/categoryForm";
-export { categoryFormSchema, categorySchema } from "./_domain/category.schema";
+export {
+  categoryFormSchema,
+  categorySchema,
+  categoryCreateSchema,
+  categoryUpdateSchema,
+} from "./_domain/category.schema";
 export {
   useCategoryListQuery,
   useCategoryQuery,

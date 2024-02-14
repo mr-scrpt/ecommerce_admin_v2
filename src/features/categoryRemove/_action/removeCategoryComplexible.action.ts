@@ -1,7 +1,7 @@
 "use server";
-import { CategoryEntity } from "@/entities/category/_domain/types";
-import { categorySchema } from "@/entities/category";
 import { z } from "zod";
+
+import { CategoryEntity, categorySchema } from "@/entities/category";
 import { removeCategoryComplexibleUseCase } from "../_useCase/removeCategoryComplexible.usecase";
 import { getAppSessionStrictServer } from "@/entities/user/getAppSessionServer";
 

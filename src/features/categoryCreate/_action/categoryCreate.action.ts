@@ -2,10 +2,7 @@
 
 import { getAppSessionStrictServer } from "@/entities/user/getAppSessionServer";
 import { z } from "zod";
-import {
-  categoryCreateSchema,
-  categorySchema,
-} from "@/entities/category/_domain/category.schema";
+import { categoryCreateSchema, categorySchema } from "@/entities/category";
 import { createCategoryUseCase } from "@/entities/category/server";
 import { slugGenerator } from "@/shared/lib/slugGenerator";
 
