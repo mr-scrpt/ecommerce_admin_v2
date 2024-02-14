@@ -5,11 +5,8 @@ export {
   categoryCreateSchema,
   categoryUpdateSchema,
 } from "./_domain/category.schema";
-export {
-  useCategoryListQuery,
-  useCategoryQuery,
-  useCategoryBySlugQuery,
-} from "./_query/category.query";
+export { useCategoryQuery } from "./_query/category.query";
+export { useCategoryListQuery } from "./_query/categoryList.query";
 export {
   CategoryRepository,
   categoryRepository,

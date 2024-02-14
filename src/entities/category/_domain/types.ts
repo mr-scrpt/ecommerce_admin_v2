@@ -1,3 +1,4 @@
+export const baseQueryKey = "category";
 export type CategoryId = string;
 export type CategorySlug = string;
 
