@@ -1,3 +1,5 @@
+export const baseQueryKey = "product";
+
 export type ProductId = string;
 export type ProductSlug = string;
 

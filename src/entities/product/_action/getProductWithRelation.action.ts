@@ -32,24 +32,3 @@ export const getProductAction = async (
     product: product,
   });
 };
-
-// const getBySlugSchema = z.object({
-//   productSlug: z.string(),
-// });
-//
-// export const getProductBySlugAction = async (
-//   props: z.infer<typeof getBySlugSchema>,
-// ): Promise<ResultT> => {
-//   const { productSlug } = getBySlugSchema.parse(props);
-//
-//   const session = await getAppSessionStrictServer();
-//
-//   const product = await getProductBySlugUseCase.exec({
-//     session,
-//     productSlug,
-//   });
-//
-//   return resultSchema.parseAsync({
-//     product: product,
-//   });
-// };

@@ -5,11 +5,8 @@ export {
   productCreateSchema,
   productUpdateSchema,
 } from "./_domain/product.schema";
-export {
-  useProductListQuery,
-  useProductQuery,
-  useProductBySlugQuery,
-} from "./_query/product.query";
+export { useProductQuery } from "./_query/product.query";
+export { useProductListQuery } from "./_query/productList.query";
 export {
   ProductRepository,
   productRepository,

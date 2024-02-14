@@ -1,7 +1,7 @@
 "use client";
 import { useSocketHandler } from "@/shared/lib/socket";
 import { WSEventEnum } from "@/shared/type/websokcetEvent.enum";
-import { useInvalidateProductList } from "../../_query/product.query";
+import { useInvalidateProductList } from "../../_query/productList.query";
 
 export const useListenProductListUpdate = () => {
   const invalidateProductList = useInvalidateProductList();

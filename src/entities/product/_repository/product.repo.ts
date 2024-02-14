@@ -14,6 +14,21 @@ export class ProductRepository {
       },
     });
   }
+
+  async getProductWithRelation(
+    productId: ProductId,
+    db: Tx = this.db,
+  ): Promise<ProductEntity> {
+    return db.product.findUniqueOrThrow({
+      where: {
+        id: productId,
+      },
+      include: {
+        categoryList: true,
+      },
+    });
+  }
+
   async getProductBySlug(
     slug: string,
     db: Tx = this.db,
