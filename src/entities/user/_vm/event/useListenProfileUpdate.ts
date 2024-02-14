@@ -2,7 +2,7 @@
 import { useSocketHandler } from "@/shared/lib/socket";
 import { WSEventEnum } from "@/shared/type/websokcetEvent.enum";
 import { useInvalidateProfile } from "../../profile";
-import { UserId } from "../../user";
+import { UserId } from "@/shared/lib/user";
 
 export const useListenProfileUpdate = () => {
   const invalidateProfile = useInvalidateProfile();

@@ -2,11 +2,10 @@ import { getProfileAction } from "../_action/getProfile.action";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useListenProfileUpdate } from "../_vm/event/useListenProfileUpdate";
 import { UserId } from "@/shared/lib/user";
-
-const baseKey = "profile";
+import { profileBaseQueryKey } from "../_domain/profile.types";
 
 export const getProfileQuery = (userId: UserId) => ({
-  queryKey: [baseKey, "getProfileById", userId],
+  queryKey: [profileBaseQueryKey, "getProfileById", userId],
   queryFn: () => getProfileAction({ userId }),
 });
 
@@ -28,6 +27,6 @@ export const useInvalidateProfile = () => {
 
   return (userId: UserId) =>
     queryClient.invalidateQueries({
-      queryKey: [baseKey, "getProfileById", userId],
+      queryKey: [profileBaseQueryKey, "getProfileById", userId],
     });
 };

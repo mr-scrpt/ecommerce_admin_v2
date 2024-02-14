@@ -1,11 +1,11 @@
 import { AuthorizatoinError } from "@/shared/lib/errors";
 import { SessionEntity, UserId } from "@/shared/lib/user";
 import { createProfileAbility } from "../_domain/profile.ability";
-import { ProfileEntity } from "../_domain/types";
 import {
   ProfileRepository,
   profileRepository,
 } from "../_repository/profile.repo";
+import { ProfileEntity } from "../_domain/profile.types";
 
 type GetProfile = {
   userId: UserId;

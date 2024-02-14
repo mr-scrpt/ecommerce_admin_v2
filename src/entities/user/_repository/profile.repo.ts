@@ -1,6 +1,6 @@
 import { DbClient, Tx, dbClient } from "@/shared/lib/db";
 import { UserId } from "@/shared/lib/user";
-import { Profile, ProfileEntity } from "../_domain/types";
+import { Profile, ProfileEntity } from "../_domain/profile.types";
 
 export class ProfileRepository {
   constructor(readonly db: DbClient) {}

@@ -1,3 +1,4 @@
+export const userBaseQueryKey = "user";
 import { Role, UserId } from "@/shared/lib/user";
 
 export type UserEntity = {
@@ -9,7 +10,6 @@ export type UserEntity = {
   image?: string | null;
   createdAt: Date;
 };
-export type ProfileEntity = UserEntity;
 
 export type UserPartial = {
   email: string;
@@ -20,12 +20,6 @@ export type UserPartial = {
 };
 
 // Projetions
-
-export type Profile = {
-  email: string;
-  name?: string | null;
-  image?: string | null;
-};
 
 export type User = {
   // id: UserId;

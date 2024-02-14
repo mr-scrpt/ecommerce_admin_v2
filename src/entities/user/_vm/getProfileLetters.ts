@@ -1,4 +1,4 @@
-import { Profile } from "../_domain/types";
+import { Profile } from "../_domain/profile.types";
 import { getProfileDisplayName } from "./getProfileDisplayName";
 
 export const getProfileLetters = (profile: Profile) => {

@@ -1,8 +1,8 @@
 import { FC, HTMLAttributes } from "react";
-import { Profile } from "../_domain/types";
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
 import { cn } from "@/shared/ui/utils";
 import { getProfileLetters } from "../_vm/getProfileLetters";
+import { Profile } from "../_domain/profile.types";
 
 interface ProfileAvatarProps extends HTMLAttributes<HTMLDivElement> {
   profile?: Profile;

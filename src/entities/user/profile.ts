@@ -7,4 +7,4 @@ export { ProfileForm } from "./_ui/profileForm";
 export { useListenProfileUpdate } from "./_vm/event/useListenProfileUpdate";
 
 export type { ProfileFormValues } from "./_domain/profile.schema";
-export type { Profile } from "./_domain/types";
+export type { Profile } from "./_domain/profile.types";
