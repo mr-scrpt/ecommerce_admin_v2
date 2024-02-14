@@ -11,6 +11,7 @@ const PageCategories: FC<PageProps> = (props) => {
     <main className="flex min-h-screen flex-col  p-8">
       <TitlePage
         title="Categories"
+        description="Manage your category list"
         action={<CategoryCreateButton route={RoutePathEnum.CATEGORY_CREATE} />}
       />
       <CategoryTable />

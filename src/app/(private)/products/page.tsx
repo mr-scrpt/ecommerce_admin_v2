@@ -10,7 +10,8 @@ const PageCategories: FC<PageProps> = (props) => {
   return (
     <main className="flex min-h-screen flex-col  p-8">
       <TitlePage
-        title="Categories"
+        title="Products"
+        description="Manage your product list"
         action={<ProductCreateButton route={RoutePathEnum.PRODUCT_CREATE} />}
       />
       <ProductTable />

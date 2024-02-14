@@ -8,7 +8,7 @@ interface PageProps extends HTMLAttributes<HTMLDivElement> {}
 const ProductCreatePage: FC<PageProps> = (props) => {
   return (
     <main className="flex min-h-screen flex-col  p-8">
-      <TitlePage title="Categories create" />
+      <TitlePage title="Product create" description="Create product item" />
 
       <ProductCreate callbackUrl={RoutePathEnum.PRODUCTS} />
     </main>
