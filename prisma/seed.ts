@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { categoryListSeed } from "./data/category";
 import { userListSeed } from "./data/user";
+import { productListSeed } from "./data/product";
 const prisma = new PrismaClient();
 
 async function main() {
@@ -10,10 +11,14 @@ async function main() {
       return prisma.user.create({ data });
     }),
 
-    // Создаем массив промисов для категорий
     ...categoryListSeed.map((data) => {
       console.log("category created", data);
       return prisma.category.create({ data });
+    }),
+
+    ...productListSeed.map((data) => {
+      console.log("product created", data);
+      return prisma.product.create({ data });
     }),
   ]);
 }
