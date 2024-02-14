@@ -8,7 +8,7 @@ interface PageProps extends HTMLAttributes<HTMLDivElement> {}
 const PageSignIn: FC<PageProps> = (props) => {
   return (
     <main className="container relative  flex-col items-center justify-center self-center pt-24">
-      <Card className="max-w-[350px] mx-auto">
+      <Card className="mx-auto max-w-[350px]">
         <CardHeader className="flex flex-col space-y-2 text-center">
           <h1 className="text-2xl font-semibold tracking-tight">
             Sign in to your account

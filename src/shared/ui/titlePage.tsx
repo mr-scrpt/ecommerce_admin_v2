@@ -9,8 +9,8 @@ interface TitlePageProps extends HTMLAttributes<HTMLDivElement> {
 export const TitlePage: FC<TitlePageProps> = (props) => {
   const { className, title, action } = props;
   return (
-    <div className={cn(className, "flex justify-between w-full")}>
-      <h1 className="text-3xl mb-2">{title}</h1>
+    <div className={cn(className, "flex w-full justify-between")}>
+      <h1 className="mb-2 text-3xl">{title}</h1>
       {action && action}
     </div>
   );

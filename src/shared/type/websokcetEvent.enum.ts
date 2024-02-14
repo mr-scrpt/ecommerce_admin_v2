@@ -16,4 +16,10 @@ export enum WSEventEnum {
   CATEGORY_REMOVE = "category_remove",
   CATEGORY_REFRESH = "category_refresh",
   CATEGORY_LIST_REFRESH = "category_list_refresh",
+
+  PRODUCT_CREATE = "product_create",
+  PRODUCT_UPDATE = "product_update",
+  PRODUCT_REMOVE = "product_remove",
+  PRODUCT_REFRESH = "product_refresh",
+  PRODUCT_LIST_REFRESH = "product_list_refresh",
 }

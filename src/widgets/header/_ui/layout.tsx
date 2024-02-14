@@ -22,7 +22,7 @@ export const Layout = ({
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 items-center">
-        <div className="md:hidden mr-2">
+        <div className="mr-2 md:hidden">
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon">
@@ -30,15 +30,15 @@ export const Layout = ({
               </Button>
             </SheetTrigger>
             <SheetContent side="left">
-              <SheetHeader className=" border-b pb-5 mb-5">{logo}</SheetHeader>
+              <SheetHeader className=" mb-5 border-b pb-5">{logo}</SheetHeader>
               {nav}
             </SheetContent>
           </Sheet>
         </div>
 
         <div className="mr-4 hidden md:flex">{logo}</div>
-        <div className="items-center flex-1 flex">
-          <div className="hidden md:flex w-full">{nav}</div>
+        <div className="flex flex-1 items-center">
+          <div className="hidden w-full md:flex">{nav}</div>
           <div className="flex flex-1 items-center justify-end space-x-3 ">
             {actions}
             {profile}

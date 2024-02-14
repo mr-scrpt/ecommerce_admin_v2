@@ -12,12 +12,12 @@ export const Nav: FC<NavProps> = (props) => {
 
   const menu = useMenu();
   return (
-    <nav className="flex justify-center gap-6 text-sm font-medium flex-col md:flex-row md:items-center">
+    <nav className="flex flex-col justify-center gap-6 text-sm font-medium md:flex-row md:items-center">
       {menu.map((item) => (
         <Link
           key={item.href}
           className={cn(
-            "transition-colors hover:text-foreground/80 text-foreground/60 text-center",
+            "text-center text-foreground/60 transition-colors hover:text-foreground/80",
             item.href === pathname
               ? "text-black dark:text-white"
               : "text-muted-foreground",

@@ -10,7 +10,7 @@ const PageProfile: FC<PageProfileProps> = (props) => {
   const { params } = props;
   console.log("output_log:  =>>>", params);
   return (
-    <main className="space-y-6 py-14 container  max-w-[600px]">
+    <main className="container max-w-[600px] space-y-6  py-14">
       <div>
         <h3 className="text-lg font-medium">Profile</h3>
         <p className="text-sm text-muted-foreground">

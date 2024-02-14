@@ -26,7 +26,7 @@ export const Profile: FC<ProfileProps> = (props) => {
   const { signOut, isPending: isLoadingSignOut } = UseSignOut();
 
   if (status === "loading") {
-    return <Skeleton className="w-8 h-8 rounded-full" />;
+    return <Skeleton className="h-8 w-8 rounded-full" />;
   }
 
   if (status === "unauthenticated") {
@@ -39,15 +39,15 @@ export const Profile: FC<ProfileProps> = (props) => {
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
-          className="p-px rounded-full self-center h-8 w-8"
+          className="h-8 w-8 self-center rounded-full p-px"
         >
-          <ProfileAvatar profile={user} className="w-8 h-8" />
+          <ProfileAvatar profile={user} className="h-8 w-8" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56 mr-2 ">
+      <DropdownMenuContent className="mr-2 w-56 ">
         <DropdownMenuLabel>
           <p>My account</p>
-          <p className="text-xs text-muted-foreground overflow-hidden text-ellipsis">
+          <p className="overflow-hidden text-ellipsis text-xs text-muted-foreground">
             {user ? getProfileDisplayName(user) : undefined}
           </p>
         </DropdownMenuLabel>

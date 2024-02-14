@@ -66,7 +66,7 @@ export const TestEmailSignInForm: FC<TestEmailSignInFormProps> = (props) => {
           </Button>
           {isSuccess && (
             <a
-              className="text-sm text-muted-foreground text-underline"
+              className="text-underline text-sm text-muted-foreground"
               onClick={() => console.log("on click;;;", link)}
               href={link}
             >

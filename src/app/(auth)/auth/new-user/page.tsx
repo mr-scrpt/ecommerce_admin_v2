@@ -12,7 +12,7 @@ const NewUserPage: FC<PageProps> = async (props) => {
   const { callbackUrl } = searchParams;
   const session = await getAppSessionServerOrRedirect();
   return (
-    <main className="space-y-6 py-14 container">
+    <main className="container space-y-6 py-14">
       <div className="flex flex-col items-center">
         <h3 className="text-lg font-medium">The final step</h3>
         <p className="text-sm text-muted-foreground">

@@ -13,13 +13,13 @@ export const ImgPreviewer: FC<ImgPreviewerProps> = (props) => {
   const { imgPathList, onDelete, className } = props;
   return (
     <div className={cn(className, "w-full")}>
-      <div className="flex w-full flex-wrap border gap-3 p-3">
+      <div className="flex w-full flex-wrap gap-3 border p-3">
         {imgPathList.map((item) => (
           <div key={item} className="relative">
             <Image src={item} alt={item} width={200} height={120} />
             <IconX
               onClick={() => onDelete(item)}
-              className="absolute -top-3 -right-3 text-red-600 cursor-pointer "
+              className="absolute -right-3 -top-3 cursor-pointer text-red-600 "
             />
           </div>
         ))}

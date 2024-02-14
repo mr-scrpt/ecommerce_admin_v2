@@ -13,9 +13,9 @@ export const SpinnerFullPage: FC<spinnerFullPageProps> = (props) => {
 
   if (show) {
     return (
-      <div className="inset-0 flex items-center justify-center absolute">
+      <div className="absolute inset-0 flex items-center justify-center">
         <Spinner
-          className="w-10 h-10 text-primary"
+          className="h-10 w-10 text-primary"
           aria-label="Загрузка страницы"
         />
       </div>
