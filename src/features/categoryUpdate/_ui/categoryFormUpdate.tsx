@@ -1,8 +1,10 @@
 "use client";
 import {
   CategoryForm,
+  CategoryId,
   categoryFormSchema,
   useCategoryBySlugQuery,
+  useCategoryQuery,
 } from "@/entities/category";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { cn } from "@/shared/ui/utils";
@@ -12,7 +14,8 @@ import { z } from "zod";
 import { useCategoryUpdate } from "../_vm/useCategoryUpdate";
 
 interface CategoryFormProps extends HTMLAttributes<HTMLDivElement> {
-  categorySlug: string;
+  // categorySlug: string;
+  categoryId: CategoryId;
   callbackUrl?: string;
   className?: string;
   onSuccess?: () => void;
@@ -21,9 +24,9 @@ interface CategoryFormProps extends HTMLAttributes<HTMLDivElement> {
 type CategoryFormValues = z.infer<typeof categoryFormSchema>;
 
 export const CategoryFormUpdate: FC<CategoryFormProps> = (props) => {
-  const { categorySlug, callbackUrl, className, onSuccess } = props;
+  const { categoryId, callbackUrl, className, onSuccess } = props;
 
-  const { isPending, category } = useCategoryBySlugQuery(categorySlug);
+  const { isPending, category } = useCategoryQuery(categoryId);
   const router = useRouter();
 
   const { categoryUpdate, isPending: isPendingUpdate } = useCategoryUpdate();

@@ -20,7 +20,7 @@ export const useTableColumns = (handlers: HandlersProps) => {
         <CategoryTableAction
           data={row.original}
           onCopy={() => {}}
-          hrefToUpdate={`${RoutePathEnum.CATEGORY_UPDATE}/${row.original.slug}`}
+          hrefToUpdate={`${RoutePathEnum.CATEGORY_UPDATE}/${row.original.id}`}
           onDeleteClick={() => onDeleteClick(row.original.id)}
         />
       ),

@@ -1,14 +1,14 @@
 "use client";
+import { Slug } from "@/shared/type/common.type";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { getCategoryListAction } from "../_action/getCategoryList.action";
 import {
   getCategoryAction,
   getCategoryBySlugAction,
 } from "../_action/getCategory.action";
+import { getCategoryListAction } from "../_action/getCategoryList.action";
+import { CategoryId } from "../_domain/types";
 import { useListenCategoryListUpdate } from "../_vm/event/useListenCategoryListUpdate";
 import { useListenCategoryUpdate } from "../_vm/event/useListenCategoryUpdate";
-import { CategoryId } from "../_domain/types";
-import { Slug } from "@/shared/type/common.type";
 
 const baseKey = "category";
 
@@ -18,6 +18,7 @@ export const getCategoryQuery = (categoryId: CategoryId) => ({
 });
 
 export const useCategoryQuery = (categoryId: CategoryId) => {
+  console.log("output_log: categoryId in query =>>>", categoryId);
   const query = getCategoryQuery(categoryId);
   const { isPending, isSuccess, data } = useQuery(query);
 
@@ -26,20 +27,23 @@ export const useCategoryQuery = (categoryId: CategoryId) => {
   return {
     isPending,
     isSuccess,
-    data,
+    category: data?.category,
   };
 };
 
-export const getCategoryBySlugQuery = (categorySlug: Slug) => ({
-  queryKey: [baseKey, "getCategoryBySlug", categorySlug],
-  queryFn: () => getCategoryBySlugAction({ categorySlug }),
-});
+export const getCategoryBySlugQuery = (categorySlug: Slug) => {
+  console.log("output_log: useInvalidateBySlug query =>>>");
+  return {
+    queryKey: [baseKey, "getCategoryBySlug", categorySlug],
+    queryFn: () => getCategoryBySlugAction({ categorySlug }),
+  };
+};
 
 export const useCategoryBySlugQuery = (categorySlug: Slug) => {
   const query = getCategoryBySlugQuery(categorySlug);
   const { isPending, isSuccess, data } = useQuery(query);
 
-  useListenCategoryUpdate();
+  // useListenCategoryUpdateBySlug();
 
   return {
     isPending,
@@ -74,6 +78,16 @@ export const useInvalidateCategory = () => {
       queryKey: [baseKey, "getCategoryById", categoryId],
     });
 };
+
+// export const useInvalidateCategoryBySlug = () => {
+//   const queryClient = useQueryClient();
+//   console.log("output_log: useInvalidateBySlug hook =>>>");
+//
+//   return (categorySlug: CategorySlug) =>
+//     queryClient.invalidateQueries({
+//       queryKey: [baseKey, "getCategoryBySlug", categorySlug],
+//     });
+// };
 
 export const useInvalidateCategoryList = () => {
   const queryClient = useQueryClient();

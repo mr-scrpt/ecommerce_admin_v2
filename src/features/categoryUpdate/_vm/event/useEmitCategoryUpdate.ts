@@ -7,6 +7,8 @@ export const useEmitCategoryUpdate = () => {
 
   return {
     categoryUpdateEvent: (categoryId: CategoryId) => {
+      console.log("output_log: categoryUpdateEvent =>>>", categoryId);
+
       socket.emit(WSEventEnum.CATEGORY_UPDATE, categoryId);
     },
   };

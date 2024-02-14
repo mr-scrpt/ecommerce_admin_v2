@@ -19,6 +19,7 @@ type ResultT = { category: CategoryEntity };
 export const getCategoryAction = async (
   props: z.infer<typeof getByIdSchema>,
 ): Promise<ResultT> => {
+  console.log("output_log: props =>>>", props);
   const { categoryId } = getByIdSchema.parse(props);
 
   const session = await getAppSessionStrictServer();

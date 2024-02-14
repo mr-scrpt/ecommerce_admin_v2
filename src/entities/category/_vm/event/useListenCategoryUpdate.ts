@@ -8,7 +8,7 @@ export const useListenCategoryUpdate = () => {
   const invalidateCategory = useInvalidateCategory();
 
   useSocketHandler(WSEventEnum.CATEGORY_REFRESH, (categoryId: CategoryId) => {
-    console.log("output_log: category invalidate =>>>");
+    console.log("output_log: category invalidate =>>>", categoryId);
     invalidateCategory(categoryId);
   });
 };

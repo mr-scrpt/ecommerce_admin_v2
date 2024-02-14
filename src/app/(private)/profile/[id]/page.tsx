@@ -8,7 +8,6 @@ interface PageProfileProps extends HTMLAttributes<HTMLDivElement> {
 
 const PageProfile: FC<PageProfileProps> = (props) => {
   const { params } = props;
-  console.log("output_log:  =>>>", params);
   return (
     <main className="container max-w-[600px] space-y-6  py-14">
       <div>
