@@ -1,5 +1,4 @@
-import { useCategoryListQuery } from "@/entities/category";
-import { CategoryId } from "@/entities/category/_domain/types";
+import { CategoryId, useCategoryListQuery } from "@/entities/category";
 import { buildDate } from "@/shared/lib/date";
 
 export const useCategoryTableList = (categoryId: CategoryId) => {
