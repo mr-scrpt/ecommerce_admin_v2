@@ -1,1 +1,1 @@
-export { CategoryUpdate } from "./_ui/categoryUpdate";
+export { ProductUpdate } from "./_ui/productUpdate";
