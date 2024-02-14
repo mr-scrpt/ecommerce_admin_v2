@@ -27,7 +27,7 @@ export const UserTable: FC<UserTableProps> = (props) => {
   const userColumns = useTableColumns({ onDeleteClick, onUpdateClick });
 
   if (isPendingComplexible) {
-    return <Spinner aria-label="Profile loade..." />;
+    return <Spinner aria-label="Profile loaded..." />;
   }
   return (
     <TableData

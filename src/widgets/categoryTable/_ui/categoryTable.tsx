@@ -25,14 +25,14 @@ export const CategoryTable: FC<CategoryTableProps> = (props) => {
 
   // const { openUpdateModal: onUpdateClick } = useCategoryUpdateModal();
 
-  // const isPendingComplexible = isPendingCategoryList || isPendingRemoveCategory;
+  const isPendingComplexible = isPendingCategoryList || isPendingRemoveCategory;
   const categoryColumns = useTableColumns({
     onDeleteClick,
   });
 
-  // if (isPendingComplexible) {
-  //   return <Spinner aria-label="Profile loade..." />;
-  // }
+  if (isPendingComplexible) {
+    return <Spinner aria-label="Category loaded..." />;
+  }
   return (
     <TableData
       columns={categoryColumns}

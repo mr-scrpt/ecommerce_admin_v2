@@ -24,16 +24,14 @@ export const ProductTable: FC<ProductTableProps> = (props) => {
     isPending: isPendingRemoveProduct,
   } = useProductRemoveConfirm();
 
-  // const { openUpdateModal: onUpdateClick } = useProductUpdateModal();
-
-  // const isPendingComplexible = isPendingProductList || isPendingRemoveProduct;
+  const isPendingComplexible = isPendingProductList || isPendingRemoveProduct;
   const productColumns = useTableColumns({
     onDeleteClick,
   });
 
-  // if (isPendingComplexible) {
-  //   return <Spinner aria-label="Profile loade..." />;
-  // }
+  if (isPendingComplexible) {
+    return <Spinner aria-label="Product loaded..." />;
+  }
   return (
     <TableData
       columns={productColumns}

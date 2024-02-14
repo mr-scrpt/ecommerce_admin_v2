@@ -1,5 +1,6 @@
 import { useAppSession } from "@/entities/user/session";
 import { useEmitCategoryUpdate } from "@/features/categoryUpdate";
+import { useEmitProductUpdate } from "@/features/productUpdate";
 import { useEmitProfileUpdate } from "@/features/profileUpdate";
 import { useEmitUserUpdate } from "@/features/userUpdate";
 import { ComposeChildren, createStrictContext } from "@/shared/lib/react";
@@ -11,6 +12,7 @@ interface IEventContext {
   emitUserUpdate: (userId: UserId) => void;
   emitProfileUpdate: (userId: UserId) => void;
   emitCategoryUpdate: (userId: UserId) => void;
+  emitProductUpdate: (userId: UserId) => void;
 }
 
 const EventContext = createStrictContext<IEventContext>();
@@ -23,11 +25,13 @@ const EventProvider = (props: ProviderWSProps) => {
   const { userUpdateEvent } = useEmitUserUpdate();
   const { profileUpdateEvent } = useEmitProfileUpdate();
   const { categoryUpdateEvent } = useEmitCategoryUpdate();
+  const { productUpdateEvent } = useEmitProductUpdate();
 
   const eventContext: IEventContext = {
     emitUserUpdate: userUpdateEvent,
     emitProfileUpdate: profileUpdateEvent,
     emitCategoryUpdate: categoryUpdateEvent,
+    emitProductUpdate: productUpdateEvent,
   };
 
   return (
