@@ -2,7 +2,7 @@ import { useCategoryListQuery } from "@/entities/category";
 import { buildDate } from "@/shared/lib/date";
 
 export const useCategoryTableList = () => {
-  const { isPending, isSuccess, data } = useCategoryListQuery();
+  const { isPending, isSuccess, categoryList: data } = useCategoryListQuery();
 
   const categoryList = data?.map((item) => ({
     id: item.id,

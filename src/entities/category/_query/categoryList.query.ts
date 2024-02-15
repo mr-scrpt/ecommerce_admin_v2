@@ -18,7 +18,7 @@ export const useCategoryListQuery = () => {
   return {
     isPending,
     isSuccess,
-    data: data ? data.categoryList : [],
+    categoryList: data ? data.categoryList : [],
   };
 };
 

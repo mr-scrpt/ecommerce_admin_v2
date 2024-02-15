@@ -5,6 +5,10 @@ import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes } from "react";
 import { z } from "zod";
 import { useProductCreate } from "../_vm/useProductCreate";
+import {
+  useCategoryLikeOptionList,
+  useCategoryListQuery,
+} from "@/entities/category";
 
 interface ProductCreateFormProps extends HTMLAttributes<HTMLDivElement> {
   callbackUrl?: string;
@@ -21,8 +25,11 @@ export const ProductFormCreate: FC<ProductCreateFormProps> = (props) => {
 
   const { productCreate, isPending: isPendingUpdate } = useProductCreate();
 
+  const { categoryOptionList, isPending: IsPendingCategoryOptionList } =
+    useCategoryLikeOptionList();
+
+  console.log("output_log: optionList  =>>>", categoryOptionList);
   const handleSubmit = async (data: ProductFormValues) => {
-    console.log("output_log:  =>>>", data);
     await productCreate({
       data,
     });
@@ -34,12 +41,15 @@ export const ProductFormCreate: FC<ProductCreateFormProps> = (props) => {
     }
   };
 
+  const isPendingComplexible = isPendingUpdate || IsPendingCategoryOptionList;
+
   return (
     <div className={cn(className, "w-full")}>
       <ProductForm
         handleSubmit={handleSubmit}
-        isPending={isPendingUpdate}
+        isPending={isPendingComplexible}
         submitText={"Create Product"}
+        categoryOptionList={categoryOptionList}
       />
     </div>
   );

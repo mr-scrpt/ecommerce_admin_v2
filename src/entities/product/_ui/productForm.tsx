@@ -22,13 +22,14 @@ import {
 } from "../_domain/product.schema";
 import { Product } from "../_domain/types";
 import { ImgField } from "./imgField";
-import { MultiSelect } from "@/shared/ui/multiSelect";
+import { MultiSelect, OptionItem } from "@/shared/ui/multiSelect";
 
 interface ProductFormProps extends HTMLAttributes<HTMLFormElement> {
   product?: Product;
   handleSubmit?: (data: ProductFormValues) => void;
   isPending: boolean;
   submitText?: string;
+  categoryOptionList: Array<OptionItem>;
 }
 
 const getDefaultValues = (product?: Product) => ({
@@ -39,7 +40,13 @@ const getDefaultValues = (product?: Product) => ({
 });
 
 export const ProductForm: FC<ProductFormProps> = (props) => {
-  const { product, handleSubmit: onSubmit, submitText, isPending } = props;
+  const {
+    product,
+    handleSubmit: onSubmit,
+    submitText,
+    isPending,
+    categoryOptionList,
+  } = props;
 
   const form = useForm<ProductFormValues>({
     resolver: zodResolver(productFormSchema),
@@ -63,34 +70,6 @@ export const ProductForm: FC<ProductFormProps> = (props) => {
 
   const isPendingAppearance = useAppearanceDelay(isPending);
 
-  const optionList = [
-    {
-      value: "next.js",
-      label: "Next.js",
-    },
-    {
-      value: "sveltekit",
-      label: "SvelteKit",
-    },
-    {
-      value: "nuxt.js",
-      label: "Nuxt.js",
-    },
-    {
-      value: "remix",
-      label: "Remix",
-    },
-  ];
-  const optionActivList = [
-    {
-      value: "next.js",
-      label: "Next.js",
-    },
-    {
-      value: "remix",
-      label: "Remix",
-    },
-  ];
   return (
     <Form {...form}>
       <form onSubmit={handleSubmit} className="space-y-8">
@@ -102,8 +81,8 @@ export const ProductForm: FC<ProductFormProps> = (props) => {
               <FormLabel>Category list</FormLabel>
               <FormControl>
                 <MultiSelect
-                  optionList={optionList}
-                  optionActivList={optionActivList}
+                  optionList={categoryOptionList}
+                  optionActivList={[]}
                 />
               </FormControl>
               <FormMessage />

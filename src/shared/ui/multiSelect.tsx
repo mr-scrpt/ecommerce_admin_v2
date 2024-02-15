@@ -7,7 +7,7 @@ import { Badge } from "./badge";
 import { Command, CommandGroup, CommandItem } from "./command";
 import { Command as CommandPrimitive } from "cmdk";
 
-type OptionItem = Record<"value" | "label", string>;
+export type OptionItem = Record<"value" | "label", string>;
 
 interface MultiSelectProps {
   optionList: Array<OptionItem>;
