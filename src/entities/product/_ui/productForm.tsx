@@ -1,6 +1,7 @@
 "use client";
 import { useAppearanceDelay } from "@/shared/lib/react";
 import { Button } from "@/shared/ui/button";
+import { DropdownMenuCheckboxes } from "@/shared/ui/dropDownMenuCheckbox";
 import {
   Form,
   FormControl,
@@ -11,6 +12,7 @@ import {
 } from "@/shared/ui/form";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { Input } from "@/shared/ui/input";
+import { Textarea } from "@/shared/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, HTMLAttributes, useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -20,7 +22,7 @@ import {
 } from "../_domain/product.schema";
 import { Product } from "../_domain/types";
 import { ImgField } from "./imgField";
-import { Textarea } from "@/shared/ui/textarea";
+import { MultiSelect } from "@/shared/ui/multiSelect";
 
 interface ProductFormProps extends HTMLAttributes<HTMLFormElement> {
   product?: Product;
@@ -61,9 +63,53 @@ export const ProductForm: FC<ProductFormProps> = (props) => {
 
   const isPendingAppearance = useAppearanceDelay(isPending);
 
+  const optionList = [
+    {
+      value: "next.js",
+      label: "Next.js",
+    },
+    {
+      value: "sveltekit",
+      label: "SvelteKit",
+    },
+    {
+      value: "nuxt.js",
+      label: "Nuxt.js",
+    },
+    {
+      value: "remix",
+      label: "Remix",
+    },
+  ];
+  const optionActivList = [
+    {
+      value: "next.js",
+      label: "Next.js",
+    },
+    {
+      value: "remix",
+      label: "Remix",
+    },
+  ];
   return (
     <Form {...form}>
       <form onSubmit={handleSubmit} className="space-y-8">
+        <FormField
+          control={form.control}
+          name="categoryList"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Category list</FormLabel>
+              <FormControl>
+                <MultiSelect
+                  optionList={optionList}
+                  optionActivList={optionActivList}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <FormField
           control={form.control}
           name="name"

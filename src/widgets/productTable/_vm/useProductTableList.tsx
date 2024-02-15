@@ -1,8 +1,8 @@
 import { ProductId, useProductListQuery } from "@/entities/product";
 import { buildDate } from "@/shared/lib/date";
 
-export const useProductTableList = (productId: ProductId) => {
-  const { isPending, isSuccess, data } = useProductListQuery(productId);
+export const useProductTableList = () => {
+  const { isPending, isSuccess, data } = useProductListQuery();
 
   const productList = data?.map((item) => ({
     id: item.id,

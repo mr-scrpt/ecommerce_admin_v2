@@ -5,9 +5,9 @@ import { categorySchema } from "../_domain/category.schema";
 import { CategoryEntity } from "../_domain/types";
 import { getCategoryListUseCase } from "../_usecase/getCategoryList.usecase";
 
-const propsSchema = z.object({
-  categoryId: z.string(),
-});
+// const propsSchema = z.object({
+//   categoryId: z.string(),
+// });
 
 const resultSchema = z.object({
   categoryList: z.array(categorySchema),
@@ -15,17 +15,12 @@ const resultSchema = z.object({
 
 type ResultT = { categoryList: CategoryEntity[] };
 
-export const getCategoryListAction = async (
-  props: z.infer<typeof propsSchema>,
-): Promise<ResultT> => {
-  const { categoryId } = propsSchema.parse(props);
+export const getCategoryListAction = async (): Promise<ResultT> => {
+  // const { categoryId } = propsSchema.parse(props);
 
   const session = await getAppSessionStrictServer();
 
-  const categoryList = await getCategoryListUseCase.exec({
-    session,
-    categoryId,
-  });
+  const categoryList = await getCategoryListUseCase.exec({ session });
 
   return resultSchema.parseAsync({
     categoryList: categoryList,

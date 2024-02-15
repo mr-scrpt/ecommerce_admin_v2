@@ -1,16 +1,16 @@
 "use client";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getCategoryListAction } from "../_action/getCategoryList.action";
-import { CategoryId, baseQueryKey } from "../_domain/types";
+import { baseQueryKey } from "../_domain/types";
 import { useListenCategoryListUpdate } from "../_vm/event/useListenCategoryListUpdate";
 
-export const getCategoryListQuery = (categoryId: CategoryId) => ({
+export const getCategoryListQuery = () => ({
   queryKey: [baseQueryKey, "getCategoryList"],
-  queryFn: () => getCategoryListAction({ categoryId }),
+  queryFn: () => getCategoryListAction(),
 });
 
-export const useCategoryListQuery = (categoryId: CategoryId) => {
-  const query = getCategoryListQuery(categoryId);
+export const useCategoryListQuery = () => {
+  const query = getCategoryListQuery();
   const { isPending, isSuccess, data } = useQuery(query);
 
   useListenCategoryListUpdate();

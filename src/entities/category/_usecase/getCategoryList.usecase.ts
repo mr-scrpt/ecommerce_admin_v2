@@ -8,7 +8,6 @@ import {
 } from "../_repository/category.repo";
 
 type GetCategoryList = {
-  categoryId: CategoryId;
   session: SessionEntity;
 };
 

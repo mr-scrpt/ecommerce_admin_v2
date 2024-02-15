@@ -33,6 +33,7 @@ export const productFormSchema = z.object({
   description: z.string(),
   about: z.string(),
   img: z.array(z.string()),
+  categoryList: z.array(z.string()),
 });
 
 export type ProductFormValues = z.infer<typeof productFormSchema>;

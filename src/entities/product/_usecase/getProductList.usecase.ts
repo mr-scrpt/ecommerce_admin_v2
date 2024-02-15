@@ -1,14 +1,13 @@
 import { AuthorizatoinError } from "@/shared/lib/errors";
 import { SessionEntity } from "@/shared/lib/user";
 import { createProductAbility } from "../_domain/product.ability";
-import { ProductEntity, ProductId } from "../_domain/types";
+import { ProductEntity } from "../_domain/types";
 import {
   ProductRepository,
   productRepository,
 } from "../_repository/product.repo";
 
 type GetProductList = {
-  productId: ProductId;
   session: SessionEntity;
 };
 

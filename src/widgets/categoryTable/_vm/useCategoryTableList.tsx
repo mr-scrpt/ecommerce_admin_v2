@@ -1,8 +1,8 @@
-import { CategoryId, useCategoryListQuery } from "@/entities/category";
+import { useCategoryListQuery } from "@/entities/category";
 import { buildDate } from "@/shared/lib/date";
 
-export const useCategoryTableList = (categoryId: CategoryId) => {
-  const { isPending, isSuccess, data } = useCategoryListQuery(categoryId);
+export const useCategoryTableList = () => {
+  const { isPending, isSuccess, data } = useCategoryListQuery();
 
   const categoryList = data?.map((item) => ({
     id: item.id,

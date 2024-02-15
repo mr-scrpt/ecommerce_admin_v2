@@ -7,17 +7,12 @@ import { FC, HTMLAttributes } from "react";
 import { useProductTableList } from "../_vm/useProductTableList";
 import { useTableColumns } from "../_vm/useTabelColumns";
 import { useProductRemoveConfirm } from "../_vm/useProductRemoveConfirm";
-// import { useProductRemoveConfirm } from "../_vm/useProductRemoveConfirm";
-// import { useProductUpdateModal } from "../_vm/useProductUpdateModal";
 
 interface ProductTableProps extends HTMLAttributes<HTMLDivElement> {}
 
 export const ProductTable: FC<ProductTableProps> = (props) => {
-  const session = useAppSessionOrRedirect();
-
-  const { productList, isPending: isPendingProductList } = useProductTableList(
-    session!.user.id,
-  );
+  const { productList, isPending: isPendingProductList } =
+    useProductTableList();
 
   const {
     removeProductConfirm: onDeleteClick,
