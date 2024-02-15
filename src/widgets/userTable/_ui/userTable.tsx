@@ -1,22 +1,17 @@
 "use client";
-import { useAppSessionOrRedirect } from "@/entities/user/user";
 
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { TableData } from "@/shared/ui/tableData/ui/tableData";
 import { FC, HTMLAttributes } from "react";
-import { useUserTableList } from "../_vm/useUserTableList";
 import { useTableColumns } from "../_vm/useTabelColumns";
 import { useUserRemoveConfirm } from "../_vm/useUserRemoveConfirm";
+import { useUserTableList } from "../_vm/useUserTableList";
 import { useUserUpdateModal } from "../_vm/useUserUpdateModal";
 
 interface UserTableProps extends HTMLAttributes<HTMLDivElement> {}
 
 export const UserTable: FC<UserTableProps> = (props) => {
-  const session = useAppSessionOrRedirect();
-
-  const { userList, isPending: isPendingUserList } = useUserTableList(
-    session!.user.id,
-  );
+  const { userList, isPending: isPendingUserList } = useUserTableList();
 
   const { removeUserConfirm: onDeleteClick, isPending: isPendingRemoveUser } =
     useUserRemoveConfirm();

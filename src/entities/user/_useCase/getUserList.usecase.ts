@@ -1,11 +1,10 @@
 import { AuthorizatoinError } from "@/shared/lib/errors";
-import { SessionEntity, UserId } from "@/shared/lib/user";
-import { UserEntity } from "../_domain/user.types";
+import { SessionEntity } from "@/shared/lib/user";
 import { createUserAbility } from "../_domain/user.ability";
+import { UserEntity } from "../_domain/user.types";
 import { UserRepository, userRepository } from "../_repository/user.repo";
 
 type GetUserList = {
-  userId: UserId;
   session: SessionEntity;
 };
 
