@@ -1,5 +1,10 @@
 import { DbClient, Tx, dbClient } from "@/shared/lib/db";
-import { Product, ProductEntity, ProductId } from "../_domain/types";
+import {
+  Product,
+  ProductEntity,
+  ProductId,
+  ProductRelation,
+} from "../_domain/types";
 
 export class ProductRepository {
   constructor(readonly db: DbClient) {}
@@ -45,11 +50,14 @@ export class ProductRepository {
   }
 
   async createProduct(
-    product: Product,
+    product: ProductRelation,
     db: Tx = this.db,
   ): Promise<ProductEntity> {
     return await db.product.create({
-      data: product,
+      data: {
+        ...product,
+        categoryList: { connect: [...product.categoryList] },
+      },
     });
   }
 

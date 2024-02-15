@@ -1,13 +1,11 @@
-import { OptionItem } from "@/shared/ui/multiSelect";
 import { useCategoryListQuery } from "..";
+import { useCategoryListTransformOption } from "./useCategoryListTransformOption";
 
 export const useCategoryLikeOptionList = () => {
   const { categoryList, isPending } = useCategoryListQuery();
+  const { toOptionList } = useCategoryListTransformOption();
 
-  const optionList: Array<OptionItem> = categoryList.map((item) => ({
-    value: item.id,
-    label: item.name,
-  }));
+  const optionList = toOptionList(categoryList);
 
   return {
     categoryOptionList: optionList,

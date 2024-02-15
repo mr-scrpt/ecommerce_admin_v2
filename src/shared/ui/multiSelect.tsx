@@ -12,17 +12,25 @@ export type OptionItem = Record<"value" | "label", string>;
 interface MultiSelectProps {
   optionList: Array<OptionItem>;
   optionActivList: Array<OptionItem>;
+  onSelected: (items: Array<OptionItem>) => void;
 }
 
 export function MultiSelect(props: MultiSelectProps) {
-  const { optionList, optionActivList } = props;
+  const { optionList, optionActivList, onSelected } = props;
   const inputRef = React.useRef<HTMLInputElement>(null);
   const [open, setOpen] = React.useState(false);
   const [selected, setSelected] = React.useState<OptionItem[]>(optionActivList);
   const [inputValue, setInputValue] = React.useState("");
+  console.log("output_log: inputValue =>>>", selected);
 
-  console.log("output_log: option =>>>", optionList);
-  console.log("output_log: selected =>>>", selected);
+  React.useEffect(() => {
+    if (selected) {
+      onSelected(selected);
+    }
+  }, [selected]);
+
+  // console.log("output_log: option =>>>", optionList);
+  // console.log("output_log: selected =>>>", selected);
 
   const handleUnselect = React.useCallback((framework: OptionItem) => {
     setSelected((prev) => prev.filter((s) => s.value !== framework.value));

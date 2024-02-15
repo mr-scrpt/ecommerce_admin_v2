@@ -1,7 +1,6 @@
 "use client";
 import { useAppearanceDelay } from "@/shared/lib/react";
 import { Button } from "@/shared/ui/button";
-import { DropdownMenuCheckboxes } from "@/shared/ui/dropDownMenuCheckbox";
 import {
   Form,
   FormControl,
@@ -12,6 +11,7 @@ import {
 } from "@/shared/ui/form";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { Input } from "@/shared/ui/input";
+import { MultiSelect, OptionItem } from "@/shared/ui/multiSelect";
 import { Textarea } from "@/shared/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, HTMLAttributes, useEffect } from "react";
@@ -22,7 +22,6 @@ import {
 } from "../_domain/product.schema";
 import { Product } from "../_domain/types";
 import { ImgField } from "./imgField";
-import { MultiSelect, OptionItem } from "@/shared/ui/multiSelect";
 
 interface ProductFormProps extends HTMLAttributes<HTMLFormElement> {
   product?: Product;
@@ -30,6 +29,9 @@ interface ProductFormProps extends HTMLAttributes<HTMLFormElement> {
   isPending: boolean;
   submitText?: string;
   categoryOptionList: Array<OptionItem>;
+  handleCategoryOptionSelect: (
+    itemList: Array<OptionItem>,
+  ) => Array<{ id: string }>;
 }
 
 const getDefaultValues = (product?: Product) => ({
@@ -46,6 +48,7 @@ export const ProductForm: FC<ProductFormProps> = (props) => {
     submitText,
     isPending,
     categoryOptionList,
+    handleCategoryOptionSelect,
   } = props;
 
   const form = useForm<ProductFormValues>({
@@ -58,7 +61,6 @@ export const ProductForm: FC<ProductFormProps> = (props) => {
   }, [product, form]);
 
   const handleSubmit = form.handleSubmit(async (data) => {
-    console.log("output_log: clidck =>>>");
     onSubmit?.(data);
   });
 
@@ -69,6 +71,11 @@ export const ProductForm: FC<ProductFormProps> = (props) => {
   };
 
   const isPendingAppearance = useAppearanceDelay(isPending);
+
+  // console.log(
+  //   "output_log: value from form =>>>",
+  //   form.getValues("categoryList"),
+  // );
 
   return (
     <Form {...form}>
@@ -83,6 +90,16 @@ export const ProductForm: FC<ProductFormProps> = (props) => {
                 <MultiSelect
                   optionList={categoryOptionList}
                   optionActivList={[]}
+                  onSelected={(value) => {
+                    field.onChange(handleCategoryOptionSelect(value));
+                    // form.setValue(
+                    //   "categoryList",
+                    //   handleCategoryOptionSelect(value),
+                    // );
+                    // handleCategoryOptionSelect(value);
+                  }}
+                  {...field}
+                  // onChange={() => field.onChange}
                 />
               </FormControl>
               <FormMessage />

@@ -1,14 +1,14 @@
 "use client";
+import {
+  useCategoryLikeOptionList,
+  useCategoryListTransformOption,
+} from "@/entities/category";
 import { ProductForm, productFormSchema } from "@/entities/product";
 import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes } from "react";
 import { z } from "zod";
 import { useProductCreate } from "../_vm/useProductCreate";
-import {
-  useCategoryLikeOptionList,
-  useCategoryListQuery,
-} from "@/entities/category";
 
 interface ProductCreateFormProps extends HTMLAttributes<HTMLDivElement> {
   callbackUrl?: string;
@@ -27,12 +27,15 @@ export const ProductFormCreate: FC<ProductCreateFormProps> = (props) => {
 
   const { categoryOptionList, isPending: IsPendingCategoryOptionList } =
     useCategoryLikeOptionList();
+  const { toCategoryIdList } = useCategoryListTransformOption();
 
-  console.log("output_log: optionList  =>>>", categoryOptionList);
+  // console.log("output_log: optionList  =>>>", categoryOptionList);
   const handleSubmit = async (data: ProductFormValues) => {
     await productCreate({
       data,
     });
+
+    console.log("output_log: form data =>>>", data);
 
     onSuccess?.();
 
@@ -50,6 +53,7 @@ export const ProductFormCreate: FC<ProductCreateFormProps> = (props) => {
         isPending={isPendingComplexible}
         submitText={"Create Product"}
         categoryOptionList={categoryOptionList}
+        handleCategoryOptionSelect={toCategoryIdList}
       />
     </div>
   );
