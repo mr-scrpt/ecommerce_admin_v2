@@ -10,17 +10,19 @@ import { useCategoryRemoveConfirm } from "../_vm/useCategoryRemoveConfirm";
 interface CategoryTableProps extends HTMLAttributes<HTMLDivElement> {}
 
 export const CategoryTable: FC<CategoryTableProps> = (props) => {
-  const { categoryList, isPending: isPendingCategoryList } =
-    useCategoryTableList();
+  const {
+    categoryList,
+    isPending: isPendingCategoryList,
+    isFetchedAfterMount,
+  } = useCategoryTableList();
 
   const {
     removeCategoryConfirm: onDeleteClick,
     isPending: isPendingRemoveCategory,
   } = useCategoryRemoveConfirm();
 
-  // const { openUpdateModal: onUpdateClick } = useCategoryUpdateModal();
-
-  const isPendingComplexible = isPendingCategoryList || isPendingRemoveCategory;
+  const isPendingComplexible =
+    isPendingCategoryList || isPendingRemoveCategory || !isFetchedAfterMount;
   const categoryColumns = useTableColumns({
     onDeleteClick,
   });
@@ -28,6 +30,7 @@ export const CategoryTable: FC<CategoryTableProps> = (props) => {
   if (isPendingComplexible) {
     return <Spinner aria-label="Category loaded..." />;
   }
+
   return (
     <TableData
       columns={categoryColumns}

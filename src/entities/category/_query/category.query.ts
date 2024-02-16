@@ -10,15 +10,15 @@ export const getCategoryQuery = (categoryId: CategoryId) => ({
 });
 
 export const useCategoryQuery = (categoryId: CategoryId) => {
-  console.log("output_log: categoryId in query =>>>", categoryId);
   const query = getCategoryQuery(categoryId);
-  const { isPending, isSuccess, data } = useQuery(query);
+  const { isPending, isSuccess, isFetchedAfterMount, data } = useQuery(query);
 
   useListenCategoryUpdate();
 
   return {
     isPending,
     isSuccess,
+    isFetchedAfterMount,
     category: data?.category,
   };
 };

@@ -24,17 +24,24 @@ type CategoryFormValues = z.infer<typeof categoryFormSchema>;
 export const CategoryFormUpdate: FC<CategoryFormProps> = (props) => {
   const { categoryId, callbackUrl, className, onSuccess } = props;
 
-  const { isPending, category } = useCategoryQuery(categoryId);
+  const {
+    isPending: isPendingGetCategory,
+    isFetchedAfterMount,
+    category,
+  } = useCategoryQuery(categoryId);
   const router = useRouter();
 
   const { categoryUpdate, isPending: isPendingUpdate } = useCategoryUpdate();
 
-  if (isPending) {
-    return <Spinner aria-label="Loading profile..." />;
-  }
+  const isPendingComplexible =
+    isPendingGetCategory || isPendingUpdate || !isFetchedAfterMount;
 
   if (!category) {
     return <div>Failed to load category, you may not have permissions</div>;
+  }
+
+  if (isPendingComplexible) {
+    return <Spinner aria-label="Loading profile..." />;
   }
 
   const handleSubmit = async (data: CategoryFormValues) => {
@@ -54,7 +61,7 @@ export const CategoryFormUpdate: FC<CategoryFormProps> = (props) => {
     <div className={cn(className, "w-full")}>
       <CategoryForm
         handleSubmit={handleSubmit}
-        isPending={isPending || isPendingUpdate}
+        isPending={isPendingComplexible}
         category={category}
         submitText={"Save change"}
       />

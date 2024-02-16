@@ -31,6 +31,7 @@ export const ProductTable: FC<ProductTableProps> = (props) => {
   if (isPendingComplexible) {
     return <Spinner aria-label="Product loaded..." />;
   }
+
   return (
     <TableData
       columns={productColumns}

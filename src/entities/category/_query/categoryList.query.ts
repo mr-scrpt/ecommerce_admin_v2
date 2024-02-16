@@ -11,13 +11,14 @@ export const getCategoryListQuery = () => ({
 
 export const useCategoryListQuery = () => {
   const query = getCategoryListQuery();
-  const { isPending, isSuccess, data } = useQuery(query);
+  const { isPending, isSuccess, isFetchedAfterMount, data } = useQuery(query);
 
   useListenCategoryListUpdate();
 
   return {
     isPending,
     isSuccess,
+    isFetchedAfterMount,
     categoryList: data ? data.categoryList : [],
   };
 };

@@ -55,7 +55,6 @@ export const ProductForm: FC<ProductFormProps> = (props) => {
     isPending,
     categoryOptionList,
     handleCategoryOptionSelect,
-    categotyOptionActiveList = [],
     handleCategoryOptionActive,
   } = props;
 
