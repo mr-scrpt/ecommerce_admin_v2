@@ -15,6 +15,13 @@ enum ROLE {
   USER
 }
 
+enum DATATYPE {
+  select
+  mult
+  checkbox
+  radio
+}
+
 model Category {
   id    String   @id @default(uuid())
   name  String
@@ -22,8 +29,10 @@ model Category {
   board String[]
 
   productList Product[] @relation("ProductToCategory")
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  optionList  Option[]  @relation("OptionToCategory")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Product {
@@ -32,11 +41,39 @@ model Product {
   description  String
   about        String
   slug         String     @unique
-  img        String[]
+  img          String[]
+
   categoryList Category[] @relation("ProductToCategory")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Option {
+  id       String       @id @default(uuid())
+  name     String
+  datatype DATATYPE
+
+  optionItemList    OptionItem[] @relation("OptionItemToOption")
+  categoryList Category[] @relation("OptionToCategory")
+
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+}
+
+model OptionItem {
+  id    String @id @default(uuid())
+  name  String
+  value String
+
+  option    Option   @relation("OptionItemToOption", fields: [optionId], references: [id], onDelete: Cascade)
+  optionId  String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([optionId, name])
+  @@index([optionId, name])
 }
 
 model Account {
