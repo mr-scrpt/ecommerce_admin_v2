@@ -11,13 +11,14 @@ export const getProductListQuery = () => ({
 
 export const useProductListQuery = () => {
   const query = getProductListQuery();
-  const { isPending, isSuccess, data } = useQuery(query);
+  const { isPending, isFetchedAfterMount, isSuccess, data } = useQuery(query);
 
   useListenProductListUpdate();
 
   return {
     isPending,
     isSuccess,
+    isFetchedAfterMount,
     data: data ? data.productList : [],
   };
 };

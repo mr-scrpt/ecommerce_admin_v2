@@ -2,7 +2,8 @@ import { useProductListQuery } from "@/entities/product";
 import { buildDate } from "@/shared/lib/date";
 
 export const useProductTableList = () => {
-  const { isPending, isSuccess, data } = useProductListQuery();
+  const { isPending, isSuccess, isFetchedAfterMount, data } =
+    useProductListQuery();
 
   const productList = data?.map((item) => ({
     id: item.id,
@@ -14,6 +15,7 @@ export const useProductTableList = () => {
   return {
     isPending,
     isSuccess,
+    isFetchedAfterMount,
     productList: productList ?? [],
   };
 };

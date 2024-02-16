@@ -1,25 +1,29 @@
 "use client";
-import { useAppSessionOrRedirect } from "@/entities/user/_vm/useAppSession";
 
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { TableData } from "@/shared/ui/tableData/ui/tableData";
 import { FC, HTMLAttributes } from "react";
+import { useProductRemoveConfirm } from "../_vm/useProductRemoveConfirm";
 import { useProductTableList } from "../_vm/useProductTableList";
 import { useTableColumns } from "../_vm/useTabelColumns";
-import { useProductRemoveConfirm } from "../_vm/useProductRemoveConfirm";
 
 interface ProductTableProps extends HTMLAttributes<HTMLDivElement> {}
 
 export const ProductTable: FC<ProductTableProps> = (props) => {
-  const { productList, isPending: isPendingProductList } =
-    useProductTableList();
+  const {
+    productList,
+    isPending: isPendingProductList,
+    isFetchedAfterMount,
+  } = useProductTableList();
 
   const {
     removeProductConfirm: onDeleteClick,
     isPending: isPendingRemoveProduct,
   } = useProductRemoveConfirm();
 
-  const isPendingComplexible = isPendingProductList || isPendingRemoveProduct;
+  const isPendingComplexible =
+    isPendingProductList || isPendingRemoveProduct || !isFetchedAfterMount;
+
   const productColumns = useTableColumns({
     onDeleteClick,
   });
