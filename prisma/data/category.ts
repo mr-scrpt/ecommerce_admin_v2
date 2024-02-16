@@ -1,6 +1,6 @@
 export const categoryListSeed = [
   {
-    id: "cat_585fsddfew789879",
+    id: "cat_585fsddfew7898few",
     name: "First Category",
     slug: "first-category",
     board: [
