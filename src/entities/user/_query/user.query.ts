@@ -11,13 +11,14 @@ export const getUserQuery = (userId: UserId) => ({
 
 export const useUserQuery = (userId: UserId) => {
   const query = getUserQuery(userId);
-  const { isPending, isSuccess, data } = useQuery(query);
+  const { isPending, isSuccess, isFetchedAfterMount, data } = useQuery(query);
 
   useListenUserUpdate();
 
   return {
     isPending,
     isSuccess,
+    isFetchedAfterMount,
     data,
   };
 };

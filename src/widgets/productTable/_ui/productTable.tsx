@@ -37,7 +37,7 @@ export const ProductTable: FC<ProductTableProps> = (props) => {
       columns={productColumns}
       data={productList}
       filterKey="name"
-      isLoading={false}
+      isLoading={isPendingComplexible}
     />
   );
 };

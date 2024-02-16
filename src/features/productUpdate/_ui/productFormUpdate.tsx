@@ -29,23 +29,24 @@ export const ProductFormUpdate: FC<ProductFormProps> = (props) => {
   const { productId, callbackUrl, className, onSuccess } = props;
 
   const {
-    isPending: isPendingGetUser,
+    isPending: isPendingProduct,
     product,
     isFetchedAfterMount,
   } = useProductWithRelationQuery(productId);
+
   const router = useRouter();
 
   const { productUpdate, isPending: isPendingUpdate } = useProductUpdate();
 
-  const { categoryOptionList, isPending: IsPendingCategoryOptionList } =
+  const { categoryOptionList, isPending: isPendingCategoryOptionList } =
     useCategoryLikeOptionList();
   const { toCategoryIdList, toOptionList } = useCategoryListTransformOption();
 
   const isPendingComplexible =
     isPendingUpdate ||
-    IsPendingCategoryOptionList ||
-    !isFetchedAfterMount ||
-    isPendingGetUser;
+    isPendingCategoryOptionList ||
+    isPendingProduct ||
+    !isFetchedAfterMount;
 
   if (isPendingComplexible) {
     return <Spinner aria-label="Loading profile..." />;

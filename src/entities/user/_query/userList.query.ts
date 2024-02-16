@@ -10,13 +10,14 @@ export const getUserListQuery = () => ({
 
 export const useUserListQuery = () => {
   const query = getUserListQuery();
-  const { isPending, isSuccess, data } = useQuery(query);
+  const { isPending, isSuccess, isFetchedAfterMount, data } = useQuery(query);
 
   useListenUserListUpdate();
 
   return {
     isPending,
     isSuccess,
+    isFetchedAfterMount,
     data: data ? data.userList : [],
   };
 };

@@ -25,16 +25,17 @@ export const CategoryFormUpdate: FC<CategoryFormProps> = (props) => {
   const { categoryId, callbackUrl, className, onSuccess } = props;
 
   const {
-    isPending: isPendingGetCategory,
+    isPending: isPendingCategory,
     isFetchedAfterMount,
     category,
   } = useCategoryQuery(categoryId);
+
   const router = useRouter();
 
   const { categoryUpdate, isPending: isPendingUpdate } = useCategoryUpdate();
 
   const isPendingComplexible =
-    isPendingGetCategory || isPendingUpdate || !isFetchedAfterMount;
+    isPendingCategory || isPendingUpdate || !isFetchedAfterMount;
 
   if (!category) {
     return <div>Failed to load category, you may not have permissions</div>;

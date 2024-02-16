@@ -11,14 +11,19 @@ import { useUserUpdateModal } from "../_vm/useUserUpdateModal";
 interface UserTableProps extends HTMLAttributes<HTMLDivElement> {}
 
 export const UserTable: FC<UserTableProps> = (props) => {
-  const { userList, isPending: isPendingUserList } = useUserTableList();
+  const {
+    userList,
+    isPending: isPendingUserList,
+    isFetchedAfterMount,
+  } = useUserTableList();
 
   const { removeUserConfirm: onDeleteClick, isPending: isPendingRemoveUser } =
     useUserRemoveConfirm();
 
   const { openUpdateModal: onUpdateClick } = useUserUpdateModal();
 
-  const isPendingComplexible = isPendingUserList || isPendingRemoveUser;
+  const isPendingComplexible =
+    isPendingUserList || isPendingRemoveUser || !isFetchedAfterMount;
   const userColumns = useTableColumns({ onDeleteClick, onUpdateClick });
 
   if (isPendingComplexible) {
@@ -29,7 +34,7 @@ export const UserTable: FC<UserTableProps> = (props) => {
       columns={userColumns}
       data={userList}
       filterKey="name"
-      isLoading={false}
+      isLoading={isPendingComplexible}
     />
   );
 };

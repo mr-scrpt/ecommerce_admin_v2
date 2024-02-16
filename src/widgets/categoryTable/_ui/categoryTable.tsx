@@ -36,7 +36,7 @@ export const CategoryTable: FC<CategoryTableProps> = (props) => {
       columns={categoryColumns}
       data={categoryList}
       filterKey="name"
-      isLoading={false}
+      isLoading={isPendingComplexible}
     />
   );
 };

@@ -19,14 +19,19 @@ type UserFormValues = z.infer<typeof userFormSchema>;
 export const UserFormUpdate: FC<UserFormProps> = (props) => {
   const { userId, callbackUrl, className, onSuccess } = props;
 
-  const { isPending, data } = useUserQuery(userId);
+  const {
+    isPending: isPendingUser,
+    isFetchedAfterMount,
+    data,
+  } = useUserQuery(userId);
   const router = useRouter();
-
-  // useListenUserUpdate();
 
   const { userUpdate, isPending: isPendingUpdate } = useUserUpdate();
 
-  if (isPending) {
+  const isPendingComplexible =
+    isPendingUpdate || isPendingUser || !isFetchedAfterMount;
+
+  if (isPendingComplexible) {
     return <Spinner aria-label="Loading profile..." />;
   }
 
@@ -50,10 +55,9 @@ export const UserFormUpdate: FC<UserFormProps> = (props) => {
 
   return (
     <div className={cn(className, "w-full")}>
-      {/* <Button onClick={userUpdateEvent}>click</Button> */}
       <UserForm
         handleSubmit={handleSubmit}
-        isPending={isPending || isPendingUpdate}
+        isPending={isPendingComplexible}
         user={data.user}
         submitText={"Save change"}
       />

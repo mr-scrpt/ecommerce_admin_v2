@@ -11,13 +11,14 @@ export const getProfileQuery = (userId: UserId) => ({
 
 export const useProfileQuery = (userId: UserId) => {
   const query = getProfileQuery(userId);
-  const { isPending, isSuccess, data } = useQuery(query);
+  const { isPending, isSuccess, isFetchedAfterMount, data } = useQuery(query);
 
   useListenProfileUpdate();
 
   return {
     isPending,
     isSuccess,
+    isFetchedAfterMount,
     data,
   };
 };

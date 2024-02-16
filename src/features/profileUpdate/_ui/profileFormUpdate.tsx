@@ -19,12 +19,19 @@ type ProfileFormValues = z.infer<typeof profileFormSchema>;
 export const ProfileFormUpdate: FC<ProfileFormProps> = (props) => {
   const { userId, callbackUrl, className } = props;
 
-  const { isPending, data } = useProfileQuery(userId);
+  const {
+    isPending: isPendingProfile,
+    isFetchedAfterMount,
+    data,
+  } = useProfileQuery(userId);
   const router = useRouter();
 
   const { update, isPending: isPendingUpdate } = useProfileUpdate();
 
-  if (isPending) {
+  const isPendingComplexible =
+    isPendingProfile || isPendingUpdate || !isFetchedAfterMount;
+
+  if (isPendingComplexible) {
     return <Spinner aria-label="Loading profile..." />;
   }
 
@@ -46,7 +53,7 @@ export const ProfileFormUpdate: FC<ProfileFormProps> = (props) => {
     <div className={cn(className, "w-full")}>
       <ProfileForm
         handleSubmit={handleSubmit}
-        isPending={isPending || isPendingUpdate}
+        isPending={isPendingComplexible}
         profile={data.profile}
         submitText={callbackUrl ? "Continue" : "Save change"}
       />
