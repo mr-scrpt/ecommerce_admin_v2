@@ -12,8 +12,9 @@ export enum RoutePathEnum {
   PRODUCT_UPDATE = "/products/update",
   PRODUCT_CREATE = "/products/create",
 
-  BOARDS = "/boards",
-  BOARD = "/boards/:boardSlug",
+  OPTIONS = "/options",
+  OPTION_UPDATE = "/options/update",
+  OPTION_CREATE = "/options/create",
 
   USERS = "/users",
   SETTINGS = "/settings",
@@ -29,7 +30,7 @@ enum RouteNameEnum {
   CATEGORIES = "Categories",
   PRODUCTS = "Products",
 
-  BOARDS = "Boards",
+  OPTIONS = "Options",
 
   SETTINGS = "Settings",
   USERS = "Users",
@@ -55,8 +56,8 @@ export const ROUTING_MAIN_MENU_DATA = [
     label: RouteNameEnum.PRODUCTS,
   },
   {
-    href: `${RoutePathEnum.BOARDS}`,
-    label: RouteNameEnum.BOARDS,
+    href: `${RoutePathEnum.OPTIONS}`,
+    label: RouteNameEnum.OPTIONS,
   },
   {
     href: `${RoutePathEnum.USERS}`,
