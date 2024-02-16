@@ -1,4 +1,4 @@
-import { OptionDataTypeEnum } from "../../src/entities/option";
+import { OptionDataTypeEnum } from "../../src/shared/type/optionDataType.enum";
 
 export const optionListSeed = [
   {

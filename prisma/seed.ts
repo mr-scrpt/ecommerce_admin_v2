@@ -1,38 +1,13 @@
-import { PrismaClient } from "@prisma/client";
+import { DATATYPE, PrismaClient } from "@prisma/client";
 import { categoryListSeed } from "./data/category";
 import { userListSeed } from "./data/user";
 import { productListSeed } from "./data/product";
 import { optionListSeed } from "./data/option";
 import { optionItemListSeed } from "./data/optionItem";
+import { mapEnumToPrismaDatatype } from "../src/shared/type/mapOptionDatatype";
 const prisma = new PrismaClient();
 
 async function main() {
-  // await Promise.all([
-  //   ...userListSeed.map((data) => {
-  //     console.log("user created", data);
-  //     return prisma.user.create({ data });
-  //   }),
-  //
-  //   ...categoryListSeed.map((data) => {
-  //     console.log("category created", data);
-  //     return prisma.category.create({ data });
-  //   }),
-  //
-  //   ...productListSeed.map((data) => {
-  //     console.log("product created", data);
-  //     return prisma.product.create({ data });
-  //   }),
-  //
-  //   ...optionListSeed.map((data) => {
-  //     console.log("option created", data);
-  //     return prisma.option.create({ data });
-  //   }),
-  //
-  //   ...optionItemListSeed.map((data) => {
-  //     console.log("optionList created", data);
-  //     return prisma.optionItem.create({ data });
-  //   }),
-  // ]);
   for await (const user of userListSeed) {
     await prisma.user.create({ data: user });
     console.log("user created", user);
@@ -49,7 +24,9 @@ async function main() {
   }
 
   for await (const option of optionListSeed) {
-    await prisma.option.create({ data: option });
+    await prisma.option.create({
+      data: { ...option, datatype: mapEnumToPrismaDatatype(option.datatype) },
+    });
     console.log("option created", option);
   }
 

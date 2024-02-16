@@ -16,10 +16,11 @@ enum ROLE {
 }
 
 enum DATATYPE {
-  select
-  mult
-  checkbox
-  radio
+  SELECT
+  MULT
+  CHECKBOX
+  RADIO
+
 }
 
 model Category {
