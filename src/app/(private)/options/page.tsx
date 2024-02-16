@@ -1,3 +1,5 @@
+import { TitlePage } from "@/shared/ui/titlePage";
+import { OptionTable } from "@/widgets/optionTable";
 import { FC, HTMLAttributes } from "react";
 
 interface PageProps extends HTMLAttributes<HTMLDivElement> {}
@@ -5,7 +7,8 @@ interface PageProps extends HTMLAttributes<HTMLDivElement> {}
 const PageOptions: FC<PageProps> = (props) => {
   return (
     <main className="flex min-h-screen flex-col  p-8">
-      <h1 className="mb-2 text-3xl">Options</h1>
+      <TitlePage title="Options" description="Manage your options list" />
+      <OptionTable />
     </main>
   );
 };

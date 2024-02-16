@@ -22,4 +22,10 @@ export enum WSEventEnum {
   PRODUCT_REMOVE = "product_remove",
   PRODUCT_REFRESH = "product_refresh",
   PRODUCT_LIST_REFRESH = "product_list_refresh",
+
+  OPTION_CREATE = "option_create",
+  OPTION_UPDATE = "option_update",
+  OPTION_REMOVE = "option_remove",
+  OPTION_REFRESH = "option_refresh",
+  OPTION_LIST_REFRESH = "option_list_refresh",
 }

@@ -1,1 +1,2 @@
-export { OptionDataTypeEnum } from "./_domains/optionDataType.enum";
+export { OptionDataTypeEnum } from "../../shared/type/optionDataType.enum";
+export { useOptionListQuery } from "./_query/option/optionList.query";
