@@ -11,7 +11,8 @@ export const getProductWithRelationQuery = (productId: ProductId) => ({
 
 export const useProductWithRelationQuery = (productId: ProductId) => {
   const query = getProductWithRelationQuery(productId);
-  const { isPending, isSuccess, data } = useQuery(query);
+
+  const { isPending, isSuccess, data, isFetchedAfterMount } = useQuery(query);
 
   useListenProductUpdate();
 
@@ -19,6 +20,7 @@ export const useProductWithRelationQuery = (productId: ProductId) => {
     isPending,
     isSuccess,
     product: data?.product,
+    isFetchedAfterMount,
   };
 };
 

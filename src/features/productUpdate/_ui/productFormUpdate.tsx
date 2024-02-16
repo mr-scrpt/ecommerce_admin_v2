@@ -28,7 +28,11 @@ type ProductFormValues = z.infer<typeof productFormSchema>;
 export const ProductFormUpdate: FC<ProductFormProps> = (props) => {
   const { productId, callbackUrl, className, onSuccess } = props;
 
-  const { isPending, product } = useProductWithRelationQuery(productId);
+  const {
+    isPending: isPendingGetUser,
+    product,
+    isFetchedAfterMount,
+  } = useProductWithRelationQuery(productId);
   const router = useRouter();
 
   const { productUpdate, isPending: isPendingUpdate } = useProductUpdate();
@@ -37,7 +41,13 @@ export const ProductFormUpdate: FC<ProductFormProps> = (props) => {
     useCategoryLikeOptionList();
   const { toCategoryIdList, toOptionList } = useCategoryListTransformOption();
 
-  if (isPending) {
+  const isPendingComplexible =
+    isPendingUpdate ||
+    IsPendingCategoryOptionList ||
+    !isFetchedAfterMount ||
+    isPendingGetUser;
+
+  if (isPendingComplexible) {
     return <Spinner aria-label="Loading profile..." />;
   }
 
@@ -57,9 +67,6 @@ export const ProductFormUpdate: FC<ProductFormProps> = (props) => {
       router.push(callbackUrl);
     }
   };
-  // console.log("output_log: product =>>>", product);
-
-  const isPendingComplexible = isPendingUpdate || IsPendingCategoryOptionList;
   return (
     <div className={cn(className, "w-full")}>
       <ProductForm

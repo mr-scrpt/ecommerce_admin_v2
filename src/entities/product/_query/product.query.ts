@@ -11,7 +11,7 @@ export const getProductQuery = (productId: ProductId) => ({
 
 export const useProductQuery = (productId: ProductId) => {
   const query = getProductQuery(productId);
-  const { isPending, isSuccess, data } = useQuery(query);
+  const { isPending, isSuccess, data, isFetchedAfterMount } = useQuery(query);
 
   useListenProductUpdate();
 

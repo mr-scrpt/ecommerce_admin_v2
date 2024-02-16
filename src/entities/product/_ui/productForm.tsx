@@ -79,8 +79,8 @@ export const ProductForm: FC<ProductFormProps> = (props) => {
   };
 
   const isPendingAppearance = useAppearanceDelay(isPending);
-  const handleSelect = useCallback((value) => {
-    console.log("output_log: vlaue  $$$$$$=>>>", value);
+
+  const handleSelect = useCallback((value: OptionItem[]) => {
     form.setValue("categoryList", handleCategoryOptionSelect(value));
   }, []);
 
@@ -91,7 +91,6 @@ export const ProductForm: FC<ProductFormProps> = (props) => {
           control={form.control}
           name="categoryList"
           render={({ field }) => {
-            console.log("output_log: vlue field =>>>", field.value);
             return (
               <FormItem>
                 <FormLabel>Category list</FormLabel>

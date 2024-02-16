@@ -1,12 +1,22 @@
 "use client";
 
-import * as React from "react";
+// import * as from "react";
 import { X } from "lucide-react";
 import { Badge } from "./badge";
 
 import { Command, CommandGroup, CommandItem } from "./command";
 import { Command as CommandPrimitive } from "cmdk";
 import { isEqual } from "lodash-es";
+import {
+  FC,
+  memo,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  KeyboardEvent,
+} from "react";
 
 export type OptionItem = Record<"value" | "label", string>;
 
@@ -16,60 +26,51 @@ interface MultiSelectProps {
   onSelected: (items: Array<OptionItem>) => void;
 }
 
-export const MultiSelect: React.FC<MultiSelectProps> = React.memo((props) => {
+export const MultiSelect: FC<MultiSelectProps> = memo((props) => {
   const { optionList, optionActiveList, onSelected } = props;
 
-  const [inputValue, setInputValue] = React.useState("");
-  const inputRef = React.useRef<HTMLInputElement>(null);
-  const [open, setOpen] = React.useState(false);
-  const [selected, setSelected] =
-    React.useState<OptionItem[]>(optionActiveList);
+  const [inputValue, setInputValue] = useState("");
+  const [open, setOpen] = useState(false);
+  const [selected, setSelected] = useState<OptionItem[]>(optionActiveList);
 
-  const prevOptionActiveList = React.useRef<OptionItem[]>(optionActiveList);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const prevOptionActiveList = useRef<OptionItem[]>(optionActiveList);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!isEqual(optionActiveList, prevOptionActiveList.current)) {
       setSelected(optionActiveList);
       prevOptionActiveList.current = optionActiveList;
     }
   }, [optionActiveList]);
 
-  // const handleUnselect = React.useCallback((optionItem: OptionItem) => {
-  //   setSelected((prev) => prev.filter((s) => s.value !== optionItem.value));
-  // }, []);
-  const handleUnselect = React.useCallback(
+  const handleUnselect = useCallback(
     (optionItem: OptionItem) => {
       setSelected((prev) => prev.filter((s) => s.value !== optionItem.value));
-      // Вот здесь нужно вызвать onSelected с обновленным списком selected
       onSelected &&
         onSelected(selected.filter((s) => s.value !== optionItem.value));
     },
     [selected, onSelected],
   );
 
-  const handleKeyDown = React.useCallback(
-    (e: React.KeyboardEvent<HTMLDivElement>) => {
-      const input = inputRef.current;
-      if (input) {
-        if (e.key === "Delete" || e.key === "Backspace") {
-          if (input.value === "") {
-            setSelected((prev) => {
-              const newSelected = [...prev];
-              newSelected.pop();
-              return newSelected;
-            });
-          }
-        }
-        // This is not a default behaviour of the <input /> field
-        if (e.key === "Escape") {
-          input.blur();
+  const handleKeyDown = useCallback((e: KeyboardEvent<HTMLDivElement>) => {
+    const input = inputRef.current;
+    if (input) {
+      if (e.key === "Delete" || e.key === "Backspace") {
+        if (input.value === "") {
+          setSelected((prev) => {
+            const newSelected = [...prev];
+            newSelected.pop();
+            return newSelected;
+          });
         }
       }
-    },
-    [],
-  );
+      if (e.key === "Escape") {
+        input.blur();
+      }
+    }
+  }, []);
 
-  const selectables = React.useMemo(() => {
+  const selectables = useMemo(() => {
     return optionList.filter((optionItem) => {
       const exist = !selected.some((selectedItem) => {
         return (
@@ -134,10 +135,9 @@ export const MultiSelect: React.FC<MultiSelectProps> = React.memo((props) => {
                       e.preventDefault();
                       e.stopPropagation();
                     }}
-                    onSelect={(value) => {
+                    onSelect={(_) => {
                       setInputValue("");
                       setSelected((prev) => [...prev, optionItem]);
-                      // Вот здесь вызывается onSelected при выборе нового элемента
                       onSelected && onSelected([...selected, optionItem]);
                     }}
                     className={"cursor-pointer"}
