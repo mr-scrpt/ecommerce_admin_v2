@@ -20,6 +20,7 @@ export const productCreateAction = async (
   const { data } = propsSchema.parse(props);
 
   const session = await getAppSessionStrictServer();
+
   const slug = slugGenerator(data.name);
 
   const product = await createProductUseCase.exec({

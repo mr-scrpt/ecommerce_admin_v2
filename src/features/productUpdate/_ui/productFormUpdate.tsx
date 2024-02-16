@@ -11,6 +11,10 @@ import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes } from "react";
 import { z } from "zod";
 import { useProductUpdate } from "../_vm/useProductUpdate";
+import {
+  useCategoryLikeOptionList,
+  useCategoryListTransformOption,
+} from "@/entities/category";
 
 interface ProductFormProps extends HTMLAttributes<HTMLDivElement> {
   productId: ProductId;
@@ -25,10 +29,13 @@ export const ProductFormUpdate: FC<ProductFormProps> = (props) => {
   const { productId, callbackUrl, className, onSuccess } = props;
 
   const { isPending, product } = useProductWithRelationQuery(productId);
-  console.log("output_log: product with relation =>>>", product);
   const router = useRouter();
 
   const { productUpdate, isPending: isPendingUpdate } = useProductUpdate();
+
+  const { categoryOptionList, isPending: IsPendingCategoryOptionList } =
+    useCategoryLikeOptionList();
+  const { toCategoryIdList, toOptionList } = useCategoryListTransformOption();
 
   if (isPending) {
     return <Spinner aria-label="Loading profile..." />;
@@ -50,14 +57,19 @@ export const ProductFormUpdate: FC<ProductFormProps> = (props) => {
       router.push(callbackUrl);
     }
   };
+  // console.log("output_log: product =>>>", product);
 
+  const isPendingComplexible = isPendingUpdate || IsPendingCategoryOptionList;
   return (
     <div className={cn(className, "w-full")}>
       <ProductForm
         handleSubmit={handleSubmit}
-        isPending={isPending || isPendingUpdate}
+        isPending={isPendingComplexible}
         product={product}
         submitText={"Save change"}
+        categoryOptionList={categoryOptionList}
+        handleCategoryOptionSelect={toCategoryIdList}
+        handleCategoryOptionActive={toOptionList}
       />
     </div>
   );

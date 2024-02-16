@@ -1,22 +1,22 @@
 import { ForbiddenError } from "@/shared/lib/errors";
-import { Product, ProductEntity, ProductId } from "../_domain/types";
 import { SessionEntity } from "@/shared/lib/user";
+import { createProductAbility } from "../_domain/product.ability";
+import { ProductEntity, ProductId, ProductToUpdate } from "../_domain/types";
 import {
   ProductRepository,
   productRepository,
 } from "../_repository/product.repo";
-import { createProductAbility } from "../_domain/product.ability";
 
-type Updateproduct = {
-  productData: Partial<Product>;
+type UpdateProduct = {
   productId: ProductId;
+  productData: ProductToUpdate;
   session: SessionEntity;
 };
 
 class UpdateProductUseCase {
   constructor(private readonly productRepo: ProductRepository) {}
 
-  async exec(data: Updateproduct): Promise<ProductEntity> {
+  async exec(data: UpdateProduct): Promise<ProductEntity> {
     const { productId, productData, session } = data;
     const { canUpdateProduct } = createProductAbility(session);
 

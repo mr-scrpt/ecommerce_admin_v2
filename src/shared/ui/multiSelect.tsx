@@ -6,35 +6,46 @@ import { Badge } from "./badge";
 
 import { Command, CommandGroup, CommandItem } from "./command";
 import { Command as CommandPrimitive } from "cmdk";
+import { isEqual } from "lodash-es";
 
 export type OptionItem = Record<"value" | "label", string>;
 
 interface MultiSelectProps {
   optionList: Array<OptionItem>;
-  optionActivList: Array<OptionItem>;
+  optionActiveList: Array<OptionItem>;
   onSelected: (items: Array<OptionItem>) => void;
 }
 
-export function MultiSelect(props: MultiSelectProps) {
-  const { optionList, optionActivList, onSelected } = props;
+export const MultiSelect: React.FC<MultiSelectProps> = React.memo((props) => {
+  const { optionList, optionActiveList, onSelected } = props;
+
+  const [inputValue, setInputValue] = React.useState("");
   const inputRef = React.useRef<HTMLInputElement>(null);
   const [open, setOpen] = React.useState(false);
-  const [selected, setSelected] = React.useState<OptionItem[]>(optionActivList);
-  const [inputValue, setInputValue] = React.useState("");
-  console.log("output_log: inputValue =>>>", selected);
+  const [selected, setSelected] =
+    React.useState<OptionItem[]>(optionActiveList);
+
+  const prevOptionActiveList = React.useRef<OptionItem[]>(optionActiveList);
 
   React.useEffect(() => {
-    if (selected) {
-      onSelected(selected);
+    if (!isEqual(optionActiveList, prevOptionActiveList.current)) {
+      setSelected(optionActiveList);
+      prevOptionActiveList.current = optionActiveList;
     }
-  }, [selected]);
+  }, [optionActiveList]);
 
-  // console.log("output_log: option =>>>", optionList);
-  // console.log("output_log: selected =>>>", selected);
-
-  const handleUnselect = React.useCallback((framework: OptionItem) => {
-    setSelected((prev) => prev.filter((s) => s.value !== framework.value));
-  }, []);
+  // const handleUnselect = React.useCallback((optionItem: OptionItem) => {
+  //   setSelected((prev) => prev.filter((s) => s.value !== optionItem.value));
+  // }, []);
+  const handleUnselect = React.useCallback(
+    (optionItem: OptionItem) => {
+      setSelected((prev) => prev.filter((s) => s.value !== optionItem.value));
+      // Вот здесь нужно вызвать onSelected с обновленным списком selected
+      onSelected &&
+        onSelected(selected.filter((s) => s.value !== optionItem.value));
+    },
+    [selected, onSelected],
+  );
 
   const handleKeyDown = React.useCallback(
     (e: React.KeyboardEvent<HTMLDivElement>) => {
@@ -58,9 +69,17 @@ export function MultiSelect(props: MultiSelectProps) {
     [],
   );
 
-  const selectables = optionList.filter(
-    (framework) => !selected.includes(framework),
-  );
+  const selectables = React.useMemo(() => {
+    return optionList.filter((optionItem) => {
+      const exist = !selected.some((selectedItem) => {
+        return (
+          selectedItem.value === optionItem.value &&
+          selectedItem.label === optionItem.label
+        );
+      });
+      return exist;
+    });
+  }, [optionList, selected]);
 
   return (
     <Command
@@ -69,22 +88,22 @@ export function MultiSelect(props: MultiSelectProps) {
     >
       <div className="group rounded-md border border-input px-3 py-2 text-sm ring-offset-background focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2">
         <div className="flex flex-wrap gap-1">
-          {selected.map((framework) => {
+          {selected.map((optionItem) => {
             return (
-              <Badge key={framework.value} variant="secondary">
-                {framework.label}
+              <Badge key={optionItem.value} variant="secondary">
+                {optionItem.label}
                 <button
                   className="ml-1 rounded-full outline-none ring-offset-background focus:ring-2 focus:ring-ring focus:ring-offset-2"
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
-                      handleUnselect(framework);
+                      handleUnselect(optionItem);
                     }
                   }}
                   onMouseDown={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
                   }}
-                  onClick={() => handleUnselect(framework)}
+                  onClick={() => handleUnselect(optionItem)}
                 >
                   <X className="h-3 w-3 text-muted-foreground hover:text-foreground" />
                 </button>
@@ -98,7 +117,7 @@ export function MultiSelect(props: MultiSelectProps) {
             onValueChange={setInputValue}
             onBlur={() => setOpen(false)}
             onFocus={() => setOpen(true)}
-            placeholder="Select frameworks..."
+            placeholder="Select optionItems..."
             className="ml-2 flex-1 bg-transparent outline-none placeholder:text-muted-foreground"
           />
         </div>
@@ -107,21 +126,23 @@ export function MultiSelect(props: MultiSelectProps) {
         {open && selectables.length > 0 ? (
           <div className="absolute top-0 z-10 w-full rounded-md border bg-popover text-popover-foreground shadow-md outline-none animate-in">
             <CommandGroup className="h-full overflow-auto">
-              {selectables.map((framework) => {
+              {selectables.map((optionItem) => {
                 return (
                   <CommandItem
-                    key={framework.value}
+                    key={optionItem.value}
                     onMouseDown={(e) => {
                       e.preventDefault();
                       e.stopPropagation();
                     }}
                     onSelect={(value) => {
                       setInputValue("");
-                      setSelected((prev) => [...prev, framework]);
+                      setSelected((prev) => [...prev, optionItem]);
+                      // Вот здесь вызывается onSelected при выборе нового элемента
+                      onSelected && onSelected([...selected, optionItem]);
                     }}
                     className={"cursor-pointer"}
                   >
-                    {framework.label}
+                    {optionItem.label}
                   </CommandItem>
                 );
               })}
@@ -131,4 +152,6 @@ export function MultiSelect(props: MultiSelectProps) {
       </div>
     </Command>
   );
-}
+});
+
+MultiSelect.displayName = "MultiSelect";

@@ -14,17 +14,17 @@ import { Input } from "@/shared/ui/input";
 import { MultiSelect, OptionItem } from "@/shared/ui/multiSelect";
 import { Textarea } from "@/shared/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FC, HTMLAttributes, useEffect } from "react";
+import { FC, HTMLAttributes, useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import {
   ProductFormValues,
   productFormSchema,
 } from "../_domain/product.schema";
-import { Product } from "../_domain/types";
+import { ProductCategory, ProductRelation } from "../_domain/types";
 import { ImgField } from "./imgField";
 
 interface ProductFormProps extends HTMLAttributes<HTMLFormElement> {
-  product?: Product;
+  product?: ProductRelation;
   handleSubmit?: (data: ProductFormValues) => void;
   isPending: boolean;
   submitText?: string;
@@ -32,13 +32,19 @@ interface ProductFormProps extends HTMLAttributes<HTMLFormElement> {
   handleCategoryOptionSelect: (
     itemList: Array<OptionItem>,
   ) => Array<{ id: string }>;
+
+  handleCategoryOptionActive: (
+    itemList: Array<ProductCategory>,
+  ) => Array<OptionItem>;
+  categotyOptionActiveList?: Array<OptionItem>;
 }
 
-const getDefaultValues = (product?: Product) => ({
+const getDefaultValues = (product?: ProductRelation) => ({
   name: product?.name ?? "",
   description: product?.description ?? "",
   about: product?.about ?? "",
   img: product?.img ?? [],
+  categoryList: product?.categoryList ?? [],
 });
 
 export const ProductForm: FC<ProductFormProps> = (props) => {
@@ -49,6 +55,8 @@ export const ProductForm: FC<ProductFormProps> = (props) => {
     isPending,
     categoryOptionList,
     handleCategoryOptionSelect,
+    categotyOptionActiveList = [],
+    handleCategoryOptionActive,
   } = props;
 
   const form = useForm<ProductFormValues>({
@@ -71,11 +79,10 @@ export const ProductForm: FC<ProductFormProps> = (props) => {
   };
 
   const isPendingAppearance = useAppearanceDelay(isPending);
-
-  // console.log(
-  //   "output_log: value from form =>>>",
-  //   form.getValues("categoryList"),
-  // );
+  const handleSelect = useCallback((value) => {
+    console.log("output_log: vlaue  $$$$$$=>>>", value);
+    form.setValue("categoryList", handleCategoryOptionSelect(value));
+  }, []);
 
   return (
     <Form {...form}>
@@ -83,28 +90,24 @@ export const ProductForm: FC<ProductFormProps> = (props) => {
         <FormField
           control={form.control}
           name="categoryList"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Category list</FormLabel>
-              <FormControl>
-                <MultiSelect
-                  optionList={categoryOptionList}
-                  optionActivList={[]}
-                  onSelected={(value) => {
-                    field.onChange(handleCategoryOptionSelect(value));
-                    // form.setValue(
-                    //   "categoryList",
-                    //   handleCategoryOptionSelect(value),
-                    // );
-                    // handleCategoryOptionSelect(value);
-                  }}
-                  {...field}
-                  // onChange={() => field.onChange}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          render={({ field }) => {
+            console.log("output_log: vlue field =>>>", field.value);
+            return (
+              <FormItem>
+                <FormLabel>Category list</FormLabel>
+                <FormControl>
+                  <MultiSelect
+                    optionList={categoryOptionList}
+                    optionActiveList={handleCategoryOptionActive(
+                      product!.categoryList,
+                    )}
+                    onSelected={handleSelect}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            );
+          }}
         />
         <FormField
           control={form.control}

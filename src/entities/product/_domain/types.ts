@@ -20,6 +20,10 @@ export type ProductEntity = {
   createdAt: Date;
 };
 
+export type ProductRelationEntity = ProductEntity & {
+  categoryList: Array<ProductCategory>;
+};
+
 // Projetions
 
 export type Product = {
@@ -37,4 +41,22 @@ export type ProductRelation = {
   slug: ProductSlug;
   img: Array<string>;
   categoryList: Array<ProductCategory>;
+};
+
+export type ProductToCreate = {
+  name: string;
+  description: string;
+  about: string;
+  slug: ProductSlug;
+  img: Array<string>;
+  categoryList: Array<{ id: string }>;
+};
+
+export type ProductToUpdate = {
+  name: string;
+  description: string;
+  about: string;
+  slug: ProductSlug;
+  img: Array<string>;
+  categoryList: Array<{ id: string }>;
 };

@@ -14,4 +14,8 @@ export {
 } from "./_repository/product.repo";
 export { createProductAbility } from "./_domain/product.ability";
 
-export type { ProductId, ProductEntity } from "./_domain/types";
+export type {
+  ProductId,
+  ProductEntity,
+  ProductRelation,
+} from "./_domain/types";

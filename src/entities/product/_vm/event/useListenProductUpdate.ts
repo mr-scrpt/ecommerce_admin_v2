@@ -8,7 +8,7 @@ export const useListenProductUpdate = () => {
   const invalidateProduct = useInvalidateProduct();
 
   useSocketHandler(WSEventEnum.PRODUCT_REFRESH, (productId: ProductId) => {
-    console.log("output_log: product invalidate =>>>");
+    console.log("output_log: product invalidate =>>>", productId);
     invalidateProduct(productId);
   });
 };

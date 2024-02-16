@@ -1,11 +1,11 @@
-import { ProductEntity, ProductId } from "../_domain/types";
+import { AuthorizatoinError } from "@/shared/lib/errors";
+import { SessionEntity } from "@/shared/lib/user";
+import { createProductAbility } from "../_domain/product.ability";
+import { ProductId, ProductRelationEntity } from "../_domain/types";
 import {
   ProductRepository,
   productRepository,
 } from "../_repository/product.repo";
-import { createProductAbility } from "../_domain/product.ability";
-import { AuthorizatoinError } from "@/shared/lib/errors";
-import { SessionEntity } from "@/shared/lib/user";
 
 type GetProductWithRelation = {
   productId: ProductId;
@@ -15,7 +15,7 @@ type GetProductWithRelation = {
 class GetProductWithRelationUseCase {
   constructor(private readonly productRepo: ProductRepository) {}
 
-  async exec(data: GetProductWithRelation): Promise<ProductEntity> {
+  async exec(data: GetProductWithRelation): Promise<ProductRelationEntity> {
     const { productId, session } = data;
     const { canGetProduct } = createProductAbility(session);
 

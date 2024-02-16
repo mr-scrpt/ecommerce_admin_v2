@@ -1,4 +1,4 @@
-import { ProductId, useProductListQuery } from "@/entities/product";
+import { useProductListQuery } from "@/entities/product";
 import { buildDate } from "@/shared/lib/date";
 
 export const useProductTableList = () => {

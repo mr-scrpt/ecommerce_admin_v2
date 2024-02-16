@@ -1,9 +1,9 @@
 import { OptionItem } from "@/shared/ui/multiSelect";
-import { CategoryEntity } from "..";
+import { CategoryOption } from "../_domain/types";
 
 export const useCategoryListTransformOption = () => {
   return {
-    toOptionList: (categoryList: Array<CategoryEntity>) =>
+    toOptionList: (categoryList: Array<CategoryOption>) =>
       categoryList.map((item) => ({
         value: item.id,
         label: item.name,

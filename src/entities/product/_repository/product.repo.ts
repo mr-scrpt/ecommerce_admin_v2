@@ -4,6 +4,9 @@ import {
   ProductEntity,
   ProductId,
   ProductRelation,
+  ProductRelationEntity,
+  ProductToCreate,
+  ProductToUpdate,
 } from "../_domain/types";
 
 export class ProductRepository {
@@ -23,7 +26,7 @@ export class ProductRepository {
   async getProductWithRelation(
     productId: ProductId,
     db: Tx = this.db,
-  ): Promise<ProductEntity> {
+  ): Promise<ProductRelationEntity> {
     return db.product.findUniqueOrThrow({
       where: {
         id: productId,
@@ -50,7 +53,7 @@ export class ProductRepository {
   }
 
   async createProduct(
-    product: ProductRelation,
+    product: ProductToCreate,
     db: Tx = this.db,
   ): Promise<ProductEntity> {
     return await db.product.create({
@@ -63,12 +66,15 @@ export class ProductRepository {
 
   async updateProduct(
     targetId: ProductId,
-    productData: Partial<Product>,
+    product: ProductToUpdate,
     db: Tx = this.db,
   ): Promise<ProductEntity> {
     return await db.product.update({
       where: { id: targetId },
-      data: productData,
+      data: {
+        ...product,
+        categoryList: { set: [...product.categoryList] },
+      },
     });
   }
 

@@ -1,4 +1,7 @@
-import { ProductEntity } from "@/entities/product/_domain/types";
+import {
+  ProductEntity,
+  ProductRelationEntity,
+} from "@/entities/product/_domain/types";
 import { useMutation } from "@tanstack/react-query";
 import { updateProductAction } from "../_action/productUpdate.action";
 

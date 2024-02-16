@@ -10,6 +10,10 @@ export type CategoryEntity = {
   createdAt: Date;
 };
 
+export type CategoryOption = {
+  id: CategoryId;
+  name: string;
+};
 // Projetions
 
 export type Category = {

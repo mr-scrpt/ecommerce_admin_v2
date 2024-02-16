@@ -10,6 +10,22 @@ export const productSchema = z.object({
   createdAt: z.date(),
 });
 
+export const productRelationSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  slug: z.string(),
+  description: z.string(),
+  about: z.string(),
+  img: z.array(z.string()),
+  createdAt: z.date(),
+  categoryList: z.array(
+    z.object({
+      id: z.string(),
+      name: z.string(),
+    }),
+  ),
+});
+
 export const productCreateSchema = z.object({
   name: z.string(),
   description: z.string(),
@@ -24,7 +40,14 @@ export const productCreateSchema = z.object({
 
 export const productUpdateSchema = z.object({
   name: z.string(),
+  description: z.string(),
+  about: z.string(),
   img: z.array(z.string()),
+  categoryList: z.array(
+    z.object({
+      id: z.string(),
+    }),
+  ),
 });
 
 export const productFormSchema = z.object({

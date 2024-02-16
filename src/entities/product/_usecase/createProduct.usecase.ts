@@ -1,7 +1,11 @@
 import { AuthorizatoinError } from "@/shared/lib/errors";
 import { SessionEntity } from "@/shared/lib/user";
 import { createProductAbility } from "../_domain/product.ability";
-import { Product, ProductEntity } from "../_domain/types";
+import {
+  ProductEntity,
+  ProductRelation,
+  ProductToCreate,
+} from "../_domain/types";
 import {
   ProductRepository,
   productRepository,
@@ -9,7 +13,7 @@ import {
 
 type CreateProduct = {
   session: SessionEntity;
-  productData: Product;
+  productData: ProductToCreate;
 };
 
 class CreateProductUseCase {

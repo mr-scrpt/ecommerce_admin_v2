@@ -1,8 +1,8 @@
 "use server";
 import { getAppSessionStrictServer } from "@/entities/user/getAppSessionServer";
 import { z } from "zod";
-import { productSchema } from "../_domain/product.schema";
-import { ProductEntity } from "../_domain/types";
+import { productRelationSchema } from "../_domain/product.schema";
+import { ProductRelationEntity } from "../_domain/types";
 import { getProductWithRelationUseCase } from "../_usecase/getProductWithRelation.usecase";
 
 const getByIdSchema = z.object({
@@ -10,10 +10,10 @@ const getByIdSchema = z.object({
 });
 
 const resultSchema = z.object({
-  product: productSchema,
+  product: productRelationSchema,
 });
 
-type ResultT = { product: ProductEntity };
+type ResultT = { product: ProductRelationEntity };
 
 export const getProductWithRelationAction = async (
   props: z.infer<typeof getByIdSchema>,
@@ -26,7 +26,6 @@ export const getProductWithRelationAction = async (
     session,
     productId,
   });
-  console.log("output_log: with relation =>>>", product);
 
   return resultSchema.parseAsync({
     product: product,
