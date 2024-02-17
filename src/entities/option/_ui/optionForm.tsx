@@ -4,6 +4,7 @@ import { Button } from "@/shared/ui/button";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -20,6 +21,13 @@ import {
 } from "../_domain/option/option.schema";
 import { Option } from "../_domain/types";
 import { OptionDataTypeEnum } from "..";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/shared/ui/select";
 
 interface OptionFormProps extends HTMLAttributes<HTMLFormElement> {
   option?: Option;
@@ -51,6 +59,13 @@ export const OptionForm: FC<OptionFormProps> = (props) => {
 
   const isPendingAppearance = useAppearanceDelay(isPending);
 
+  const selectDataType = [
+    { type: OptionDataTypeEnum.SELECT, value: "Select" },
+    { type: OptionDataTypeEnum.MULT, value: "Multi select" },
+    { type: OptionDataTypeEnum.CHECKBOX, value: "Checkbox" },
+    { type: OptionDataTypeEnum.RADIO, value: "Radio" },
+  ];
+
   return (
     <Form {...form}>
       <form onSubmit={handleSubmit} className="space-y-8">
@@ -63,6 +78,32 @@ export const OptionForm: FC<OptionFormProps> = (props) => {
               <FormControl>
                 <Input placeholder="Enter option name..." {...field} />
               </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="datatype"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Data type</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a verified email to display" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {selectDataType.map((item) => (
+                    <SelectItem key={item.type} value={item.type as string}>
+                      {item.value}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <FormDescription>Select data type to this option</FormDescription>
               <FormMessage />
             </FormItem>
           )}

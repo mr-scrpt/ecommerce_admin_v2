@@ -1,6 +1,6 @@
 export enum OptionDataTypeEnum {
-  SELECT,
-  MULT,
-  CHECKBOX,
-  RADIO,
+  SELECT = "select",
+  MULT = "mult",
+  CHECKBOX = "checkbox",
+  RADIO = "radio",
 }

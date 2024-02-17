@@ -24,9 +24,11 @@ export const OptionTable: FC<OptionTableProps> = (props) => {
 
   const isPendingComplexible =
     isPendingOptionList || isPendingRemoveOption || !isFetchedAfterMount;
+
   const optionColumns = useTableColumns({
     onDeleteClick,
   });
+
   // const optionColumns = useTableColumns({
   //   onDeleteClick: () => {},
   // });
