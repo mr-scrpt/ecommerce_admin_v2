@@ -1,6 +1,6 @@
 import { ProductEntity } from "@/entities/product/_domain/types";
 import { useMutation } from "@tanstack/react-query";
-import { removeProductComplexibleAction } from "../_action/removeProductComplexible.action";
+import { removeProductComplexibleAction } from "../_action/productRemoveComplexible.action";
 
 const baseKey = "productRemoveMutation";
 

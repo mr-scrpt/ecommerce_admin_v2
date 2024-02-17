@@ -1,6 +1,6 @@
 import { CategoryEntity } from "@/entities/category/_domain/types";
 import { useMutation } from "@tanstack/react-query";
-import { removeCategoryComplexibleAction } from "../_action/removeCategoryComplexible.action";
+import { removeCategoryComplexibleAction } from "../_action/categoryRemoveComplexible.action";
 
 const baseKey = "categoryRemoveMutation";
 
