@@ -1,11 +1,32 @@
 import { z } from "zod";
+import { OptionDataTypeEnum } from "../..";
 
 export const optionSchema = z.object({
   id: z.string(),
   name: z.string(),
-  slug: z.string(),
-  board: z.array(z.string()),
+  datatype: z.nativeEnum(OptionDataTypeEnum),
   createdAt: z.date(),
+});
+
+export const optionRelationSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  datatype: z.nativeEnum(OptionDataTypeEnum),
+  createdAt: z.date(),
+
+  optionItemList: z.array(
+    z.object({
+      id: z.string(),
+      name: z.string(),
+      value: z.string(),
+    }),
+  ),
+  categoryList: z.array(
+    z.object({
+      id: z.string(),
+      name: z.string(),
+    }),
+  ),
 });
 
 export const optionCreateSchema = z.object({
