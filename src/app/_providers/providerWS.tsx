@@ -13,6 +13,7 @@ interface IEventContext {
   emitProfileUpdate: (userId: UserId) => void;
   emitCategoryUpdate: (userId: UserId) => void;
   emitProductUpdate: (userId: UserId) => void;
+  // emitOptionUpdate: (userId: UserId) => void;
 }
 
 const EventContext = createStrictContext<IEventContext>();
@@ -26,12 +27,14 @@ const EventProvider = (props: ProviderWSProps) => {
   const { profileUpdateEvent } = useEmitProfileUpdate();
   const { categoryUpdateEvent } = useEmitCategoryUpdate();
   const { productUpdateEvent } = useEmitProductUpdate();
+  // const { optionUpdateEvent } = useEmitOptionUpdate();
 
   const eventContext: IEventContext = {
     emitUserUpdate: userUpdateEvent,
     emitProfileUpdate: profileUpdateEvent,
     emitCategoryUpdate: categoryUpdateEvent,
     emitProductUpdate: productUpdateEvent,
+    // emitOptionUpdate: optionUpdateEvent,
   };
 
   return (

@@ -19,7 +19,7 @@ import {
   optionFormSchema,
 } from "../_domain/option/option.schema";
 import { Option } from "../_domain/types";
-import { BoardField } from "./boardField";
+import { OptionDataTypeEnum } from "..";
 
 interface OptionFormProps extends HTMLAttributes<HTMLFormElement> {
   option?: Option;
@@ -30,7 +30,7 @@ interface OptionFormProps extends HTMLAttributes<HTMLFormElement> {
 
 const getDefaultValues = (option?: Option) => ({
   name: option?.name ?? "",
-  board: option?.board ?? [],
+  datatype: option?.datatype ?? OptionDataTypeEnum.SELECT,
 });
 
 export const OptionForm: FC<OptionFormProps> = (props) => {
@@ -49,12 +49,6 @@ export const OptionForm: FC<OptionFormProps> = (props) => {
     onSubmit?.(data);
   });
 
-  const handleDeleteBoard = (path: string) => {
-    const list = form.getValues("board");
-    const result = list.filter((item) => item !== path);
-    form.setValue("board", result);
-  };
-
   const isPendingAppearance = useAppearanceDelay(isPending);
 
   return (
@@ -68,23 +62,6 @@ export const OptionForm: FC<OptionFormProps> = (props) => {
               <FormLabel>Name</FormLabel>
               <FormControl>
                 <Input placeholder="Enter option name..." {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="board"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Avatar</FormLabel>
-              <FormControl>
-                <BoardField
-                  value={field.value}
-                  onChange={field.onChange}
-                  onDelete={handleDeleteBoard}
-                />
               </FormControl>
               <FormMessage />
             </FormItem>

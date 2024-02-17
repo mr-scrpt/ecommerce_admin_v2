@@ -2,7 +2,7 @@
 import { useSocketHandler } from "@/shared/lib/socket";
 import { WSEventEnum } from "@/shared/type/websokcetEvent.enum";
 import { OptionId } from "../../_domain/types";
-import { useInvalidateOption } from "../../_query/optionItem/category.query";
+import { useInvalidateOption } from "../../_query/option/option.query";
 
 export const useListenOptionUpdate = () => {
   const invalidateOption = useInvalidateOption();

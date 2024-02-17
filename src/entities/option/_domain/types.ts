@@ -4,11 +4,21 @@ export const baseQueryKey = "option";
 export type OptionId = string;
 export type OptionSlug = string;
 
+export type OptionCategory = {
+  id: string;
+  name: string;
+};
+
 export type OptionEntity = {
   id: OptionId;
   name: string;
   datatype: OptionDataTypeEnum;
   createdAt: Date;
+};
+
+export type OptionRelationEntity = OptionEntity & {
+  categoryList: Array<OptionCategory>;
+  optionItemList: Array<OptionItemOption>;
 };
 
 export type OptionOption = {
@@ -32,7 +42,6 @@ export type OptionItemOption = {
 
 export type Option = {
   name: string;
-  board: Array<string>;
   datatype: OptionDataTypeEnum;
 };
 export type OptionItem = {

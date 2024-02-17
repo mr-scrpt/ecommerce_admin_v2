@@ -1,3 +1,3 @@
-export { useProductRemoveMutation } from "./_mutation/optionRemove.mutation";
-export { useEmitProductRemove } from "./_vm/event/useEmitOptionRemove";
-export { useProductRemove } from "./_vm/useOptionRemove";
+export { useOptionRemoveMutation } from "./_mutation/optionRemove.mutation";
+export { useEmitOptionRemove } from "./_vm/event/useEmitOptionRemove";
+export { useOptionRemove } from "./_vm/useOptionRemove";

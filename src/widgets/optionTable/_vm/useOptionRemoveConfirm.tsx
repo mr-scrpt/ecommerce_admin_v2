@@ -1,22 +1,22 @@
-import { CategoryId } from "@/entities/category";
-import { useCategoryRemove } from "@/features/categoryRemove";
+import { OptionId } from "@/entities/option";
+import { useOptionRemove } from "@/features/optionRemove";
 import { useGetConfirmation } from "@/shared/lib/confirmation";
 
-export const useCategoryRemoveConfirm = () => {
+export const useOptionRemoveConfirm = () => {
   const getConfirmation = useGetConfirmation();
 
-  const { categoryRemove, isPending, isSuccess } = useCategoryRemove();
+  const { optionRemove, isPending, isSuccess } = useOptionRemove();
 
-  const removeCategoryConfirm = async (categoryId: CategoryId) => {
+  const removeOptionConfirm = async (optionId: OptionId) => {
     const confirmation = await getConfirmation({
       description:
-        "Do you really want to remove a category? This action cannot be canceled",
+        "Do you really want to remove a option? This action cannot be canceled",
     });
 
     if (!confirmation) return;
 
-    await categoryRemove({ categoryId });
+    await optionRemove({ optionId });
   };
 
-  return { isPending, isSuccess, removeCategoryConfirm };
+  return { isPending, isSuccess, removeOptionConfirm };
 };

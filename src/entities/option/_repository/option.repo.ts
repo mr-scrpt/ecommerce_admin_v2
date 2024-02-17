@@ -1,5 +1,10 @@
 import { DbClient, Tx, dbClient } from "@/shared/lib/db";
-import { Option, OptionEntity, OptionId } from "../_domain/types";
+import {
+  Option,
+  OptionEntity,
+  OptionId,
+  OptionRelationEntity,
+} from "../_domain/types";
 import {
   mapEnumToPrismaDatatype,
   mapPrismaDatatypeToEnum,
@@ -20,12 +25,31 @@ export class OptionRepository {
       datatype: mapPrismaDatatypeToEnum(option.datatype),
     };
   }
+  async getOptionWithRelation(
+    optionId: OptionId,
+
+    db: Tx = this.db,
+  ): Promise<OptionRelationEntity> {
+    const option = await db.option.findUniqueOrThrow({
+      where: {
+        id: optionId,
+      },
+      include: {
+        categoryList: true,
+        optionItemList: true,
+      },
+    });
+
+    return {
+      ...option,
+      datatype: mapPrismaDatatypeToEnum(option.datatype),
+    };
+  }
 
   async getOptionList(db: Tx = this.db): Promise<OptionEntity[]> {
     const options = await db.option.findMany();
     console.log("output_log: options in bd =>>>", options);
 
-    // Преобразование значений ENUM из Prisma в значения TypeScript
     return options.map((option) => ({
       id: option.id,
       name: option.name,

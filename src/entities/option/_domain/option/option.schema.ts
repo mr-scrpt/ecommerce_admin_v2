@@ -31,12 +31,10 @@ export const optionRelationSchema = z.object({
 
 export const optionCreateSchema = z.object({
   name: z.string(),
-  board: z.array(z.string()),
 });
 
 export const optionUpdateSchema = z.object({
   name: z.string(),
-  board: z.array(z.string()),
 });
 
 export const optionFormSchema = z.object({
@@ -47,7 +45,7 @@ export const optionFormSchema = z.object({
       message: "Username must not be longer than 30 characters.",
     })
     .transform((name) => name.trim()),
-  board: z.array(z.string()),
+  datatype: z.nativeEnum(OptionDataTypeEnum),
 });
 
 export type OptionFormValues = z.infer<typeof optionFormSchema>;

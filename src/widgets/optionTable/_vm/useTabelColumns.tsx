@@ -20,7 +20,7 @@ export const useTableColumns = (handlers: HandlersProps) => {
         <OptionTableAction
           data={row.original}
           onCopy={() => {}}
-          hrefToUpdate={`${RoutePathEnum.option_UPDATE}/${row.original.id}`}
+          hrefToUpdate={`${RoutePathEnum.OPTION_UPDATE}/${row.original.id}`}
           onDeleteClick={() => onDeleteClick(row.original.id)}
         />
       ),
