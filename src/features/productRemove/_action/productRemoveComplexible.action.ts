@@ -2,7 +2,7 @@
 import { z } from "zod";
 
 import { ProductEntity, productSchema } from "@/entities/product";
-import { removeProductComplexibleUseCase } from "../_useCase/removeProductComplexible.usecase";
+import { removeProductComplexibleUseCase } from "../_useCase/productRemoveComplexible.usecase";
 import { getAppSessionStrictServer } from "@/entities/user/getAppSessionServer";
 
 const propsSchema = z.object({

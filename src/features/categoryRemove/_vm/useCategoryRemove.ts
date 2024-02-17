@@ -1,5 +1,5 @@
 import { CategoryEntity } from "@/entities/category";
-import { useCategoryRemoveMutation } from "../_mutation/removeCategory.mutation";
+import { useCategoryRemoveMutation } from "../_mutation/categoryRemove.mutation";
 import { useEmitCategoryRemove } from "./event/useEmitCategoryRemove";
 
 export const useCategoryRemove = () => {

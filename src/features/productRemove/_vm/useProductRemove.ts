@@ -1,5 +1,5 @@
 import { ProductEntity } from "@/entities/product";
-import { useProductRemoveMutation } from "../_mutation/removeProduct.mutation";
+import { useProductRemoveMutation } from "../_mutation/productRemove.mutation";
 import { useEmitProductRemove } from "./event/useEmitProductRemove";
 
 export const useProductRemove = () => {

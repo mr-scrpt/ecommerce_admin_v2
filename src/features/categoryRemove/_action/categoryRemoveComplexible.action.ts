@@ -2,7 +2,7 @@
 import { z } from "zod";
 
 import { CategoryEntity, categorySchema } from "@/entities/category";
-import { removeCategoryComplexibleUseCase } from "../_useCase/removeCategoryComplexible.usecase";
+import { removeCategoryComplexibleUseCase } from "../_useCase/categoryRemoveComplexible.usecase";
 import { getAppSessionStrictServer } from "@/entities/user/getAppSessionServer";
 
 const propsSchema = z.object({
