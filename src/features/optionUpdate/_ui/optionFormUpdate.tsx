@@ -1,6 +1,7 @@
 "use client";
 import {
   OptionForm,
+  OptionFromLayout,
   OptionId,
   optionFormSchema,
   useOptionWithRelationQuery,
@@ -70,14 +71,18 @@ export const OptionFormUpdate: FC<OptionFormProps> = (props) => {
   };
   return (
     <div className={cn(className, "w-full")}>
-      <OptionForm
+      {/* <OptionForm */}
+      {/*   handleSubmit={handleSubmit} */}
+      {/*   isPending={isPendingComplexible} */}
+      {/*   option={option} */}
+      {/*   submitText={"Save change"} */}
+      {/**/}
+      {/* /> */}
+      <OptionFromLayout
+        option={option}
         handleSubmit={handleSubmit}
         isPending={isPendingComplexible}
-        option={option}
         submitText={"Save change"}
-        // categoryOptionList={categoryOptionList}
-        // handleCategoryOptionSelect={toCategoryIdList}
-        // handleCategoryOptionActive={toOptionList}
       />
     </div>
   );

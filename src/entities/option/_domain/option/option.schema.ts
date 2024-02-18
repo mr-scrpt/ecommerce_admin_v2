@@ -46,6 +46,14 @@ export const optionFormSchema = z.object({
     })
     .transform((name) => name.trim()),
   datatype: z.nativeEnum(OptionDataTypeEnum),
+  optionItemList: z
+    .object({
+      name: z.string().min(2).max(50),
+      value: z.string().min(2).max(50),
+    })
+    .array(),
+  isPendingAppearance: z.boolean(),
+  submitText: z.string(),
 });
 
 export type OptionFormValues = z.infer<typeof optionFormSchema>;
