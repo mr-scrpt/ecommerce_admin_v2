@@ -13,7 +13,7 @@ const OptionUpdatePage: FC<PageProps> = (props) => {
     params: { optionId },
   } = props;
   return (
-    <main className="flex min-h-screen flex-col  p-8">
+    <main className="flex min-h-screen flex-col gap-4 p-8">
       <TitlePage title="Option update" description="Update option item" />
       <OptionUpdate callbackUrl={RoutePathEnum.OPTIONS} optionId={optionId} />
     </main>

@@ -13,7 +13,7 @@ const CategoryUpdatePage: FC<PageProps> = (props) => {
     params: { categoryId },
   } = props;
   return (
-    <main className="flex min-h-screen flex-col  p-8">
+    <main className="flex min-h-screen flex-col gap-4 p-8">
       <TitlePage title="Categories update" description="Update category item" />
       <CategoryUpdate
         callbackUrl={RoutePathEnum.CATEGORIES}

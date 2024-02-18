@@ -13,7 +13,7 @@ const ProductUpdatePage: FC<PageProps> = (props) => {
     params: { productId },
   } = props;
   return (
-    <main className="flex min-h-screen flex-col  p-8">
+    <main className="flex min-h-screen flex-col gap-4 p-8">
       <TitlePage title="Product update" description="Update product item" />
       <ProductUpdate
         callbackUrl={RoutePathEnum.PRODUCTS}

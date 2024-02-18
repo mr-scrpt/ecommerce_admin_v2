@@ -9,7 +9,7 @@ interface PageProfileProps extends HTMLAttributes<HTMLDivElement> {
 const PageProfile: FC<PageProfileProps> = (props) => {
   const { params } = props;
   return (
-    <main className="container max-w-[600px] space-y-6  py-14">
+    <main className="flex min-h-screen flex-col gap-4 p-8">
       <div>
         <h3 className="text-lg font-medium">Profile</h3>
         <p className="text-sm text-muted-foreground">
