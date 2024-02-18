@@ -18,6 +18,7 @@ export const productCreateAction = async (
   props: z.infer<typeof propsSchema>,
 ) => {
   const { data } = propsSchema.parse(props);
+  console.log("output_log: productCreate  data =>>>", data);
 
   const session = await getAppSessionStrictServer();
 
@@ -27,6 +28,8 @@ export const productCreateAction = async (
     session,
     productData: { ...data, slug },
   });
+
+  console.log("output_log: productCreate  product =>>>", product);
 
   return resultSchema.parseAsync({
     product,

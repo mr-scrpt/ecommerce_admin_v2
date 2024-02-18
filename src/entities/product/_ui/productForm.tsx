@@ -97,7 +97,7 @@ export const ProductForm: FC<ProductFormProps> = (props) => {
                   <MultiSelect
                     optionList={categoryOptionList}
                     optionActiveList={handleCategoryOptionActive(
-                      product!.categoryList,
+                      product?.categoryList ?? [],
                     )}
                     onSelected={handleSelect}
                   />

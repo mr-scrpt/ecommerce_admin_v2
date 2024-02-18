@@ -27,15 +27,14 @@ export const ProductFormCreate: FC<ProductCreateFormProps> = (props) => {
 
   const { categoryOptionList, isPending: IsPendingCategoryOptionList } =
     useCategoryLikeOptionList();
-  const { toCategoryIdList } = useCategoryListTransformOption();
+  const { toCategoryIdList, toOptionList } = useCategoryListTransformOption();
 
   // console.log("output_log: optionList  =>>>", categoryOptionList);
   const handleSubmit = async (data: ProductFormValues) => {
+    console.log("output_log: form data =>>>", data);
     await productCreate({
       data,
     });
-
-    console.log("output_log: form data =>>>", data);
 
     onSuccess?.();
 
@@ -54,6 +53,7 @@ export const ProductFormCreate: FC<ProductCreateFormProps> = (props) => {
         submitText={"Create Product"}
         categoryOptionList={categoryOptionList}
         handleCategoryOptionSelect={toCategoryIdList}
+        handleCategoryOptionActive={toOptionList}
       />
     </div>
   );
