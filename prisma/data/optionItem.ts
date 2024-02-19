@@ -57,4 +57,12 @@ export const optionItemListSeed = [
 
     option: { connect: { id: "option_585fsddfew7898dd" } },
   },
+  // Type
+  {
+    id: "optionItem_333da558waew65HOT",
+    name: "Hot",
+    value: "hot",
+
+    option: { connect: { id: "option_195fsd55846fddew" } },
+  },
 ];
