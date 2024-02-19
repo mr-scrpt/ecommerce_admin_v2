@@ -22,12 +22,12 @@ export type OptionItem = Record<"value" | "label", string>;
 
 interface MultiSelectProps {
   optionList: Array<OptionItem>;
-  optionActiveList: Array<OptionItem>;
+  optionActiveList?: Array<OptionItem>;
   onSelected: (items: Array<OptionItem>) => void;
 }
 
 export const MultiSelect: FC<MultiSelectProps> = memo((props) => {
-  const { optionList, optionActiveList, onSelected } = props;
+  const { optionList, optionActiveList = [], onSelected } = props;
 
   const [inputValue, setInputValue] = useState("");
   const [open, setOpen] = useState(false);

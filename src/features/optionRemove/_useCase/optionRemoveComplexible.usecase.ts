@@ -3,7 +3,7 @@ import { ForbiddenError } from "@/shared/lib/errors";
 import {
   OptionRemoveTx,
   optionRemoveTx,
-} from "../_repository/optionRemove.transaction";
+} from "../_tx/optionRemove.transaction";
 import { OptionEntity, OptionId } from "@/entities/option";
 import { SessionEntity } from "@/shared/lib/user";
 

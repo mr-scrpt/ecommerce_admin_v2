@@ -1,6 +1,5 @@
 "use client";
 import {
-  OptionForm,
   OptionFromLayout,
   OptionId,
   optionFormSchema,
@@ -12,10 +11,6 @@ import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes } from "react";
 import { z } from "zod";
 import { useOptionUpdate } from "../_vm/useOptionUpdate";
-import {
-  useCategoryLikeOptionList,
-  useCategoryListTransformOption,
-} from "@/entities/category";
 
 interface OptionFormProps extends HTMLAttributes<HTMLDivElement> {
   optionId: OptionId;
@@ -39,15 +34,8 @@ export const OptionFormUpdate: FC<OptionFormProps> = (props) => {
 
   const { optionUpdate, isPending: isPendingUpdate } = useOptionUpdate();
 
-  const { categoryOptionList, isPending: isPendingCategoryOptionList } =
-    useCategoryLikeOptionList();
-  const { toCategoryIdList, toOptionList } = useCategoryListTransformOption();
-
   const isPendingComplexible =
-    isPendingUpdate ||
-    isPendingCategoryOptionList ||
-    isPendingOption ||
-    !isFetchedAfterMount;
+    isPendingUpdate || isPendingOption || !isFetchedAfterMount;
 
   if (isPendingComplexible) {
     return <Spinner aria-label="Loading profile..." />;
@@ -71,13 +59,6 @@ export const OptionFormUpdate: FC<OptionFormProps> = (props) => {
   };
   return (
     <div className={cn(className, "w-full")}>
-      {/* <OptionForm */}
-      {/*   handleSubmit={handleSubmit} */}
-      {/*   isPending={isPendingComplexible} */}
-      {/*   option={option} */}
-      {/*   submitText={"Save change"} */}
-      {/**/}
-      {/* /> */}
       <OptionFromLayout
         option={option}
         handleSubmit={handleSubmit}

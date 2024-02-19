@@ -1,11 +1,11 @@
-import { FC, HTMLAttributes } from "react";
-import { Option } from "../_domain/types";
-import { OptionFormValues } from "../_domain/option/option.schema";
-import { OptionForm } from "./optionForm";
 import { Separator } from "@/shared/ui/separator";
+import { FC, HTMLAttributes } from "react";
+import { OptionFormValues } from "../_domain/option/option.schema";
+import { OptionRelation } from "../_domain/types";
+import { OptionForm } from "./optionForm";
 
 interface OptionFromLayoutProps extends HTMLAttributes<HTMLDivElement> {
-  option?: Option;
+  option?: OptionRelation;
   handleSubmit?: (data: OptionFormValues) => void;
   isPending: boolean;
   submitText?: string;
@@ -13,7 +13,6 @@ interface OptionFromLayoutProps extends HTMLAttributes<HTMLDivElement> {
 
 export const OptionFromLayout: FC<OptionFromLayoutProps> = (props) => {
   const { option, handleSubmit, submitText, isPending } = props;
-  console.log("output_log:  =>>>", submitText, isPending);
 
   return (
     <OptionForm

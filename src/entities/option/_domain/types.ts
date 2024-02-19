@@ -2,6 +2,7 @@ import { OptionDataTypeEnum } from "../../../shared/type/optionDataType.enum";
 
 export const baseQueryKey = "option";
 export type OptionId = string;
+export type OptionItemId = string;
 export type OptionSlug = string;
 
 export type OptionCategory = {
@@ -29,14 +30,13 @@ export type OptionOption = {
 export type OptionItemEntity = {
   id: OptionId;
   name: string;
-  slug: OptionSlug;
-  board: Array<string>;
+  value: string;
   createdAt: Date;
 };
 
 export type OptionItemOption = {
-  id: OptionId;
   name: string;
+  value: string;
 };
 // Projetions
 
@@ -44,9 +44,23 @@ export type Option = {
   name: string;
   datatype: OptionDataTypeEnum;
 };
+
+export type OptionRelation = {
+  name: string;
+  datatype: OptionDataTypeEnum;
+  categoryList?: Array<OptionCategory>;
+  optionItemList: Array<OptionItemOption>;
+};
+
 export type OptionItem = {
   name: string;
-  slug: OptionSlug;
-  board: Array<string>;
+  value: string;
+  // createdAt: Date;
+};
+
+export type OptionItemCreate = {
+  optionId: string;
+  name: string;
+  value: string;
   // createdAt: Date;
 };

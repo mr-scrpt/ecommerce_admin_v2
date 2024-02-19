@@ -1,11 +1,7 @@
 import { AuthorizatoinError } from "@/shared/lib/errors";
 import { SessionEntity } from "@/shared/lib/user";
 import { createProductAbility } from "../_domain/product.ability";
-import {
-  ProductEntity,
-  ProductRelation,
-  ProductToCreate,
-} from "../_domain/types";
+import { ProductEntity, ProductToCreate } from "../_domain/types";
 import {
   ProductRepository,
   productRepository,

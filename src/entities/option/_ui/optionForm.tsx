@@ -12,20 +12,6 @@ import {
 } from "@/shared/ui/form";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { Input } from "@/shared/ui/input";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { FC, HTMLAttributes, useEffect } from "react";
-import {
-  FormProvider,
-  useFieldArray,
-  useForm,
-  useFormContext,
-} from "react-hook-form";
-import {
-  OptionFormValues,
-  optionFormSchema,
-} from "../_domain/option/option.schema";
-import { Option } from "../_domain/types";
-import { OptionDataTypeEnum } from "..";
 import {
   Select,
   SelectContent,
@@ -34,10 +20,24 @@ import {
   SelectValue,
 } from "@/shared/ui/select";
 import { cn } from "@/shared/ui/utils";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { MinusIcon, PlusIcon } from "lucide-react";
+import { FC, HTMLAttributes, useEffect } from "react";
+import {
+  FormProvider,
+  useFieldArray,
+  useForm,
+  useFormContext,
+} from "react-hook-form";
+import { OptionDataTypeEnum } from "..";
+import {
+  OptionFormValues,
+  optionFormSchema,
+} from "../_domain/option/option.schema";
+import { OptionRelation } from "../_domain/types";
 
 interface OptionFormProps extends HTMLAttributes<HTMLFormElement> {
-  option?: Option;
+  option?: OptionRelation;
   handleSubmit?: (data: OptionFormValues) => void;
   isPending: boolean;
   submitText?: string;
@@ -48,9 +48,10 @@ type OptionFormType = FC<OptionFormProps> & {
   FieldOptionsItem: FC<{}>;
 };
 
-const getDefaultValues = (option?: Option) => ({
+const getDefaultValues = (option?: OptionRelation) => ({
   name: option?.name ?? "",
   datatype: option?.datatype ?? OptionDataTypeEnum.SELECT,
+  optionItemList: option?.optionItemList ?? [{ name: "", value: "" }],
 });
 
 export const OptionForm: OptionFormType = (props) => {
@@ -83,8 +84,10 @@ export const OptionForm: OptionFormType = (props) => {
   }, [option, form, isPendingAppearance, submitText]);
 
   const handleSubmit = form.handleSubmit(async (data) => {
+    console.log("output_log:  =>>>", data);
     onSubmit?.(data);
   });
+  console.log("output_log:  =>>>", form.getValues());
 
   return (
     <FormProvider {...form}>
@@ -170,10 +173,12 @@ OptionForm.FieldOption = function FieldOption() {
 
 OptionForm.FieldOptionsItem = function FieldOptionsItem() {
   const form = useFormContext<OptionFormValues>();
+
   const { fields, append, remove } = useFieldArray({
     name: "optionItemList",
     control: form.control,
   });
+  console.log("output_log:  firlds=>>>", fields);
 
   const { isPendingAppearance } = form.getValues();
 

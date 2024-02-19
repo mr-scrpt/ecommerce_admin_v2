@@ -33,9 +33,9 @@ interface ProductFormProps extends HTMLAttributes<HTMLFormElement> {
     itemList: Array<OptionItem>,
   ) => Array<{ id: string }>;
 
-  handleCategoryOptionActive: (
-    itemList: Array<ProductCategory>,
-  ) => Array<OptionItem>;
+  // handleCategoryOptionActive: (
+  //   itemList: Array<ProductCategory>,
+  // ) => Array<OptionItem>;
   categotyOptionActiveList?: Array<OptionItem>;
 }
 
@@ -55,7 +55,8 @@ export const ProductForm: FC<ProductFormProps> = (props) => {
     isPending,
     categoryOptionList,
     handleCategoryOptionSelect,
-    handleCategoryOptionActive,
+    categotyOptionActiveList,
+    // handleCategoryOptionActive,
   } = props;
 
   const form = useForm<ProductFormValues>({
@@ -96,9 +97,7 @@ export const ProductForm: FC<ProductFormProps> = (props) => {
                 <FormControl>
                   <MultiSelect
                     optionList={categoryOptionList}
-                    optionActiveList={handleCategoryOptionActive(
-                      product?.categoryList ?? [],
-                    )}
+                    optionActiveList={categotyOptionActiveList}
                     onSelected={handleSelect}
                   />
                 </FormControl>

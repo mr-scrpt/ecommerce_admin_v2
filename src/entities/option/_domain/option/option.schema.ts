@@ -31,10 +31,25 @@ export const optionRelationSchema = z.object({
 
 export const optionCreateSchema = z.object({
   name: z.string(),
+  datatype: z.nativeEnum(OptionDataTypeEnum),
+  optionItemList: z.array(
+    z.object({
+      name: z.string().min(2).max(50),
+      value: z.string().min(2).max(50),
+    }),
+  ),
 });
 
 export const optionUpdateSchema = z.object({
   name: z.string(),
+  datatype: z.nativeEnum(OptionDataTypeEnum),
+  optionItemList: z.array(
+    z.object({
+      id: z.string(),
+      name: z.string().min(2).max(50),
+      value: z.string().min(2).max(50),
+    }),
+  ),
 });
 
 export const optionFormSchema = z.object({
@@ -46,12 +61,18 @@ export const optionFormSchema = z.object({
     })
     .transform((name) => name.trim()),
   datatype: z.nativeEnum(OptionDataTypeEnum),
-  optionItemList: z
-    .object({
+  optionItemList: z.array(
+    z.object({
       name: z.string().min(2).max(50),
       value: z.string().min(2).max(50),
-    })
-    .array(),
+    }),
+  ),
+  // categoryList: z.array(
+  //   z.object({
+  //     id: z.string().min(2).max(50),
+  //     name: z.string().min(2).max(50),
+  //   }),
+  // ),
   isPendingAppearance: z.boolean(),
   submitText: z.string(),
 });

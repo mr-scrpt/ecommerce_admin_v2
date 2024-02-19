@@ -1,9 +1,6 @@
 import { createUserAbility } from "@/entities/user/user";
 import { ForbiddenError } from "@/shared/lib/errors";
-import {
-  UserRemoveTx,
-  userRemoveTx,
-} from "../_repository/userRemove.transaction";
+import { UserRemoveTx, userRemoveTx } from "../_tx/userRemove.transaction";
 import { UserEntity } from "@/entities/user/_domain/user.types";
 import { SessionEntity, UserId } from "@/shared/lib/user";
 

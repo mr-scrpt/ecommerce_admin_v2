@@ -1,10 +1,10 @@
-import { DATATYPE, PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
+import { mapEnumToPrismaDatatype } from "../src/shared/type/mapOptionDatatype";
 import { categoryListSeed } from "./data/category";
-import { userListSeed } from "./data/user";
-import { productListSeed } from "./data/product";
 import { optionListSeed } from "./data/option";
 import { optionItemListSeed } from "./data/optionItem";
-import { mapEnumToPrismaDatatype } from "../src/shared/type/mapOptionDatatype";
+import { productListSeed } from "./data/product";
+import { userListSeed } from "./data/user";
 const prisma = new PrismaClient();
 
 async function main() {

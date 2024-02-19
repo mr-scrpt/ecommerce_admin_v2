@@ -68,16 +68,18 @@ export const ProductFormUpdate: FC<ProductFormProps> = (props) => {
       router.push(callbackUrl);
     }
   };
+
+  const categotyOptionActiveList = toOptionList(product.categoryList);
   return (
     <div className={cn(className, "w-full")}>
       <ProductForm
         handleSubmit={handleSubmit}
         isPending={isPendingComplexible}
         product={product}
+        categotyOptionActiveList={categotyOptionActiveList}
         submitText={"Save change"}
         categoryOptionList={categoryOptionList}
         handleCategoryOptionSelect={toCategoryIdList}
-        handleCategoryOptionActive={toOptionList}
       />
     </div>
   );

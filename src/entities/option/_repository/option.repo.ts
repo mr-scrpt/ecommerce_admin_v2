@@ -25,9 +25,29 @@ export class OptionRepository {
       datatype: mapPrismaDatatypeToEnum(option.datatype),
     };
   }
+
+  async getOptionRelation(
+    optionId: OptionId,
+    db: Tx = this.db,
+  ): Promise<OptionRelationEntity> {
+    const option = await db.option.findUniqueOrThrow({
+      where: {
+        id: optionId,
+      },
+      include: {
+        categoryList: true,
+        optionItemList: true,
+      },
+    });
+
+    return {
+      ...option,
+      datatype: mapPrismaDatatypeToEnum(option.datatype),
+    };
+  }
+
   async getOptionWithRelation(
     optionId: OptionId,
-
     db: Tx = this.db,
   ): Promise<OptionRelationEntity> {
     const option = await db.option.findUniqueOrThrow({
@@ -63,12 +83,14 @@ export class OptionRepository {
     optionData: Option,
     db: Tx = this.db,
   ): Promise<OptionEntity> {
+    console.log("output_log: optionData =>>>", optionData);
     const optionCreated = await db.option.create({
       data: {
         ...optionData,
         datatype: mapEnumToPrismaDatatype(optionData.datatype),
       },
     });
+    // console.log("output_log: optionCreated  =>>>", optionCreated);
     return {
       ...optionCreated,
       datatype: mapPrismaDatatypeToEnum(optionCreated.datatype),
