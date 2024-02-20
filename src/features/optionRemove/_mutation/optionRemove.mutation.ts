@@ -1,4 +1,4 @@
-import { OptionEntity } from "@/entities/option/_domain/types";
+import { OptionEntity } from "@/entities/option/_domain/option/types";
 import { useMutation } from "@tanstack/react-query";
 import { removeOptionComplexibleAction } from "../_action/optionRemoveComplexible.action";
 

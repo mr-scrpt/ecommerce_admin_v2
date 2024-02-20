@@ -2,7 +2,7 @@
 import { getAppSessionStrictServer } from "@/entities/user/getAppSessionServer";
 import { z } from "zod";
 import { optionRelationSchema } from "../../_domain/option/option.schema";
-import { OptionRelationEntity } from "../../_domain/types";
+import { OptionRelation } from "../../_domain/option/types";
 import { getOptionWithRelationUseCase } from "../../_usecase/option/getOptionWithRelation.usecase";
 
 const getByIdSchema = z.object({
@@ -13,7 +13,7 @@ const resultSchema = z.object({
   option: optionRelationSchema,
 });
 
-type ResultT = { option: OptionRelationEntity };
+type ResultT = { option: OptionRelation };
 
 export const getOptionWithRelationAction = async (
   props: z.infer<typeof getByIdSchema>,

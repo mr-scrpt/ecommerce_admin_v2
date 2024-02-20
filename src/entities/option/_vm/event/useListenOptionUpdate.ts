@@ -1,7 +1,7 @@
 "use client";
 import { useSocketHandler } from "@/shared/lib/socket";
 import { WSEventEnum } from "@/shared/type/websokcetEvent.enum";
-import { OptionId } from "../../_domain/types";
+import { OptionId } from "../../_domain/option/types";
 import { useInvalidateOption } from "../../_query/option/option.query";
 
 export const useListenOptionUpdate = () => {

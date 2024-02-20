@@ -1,5 +1,10 @@
+import { OptionDataTypeEnum } from "@/shared/type/optionDataType.enum";
 import { z } from "zod";
-import { OptionDataTypeEnum } from "../..";
+import {
+  optionItemCreateSchema,
+  optionItemSchema,
+  optionItemUpdateSchema,
+} from "../optionItem/optionItem.schema";
 
 export const optionSchema = z.object({
   id: z.string(),
@@ -14,13 +19,8 @@ export const optionRelationSchema = z.object({
   datatype: z.nativeEnum(OptionDataTypeEnum),
   createdAt: z.date(),
 
-  optionItemList: z.array(
-    z.object({
-      id: z.string(),
-      name: z.string(),
-      value: z.string(),
-    }),
-  ),
+  optionItemList: z.array(optionItemSchema),
+
   categoryList: z.array(
     z.object({
       id: z.string(),
@@ -32,24 +32,13 @@ export const optionRelationSchema = z.object({
 export const optionCreateSchema = z.object({
   name: z.string(),
   datatype: z.nativeEnum(OptionDataTypeEnum),
-  optionItemList: z.array(
-    z.object({
-      name: z.string().min(2).max(50),
-      value: z.string().min(2).max(50),
-    }),
-  ),
+  optionItemList: z.array(optionItemCreateSchema),
 });
 
 export const optionUpdateSchema = z.object({
   name: z.string(),
   datatype: z.nativeEnum(OptionDataTypeEnum),
-  optionItemList: z.array(
-    z.object({
-      id: z.string(),
-      name: z.string().min(2).max(50),
-      value: z.string().min(2).max(50),
-    }),
-  ),
+  optionItemList: z.array(optionItemUpdateSchema),
 });
 
 export const optionFormSchema = z.object({
@@ -63,6 +52,7 @@ export const optionFormSchema = z.object({
   datatype: z.nativeEnum(OptionDataTypeEnum),
   optionItemList: z.array(
     z.object({
+      id: z.string().optional(),
       name: z.string().min(2).max(50),
       value: z.string().min(2).max(50),
     }),

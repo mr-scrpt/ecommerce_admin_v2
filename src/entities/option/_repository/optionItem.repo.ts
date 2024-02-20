@@ -1,11 +1,11 @@
 import { DbClient, Tx, dbClient } from "@/shared/lib/db";
+import { OptionId } from "../_domain/option/types";
 import {
-  OptionId,
-  OptionItem,
-  OptionItemCreate,
+  OptionItemCombineCreate,
   OptionItemEntity,
   OptionItemId,
-} from "../_domain/types";
+  OptionItemToCreate,
+} from "../_domain/optionItem/types";
 
 export class OptionItemRepository {
   constructor(readonly db: DbClient) {}
@@ -26,7 +26,7 @@ export class OptionItemRepository {
   }
 
   async createOptionItem(
-    data: OptionItemCreate,
+    data: OptionItemCombineCreate,
     db: Tx = this.db,
   ): Promise<OptionItemEntity> {
     const { optionId, ...optionItem } = data;

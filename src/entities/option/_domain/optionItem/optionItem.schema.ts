@@ -3,6 +3,7 @@ import { z } from "zod";
 export const optionItemSchema = z.object({
   id: z.string(),
   name: z.string(),
+  value: z.string(),
   createdAt: z.date(),
 });
 
@@ -12,6 +13,7 @@ export const optionItemCreateSchema = z.object({
 });
 
 export const optionItemUpdateSchema = z.object({
+  id: z.string(),
   name: z.string(),
   value: z.string(),
 });

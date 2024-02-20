@@ -1,4 +1,4 @@
-import { OptionEntity, OptionId } from "../../_domain/types";
+import { OptionEntity, OptionId } from "../../_domain/option/types";
 import {
   OptionRepository,
   optionRepository,

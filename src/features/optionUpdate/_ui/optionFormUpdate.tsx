@@ -46,6 +46,7 @@ export const OptionFormUpdate: FC<OptionFormProps> = (props) => {
   }
 
   const handleSubmit = async (data: OptionFormValues) => {
+    console.log("output_log: send =>>>", data);
     await optionUpdate({
       optionId: option.id,
       data,
@@ -53,9 +54,9 @@ export const OptionFormUpdate: FC<OptionFormProps> = (props) => {
 
     onSuccess?.();
 
-    if (callbackUrl) {
-      router.push(callbackUrl);
-    }
+    // if (callbackUrl) {
+    //   router.push(callbackUrl);
+    // }
   };
   return (
     <div className={cn(className, "w-full")}>

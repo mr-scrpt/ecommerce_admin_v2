@@ -15,12 +15,19 @@ export {
 export { OptionForm } from "./_ui/optionForm";
 export { OptionFromLayout } from "./_ui/optionFromLayout";
 export { useOptionWithRelationQuery } from "./_query/option/optionWithRelation.query";
-export { createOptionUseCase } from "./_usecase/option/createOption.usecase";
 
 export type {
   OptionEntity,
   OptionRelationEntity,
   OptionId,
-  OptionItem,
   OptionRelation,
-} from "./_domain/types";
+  Option,
+  OptionToCreate,
+  OptionToUpdate,
+} from "./_domain/option/types";
+
+export type {
+  OptionItem,
+  OptionItemToCreate,
+  OptionItemToUpdate,
+} from "./_domain/optionItem/types";

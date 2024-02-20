@@ -1,6 +1,6 @@
 import { AuthorizatoinError } from "@/shared/lib/errors";
 import { SessionEntity } from "@/shared/lib/user";
-import { OptionId, OptionRelationEntity } from "../../_domain/types";
+import { OptionId, OptionRelationEntity } from "../../_domain/option/types";
 import {
   OptionRepository,
   optionRepository,

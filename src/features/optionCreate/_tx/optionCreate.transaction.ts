@@ -7,6 +7,7 @@ import {
   optionRepository,
 } from "@/entities/option";
 import { DbClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
+import { OptionCreateComplexible } from "../domain/types";
 
 export class OptionCreateTx extends Transaction {
   constructor(
@@ -18,16 +19,16 @@ export class OptionCreateTx extends Transaction {
   }
 
   async createOptionComplexible(
-    data: OptionRelation,
+    data: OptionCreateComplexible,
   ): Promise<OptionRelationEntity> {
     const action = async (tx: Tx) => {
-      const { optionItemList, ...option } = data;
-      const optionCreated = await this.optionRepo.createOption(option, tx);
+      const { optionItemListData, optionData } = data;
+      const optionCreated = await this.optionRepo.createOption(optionData, tx);
       const optionItemListCreated = [];
 
-      for await (const item of optionItemList) {
+      for await (const item of optionItemListData) {
         const itemCreated = await this.optionItemRepo.createOptionItem(
-          { optionId: optionCreated.id, ...item },
+          { ...item, optionId: optionCreated.id },
           tx,
         );
         optionItemListCreated.push(itemCreated);

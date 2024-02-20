@@ -1,6 +1,6 @@
 "use client";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { baseQueryKey } from "../../_domain/types";
+import { baseQueryKey } from "../../_domain/option/types";
 import { getOptionListAction } from "../../_action/option/getOptionList.action";
 import { useListenOptionListUpdate } from "../../_vm/event/useListenOptionListUpdate";
 

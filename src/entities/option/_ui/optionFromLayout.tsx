@@ -1,7 +1,7 @@
 import { Separator } from "@/shared/ui/separator";
 import { FC, HTMLAttributes } from "react";
 import { OptionFormValues } from "../_domain/option/option.schema";
-import { OptionRelation } from "../_domain/types";
+import { OptionRelation } from "../_domain/option/types";
 import { OptionForm } from "./optionForm";
 
 interface OptionFromLayoutProps extends HTMLAttributes<HTMLDivElement> {

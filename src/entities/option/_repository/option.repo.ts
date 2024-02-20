@@ -4,7 +4,8 @@ import {
   OptionEntity,
   OptionId,
   OptionRelationEntity,
-} from "../_domain/types";
+  OptionToCreate,
+} from "../_domain/option/types";
 import {
   mapEnumToPrismaDatatype,
   mapPrismaDatatypeToEnum,
@@ -80,7 +81,7 @@ export class OptionRepository {
   }
 
   async createOption(
-    optionData: Option,
+    optionData: OptionToCreate,
     db: Tx = this.db,
   ): Promise<OptionEntity> {
     console.log("output_log: optionData =>>>", optionData);

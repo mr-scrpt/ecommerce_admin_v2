@@ -53,6 +53,7 @@ export type ProductToCreate = {
 };
 
 export type ProductToUpdate = {
+  id: string;
   name: string;
   description: string;
   about: string;

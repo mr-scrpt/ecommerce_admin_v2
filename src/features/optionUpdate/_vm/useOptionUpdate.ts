@@ -1,4 +1,3 @@
-// "use client";
 import { OptionEntity } from "@/entities/option";
 import { useOptionUpdateMutation } from "../_mutation/useOptionUpdate.mutation";
 import { useEmitOptionUpdate } from "./event/useEmitOptionUpdate";

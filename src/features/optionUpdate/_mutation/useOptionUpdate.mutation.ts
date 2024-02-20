@@ -1,7 +1,7 @@
 import {
   OptionEntity,
   OptionRelationEntity,
-} from "@/entities/option/_domain/types";
+} from "@/entities/option/_domain/option/types";
 import { useMutation } from "@tanstack/react-query";
 import { updateOptionAction } from "../_action/optionUpdate.action";
 

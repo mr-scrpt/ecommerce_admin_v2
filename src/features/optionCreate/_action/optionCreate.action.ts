@@ -1,6 +1,10 @@
 "use server";
 
-import { optionCreateSchema, optionSchema } from "@/entities/option";
+import {
+  OptionRelation,
+  optionCreateSchema,
+  optionSchema,
+} from "@/entities/option";
 import { getAppSessionStrictServer } from "@/entities/user/getAppSessionServer";
 import { z } from "zod";
 import { createOptionComplexibleUseCase } from "../_useCase/optionCreateComplexible.usecase";
@@ -13,18 +17,23 @@ const resultSchema = z.object({
   option: optionSchema,
 });
 
+type ResultT = { option: OptionRelation };
+
 export const optionCreateAction = async (
   props: z.infer<typeof propsSchema>,
-) => {
+): Promise<ResultT> => {
   const { data } = propsSchema.parse(props);
+  const { optionItemList, ...optionData } = data;
 
   const session = await getAppSessionStrictServer();
 
   const option = await createOptionComplexibleUseCase.exec({
     session,
-    optionData: data,
+    dataToCreate: {
+      optionItemListData: optionItemList,
+      optionData: optionData,
+    },
   });
-  console.log("output_log: created option with option item =>>>", option);
 
   return resultSchema.parseAsync({
     option,

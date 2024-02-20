@@ -32,7 +32,6 @@ export const TestEmailSignInForm: FC<TestEmailSignInFormProps> = (props) => {
     token: testToken,
     email: form.getValues("email"),
   });
-  console.log("output_log:  =>>> link:", link);
 
   return (
     <Form {...form}>

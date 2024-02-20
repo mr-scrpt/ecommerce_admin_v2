@@ -34,7 +34,7 @@ import {
   OptionFormValues,
   optionFormSchema,
 } from "../_domain/option/option.schema";
-import { OptionRelation } from "../_domain/types";
+import { OptionRelation } from "../_domain/option/types";
 
 interface OptionFormProps extends HTMLAttributes<HTMLFormElement> {
   option?: OptionRelation;
@@ -84,10 +84,8 @@ export const OptionForm: OptionFormType = (props) => {
   }, [option, form, isPendingAppearance, submitText]);
 
   const handleSubmit = form.handleSubmit(async (data) => {
-    console.log("output_log:  =>>>", data);
     onSubmit?.(data);
   });
-  console.log("output_log:  =>>>", form.getValues());
 
   return (
     <FormProvider {...form}>
@@ -178,7 +176,6 @@ OptionForm.FieldOptionsItem = function FieldOptionsItem() {
     name: "optionItemList",
     control: form.control,
   });
-  console.log("output_log:  firlds=>>>", fields);
 
   const { isPendingAppearance } = form.getValues();
 

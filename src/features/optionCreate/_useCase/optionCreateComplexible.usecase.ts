@@ -1,17 +1,14 @@
-import {
-  OptionRelation,
-  OptionRelationEntity,
-  createOptionAbility,
-} from "@/entities/option";
+import { OptionRelationEntity, createOptionAbility } from "@/entities/option";
 import { ForbiddenError } from "@/shared/lib/errors";
 import { SessionEntity } from "@/shared/lib/user";
 import {
   OptionCreateTx,
   optionCreateTx,
 } from "../_tx/optionCreate.transaction";
+import { OptionCreateComplexible } from "../domain/types";
 
 type CreateOption = {
-  optionData: OptionRelation;
+  dataToCreate: OptionCreateComplexible;
   session: SessionEntity;
 };
 
@@ -19,14 +16,15 @@ class CreateOptionComplexibleUseCase {
   constructor(private readonly optionCreateTx: OptionCreateTx) {}
 
   async exec(data: CreateOption): Promise<OptionRelationEntity> {
-    const { optionData, session } = data;
+    const { dataToCreate, session } = data;
+
     const { canCreateOption } = createOptionAbility(session);
 
     if (!canCreateOption()) {
       throw new ForbiddenError();
     }
 
-    return await this.optionCreateTx.createOptionComplexible(optionData);
+    return await this.optionCreateTx.createOptionComplexible(dataToCreate);
   }
 }
 
