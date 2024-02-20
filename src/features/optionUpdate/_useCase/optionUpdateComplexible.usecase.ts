@@ -6,14 +6,15 @@ import {
 } from "../_tx/optionUpdate.transaction";
 import { OptionEntity, OptionId } from "@/entities/option";
 import { SessionEntity } from "@/shared/lib/user";
-import { OptionItemEntity } from "@/entities/option/_domain/option/types";
+import { OptionUpdateComplexible } from "../_domain/types";
 
 type UpdateOption = {
-  data: {
-    optionId: OptionId;
-    optionData: Partial<OptionEntity>;
-    optionItemList: Partial<OptionItemEntity>[];
-  };
+  dataToUpdate: OptionUpdateComplexible;
+  // data: {
+  //   optionId: OptionId;
+  //   optionData: Partial<OptionEntity>;
+  //   optionItemList: Partial<OptionItemEntity>[];
+  // };
   session: SessionEntity;
 };
 
@@ -21,14 +22,14 @@ class UpdateOptionComplexibleUseCase {
   constructor(private readonly optionUpdateTx: OptionUpdateTx) {}
 
   async exec(data: UpdateOption): Promise<OptionEntity> {
-    const { optionId, session } = data;
+    const { session, dataToUpdate } = data;
     const { canUpdateOption } = createOptionAbility(session);
 
     if (!canUpdateOption()) {
       throw new ForbiddenError();
     }
 
-    return await this.optionUpdateTx.updateOptionById(optionId);
+    return await this.optionUpdateTx.updateOptionById(dataToUpdate);
   }
 }
 

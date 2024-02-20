@@ -17,10 +17,19 @@ export class CategoryCreateTx extends Transaction {
   async createCategoryComplexible(
     data: CategoryCreateComplexible,
   ): Promise<CategoryRelationEntity> {
-    const { categoryData, optionListData } = data;
     const action = async (tx: Tx) => {
+      const { categoryData, productListData, optionListData } = data;
+
       const categoryCreated = await this.categoryRepo.createCategory(
         categoryData,
+        tx,
+      );
+
+      await this.categoryRepo.addCategoryProductList(
+        {
+          categoryId: categoryCreated.id,
+          productListId: productListData,
+        },
         tx,
       );
 

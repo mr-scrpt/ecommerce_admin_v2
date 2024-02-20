@@ -18,7 +18,7 @@ export const categoryCreateAction = async (
   props: z.infer<typeof propsSchema>,
 ) => {
   const { data } = propsSchema.parse(props);
-  const { optionList, productList, ...categoryData } = data;
+  const { optionList, ...categoryData } = data;
 
   const session = await getAppSessionStrictServer();
   const slug = slugGenerator(data.name);
@@ -32,7 +32,6 @@ export const categoryCreateAction = async (
       },
 
       optionListData: optionList,
-      productListData: productList,
     },
   });
 

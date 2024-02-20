@@ -5,6 +5,7 @@ import {
   OptionItemEntity,
   OptionItemId,
   OptionItemToCreate,
+  OptionItemToUpdate,
 } from "../_domain/optionItem/types";
 
 export class OptionItemRepository {
@@ -21,8 +22,15 @@ export class OptionItemRepository {
     });
   }
 
-  async getOptionItemList(db: Tx = this.db): Promise<OptionItemEntity[]> {
-    return db.optionItem.findMany();
+  async getOptionItemList(
+    optionId: OptionId,
+    db: Tx = this.db,
+  ): Promise<OptionItemEntity[]> {
+    return db.optionItem.findMany({
+      where: {
+        optionId,
+      },
+    });
   }
 
   async createOptionItem(
@@ -33,6 +41,25 @@ export class OptionItemRepository {
     return await db.optionItem.create({
       data: { ...optionItem, optionId },
     });
+  }
+
+  async updateOptionItem(
+    optionItemId: OptionItemId,
+    optionItemData: Partial<OptionItemToUpdate>,
+    db: Tx = this.db,
+  ): Promise<OptionItemEntity> {
+    console.log("output_log: optionItemId  =>>>", optionItemId);
+    return await db.optionItem.update({
+      where: { id: optionItemId },
+      data: optionItemData,
+    });
+  }
+
+  async removeOptionItem(
+    optionItemId: OptionItemId,
+    db: Tx = this.db,
+  ): Promise<OptionItemEntity> {
+    return await db.optionItem.delete({ where: { id: optionItemId } });
   }
 
   async removeOptionRelation(

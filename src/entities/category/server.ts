@@ -1,2 +1,4 @@
-export { createCategoryUseCase } from "./_usecase/__createCategory.usecase";
-export { updateCategoryUseCase } from "./_usecase/updateCategory.usecase";
+export {
+  CategoryRepository,
+  categoryRepository,
+} from "./_repository/category.repo";

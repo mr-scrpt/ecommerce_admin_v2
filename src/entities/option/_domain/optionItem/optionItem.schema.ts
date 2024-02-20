@@ -13,7 +13,7 @@ export const optionItemCreateSchema = z.object({
 });
 
 export const optionItemUpdateSchema = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   name: z.string(),
   value: z.string(),
 });
@@ -21,7 +21,7 @@ export const optionItemUpdateSchema = z.object({
 export const optionItemFormSchema = z.object({
   name: z
     .string()
-    .min(3, { message: "Option must not be shorter than 3 characters." })
+    .min(1, { message: "Option must not be shorter than 1 characters." })
     .max(30, {
       message: "Option must not be longer than 30 characters.",
     })

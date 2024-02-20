@@ -69,7 +69,6 @@ export class OptionRepository {
 
   async getOptionList(db: Tx = this.db): Promise<OptionEntity[]> {
     const options = await db.option.findMany();
-    console.log("output_log: options in bd =>>>", options);
 
     return options.map((option) => ({
       id: option.id,
@@ -91,7 +90,6 @@ export class OptionRepository {
         datatype: mapEnumToPrismaDatatype(optionData.datatype),
       },
     });
-    // console.log("output_log: optionCreated  =>>>", optionCreated);
     return {
       ...optionCreated,
       datatype: mapPrismaDatatypeToEnum(optionCreated.datatype),

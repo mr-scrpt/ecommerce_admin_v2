@@ -36,11 +36,11 @@ export const categoryRelationSchema = z.object({
 export const categoryCreateSchema = z.object({
   name: z.string(),
   board: z.array(z.string()),
-  productList: z.array(
-    z.object({
-      id: z.string(),
-    }),
-  ),
+  // productList: z.array(
+  //   z.object({
+  //     id: z.string(),
+  //   }),
+  // ),
   optionList: z.array(
     z.object({
       id: z.string(),

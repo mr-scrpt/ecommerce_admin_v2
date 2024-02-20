@@ -1,13 +1,12 @@
+import { OptionRelationEntity } from "@/entities/option";
+import { DbClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
+import { OptionCreateComplexible } from "../_domain/types";
 import {
   OptionItemRepository,
-  OptionRelation,
-  OptionRelationEntity,
   OptionRepository,
   optionItemRepository,
   optionRepository,
-} from "@/entities/option";
-import { DbClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
-import { OptionCreateComplexible } from "../_domain/types";
+} from "@/entities/option/server";
 
 export class OptionCreateTx extends Transaction {
   constructor(
@@ -25,6 +24,7 @@ export class OptionCreateTx extends Transaction {
       const { optionItemListData, optionData } = data;
 
       const optionCreated = await this.optionRepo.createOption(optionData, tx);
+
       const optionItemListCreated = [];
 
       for await (const item of optionItemListData) {

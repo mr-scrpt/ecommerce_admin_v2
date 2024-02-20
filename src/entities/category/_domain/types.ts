@@ -35,17 +35,10 @@ export type CategoryToCreate = {
   board: Array<string>;
 };
 
-// export type CategoryCombineCreate = {
-//   name: string;
-//   slug: CategorySlug;
-//   board: Array<string>;
-//   productList: Array<{ id: string }>;
-//   optionList: Array<{ id: string }>;
-// };
-
 export type CategoryToUpdate = {
-  id: CategoryId;
   name: string;
+  slug: CategorySlug;
+  board: Array<string>;
 };
 
 export type CategoryAddProductList = {

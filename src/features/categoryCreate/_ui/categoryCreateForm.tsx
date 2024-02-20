@@ -25,7 +25,6 @@ export const CategoryFormCreate: FC<CategoryCreateFormProps> = (props) => {
     await categoryCreate({
       data: {
         ...data,
-        productList: [],
         optionList: [],
       },
     });

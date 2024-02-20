@@ -49,7 +49,10 @@ export const OptionFormUpdate: FC<OptionFormProps> = (props) => {
     console.log("output_log: send =>>>", data);
     await optionUpdate({
       optionId: option.id,
-      data,
+      data: {
+        ...data,
+        id: option.id,
+      },
     });
 
     onSuccess?.();

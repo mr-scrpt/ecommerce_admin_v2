@@ -6,7 +6,6 @@ import {
   optionSchema,
   optionUpdateSchema,
 } from "@/entities/option";
-import { updateOptionUseCase } from "@/entities/option/server";
 import { getAppSessionStrictServer } from "@/entities/user/getAppSessionServer";
 import { updateOptionComplexibleUseCase } from "../_useCase/optionUpdateComplexible.usecase";
 
@@ -24,28 +23,20 @@ export const updateOptionAction = async (
 ): Promise<{ option: OptionEntity }> => {
   const { optionId, data } = propsSchema.parse(props);
   const { optionItemList: optionItemListData, ...optionData } = data;
-
-  console.log("output_log: optionUpdateAction =>>>", data);
+  console.log("output_log: optionItemListData =>>>", optionItemListData);
 
   const session = await getAppSessionStrictServer();
 
   const option = await updateOptionComplexibleUseCase.exec({
     session,
-    data: {
+    dataToUpdate: {
       optionId,
       optionData,
-
       optionItemListData,
     },
   });
 
-  // const option = await updateOptionUseCase.exec({
-  //   session,
-  //   optionData: data,
-  //   optionId,
-  // });
-
-  // return resultSchema.parseAsync({
-  //   option,
-  // });
+  return resultSchema.parseAsync({
+    option,
+  });
 };
