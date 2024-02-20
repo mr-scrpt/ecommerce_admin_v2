@@ -4,11 +4,6 @@ import { OptionItem } from "../optionItem/types";
 export const baseQueryKey = "option";
 export type OptionId = string;
 
-export type OptionCategory = {
-  id: string;
-  name: string;
-};
-
 export type OptionEntity = {
   id: OptionId;
   name: string;
@@ -27,6 +22,7 @@ export type Option = {
   id: OptionId;
   name: string;
   datatype: OptionDataTypeEnum;
+  createdAt: Date;
 };
 
 export type OptionRelation = Option & {
@@ -43,4 +39,10 @@ export type OptionToUpdate = {
   id: OptionId;
   name: string;
   datatype: OptionDataTypeEnum;
+};
+
+//Side
+export type OptionCategory = {
+  id: string;
+  name: string;
 };

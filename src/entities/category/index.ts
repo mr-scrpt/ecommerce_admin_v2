@@ -15,4 +15,12 @@ export { createCategoryAbility } from "./_domain/category.ability";
 export { useCategoryLikeOptionList } from "./_vm/useCategoryLikeOptionList";
 export { useCategoryListTransformOption } from "./_vm/useCategoryListTransformOption";
 
-export type { CategoryId, CategoryEntity } from "./_domain/types";
+export type {
+  CategoryId,
+  CategoryEntity,
+  CategoryToCreate,
+  CategoryToUpdate,
+  CategoryRelationEntity,
+  CategoryAddOptionList,
+  CategoryAddProductList,
+} from "./_domain/types";

@@ -1,5 +1,13 @@
 import { DbClient, Tx, dbClient } from "@/shared/lib/db";
-import { Category, CategoryEntity, CategoryId } from "../_domain/types";
+import {
+  Category,
+  CategoryAddOptionList,
+  CategoryAddProductList,
+  CategoryEntity,
+  CategoryId,
+  CategoryRelationEntity,
+  CategoryToCreate,
+} from "../_domain/types";
 
 export class CategoryRepository {
   constructor(readonly db: DbClient) {}
@@ -14,6 +22,7 @@ export class CategoryRepository {
       },
     });
   }
+
   async getCategoryBySlug(
     slug: string,
     db: Tx = this.db,
@@ -25,16 +34,65 @@ export class CategoryRepository {
     });
   }
 
+  async getCategoryRelation(
+    categoryId: CategoryId,
+    db: Tx = this.db,
+  ): Promise<CategoryRelationEntity> {
+    return await db.category.findUniqueOrThrow({
+      where: {
+        id: categoryId,
+      },
+      include: {
+        optionList: true,
+        productList: true,
+      },
+    });
+  }
+
   async getCategoryList(db: Tx = this.db): Promise<CategoryEntity[]> {
     return db.category.findMany();
   }
 
   async createCategory(
-    category: Category,
+    category: CategoryToCreate,
     db: Tx = this.db,
   ): Promise<CategoryEntity> {
     return await db.category.create({
       data: category,
+    });
+  }
+
+  async addCategoryOptionList(
+    data: CategoryAddOptionList,
+    db: Tx = this.db,
+  ): Promise<CategoryEntity> {
+    const { categoryId, optionListId } = data;
+    return await db.category.update({
+      where: {
+        id: categoryId,
+      },
+      data: {
+        optionList: {
+          connect: optionListId,
+        },
+      },
+    });
+  }
+
+  async addCategoryProductList(
+    data: CategoryAddProductList,
+    db: Tx = this.db,
+  ): Promise<CategoryEntity> {
+    const { categoryId, productListId } = data;
+    return await db.category.update({
+      where: {
+        id: categoryId,
+      },
+      data: {
+        productList: {
+          connect: productListId,
+        },
+      },
     });
   }
 

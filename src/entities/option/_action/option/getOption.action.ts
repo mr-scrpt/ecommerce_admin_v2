@@ -5,7 +5,7 @@ import { optionSchema } from "../../_domain/option/option.schema";
 import { Option } from "../../_domain/option/types";
 import { getOptionUseCase } from "../../_usecase/option/getOption.usecase";
 
-const getByIdSchema = z.object({
+const propsSchema = z.object({
   optionId: z.string(),
 });
 
@@ -16,9 +16,9 @@ const resultSchema = z.object({
 type ResultT = { option: Option };
 
 export const getOptionAction = async (
-  props: z.infer<typeof getByIdSchema>,
+  props: z.infer<typeof propsSchema>,
 ): Promise<ResultT> => {
-  const { optionId } = getByIdSchema.parse(props);
+  const { optionId } = propsSchema.parse(props);
 
   const session = await getAppSessionStrictServer();
 

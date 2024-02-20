@@ -5,7 +5,7 @@ import {
   OptionCreateTx,
   optionCreateTx,
 } from "../_tx/optionCreate.transaction";
-import { OptionCreateComplexible } from "../domain/types";
+import { OptionCreateComplexible } from "../_domain/types";
 
 type CreateOption = {
   dataToCreate: OptionCreateComplexible;

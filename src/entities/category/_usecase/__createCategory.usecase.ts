@@ -6,10 +6,11 @@ import {
   CategoryRepository,
   categoryRepository,
 } from "../_repository/category.repo";
+import { CategoryCreateComplexible } from "@/features/categoryCreate/_domain/types";
 
 type CreateCategory = {
+  dataToCreate: CategoryCreateComplexible;
   session: SessionEntity;
-  categoryData: Category;
 };
 
 class CreateCategoryUseCase {

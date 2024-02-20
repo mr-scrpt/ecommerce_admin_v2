@@ -21,11 +21,6 @@ export const OptionFormCreate: FC<OptionCreateFormProps> = (props) => {
 
   const { optionCreate, isPending: isPendingUpdate } = useOptionCreate();
 
-  // const { categoryOptionList, isPending: IsPendingCategoryOptionList } =
-  //   useCategoryLikeOptionList();
-  // const { toCategoryIdList, toOptionList } = useCategoryListTransformOption();
-
-  // console.log("output_log: optionList  =>>>", categoryOptionList);
   const handleSubmit = async (data: OptionFormValues) => {
     console.log("output_log: form data =>>>", data);
     await optionCreate({
@@ -39,7 +34,6 @@ export const OptionFormCreate: FC<OptionCreateFormProps> = (props) => {
     }
   };
 
-  // const isPendingComplexible = isPendingUpdate || IsPendingCategoryOptionList;
   const isPendingComplexible = isPendingUpdate;
 
   return (

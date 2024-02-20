@@ -8,9 +8,44 @@ export const categorySchema = z.object({
   createdAt: z.date(),
 });
 
+export const categoryRelationSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  slug: z.string(),
+  board: z.array(z.string()),
+  createdAt: z.date(),
+
+  productList: z.array(
+    z.object({
+      id: z.string(),
+      name: z.string(),
+      slug: z.string(),
+      img: z.array(z.string()),
+      createdAt: z.date(),
+    }),
+  ),
+  optionList: z.array(
+    z.object({
+      id: z.string(),
+      name: z.string(),
+      value: z.string(),
+    }),
+  ),
+});
+
 export const categoryCreateSchema = z.object({
   name: z.string(),
   board: z.array(z.string()),
+  productList: z.array(
+    z.object({
+      id: z.string(),
+    }),
+  ),
+  optionList: z.array(
+    z.object({
+      id: z.string(),
+    }),
+  ),
 });
 
 export const categoryUpdateSchema = z.object({

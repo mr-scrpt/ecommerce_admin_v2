@@ -1,30 +1,28 @@
-"use server";
-import { getAppSessionStrictServer } from "@/entities/user/getAppSessionServer";
 import { z } from "zod";
-import { categorySchema } from "../_domain/category.schema";
+import { categorySchema } from "..";
 import { Category } from "../_domain/types";
-import { getCategoryUseCase } from "../_usecase/getCategory.usecase";
+import { getAppSessionStrictServer } from "@/entities/user/getAppSessionServer";
+import { getCategoryBySlugUseCase } from "../_usecase/getCategoryBySlug.usecase";
 
 const propsSchema = z.object({
-  categoryId: z.string(),
+  categorySlug: z.string(),
 });
-
 const resultSchema = z.object({
   category: categorySchema,
 });
 
 type ResultT = { category: Category };
 
-export const getCategoryAction = async (
+export const getCategoryBySlugAction = async (
   props: z.infer<typeof propsSchema>,
 ): Promise<ResultT> => {
-  const { categoryId } = propsSchema.parse(props);
+  const { categorySlug } = propsSchema.parse(props);
 
   const session = await getAppSessionStrictServer();
 
-  const category = await getCategoryUseCase.exec({
+  const category = await getCategoryBySlugUseCase.exec({
     session,
-    categoryId,
+    categorySlug,
   });
 
   return resultSchema.parseAsync({

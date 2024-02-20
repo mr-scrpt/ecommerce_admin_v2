@@ -23,7 +23,11 @@ export const CategoryFormCreate: FC<CategoryCreateFormProps> = (props) => {
 
   const handleSubmit = async (data: CategoryFormValues) => {
     await categoryCreate({
-      data,
+      data: {
+        ...data,
+        productList: [],
+        optionList: [],
+      },
     });
 
     onSuccess?.();

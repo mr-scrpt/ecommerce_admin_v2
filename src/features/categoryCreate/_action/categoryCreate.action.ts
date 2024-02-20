@@ -1,10 +1,10 @@
 "use server";
 
-import { getAppSessionStrictServer } from "@/entities/user/getAppSessionServer";
-import { z } from "zod";
 import { categoryCreateSchema, categorySchema } from "@/entities/category";
-import { createCategoryUseCase } from "@/entities/category/server";
+import { getAppSessionStrictServer } from "@/entities/user/getAppSessionServer";
 import { slugGenerator } from "@/shared/lib/slugGenerator";
+import { z } from "zod";
+import { createCategoryComplexibleUseCase } from "../_usecase/optionCreateComplexible.usecase";
 
 const propsSchema = z.object({
   data: categoryCreateSchema,
@@ -18,13 +18,22 @@ export const categoryCreateAction = async (
   props: z.infer<typeof propsSchema>,
 ) => {
   const { data } = propsSchema.parse(props);
+  const { optionList, productList, ...categoryData } = data;
 
   const session = await getAppSessionStrictServer();
   const slug = slugGenerator(data.name);
 
-  const category = await createCategoryUseCase.exec({
+  const category = await createCategoryComplexibleUseCase.exec({
     session,
-    categoryData: { ...data, slug },
+    dataToCreate: {
+      categoryData: {
+        ...categoryData,
+        slug,
+      },
+
+      optionListData: optionList,
+      productListData: productList,
+    },
   });
 
   return resultSchema.parseAsync({
