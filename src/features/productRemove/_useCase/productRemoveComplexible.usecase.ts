@@ -3,7 +3,7 @@ import { ForbiddenError } from "@/shared/lib/errors";
 import {
   ProductRemoveTx,
   productRemoveTx,
-} from "../_repository/productRemove.transaction";
+} from "../_tx/productRemove.transaction";
 import { ProductEntity, ProductId } from "@/entities/product";
 import { SessionEntity } from "@/shared/lib/user";
 

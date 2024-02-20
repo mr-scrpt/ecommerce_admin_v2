@@ -1,5 +1,6 @@
 import { DbClient, Tx, dbClient } from "@/shared/lib/db";
 import {
+  OptionId,
   OptionItem,
   OptionItemCreate,
   OptionItemEntity,
@@ -31,6 +32,17 @@ export class OptionItemRepository {
     const { optionId, ...optionItem } = data;
     return await db.optionItem.create({
       data: { ...optionItem, optionId },
+    });
+  }
+
+  async removeOptionRelation(
+    optionId: OptionId,
+    db: Tx = this.db,
+  ): Promise<void> {
+    await db.optionItem.deleteMany({
+      where: {
+        optionId,
+      },
     });
   }
 

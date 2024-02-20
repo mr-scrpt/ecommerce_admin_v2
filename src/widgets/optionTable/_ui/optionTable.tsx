@@ -6,7 +6,6 @@ import { FC, HTMLAttributes } from "react";
 import { useOptionRemoveConfirm } from "../_vm/useOptionRemoveConfirm";
 import { useOptionTableList } from "../_vm/useOptionTableList";
 import { useTableColumns } from "../_vm/useTabelColumns";
-// import { useOptionRemoveConfirm } from "../_vm/useOptionRemoveConfirm";
 
 interface OptionTableProps extends HTMLAttributes<HTMLDivElement> {}
 
@@ -29,10 +28,6 @@ export const OptionTable: FC<OptionTableProps> = (props) => {
     onDeleteClick,
   });
 
-  // const optionColumns = useTableColumns({
-  //   onDeleteClick: () => {},
-  // });
-  // const isPendingComplexible = false;
   if (isPendingComplexible) {
     return <Spinner aria-label="Option loaded..." />;
   }
