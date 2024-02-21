@@ -14,13 +14,13 @@ import { Input } from "@/shared/ui/input";
 import { MultiSelect, OptionItem } from "@/shared/ui/multiSelect";
 import { Textarea } from "@/shared/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FC, HTMLAttributes, useCallback, useEffect, useState } from "react";
+import { FC, HTMLAttributes, useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import {
   ProductFormValues,
   productFormSchema,
 } from "../_domain/product.schema";
-import { ProductCategory, ProductRelation } from "../_domain/types";
+import { ProductRelation } from "../_domain/types";
 import { ImgField } from "./imgField";
 
 interface ProductFormProps extends HTMLAttributes<HTMLFormElement> {
@@ -28,15 +28,11 @@ interface ProductFormProps extends HTMLAttributes<HTMLFormElement> {
   handleSubmit?: (data: ProductFormValues) => void;
   isPending: boolean;
   submitText?: string;
-  categoryOptionList: Array<OptionItem>;
+  categorySelectOptionList: Array<OptionItem>;
+  categotySelectOptionListActive?: Array<OptionItem>;
   handleCategoryOptionSelect: (
     itemList: Array<OptionItem>,
   ) => Array<{ id: string }>;
-
-  // handleCategoryOptionActive: (
-  //   itemList: Array<ProductCategory>,
-  // ) => Array<OptionItem>;
-  categotyOptionActiveList?: Array<OptionItem>;
 }
 
 const getDefaultValues = (product?: ProductRelation) => ({
@@ -53,10 +49,9 @@ export const ProductForm: FC<ProductFormProps> = (props) => {
     handleSubmit: onSubmit,
     submitText,
     isPending,
-    categoryOptionList,
+    categorySelectOptionList,
+    categotySelectOptionListActive,
     handleCategoryOptionSelect,
-    categotyOptionActiveList,
-    // handleCategoryOptionActive,
   } = props;
 
   const form = useForm<ProductFormValues>({
@@ -96,8 +91,8 @@ export const ProductForm: FC<ProductFormProps> = (props) => {
                 <FormLabel>Category list</FormLabel>
                 <FormControl>
                   <MultiSelect
-                    optionList={categoryOptionList}
-                    optionActiveList={categotyOptionActiveList}
+                    optionList={categorySelectOptionList}
+                    optionActiveList={categotySelectOptionListActive}
                     onSelected={handleSelect}
                   />
                 </FormControl>

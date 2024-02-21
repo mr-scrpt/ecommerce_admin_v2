@@ -38,7 +38,7 @@ export const ProductFormUpdate: FC<ProductFormProps> = (props) => {
 
   const { productUpdate, isPending: isPendingUpdate } = useProductUpdate();
 
-  const { categoryOptionList, isPending: isPendingCategoryOptionList } =
+  const { categorySelectOptionList, isPending: isPendingCategoryOptionList } =
     useCategoryLikeOptionList();
   const { toCategoryIdList, toOptionList } = useCategoryListTransformOption();
 
@@ -76,9 +76,9 @@ export const ProductFormUpdate: FC<ProductFormProps> = (props) => {
         handleSubmit={handleSubmit}
         isPending={isPendingComplexible}
         product={product}
-        categotyOptionActiveList={categotyOptionActiveList}
+        categorySelectOptionList={categorySelectOptionList}
+        categotySelectOptionListActive={categotyOptionActiveList}
         submitText={"Save change"}
-        categoryOptionList={categoryOptionList}
         handleCategoryOptionSelect={toCategoryIdList}
       />
     </div>
