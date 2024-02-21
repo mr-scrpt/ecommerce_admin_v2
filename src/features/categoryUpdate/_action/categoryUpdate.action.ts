@@ -2,11 +2,10 @@
 import { z } from "zod";
 
 import {
-  CategoryEntity,
+  Category,
   categorySchema,
   categoryUpdateSchema,
 } from "@/entities/category";
-import { updateCategoryUseCase } from "@/entities/category/server";
 import { getAppSessionStrictServer } from "@/entities/user/getAppSessionServer";
 import { slugGenerator } from "@/shared/lib/slugGenerator";
 
@@ -19,9 +18,11 @@ const resultSchema = z.object({
   category: categorySchema,
 });
 
+type ResultT = { category: Category };
+
 export const updateCategoryAction = async (
   props: z.infer<typeof propsSchema>,
-): Promise<{ category: CategoryEntity }> => {
+): Promise<ResultT> => {
   const { categoryId, data } = propsSchema.parse(props);
 
   const session = await getAppSessionStrictServer();

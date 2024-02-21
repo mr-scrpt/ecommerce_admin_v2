@@ -1,4 +1,5 @@
 import {
+  CategoryEntity,
   CategoryRelationEntity,
   createCategoryAbility,
 } from "@/entities/category";
@@ -18,7 +19,7 @@ type CreateCategory = {
 class CreateCategoryComplexibleUseCase {
   constructor(private readonly categoryCreateTx: CategoryCreateTx) {}
 
-  async exec(data: CreateCategory): Promise<CategoryRelationEntity> {
+  async exec(data: CreateCategory): Promise<CategoryEntity> {
     const { dataToCreate, session } = data;
     console.log("output_log: data to create =>>>", dataToCreate);
 

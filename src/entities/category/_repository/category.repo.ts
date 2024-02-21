@@ -23,6 +23,21 @@ export class CategoryRepository {
     });
   }
 
+  async getCategoryWithRelation(
+    categoryId: CategoryId,
+    db: Tx = this.db,
+  ): Promise<CategoryEntity> {
+    return db.category.findUniqueOrThrow({
+      where: {
+        id: categoryId,
+      },
+      include: {
+        optionList: true,
+        productList: true,
+      },
+    });
+  }
+
   async getCategoryBySlug(
     slug: string,
     db: Tx = this.db,
@@ -37,7 +52,7 @@ export class CategoryRepository {
   async getCategoryRelation(
     categoryId: CategoryId,
     db: Tx = this.db,
-  ): Promise<CategoryRelationEntity> {
+  ): Promise<CategoryEntity> {
     return await db.category.findUniqueOrThrow({
       where: {
         id: categoryId,

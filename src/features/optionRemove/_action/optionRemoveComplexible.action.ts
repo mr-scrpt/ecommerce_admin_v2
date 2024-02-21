@@ -1,7 +1,7 @@
 "use server";
 import { z } from "zod";
 
-import { OptionEntity, optionSchema } from "@/entities/option";
+import { Option, optionSchema } from "@/entities/option";
 import { removeOptionComplexibleUseCase } from "../_useCase/optionRemoveComplexible.usecase";
 import { getAppSessionStrictServer } from "@/entities/user/getAppSessionServer";
 
@@ -13,9 +13,11 @@ const resultSchema = z.object({
   option: optionSchema,
 });
 
+type ResultT = { option: Option };
+
 export const removeOptionComplexibleAction = async (
   props: z.infer<typeof propsSchema>,
-): Promise<{ option: OptionEntity }> => {
+): Promise<ResultT> => {
   const { optionId } = propsSchema.parse(props);
 
   const session = await getAppSessionStrictServer();

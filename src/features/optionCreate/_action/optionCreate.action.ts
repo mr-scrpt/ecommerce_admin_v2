@@ -1,6 +1,6 @@
 "use server";
 
-import { OptionRelation, optionCreateSchema } from "@/entities/option";
+import { optionCreateSchema, Option } from "@/entities/option";
 import { optionRelationSchema } from "@/entities/option/_domain/option/option.schema";
 import { getAppSessionStrictServer } from "@/entities/user/getAppSessionServer";
 import { z } from "zod";
@@ -14,7 +14,7 @@ const resultSchema = z.object({
   option: optionRelationSchema,
 });
 
-type ResultT = { option: OptionRelation };
+type ResultT = { option: Option };
 
 export const optionCreateAction = async (
   props: z.infer<typeof propsSchema>,

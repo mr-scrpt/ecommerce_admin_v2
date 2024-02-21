@@ -1,11 +1,11 @@
-import { OptionRelationEntity, createOptionAbility } from "@/entities/option";
+import { OptionEntity, createOptionAbility } from "@/entities/option";
 import { ForbiddenError } from "@/shared/lib/errors";
 import { SessionEntity } from "@/shared/lib/user";
+import { OptionCreateComplexible } from "../_domain/types";
 import {
   OptionCreateTx,
   optionCreateTx,
 } from "../_tx/optionCreate.transaction";
-import { OptionCreateComplexible } from "../_domain/types";
 
 type CreateOption = {
   dataToCreate: OptionCreateComplexible;
@@ -15,7 +15,7 @@ type CreateOption = {
 class CreateOptionComplexibleUseCase {
   constructor(private readonly optionCreateTx: OptionCreateTx) {}
 
-  async exec(data: CreateOption): Promise<OptionRelationEntity> {
+  async exec(data: CreateOption): Promise<OptionEntity> {
     const { dataToCreate, session } = data;
 
     const { canCreateOption } = createOptionAbility(session);

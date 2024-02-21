@@ -29,6 +29,7 @@ export type CategoryRelation = Category & {
   productList: Array<ProductListItem>;
   optionList: Array<OptionListItem>;
 };
+
 export type CategoryToCreate = {
   name: string;
   slug: CategorySlug;
@@ -36,6 +37,7 @@ export type CategoryToCreate = {
 };
 
 export type CategoryToUpdate = {
+  id: CategoryId;
   name: string;
   slug: CategorySlug;
   board: Array<string>;
@@ -60,7 +62,6 @@ type ProductListItem = {
   createdAt: Date;
 };
 
-// Тип для элемента массива optionList
 type OptionListItem = {
   id: string;
   name: string;

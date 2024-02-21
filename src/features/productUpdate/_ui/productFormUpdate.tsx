@@ -40,6 +40,7 @@ export const ProductFormUpdate: FC<ProductFormProps> = (props) => {
 
   const { categorySelectOptionList, isPending: isPendingCategoryOptionList } =
     useCategoryLikeSelectOptionList();
+
   const { toCategoryIdList, toOptionList } = useCategoryListTransformOption();
 
   const isPendingComplexible =
@@ -69,7 +70,8 @@ export const ProductFormUpdate: FC<ProductFormProps> = (props) => {
     }
   };
 
-  const categotyOptionActiveList = toOptionList(product.categoryList);
+  const categotySelectOptionListActive = toOptionList(product.categoryList);
+
   return (
     <div className={cn(className, "w-full")}>
       <ProductForm
@@ -77,9 +79,9 @@ export const ProductFormUpdate: FC<ProductFormProps> = (props) => {
         isPending={isPendingComplexible}
         product={product}
         categorySelectOptionList={categorySelectOptionList}
-        categotySelectOptionListActive={categotyOptionActiveList}
+        categotySelectOptionListActive={categotySelectOptionListActive}
+        handleCategorySelectOption={toCategoryIdList}
         submitText={"Save change"}
-        handleCategoryOptionSelect={toCategoryIdList}
       />
     </div>
   );

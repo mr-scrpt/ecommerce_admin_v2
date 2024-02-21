@@ -1,10 +1,14 @@
 "use server";
 
+import {
+  Product,
+  productCreateSchema,
+  productSchema,
+} from "@/entities/product";
 import { getAppSessionStrictServer } from "@/entities/user/getAppSessionServer";
-import { z } from "zod";
-import { productCreateSchema, productSchema } from "@/entities/product";
-import { createProductUseCase } from "@/entities/product/server";
 import { slugGenerator } from "@/shared/lib/slugGenerator";
+import { z } from "zod";
+import { createProductComplexibleUseCase } from "../_usecase/productCreateComplexible.usecase";
 
 const propsSchema = z.object({
   data: productCreateSchema,
@@ -14,22 +18,29 @@ const resultSchema = z.object({
   product: productSchema,
 });
 
+type ResultT = { product: Product };
+
 export const productCreateAction = async (
   props: z.infer<typeof propsSchema>,
-) => {
+): Promise<ResultT> => {
   const { data } = propsSchema.parse(props);
-  console.log("output_log: productCreate  data =>>>", data);
+  const { categoryList, ...productData } = data;
 
   const session = await getAppSessionStrictServer();
 
   const slug = slugGenerator(data.name);
 
-  const product = await createProductUseCase.exec({
+  const product = await createProductComplexibleUseCase.exec({
     session,
-    productData: { ...data, slug },
-  });
+    dataToCreate: {
+      productData: {
+        ...productData,
+        slug,
+      },
 
-  console.log("output_log: productCreate  product =>>>", product);
+      categoryListData: categoryList,
+    },
+  });
 
   return resultSchema.parseAsync({
     product,

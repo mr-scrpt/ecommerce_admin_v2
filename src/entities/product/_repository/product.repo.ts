@@ -1,9 +1,8 @@
 import { DbClient, Tx, dbClient } from "@/shared/lib/db";
 import {
-  Product,
+  ProductAddCategoryList,
   ProductEntity,
   ProductId,
-  ProductRelation,
   ProductRelationEntity,
   ProductToCreate,
   ProductToUpdate,
@@ -57,9 +56,23 @@ export class ProductRepository {
     db: Tx = this.db,
   ): Promise<ProductEntity> {
     return await db.product.create({
+      data: product,
+    });
+  }
+
+  async addCategoryList(
+    data: ProductAddCategoryList,
+    db: Tx = this.db,
+  ): Promise<ProductEntity> {
+    const { productId, categoryListId } = data;
+    return await db.product.update({
+      where: {
+        id: productId,
+      },
       data: {
-        ...product,
-        categoryList: { connect: [...product.categoryList] },
+        categoryList: {
+          connect: categoryListId,
+        },
       },
     });
   }

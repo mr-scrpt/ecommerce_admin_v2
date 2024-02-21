@@ -1,26 +1,31 @@
-export { CategoryForm } from "./_ui/categoryForm";
+export { createCategoryAbility } from "./_domain/category.ability";
 export {
+  categoryCreateSchema,
   categoryFormSchema,
   categorySchema,
-  categoryCreateSchema,
   categoryUpdateSchema,
 } from "./_domain/category.schema";
 export { useCategoryQuery } from "./_query/category.query";
 export { useCategoryListQuery } from "./_query/categoryList.query";
 export {
+  useCategoryWithRelationQuery,
+  useInvalidateCategoryWithRelation,
+} from "./_query/categoryWithRelation.query";
+export {
   CategoryRepository,
   categoryRepository,
 } from "./_repository/category.repo";
-export { createCategoryAbility } from "./_domain/category.ability";
+export { CategoryForm } from "./_ui/categoryForm";
 export { useCategoryLikeSelectOptionList } from "./_vm/useCategoryLikeSelectOptionList";
 export { useCategoryListTransformOption } from "./_vm/useCategoryListTransformOption";
 
 export type {
-  CategoryId,
-  CategoryEntity,
-  CategoryToCreate,
-  CategoryToUpdate,
-  CategoryRelationEntity,
   CategoryAddOptionList,
   CategoryAddProductList,
+  CategoryEntity,
+  CategoryId,
+  CategoryRelationEntity,
+  CategoryToCreate,
+  CategoryToUpdate,
+  Category,
 } from "./_domain/types";

@@ -1,6 +1,10 @@
 "use server";
 
-import { categoryCreateSchema, categorySchema } from "@/entities/category";
+import {
+  Category,
+  categoryCreateSchema,
+  categorySchema,
+} from "@/entities/category";
 import { getAppSessionStrictServer } from "@/entities/user/getAppSessionServer";
 import { slugGenerator } from "@/shared/lib/slugGenerator";
 import { z } from "zod";
@@ -14,9 +18,11 @@ const resultSchema = z.object({
   category: categorySchema,
 });
 
+type ResultT = { category: Category };
+
 export const categoryCreateAction = async (
   props: z.infer<typeof propsSchema>,
-) => {
+): Promise<ResultT> => {
   const { data } = propsSchema.parse(props);
   const { optionList, ...categoryData } = data;
 

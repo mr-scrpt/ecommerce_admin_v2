@@ -25,7 +25,7 @@ export const ProductFormCreate: FC<ProductCreateFormProps> = (props) => {
 
   const { productCreate, isPending: isPendingCreate } = useProductCreate();
 
-  const { categorySelectOptionList, isPending: IsPendingCategoryOptionList } =
+  const { categorySelectOptionList, isPending: isPendingCategoryOptionList } =
     useCategoryLikeSelectOptionList();
 
   const { toCategoryIdList } = useCategoryListTransformOption();
@@ -42,7 +42,7 @@ export const ProductFormCreate: FC<ProductCreateFormProps> = (props) => {
     }
   };
 
-  const isPendingComplexible = isPendingCreate || IsPendingCategoryOptionList;
+  const isPendingComplexible = isPendingCreate || isPendingCategoryOptionList;
 
   return (
     <div className={cn(className, "w-full")}>
@@ -51,7 +51,7 @@ export const ProductFormCreate: FC<ProductCreateFormProps> = (props) => {
         isPending={isPendingComplexible}
         submitText={"Create Product"}
         categorySelectOptionList={categorySelectOptionList}
-        handleCategoryOptionSelect={toCategoryIdList}
+        handleCategorySelectOption={toCategoryIdList}
       />
     </div>
   );

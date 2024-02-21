@@ -1,4 +1,3 @@
-export { OptionDataTypeEnum } from "../../shared/type/optionDataType.enum";
 export { createOptionAbility } from "./_domain/option/option.ability";
 export {
   optionFormSchema,

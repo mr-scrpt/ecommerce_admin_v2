@@ -4,6 +4,7 @@ import {
   CategoryId,
   categoryFormSchema,
   useCategoryQuery,
+  useCategoryWithRelationQuery,
 } from "@/entities/category";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { cn } from "@/shared/ui/utils";
@@ -11,6 +12,10 @@ import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes } from "react";
 import { z } from "zod";
 import { useCategoryUpdate } from "../_vm/useCategoryUpdate";
+import {
+  useOptionLikeSelectOptionList,
+  useOptionListTransformOption,
+} from "@/entities/option";
 
 interface CategoryFormProps extends HTMLAttributes<HTMLDivElement> {
   categoryId: CategoryId;
@@ -28,21 +33,29 @@ export const CategoryFormUpdate: FC<CategoryFormProps> = (props) => {
     isPending: isPendingCategory,
     isFetchedAfterMount,
     category,
-  } = useCategoryQuery(categoryId);
+  } = useCategoryWithRelationQuery(categoryId);
 
   const router = useRouter();
 
   const { categoryUpdate, isPending: isPendingUpdate } = useCategoryUpdate();
 
-  const isPendingComplexible =
-    isPendingCategory || isPendingUpdate || !isFetchedAfterMount;
+  const { optionSelectOptionList, isPending: isPendingOptionList } =
+    useOptionLikeSelectOptionList();
 
-  if (!category) {
-    return <div>Failed to load category, you may not have permissions</div>;
-  }
+  const { toOptionIdList, toOptionList } = useOptionListTransformOption();
+
+  const isPendingComplexible =
+    isPendingCategory ||
+    isPendingUpdate ||
+    !isFetchedAfterMount ||
+    isPendingOptionList;
 
   if (isPendingComplexible) {
     return <Spinner aria-label="Loading profile..." />;
+  }
+
+  if (!category) {
+    return <div>Failed to load category, you may not have permissions</div>;
   }
 
   const handleSubmit = async (data: CategoryFormValues) => {
@@ -58,12 +71,17 @@ export const CategoryFormUpdate: FC<CategoryFormProps> = (props) => {
     }
   };
 
+  const optionSelectOptionListActive = toOptionList(category.categoryList);
+
   return (
     <div className={cn(className, "w-full")}>
       <CategoryForm
         handleSubmit={handleSubmit}
         isPending={isPendingComplexible}
         category={category}
+        optionSelectOptionList={optionSelectOptionList}
+        optionSelectOptionListActive={optionSelectOptionListActive}
+        handleOptionSelectOption={toOptionIdList}
         submitText={"Save change"}
       />
     </div>

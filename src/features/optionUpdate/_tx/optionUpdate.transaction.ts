@@ -1,4 +1,4 @@
-import { OptionRelationEntity } from "@/entities/option";
+import { OptionEntity, OptionRelationEntity } from "@/entities/option";
 import {
   OptionItemRepository,
   OptionRepository,
@@ -17,9 +17,7 @@ export class OptionUpdateTx extends Transaction {
     super(dbClient);
   }
 
-  async updateOptionById(
-    data: OptionUpdateComplexible,
-  ): Promise<OptionRelationEntity> {
+  async updateOptionById(data: OptionUpdateComplexible): Promise<OptionEntity> {
     const { optionId, optionData, optionItemListData } = data;
     const action = async (tx: Tx) => {
       await this.optionRepo.updateOption(optionId, optionData, tx);
@@ -49,7 +47,7 @@ export class OptionUpdateTx extends Transaction {
         }),
       );
 
-      return await this.optionRepo.getOptionRelation(optionId, tx);
+      return await this.optionRepo.getOption(optionId, tx);
     };
 
     return await this.start(action);

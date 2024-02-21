@@ -5,10 +5,6 @@ import {
 import { ForbiddenError } from "@/shared/lib/errors";
 import { SessionEntity } from "@/shared/lib/user";
 import { CategoryUpdateComplexible } from "../_domain/types";
-import {
-  CategoryUpdateTx,
-  categoryUpdateTx,
-} from "../_tx/categoryUpdate.transaction";
 
 type UpdateCategory = {
   dataToUpdate: CategoryUpdateComplexible;

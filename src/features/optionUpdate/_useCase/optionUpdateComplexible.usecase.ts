@@ -10,11 +10,6 @@ import { OptionUpdateComplexible } from "../_domain/types";
 
 type UpdateOption = {
   dataToUpdate: OptionUpdateComplexible;
-  // data: {
-  //   optionId: OptionId;
-  //   optionData: Partial<OptionEntity>;
-  //   optionItemList: Partial<OptionItemEntity>[];
-  // };
   session: SessionEntity;
 };
 

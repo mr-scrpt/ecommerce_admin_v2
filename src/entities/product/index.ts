@@ -11,7 +11,10 @@ export { useProductListQuery } from "./_query/productList.query";
 export { createProductAbility } from "./_domain/product.ability";
 
 export type {
+  Product,
   ProductId,
   ProductEntity,
   ProductRelation,
+  ProductToCreate,
+  ProductToUpdate,
 } from "./_domain/types";

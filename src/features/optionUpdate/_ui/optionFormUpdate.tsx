@@ -57,9 +57,9 @@ export const OptionFormUpdate: FC<OptionFormProps> = (props) => {
 
     onSuccess?.();
 
-    // if (callbackUrl) {
-    //   router.push(callbackUrl);
-    // }
+    if (callbackUrl) {
+      router.push(callbackUrl);
+    }
   };
   return (
     <div className={cn(className, "w-full")}>
