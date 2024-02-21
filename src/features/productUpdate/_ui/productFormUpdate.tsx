@@ -60,7 +60,10 @@ export const ProductFormUpdate: FC<ProductFormProps> = (props) => {
   const handleSubmit = async (data: ProductFormValues) => {
     await productUpdate({
       productId: product.id,
-      data,
+      data: {
+        ...data,
+        id: product.id,
+      },
     });
 
     onSuccess?.();

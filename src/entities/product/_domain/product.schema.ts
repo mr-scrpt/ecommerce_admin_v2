@@ -39,6 +39,7 @@ export const productCreateSchema = z.object({
 });
 
 export const productUpdateSchema = z.object({
+  id: z.string(),
   name: z.string(),
   description: z.string(),
   about: z.string(),

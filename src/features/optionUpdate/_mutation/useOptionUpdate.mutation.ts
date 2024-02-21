@@ -1,7 +1,4 @@
-import {
-  OptionEntity,
-  OptionRelationEntity,
-} from "@/entities/option/_domain/option/types";
+import { OptionEntity } from "@/entities/option/_domain/option/types";
 import { useMutation } from "@tanstack/react-query";
 import { updateOptionAction } from "../_action/optionUpdate.action";
 
@@ -19,9 +16,9 @@ export const useOptionUpdateMutation = (props: IOptionUpdateMutation) => {
     // async onSuccess({ option }, { optionId }) {
     //   onSuccess(option, optionId);
     // },
-    async onSuccess({ option }) {
-      onSuccess(option);
-    },
+    // async onSuccess({ option }) {
+    //   onSuccess(option);
+    // },
   });
   return {
     mutateAsync,
