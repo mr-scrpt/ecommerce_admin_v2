@@ -15,6 +15,8 @@ export {
 export { OptionForm } from "./_ui/optionForm";
 export { OptionFromLayout } from "./_ui/optionFromLayout";
 export { useOptionWithRelationQuery } from "./_query/option/optionWithRelation.query";
+export { useOptionListTransformOption } from "./_vm/useOptionListTransformOption";
+export { useOptionLikeSelectOptionList } from "./_vm/useOptionLikeSelectOptionList";
 
 export type {
   OptionEntity,

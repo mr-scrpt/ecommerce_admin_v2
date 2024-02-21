@@ -1,14 +1,14 @@
 import { useCategoryListQuery } from "..";
 import { useCategoryListTransformOption } from "./useCategoryListTransformOption";
 
-export const useCategoryLikeOptionList = () => {
+export const useCategoryLikeSelectOptionList = () => {
   const { categoryList, isPending } = useCategoryListQuery();
   const { toOptionList } = useCategoryListTransformOption();
 
-  const optionList = toOptionList(categoryList);
+  const optionListSelect = toOptionList(categoryList);
 
   return {
-    categoryOptionList: optionList,
+    categorySelectOptionList: optionListSelect,
     isPending,
   };
 };

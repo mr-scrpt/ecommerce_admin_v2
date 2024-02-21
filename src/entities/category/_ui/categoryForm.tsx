@@ -12,7 +12,7 @@ import {
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { Input } from "@/shared/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FC, HTMLAttributes, useEffect } from "react";
+import { FC, HTMLAttributes, useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import {
   CategoryFormValues,
@@ -20,12 +20,18 @@ import {
 } from "../_domain/category.schema";
 import { Category } from "../_domain/types";
 import { BoardField } from "./boardField";
+import { MultiSelect, OptionItem } from "@/shared/ui/multiSelect";
 
 interface CategoryFormProps extends HTMLAttributes<HTMLFormElement> {
   category?: Category;
   handleSubmit?: (data: CategoryFormValues) => void;
   isPending: boolean;
   submitText?: string;
+  optionSelectOptionList: Array<OptionItem>;
+  optionSelectOptionListActive?: Array<OptionItem>;
+  handleOptionSelectOption: (
+    itemList: Array<OptionItem>,
+  ) => Array<{ id: string }>;
 }
 
 const getDefaultValues = (category?: Category) => ({
@@ -34,7 +40,15 @@ const getDefaultValues = (category?: Category) => ({
 });
 
 export const CategoryForm: FC<CategoryFormProps> = (props) => {
-  const { category, handleSubmit: onSubmit, submitText, isPending } = props;
+  const {
+    category,
+    handleSubmit: onSubmit,
+    submitText,
+    isPending,
+    optionSelectOptionList,
+    optionSelectOptionListActive,
+    handleOptionSelectOption,
+  } = props;
 
   const form = useForm<CategoryFormValues>({
     resolver: zodResolver(categoryFormSchema),
@@ -57,9 +71,32 @@ export const CategoryForm: FC<CategoryFormProps> = (props) => {
 
   const isPendingAppearance = useAppearanceDelay(isPending);
 
+  const handleSelect = useCallback((value: OptionItem[]) => {
+    form.setValue("optionList", handleOptionSelectOption(value));
+  }, []);
+
   return (
     <Form {...form}>
       <form onSubmit={handleSubmit} className="space-y-8">
+        <FormField
+          control={form.control}
+          name="optionList"
+          render={({ field }) => {
+            return (
+              <FormItem>
+                <FormLabel>Category list</FormLabel>
+                <FormControl>
+                  <MultiSelect
+                    optionList={optionSelectOptionList}
+                    optionActiveList={optionSelectOptionListActive}
+                    onSelected={handleSelect}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            );
+          }}
+        />
         <FormField
           control={form.control}
           name="name"

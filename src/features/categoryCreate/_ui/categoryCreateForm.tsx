@@ -1,5 +1,7 @@
 "use client";
 import { CategoryForm, categoryFormSchema } from "@/entities/category";
+import { useOptionListTransformOption } from "@/entities/option";
+import { useOptionLikeSelectOptionList } from "@/entities/option/_vm/useOptionLikeSelectOptionList";
 import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes } from "react";
@@ -19,14 +21,17 @@ export const CategoryFormCreate: FC<CategoryCreateFormProps> = (props) => {
 
   const router = useRouter();
 
-  const { categoryCreate, isPending: isPendingUpdate } = useCategoryCreate();
+  const { categoryCreate, isPending: isPendingCreate } = useCategoryCreate();
+
+  const { optionSelectOptionList, isPending: isPendingOptionList } =
+    useOptionLikeSelectOptionList();
+
+  const { toOptionIdList } = useOptionListTransformOption();
 
   const handleSubmit = async (data: CategoryFormValues) => {
+    console.log("output_log: data form =>>>", data);
     await categoryCreate({
-      data: {
-        ...data,
-        optionList: [],
-      },
+      data,
     });
 
     onSuccess?.();
@@ -35,13 +40,16 @@ export const CategoryFormCreate: FC<CategoryCreateFormProps> = (props) => {
       router.push(callbackUrl);
     }
   };
+  const isPendingComplexible = isPendingCreate || isPendingOptionList;
 
   return (
     <div className={cn(className, "w-full")}>
       <CategoryForm
         handleSubmit={handleSubmit}
-        isPending={isPendingUpdate}
+        isPending={isPendingComplexible}
         submitText={"Create Category"}
+        optionSelectOptionList={optionSelectOptionList}
+        handleOptionSelectOption={toOptionIdList}
       />
     </div>
   );

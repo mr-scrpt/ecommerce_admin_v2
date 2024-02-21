@@ -12,7 +12,7 @@ export {
   categoryRepository,
 } from "./_repository/category.repo";
 export { createCategoryAbility } from "./_domain/category.ability";
-export { useCategoryLikeSelectOptionList } from "./_vm/useCategoryLikeOptionList";
+export { useCategoryLikeSelectOptionList } from "./_vm/useCategoryLikeSelectOptionList";
 export { useCategoryListTransformOption } from "./_vm/useCategoryListTransformOption";
 
 export type {

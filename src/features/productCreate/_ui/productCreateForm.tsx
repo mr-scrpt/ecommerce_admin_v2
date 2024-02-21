@@ -23,7 +23,7 @@ export const ProductFormCreate: FC<ProductCreateFormProps> = (props) => {
 
   const router = useRouter();
 
-  const { productCreate, isPending: isPendingUpdate } = useProductCreate();
+  const { productCreate, isPending: isPendingCreate } = useProductCreate();
 
   const { categorySelectOptionList, isPending: IsPendingCategoryOptionList } =
     useCategoryLikeSelectOptionList();
@@ -42,7 +42,7 @@ export const ProductFormCreate: FC<ProductCreateFormProps> = (props) => {
     }
   };
 
-  const isPendingComplexible = isPendingUpdate || IsPendingCategoryOptionList;
+  const isPendingComplexible = isPendingCreate || IsPendingCategoryOptionList;
 
   return (
     <div className={cn(className, "w-full")}>

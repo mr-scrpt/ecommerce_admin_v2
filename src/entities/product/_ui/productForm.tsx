@@ -30,7 +30,7 @@ interface ProductFormProps extends HTMLAttributes<HTMLFormElement> {
   submitText?: string;
   categorySelectOptionList: Array<OptionItem>;
   categotySelectOptionListActive?: Array<OptionItem>;
-  handleCategoryOptionSelect: (
+  handleCategorySelectOption: (
     itemList: Array<OptionItem>,
   ) => Array<{ id: string }>;
 }
@@ -51,7 +51,7 @@ export const ProductForm: FC<ProductFormProps> = (props) => {
     isPending,
     categorySelectOptionList,
     categotySelectOptionListActive,
-    handleCategoryOptionSelect,
+    handleCategorySelectOption,
   } = props;
 
   const form = useForm<ProductFormValues>({
@@ -76,7 +76,7 @@ export const ProductForm: FC<ProductFormProps> = (props) => {
   const isPendingAppearance = useAppearanceDelay(isPending);
 
   const handleSelect = useCallback((value: OptionItem[]) => {
-    form.setValue("categoryList", handleCategoryOptionSelect(value));
+    form.setValue("categoryList", handleCategorySelectOption(value));
   }, []);
 
   return (

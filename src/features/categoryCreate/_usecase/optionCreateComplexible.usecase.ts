@@ -20,6 +20,7 @@ class CreateCategoryComplexibleUseCase {
 
   async exec(data: CreateCategory): Promise<CategoryRelationEntity> {
     const { dataToCreate, session } = data;
+    console.log("output_log: data to create =>>>", dataToCreate);
 
     const { canCreateCategory } = createCategoryAbility(session);
 

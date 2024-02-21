@@ -62,6 +62,11 @@ export const categoryFormSchema = z.object({
     })
     .transform((name) => name.trim()),
   board: z.array(z.string()),
+  optionList: z.array(
+    z.object({
+      id: z.string(),
+    }),
+  ),
 });
 
 export type CategoryFormValues = z.infer<typeof categoryFormSchema>;
