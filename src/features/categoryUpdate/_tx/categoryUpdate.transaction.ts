@@ -1,4 +1,5 @@
 import {
+  CategoryEntity,
   CategoryRelationEntity,
   CategoryRepository,
   categoryRepository,
@@ -16,36 +17,25 @@ export class CategoryUpdateTx extends Transaction {
 
   async updateCategoryComplexible(
     data: CategoryUpdateComplexible,
-  ): Promise<CategoryRelationEntity> {
+  ): Promise<CategoryEntity> {
     const action = async (tx: Tx) => {
-    //   const { categoryData, productListData, optionListData } = data;
-    //
-    //   const categoryUpdated = await this.categoryRepo.updateCategory(
-    //     categoryData,
-    //     tx,
-    //   );
-    //
-    //   await this.categoryRepo.addCategoryProductList(
-    //     {
-    //       categoryId: categoryUpdated.id,
-    //       productListId: productListData,
-    //     },
-    //     tx,
-    //   );
-    //
-    //   await this.categoryRepo.addCategoryOptionList(
-    //     {
-    //       categoryId: categoryUpdated.id,
-    //       optionListId: optionListData,
-    //     },
-    //     tx,
-    //   );
-    //
-    //   return await this.categoryRepo.getCategoryRelation(
-    //     categoryUpdated.id,
-    //     tx,
-    //   );
-    // };
+      const { categoryId, categoryData, optionListData } = data;
+      const categoryUpdated = await this.categoryRepo.updateCategory(
+        categoryId,
+        categoryData,
+        tx,
+      );
+
+      await this.categoryRepo.addCategoryOptionList(
+        {
+          categoryId,
+          optionListId: optionListData,
+        },
+        tx,
+      );
+
+      return await this.categoryRepo.getCategory(categoryUpdated.id, tx);
+    };
     //
     return await this.start(action);
   }

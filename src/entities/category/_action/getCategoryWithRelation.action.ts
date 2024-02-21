@@ -2,11 +2,7 @@
 import { getAppSessionStrictServer } from "@/entities/user/getAppSessionServer";
 import { z } from "zod";
 import { categoryRelationSchema } from "../_domain/category.schema";
-import {
-  Category,
-  CategoryRelation,
-  CategoryRelationEntity,
-} from "../_domain/types";
+import { CategoryRelation } from "../_domain/types";
 import { getCategoryWithRelationUseCase } from "../_usecase/getCategoryWithRelation.usecase";
 
 const propsSchema = z.object({
@@ -30,6 +26,8 @@ export const getCategoryWithRelationAction = async (
     session,
     categoryId,
   });
+
+  console.log("output_log: category =>>>", category);
 
   return resultSchema.parseAsync({
     category: category,

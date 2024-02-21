@@ -61,7 +61,10 @@ export const CategoryFormUpdate: FC<CategoryFormProps> = (props) => {
   const handleSubmit = async (data: CategoryFormValues) => {
     await categoryUpdate({
       categoryId: category.id,
-      data,
+      data: {
+        ...data,
+        id: category.id,
+      },
     });
 
     onSuccess?.();
@@ -71,7 +74,7 @@ export const CategoryFormUpdate: FC<CategoryFormProps> = (props) => {
     }
   };
 
-  const optionSelectOptionListActive = toOptionList(category.categoryList);
+  const optionSelectOptionListActive = toOptionList(category.optionList);
 
   return (
     <div className={cn(className, "w-full")}>

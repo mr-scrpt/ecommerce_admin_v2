@@ -8,6 +8,7 @@ import {
   CategoryRelationEntity,
   CategoryToCreate,
 } from "../_domain/types";
+import { mapPrismaDatatypeToEnum } from "@/shared/type/mapOptionDatatype";
 
 export class CategoryRepository {
   constructor(readonly db: DbClient) {}
@@ -26,8 +27,8 @@ export class CategoryRepository {
   async getCategoryWithRelation(
     categoryId: CategoryId,
     db: Tx = this.db,
-  ): Promise<CategoryEntity> {
-    return db.category.findUniqueOrThrow({
+  ): Promise<CategoryRelationEntity> {
+    const res = await db.category.findUniqueOrThrow({
       where: {
         id: categoryId,
       },
@@ -36,6 +37,14 @@ export class CategoryRepository {
         productList: true,
       },
     });
+
+    return {
+      ...res,
+      optionList: res.optionList.map((item) => ({
+        ...item,
+        datatype: mapPrismaDatatypeToEnum(item.datatype),
+      })),
+    };
   }
 
   async getCategoryBySlug(
@@ -88,7 +97,7 @@ export class CategoryRepository {
       },
       data: {
         optionList: {
-          connect: optionListId,
+          set: optionListId,
         },
       },
     });

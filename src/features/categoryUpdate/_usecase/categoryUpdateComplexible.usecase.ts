@@ -1,10 +1,11 @@
-import {
-  CategoryRelationEntity,
-  createCategoryAbility,
-} from "@/entities/category";
+import { CategoryEntity, createCategoryAbility } from "@/entities/category";
 import { ForbiddenError } from "@/shared/lib/errors";
 import { SessionEntity } from "@/shared/lib/user";
 import { CategoryUpdateComplexible } from "../_domain/types";
+import {
+  CategoryUpdateTx,
+  categoryUpdateTx,
+} from "../_tx/categoryUpdate.transaction";
 
 type UpdateCategory = {
   dataToUpdate: CategoryUpdateComplexible;
@@ -14,7 +15,7 @@ type UpdateCategory = {
 class UpdateCategoryComplexibleUseCase {
   constructor(private readonly categoryUpdateTx: CategoryUpdateTx) {}
 
-  async exec(data: UpdateCategory): Promise<CategoryRelationEntity> {
+  async exec(data: UpdateCategory): Promise<CategoryEntity> {
     const { dataToUpdate, session } = data;
 
     const { canUpdateCategory } = createCategoryAbility(session);

@@ -37,11 +37,6 @@ export const categoryRelationSchema = z.object({
 export const categoryCreateSchema = z.object({
   name: z.string(),
   board: z.array(z.string()),
-  // productList: z.array(
-  //   z.object({
-  //     id: z.string(),
-  //   }),
-  // ),
   optionList: z.array(
     z.object({
       id: z.string(),
@@ -50,8 +45,14 @@ export const categoryCreateSchema = z.object({
 });
 
 export const categoryUpdateSchema = z.object({
+  id: z.string(),
   name: z.string(),
   board: z.array(z.string()),
+  optionList: z.array(
+    z.object({
+      id: z.string(),
+    }),
+  ),
 });
 
 export const categoryFormSchema = z.object({

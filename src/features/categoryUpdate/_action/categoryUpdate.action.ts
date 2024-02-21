@@ -8,6 +8,7 @@ import {
 } from "@/entities/category";
 import { getAppSessionStrictServer } from "@/entities/user/getAppSessionServer";
 import { slugGenerator } from "@/shared/lib/slugGenerator";
+import { updateCategoryComplexibleUseCase } from "../_usecase/categoryUpdateComplexible.usecase";
 
 const propsSchema = z.object({
   categoryId: z.string(),
@@ -24,14 +25,18 @@ export const updateCategoryAction = async (
   props: z.infer<typeof propsSchema>,
 ): Promise<ResultT> => {
   const { categoryId, data } = propsSchema.parse(props);
+  const { optionList, ...categoryData } = data;
 
   const session = await getAppSessionStrictServer();
   const slug = slugGenerator(data.name);
 
-  const category = await updateCategoryUseCase.exec({
+  const category = await updateCategoryComplexibleUseCase.exec({
     session,
-    categoryData: { ...data, slug },
-    categoryId,
+    dataToUpdate: {
+      categoryId,
+      categoryData: { ...categoryData, slug },
+      optionListData: optionList,
+    },
   });
 
   return resultSchema.parseAsync({

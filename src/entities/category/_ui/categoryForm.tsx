@@ -84,7 +84,7 @@ export const CategoryForm: FC<CategoryFormProps> = (props) => {
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel>Category list</FormLabel>
+                <FormLabel>Options list</FormLabel>
                 <FormControl>
                   <MultiSelect
                     optionList={optionSelectOptionList}
