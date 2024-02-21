@@ -10,7 +10,6 @@ export const useListenOptionUpdate = () => {
   const invalidateOptionWithRelation = useInvalidateOptionWithRelation();
 
   useSocketHandler(WSEventEnum.OPTION_REFRESH, (categoryId: OptionId) => {
-    console.log("output_log: category invalidate =>>>", categoryId);
     invalidateOption(categoryId);
     invalidateOptionWithRelation(categoryId);
   });
