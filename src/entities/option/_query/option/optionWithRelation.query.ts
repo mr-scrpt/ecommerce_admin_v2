@@ -13,6 +13,7 @@ export const useOptionWithRelationQuery = (optionId: OptionId) => {
   const query = getOptionWithRelationQuery(optionId);
 
   const { isPending, isSuccess, data, isFetchedAfterMount } = useQuery(query);
+  console.log("output_log: in query =>>>", optionId);
 
   useListenOptionUpdate();
 

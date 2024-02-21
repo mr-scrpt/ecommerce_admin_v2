@@ -12,6 +12,7 @@ export const getOptionQuery = (optionId: OptionId) => ({
 export const useOptionQuery = (optionId: OptionId) => {
   const query = getOptionQuery(optionId);
   const { isPending, isSuccess, isFetchedAfterMount, data } = useQuery(query);
+  console.log("output_log: in query =>>>", optionId);
 
   useListenOptionUpdate();
 

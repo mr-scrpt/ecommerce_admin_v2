@@ -30,23 +30,7 @@ export class OptionUpdateTx extends Transaction {
       );
 
       await Promise.all(
-        // optionItemListData.map(async (itemData) => {
-        //   if (itemData.id) {
-        //     await this.optionItemRepo.updateOptionItem(
-        //       itemData.id,
-        //       itemData,
-        //       tx,
-        //     );
-        //   } else {
-        //     await this.optionItemRepo.createOptionItem(
-        //       { ...itemData, optionId },
-        //       tx,
-        //     );
-        //   }
-        // updateOrCreateOptionItem}),
-        //
         optionItemListData.map(async (itemData) => {
-          // Передаем данные непосредственно в функцию updateOrCreateOptionItem
           await this.optionItemRepo.updateOrCreateOptionItem(
             { ...itemData, optionId }, // Добавляем optionId в данные перед вызовом функции
             tx,
@@ -65,9 +49,7 @@ export class OptionUpdateTx extends Transaction {
         }),
       );
 
-      // return await this.optionRepo.updateOptionById(optionId, tx);
-      const res = await this.optionRepo.getOptionRelation(optionId, tx);
-      return res;
+      return await this.optionRepo.getOptionRelation(optionId, tx);
     };
 
     return await this.start(action);
