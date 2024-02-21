@@ -2,6 +2,7 @@ import { DbClient, Tx, dbClient } from "@/shared/lib/db";
 import { OptionId } from "../_domain/option/types";
 import {
   OptionItemCombineCreate,
+  OptionItemCombineUpdateOrCreate,
   OptionItemEntity,
   OptionItemId,
   OptionItemToCreate,
@@ -48,10 +49,23 @@ export class OptionItemRepository {
     optionItemData: Partial<OptionItemToUpdate>,
     db: Tx = this.db,
   ): Promise<OptionItemEntity> {
-    console.log("output_log: optionItemId  =>>>", optionItemId);
     return await db.optionItem.update({
       where: { id: optionItemId },
       data: optionItemData,
+    });
+  }
+
+  async updateOrCreateOptionItem(
+    data: OptionItemCombineUpdateOrCreate,
+    db: Tx = this.db,
+  ): Promise<OptionItemEntity> {
+    const { id, ...optionItem } = data;
+    console.log("output_log: data in repo =>>>", data);
+    return await db.optionItem.upsert({
+      where: { id: id ?? "" },
+
+      create: { ...optionItem },
+      update: { ...optionItem },
     });
   }
 

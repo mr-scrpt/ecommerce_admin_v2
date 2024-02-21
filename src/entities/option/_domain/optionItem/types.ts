@@ -24,14 +24,21 @@ export type OptionItemCombineCreate = {
   value: string;
 };
 
+export type OptionItemCombineUpdateOrCreate = {
+  optionId: OptionId;
+  id?: OptionItemId;
+  name: string;
+  value: string;
+};
+
 export type OptionItemToCreate = {
   name: string;
   value: string;
 };
 
 export type OptionItemToUpdate = {
-  optionId: OptionId;
-  id: OptionItemId;
+  // optionId: OptionId;
+  id?: OptionItemId;
   name: string;
   value: string;
 };

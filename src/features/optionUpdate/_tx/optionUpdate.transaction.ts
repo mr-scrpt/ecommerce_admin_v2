@@ -23,31 +23,37 @@ export class OptionUpdateTx extends Transaction {
     const { optionId, optionData, optionItemListData } = data;
     const action = async (tx: Tx) => {
       await this.optionRepo.updateOption(optionId, optionData, tx);
+
       const optionListOld = await this.optionItemRepo.getOptionItemList(
         optionId,
         tx,
       );
-      console.log("output_log: optionListOld =>>>", optionListOld);
-      console.log("output_log: optionItemListData =>>>", optionItemListData);
-      // Добавление новых OptionItem и обновление существующих
+
       await Promise.all(
+        // optionItemListData.map(async (itemData) => {
+        //   if (itemData.id) {
+        //     await this.optionItemRepo.updateOptionItem(
+        //       itemData.id,
+        //       itemData,
+        //       tx,
+        //     );
+        //   } else {
+        //     await this.optionItemRepo.createOptionItem(
+        //       { ...itemData, optionId },
+        //       tx,
+        //     );
+        //   }
+        // updateOrCreateOptionItem}),
+        //
         optionItemListData.map(async (itemData) => {
-          if (itemData.id) {
-            await this.optionItemRepo.updateOptionItem(
-              itemData.id,
-              itemData,
-              tx,
-            );
-          } else {
-            await this.optionItemRepo.createOptionItem(
-              { ...itemData, optionId },
-              tx,
-            );
-          }
+          // Передаем данные непосредственно в функцию updateOrCreateOptionItem
+          await this.optionItemRepo.updateOrCreateOptionItem(
+            { ...itemData, optionId }, // Добавляем optionId в данные перед вызовом функции
+            tx,
+          );
         }),
       );
 
-      // Удаление OptionItem, которые отсутствуют в новом списке
       const itemsToDelete = optionListOld.filter(
         (oldItem) =>
           !optionItemListData.find((newItem) => newItem.id === oldItem.id),
@@ -61,7 +67,6 @@ export class OptionUpdateTx extends Transaction {
 
       // return await this.optionRepo.updateOptionById(optionId, tx);
       const res = await this.optionRepo.getOptionRelation(optionId, tx);
-      console.log("output_log: with relation =>>>", res);
       return res;
     };
 
