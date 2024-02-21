@@ -12,7 +12,7 @@ import { FC, HTMLAttributes } from "react";
 import { z } from "zod";
 import { useProductUpdate } from "../_vm/useProductUpdate";
 import {
-  useCategoryLikeOptionList,
+  useCategoryLikeSelectOptionList,
   useCategoryListTransformOption,
 } from "@/entities/category";
 
@@ -39,7 +39,7 @@ export const ProductFormUpdate: FC<ProductFormProps> = (props) => {
   const { productUpdate, isPending: isPendingUpdate } = useProductUpdate();
 
   const { categorySelectOptionList, isPending: isPendingCategoryOptionList } =
-    useCategoryLikeOptionList();
+    useCategoryLikeSelectOptionList();
   const { toCategoryIdList, toOptionList } = useCategoryListTransformOption();
 
   const isPendingComplexible =

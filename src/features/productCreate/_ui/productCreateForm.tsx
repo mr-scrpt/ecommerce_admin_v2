@@ -1,6 +1,6 @@
 "use client";
 import {
-  useCategoryLikeOptionList,
+  useCategoryLikeSelectOptionList,
   useCategoryListTransformOption,
 } from "@/entities/category";
 import { ProductForm, productFormSchema } from "@/entities/product";
@@ -26,7 +26,7 @@ export const ProductFormCreate: FC<ProductCreateFormProps> = (props) => {
   const { productCreate, isPending: isPendingUpdate } = useProductCreate();
 
   const { categorySelectOptionList, isPending: IsPendingCategoryOptionList } =
-    useCategoryLikeOptionList();
+    useCategoryLikeSelectOptionList();
 
   const { toCategoryIdList } = useCategoryListTransformOption();
 
@@ -50,7 +50,7 @@ export const ProductFormCreate: FC<ProductCreateFormProps> = (props) => {
         handleSubmit={handleSubmit}
         isPending={isPendingComplexible}
         submitText={"Create Product"}
-        categoryOptionList={categorySelectOptionList}
+        categorySelectOptionList={categorySelectOptionList}
         handleCategoryOptionSelect={toCategoryIdList}
       />
     </div>
