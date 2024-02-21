@@ -1,7 +1,6 @@
 "use server";
 
-import { optionCreateSchema, Option } from "@/entities/option";
-import { optionRelationSchema } from "@/entities/option/_domain/option/option.schema";
+import { Option, optionCreateSchema, optionSchema } from "@/entities/option";
 import { getAppSessionStrictServer } from "@/entities/user/getAppSessionServer";
 import { z } from "zod";
 import { createOptionComplexibleUseCase } from "../_useCase/optionCreateComplexible.usecase";
@@ -11,7 +10,7 @@ const propsSchema = z.object({
 });
 
 const resultSchema = z.object({
-  option: optionRelationSchema,
+  option: optionSchema,
 });
 
 type ResultT = { option: Option };

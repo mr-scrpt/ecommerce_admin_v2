@@ -1,25 +1,21 @@
-import { OptionEntity } from "@/entities/option/_domain/option/types";
 import { useMutation } from "@tanstack/react-query";
+import { useEmitOptionRemove } from "..";
 import { removeOptionComplexibleAction } from "../_action/optionRemoveComplexible.action";
 
 const baseKey = "optionRemoveMutation";
 
-interface IOptionRemoveMutation {
-  onSuccess: (option: OptionEntity) => void;
-}
-
-export const useOptionRemoveMutation = (props: IOptionRemoveMutation) => {
-  const { onSuccess } = props;
+export const useOptionRemoveMutation = () => {
+  const { optionRemoveEvent } = useEmitOptionRemove();
   const { isPending, isSuccess, mutateAsync } = useMutation({
     mutationKey: [baseKey, "complexible"],
     mutationFn: removeOptionComplexibleAction,
-    async onSuccess({ option }) {
-      onSuccess(option);
+    onSuccess: async ({ option }) => {
+      optionRemoveEvent(option.id);
     },
   });
   return {
+    optionRemove: mutateAsync,
     isPending,
     isSuccess,
-    mutateAsync,
   };
 };

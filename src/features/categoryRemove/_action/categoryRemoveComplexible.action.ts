@@ -19,6 +19,7 @@ export const removeCategoryComplexibleAction = async (
   props: z.infer<typeof propsSchema>,
 ): Promise<ResultT> => {
   const { categoryId } = propsSchema.parse(props);
+  console.log("output_log: removeCategoryComplexibleAction  =>>>", categoryId);
 
   const session = await getAppSessionStrictServer();
 

@@ -1,11 +1,11 @@
 import { CategoryId } from "@/entities/category";
-import { useCategoryRemove } from "@/features/categoryRemove";
+import { useCategoryRemoveMutation } from "@/features/categoryRemove";
 import { useGetConfirmation } from "@/shared/lib/confirmation";
 
 export const useCategoryRemoveConfirm = () => {
   const getConfirmation = useGetConfirmation();
 
-  const { categoryRemove, isPending, isSuccess } = useCategoryRemove();
+  const { categoryRemove, isPending, isSuccess } = useCategoryRemoveMutation();
 
   const removeCategoryConfirm = async (categoryId: CategoryId) => {
     const confirmation = await getConfirmation({

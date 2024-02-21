@@ -29,12 +29,12 @@ import {
   useForm,
   useFormContext,
 } from "react-hook-form";
-import { OptionDataTypeEnum } from "..";
 import {
   OptionFormValues,
   optionFormSchema,
 } from "../_domain/option/option.schema";
 import { OptionRelation } from "../_domain/option/types";
+import { OptionDataTypeEnum } from "@/shared/type/optionDataType.enum";
 
 interface OptionFormProps extends HTMLAttributes<HTMLFormElement> {
   option?: OptionRelation;

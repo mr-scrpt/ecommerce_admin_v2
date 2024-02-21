@@ -23,6 +23,7 @@ export const CategoryTable: FC<CategoryTableProps> = (props) => {
 
   const isPendingComplexible =
     isPendingCategoryList || isPendingRemoveCategory || !isFetchedAfterMount;
+
   const categoryColumns = useTableColumns({
     onDeleteClick,
   });

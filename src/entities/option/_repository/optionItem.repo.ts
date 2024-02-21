@@ -39,6 +39,8 @@ export class OptionItemRepository {
     db: Tx = this.db,
   ): Promise<OptionItemEntity> {
     const { optionId, ...optionItem } = data;
+    console.log("output_log: optionItem =>>>", optionItem);
+    console.log("output_log: optionId =>>>", optionId);
     return await db.optionItem.create({
       data: { ...optionItem, optionId },
     });

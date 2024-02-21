@@ -4,7 +4,7 @@ import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes } from "react";
 import { z } from "zod";
-import { useOptionCreate } from "../_vm/useOptionCreate";
+import { useOptionCreateMutation } from "../_mutation/optionCreate.mutation";
 
 interface OptionCreateFormProps extends HTMLAttributes<HTMLDivElement> {
   callbackUrl?: string;
@@ -19,7 +19,8 @@ export const OptionFormCreate: FC<OptionCreateFormProps> = (props) => {
 
   const router = useRouter();
 
-  const { optionCreate, isPending: isPendingUpdate } = useOptionCreate();
+  const { optionCreate, isPending: isPendingUpdate } =
+    useOptionCreateMutation();
 
   const handleSubmit = async (data: OptionFormValues) => {
     console.log("output_log: form data =>>>", data);

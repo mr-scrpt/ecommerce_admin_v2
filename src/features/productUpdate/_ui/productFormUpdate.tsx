@@ -10,11 +10,11 @@ import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes } from "react";
 import { z } from "zod";
-import { useProductUpdate } from "../_vm/useProductUpdate";
 import {
   useCategoryLikeSelectOptionList,
   useCategoryListTransformOption,
 } from "@/entities/category";
+import { useProductUpdateMutation } from "../_mutation/useProductUpdate.mutation";
 
 interface ProductFormProps extends HTMLAttributes<HTMLDivElement> {
   productId: ProductId;
@@ -36,7 +36,8 @@ export const ProductFormUpdate: FC<ProductFormProps> = (props) => {
 
   const router = useRouter();
 
-  const { productUpdate, isPending: isPendingUpdate } = useProductUpdate();
+  const { productUpdate, isPending: isPendingUpdate } =
+    useProductUpdateMutation();
 
   const { categorySelectOptionList, isPending: isPendingCategoryOptionList } =
     useCategoryLikeSelectOptionList();

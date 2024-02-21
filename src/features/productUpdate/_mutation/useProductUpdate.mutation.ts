@@ -1,30 +1,22 @@
-import {
-  ProductEntity,
-  ProductRelationEntity,
-} from "@/entities/product/_domain/types";
 import { useMutation } from "@tanstack/react-query";
+import { useEmitProductUpdate } from "..";
 import { updateProductAction } from "../_action/productUpdate.action";
 
 const baseKey = "productUpdateMutation";
 
-interface IProductUpdateMutation {
-  onSuccess: (product: ProductEntity) => void;
-}
-export const useProductUpdateMutation = (props: IProductUpdateMutation) => {
-  const { onSuccess } = props;
+export const useProductUpdateMutation = () => {
+  const { productUpdateEvent } = useEmitProductUpdate();
 
   const { mutateAsync, isPending } = useMutation({
     mutationKey: [baseKey],
     mutationFn: updateProductAction,
-    // async onSuccess({ product }, { productId }) {
-    //   onSuccess(product, productId);
-    // },
-    async onSuccess({ product }) {
-      onSuccess(product);
+
+    onSuccess: async ({ product }) => {
+      productUpdateEvent(product.id);
     },
   });
   return {
-    mutateAsync,
+    productUpdate: mutateAsync,
     isPending,
   };
 };

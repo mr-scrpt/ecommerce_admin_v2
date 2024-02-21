@@ -1,7 +1,6 @@
 import { DATATYPE } from "@prisma/client";
 import { OptionDataTypeEnum } from "../type/optionDataType.enum";
 
-// Маппинг Prisma DATATYPE к OptionDataTypeEnum
 const prismaToEnumMap: Record<DATATYPE, OptionDataTypeEnum> = {
   [DATATYPE.SELECT]: OptionDataTypeEnum.SELECT,
   [DATATYPE.MULT]: OptionDataTypeEnum.MULT,
@@ -9,7 +8,6 @@ const prismaToEnumMap: Record<DATATYPE, OptionDataTypeEnum> = {
   [DATATYPE.RADIO]: OptionDataTypeEnum.RADIO,
 };
 
-// Маппинг OptionDataTypeEnum к Prisma DATATYPE
 const enumToPrismaMap: Record<OptionDataTypeEnum, DATATYPE> = {
   [OptionDataTypeEnum.SELECT]: DATATYPE.SELECT,
   [OptionDataTypeEnum.MULT]: DATATYPE.MULT,

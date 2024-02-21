@@ -10,7 +10,7 @@ import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes } from "react";
 import { z } from "zod";
-import { useOptionUpdate } from "../_vm/useOptionUpdate";
+import { useOptionUpdateMutation } from "../_mutation/useOptionUpdate.mutation";
 
 interface OptionFormProps extends HTMLAttributes<HTMLDivElement> {
   optionId: OptionId;
@@ -32,7 +32,8 @@ export const OptionFormUpdate: FC<OptionFormProps> = (props) => {
 
   const router = useRouter();
 
-  const { optionUpdate, isPending: isPendingUpdate } = useOptionUpdate();
+  const { optionUpdate, isPending: isPendingUpdate } =
+    useOptionUpdateMutation();
 
   const isPendingComplexible =
     isPendingUpdate || isPendingOption || !isFetchedAfterMount;

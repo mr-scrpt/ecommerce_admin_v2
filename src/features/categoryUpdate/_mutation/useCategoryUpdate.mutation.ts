@@ -1,27 +1,21 @@
-import { CategoryEntity } from "@/entities/category/_domain/types";
 import { useMutation } from "@tanstack/react-query";
 import { updateCategoryAction } from "../_action/categoryUpdate.action";
+import { useEmitCategoryUpdate } from "../_vm/event/useEmitCategoryUpdate";
 
 const baseKey = "categoryUpdateMutation";
 
-interface ICategoryUpdateMutation {
-  onSuccess: (category: CategoryEntity) => void;
-}
-export const useCategoryUpdateMutation = (props: ICategoryUpdateMutation) => {
-  const { onSuccess } = props;
+export const useCategoryUpdateMutation = () => {
+  const { categoryUpdateEvent } = useEmitCategoryUpdate();
 
   const { mutateAsync, isPending } = useMutation({
     mutationKey: [baseKey],
     mutationFn: updateCategoryAction,
-    // async onSuccess({ category }, { categoryId }) {
-    //   onSuccess(category, categoryId);
-    // },
-    async onSuccess({ category }) {
-      onSuccess(category);
+    onSuccess: async ({ category }) => {
+      categoryUpdateEvent(category.id);
     },
   });
   return {
-    mutateAsync,
+    categoryUpdate: mutateAsync,
     isPending,
   };
 };

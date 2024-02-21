@@ -8,7 +8,7 @@ import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes } from "react";
 import { z } from "zod";
-import { useProductCreate } from "../_vm/useProductCreate";
+import { useProductCreateMutation } from "../_mutation/productCreate.mutation";
 
 interface ProductCreateFormProps extends HTMLAttributes<HTMLDivElement> {
   callbackUrl?: string;
@@ -23,7 +23,8 @@ export const ProductFormCreate: FC<ProductCreateFormProps> = (props) => {
 
   const router = useRouter();
 
-  const { productCreate, isPending: isPendingCreate } = useProductCreate();
+  const { productCreate, isPending: isPendingCreate } =
+    useProductCreateMutation();
 
   const { categorySelectOptionList, isPending: isPendingCategoryOptionList } =
     useCategoryLikeSelectOptionList();

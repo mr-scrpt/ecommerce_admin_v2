@@ -1,25 +1,21 @@
-import { CategoryEntity } from "@/entities/category/_domain/types";
 import { useMutation } from "@tanstack/react-query";
 import { removeCategoryComplexibleAction } from "../_action/categoryRemoveComplexible.action";
+import { useEmitCategoryRemove } from "../_vm/event/useEmitCategoryRemove";
 
 const baseKey = "categoryRemoveMutation";
 
-interface ICategoryRemoveMutation {
-  onSuccess: (category: CategoryEntity) => void;
-}
-
-export const useCategoryRemoveMutation = (props: ICategoryRemoveMutation) => {
-  const { onSuccess } = props;
+export const useCategoryRemoveMutation = () => {
+  const { categoryRemoveEvent } = useEmitCategoryRemove();
   const { isPending, isSuccess, mutateAsync } = useMutation({
     mutationKey: [baseKey, "complexible"],
     mutationFn: removeCategoryComplexibleAction,
-    async onSuccess({ category }) {
-      onSuccess(category);
+    onSuccess: ({ category }) => {
+      categoryRemoveEvent(category.id);
     },
   });
   return {
+    categoryRemove: mutateAsync,
     isPending,
     isSuccess,
-    mutateAsync,
   };
 };

@@ -11,11 +11,11 @@ import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes } from "react";
 import { z } from "zod";
-import { useCategoryUpdate } from "../_vm/useCategoryUpdate";
 import {
   useOptionLikeSelectOptionList,
   useOptionListTransformOption,
 } from "@/entities/option";
+import { useCategoryUpdateMutation } from "../_mutation/useCategoryUpdate.mutation";
 
 interface CategoryFormProps extends HTMLAttributes<HTMLDivElement> {
   categoryId: CategoryId;
@@ -37,7 +37,8 @@ export const CategoryFormUpdate: FC<CategoryFormProps> = (props) => {
 
   const router = useRouter();
 
-  const { categoryUpdate, isPending: isPendingUpdate } = useCategoryUpdate();
+  const { categoryUpdate, isPending: isPendingUpdate } =
+    useCategoryUpdateMutation();
 
   const { optionSelectOptionList, isPending: isPendingOptionList } =
     useOptionLikeSelectOptionList();
