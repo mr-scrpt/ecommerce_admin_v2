@@ -65,7 +65,6 @@ export const productFormSchema = z.object({
   categoryList: z.array(
     z.object({
       id: z.string(),
-      // label: z.string(),
     }),
   ),
 });

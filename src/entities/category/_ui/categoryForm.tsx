@@ -18,7 +18,7 @@ import {
   CategoryFormValues,
   categoryFormSchema,
 } from "../_domain/category.schema";
-import { Category } from "../_domain/types";
+import { Category, CategoryRelation } from "../_domain/types";
 import { BoardField } from "./boardField";
 import { MultiSelect, OptionItem } from "@/shared/ui/multiSelect";
 
@@ -34,9 +34,10 @@ interface CategoryFormProps extends HTMLAttributes<HTMLFormElement> {
   ) => Array<{ id: string }>;
 }
 
-const getDefaultValues = (category?: Category) => ({
+const getDefaultValues = (category?: CategoryRelation) => ({
   name: category?.name ?? "",
   board: category?.board ?? [],
+  optionList: category?.optionList ?? [],
 });
 
 export const CategoryForm: FC<CategoryFormProps> = (props) => {
