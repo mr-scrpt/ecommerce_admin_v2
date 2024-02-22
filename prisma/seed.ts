@@ -5,22 +5,15 @@ import { optionListSeed } from "./data/option";
 import { optionItemListSeed } from "./data/optionItem";
 import { productListSeed } from "./data/product";
 import { userListSeed } from "./data/user";
+import { categoryRelationsSeed } from "./data/categoryRelations";
+import { optionRelationsSeed } from "./data/optionRelations";
+import { productRelationsSeed } from "./data/productRelations";
 const prisma = new PrismaClient();
 
 async function main() {
   for await (const user of userListSeed) {
     await prisma.user.create({ data: user });
     console.log("user created", user);
-  }
-
-  for await (const category of categoryListSeed) {
-    await prisma.category.create({ data: category });
-    console.log("category created", category);
-  }
-
-  for await (const product of productListSeed) {
-    await prisma.product.create({ data: product });
-    console.log("product created", product);
   }
 
   for await (const option of optionListSeed) {
@@ -33,6 +26,38 @@ async function main() {
   for await (const optionItem of optionItemListSeed) {
     await prisma.optionItem.create({ data: optionItem });
     console.log("option item created", optionItem);
+  }
+
+  for await (const category of categoryListSeed) {
+    await prisma.category.create({ data: category });
+    console.log("category created", category);
+  }
+
+  for await (const product of productListSeed) {
+    await prisma.product.create({ data: product });
+    console.log("product created", product);
+  }
+
+  // Relation
+  for await (const category of categoryRelationsSeed) {
+    await prisma.category.update({
+      where: { id: category.id },
+      data: category,
+    });
+    console.log("category created relation", category);
+  }
+
+  for await (const option of optionRelationsSeed) {
+    await prisma.option.update({
+      where: { id: option.id },
+      data: option,
+    });
+    console.log("option created relation", option);
+  }
+
+  for await (const product of productRelationsSeed) {
+    await prisma.product.update({ where: { id: product.id }, data: product });
+    console.log("product created relation", product);
   }
 }
 
