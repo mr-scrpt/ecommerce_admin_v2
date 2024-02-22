@@ -40,7 +40,7 @@ export const ProductTableAction: FC<ProductTableListActionProps> = memo(
             <Copy className="mr-2 h-4 w-4" /> Copy Id
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <Link href={hrefToUpdate} className="flex items-center">
+            <Link href={hrefToUpdate} className="flex w-full items-center">
               <Edit className="mr-2 h-4 w-4" /> Update
             </Link>
           </DropdownMenuItem>
