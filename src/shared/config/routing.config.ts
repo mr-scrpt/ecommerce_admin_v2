@@ -19,6 +19,8 @@ export enum RoutePathEnum {
   USERS = "/users",
   SETTINGS = "/settings",
 
+  ORDERS = "/orders",
+
   SIGN_IN = "/auth/sign-in",
   NEW_USER = "/auth/new-user",
   VERIFY_REQUEST = "/auth/verify-request",
@@ -34,6 +36,7 @@ enum RouteNameEnum {
 
   SETTINGS = "Settings",
   USERS = "Users",
+  ORDERS = "Orders",
   // SIZES = "Sizes",
   // COLORS = "Colors",
   // OPTIONS = "Options",
@@ -63,6 +66,10 @@ export const ROUTING_MAIN_MENU_DATA = [
     href: `${RoutePathEnum.USERS}`,
     label: RouteNameEnum.USERS,
     role: [ROLE.ADMIN],
+  },
+  {
+    href: `${RoutePathEnum.ORDERS}`,
+    label: RouteNameEnum.ORDERS,
   },
   {
     href: `${RoutePathEnum.SETTINGS}`,
