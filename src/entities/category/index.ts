@@ -25,3 +25,4 @@ export type {
   CategoryToCreate,
   CategoryToUpdate,
 } from "./_domain/types";
+export { useCategoryLikeSelectOptionList } from "./_vm/useCategoryLikeSelectOptionList";
