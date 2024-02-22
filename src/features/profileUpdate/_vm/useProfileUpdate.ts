@@ -1,20 +1,14 @@
-import { User, useInvalidateUser } from "@/entities/user/user";
 import { useAppSession } from "@/entities/user/session";
+import { User } from "@/entities/user/user";
 import { useProfileUpdateMutation } from "../_mutation/useProfileUpdate.mutation";
-import { useEmitProfileUpdate } from "./event/useEmitProfileUpdate";
-import { UserId } from "@/shared/lib/user";
 
 export const useProfileUpdate = () => {
   const { update: updateSession } = useAppSession();
-  const invalidateUser = useInvalidateUser();
-  const { profileUpdateEvent } = useEmitProfileUpdate();
 
-  const onSuccess = async (user: User, userId: UserId) => {
-    await invalidateUser(userId);
+  const onSuccess = async (user: User) => {
     await updateSession({
       user: user,
     });
-    profileUpdateEvent(userId);
   };
 
   const { mutateAsync, isPending } = useProfileUpdateMutation(onSuccess);

@@ -1,11 +1,11 @@
-import { useUserRemove } from "@/features/userRemove";
+import { useUserRemoveMutation } from "@/features/userRemove";
 import { useGetConfirmation } from "@/shared/lib/confirmation";
 import { UserId } from "@/shared/lib/user";
 
 export const useUserRemoveConfirm = () => {
   const getConfirmation = useGetConfirmation();
 
-  const { userRemove, isPending, isSuccess } = useUserRemove();
+  const { userRemove, isPending, isSuccess } = useUserRemoveMutation();
 
   const removeUserConfirm = async (userId: UserId) => {
     const confirmation = await getConfirmation({

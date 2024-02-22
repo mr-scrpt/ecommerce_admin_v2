@@ -1,6 +1,7 @@
 import { UserEntity } from "@/entities/user/_domain/user.types";
 import { useMutation } from "@tanstack/react-query";
 import { updateUserAction } from "../_action/userUpdate.action";
+import { useEmitUserUpdate } from "../_vm/event/useEmitUserUpdate";
 
 const baseKey = "userUpdateMutation";
 
@@ -9,15 +10,14 @@ interface IUserUpdateMutation {
 }
 export const useUserUpdateMutation = (props: IUserUpdateMutation) => {
   const { onSuccess } = props;
+  const { userUpdateEvent } = useEmitUserUpdate();
 
   const { mutateAsync, isPending } = useMutation({
     mutationKey: [baseKey],
     mutationFn: updateUserAction,
-    // async onSuccess({ user }, { userId }) {
-    //   onSuccess(user, userId);
-    // },
-    async onSuccess({ user }) {
+    onSuccess: async ({ user }) => {
       onSuccess(user);
+      userUpdateEvent(user.id);
     },
   });
   return {
