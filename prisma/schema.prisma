@@ -45,6 +45,7 @@ model Product {
   img          String[]
 
   categoryList Category[] @relation("ProductToCategory")
+  optionItemListSelected OptionItem[] @relation("OptionItemSelectedToProduct")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -70,12 +71,27 @@ model OptionItem {
   option    Option   @relation("OptionItemToOption", fields: [optionId], references: [id], onDelete: Cascade)
   optionId  String
 
+  productList Product[] @relation("OptionItemSelectedToProduct")
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@unique([optionId, name])
   @@index([optionId, name])
 }
+
+// model OptionItemSelected {
+//   id           String   @id @default(uuid())
+//   product      Product  @relation(fields: [productId], references: [id])
+//   productId    String
+//   optionItem   OptionItem @relation(fields: [optionItemId], references: [id])
+//   optionItemId String
+//
+//   createdAt    DateTime @default(now())
+//   updatedAt    DateTime @updatedAt
+//
+//   @@unique([productId, optionItemId])
+// }
 
 model Account {
   id                String  @id @default(uuid())
