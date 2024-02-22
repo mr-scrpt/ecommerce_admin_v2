@@ -13,10 +13,10 @@ export {
   categoryRepository,
 } from "./_repository/category.repo";
 export { CategoryForm } from "./_ui/categoryForm";
-export { useCategoryLikeSelectOptionList } from "./_vm/useCategoryLikeSelectOptionList";
 export { useCategoryListTransformOption } from "./_vm/useCategoryListTransformOption";
 
 export type {
+  Category,
   CategoryAddOptionList,
   CategoryAddProductList,
   CategoryEntity,
@@ -24,5 +24,4 @@ export type {
   CategoryRelationEntity,
   CategoryToCreate,
   CategoryToUpdate,
-  Category,
 } from "./_domain/types";

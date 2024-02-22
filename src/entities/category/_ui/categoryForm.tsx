@@ -11,6 +11,7 @@ import {
 } from "@/shared/ui/form";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { Input } from "@/shared/ui/input";
+import { MultiSelect, OptionItem } from "@/shared/ui/multiSelect";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, HTMLAttributes, useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -18,12 +19,11 @@ import {
   CategoryFormValues,
   categoryFormSchema,
 } from "../_domain/category.schema";
-import { Category, CategoryRelation } from "../_domain/types";
+import { CategoryRelation } from "../_domain/types";
 import { BoardField } from "./boardField";
-import { MultiSelect, OptionItem } from "@/shared/ui/multiSelect";
 
 interface CategoryFormProps extends HTMLAttributes<HTMLFormElement> {
-  category?: Category;
+  category?: CategoryRelation;
   handleSubmit?: (data: CategoryFormValues) => void;
   isPending: boolean;
   submitText?: string;
