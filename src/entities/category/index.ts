@@ -7,10 +7,7 @@ export {
 } from "./_domain/category.schema";
 export { useCategoryQuery } from "./_query/category.query";
 export { useCategoryListQuery } from "./_query/categoryList.query";
-export {
-  useCategoryWithRelationQuery,
-  useInvalidateCategoryWithRelation,
-} from "./_query/categoryWithRelation.query";
+export { useCategoryWithRelationQuery } from "./_query/categoryWithRelation.query";
 export {
   CategoryRepository,
   categoryRepository,

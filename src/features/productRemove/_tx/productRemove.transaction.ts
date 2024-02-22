@@ -1,5 +1,8 @@
 import { ProductEntity, ProductId } from "@/entities/product";
-import { ProductRepository, productRepository } from "@/entities/product";
+import {
+  ProductRepository,
+  productRepository,
+} from "@/entities/product/server";
 import { DbClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
 
 export class ProductRemoveTx extends Transaction {

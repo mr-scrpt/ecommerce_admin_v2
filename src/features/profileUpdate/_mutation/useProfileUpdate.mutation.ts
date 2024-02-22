@@ -1,5 +1,4 @@
 import { Profile } from "@/entities/user/profile";
-import { UserId } from "@/shared/lib/user";
 import { useMutation } from "@tanstack/react-query";
 import { useEmitProfileUpdate } from "..";
 import { updateProfileAction } from "../_action/profileUpdate.action";

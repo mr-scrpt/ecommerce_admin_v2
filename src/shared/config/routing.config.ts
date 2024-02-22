@@ -63,13 +63,13 @@ export const ROUTING_MAIN_MENU_DATA = [
     label: RouteNameEnum.OPTIONS,
   },
   {
+    href: `${RoutePathEnum.ORDERS}`,
+    label: RouteNameEnum.ORDERS,
+  },
+  {
     href: `${RoutePathEnum.USERS}`,
     label: RouteNameEnum.USERS,
     role: [ROLE.ADMIN],
-  },
-  {
-    href: `${RoutePathEnum.ORDERS}`,
-    label: RouteNameEnum.ORDERS,
   },
   {
     href: `${RoutePathEnum.SETTINGS}`,
