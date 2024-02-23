@@ -26,4 +26,12 @@ export const categoryListSeed = [
       "https://images.examples.com/wp-content/uploads/2018/04/Metal-Billboard-Design-Example.jpg?width=600",
     ],
   },
+  {
+    id: "cat_sss75feeSSS",
+    name: "Fourth category",
+    slug: "fourth-category",
+    board: [
+      "https://images.examples.com/wp-content/uploads/2018/04/Metal-Billboard-Design-Example.jpg?width=600",
+    ],
+  },
 ];

@@ -3,19 +3,16 @@ import {
   CategoryForm,
   CategoryId,
   categoryFormSchema,
-  useCategoryQuery,
   useCategoryWithRelationQuery,
 } from "@/entities/category";
+import { useOptionLikeSelectOptionList } from "@/entities/option";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes } from "react";
 import { z } from "zod";
-import {
-  useOptionLikeSelectOptionList,
-  useOptionListTransformOption,
-} from "@/entities/option";
 import { useCategoryUpdateMutation } from "../_mutation/useCategoryUpdate.mutation";
+import { useOptionListTransform } from "@/shared/lib/map";
 
 interface CategoryFormProps extends HTMLAttributes<HTMLDivElement> {
   categoryId: CategoryId;
@@ -43,7 +40,7 @@ export const CategoryFormUpdate: FC<CategoryFormProps> = (props) => {
   const { optionSelectOptionList, isPending: isPendingOptionList } =
     useOptionLikeSelectOptionList();
 
-  const { toOptionIdList, toOptionList } = useOptionListTransformOption();
+  const { toDataIdList, toOptionList } = useOptionListTransform();
 
   const isPendingComplexible =
     isPendingCategory ||
@@ -85,7 +82,7 @@ export const CategoryFormUpdate: FC<CategoryFormProps> = (props) => {
         category={category}
         optionSelectOptionList={optionSelectOptionList}
         optionSelectOptionListActive={optionSelectOptionListActive}
-        handleOptionSelectOption={toOptionIdList}
+        handleOptionSelectOption={toDataIdList}
         submitText={"Save change"}
       />
     </div>

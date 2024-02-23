@@ -13,7 +13,6 @@ export {
   categoryRepository,
 } from "./_repository/category.repo";
 export { CategoryForm } from "./_ui/categoryForm";
-export { useCategoryListTransformOption } from "./_vm/useCategoryListTransformOption";
 
 export type {
   Category,

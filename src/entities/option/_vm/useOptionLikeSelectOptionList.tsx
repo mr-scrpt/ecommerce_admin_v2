@@ -1,9 +1,9 @@
+import { useOptionListTransform } from "@/shared/lib/map";
 import { useOptionListQuery } from "..";
-import { useOptionListTransformOption } from "./useOptionListTransformOption";
 
 export const useOptionLikeSelectOptionList = () => {
   const { optionList, isPending } = useOptionListQuery();
-  const { toOptionList } = useOptionListTransformOption();
+  const { toOptionList } = useOptionListTransform();
 
   const optionListSelect = toOptionList(optionList);
 

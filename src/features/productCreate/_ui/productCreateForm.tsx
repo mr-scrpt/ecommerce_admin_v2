@@ -1,14 +1,14 @@
 "use client";
-import {
-  useCategoryLikeSelectOptionList,
-  useCategoryListTransformOption,
-} from "@/entities/category";
+import { useCategoryLikeSelectOptionList } from "@/entities/category";
+import { useOptionListByCategoryIdList } from "@/entities/option/_vm/useOptionListByCategoryIdList";
 import { ProductForm, productFormSchema } from "@/entities/product";
+import { OptionItem } from "@/shared/ui/multiSelect";
 import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes } from "react";
 import { z } from "zod";
 import { useProductCreateMutation } from "../_mutation/productCreate.mutation";
+import { useOptionListTransform } from "@/shared/lib/map";
 
 interface ProductCreateFormProps extends HTMLAttributes<HTMLDivElement> {
   callbackUrl?: string;
@@ -21,16 +21,27 @@ type ProductFormValues = z.infer<typeof productFormSchema>;
 export const ProductFormCreate: FC<ProductCreateFormProps> = (props) => {
   const { callbackUrl, className, onSuccess } = props;
 
-  const router = useRouter();
-
   const { productCreate, isPending: isPendingCreate } =
     useProductCreateMutation();
+
+  const {
+    optionList,
+    setCategoryIdList,
+    isPending: isPendingOptionList,
+  } = useOptionListByCategoryIdList();
 
   const { categorySelectOptionList, isPending: isPendingCategoryOptionList } =
     useCategoryLikeSelectOptionList();
 
-  const { toCategoryIdList } = useCategoryListTransformOption();
+  const { toDataIdList } = useOptionListTransform();
 
+  const handleSelectedOption = (optionListSelected: Array<OptionItem>) => {
+    const idList = toDataIdList(optionListSelected);
+    // setCategoryIdList(idList.map((item) => item.id));
+    return idList;
+  };
+
+  const router = useRouter();
   const handleSubmit = async (data: ProductFormValues) => {
     await productCreate({
       data,
@@ -52,7 +63,7 @@ export const ProductFormCreate: FC<ProductCreateFormProps> = (props) => {
         isPending={isPendingComplexible}
         submitText={"Create Product"}
         categorySelectOptionList={categorySelectOptionList}
-        handleCategorySelectOption={toCategoryIdList}
+        handleCategorySelectOption={handleSelectedOption}
       />
     </div>
   );

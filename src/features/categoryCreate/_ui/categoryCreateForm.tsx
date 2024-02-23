@@ -1,12 +1,12 @@
 "use client";
 import { CategoryForm, categoryFormSchema } from "@/entities/category";
-import { useOptionListTransformOption } from "@/entities/option";
 import { useOptionLikeSelectOptionList } from "@/entities/option/_vm/useOptionLikeSelectOptionList";
 import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes } from "react";
 import { z } from "zod";
 import { useCategoryCreateMutation } from "../_mutation/categoryCreate.mutation";
+import { useOptionListTransform } from "@/shared/lib/map";
 
 interface CategoryCreateFormProps extends HTMLAttributes<HTMLDivElement> {
   callbackUrl?: string;
@@ -27,7 +27,7 @@ export const CategoryFormCreate: FC<CategoryCreateFormProps> = (props) => {
   const { optionSelectOptionList, isPending: isPendingOptionList } =
     useOptionLikeSelectOptionList();
 
-  const { toOptionIdList } = useOptionListTransformOption();
+  const { toDataIdList } = useOptionListTransform();
 
   const handleSubmit = async (data: CategoryFormValues) => {
     await categoryCreate({
@@ -49,7 +49,7 @@ export const CategoryFormCreate: FC<CategoryCreateFormProps> = (props) => {
         isPending={isPendingComplexible}
         submitText={"Create Category"}
         optionSelectOptionList={optionSelectOptionList}
-        handleOptionSelectOption={toOptionIdList}
+        handleOptionSelectOption={toDataIdList}
       />
     </div>
   );

@@ -118,7 +118,7 @@ export const MultiSelect: FC<MultiSelectProps> = memo((props) => {
             onValueChange={setInputValue}
             onBlur={() => setOpen(false)}
             onFocus={() => setOpen(true)}
-            placeholder="Select optionItems..."
+            placeholder="Select variants..."
             className="ml-2 flex-1 bg-transparent outline-none placeholder:text-muted-foreground"
           />
         </div>

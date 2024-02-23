@@ -10,11 +10,9 @@ import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes } from "react";
 import { z } from "zod";
-import {
-  useCategoryLikeSelectOptionList,
-  useCategoryListTransformOption,
-} from "@/entities/category";
+import { useCategoryLikeSelectOptionList } from "@/entities/category";
 import { useProductUpdateMutation } from "../_mutation/useProductUpdate.mutation";
+import { useOptionListTransform } from "@/shared/lib/map";
 
 interface ProductFormProps extends HTMLAttributes<HTMLDivElement> {
   productId: ProductId;
@@ -42,7 +40,7 @@ export const ProductFormUpdate: FC<ProductFormProps> = (props) => {
   const { categorySelectOptionList, isPending: isPendingCategoryOptionList } =
     useCategoryLikeSelectOptionList();
 
-  const { toCategoryIdList, toOptionList } = useCategoryListTransformOption();
+  const { toDataIdList, toOptionList } = useOptionListTransform();
 
   const isPendingComplexible =
     isPendingUpdate ||
@@ -84,7 +82,7 @@ export const ProductFormUpdate: FC<ProductFormProps> = (props) => {
         product={product}
         categorySelectOptionList={categorySelectOptionList}
         categotySelectOptionListActive={categotySelectOptionListActive}
-        handleCategorySelectOption={toCategoryIdList}
+        handleCategorySelectOption={toDataIdList}
         submitText={"Save change"}
       />
     </div>

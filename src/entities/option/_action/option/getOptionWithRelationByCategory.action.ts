@@ -3,31 +3,31 @@ import { getAppSessionStrictServer } from "@/entities/user/getAppSessionServer";
 import { z } from "zod";
 import { optionRelationSchema } from "../../_domain/option/option.schema";
 import { OptionRelation } from "../../_domain/option/types";
-import { getOptionWithRelationUseCase } from "../../_usecase/option/getOptionWithRelation.usecase";
+import { getOptionWithRelationByCategoryUseCase } from "../../_usecase/option/getOptionWithRelationByCategory.usecase";
 
 const getByIdSchema = z.object({
-  optionId: z.string(),
+  categoryIdList: z.array(z.string()),
 });
 
 const resultSchema = z.object({
-  option: optionRelationSchema,
+  optionList: z.array(optionRelationSchema),
 });
 
-type ResultT = { option: OptionRelation };
+type ResultT = { optionList: OptionRelation[] };
 
-export const getOptionWithRelationAction = async (
+export const getOptionWithRelationByCategoryAction = async (
   props: z.infer<typeof getByIdSchema>,
 ): Promise<ResultT> => {
-  const { optionId } = getByIdSchema.parse(props);
+  const { categoryIdList } = getByIdSchema.parse(props);
 
   const session = await getAppSessionStrictServer();
 
-  const option = await getOptionWithRelationUseCase.exec({
+  const optionList = await getOptionWithRelationByCategoryUseCase.exec({
     session,
-    optionId,
+    categoryIdList,
   });
 
   return resultSchema.parseAsync({
-    option,
+    optionList,
   });
 };

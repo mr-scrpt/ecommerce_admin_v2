@@ -27,26 +27,6 @@ export class OptionRepository {
     };
   }
 
-  async getOptionRelation(
-    optionId: OptionId,
-    db: Tx = this.db,
-  ): Promise<OptionRelationEntity> {
-    const option = await db.option.findUniqueOrThrow({
-      where: {
-        id: optionId,
-      },
-      include: {
-        categoryList: true,
-        optionItemList: true,
-      },
-    });
-
-    return {
-      ...option,
-      datatype: mapPrismaDatatypeToEnum(option.datatype),
-    };
-  }
-
   async getOptionWithRelation(
     optionId: OptionId,
     db: Tx = this.db,
@@ -67,15 +47,38 @@ export class OptionRepository {
     };
   }
 
-  async getOptionList(db: Tx = this.db): Promise<OptionEntity[]> {
-    const options = await db.option.findMany();
+  async getOptionWithRelationByCategory(
+    categoryIdList: Array<string>,
+    db: Tx = this.db,
+  ): Promise<OptionRelationEntity[]> {
+    const optionList = await db.option.findMany({
+      where: {
+        categoryList: {
+          some: {
+            id: {
+              in: categoryIdList,
+            },
+          },
+        },
+      },
+      include: {
+        categoryList: true,
+        optionItemList: true,
+      },
+    });
 
-    return options.map((option) => ({
-      id: option.id,
-      name: option.name,
+    return optionList.map((option) => ({
+      ...option,
       datatype: mapPrismaDatatypeToEnum(option.datatype), // Преобразование типа данных
-      createdAt: option.createdAt,
-      updatedAt: option.updatedAt,
+    }));
+  }
+
+  async getOptionList(db: Tx = this.db): Promise<OptionEntity[]> {
+    const optionList = await db.option.findMany();
+
+    return optionList.map((option) => ({
+      ...option,
+      datatype: mapPrismaDatatypeToEnum(option.datatype), // Преобразование типа данных
     }));
   }
 

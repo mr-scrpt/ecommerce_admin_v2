@@ -1,5 +1,6 @@
 import { DATATYPE } from "@prisma/client";
 import { OptionDataTypeEnum } from "../type/optionDataType.enum";
+import { OptionItem } from "../ui/multiSelect";
 
 const prismaToEnumMap: Record<DATATYPE, OptionDataTypeEnum> = {
   [DATATYPE.SELECT]: OptionDataTypeEnum.SELECT,
@@ -25,4 +26,21 @@ export const mapEnumToPrismaDatatype = (
   enumDatatype: OptionDataTypeEnum,
 ): DATATYPE => {
   return enumToPrismaMap[enumDatatype];
+};
+
+type DataOptionItem = { id: string; name: string };
+
+export const useOptionListTransform = () => {
+  return {
+    toOptionList: (dataList: Array<DataOptionItem>) =>
+      dataList.map((item) => ({
+        value: item.id,
+        label: item.name,
+      })),
+    toDataIdList: (optionList: Array<OptionItem>) => {
+      const res = optionList.map((item) => ({ id: item.value }));
+
+      return res;
+    },
+  };
 };

@@ -15,7 +15,6 @@ export {
 export { OptionForm } from "./_ui/optionForm";
 export { OptionFromLayout } from "./_ui/optionFromLayout";
 export { useOptionLikeSelectOptionList } from "./_vm/useOptionLikeSelectOptionList";
-export { useOptionListTransformOption } from "./_vm/useOptionListTransformOption";
 
 export type {
   Option,
