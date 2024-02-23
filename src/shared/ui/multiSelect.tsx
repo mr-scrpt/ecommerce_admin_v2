@@ -18,12 +18,12 @@ import {
   KeyboardEvent,
 } from "react";
 
-export type OptionItem = Record<"value" | "label", string>;
+export type MultiSelectOptionItem = Record<"value" | "label", string>;
 
 interface MultiSelectProps {
-  optionList: Array<OptionItem>;
-  optionActiveList?: Array<OptionItem>;
-  onSelected: (items: Array<OptionItem>) => void;
+  optionList: Array<MultiSelectOptionItem>;
+  optionActiveList?: Array<MultiSelectOptionItem>;
+  onSelected: (items: Array<MultiSelectOptionItem>) => void;
 }
 
 export const MultiSelect: FC<MultiSelectProps> = memo((props) => {
@@ -31,10 +31,12 @@ export const MultiSelect: FC<MultiSelectProps> = memo((props) => {
 
   const [inputValue, setInputValue] = useState("");
   const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState<OptionItem[]>(optionActiveList);
+  const [selected, setSelected] =
+    useState<MultiSelectOptionItem[]>(optionActiveList);
 
   const inputRef = useRef<HTMLInputElement>(null);
-  const prevOptionActiveList = useRef<OptionItem[]>(optionActiveList);
+  const prevOptionActiveList =
+    useRef<MultiSelectOptionItem[]>(optionActiveList);
 
   useEffect(() => {
     if (!isEqual(optionActiveList, prevOptionActiveList.current)) {
@@ -44,7 +46,7 @@ export const MultiSelect: FC<MultiSelectProps> = memo((props) => {
   }, [optionActiveList]);
 
   const handleUnselect = useCallback(
-    (optionItem: OptionItem) => {
+    (optionItem: MultiSelectOptionItem) => {
       setSelected((prev) => prev.filter((s) => s.value !== optionItem.value));
       onSelected &&
         onSelected(selected.filter((s) => s.value !== optionItem.value));

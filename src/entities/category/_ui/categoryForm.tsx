@@ -11,7 +11,7 @@ import {
 } from "@/shared/ui/form";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { Input } from "@/shared/ui/input";
-import { MultiSelect, OptionItem } from "@/shared/ui/multiSelect";
+import { MultiSelect, MultiSelectOptionItem } from "@/shared/ui/multiSelect";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, HTMLAttributes, useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -27,10 +27,10 @@ interface CategoryFormProps extends HTMLAttributes<HTMLFormElement> {
   handleSubmit?: (data: CategoryFormValues) => void;
   isPending: boolean;
   submitText?: string;
-  optionSelectOptionList: Array<OptionItem>;
-  optionSelectOptionListActive?: Array<OptionItem>;
+  optionSelectOptionList: Array<MultiSelectOptionItem>;
+  optionSelectOptionListActive?: Array<MultiSelectOptionItem>;
   handleOptionSelectOption: (
-    itemList: Array<OptionItem>,
+    itemList: Array<MultiSelectOptionItem>,
   ) => Array<{ id: string }>;
 }
 
@@ -72,7 +72,7 @@ export const CategoryForm: FC<CategoryFormProps> = (props) => {
 
   const isPendingAppearance = useAppearanceDelay(isPending);
 
-  const handleSelect = useCallback((value: OptionItem[]) => {
+  const handleSelect = useCallback((value: MultiSelectOptionItem[]) => {
     form.setValue("optionList", handleOptionSelectOption(value));
   }, []);
 

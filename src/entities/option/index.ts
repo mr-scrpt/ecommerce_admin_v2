@@ -24,6 +24,7 @@ export type {
   OptionRelationEntity,
   OptionToCreate,
   OptionToUpdate,
+  OptionSelect,
 } from "./_domain/option/types";
 
 export type {

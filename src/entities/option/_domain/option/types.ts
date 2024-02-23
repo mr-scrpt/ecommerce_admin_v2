@@ -1,3 +1,4 @@
+import { MultiSelectOptionItem } from "@/shared/ui/multiSelect";
 import { OptionDataTypeEnum } from "../../../../shared/type/optionDataType.enum";
 import { OptionItem } from "../optionItem/types";
 
@@ -45,4 +46,12 @@ export type OptionToUpdate = {
 export type OptionCategory = {
   id: string;
   name: string;
+};
+
+// UI
+export type OptionSelect = {
+  id: string;
+  name: string;
+  datatype: OptionDataTypeEnum;
+  optionList: Array<MultiSelectOptionItem>;
 };
