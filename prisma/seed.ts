@@ -6,7 +6,7 @@ import { optionItemListSeed } from "./data/optionItem";
 import { productListSeed } from "./data/product";
 import { userListSeed } from "./data/user";
 import { categoryRelationsSeed } from "./data/categoryRelations";
-import { optionRelationsSeed } from "./data/optionRelations";
+// import { optionRelationsSeed } from "./data/optionRelations";
 import { productRelationsSeed } from "./data/productRelations";
 const prisma = new PrismaClient();
 
@@ -47,13 +47,13 @@ async function main() {
     console.log("category created relation", category);
   }
 
-  for await (const option of optionRelationsSeed) {
-    await prisma.option.update({
-      where: { id: option.id },
-      data: option,
-    });
-    console.log("option created relation", option);
-  }
+  // for await (const option of optionRelationsSeed) {
+  //   await prisma.option.update({
+  //     where: { id: option.id },
+  //     data: option,
+  //   });
+  //   console.log("option created relation", option);
+  // }
 
   for await (const product of productRelationsSeed) {
     await prisma.product.update({ where: { id: product.id }, data: product });

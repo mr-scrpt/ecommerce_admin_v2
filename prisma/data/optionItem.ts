@@ -23,28 +23,28 @@ export const optionItemListSeed = [
   },
   // Size
   {
-    id: "optionItem_58ddtwaew7897dfe",
+    id: "optionItem_58ddtwaew7897dfeXS",
     name: "XS",
     value: "xs",
 
     option: { connect: { id: "option_585fsddfew7898dd" } },
   },
   {
-    id: "optionItem_d33ddtwaew68de",
+    id: "optionItem_d33ddtwaew68deS",
     name: "S",
     value: "s",
 
     option: { connect: { id: "option_585fsddfew7898dd" } },
   },
   {
-    id: "optionItem_M68ddtwaew65687",
+    id: "optionItem_M68ddtwaew65687M",
     name: "M",
     value: "m",
 
     option: { connect: { id: "option_585fsddfew7898dd" } },
   },
   {
-    id: "optionItem_L58ddtwaew65622",
+    id: "optionItem_L58ddtwaew65622L",
     name: "L",
     value: "l",
 
