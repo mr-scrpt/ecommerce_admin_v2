@@ -19,4 +19,10 @@ export const optionListSeed = [
     datatype: OptionDataTypeEnum.CHECKBOX,
     isFilter: false,
   },
+  {
+    id: "option_eeesddfew789855",
+    name: "New",
+    datatype: OptionDataTypeEnum.RADIO,
+    isFilter: true,
+  },
 ];

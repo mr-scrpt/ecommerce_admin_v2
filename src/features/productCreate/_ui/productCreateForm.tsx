@@ -66,7 +66,7 @@ export const ProductFormCreate: FC<ProductCreateFormProps> = (props) => {
         isPending={isPendingComplexible}
         submitText={"Create Product"}
         categorySelectOptionList={categorySelectOptionList}
-        optionList={optionList}
+        optionSelectOptionList={optionList}
         handleCategorySelectOption={handleSelectedOption}
       />
     </div>

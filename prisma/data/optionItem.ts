@@ -65,4 +65,20 @@ export const optionItemListSeed = [
 
     option: { connect: { id: "option_195fsd55846fddew" } },
   },
+
+  // New
+  {
+    id: "optionItem_77da558waew77YES",
+    name: "yes",
+    value: "true",
+
+    option: { connect: { id: "option_eeesddfew789855" } },
+  },
+  {
+    id: "optionItem_ew5da558waew22NO",
+    name: "no",
+    value: "false",
+
+    option: { connect: { id: "option_eeesddfew789855" } },
+  },
 ];
