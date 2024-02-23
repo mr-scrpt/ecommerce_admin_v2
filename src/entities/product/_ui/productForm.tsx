@@ -121,17 +121,17 @@ export const ProductForm: FC<ProductFormProps> = (props) => {
           }}
         />
         {optionSelectOptionList &&
-          optionSelectOptionList.map((item) => {
-            const { datatype } = item;
+          optionSelectOptionList.map((option) => {
+            const { datatype } = option;
             if (datatype === OptionDataTypeEnum.SELECT) {
               return (
                 <FormField
-                  key={item.name}
+                  key={option.name}
                   control={form.control}
                   name="optionList"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{item.name}</FormLabel>
+                      <FormLabel>{option.name}</FormLabel>
                       <Select
                         onValueChange={field.onChange}
                         // defaultValue={field.value}
@@ -142,9 +142,9 @@ export const ProductForm: FC<ProductFormProps> = (props) => {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          {item.optionList.map((item) => (
-                            <SelectItem key={item.value} value="m@example.com">
-                              {item.label}
+                          {option.optionList.map((row) => (
+                            <SelectItem key={row.value} value={row.value}>
+                              {row.label}
                             </SelectItem>
                           ))}
                         </SelectContent>
@@ -161,15 +161,15 @@ export const ProductForm: FC<ProductFormProps> = (props) => {
             if (datatype === OptionDataTypeEnum.MULT) {
               return (
                 <FormField
-                  key={item.name}
+                  key={option.name}
                   control={form.control}
                   name="optionList"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{item.name}</FormLabel>
+                      <FormLabel>{option.name}</FormLabel>
                       <FormControl>
                         <MultiSelect
-                          optionList={item.optionList}
+                          optionList={option.optionList}
                           optionActiveList={[]}
                           onSelected={() => {}}
                         />
@@ -183,28 +183,28 @@ export const ProductForm: FC<ProductFormProps> = (props) => {
             if (datatype === OptionDataTypeEnum.RADIO) {
               return (
                 <FormField
-                  key={item.name}
+                  key={option.name}
                   control={form.control}
                   name="optionList"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{item.name}</FormLabel>
+                      <FormLabel>{option.name}</FormLabel>
                       <FormControl>
                         <RadioGroup
                           onValueChange={field.onChange}
                           // defaultValue={field.value}
                           className="flex flex-col space-y-1"
                         >
-                          {item.optionList.map((item) => (
+                          {option.optionList.map((row) => (
                             <FormItem
-                              key={item.value}
+                              key={row.value}
                               className="flex items-center space-x-3 space-y-0"
                             >
                               <FormControl>
-                                <RadioGroupItem value={item.value} />
+                                <RadioGroupItem value={row.value} />
                               </FormControl>
                               <FormLabel className="font-normal">
-                                {item.label}
+                                {row.label}
                               </FormLabel>
                             </FormItem>
                           ))}
@@ -219,47 +219,47 @@ export const ProductForm: FC<ProductFormProps> = (props) => {
             if (datatype === OptionDataTypeEnum.CHECKBOX) {
               return (
                 <FormField
-                  key={item.name}
+                  key={option.name}
                   control={form.control}
                   name="optionList"
                   render={({ field }) => (
                     <FormItem>
                       <div className="mb-4">
-                        <FormLabel className="text-base">{item.name}</FormLabel>
+                        <FormLabel className="text-base">Sidebar</FormLabel>
                         <FormDescription>
                           Select the items you want to display in the sidebar.
                         </FormDescription>
                       </div>
-                      {item.optionList.map((item) => (
+                      {option.optionList.map((row) => (
                         <FormField
-                          key={item.value}
+                          key={row.value}
                           control={form.control}
                           name="optionList"
                           render={({ field }) => {
                             return (
                               <FormItem
-                                key={item.value}
+                                key={row.value}
                                 className="flex flex-row items-start space-x-3 space-y-0"
                               >
                                 <FormControl>
                                   <Checkbox
-                                  // checked={field.value?.includes(item.value)}
+                                  // checked={field.value?.includes(row.value)}
                                   // onCheckedChange={(checked) => {
                                   //   return checked
                                   //     ? field.onChange([
                                   //         ...field.value,
-                                  //         item.id,
+                                  //         row.id,
                                   //       ])
                                   //     : field.onChange(
                                   //         field.value?.filter(
-                                  //           (value) => value !== item.id,
+                                  //           (value) => value !== row.id,
                                   //         ),
                                   //       );
                                   // }}
                                   />
                                 </FormControl>
                                 <FormLabel className="text-sm font-normal">
-                                  {item.label}
+                                  {row.label}
                                 </FormLabel>
                               </FormItem>
                             );
