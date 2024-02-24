@@ -18,6 +18,12 @@ export type OptionItem = {
   value: string;
 };
 
+export type OptionItemRelation = {
+  id: OptionItemId;
+  name: string;
+  value: string;
+};
+
 export type OptionItemCombineCreate = {
   optionId: OptionId;
   name: string;

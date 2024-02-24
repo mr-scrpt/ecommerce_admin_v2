@@ -15,6 +15,8 @@ export {
 export { OptionForm } from "./_ui/optionForm";
 export { OptionFromLayout } from "./_ui/optionFromLayout";
 export { useOptionLikeSelectOptionList } from "./_vm/useOptionLikeSelectOptionList";
+export { useOptionListByCategoryIdList } from "./_vm/useOptionListByCategoryIdList";
+export { useOptionListWithDataActive } from "./_vm/useOptionListWithDataActive";
 
 export type {
   Option,
@@ -22,13 +24,14 @@ export type {
   OptionId,
   OptionRelation,
   OptionRelationEntity,
+  OptionSelect,
   OptionToCreate,
   OptionToUpdate,
-  OptionSelect,
 } from "./_domain/option/types";
 
 export type {
   OptionItem,
+  OptionItemRelation,
   OptionItemToCreate,
   OptionItemToUpdate,
 } from "./_domain/optionItem/types";

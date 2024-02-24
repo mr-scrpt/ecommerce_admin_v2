@@ -14,6 +14,7 @@ export type ProductEntity = {
 
 export type ProductRelationEntity = ProductEntity & {
   categoryList: Array<ProductCategory>;
+  optionItemListSelected: Array<ProductOptionItem>;
 };
 
 // Projetions
@@ -28,6 +29,7 @@ export type Product = {
 
 export type ProductRelation = Product & {
   categoryList: Array<ProductCategory>;
+  optionItemListSelected: Array<ProductOptionItem>;
 };
 
 export type ProductToCreate = {
@@ -58,4 +60,11 @@ export type ProductToUpdate = {
 export type ProductCategory = {
   id: string;
   name: string;
+};
+
+export type ProductOptionItem = {
+  id: string;
+  name: string;
+  value: string;
+  optionId: string;
 };

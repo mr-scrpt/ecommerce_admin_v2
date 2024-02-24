@@ -13,6 +13,12 @@ import { z } from "zod";
 import { useCategoryLikeSelectOptionList } from "@/entities/category";
 import { useProductUpdateMutation } from "../_mutation/useProductUpdate.mutation";
 import { useOptionListTransform } from "@/shared/lib/map";
+import {
+  useOptionListByCategoryIdList,
+  useOptionListWithDataActive,
+} from "@/entities/option";
+import { MultiSelectOptionItem } from "@/shared/ui/multiSelect";
+import { ProductFormOptions } from "@/entities/product/_ui/productFormOptions";
 
 interface ProductFormProps extends HTMLAttributes<HTMLDivElement> {
   productId: ProductId;
@@ -31,6 +37,17 @@ export const ProductFormUpdate: FC<ProductFormProps> = (props) => {
     product,
     isFetchedAfterMount,
   } = useProductWithRelationQuery(productId);
+
+  const {
+    optionList,
+    setCategoryIdList,
+    isPending: isPendingOptionList,
+  } = useOptionListByCategoryIdList();
+
+  const { optionListWithDataActive } = useOptionListWithDataActive({
+    optionList,
+    optionItemListSelected: product?.optionItemListSelected ?? [],
+  });
 
   const router = useRouter();
 
@@ -55,6 +72,13 @@ export const ProductFormUpdate: FC<ProductFormProps> = (props) => {
   if (!product) {
     return <div>Failed to load product, you may not have permissions</div>;
   }
+  const handleSelectedOption = (
+    optionListSelected: Array<MultiSelectOptionItem>,
+  ) => {
+    const categoryIdList = toDataIdList(optionListSelected);
+    setCategoryIdList(categoryIdList.map((item) => item.id));
+    return categoryIdList;
+  };
 
   const handleSubmit = async (data: ProductFormValues) => {
     await productUpdate({
@@ -82,9 +106,11 @@ export const ProductFormUpdate: FC<ProductFormProps> = (props) => {
         product={product}
         categorySelectOptionList={categorySelectOptionList}
         categotySelectOptionListActive={categotySelectOptionListActive}
-        handleCategorySelectOption={toDataIdList}
+        // optionSelectOptionList={optionListWithDataActive}
+        handleCategorySelectOption={handleSelectedOption}
         submitText={"Save change"}
       />
+      <ProductFormOptions optionSelectOptionList={optionListWithDataActive} />
     </div>
   );
 };

@@ -34,6 +34,7 @@ export type OptionRelation = Option & {
 export type OptionToCreate = {
   name: string;
   datatype: OptionDataTypeEnum;
+  isFilter: boolean;
 };
 
 export type OptionToUpdate = {
@@ -53,5 +54,5 @@ export type OptionSelect = {
   id: string;
   name: string;
   datatype: OptionDataTypeEnum;
-  optionList: Array<MultiSelectOptionItem>;
+  optionList: Array<MultiSelectOptionItem & { active: boolean }>;
 };

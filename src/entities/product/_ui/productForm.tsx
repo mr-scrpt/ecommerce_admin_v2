@@ -1,9 +1,7 @@
 "use client";
-import { OptionSelect } from "@/entities/option";
 import { useAppearanceDelay } from "@/shared/lib/react";
 import { OptionDataTypeEnum } from "@/shared/type/optionDataType.enum";
 import { Button } from "@/shared/ui/button";
-import { Checkbox } from "@/shared/ui/checkbox";
 import {
   Form,
   FormControl,
@@ -16,7 +14,6 @@ import {
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { Input } from "@/shared/ui/input";
 import { MultiSelect, MultiSelectOptionItem } from "@/shared/ui/multiSelect";
-import { RadioGroup, RadioGroupItem } from "@/shared/ui/radio-group";
 import {
   Select,
   SelectContent,
@@ -42,24 +39,44 @@ interface ProductFormProps extends HTMLAttributes<HTMLFormElement> {
   submitText?: string;
   categorySelectOptionList: Array<MultiSelectOptionItem>;
   categotySelectOptionListActive?: Array<MultiSelectOptionItem>;
-  optionSelectOptionList: Array<OptionSelect>;
+  // optionSelectOptionList: Array<OptionSelect>;
   // optionSelectOptionListActive?: Array<OptionSelect>;
   handleCategorySelectOption: (
     itemList: Array<MultiSelectOptionItem>,
   ) => Array<{ id: string }>;
 }
-
-const getDefaultValues = (
-  product?: ProductRelation,
-  // optionList?: Array<OptionSelect>,
-) => ({
+const getDefaultValues = (product?: ProductRelation) => ({
   name: product?.name ?? "",
   description: product?.description ?? "",
   about: product?.about ?? "",
   img: product?.img ?? [],
   categoryList: product?.categoryList ?? [],
-  // optionList: optionList ?? [],
 });
+
+// const createSchemaFromDatatype = (datatype: OptionDataTypeEnum) => {
+//   switch (datatype) {
+//     case "radio":
+//     case "select":
+//       return z.object({
+//         id: z.string(),
+//       });
+//     case "mult":
+//       return z.array(z.object({ id: z.string() }));
+//     default:
+//       return z.object({});
+//   }
+// };
+
+// Преобразование optionSelectOptionList в объект схемы Zod
+// const createSchemaFromOptions = (options: Array<OptionSelect>) => {
+//   const schemaArray = options.map((option) => {
+//     return z.object({
+//       [option.name]: createSchemaFromDatatype(option.datatype),
+//     });
+//   });
+//
+//   return z.object(Object.assign({}, ...schemaArray));
+// };
 
 export const ProductForm: FC<ProductFormProps> = (props) => {
   const {
@@ -69,14 +86,46 @@ export const ProductForm: FC<ProductFormProps> = (props) => {
     isPending,
     categorySelectOptionList,
     categotySelectOptionListActive,
-    optionSelectOptionList,
+    // optionSelectOptionList,
     handleCategorySelectOption,
   } = props;
+
+  // const createSchemaFromDatatype = (datatype: OptionDataTypeEnum) => {
+  //   switch (datatype) {
+  //     case "radio":
+  //     case "select":
+  //       return z.object({
+  //         id: z.string(),
+  //       });
+  //     case "mult":
+  //       return z.array(z.object({ id: z.string() }));
+  //     default:
+  //       return z.object({});
+  //   }
+  // };
+  //   const createSchemaFromOptions = (options: Array<OptionSelect>) => {
+  //     const schemaObject: { [key: string]: z.ZodType<any> } = {};
+  //
+  //     options.forEach((option) => {
+  //       schemaObject[option.name] = createSchemaFromDatatype(option.datatype);
+  //     });
+  //
+  //     return z.object(schemaObject);
+  //   };
+  //
+  //   const optionSchema = createSchemaFromOptions(optionSelectOptionList);
+  //
+  //   const combinedSchema = productFormSchema.merge(optionSchema);
+  //
+  //   const productFormSchemaWithDynamicOptions = combinedSchema;
+  //
+  //   type ProductFormValues = z.infer<typeof productFormSchemaWithDynamicOptions>;
 
   const form = useForm<ProductFormValues>({
     resolver: zodResolver(productFormSchema),
     defaultValues: getDefaultValues(product),
   });
+  // console.log("output_log: form =>>>", form.getValues());
 
   useEffect(() => {
     form.reset(getDefaultValues(product));
@@ -120,159 +169,45 @@ export const ProductForm: FC<ProductFormProps> = (props) => {
             );
           }}
         />
-        {optionSelectOptionList &&
-          optionSelectOptionList.map((option) => {
-            const { datatype } = option;
-            if (datatype === OptionDataTypeEnum.SELECT) {
-              return (
-                <FormField
-                  key={option.name}
-                  control={form.control}
-                  name="optionList"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{option.name}</FormLabel>
-                      <Select
-                        onValueChange={field.onChange}
-                        // defaultValue={field.value}
-                      >
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder="placeholder" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          {option.optionList.map((row) => (
-                            <SelectItem key={row.value} value={row.value}>
-                              {row.label}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                      <FormDescription>
-                        You can manage email addresses in your
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              );
-            }
-            if (datatype === OptionDataTypeEnum.MULT) {
-              return (
-                <FormField
-                  key={option.name}
-                  control={form.control}
-                  name="optionList"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{option.name}</FormLabel>
-                      <FormControl>
-                        <MultiSelect
-                          optionList={option.optionList}
-                          optionActiveList={[]}
-                          onSelected={() => {}}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              );
-            }
-            if (datatype === OptionDataTypeEnum.RADIO) {
-              return (
-                <FormField
-                  key={option.name}
-                  control={form.control}
-                  name="optionList"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{option.name}</FormLabel>
-                      <FormControl>
-                        <RadioGroup
-                          onValueChange={field.onChange}
-                          // defaultValue={field.value}
-                          className="flex flex-col space-y-1"
-                        >
-                          {option.optionList.map((row) => (
-                            <FormItem
-                              key={row.value}
-                              className="flex items-center space-x-3 space-y-0"
-                            >
-                              <FormControl>
-                                <RadioGroupItem value={row.value} />
-                              </FormControl>
-                              <FormLabel className="font-normal">
-                                {row.label}
-                              </FormLabel>
-                            </FormItem>
-                          ))}
-                        </RadioGroup>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              );
-            }
-            if (datatype === OptionDataTypeEnum.CHECKBOX) {
-              return (
-                <FormField
-                  key={option.name}
-                  control={form.control}
-                  name="optionList"
-                  render={({ field }) => (
-                    <FormItem>
-                      <div className="mb-4">
-                        <FormLabel className="text-base">Sidebar</FormLabel>
-                        <FormDescription>
-                          Select the items you want to display in the sidebar.
-                        </FormDescription>
-                      </div>
-                      {option.optionList.map((row) => (
-                        <FormField
-                          key={row.value}
-                          control={form.control}
-                          name="optionList"
-                          render={({ field }) => {
-                            return (
-                              <FormItem
-                                key={row.value}
-                                className="flex flex-row items-start space-x-3 space-y-0"
-                              >
-                                <FormControl>
-                                  <Checkbox
-                                  // checked={field.value?.includes(row.value)}
-                                  // onCheckedChange={(checked) => {
-                                  //   return checked
-                                  //     ? field.onChange([
-                                  //         ...field.value,
-                                  //         row.id,
-                                  //       ])
-                                  //     : field.onChange(
-                                  //         field.value?.filter(
-                                  //           (value) => value !== row.id,
-                                  //         ),
-                                  //       );
-                                  // }}
-                                  />
-                                </FormControl>
-                                <FormLabel className="text-sm font-normal">
-                                  {row.label}
-                                </FormLabel>
-                              </FormItem>
-                            );
-                          }}
-                        />
-                      ))}
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              );
-            }
-          })}
+        {/* {optionSelectOptionList && */}
+        {/*   optionSelectOptionList.map((option) => { */}
+        {/*     const { datatype } = option; */}
+        {/*     if (datatype === OptionDataTypeEnum.SELECT) { */}
+        {/*       return ( */}
+        {/*         <FormField */}
+        {/*           key={option.name} */}
+        {/*           control={form.control} */}
+        {/*           name={option.name} */}
+        {/*           render={({ field }) => { */}
+        {/*             console.log("name", option.name); */}
+        {/*             return ( */}
+        {/*               <FormItem> */}
+        {/*                 <FormLabel>{option.name}</FormLabel> */}
+        {/*                 <Select onValueChange={field.onChange}> */}
+        {/*                   <FormControl> */}
+        {/*                     <SelectTrigger> */}
+        {/*                       <SelectValue placeholder="placeholder" /> */}
+        {/*                     </SelectTrigger> */}
+        {/*                   </FormControl> */}
+        {/*                   <SelectContent> */}
+        {/*                     {option.optionList.map((row) => ( */}
+        {/*                       <SelectItem key={row.value} value={row.value}> */}
+        {/*                         {row.label} */}
+        {/*                       </SelectItem> */}
+        {/*                     ))} */}
+        {/*                   </SelectContent> */}
+        {/*                 </Select> */}
+        {/*                 <FormDescription> */}
+        {/*                   You can manage email addresses in your */}
+        {/*                 </FormDescription> */}
+        {/*                 <FormMessage /> */}
+        {/*               </FormItem> */}
+        {/*             ); */}
+        {/*           }} */}
+        {/*         /> */}
+        {/*       ); */}
+        {/*     } */}
+        {/*   })} */}
         <FormField
           control={form.control}
           name="name"

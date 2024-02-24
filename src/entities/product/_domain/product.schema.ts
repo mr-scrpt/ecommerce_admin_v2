@@ -24,6 +24,14 @@ export const productRelationSchema = z.object({
       name: z.string(),
     }),
   ),
+  optionItemListSelected: z.array(
+    z.object({
+      id: z.string(),
+      name: z.string(),
+      value: z.string(),
+      optionId: z.string(),
+    }),
+  ),
 });
 
 export const productCreateSchema = z.object({
@@ -55,9 +63,7 @@ export const productFormSchema = z.object({
   name: z
     .string()
     .min(3)
-    .max(30, {
-      message: "Username must not be longer than 30 characters.",
-    })
+    .max(30)
     .transform((name) => name.trim()),
   description: z.string(),
   about: z.string(),
@@ -67,11 +73,30 @@ export const productFormSchema = z.object({
       id: z.string(),
     }),
   ),
-  optionList: z.array(
-    z.object({
-      id: z.string(),
-    }),
-  ),
 });
 
 export type ProductFormValues = z.infer<typeof productFormSchema>;
+// type DinamicField = Record<string, any>;
+//
+// export const generateProductFormSchema = (
+//   dinamicFieldList: Array<DinamicField>,
+// ) =>
+//   z.object({
+//     name: z
+//       .string()
+//       .min(3)
+//       .max(30, {
+//         message: "Username must not be longer than 30 characters.",
+//       })
+//       .transform((name) => name.trim()),
+//     description: z.string(),
+//     about: z.string(),
+//     img: z.array(z.string()),
+//     categoryList: z.array(
+//       z.object({
+//         id: z.string(),
+//       }),
+//     ),
+//   });
+//
+// export type ProductFormValues = z.infer<typeof productFormSchema>;
