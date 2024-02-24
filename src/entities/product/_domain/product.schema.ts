@@ -73,6 +73,7 @@ export const productFormSchema = z.object({
       id: z.string(),
     }),
   ),
+  optionList: z.object({}),
 });
 
 export type ProductFormValues = z.infer<typeof productFormSchema>;

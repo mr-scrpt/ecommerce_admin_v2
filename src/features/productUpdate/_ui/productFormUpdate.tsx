@@ -106,11 +106,11 @@ export const ProductFormUpdate: FC<ProductFormProps> = (props) => {
         product={product}
         categorySelectOptionList={categorySelectOptionList}
         categotySelectOptionListActive={categotySelectOptionListActive}
-        // optionSelectOptionList={optionListWithDataActive}
+        optionSelectOptionList={optionListWithDataActive}
         handleCategorySelectOption={handleSelectedOption}
         submitText={"Save change"}
       />
-      <ProductFormOptions optionSelectOptionList={optionListWithDataActive} />
+      {/* <ProductFormOptions optionSelectOptionList={optionListWithDataActive} /> */}
     </div>
   );
 };
