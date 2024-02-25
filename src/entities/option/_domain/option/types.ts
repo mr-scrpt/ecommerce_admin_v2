@@ -54,5 +54,6 @@ export type OptionSelect = {
   id: string;
   name: string;
   datatype: OptionDataTypeEnum;
-  optionList: Array<MultiSelectOptionItem & { active: boolean }>;
+  // optionList: Array<MultiSelectOptionItem & { active: boolean }>;
+  optionList: Array<MultiSelectOptionItem>;
 };

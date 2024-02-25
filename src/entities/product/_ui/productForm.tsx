@@ -1,11 +1,11 @@
 "use client";
+import { OptionSelect } from "@/entities/option";
 import { useAppearanceDelay } from "@/shared/lib/react";
 import { OptionDataTypeEnum } from "@/shared/type/optionDataType.enum";
 import { Button } from "@/shared/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -25,14 +25,13 @@ import { Textarea } from "@/shared/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, HTMLAttributes, useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { z } from "zod";
 import {
   ProductFormValues,
   productFormSchema,
 } from "../_domain/product.schema";
 import { ProductRelation } from "../_domain/types";
 import { ImgField } from "./imgField";
-import { OptionSelect } from "@/entities/option";
-import { z } from "zod";
 
 interface ProductFormProps extends HTMLAttributes<HTMLFormElement> {
   product?: ProductRelation;
@@ -47,38 +46,20 @@ interface ProductFormProps extends HTMLAttributes<HTMLFormElement> {
     itemList: Array<MultiSelectOptionItem>,
   ) => Array<{ id: string }>;
 }
-const getDefaultValues = (product?: ProductRelation) => ({
+type OptionListValues = {
+  [key: string]: string | string[];
+};
+const getDefaultValues = (
+  product?: ProductRelation,
+  optionList?: OptionListValues,
+) => ({
   name: product?.name ?? "",
   description: product?.description ?? "",
   about: product?.about ?? "",
   img: product?.img ?? [],
   categoryList: product?.categoryList ?? [],
+  optionList: optionList ?? {},
 });
-
-const createSchemaFromDatatype = (datatype: OptionDataTypeEnum) => {
-  switch (datatype) {
-    case "radio":
-    case "select":
-      return z.object({
-        id: z.string(),
-      });
-    case "mult":
-      return z.array(z.object({ id: z.string() }));
-    default:
-      return z.object({});
-  }
-};
-
-// Преобразование optionSelectOptionList в объект схемы Zod
-// const createSchemaFromOptions = (options: Array<OptionSelect>) => {
-//   const schemaArray = options.map((option) => {
-//     return z.object({
-//       [option.name]: createSchemaFromDatatype(option.datatype),
-//     });
-//   });
-//
-//   return z.object(Object.assign({}, ...schemaArray));
-// };
 
 export const ProductForm: FC<ProductFormProps> = (props) => {
   const {
@@ -92,36 +73,6 @@ export const ProductForm: FC<ProductFormProps> = (props) => {
     handleCategorySelectOption,
   } = props;
 
-  // const createSchemaFromDatatype = (datatype: OptionDataTypeEnum) => {
-  //   switch (datatype) {
-  //     case "radio":
-  //     case "select":
-  //       return z.object({
-  //         id: z.string(),
-  //       });
-  //     case "mult":
-  //       return z.array(z.object({ id: z.string() }));
-  //     default:
-  //       return z.object({});
-  //   }
-  // };
-  // const createSchemaFromOptions = (options: Array<OptionSelect>) => {
-  //   const schemaObject: { [key: string]: z.ZodType<any> } = {};
-  //
-  //   options.forEach((option) => {
-  //     schemaObject[option.name] = createSchemaFromDatatype(option.datatype);
-  //   });
-  //
-  //   return z.object(schemaObject);
-  // };
-  // //
-  // const optionSchema = createSchemaFromOptions(optionSelectOptionList);
-  //
-  //   const combinedSchema = productFormSchema.merge(optionSchema);
-  //
-  //   const productFormSchemaWithDynamicOptions = combinedSchema;
-  //
-  //   type ProductFormValues = z.infer<typeof productFormSchemaWithDynamicOptions>;
   const dynamicOptionSchema: Record<string, z.ZodType<any, any>> = {};
   for (const option of optionSelectOptionList) {
     if (option.datatype === "mult") {
@@ -139,20 +90,29 @@ export const ProductForm: FC<ProductFormProps> = (props) => {
 
   const form = useForm<FinalProductFormValues>({
     resolver: zodResolver(finalProductFormSchema),
-    defaultValues: getDefaultValues(product),
+    defaultValues: getDefaultValues(product, {
+      Size: "optionItem_d33ddtwaew68deS",
+    }),
   });
-  // console.log("output_log: form =>>>", form.getValues());
+  // console.log(
+  //   "output_log: optionSelectOptionList =>>>",
+  //   optionSelectOptionList,
+  // );
 
   useEffect(() => {
-    form.reset(getDefaultValues(product));
+    form.reset(
+      getDefaultValues(product, {
+        Size: "optionItem_d33ddtwaew68deS",
+      }),
+    );
   }, [product, form]);
 
   const handleSubmit = form.handleSubmit(async (data) => {
-    console.log("output_log: submit data  =>>>", data);
+    // console.log("output_log: submit data  =>>>", data);
     // onSubmit?.(data);
   });
-  console.log("output_log:  form =>>>", form.getValues());
-  console.log("output_log:  form error=>>>", form.formState.errors);
+  console.log("output_log:  form.getValues() =>>>", form.getValues());
+  // console.log("output_log:  form error=>>>", form.formState.errors);
 
   const handleDeleteimg = (path: string) => {
     const list = form.getValues("img");
@@ -202,7 +162,10 @@ export const ProductForm: FC<ProductFormProps> = (props) => {
                     return (
                       <FormItem>
                         <FormLabel>{option.name}</FormLabel>
-                        <Select onValueChange={field.onChange}>
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                        >
                           <FormControl>
                             <SelectTrigger>
                               <SelectValue placeholder="placeholder" />

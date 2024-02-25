@@ -6,6 +6,7 @@ import { OptionSelect } from "../_domain/option/types";
 
 export const useOptionListByCategoryIdList = () => {
   const [categoryIdList, setCategoryIdList] = useState<string[]>([]);
+  console.log("output_log: categoryIdList =>>>", categoryIdList);
   const { toOptionList } = useOptionListTransform();
 
   const { isPending, isSuccess, optionList, isFetchedAfterMount } =

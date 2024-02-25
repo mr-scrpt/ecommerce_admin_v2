@@ -48,6 +48,11 @@ export const ProductFormUpdate: FC<ProductFormProps> = (props) => {
     optionList,
     optionItemListSelected: product?.optionItemListSelected ?? [],
   });
+  console.log("output_log: product =>>>", product);
+  console.log(
+    "output_log: optionListWithDataActive =>>>",
+    optionListWithDataActive,
+  );
 
   const router = useRouter();
 
@@ -63,6 +68,7 @@ export const ProductFormUpdate: FC<ProductFormProps> = (props) => {
     isPendingUpdate ||
     isPendingCategoryOptionList ||
     isPendingProduct ||
+    isPendingOptionList ||
     !isFetchedAfterMount;
 
   if (isPendingComplexible) {

@@ -7,6 +7,7 @@ type OptionListWithDataActive = {
 };
 export const useOptionListWithDataActive = (data: OptionListWithDataActive) => {
   const { optionList, optionItemListSelected } = data;
+  console.log("output_log:  =>>>", optionList, optionItemListSelected);
   const transformedOptions = optionList.map((option) => ({
     ...option,
     optionList: option.optionList.map((item) => ({

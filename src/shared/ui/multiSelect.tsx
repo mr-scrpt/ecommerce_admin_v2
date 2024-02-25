@@ -29,6 +29,10 @@ interface MultiSelectProps {
 export const MultiSelect: FC<MultiSelectProps> = memo((props) => {
   const { optionList, optionActiveList = [], onSelected } = props;
 
+  useEffect(() => {
+    onSelected(optionActiveList);
+  }, []);
+
   const [inputValue, setInputValue] = useState("");
   const [open, setOpen] = useState(false);
   const [selected, setSelected] =
