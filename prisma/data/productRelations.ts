@@ -3,7 +3,11 @@ export const productRelationsSeed = [
     id: "prod_585fsddfew7898few",
     categoryList: { connect: [{ id: "cat_585fsddfew7898few" }] },
     optionItemListSelected: {
-      connect: [{ id: "optionItem_8fsddfew7898d857" }],
+      connect: [
+        { id: "optionItem_8fsddfew7898d857" },
+        { id: "optionItem_M68ddtwaew65687M" },
+        // { id: "optionItem_L58ddtwaew65622L" },
+      ],
     },
   },
   {

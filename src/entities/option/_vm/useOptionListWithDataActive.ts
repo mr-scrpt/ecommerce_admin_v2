@@ -7,17 +7,28 @@ type OptionListWithDataActive = {
 };
 export const useOptionListWithDataActive = (data: OptionListWithDataActive) => {
   const { optionList, optionItemListSelected } = data;
-  console.log("output_log:  =>>>", optionList, optionItemListSelected);
+
   const transformedOptions = optionList.map((option) => ({
     ...option,
-    optionList: option.optionList.map((item) => ({
-      ...item,
-      active:
-        optionItemListSelected.find(
-          (activeItem) => activeItem.id === item.value,
-        ) !== undefined,
-    })),
+    optionList: option.optionList.filter((item) =>
+      optionItemListSelected.find((activeItem) => activeItem.id === item.value),
+    ),
+
+    // optionList: option.optionList.map((item) => ({
+    //   ...item,
+    //   active:
+    //     optionItemListSelected.find(
+    //       (activeItem) => activeItem.id === item.value,
+    //     ) !== undefined,
+    // })),
   }));
+
+  console.log("output_log: 1 = optionList =>>>", optionList);
+  console.log(
+    "output_log: 2 = optionItemListSelected =>>>",
+    optionItemListSelected,
+  );
+  console.log("output_log: 3 = transformedOptions =>>>", transformedOptions);
 
   return {
     optionListWithDataActive: transformedOptions,

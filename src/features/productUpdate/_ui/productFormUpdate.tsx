@@ -48,11 +48,12 @@ export const ProductFormUpdate: FC<ProductFormProps> = (props) => {
     optionList,
     optionItemListSelected: product?.optionItemListSelected ?? [],
   });
-  console.log("output_log: product =>>>", product);
-  console.log(
-    "output_log: optionListWithDataActive =>>>",
-    optionListWithDataActive,
-  );
+
+  // console.log("output_log: product =>>>", product);
+  // console.log(
+  //   "output_log: optionListWithDataActive =>>>",
+  //   optionListWithDataActive,
+  // );
 
   const router = useRouter();
 
@@ -103,7 +104,20 @@ export const ProductFormUpdate: FC<ProductFormProps> = (props) => {
   };
 
   const categotySelectOptionListActive = toOptionList(product.categoryList);
-
+  const optionListWithDataActiveCompleted = Object.fromEntries(
+    optionListWithDataActive.map((item) => {
+      return [
+        item.name,
+        item.datatype === "mult"
+          ? item.optionList.map((option) => option.value)
+          : item.optionList[0].value,
+      ];
+    }),
+  );
+  console.log(
+    "output_log: optionListWithDataActiveCompleted =>>>",
+    optionListWithDataActiveCompleted,
+  );
   return (
     <div className={cn(className, "w-full")}>
       <ProductForm
@@ -112,7 +126,8 @@ export const ProductFormUpdate: FC<ProductFormProps> = (props) => {
         product={product}
         categorySelectOptionList={categorySelectOptionList}
         categotySelectOptionListActive={categotySelectOptionListActive}
-        optionSelectOptionList={optionListWithDataActive}
+        optionSelectOptionList={optionList}
+        optionSelectOptionListActive={optionListWithDataActiveCompleted}
         handleCategorySelectOption={handleSelectedOption}
         submitText={"Save change"}
       />
@@ -120,3 +135,38 @@ export const ProductFormUpdate: FC<ProductFormProps> = (props) => {
     </div>
   );
 };
+
+// [
+//     {
+//         "id": "option_585fsddfew7898dd",
+//         "name": "Size",
+//         "datatype": "select",
+//         "optionList": [
+//             {
+//                 "value": "optionItem_M68ddtwaew65687M",
+//                 "label": "M"
+//             },
+//             {
+//                 "value": "optionItem_L58ddtwaew65622L",
+//                 "label": "L"
+//             }
+//         ]
+//     },
+//       {
+//         "id": "option_585fsddfew7898dd",
+//         "name": "Color",
+//         "datatype": "mult",
+//         "optionList": [
+//             {
+//                 "value": "optionItem_dddwaew65687Red",
+//                 "label": "Red"
+//             },
+//         ]
+//     }
+//
+// ]
+//
+// {
+//   Size: ["optionItem_M68ddtwaew65687M", "optionItem_L58ddtwaew65622L"];
+//   Color: "optionItem_dddwaew65687Red"
+// }

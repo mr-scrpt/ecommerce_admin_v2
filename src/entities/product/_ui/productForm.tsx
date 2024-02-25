@@ -41,7 +41,7 @@ interface ProductFormProps extends HTMLAttributes<HTMLFormElement> {
   categorySelectOptionList: Array<MultiSelectOptionItem>;
   categotySelectOptionListActive?: Array<MultiSelectOptionItem>;
   optionSelectOptionList: Array<OptionSelect>;
-  // optionSelectOptionListActive?: Array<OptionSelect>;
+  optionSelectOptionListActive?: OptionListValues;
   handleCategorySelectOption: (
     itemList: Array<MultiSelectOptionItem>,
   ) => Array<{ id: string }>;
@@ -70,6 +70,7 @@ export const ProductForm: FC<ProductFormProps> = (props) => {
     categorySelectOptionList,
     categotySelectOptionListActive,
     optionSelectOptionList,
+    optionSelectOptionListActive,
     handleCategorySelectOption,
   } = props;
 
@@ -90,21 +91,11 @@ export const ProductForm: FC<ProductFormProps> = (props) => {
 
   const form = useForm<FinalProductFormValues>({
     resolver: zodResolver(finalProductFormSchema),
-    defaultValues: getDefaultValues(product, {
-      Size: "optionItem_d33ddtwaew68deS",
-    }),
+    defaultValues: getDefaultValues(product, optionSelectOptionListActive),
   });
-  // console.log(
-  //   "output_log: optionSelectOptionList =>>>",
-  //   optionSelectOptionList,
-  // );
 
   useEffect(() => {
-    form.reset(
-      getDefaultValues(product, {
-        Size: "optionItem_d33ddtwaew68deS",
-      }),
-    );
+    form.reset(getDefaultValues(product));
   }, [product, form]);
 
   const handleSubmit = form.handleSubmit(async (data) => {
@@ -158,7 +149,6 @@ export const ProductForm: FC<ProductFormProps> = (props) => {
                   control={form.control}
                   name={`optionList.${option.name}`}
                   render={({ field }) => {
-                    // console.log("name", option.name);
                     return (
                       <FormItem>
                         <FormLabel>{option.name}</FormLabel>
