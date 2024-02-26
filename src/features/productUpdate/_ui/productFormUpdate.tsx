@@ -49,15 +49,18 @@ export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
 
   const {
     optionList,
+    categoryIdList,
     setCategoryIdList,
     isPending: isPendingOptionList,
   } = useOptionListByCategoryIdList();
 
-  useEffect(() => {
-    if (product) {
-      setCategoryIdList(product.categoryList.map((item) => item.id));
-    }
-  }, [product, setCategoryIdList]);
+  console.log("output_log:  categoryIdList =>>>", categoryIdList);
+
+  // useEffect(() => {
+  //   if (product) {
+  //     setCategoryIdList(product.categoryList.map((item) => item.id));
+  //   }
+  // }, [product, setCategoryIdList]);
 
   const router = useRouter();
 
@@ -75,20 +78,37 @@ export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
     isPendingProduct ||
     isPendingOptionList ||
     !isFetchedAfterMount;
-  const [categoryIdListState, setCategoryIdListState] = useState<string[]>([]);
+  // const [categoryIdListState, setCategoryIdListState] = useState<string[]>([]);
 
   const handleSelectedOption = useCallback(
     (optionListSelected: Array<MultiSelectOptionItem>) => {
       const categoryIdList = toDataIdList(optionListSelected);
-      setCategoryIdListState(categoryIdList.map((item) => item.id));
+
+      console.log("output_log: on click =>>>", categoryIdList);
+      setInitCategoryList([]);
+      setCategoryIdList(categoryIdList.map((item) => item.id));
+      // setCategoryIdList(categoryIdListState);
+      // setCategoryIdListState(categoryIdList.map((item) => item.id));
       return categoryIdList;
     },
-    [toDataIdList],
+    [toDataIdList, setCategoryIdList],
   );
 
+  // useEffect(() => {
+  //   setCategoryIdList(categoryIdListState);
+  // }, [categoryIdListState, setCategoryIdList]);
+  //
+  const [initCategoryList, setInitCategoryList] = useState<
+    Array<{ label: string; value: string }>
+  >([]);
   useEffect(() => {
-    setCategoryIdList(categoryIdListState);
-  }, [categoryIdListState, setCategoryIdList]);
+    setInitCategoryList(
+      product?.categoryList.map((item) => ({
+        label: item.name,
+        value: item.id,
+      })) || [],
+    );
+  }, [product]);
 
   if (isPendingComplexible) {
     return <Spinner aria-label="Loading profile..." />;
@@ -114,14 +134,20 @@ export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
     }
   };
 
+  // const active = categorySelectOptionList.filter((item) =>
+  //   categoryIdListState.includes(item.value),
+  // );
+  //
   const active = categorySelectOptionList.filter((item) =>
-    categoryIdListState.includes(item.value),
+    categoryIdList.includes(item.value),
   );
 
-  const res = uniqBy(
-    [...toOptionList(product.categoryList), ...active],
-    "value",
-  );
+  // const res = uniqBy(
+  //   [...toOptionList(product.categoryList), ...active],
+  //   "value",
+  // );
+  const res = uniqBy([...initCategoryList, ...active], "value");
+  console.log("output_log: res! =>>>", res);
 
   return (
     <div className={cn(className, "w-full")}>

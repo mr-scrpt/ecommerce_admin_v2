@@ -24,6 +24,7 @@ export const useOptionListByCategoryIdList = () => {
     isPending,
     isSuccess,
     optionList: optionListCompleted,
+    categoryIdList,
     isFetchedAfterMount,
     setCategoryIdList,
   };
