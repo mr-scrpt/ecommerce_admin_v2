@@ -2,7 +2,7 @@
 import { getAppSessionStrictServer } from "@/entities/user/getAppSessionServer";
 import { z } from "zod";
 import { productRelationSchema } from "../_domain/product.schema";
-import { ProductRelationEntity } from "../_domain/types";
+import { ProductRelation } from "../_domain/types";
 import { getProductWithRelationUseCase } from "../_usecase/getProductWithRelation.usecase";
 
 const getByIdSchema = z.object({
@@ -13,7 +13,7 @@ const resultSchema = z.object({
   product: productRelationSchema,
 });
 
-type ResultT = { product: ProductRelationEntity };
+type ResultT = { product: ProductRelation };
 
 export const getProductWithRelationAction = async (
   props: z.infer<typeof getByIdSchema>,

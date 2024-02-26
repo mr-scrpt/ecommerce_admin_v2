@@ -20,6 +20,7 @@ export type ProductRelationEntity = ProductEntity & {
 // Projetions
 
 export type Product = {
+  id: ProductId;
   name: string;
   description: string;
   about: string;
