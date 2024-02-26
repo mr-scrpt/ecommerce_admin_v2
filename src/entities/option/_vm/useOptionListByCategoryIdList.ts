@@ -7,6 +7,7 @@ import { OptionSelect } from "../_domain/option/types";
 export const useOptionListByCategoryIdList = () => {
   const [categoryIdList, setCategoryIdList] = useState<string[]>([]);
   const { toOptionList } = useOptionListTransform();
+  // console.log("output_log:  categoryIdList =>>>", categoryIdList);
 
   const { isPending, isSuccess, optionList, isFetchedAfterMount } =
     useOptionWithRelationByCategoryQuery(categoryIdList);
@@ -17,6 +18,7 @@ export const useOptionListByCategoryIdList = () => {
     datatype: option.datatype,
     optionList: toOptionList(option.optionItemList),
   }));
+  // console.log("output_log:  optionListCompleted =>>>", optionListCompleted);
 
   return {
     isPending,

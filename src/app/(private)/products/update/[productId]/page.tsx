@@ -2,13 +2,13 @@ import { ProductId } from "@/entities/product";
 import { RoutePathEnum } from "@/shared/config/routing.config";
 import { TitlePage } from "@/shared/ui/titlePage";
 import { ProductUpdate } from "@/widgets/productUpdate";
-import { FC, HTMLAttributes } from "react";
+import { FC, HTMLAttributes, memo } from "react";
 
 interface PageProps extends HTMLAttributes<HTMLDivElement> {
   params: { productId: ProductId };
 }
 
-const ProductUpdatePage: FC<PageProps> = (props) => {
+const ProductUpdatePage: FC<PageProps> = memo((props) => {
   const {
     params: { productId },
   } = props;
@@ -21,6 +21,7 @@ const ProductUpdatePage: FC<PageProps> = (props) => {
       />
     </main>
   );
-};
+});
+ProductUpdatePage.displayName = "ProductUpdatePage";
 
 export default ProductUpdatePage;

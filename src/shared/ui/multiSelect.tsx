@@ -29,14 +29,13 @@ interface MultiSelectProps {
 export const MultiSelect: FC<MultiSelectProps> = memo((props) => {
   const { optionList, optionActiveList = [], onSelected } = props;
 
-  useEffect(() => {
-    onSelected(optionActiveList);
-  }, []);
-
   const [inputValue, setInputValue] = useState("");
   const [open, setOpen] = useState(false);
-  const [selected, setSelected] =
-    useState<MultiSelectOptionItem[]>(optionActiveList);
+  const [selected, setSelected] = useState<MultiSelectOptionItem[]>([]);
+
+  useEffect(() => {
+    setSelected(optionActiveList);
+  }, []);
 
   const inputRef = useRef<HTMLInputElement>(null);
   const prevOptionActiveList =
@@ -44,10 +43,12 @@ export const MultiSelect: FC<MultiSelectProps> = memo((props) => {
 
   useEffect(() => {
     if (!isEqual(optionActiveList, prevOptionActiveList.current)) {
+      // console.log("output_log: not equal!!! =>>>");
+      onSelected(optionActiveList);
       setSelected(optionActiveList);
       prevOptionActiveList.current = optionActiveList;
     }
-  }, [optionActiveList]);
+  }, [optionActiveList, setSelected, onSelected]);
 
   const handleUnselect = useCallback(
     (optionItem: MultiSelectOptionItem) => {
@@ -142,6 +143,7 @@ export const MultiSelect: FC<MultiSelectProps> = memo((props) => {
                       e.stopPropagation();
                     }}
                     onSelect={(_) => {
+                      // console.log("output_log: ))) in select =>>>", optionItem);
                       setInputValue("");
                       setSelected((prev) => [...prev, optionItem]);
                       onSelected && onSelected([...selected, optionItem]);

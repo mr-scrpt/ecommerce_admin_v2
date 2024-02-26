@@ -14,6 +14,7 @@ export const useProductWithRelationQuery = (productId: ProductId) => {
 
   const { isPending, isSuccess, data, isFetchedAfterMount } = useQuery(query);
 
+  // console.log("output_log: useProductWithRelationQuery =>>>");
   useListenProductUpdate();
 
   return {

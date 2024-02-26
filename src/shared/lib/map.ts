@@ -38,7 +38,10 @@ export const useOptionListTransform = () => {
         label: item.name,
       })),
     toDataIdList: (optionList: Array<MultiSelectOptionItem>) => {
-      const res = optionList.map((item) => ({ id: item.value }));
+      const res = optionList.map((item) => ({
+        id: item.value,
+        name: item.label,
+      }));
 
       return res;
     },

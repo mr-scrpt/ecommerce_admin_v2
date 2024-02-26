@@ -19,6 +19,7 @@ export const getOptionWithRelationByCategoryAction = async (
   props: z.infer<typeof getByIdSchema>,
 ): Promise<ResultT> => {
   const { categoryIdList } = getByIdSchema.parse(props);
+  console.log("output_log: list =>>>", categoryIdList);
 
   const session = await getAppSessionStrictServer();
 

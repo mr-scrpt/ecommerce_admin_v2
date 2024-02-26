@@ -71,6 +71,7 @@ export const productFormSchema = z.object({
   categoryList: z.array(
     z.object({
       id: z.string(),
+      name: z.string(),
     }),
   ),
   optionList: z.object({}),

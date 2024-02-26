@@ -23,7 +23,7 @@ import {
 } from "@/shared/ui/select";
 import { Textarea } from "@/shared/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FC, HTMLAttributes, useCallback, useEffect } from "react";
+import { FC, HTMLAttributes, memo, useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import {
@@ -32,6 +32,7 @@ import {
 } from "../_domain/product.schema";
 import { ProductRelation } from "../_domain/types";
 import { ImgField } from "./imgField";
+import { useOptionListTransform } from "@/shared/lib/map";
 
 interface ProductFormProps extends HTMLAttributes<HTMLFormElement> {
   product?: ProductRelation;
@@ -40,11 +41,11 @@ interface ProductFormProps extends HTMLAttributes<HTMLFormElement> {
   submitText?: string;
   categorySelectOptionList: Array<MultiSelectOptionItem>;
   categotySelectOptionListActive?: Array<MultiSelectOptionItem>;
-  optionSelectOptionList: Array<OptionSelect>;
+  optionSelectOptionList?: Array<OptionSelect>;
   optionSelectOptionListActive?: OptionListValues;
   handleCategorySelectOption: (
     itemList: Array<MultiSelectOptionItem>,
-  ) => Array<{ id: string }>;
+  ) => Array<{ id: string; name: string }>;
 }
 type OptionListValues = {
   [key: string]: string | string[];
@@ -61,7 +62,7 @@ const getDefaultValues = (
   optionList: optionList ?? {},
 });
 
-export const ProductForm: FC<ProductFormProps> = (props) => {
+export const ProductForm: FC<ProductFormProps> = memo((props) => {
   const {
     product,
     handleSubmit: onSubmit,
@@ -75,13 +76,14 @@ export const ProductForm: FC<ProductFormProps> = (props) => {
   } = props;
 
   const dynamicOptionSchema: Record<string, z.ZodType<any, any>> = {};
-  for (const option of optionSelectOptionList) {
-    if (option.datatype === "mult") {
-      dynamicOptionSchema[option.name] = z.array(z.string());
-    } else {
-      dynamicOptionSchema[option.name] = z.string();
-    }
-  }
+  // for (const option of optionSelectOptionList) {
+  //   if (option.datatype === "mult") {
+  //     dynamicOptionSchema[option.name] = z.array(z.string());
+  //   } else {
+  //     dynamicOptionSchema[option.name] = z.string();
+  //   }
+  // }
+  const { toDataIdList, toOptionList } = useOptionListTransform();
 
   // Объединение динамически созданной схемы с исходной схемой данных
   const finalProductFormSchema = productFormSchema.extend({
@@ -102,7 +104,7 @@ export const ProductForm: FC<ProductFormProps> = (props) => {
     // console.log("output_log: submit data  =>>>", data);
     // onSubmit?.(data);
   });
-  console.log("output_log:  form.getValues() =>>>", form.getValues());
+  // console.log("output_log:  form.getValues() =>>>", form.getValues());
   // console.log("output_log:  form error=>>>", form.formState.errors);
 
   const handleDeleteimg = (path: string) => {
@@ -114,8 +116,10 @@ export const ProductForm: FC<ProductFormProps> = (props) => {
   const isPendingAppearance = useAppearanceDelay(isPending);
 
   const handleSelect = useCallback((value: MultiSelectOptionItem[]) => {
+    // console.log("output_log: value in handler =>>>", value);
     form.setValue("categoryList", handleCategorySelectOption(value));
   }, []);
+  // console.log("output_log: form value =>>>", form.getValues());
 
   return (
     <Form {...form}>
@@ -124,6 +128,7 @@ export const ProductForm: FC<ProductFormProps> = (props) => {
           control={form.control}
           name="categoryList"
           render={({ field }) => {
+            // console.log("output_log: field value =>>>", field.value);
             return (
               <FormItem>
                 <FormLabel>Category list</FormLabel>
@@ -131,6 +136,7 @@ export const ProductForm: FC<ProductFormProps> = (props) => {
                   <MultiSelect
                     optionList={categorySelectOptionList}
                     optionActiveList={categotySelectOptionListActive}
+                    // optionActiveList={toOptionList(field.value)}
                     onSelected={handleSelect}
                   />
                 </FormControl>
@@ -139,44 +145,44 @@ export const ProductForm: FC<ProductFormProps> = (props) => {
             );
           }}
         />
-        {optionSelectOptionList &&
-          optionSelectOptionList.map((option) => {
-            const { datatype } = option;
-            if (datatype === OptionDataTypeEnum.SELECT) {
-              return (
-                <FormField
-                  key={option.name}
-                  control={form.control}
-                  name={`optionList.${option.name}`}
-                  render={({ field }) => {
-                    return (
-                      <FormItem>
-                        <FormLabel>{option.name}</FormLabel>
-                        <Select
-                          onValueChange={field.onChange}
-                          defaultValue={field.value}
-                        >
-                          <FormControl>
-                            <SelectTrigger>
-                              <SelectValue placeholder="placeholder" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            {option.optionList.map((row) => (
-                              <SelectItem key={row.value} value={row.value}>
-                                {row.label}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    );
-                  }}
-                />
-              );
-            }
-          })}
+        {/* {optionSelectOptionList && */}
+        {/*   optionSelectOptionList.map((option) => { */}
+        {/*     const { datatype } = option; */}
+        {/*     if (datatype === OptionDataTypeEnum.SELECT) { */}
+        {/*       return ( */}
+        {/*         <FormField */}
+        {/*           key={option.name} */}
+        {/*           control={form.control} */}
+        {/*           name={`optionList.${option.name}`} */}
+        {/*           render={({ field }) => { */}
+        {/*             return ( */}
+        {/*               <FormItem> */}
+        {/*                 <FormLabel>{option.name}</FormLabel> */}
+        {/*                 <Select */}
+        {/*                   onValueChange={field.onChange} */}
+        {/*                   defaultValue={field.value} */}
+        {/*                 > */}
+        {/*                   <FormControl> */}
+        {/*                     <SelectTrigger> */}
+        {/*                       <SelectValue placeholder="placeholder" /> */}
+        {/*                     </SelectTrigger> */}
+        {/*                   </FormControl> */}
+        {/*                   <SelectContent> */}
+        {/*                     {option.optionList.map((row) => ( */}
+        {/*                       <SelectItem key={row.value} value={row.value}> */}
+        {/*                         {row.label} */}
+        {/*                       </SelectItem> */}
+        {/*                     ))} */}
+        {/*                   </SelectContent> */}
+        {/*                 </Select> */}
+        {/*                 <FormMessage /> */}
+        {/*               </FormItem> */}
+        {/*             ); */}
+        {/*           }} */}
+        {/*         /> */}
+        {/*       ); */}
+        {/*     } */}
+        {/*   })} */}
         {/* {optionSelectOptionList && */}
         {/*   optionSelectOptionList.map((option) => { */}
         {/*     const { datatype } = option; */}
@@ -285,4 +291,6 @@ export const ProductForm: FC<ProductFormProps> = (props) => {
       </form>
     </Form>
   );
-};
+});
+
+ProductForm.displayName = "ProductForm";

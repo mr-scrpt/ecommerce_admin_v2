@@ -8,7 +8,15 @@ import {
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
-import { FC, HTMLAttributes } from "react";
+import { uniqBy } from "lodash-es";
+import {
+  FC,
+  HTMLAttributes,
+  memo,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import { z } from "zod";
 import { useCategoryLikeSelectOptionList } from "@/entities/category";
 import { useProductUpdateMutation } from "../_mutation/useProductUpdate.mutation";
@@ -19,6 +27,7 @@ import {
 } from "@/entities/option";
 import { MultiSelectOptionItem } from "@/shared/ui/multiSelect";
 import { ProductFormOptions } from "@/entities/product/_ui/productFormOptions";
+import { Button } from "@/shared/ui/button";
 
 interface ProductFormProps extends HTMLAttributes<HTMLDivElement> {
   productId: ProductId;
@@ -29,7 +38,7 @@ interface ProductFormProps extends HTMLAttributes<HTMLDivElement> {
 
 type ProductFormValues = z.infer<typeof productFormSchema>;
 
-export const ProductFormUpdate: FC<ProductFormProps> = (props) => {
+export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
   const { productId, callbackUrl, className, onSuccess } = props;
 
   const {
@@ -44,10 +53,19 @@ export const ProductFormUpdate: FC<ProductFormProps> = (props) => {
     isPending: isPendingOptionList,
   } = useOptionListByCategoryIdList();
 
-  const { optionListWithDataActive } = useOptionListWithDataActive({
-    optionList,
-    optionItemListSelected: product?.optionItemListSelected ?? [],
-  });
+  useEffect(() => {
+    if (product) {
+      // console.log("output_log: product =>>>", product.categoryList);
+      setCategoryIdList(product.categoryList.map((item) => item.id));
+    }
+  }, [product, setCategoryIdList]);
+
+  // console.log("output_log:  optionList =>>>", optionList);
+
+  // const { optionListWithDataActive } = useOptionListWithDataActive({
+  //   optionList,
+  //   optionItemListSelected: product?.optionItemListSelected ?? [],
+  // });
 
   // console.log("output_log: product =>>>", product);
   // console.log(
@@ -71,6 +89,25 @@ export const ProductFormUpdate: FC<ProductFormProps> = (props) => {
     isPendingProduct ||
     isPendingOptionList ||
     !isFetchedAfterMount;
+  const [categoryIdListState, setCategoryIdListState] = useState<string[]>([]);
+
+  const handleSelectedOption = useCallback(
+    (optionListSelected: Array<MultiSelectOptionItem>) => {
+      // console.log("output_log: optionListSelected =>>>", optionListSelected);
+      const categoryIdList = toDataIdList(optionListSelected);
+      // setCategoryIdListState(optionListSelected);
+      // setCategoryIdList(categoryIdList.map((item) => item.id));
+      // console.log("output_log: categoryIdList =>>>", categoryIdList);
+      setCategoryIdListState(categoryIdList.map((item) => item.id));
+      return categoryIdList;
+    },
+    [toDataIdList],
+  );
+
+  useEffect(() => {
+    // console.log("output_log: setCategoryIdListState =>>>", categoryIdListState);
+    setCategoryIdList(categoryIdListState);
+  }, [categoryIdListState, setCategoryIdList]);
 
   if (isPendingComplexible) {
     return <Spinner aria-label="Loading profile..." />;
@@ -79,13 +116,6 @@ export const ProductFormUpdate: FC<ProductFormProps> = (props) => {
   if (!product) {
     return <div>Failed to load product, you may not have permissions</div>;
   }
-  const handleSelectedOption = (
-    optionListSelected: Array<MultiSelectOptionItem>,
-  ) => {
-    const categoryIdList = toDataIdList(optionListSelected);
-    setCategoryIdList(categoryIdList.map((item) => item.id));
-    return categoryIdList;
-  };
 
   const handleSubmit = async (data: ProductFormValues) => {
     await productUpdate({
@@ -103,21 +133,44 @@ export const ProductFormUpdate: FC<ProductFormProps> = (props) => {
     }
   };
 
-  const categotySelectOptionListActive = toOptionList(product.categoryList);
-  const optionListWithDataActiveCompleted = Object.fromEntries(
-    optionListWithDataActive.map((item) => {
-      return [
-        item.name,
-        item.datatype === "mult"
-          ? item.optionList.map((option) => option.value)
-          : item.optionList[0].value,
-      ];
-    }),
+  // const categotySelectOptionListActive = toOptionList(product.categoryList);
+  // const optionListWithDataActiveCompleted = Object.fromEntries(
+  //   optionListWithDataActive.map((item) => {
+  //     return [
+  //       item.name,
+  //       item.datatype === "mult"
+  //         ? item.optionList.map((option) => option.value)
+  //         : item.optionList[0].value,
+  //     ];
+  //   }),
+  // );
+  // console.log(
+  //   "output_log: optionListWithDataActiveCompleted =>>>",
+  //   optionListWithDataActiveCompleted,
+  // );
+  //
+  // console.log(
+  //   "output_log:  categotySelectOptionList =>>>",
+  //   categorySelectOptionList,
+  // );
+  // console.log(
+  //   "output_log:  categotySelectOptionListActive=>>>",
+  //   categotySelectOptionListActive,
+  // );
+  //
+  //
+  const active = categorySelectOptionList.filter((item) =>
+    categoryIdListState.includes(item.value),
   );
-  console.log(
-    "output_log: optionListWithDataActiveCompleted =>>>",
-    optionListWithDataActiveCompleted,
+  // console.log("output_log:  active=>>>", active);
+
+  const res = uniqBy(
+    [...toOptionList(product.categoryList), ...active],
+    "value",
   );
+  // console.log("output_log: res =>>>", res);
+  console.log("output_log: LIST =>>>", optionList);
+
   return (
     <div className={cn(className, "w-full")}>
       <ProductForm
@@ -125,16 +178,21 @@ export const ProductFormUpdate: FC<ProductFormProps> = (props) => {
         isPending={isPendingComplexible}
         product={product}
         categorySelectOptionList={categorySelectOptionList}
-        categotySelectOptionListActive={categotySelectOptionListActive}
-        optionSelectOptionList={optionList}
-        optionSelectOptionListActive={optionListWithDataActiveCompleted}
+        // categotySelectOptionListActive={categotySelectOptionListActive}
+        categotySelectOptionListActive={res}
         handleCategorySelectOption={handleSelectedOption}
+        // handleCategorySelectOption={() => []}
+        // optionSelectOptionList={optionList}
+        // optionSelectOptionListActive={optionListWithDataActiveCompleted}
         submitText={"Save change"}
       />
+      <Button onClick={() => console.log(optionList)}>Show state</Button>
       {/* <ProductFormOptions optionSelectOptionList={optionListWithDataActive} /> */}
     </div>
   );
-};
+});
+
+ProductFormUpdate.displayName = "ProductFormUpdate";
 
 // [
 //     {

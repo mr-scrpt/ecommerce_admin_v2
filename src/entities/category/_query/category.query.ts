@@ -25,6 +25,7 @@ export const useCategoryQuery = (categoryId: CategoryId) => {
 
 export const useInvalidateCategory = () => {
   const queryClient = useQueryClient();
+  console.log("output_log: invalidateQueries Category =>>>");
 
   return (categoryId: CategoryId) =>
     queryClient.invalidateQueries({

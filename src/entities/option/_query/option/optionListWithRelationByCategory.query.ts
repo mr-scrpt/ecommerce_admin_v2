@@ -15,6 +15,7 @@ export const getOptionWithRelationByCategoryQuery = (
 export const useOptionWithRelationByCategoryQuery = (
   categoryIdList: Array<string>,
 ) => {
+  console.log("output_log: in hook query =>>>", categoryIdList);
   const query = getOptionWithRelationByCategoryQuery(categoryIdList);
 
   const { isPending, isSuccess, data, isFetchedAfterMount } = useQuery(query);

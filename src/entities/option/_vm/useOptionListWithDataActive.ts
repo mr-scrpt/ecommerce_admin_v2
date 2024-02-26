@@ -23,12 +23,12 @@ export const useOptionListWithDataActive = (data: OptionListWithDataActive) => {
     // })),
   }));
 
-  console.log("output_log: 1 = optionList =>>>", optionList);
-  console.log(
-    "output_log: 2 = optionItemListSelected =>>>",
-    optionItemListSelected,
-  );
-  console.log("output_log: 3 = transformedOptions =>>>", transformedOptions);
+  // console.log("output_log: 1 = optionList =>>>", optionList);
+  // console.log(
+  //   "output_log: 2 = optionItemListSelected =>>>",
+  //   optionItemListSelected,
+  // );
+  // console.log("output_log: 3 = transformedOptions =>>>", transformedOptions);
 
   return {
     optionListWithDataActive: transformedOptions,
