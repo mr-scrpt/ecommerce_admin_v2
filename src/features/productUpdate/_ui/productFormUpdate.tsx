@@ -15,6 +15,7 @@ import {
   memo,
   useCallback,
   useEffect,
+  useRef,
   useState,
 } from "react";
 import { z } from "zod";
@@ -41,26 +42,45 @@ type ProductFormValues = z.infer<typeof productFormSchema>;
 export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
   const { productId, callbackUrl, className, onSuccess } = props;
 
+  const [categoryIdListSelected, setCategoryIdListSelected] =
+    useState<Array<{ label: string; value: string }>>();
+
+  const [categoryIdListComputed, setCategoryIdListComputed] = useState<
+    Array<{ label: string; value: string }>
+  >([]);
+
   const {
     isPending: isPendingProduct,
     product,
     isFetchedAfterMount,
   } = useProductWithRelationQuery(productId);
 
+  const { toDataIdList, toOptionList } = useOptionListTransform();
+
+  useEffect(() => {
+    if (product?.categoryList) {
+      setCategoryIdListComputed(toOptionList(product.categoryList));
+    }
+  }, [product]);
+
+  const prevCategoryIdListSelected =
+    useRef<Array<{ label: string; value: string }>>();
+
+  useEffect(() => {
+    if (
+      categoryIdListSelected &&
+      categoryIdListSelected !== prevCategoryIdListSelected.current
+    ) {
+      setCategoryIdListComputed(categoryIdListSelected);
+      prevCategoryIdListSelected.current = categoryIdListSelected;
+    }
+  }, [categoryIdListSelected]);
   const {
     optionList,
     categoryIdList,
     setCategoryIdList,
     isPending: isPendingOptionList,
   } = useOptionListByCategoryIdList();
-
-  console.log("output_log:  categoryIdList =>>>", categoryIdList);
-
-  // useEffect(() => {
-  //   if (product) {
-  //     setCategoryIdList(product.categoryList.map((item) => item.id));
-  //   }
-  // }, [product, setCategoryIdList]);
 
   const router = useRouter();
 
@@ -69,8 +89,6 @@ export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
 
   const { categorySelectOptionList, isPending: isPendingCategoryOptionList } =
     useCategoryLikeSelectOptionList();
-
-  const { toDataIdList, toOptionList } = useOptionListTransform();
 
   const isPendingComplexible =
     isPendingUpdate ||
@@ -83,32 +101,31 @@ export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
   const handleSelectedOption = useCallback(
     (optionListSelected: Array<MultiSelectOptionItem>) => {
       const categoryIdList = toDataIdList(optionListSelected);
+      setCategoryIdListSelected(toOptionList(categoryIdList));
 
       console.log("output_log: on click =>>>", categoryIdList);
-      setInitCategoryList([]);
-      setCategoryIdList(categoryIdList.map((item) => item.id));
-      // setCategoryIdList(categoryIdListState);
-      // setCategoryIdListState(categoryIdList.map((item) => item.id));
+      // setInitCategoryList([]);
+      // setCategoryIdList(categoryIdList.map((item) => item.id));
       return categoryIdList;
     },
-    [toDataIdList, setCategoryIdList],
+    [toDataIdList, toOptionList],
   );
 
   // useEffect(() => {
   //   setCategoryIdList(categoryIdListState);
   // }, [categoryIdListState, setCategoryIdList]);
   //
-  const [initCategoryList, setInitCategoryList] = useState<
-    Array<{ label: string; value: string }>
-  >([]);
-  useEffect(() => {
-    setInitCategoryList(
-      product?.categoryList.map((item) => ({
-        label: item.name,
-        value: item.id,
-      })) || [],
-    );
-  }, [product]);
+  // const [initCategoryList, setInitCategoryList] = useState<
+  //   Array<{ label: string; value: string }>
+  // >([]);
+  // useEffect(() => {
+  //   setInitCategoryList(
+  //     product?.categoryList.map((item) => ({
+  //       label: item.name,
+  //       value: item.id,
+  //     })) || [],
+  //   );
+  // }, [product]);
 
   if (isPendingComplexible) {
     return <Spinner aria-label="Loading profile..." />;
@@ -138,16 +155,16 @@ export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
   //   categoryIdListState.includes(item.value),
   // );
   //
-  const active = categorySelectOptionList.filter((item) =>
-    categoryIdList.includes(item.value),
-  );
+  // const active = categorySelectOptionList.filter((item) =>
+  //   categoryIdList.includes(item.value),
+  // );
 
   // const res = uniqBy(
   //   [...toOptionList(product.categoryList), ...active],
   //   "value",
   // );
-  const res = uniqBy([...initCategoryList, ...active], "value");
-  console.log("output_log: res! =>>>", res);
+  // const res = uniqBy([...initCategoryList, ...active], "value");
+  // console.log("output_log: res! =>>>", res);
 
   return (
     <div className={cn(className, "w-full")}>
@@ -157,7 +174,8 @@ export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
         product={product}
         categorySelectOptionList={categorySelectOptionList}
         // categotySelectOptionListActive={categotySelectOptionListActive}
-        categotySelectOptionListActive={res}
+        categotySelectOptionListActive={categoryIdListComputed}
+        // categotySelectOptionListActive={res}
         handleCategorySelectOption={handleSelectedOption}
         // handleCategorySelectOption={() => []}
         optionSelectOptionList={optionList}
