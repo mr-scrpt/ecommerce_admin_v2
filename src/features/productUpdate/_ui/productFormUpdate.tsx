@@ -23,6 +23,7 @@ import { useCategoryLikeSelectOptionList } from "@/entities/category";
 import { useProductUpdateMutation } from "../_mutation/useProductUpdate.mutation";
 import { useOptionListTransform } from "@/shared/lib/map";
 import {
+  OptionSelect,
   useOptionListByCategoryIdList,
   useOptionListWithDataActive,
 } from "@/entities/option";
@@ -53,25 +54,50 @@ export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
 
   const {
     categorySelectOptionList,
+    categoryIdListSelected,
     isPendingCategoryOptionList,
     setCategoryIdListSelected,
     categoryIdListComputed,
   } = useCategoryDataToForm(product);
+  console.log(
+    "output_log: categoryIdListSelected =>>>",
+    categoryIdListSelected,
+  );
+  console.log(
+    "output_log: categoryIdListComputed =>>>",
+    categoryIdListComputed,
+  );
 
   const {
     optionList,
-    categoryIdList,
     setCategoryIdList,
     isPending: isPendingOptionList,
   } = useOptionListByCategoryIdList();
+
+  const prevOptionList = useRef<OptionSelect[]>();
+  const categotyIdListComputedRef = useRef(categoryIdListComputed);
+  console.log("output_log:  =>>>", prevOptionList.current, optionList);
+  console.log(
+    "output_log: categotyIdListComputedRef =>>>",
+    categotyIdListComputedRef.current,
+    categoryIdListComputed,
+  );
+  useEffect(() => {
+    // if (optionList && optionList !== prevOptionList.current) {
+    // if (optionList && !optionList.length) {
+    if (categotyIdListComputedRef.current !== categoryIdListComputed) {
+      console.log("output_log: in useEffect =>>>", optionList);
+      // setCategoryIdListSelected(toOptionList(categoryIdListComputed));
+      setCategoryIdList(categoryIdListComputed.map((item) => item.value));
+      prevOptionList.current = optionList;
+    }
+    // setCategoryIdList(categoryIdListComputed.map((item) => item.value));
+  }, [categoryIdListComputed]);
 
   const router = useRouter();
 
   const { productUpdate, isPending: isPendingUpdate } =
     useProductUpdateMutation();
-
-  // const { categorySelectOptionList, isPending: isPendingCategoryOptionList } =
-  //   useCategoryLikeSelectOptionList();
 
   const isPendingComplexible =
     isPendingUpdate ||
@@ -82,12 +108,8 @@ export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
 
   const handleSelectedOption = useCallback(
     (optionListSelected: Array<MultiSelectOptionItem>) => {
-      console.log("output_log: on select =>>>", optionListSelected);
       const categoryIdList = toDataIdList(optionListSelected);
       setCategoryIdListSelected(toOptionList(categoryIdList));
-
-      // console.log("output_log: on click =>>>", categoryIdList);
-      // setInitCategoryList([]);
       setCategoryIdList(categoryIdList.map((item) => item.id));
       return categoryIdList;
     },
@@ -117,6 +139,7 @@ export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
       router.push(callbackUrl);
     }
   };
+  console.log("output_log: optionList  =>>>", optionList);
 
   return (
     <div className={cn(className, "w-full")}>

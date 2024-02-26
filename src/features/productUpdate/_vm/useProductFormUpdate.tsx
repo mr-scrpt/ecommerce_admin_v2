@@ -12,7 +12,7 @@ export const useCategoryDataToForm = (product?: ProductRelation) => {
     Array<{ label: string; value: string }>
   >([]);
 
-  const { toDataIdList, toOptionList } = useOptionListTransform();
+  const { toOptionList } = useOptionListTransform();
 
   useEffect(() => {
     if (product?.categoryList) {

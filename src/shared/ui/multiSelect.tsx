@@ -36,6 +36,7 @@ export const MultiSelect: FC<MultiSelectProps> = memo((props) => {
   useEffect(() => {
     setSelected(optionActiveList);
   }, []);
+  const [sessionItems, setSessionItems] = useState<MultiSelectOptionItem[]>([]);
 
   const inputRef = useRef<HTMLInputElement>(null);
   const prevOptionActiveList =
@@ -123,8 +124,13 @@ export const MultiSelect: FC<MultiSelectProps> = memo((props) => {
             ref={inputRef}
             value={inputValue}
             onValueChange={setInputValue}
-            onBlur={() => setOpen(false)}
-            onFocus={() => setOpen(true)}
+            onBlur={() => {
+              onSelected && onSelected([...selected]);
+              setOpen(false);
+            }}
+            onFocus={() => {
+              setOpen(true);
+            }}
             placeholder="Select variants..."
             className="ml-2 flex-1 bg-transparent outline-none placeholder:text-muted-foreground"
           />
@@ -146,7 +152,8 @@ export const MultiSelect: FC<MultiSelectProps> = memo((props) => {
                       // console.log("output_log: ))) in select =>>>", optionItem);
                       setInputValue("");
                       setSelected((prev) => [...prev, optionItem]);
-                      onSelected && onSelected([...selected, optionItem]);
+                      setSessionItems((prev) => [...prev, optionItem]);
+                      // onSelected && onSelected([...selected, optionItem]);
                     }}
                     className={"cursor-pointer"}
                   >
