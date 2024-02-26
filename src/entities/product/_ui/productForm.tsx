@@ -41,7 +41,7 @@ interface ProductFormProps extends HTMLAttributes<HTMLFormElement> {
   submitText?: string;
   categorySelectOptionList: Array<MultiSelectOptionItem>;
   categotySelectOptionListActive?: Array<MultiSelectOptionItem>;
-  optionSelectOptionList?: Array<OptionSelect>;
+  optionSelectOptionList: Array<OptionSelect>;
   optionSelectOptionListActive?: OptionListValues;
   handleCategorySelectOption: (
     itemList: Array<MultiSelectOptionItem>,
@@ -74,6 +74,10 @@ export const ProductForm: FC<ProductFormProps> = memo((props) => {
     optionSelectOptionListActive,
     handleCategorySelectOption,
   } = props;
+  // console.log(
+  //   "output_log:  optionSelectOptionList=>>>",
+  //   optionSelectOptionList,
+  // );
 
   const dynamicOptionSchema: Record<string, z.ZodType<any, any>> = {};
   // for (const option of optionSelectOptionList) {
@@ -145,44 +149,44 @@ export const ProductForm: FC<ProductFormProps> = memo((props) => {
             );
           }}
         />
-        {/* {optionSelectOptionList && */}
-        {/*   optionSelectOptionList.map((option) => { */}
-        {/*     const { datatype } = option; */}
-        {/*     if (datatype === OptionDataTypeEnum.SELECT) { */}
-        {/*       return ( */}
-        {/*         <FormField */}
-        {/*           key={option.name} */}
-        {/*           control={form.control} */}
-        {/*           name={`optionList.${option.name}`} */}
-        {/*           render={({ field }) => { */}
-        {/*             return ( */}
-        {/*               <FormItem> */}
-        {/*                 <FormLabel>{option.name}</FormLabel> */}
-        {/*                 <Select */}
-        {/*                   onValueChange={field.onChange} */}
-        {/*                   defaultValue={field.value} */}
-        {/*                 > */}
-        {/*                   <FormControl> */}
-        {/*                     <SelectTrigger> */}
-        {/*                       <SelectValue placeholder="placeholder" /> */}
-        {/*                     </SelectTrigger> */}
-        {/*                   </FormControl> */}
-        {/*                   <SelectContent> */}
-        {/*                     {option.optionList.map((row) => ( */}
-        {/*                       <SelectItem key={row.value} value={row.value}> */}
-        {/*                         {row.label} */}
-        {/*                       </SelectItem> */}
-        {/*                     ))} */}
-        {/*                   </SelectContent> */}
-        {/*                 </Select> */}
-        {/*                 <FormMessage /> */}
-        {/*               </FormItem> */}
-        {/*             ); */}
-        {/*           }} */}
-        {/*         /> */}
-        {/*       ); */}
-        {/*     } */}
-        {/*   })} */}
+        {optionSelectOptionList &&
+          optionSelectOptionList.map((option) => {
+            const { datatype } = option;
+            if (datatype === OptionDataTypeEnum.SELECT) {
+              return (
+                <FormField
+                  key={option.name}
+                  control={form.control}
+                  name={`optionList.${option.name}`}
+                  render={({ field }) => {
+                    return (
+                      <FormItem>
+                        <FormLabel>{option.name}</FormLabel>
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                        >
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder="placeholder" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            {option.optionList.map((row) => (
+                              <SelectItem key={row.value} value={row.value}>
+                                {row.label}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    );
+                  }}
+                />
+              );
+            }
+          })}
         {/* {optionSelectOptionList && */}
         {/*   optionSelectOptionList.map((option) => { */}
         {/*     const { datatype } = option; */}

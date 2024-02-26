@@ -55,23 +55,9 @@ export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
 
   useEffect(() => {
     if (product) {
-      // console.log("output_log: product =>>>", product.categoryList);
       setCategoryIdList(product.categoryList.map((item) => item.id));
     }
   }, [product, setCategoryIdList]);
-
-  // console.log("output_log:  optionList =>>>", optionList);
-
-  // const { optionListWithDataActive } = useOptionListWithDataActive({
-  //   optionList,
-  //   optionItemListSelected: product?.optionItemListSelected ?? [],
-  // });
-
-  // console.log("output_log: product =>>>", product);
-  // console.log(
-  //   "output_log: optionListWithDataActive =>>>",
-  //   optionListWithDataActive,
-  // );
 
   const router = useRouter();
 
@@ -93,11 +79,7 @@ export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
 
   const handleSelectedOption = useCallback(
     (optionListSelected: Array<MultiSelectOptionItem>) => {
-      // console.log("output_log: optionListSelected =>>>", optionListSelected);
       const categoryIdList = toDataIdList(optionListSelected);
-      // setCategoryIdListState(optionListSelected);
-      // setCategoryIdList(categoryIdList.map((item) => item.id));
-      // console.log("output_log: categoryIdList =>>>", categoryIdList);
       setCategoryIdListState(categoryIdList.map((item) => item.id));
       return categoryIdList;
     },
@@ -105,7 +87,6 @@ export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
   );
 
   useEffect(() => {
-    // console.log("output_log: setCategoryIdListState =>>>", categoryIdListState);
     setCategoryIdList(categoryIdListState);
   }, [categoryIdListState, setCategoryIdList]);
 
@@ -133,43 +114,14 @@ export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
     }
   };
 
-  // const categotySelectOptionListActive = toOptionList(product.categoryList);
-  // const optionListWithDataActiveCompleted = Object.fromEntries(
-  //   optionListWithDataActive.map((item) => {
-  //     return [
-  //       item.name,
-  //       item.datatype === "mult"
-  //         ? item.optionList.map((option) => option.value)
-  //         : item.optionList[0].value,
-  //     ];
-  //   }),
-  // );
-  // console.log(
-  //   "output_log: optionListWithDataActiveCompleted =>>>",
-  //   optionListWithDataActiveCompleted,
-  // );
-  //
-  // console.log(
-  //   "output_log:  categotySelectOptionList =>>>",
-  //   categorySelectOptionList,
-  // );
-  // console.log(
-  //   "output_log:  categotySelectOptionListActive=>>>",
-  //   categotySelectOptionListActive,
-  // );
-  //
-  //
   const active = categorySelectOptionList.filter((item) =>
     categoryIdListState.includes(item.value),
   );
-  // console.log("output_log:  active=>>>", active);
 
   const res = uniqBy(
     [...toOptionList(product.categoryList), ...active],
     "value",
   );
-  // console.log("output_log: res =>>>", res);
-  console.log("output_log: LIST =>>>", optionList);
 
   return (
     <div className={cn(className, "w-full")}>
@@ -182,7 +134,7 @@ export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
         categotySelectOptionListActive={res}
         handleCategorySelectOption={handleSelectedOption}
         // handleCategorySelectOption={() => []}
-        // optionSelectOptionList={optionList}
+        optionSelectOptionList={optionList}
         // optionSelectOptionListActive={optionListWithDataActiveCompleted}
         submitText={"Save change"}
       />
@@ -193,38 +145,40 @@ export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
 });
 
 ProductFormUpdate.displayName = "ProductFormUpdate";
+// const { optionListWithDataActive } = useOptionListWithDataActive({
+//   optionList,
+//   optionItemListSelected: product?.optionItemListSelected ?? [],
+// });
 
-// [
-//     {
-//         "id": "option_585fsddfew7898dd",
-//         "name": "Size",
-//         "datatype": "select",
-//         "optionList": [
-//             {
-//                 "value": "optionItem_M68ddtwaew65687M",
-//                 "label": "M"
-//             },
-//             {
-//                 "value": "optionItem_L58ddtwaew65622L",
-//                 "label": "L"
-//             }
-//         ]
-//     },
-//       {
-//         "id": "option_585fsddfew7898dd",
-//         "name": "Color",
-//         "datatype": "mult",
-//         "optionList": [
-//             {
-//                 "value": "optionItem_dddwaew65687Red",
-//                 "label": "Red"
-//             },
-//         ]
-//     }
+// console.log("output_log: product =>>>", product);
+// console.log(
+//   "output_log: optionListWithDataActive =>>>",
+//   optionListWithDataActive,
+// );
+
+// const categotySelectOptionListActive = toOptionList(product.categoryList);
+// const optionListWithDataActiveCompleted = Object.fromEntries(
+//   optionListWithDataActive.map((item) => {
+//     return [
+//       item.name,
+//       item.datatype === "mult"
+//         ? item.optionList.map((option) => option.value)
+//         : item.optionList[0].value,
+//     ];
+//   }),
+// );
+// console.log(
+//   "output_log: optionListWithDataActiveCompleted =>>>",
+//   optionListWithDataActiveCompleted,
+// );
 //
-// ]
+// console.log(
+//   "output_log:  categotySelectOptionList =>>>",
+//   categorySelectOptionList,
+// );
+// console.log(
+//   "output_log:  categotySelectOptionListActive=>>>",
+//   categotySelectOptionListActive,
+// );
 //
-// {
-//   Size: ["optionItem_M68ddtwaew65687M", "optionItem_L58ddtwaew65622L"];
-//   Color: "optionItem_dddwaew65687Red"
-// }
+//
