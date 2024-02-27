@@ -74,13 +74,7 @@ export const ProductFormOptions: FC<ProductFormOptionsProps> = (props) => {
                     return (
                       <FormItem>
                         <FormLabel>{option.name}</FormLabel>
-                        <Select
-                          onValueChange={field.onChange}
-                          // onValueChange={(v) => {
-                          //   form.setValue(v);
-                          //   // field.onChange({ [option.name]: v });
-                          // }}
-                        >
+                        <Select onValueChange={field.onChange}>
                           <FormControl>
                             <SelectTrigger>
                               <SelectValue placeholder="placeholder" />

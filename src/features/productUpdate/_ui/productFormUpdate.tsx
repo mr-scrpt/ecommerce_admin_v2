@@ -30,7 +30,7 @@ import {
 import { MultiSelectOptionItem } from "@/shared/ui/multiSelect";
 import { ProductFormOptions } from "@/entities/product/_ui/productFormOptions";
 import { Button } from "@/shared/ui/button";
-import { useCategoryDataToForm } from "../_vm/useProductFormUpdate";
+import { useCategoryDataToForm } from "../_vm/useCategoryDataToForm";
 
 interface ProductFormProps extends HTMLAttributes<HTMLDivElement> {
   productId: ProductId;
@@ -53,18 +53,27 @@ export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
   const { toDataIdList, toOptionList } = useOptionListTransform();
 
   const {
-    categorySelectOptionList,
+    categoryOptionListTotal,
+    categoryOptionListActive,
     categoryIdListSelected,
     isPendingCategoryOptionList,
     setCategoryIdListSelected,
-    categoryIdListComputed,
   } = useCategoryDataToForm(product);
 
+  console.log(
+    "output_log: categorySelectOptionList =>>>",
+    categoryOptionListTotal,
+  );
+  console.log(
+    "output_log: categoryIdListComputed =>>>",
+    categoryOptionListActive,
+  );
+
   const {
-    optionList,
+    categoryOptionList,
     setCategoryIdList,
     isPending: isPendingOptionList,
-  } = useOptionListByCategoryIdList(categoryIdListComputed);
+  } = useOptionListByCategoryIdList(categoryOptionListActive);
 
   const router = useRouter();
 
@@ -111,7 +120,7 @@ export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
       router.push(callbackUrl);
     }
   };
-  console.log("output_log: optionList  =>>>", optionList);
+  console.log("output_log: optionList  =>>>", categoryOptionList);
 
   return (
     <div className={cn(className, "w-full")}>
@@ -119,17 +128,17 @@ export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
         handleSubmit={handleSubmit}
         isPending={isPendingComplexible}
         product={product}
-        categorySelectOptionList={categorySelectOptionList}
-        // categotySelectOptionListActive={categotySelectOptionListActive}
-        categotySelectOptionListActive={categoryIdListComputed}
-        // categotySelectOptionListActive={res}
+        categorySelectOptionList={categoryOptionListTotal}
+        categotySelectOptionListActive={categoryOptionListActive}
         handleCategorySelectOption={handleSelectedOption}
         // handleCategorySelectOption={() => []}
-        optionSelectOptionList={optionList}
+        optionSelectOptionList={categoryOptionList}
         // optionSelectOptionListActive={optionListWithDataActiveCompleted}
         submitText={"Save change"}
       />
-      <Button onClick={() => console.log(optionList)}>Show state</Button>
+      <Button onClick={() => console.log(categoryOptionList)}>
+        Show state
+      </Button>
       {/* <ProductFormOptions optionSelectOptionList={optionListWithDataActive} /> */}
     </div>
   );
