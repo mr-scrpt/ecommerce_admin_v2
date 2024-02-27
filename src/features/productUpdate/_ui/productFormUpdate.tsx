@@ -59,40 +59,12 @@ export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
     setCategoryIdListSelected,
     categoryIdListComputed,
   } = useCategoryDataToForm(product);
-  console.log(
-    "output_log: categoryIdListSelected =>>>",
-    categoryIdListSelected,
-  );
-  console.log(
-    "output_log: categoryIdListComputed =>>>",
-    categoryIdListComputed,
-  );
 
   const {
     optionList,
     setCategoryIdList,
     isPending: isPendingOptionList,
-  } = useOptionListByCategoryIdList();
-
-  const prevOptionList = useRef<OptionSelect[]>();
-  const categotyIdListComputedRef = useRef(categoryIdListComputed);
-  console.log("output_log:  =>>>", prevOptionList.current, optionList);
-  console.log(
-    "output_log: categotyIdListComputedRef =>>>",
-    categotyIdListComputedRef.current,
-    categoryIdListComputed,
-  );
-  useEffect(() => {
-    // if (optionList && optionList !== prevOptionList.current) {
-    // if (optionList && !optionList.length) {
-    if (categotyIdListComputedRef.current !== categoryIdListComputed) {
-      console.log("output_log: in useEffect =>>>", optionList);
-      // setCategoryIdListSelected(toOptionList(categoryIdListComputed));
-      setCategoryIdList(categoryIdListComputed.map((item) => item.value));
-      prevOptionList.current = optionList;
-    }
-    // setCategoryIdList(categoryIdListComputed.map((item) => item.value));
-  }, [categoryIdListComputed]);
+  } = useOptionListByCategoryIdList(categoryIdListComputed);
 
   const router = useRouter();
 
