@@ -1,17 +1,17 @@
 import { useMutation } from "@tanstack/react-query";
-import { optionCreateAction } from "../_action/optionCreate.action";
+import { propertyCreateAction } from "../_action/propertyCreate.action";
 
-const baseKey = "optionCreateMutation";
+const baseKey = "propertyCreateMutation";
 
-interface IOptionCreateMutation {
+interface IPropertyCreateMutation {
   onSuccess: () => void;
 }
 
-export const useOptionCreateMutation = (props: IOptionCreateMutation) => {
+export const usePropertyCreateMutation = (props: IPropertyCreateMutation) => {
   const { onSuccess } = props;
   const { isPending, isSuccess, mutateAsync } = useMutation({
     mutationKey: [baseKey],
-    mutationFn: optionCreateAction,
+    mutationFn: propertyCreateAction,
     async onSuccess() {
       onSuccess();
     },

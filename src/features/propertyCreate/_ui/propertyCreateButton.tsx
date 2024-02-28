@@ -4,11 +4,11 @@ import { Plus as IconPlus } from "lucide-react";
 import Link from "next/link";
 import { FC, HTMLAttributes } from "react";
 
-interface OptionCreateButtonProps extends HTMLAttributes<HTMLButtonElement> {
+interface PropertyCreateButtonProps extends HTMLAttributes<HTMLButtonElement> {
   route: RoutePathEnum;
 }
 
-export const OptionCreateButton: FC<OptionCreateButtonProps> = (props) => {
+export const PropertyCreateButton: FC<PropertyCreateButtonProps> = (props) => {
   const { route } = props;
   return (
     <Button size="icon" asChild>

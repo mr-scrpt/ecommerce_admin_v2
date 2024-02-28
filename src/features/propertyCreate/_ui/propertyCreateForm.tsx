@@ -1,30 +1,30 @@
 "use client";
-import { OptionFromLayout, optionFormSchema } from "@/entities/property";
+import { PropertyFromLayout, propertyFormSchema } from "@/entities/property";
 import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes } from "react";
 import { z } from "zod";
-import { useOptionCreateMutation } from "../_mutation/optionCreate.mutation";
+import { usePropertyCreateMutation } from "../_mutation/propertyCreate.mutation";
 
-interface OptionCreateFormProps extends HTMLAttributes<HTMLDivElement> {
+interface PropertyCreateFormProps extends HTMLAttributes<HTMLDivElement> {
   callbackUrl?: string;
   className?: string;
   onSuccess?: () => void;
 }
 
-type OptionFormValues = z.infer<typeof optionFormSchema>;
+type PropertyFormValues = z.infer<typeof propertyFormSchema>;
 
-export const OptionFormCreate: FC<OptionCreateFormProps> = (props) => {
+export const PropertyFormCreate: FC<PropertyCreateFormProps> = (props) => {
   const { callbackUrl, className, onSuccess } = props;
 
   const router = useRouter();
 
-  const { optionCreate, isPending: isPendingUpdate } =
-    useOptionCreateMutation();
+  const { propertyCreate, isPending: isPendingUpdate } =
+    usePropertyCreateMutation();
 
-  const handleSubmit = async (data: OptionFormValues) => {
+  const handleSubmit = async (data: PropertyFormValues) => {
     console.log("output_log: form data =>>>", data);
-    await optionCreate({
+    await propertyCreate({
       data,
     });
 
@@ -39,10 +39,10 @@ export const OptionFormCreate: FC<OptionCreateFormProps> = (props) => {
 
   return (
     <div className={cn(className, "w-full")}>
-      <OptionFromLayout
+      <PropertyFromLayout
         handleSubmit={handleSubmit}
         isPending={isPendingComplexible}
-        submitText={"Create option"}
+        submitText={"Create property"}
       />
     </div>
   );

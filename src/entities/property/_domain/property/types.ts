@@ -34,7 +34,7 @@ export type PropertyRelation = Property & {
 export type PropertyToCreate = {
   name: string;
   datatype: PropertyDataTypeEnum;
-  isFilter: boolean;
+  // isFilter: boolean;
 };
 
 export type PropertyToUpdate = {

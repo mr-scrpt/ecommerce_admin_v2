@@ -12,9 +12,9 @@ export enum RoutePathEnum {
   PRODUCT_UPDATE = "/products/update",
   PRODUCT_CREATE = "/products/create",
 
-  OPTIONS = "/options",
-  OPTION_UPDATE = "/options/update",
-  OPTION_CREATE = "/options/create",
+  PROPERTIES = "/properties",
+  PROPERTY_UPDATE = "/properties/update",
+  PROPERTY_CREATE = "/properties/create",
 
   USERS = "/users",
   SETTINGS = "/settings",
@@ -32,14 +32,14 @@ enum RouteNameEnum {
   CATEGORIES = "Categories",
   PRODUCTS = "Products",
 
-  OPTIONS = "Options",
+  PROPERTIES = "Properties",
 
   SETTINGS = "Settings",
   USERS = "Users",
   ORDERS = "Orders",
   // SIZES = "Sizes",
   // COLORS = "Colors",
-  // OPTIONS = "Options",
+  // PROPERTIES = "properties",
   SIGN_IN = "Sign in",
   NEW_USER = "New user",
   VERIFY_REQUEST = "Verify request",
@@ -59,8 +59,8 @@ export const ROUTING_MAIN_MENU_DATA = [
     label: RouteNameEnum.PRODUCTS,
   },
   {
-    href: `${RoutePathEnum.OPTIONS}`,
-    label: RouteNameEnum.OPTIONS,
+    href: `${RoutePathEnum.PROPERTIES}`,
+    label: RouteNameEnum.PROPERTIES,
   },
   {
     href: `${RoutePathEnum.ORDERS}`,
@@ -96,7 +96,7 @@ export const ROUTING_MAIN_MENU_DATA = [
   //   label: RouteNameEnum.COLORS,
   // },
   // {
-  //   href: `${RoutePathEnum.OPTIONS}`,
-  //   label: RouteNameEnum.OPTIONS,
+  //   href: `${RoutePathEnum.PROPERTIES}`,
+  //   label: RouteNameEnum.PROPERTIES,
   // },
 ];

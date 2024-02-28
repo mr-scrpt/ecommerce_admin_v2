@@ -1,12 +1,12 @@
 import { useSocket } from "@/shared/lib/socket";
 import { WSEventEnum } from "@/shared/type/websokcetEvent.enum";
 
-export const useEmitOptionCreate = () => {
+export const useEmitPropertyCreate = () => {
   const socket = useSocket();
 
   return {
-    optionCreateEvent: () => {
-      socket.emit(WSEventEnum.OPTION_CREATE);
+    propertyCreateEvent: () => {
+      socket.emit(WSEventEnum.PROPERTY_CREATE);
     },
   };
 };

@@ -8,7 +8,7 @@ export const usePropertyLikeSelectOptionList = () => {
   const propertyListSelect = toOptionList(propertyList);
 
   return {
-    propertySelectPropertyList: propertyListSelect,
+    propertySelectOptionList: propertyListSelect,
     isPending,
   };
 };

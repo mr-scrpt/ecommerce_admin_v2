@@ -1,8 +1,8 @@
-import { PropertySelect } from "../_domain/property/types";
+import { PropertyToSelect } from "../_domain/property/types";
 import { PropertyItemRelation } from "../_domain/propertyItem/types";
 
 type PropertyListWithDataActive = {
-  propertyList: PropertySelect[];
+  propertyList: PropertyToSelect[];
   propertyItemListSelected: Array<PropertyItemRelation>;
 };
 export const usePropertyListWithDataActive = (

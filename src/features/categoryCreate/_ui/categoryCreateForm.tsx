@@ -1,6 +1,6 @@
 "use client";
 import { CategoryForm, categoryFormSchema } from "@/entities/category";
-import { useOptionLikeSelectOptionList } from "@/entities/property/_vm/usePropertyLikeSelectOptionList";
+import { usePropertyLikeSelectOptionList } from "@/entities/property";
 import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes } from "react";
@@ -24,8 +24,8 @@ export const CategoryFormCreate: FC<CategoryCreateFormProps> = (props) => {
   const { categoryCreate, isPending: isPendingCreate } =
     useCategoryCreateMutation();
 
-  const { optionSelectOptionList, isPending: isPendingOptionList } =
-    useOptionLikeSelectOptionList();
+  const { propertySelectOptionList, isPending: isPendingOptionList } =
+    usePropertyLikeSelectOptionList();
 
   const { toDataIdList } = useOptionListTransform();
 
@@ -48,7 +48,7 @@ export const CategoryFormCreate: FC<CategoryCreateFormProps> = (props) => {
         handleSubmit={handleSubmit}
         isPending={isPendingComplexible}
         submitText={"Create Category"}
-        optionSelectOptionList={optionSelectOptionList}
+        optionSelectOptionList={propertySelectOptionList}
         handleOptionSelectOption={toDataIdList}
       />
     </div>

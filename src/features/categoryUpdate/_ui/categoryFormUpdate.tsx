@@ -5,7 +5,7 @@ import {
   categoryFormSchema,
   useCategoryWithRelationQuery,
 } from "@/entities/category";
-import { useOptionLikeSelectOptionList } from "@/entities/property";
+import { usePropertyLikeSelectOptionList } from "@/entities/property";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
@@ -37,8 +37,8 @@ export const CategoryFormUpdate: FC<CategoryFormProps> = (props) => {
   const { categoryUpdate, isPending: isPendingUpdate } =
     useCategoryUpdateMutation();
 
-  const { optionSelectOptionList, isPending: isPendingOptionList } =
-    useOptionLikeSelectOptionList();
+  const { propertySelectOptionList, isPending: isPendingOptionList } =
+    usePropertyLikeSelectOptionList();
 
   const { toDataIdList, toOptionList } = useOptionListTransform();
 
@@ -80,7 +80,7 @@ export const CategoryFormUpdate: FC<CategoryFormProps> = (props) => {
         handleSubmit={handleSubmit}
         isPending={isPendingComplexible}
         category={category}
-        optionSelectOptionList={optionSelectOptionList}
+        optionSelectOptionList={propertySelectOptionList}
         optionSelectOptionListActive={optionSelectOptionListActive}
         handleOptionSelectOption={toDataIdList}
         submitText={"Save change"}
