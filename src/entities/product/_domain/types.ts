@@ -1,3 +1,6 @@
+import { PropertyDataTypeEnum } from "@/shared/type/propertyDataType.enum";
+import { MultiSelectOptionItem } from "@/shared/ui/multiSelect";
+
 export const baseQueryKey = "product";
 export type ProductId = string;
 export type ProductSlug = string;
@@ -68,4 +71,12 @@ export type ProductOptionItem = {
   name: string;
   value: string;
   optionId: string;
+};
+
+// UI
+export type ProductPropertyToSelect = {
+  id: string;
+  name: string;
+  datatype: PropertyDataTypeEnum;
+  propertyList: Array<MultiSelectOptionItem>;
 };

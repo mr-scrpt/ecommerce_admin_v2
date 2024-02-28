@@ -1,4 +1,3 @@
-import { OptionSelect } from "@/entities/option";
 import { PropertyDataTypeEnum } from "@/shared/type/propertyDataType.enum";
 import { Button } from "@/shared/ui/button";
 import {
@@ -21,9 +20,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, HTMLAttributes } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { ProductPropertyToSelect } from "../_domain/types";
 
 interface ProductFormOptionsProps extends HTMLAttributes<HTMLDivElement> {
-  optionSelectOptionList: Array<OptionSelect>;
+  optionSelectOptionList: Array<ProductPropertyToSelect>;
 }
 
 export const ProductFormOptions: FC<ProductFormOptionsProps> = (props) => {
@@ -81,7 +81,7 @@ export const ProductFormOptions: FC<ProductFormOptionsProps> = (props) => {
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            {option.optionList.map((row) => (
+                            {option.propertyList.map((row) => (
                               <SelectItem key={row.value} value={row.value}>
                                 {row.label}
                               </SelectItem>

@@ -23,9 +23,9 @@ export enum WSEventEnum {
   PRODUCT_REFRESH = "product_refresh",
   PRODUCT_LIST_REFRESH = "product_list_refresh",
 
-  OPTION_CREATE = "option_create",
-  OPTION_UPDATE = "option_update",
-  OPTION_REMOVE = "option_remove",
-  OPTION_REFRESH = "option_refresh",
-  OPTION_LIST_REFRESH = "option_list_refresh",
+  PROPERTY_CREATE = "property_create",
+  PROPERTY_UPDATE = "property_update",
+  PROPERTY_REMOVE = "property_remove",
+  PROPERTY_REFRESH = "property_refresh",
+  PROPERTY_LIST_REFRESH = "property_list_refresh",
 }

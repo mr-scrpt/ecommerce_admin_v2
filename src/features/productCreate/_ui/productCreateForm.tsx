@@ -1,6 +1,6 @@
 "use client";
 import { useCategoryLikeSelectOptionList } from "@/entities/category";
-import { useOptionListByCategoryIdList } from "@/entities/option/";
+import { useOptionListByCategoryIdList } from "@/entities/property";
 import { ProductForm, productFormSchema } from "@/entities/product";
 import { MultiSelectOptionItem } from "@/shared/ui/multiSelect";
 import { cn } from "@/shared/ui/utils";

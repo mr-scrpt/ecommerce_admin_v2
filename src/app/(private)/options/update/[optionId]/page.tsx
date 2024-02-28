@@ -1,4 +1,4 @@
-import { OptionId } from "@/entities/option";
+import { OptionId } from "@/entities/property";
 import { RoutePathEnum } from "@/shared/config/routing.config";
 import { TitlePage } from "@/shared/ui/titlePage";
 import { OptionUpdate } from "@/widgets/optionUpdate";

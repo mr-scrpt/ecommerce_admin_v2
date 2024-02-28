@@ -1,10 +1,10 @@
-import { OptionEntity, OptionId } from "@/entities/option";
+import { OptionEntity, OptionId } from "@/entities/property";
 import {
   OptionItemRepository,
   OptionRepository,
   optionItemRepository,
   optionRepository,
-} from "@/entities/option/server";
+} from "@/entities/property/server";
 import { DbClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
 
 export class OptionRemoveTx extends Transaction {

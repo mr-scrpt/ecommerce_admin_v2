@@ -1,4 +1,4 @@
-import { OptionSelect } from "@/entities/option";
+import { OptionSelect } from "@/entities/property";
 import * as z from "zod";
 
 // Определяем тип для объекта схемы Zod

@@ -1,10 +1,10 @@
-import { OptionEntity } from "@/entities/option";
+import { OptionEntity } from "@/entities/property";
 import {
   OptionItemRepository,
   OptionRepository,
   optionItemRepository,
   optionRepository,
-} from "@/entities/option/server";
+} from "@/entities/property/server";
 import { DbClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
 import { OptionCreateComplexible } from "../_domain/types";
 

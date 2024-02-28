@@ -1,5 +1,5 @@
 "use client";
-import { OptionFromLayout, optionFormSchema } from "@/entities/option";
+import { OptionFromLayout, optionFormSchema } from "@/entities/property";
 import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes } from "react";

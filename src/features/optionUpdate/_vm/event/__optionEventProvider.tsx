@@ -1,7 +1,7 @@
 "use client";
 import { createStrictContext, useStrictContext } from "@/shared/lib/react";
 import { useEmitOptionUpdate } from "./useEmitOptionUpdate";
-import { OptionId } from "@/entities/option";
+import { OptionId } from "@/entities/property";
 
 export const optionUpdateContext =
   createStrictContext<(optionId: OptionId) => void>();

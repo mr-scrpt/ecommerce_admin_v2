@@ -1,5 +1,4 @@
 "use client";
-import { OptionSelect } from "@/entities/option";
 import { useAppearanceDelay } from "@/shared/lib/react";
 import { PropertyDataTypeEnum } from "@/shared/type/propertyDataType.enum";
 import { Button } from "@/shared/ui/button";
@@ -30,7 +29,7 @@ import {
   ProductFormValues,
   productFormSchema,
 } from "../_domain/product.schema";
-import { ProductRelation } from "../_domain/types";
+import { ProductPropertyToSelect, ProductRelation } from "../_domain/types";
 import { ImgField } from "./imgField";
 import { useOptionListTransform } from "@/shared/lib/map";
 
@@ -41,7 +40,7 @@ interface ProductFormProps extends HTMLAttributes<HTMLFormElement> {
   submitText?: string;
   categorySelectOptionList: Array<MultiSelectOptionItem>;
   categotySelectOptionListActive?: Array<MultiSelectOptionItem>;
-  optionSelectOptionList: Array<OptionSelect>;
+  optionSelectOptionList: Array<ProductPropertyToSelect>;
   optionSelectOptionListActive?: OptionListValues;
   handleCategorySelectOption: (
     itemList: Array<MultiSelectOptionItem>,
@@ -87,7 +86,6 @@ export const ProductForm: FC<ProductFormProps> = memo((props) => {
   //     dynamicOptionSchema[option.name] = z.string();
   //   }
   // }
-  const { toDataIdList, toOptionList } = useOptionListTransform();
 
   // Объединение динамически созданной схемы с исходной схемой данных
   const finalProductFormSchema = productFormSchema.extend({
@@ -172,7 +170,7 @@ export const ProductForm: FC<ProductFormProps> = memo((props) => {
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            {option.optionList.map((row) => (
+                            {option.propertyList.map((row) => (
                               <SelectItem key={row.value} value={row.value}>
                                 {row.label}
                               </SelectItem>

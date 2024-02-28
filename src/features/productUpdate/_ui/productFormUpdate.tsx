@@ -26,7 +26,7 @@ import {
   OptionSelect,
   useOptionListWithDataActive,
   usePropertyListByCategoryIdList,
-} from "@/entities/option";
+} from "@/entities/property";
 import { MultiSelectOptionItem } from "@/shared/ui/multiSelect";
 import { ProductFormOptions } from "@/entities/product/_ui/productFormOptions";
 import { Button } from "@/shared/ui/button";

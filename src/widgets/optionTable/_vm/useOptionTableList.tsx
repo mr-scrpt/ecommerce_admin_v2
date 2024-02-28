@@ -1,4 +1,4 @@
-import { useOptionListQuery } from "@/entities/option";
+import { useOptionListQuery } from "@/entities/property";
 import { buildDate } from "@/shared/lib/date";
 
 export const useOptionTableList = () => {

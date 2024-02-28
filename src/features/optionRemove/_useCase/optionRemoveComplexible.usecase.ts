@@ -1,10 +1,10 @@
-import { createOptionAbility } from "@/entities/option";
+import { createOptionAbility } from "@/entities/property";
 import { ForbiddenError } from "@/shared/lib/errors";
 import {
   OptionRemoveTx,
   optionRemoveTx,
 } from "../_tx/optionRemove.transaction";
-import { OptionEntity, OptionId } from "@/entities/option";
+import { OptionEntity, OptionId } from "@/entities/property";
 import { SessionEntity } from "@/shared/lib/user";
 
 type RemoveOption = {

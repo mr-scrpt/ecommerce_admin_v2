@@ -1,10 +1,10 @@
-import { OptionEntity, OptionRelationEntity } from "@/entities/option";
+import { OptionEntity, OptionRelationEntity } from "@/entities/property";
 import {
   OptionItemRepository,
   OptionRepository,
   optionItemRepository,
   optionRepository,
-} from "@/entities/option/server";
+} from "@/entities/property/server";
 import { DbClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
 import { OptionUpdateComplexible } from "../_domain/types";
 

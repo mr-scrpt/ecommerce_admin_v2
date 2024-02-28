@@ -1,4 +1,4 @@
-import { OptionEntity, createOptionAbility } from "@/entities/option";
+import { OptionEntity, createOptionAbility } from "@/entities/property";
 import { ForbiddenError } from "@/shared/lib/errors";
 import { SessionEntity } from "@/shared/lib/user";
 import { OptionCreateComplexible } from "../_domain/types";

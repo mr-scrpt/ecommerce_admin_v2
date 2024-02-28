@@ -1,4 +1,4 @@
-import { OptionId } from "@/entities/option";
+import { OptionId } from "@/entities/property";
 import { useSocket } from "@/shared/lib/socket";
 import { WSEventEnum } from "@/shared/type/websokcetEvent.enum";
 

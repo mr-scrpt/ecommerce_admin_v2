@@ -1,4 +1,4 @@
-import { OptionSelect } from "@/entities/option";
+import { OptionSelect } from "@/entities/property";
 import { ProductFormValues } from "../_domain/product.schema";
 
 type DynamicFields<T> = {

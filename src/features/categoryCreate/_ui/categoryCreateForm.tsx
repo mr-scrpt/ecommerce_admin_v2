@@ -1,6 +1,6 @@
 "use client";
 import { CategoryForm, categoryFormSchema } from "@/entities/category";
-import { useOptionLikeSelectOptionList } from "@/entities/option/_vm/useOptionLikeSelectOptionList";
+import { useOptionLikeSelectOptionList } from "@/entities/property/_vm/usePropertyLikeSelectOptionList";
 import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes } from "react";

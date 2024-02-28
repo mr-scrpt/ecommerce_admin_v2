@@ -1,6 +1,6 @@
 "use server";
 
-import { Option, optionCreateSchema, optionSchema } from "@/entities/option";
+import { Option, optionCreateSchema, optionSchema } from "@/entities/property";
 import { getAppSessionStrictServer } from "@/entities/user/getAppSessionServer";
 import { z } from "zod";
 import { createOptionComplexibleUseCase } from "../_useCase/optionCreateComplexible.usecase";

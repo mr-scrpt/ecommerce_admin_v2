@@ -5,7 +5,7 @@ import {
   categoryFormSchema,
   useCategoryWithRelationQuery,
 } from "@/entities/category";
-import { useOptionLikeSelectOptionList } from "@/entities/option";
+import { useOptionLikeSelectOptionList } from "@/entities/property";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";

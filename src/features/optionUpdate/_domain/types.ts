@@ -2,7 +2,7 @@ import {
   OptionId,
   OptionItemToUpdate,
   OptionToUpdate,
-} from "@/entities/option";
+} from "@/entities/property";
 
 export type OptionUpdateComplexible = {
   optionId: OptionId;

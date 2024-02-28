@@ -1,4 +1,4 @@
-import { OptionId } from "@/entities/option";
+import { OptionId } from "@/entities/property";
 import { useOptionRemoveMutation } from "@/features/optionRemove";
 import { useGetConfirmation } from "@/shared/lib/confirmation";
 

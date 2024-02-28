@@ -4,7 +4,7 @@ import {
   OptionId,
   optionFormSchema,
   useOptionWithRelationQuery,
-} from "@/entities/option";
+} from "@/entities/property";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
