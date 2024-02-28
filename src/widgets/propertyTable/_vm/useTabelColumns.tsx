@@ -1,7 +1,7 @@
 import { ColumnDef } from "@tanstack/react-table";
-import { optionColumns } from "../_data/columns";
-import { OptionTableAction } from "../_ui/optionTableAction";
-import { OptionColumnType } from "../_type/table.type";
+import { propertyColumns } from "../_data/columns";
+import { PropertyTableAction } from "../_ui/propertyTableAction";
+import { PropertyColumnType } from "../_type/table.type";
 import { RoutePathEnum } from "@/shared/config/routing.config";
 
 interface HandlersProps {
@@ -11,21 +11,21 @@ interface HandlersProps {
 export const useTableColumns = (handlers: HandlersProps) => {
   const { onDeleteClick } = handlers;
 
-  const optionCollumnsWithAction: ColumnDef<OptionColumnType>[] = [
-    ...optionColumns,
+  const propertyCollumnsWithAction: ColumnDef<PropertyColumnType>[] = [
+    ...propertyColumns,
     {
       header: "Actions",
       id: "actions",
       cell: ({ row }) => (
-        <OptionTableAction
+        <PropertyTableAction
           data={row.original}
           onCopy={() => {}}
-          hrefToUpdate={`${RoutePathEnum.OPTION_UPDATE}/${row.original.id}`}
+          hrefToUpdate={`${RoutePathEnum.PROPERTY_UPDATE}/${row.original.id}`}
           onDeleteClick={() => onDeleteClick(row.original.id)}
         />
       ),
     },
   ];
 
-  return optionCollumnsWithAction;
+  return propertyCollumnsWithAction;
 };

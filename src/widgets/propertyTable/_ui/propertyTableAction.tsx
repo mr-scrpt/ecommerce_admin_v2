@@ -9,17 +9,17 @@ import {
 } from "@/shared/ui/dropdown-menu";
 import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
 import { FC, HTMLAttributes, memo } from "react";
-import { OptionColumnType } from "../_type/table.type";
+import { PropertyColumnType } from "../_type/table.type";
 import Link from "next/link";
 
-interface OptionTableListActionProps extends HTMLAttributes<HTMLDivElement> {
-  data: OptionColumnType;
+interface PropertyTableListActionProps extends HTMLAttributes<HTMLDivElement> {
+  data: PropertyColumnType;
   onCopy: () => void;
   hrefToUpdate: string;
   onDeleteClick: () => void;
 }
 
-export const OptionTableAction: FC<OptionTableListActionProps> = memo(
+export const PropertyTableAction: FC<PropertyTableListActionProps> = memo(
   (props) => {
     const { onCopy, onDeleteClick: onDeletePopup, hrefToUpdate } = props;
     return (
@@ -53,4 +53,4 @@ export const OptionTableAction: FC<OptionTableListActionProps> = memo(
   },
 );
 
-OptionTableAction.displayName = "OptionTableAction";
+PropertyTableAction.displayName = "PropertyTableAction";

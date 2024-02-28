@@ -1,15 +1,15 @@
-import { useOptionListQuery } from "@/entities/property";
+import { usePropertyListQuery } from "@/entities/property";
 import { buildDate } from "@/shared/lib/date";
 
-export const useOptionTableList = () => {
+export const usePropertyTableList = () => {
   const {
     isPending,
     isSuccess,
     isFetchedAfterMount,
-    optionList: data,
-  } = useOptionListQuery();
+    propertyList: data,
+  } = usePropertyListQuery();
 
-  const optionList = data?.map((item) => ({
+  const propertyList = data?.map((item) => ({
     id: item.id,
     name: item.name,
     createdAt: buildDate(item.createdAt),
@@ -19,6 +19,6 @@ export const useOptionTableList = () => {
     isPending,
     isSuccess,
     isFetchedAfterMount,
-    optionList: optionList ?? [],
+    propertyList: propertyList ?? [],
   };
 };
