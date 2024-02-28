@@ -10,7 +10,7 @@ const PropertyCreatePage: FC<PageProps> = (props) => {
     <main className="flex min-h-screen flex-col gap-4 p-8">
       <TitlePage title="Property create" description="Create property item" />
 
-      <PropertyCreate callbackUrl={RoutePathEnum.propertyS} />
+      <PropertyCreate callbackUrl={RoutePathEnum.PROPERTIES} />
     </main>
   );
 };

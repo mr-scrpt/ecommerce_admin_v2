@@ -1,2 +1,2 @@
-export { useOptionRemoveMutation } from "./_mutation/optionRemove.mutation";
-export { useEmitOptionRemove } from "./_vm/event/useEmitOptionRemove";
+export { usePropertyRemoveMutation } from "./_mutation/propertyRemove.mutation";
+export { useEmitPropertyRemove } from "./_vm/event/useEmitPropertyRemove";

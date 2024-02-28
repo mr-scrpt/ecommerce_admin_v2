@@ -24,12 +24,12 @@ export const productRelationSchema = z.object({
       name: z.string(),
     }),
   ),
-  optionItemListSelected: z.array(
+  propertyItemListSelected: z.array(
     z.object({
       id: z.string(),
       name: z.string(),
       value: z.string(),
-      optionId: z.string(),
+      propertyId: z.string(),
     }),
   ),
 });
@@ -74,7 +74,7 @@ export const productFormSchema = z.object({
       name: z.string(),
     }),
   ),
-  optionList: z.object({}),
+  propertyList: z.object({}),
 });
 
 export type ProductFormValues = z.infer<typeof productFormSchema>;

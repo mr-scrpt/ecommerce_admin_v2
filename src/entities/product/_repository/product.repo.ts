@@ -32,7 +32,7 @@ export class ProductRepository {
       },
       include: {
         categoryList: true,
-        optionItemListSelected: true,
+        propertyItemListSelected: true,
       },
     });
   }

@@ -1,33 +1,33 @@
 // "use client";
 // import { useQuery, useQueryClient } from "@tanstack/react-query";
-// import { getOptionItemListAction } from "../_action/getOptionItemList.action";
+// import { getPropertyItemListAction } from "../_action/getPropertyItemList.action";
 // import { baseQueryKey } from "../_domain/types";
-// import { useListenOptionItemListUpdate } from "../_vm/event/useListenOptionItemListUpdate";
+// import { useListenPropertyItemListUpdate } from "../_vm/event/useListenPropertyItemListUpdate";
 //
-// export const getOptionItemListQuery = () => ({
-//   queryKey: [baseQueryKey, "getOptionItemList"],
-//   queryFn: () => getOptionItemListAction(),
+// export const getPropertyItemListQuery = () => ({
+//   queryKey: [baseQueryKey, "getPropertyItemList"],
+//   queryFn: () => getPropertyItemListAction(),
 // });
 //
-// export const useOptionItemListQuery = () => {
-//   const query = getOptionItemListQuery();
+// export const usePropertyItemListQuery = () => {
+//   const query = getPropertyItemListQuery();
 //   const { isPending, isSuccess, isFetchedAfterMount, data } = useQuery(query);
 //
-//   useListenOptionItemListUpdate();
+//   useListenPropertyItemListUpdate();
 //
 //   return {
 //     isPending,
 //     isSuccess,
 //     isFetchedAfterMount,
-//     optionItemList: data ? data.optionItemList : [],
+//     propertyItemList: data ? data.propertyItemList : [],
 //   };
 // };
 //
-// export const useInvalidateOptionItemList = () => {
+// export const useInvalidatePropertyItemList = () => {
 //   const queryClient = useQueryClient();
 //
 //   return () =>
 //     queryClient.invalidateQueries({
-//       queryKey: [baseQueryKey, "getOptionItemList"],
+//       queryKey: [baseQueryKey, "getPropertyItemList"],
 //     });
 // };

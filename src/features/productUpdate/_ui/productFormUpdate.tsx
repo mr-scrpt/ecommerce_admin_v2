@@ -6,7 +6,6 @@ import {
   useProductWithRelationQuery,
 } from "@/entities/product";
 import { usePropertyListByCategoryIdList } from "@/entities/property";
-import { useOptionListTransform } from "@/shared/lib/map";
 import { Button } from "@/shared/ui/button";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { MultiSelectOptionItem } from "@/shared/ui/multiSelect";
@@ -16,6 +15,7 @@ import { FC, HTMLAttributes, memo, useCallback } from "react";
 import { z } from "zod";
 import { useProductUpdateMutation } from "../_mutation/useProductUpdate.mutation";
 import { useCategoryDataToForm } from "../_vm/useCategoryDataToForm";
+import { useOptionListTransform } from "@/shared/lib/map";
 
 interface ProductFormProps extends HTMLAttributes<HTMLDivElement> {
   productId: ProductId;
@@ -47,12 +47,12 @@ export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
   const {
     propertyList,
     setCategoryIdList,
-    isPending: isPendingOptionList,
+    isPending: isPendingPropertyList,
   } = usePropertyListByCategoryIdList(
     categoryOptionListActive,
-    product?.optionItemListSelected || [],
+    product?.propertyItemListSelected || [],
   );
-  console.log("output_log: categoryOptionList =>>>", propertyList);
+  console.log("output_log: categoryPropertyList =>>>", propertyList);
 
   const router = useRouter();
 
@@ -63,12 +63,12 @@ export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
     isPendingUpdate ||
     isPendingCategoryOptionList ||
     isPendingProduct ||
-    isPendingOptionList ||
+    isPendingPropertyList ||
     !isFetchedAfterMount;
 
-  const handleSelectedOption = useCallback(
-    (optionListSelected: Array<MultiSelectOptionItem>) => {
-      const categoryIdList = toDataIdList(optionListSelected);
+  const handleSelectedProperty = useCallback(
+    (propertyListSelected: Array<MultiSelectOptionItem>) => {
+      const categoryIdList = toDataIdList(propertyListSelected);
       setCategoryOptionListSelected(toOptionList(categoryIdList));
       setCategoryIdList(categoryIdList.map((item) => item.id));
       return categoryIdList;
@@ -104,7 +104,7 @@ export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
       router.push(callbackUrl);
     }
   };
-  console.log("output_log: optionList  =>>>", propertyList);
+  console.log("output_log: propertyList  =>>>", propertyList);
 
   return (
     <div className={cn(className, "w-full")}>
@@ -114,52 +114,52 @@ export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
         product={product}
         categorySelectOptionList={categoryOptionListTotal}
         categotySelectOptionListActive={categoryOptionListActive}
-        handleCategorySelectOption={handleSelectedOption}
-        optionSelectOptionList={propertyList}
-        // optionSelectOptionListActive={optionListWithDataActiveCompleted}
+        handleCategorySelectOption={handleSelectedProperty}
+        propertySelectOptionList={propertyList}
+        // propertySelectPropertyListActive={propertyListWithDataActiveCompleted}
         submitText={"Save change"}
       />
       <Button onClick={() => console.log(propertyList)}>Show state</Button>
-      {/* <ProductFormOptions optionSelectOptionList={optionListWithDataActive} /> */}
+      {/* <ProductFormPropertys propertySelectPropertyList={propertyListWithDataActive} /> */}
     </div>
   );
 });
 
 ProductFormUpdate.displayName = "ProductFormUpdate";
-// const { optionListWithDataActive } = useOptionListWithDataActive({
-//   optionList,
-//   optionItemListSelected: product?.optionItemListSelected ?? [],
+// const { propertyListWithDataActive } = usePropertyListWithDataActive({
+//   propertyList,
+//   propertyItemListSelected: product?.propertyItemListSelected ?? [],
 // });
 
 // console.log("output_log: product =>>>", product);
 // console.log(
-//   "output_log: optionListWithDataActive =>>>",
-//   optionListWithDataActive,
+//   "output_log: propertyListWithDataActive =>>>",
+//   propertyListWithDataActive,
 // );
 
-// const categotySelectOptionListActive = toOptionList(product.categoryList);
-// const optionListWithDataActiveCompleted = Object.fromEntries(
-//   optionListWithDataActive.map((item) => {
+// const categotySelectPropertyListActive = toPropertyList(product.categoryList);
+// const propertyListWithDataActiveCompleted = Object.fromEntries(
+//   propertyListWithDataActive.map((item) => {
 //     return [
 //       item.name,
 //       item.datatype === "mult"
-//         ? item.optionList.map((option) => option.value)
-//         : item.optionList[0].value,
+//         ? item.propertyList.map((property) => property.value)
+//         : item.propertyList[0].value,
 //     ];
 //   }),
 // );
 // console.log(
-//   "output_log: optionListWithDataActiveCompleted =>>>",
-//   optionListWithDataActiveCompleted,
+//   "output_log: propertyListWithDataActiveCompleted =>>>",
+//   propertyListWithDataActiveCompleted,
 // );
 //
 // console.log(
-//   "output_log:  categotySelectOptionList =>>>",
-//   categorySelectOptionList,
+//   "output_log:  categotySelectPropertyList =>>>",
+//   categorySelectPropertyList,
 // );
 // console.log(
-//   "output_log:  categotySelectOptionListActive=>>>",
-//   categotySelectOptionListActive,
+//   "output_log:  categotySelectPropertyListActive=>>>",
+//   categotySelectPropertyListActive,
 // );
 //
 //

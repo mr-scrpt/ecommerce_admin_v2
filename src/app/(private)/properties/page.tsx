@@ -12,7 +12,7 @@ const PagePropertys: FC<PageProps> = (props) => {
       <TitlePage
         title="Propertys"
         description="Manage your propertys list"
-        action={<PropertyCreateButton route={RoutePathEnum.property_CREATE} />}
+        action={<PropertyCreateButton route={RoutePathEnum.PROPERTY_CREATE} />}
       />
       <PropertyTable />
     </main>

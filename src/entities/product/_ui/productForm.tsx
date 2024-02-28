@@ -40,8 +40,8 @@ interface ProductFormProps extends HTMLAttributes<HTMLFormElement> {
   submitText?: string;
   categorySelectOptionList: Array<MultiSelectOptionItem>;
   categotySelectOptionListActive?: Array<MultiSelectOptionItem>;
-  optionSelectOptionList: Array<ProductPropertyToSelect>;
-  optionSelectOptionListActive?: OptionListValues;
+  propertySelectOptionList: Array<ProductPropertyToSelect>;
+  propertySelectOptionListActive?: OptionListValues;
   handleCategorySelectOption: (
     itemList: Array<MultiSelectOptionItem>,
   ) => Array<{ id: string; name: string }>;
@@ -69,8 +69,8 @@ export const ProductForm: FC<ProductFormProps> = memo((props) => {
     isPending,
     categorySelectOptionList,
     categotySelectOptionListActive,
-    optionSelectOptionList,
-    optionSelectOptionListActive,
+    propertySelectOptionList,
+    propertySelectOptionListActive,
     handleCategorySelectOption,
   } = props;
   // console.log(
@@ -95,7 +95,7 @@ export const ProductForm: FC<ProductFormProps> = memo((props) => {
 
   const form = useForm<FinalProductFormValues>({
     resolver: zodResolver(finalProductFormSchema),
-    defaultValues: getDefaultValues(product, optionSelectOptionListActive),
+    defaultValues: getDefaultValues(product, propertySelectOptionListActive),
   });
 
   useEffect(() => {
@@ -147,8 +147,8 @@ export const ProductForm: FC<ProductFormProps> = memo((props) => {
             );
           }}
         />
-        {optionSelectOptionList &&
-          optionSelectOptionList.map((option) => {
+        {propertySelectOptionList &&
+          propertySelectOptionList.map((option) => {
             const { datatype } = option;
             if (datatype === PropertyDataTypeEnum.SELECT) {
               return (

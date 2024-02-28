@@ -12,7 +12,7 @@ export type CategoryEntity = {
 
 export type CategoryRelationEntity = CategoryEntity & {
   productList: Array<ProductListItem>;
-  optionList: Array<OptionListItem>;
+  propertyList: Array<PropertyListItem>;
 };
 
 // Projetions
@@ -27,7 +27,7 @@ export type Category = {
 
 export type CategoryRelation = Category & {
   productList: Array<ProductListItem>;
-  optionList: Array<OptionListItem>;
+  propertyList: Array<PropertyListItem>;
 };
 
 export type CategoryToCreate = {
@@ -48,9 +48,9 @@ export type CategoryAddProductList = {
   productListId: Array<{ id: string }>;
 };
 
-export type CategoryAddOptionList = {
+export type CategoryAddPropertyList = {
   categoryId: string;
-  optionListId: Array<{ id: string }>;
+  propertyListId: Array<{ id: string }>;
 };
 
 // Side
@@ -62,7 +62,7 @@ type ProductListItem = {
   createdAt: Date;
 };
 
-type OptionListItem = {
+type PropertyListItem = {
   id: string;
   name: string;
   datatype: string;

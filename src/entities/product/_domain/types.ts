@@ -17,7 +17,7 @@ export type ProductEntity = {
 
 export type ProductRelationEntity = ProductEntity & {
   categoryList: Array<ProductCategory>;
-  optionItemListSelected: Array<ProductOptionItem>;
+  propertyItemListSelected: Array<ProductPropertyItem>;
 };
 
 // Projetions
@@ -33,7 +33,7 @@ export type Product = {
 
 export type ProductRelation = Product & {
   categoryList: Array<ProductCategory>;
-  optionItemListSelected: Array<ProductOptionItem>;
+  propertyItemListSelected: Array<ProductPropertyItem>;
 };
 
 export type ProductToCreate = {
@@ -66,11 +66,11 @@ export type ProductCategory = {
   name: string;
 };
 
-export type ProductOptionItem = {
+export type ProductPropertyItem = {
   id: string;
   name: string;
   value: string;
-  optionId: string;
+  propertyId: string;
 };
 
 // UI

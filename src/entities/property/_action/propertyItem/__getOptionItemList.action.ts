@@ -1,28 +1,28 @@
 // "use server";
 // import { getAppSessionStrictServer } from "@/entities/user/getAppSessionServer";
 // import { z } from "zod";
-// import { optionItemSchema } from "../../_domain/option/option.schema";
-// import { OptionItemEntity } from "../../_domain/types";
-// import { getOptionItemListUseCase } from "../../_usecase/option/getOptionList.usecase";
+// import { propertyItemSchema } from "../../_domain/property/property.schema";
+// import { PropertyItemEntity } from "../../_domain/types";
+// import { getPropertyItemListUseCase } from "../../_usecase/property/getPropertyList.usecase";
 //
 // // const propsSchema = z.object({
-// //   optionItemId: z.string(),
+// //   propertyItemId: z.string(),
 // // });
 //
 // const resultSchema = z.object({
-//   optionItemList: z.array(optionItemSchema),
+//   propertyItemList: z.array(propertyItemSchema),
 // });
 //
-// type ResultT = { optionItemList: OptionItemEntity[] };
+// type ResultT = { propertyItemList: PropertyItemEntity[] };
 //
-// export const getOptionItemListAction = async (): Promise<ResultT> => {
-//   // const { optionItemId } = propsSchema.parse(props);
+// export const getPropertyItemListAction = async (): Promise<ResultT> => {
+//   // const { propertyItemId } = propsSchema.parse(props);
 //
 //   const session = await getAppSessionStrictServer();
 //
-//   const optionItemList = await getOptionItemListUseCase.exec({ session });
+//   const propertyItemList = await getPropertyItemListUseCase.exec({ session });
 //
 //   return resultSchema.parseAsync({
-//     optionItemList: optionItemList,
+//     propertyItemList: propertyItemList,
 //   });
 // };

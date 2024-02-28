@@ -1,14 +1,14 @@
 import { DbClient, Tx, dbClient } from "@/shared/lib/db";
 import {
   Category,
-  CategoryAddOptionList,
+  CategoryAddPropertyList,
   CategoryAddProductList,
   CategoryEntity,
   CategoryId,
   CategoryRelationEntity,
   CategoryToCreate,
 } from "../_domain/types";
-import { mapPrismaDatatypeToEnum } from "@/shared/type/mapPropertyDatatype";
+import { mapPrismaDatatypeToEnum } from "@/shared/lib/prisma";
 
 export class CategoryRepository {
   constructor(readonly db: DbClient) {}
@@ -33,14 +33,14 @@ export class CategoryRepository {
         id: categoryId,
       },
       include: {
-        optionList: true,
+        propertyList: true,
         productList: true,
       },
     });
 
     return {
       ...res,
-      optionList: res.optionList.map((item) => ({
+      propertyList: res.propertyList.map((item) => ({
         ...item,
         datatype: mapPrismaDatatypeToEnum(item.datatype),
       })),
@@ -67,7 +67,7 @@ export class CategoryRepository {
         id: categoryId,
       },
       include: {
-        optionList: true,
+        propertyList: true,
         productList: true,
       },
     });
@@ -86,18 +86,18 @@ export class CategoryRepository {
     });
   }
 
-  async addCategoryOptionList(
-    data: CategoryAddOptionList,
+  async addCategoryPropertyList(
+    data: CategoryAddPropertyList,
     db: Tx = this.db,
   ): Promise<CategoryEntity> {
-    const { categoryId, optionListId } = data;
+    const { categoryId, propertyListId } = data;
     return await db.category.update({
       where: {
         id: categoryId,
       },
       data: {
-        optionList: {
-          set: optionListId,
+        propertyList: {
+          set: propertyListId,
         },
       },
     });
