@@ -2,11 +2,11 @@ export const productRelationsSeed = [
   {
     id: "prod_585fsddfew7898few",
     categoryList: { connect: [{ id: "cat_585fsddfew7898few" }] },
-    optionItemListSelected: {
+    propertyItemListSelected: {
       connect: [
-        { id: "optionItem_8fsddfew7898d857" },
-        { id: "optionItem_M68ddtwaew65687M" },
-        // { id: "optionItem_L58ddtwaew65622L" },
+        { id: "propertyItem_8fsddfew7898d857" },
+        { id: "propertyItem_M68ddtwaew65687M" },
+        // { id: "propertyItem_L58ddtwaew65622L" },
       ],
     },
   },
@@ -15,10 +15,10 @@ export const productRelationsSeed = [
     categoryList: {
       connect: [{ id: "cat_ew975fee9885" }],
     },
-    optionItemListSelected: {
+    propertyItemListSelected: {
       connect: [
-        { id: "optionItem_d555fsddfew78981fe" },
-        { id: "optionItem_8fsddfew7898d857" },
+        { id: "propertyItem_d555fsddfew78981fe" },
+        { id: "propertyItem_8fsddfew7898d857" },
       ],
     },
   },
@@ -27,8 +27,8 @@ export const productRelationsSeed = [
     categoryList: {
       connect: [{ id: "cat_585fsddfew7898few" }, { id: "cat_ew975fee9885" }],
     },
-    optionItemListSelected: {
-      connect: [{ id: "optionItem_d555fsddfew78981fe" }],
+    propertyItemListSelected: {
+      connect: [{ id: "propertyItem_d555fsddfew78981fe" }],
     },
   },
 ];

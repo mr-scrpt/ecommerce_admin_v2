@@ -1,13 +1,13 @@
 import { PrismaClient } from "@prisma/client";
-import { mapEnumToPrismaDatatype } from "../src/shared/type/mapOptionDatatype";
 import { categoryListSeed } from "./data/category";
-import { optionListSeed } from "./data/option";
-import { optionItemListSeed } from "./data/optionItem";
-import { productListSeed } from "./data/product";
-import { userListSeed } from "./data/user";
 import { categoryRelationsSeed } from "./data/categoryRelations";
-// import { optionRelationsSeed } from "./data/optionRelations";
+import { productListSeed } from "./data/product";
+import { propertyListSeed } from "./data/property";
+import { propertyItemListSeed } from "./data/propertyItem";
+import { userListSeed } from "./data/user";
 import { productRelationsSeed } from "./data/productRelations";
+import { mapEnumToPrismaDatatype } from "../src/shared/lib/prisma";
+
 const prisma = new PrismaClient();
 
 async function main() {
@@ -16,16 +16,19 @@ async function main() {
     console.log("user created", user);
   }
 
-  for await (const option of optionListSeed) {
-    await prisma.option.create({
-      data: { ...option, datatype: mapEnumToPrismaDatatype(option.datatype) },
+  for await (const property of propertyListSeed) {
+    await prisma.property.create({
+      data: {
+        ...property,
+        datatype: mapEnumToPrismaDatatype(property.datatype),
+      },
     });
-    console.log("option created", option);
+    console.log("property created", property);
   }
 
-  for await (const optionItem of optionItemListSeed) {
-    await prisma.optionItem.create({ data: optionItem });
-    console.log("option item created", optionItem);
+  for await (const propertyItem of propertyItemListSeed) {
+    await prisma.propertyItem.create({ data: propertyItem });
+    console.log("property item created", propertyItem);
   }
 
   for await (const category of categoryListSeed) {
@@ -46,14 +49,6 @@ async function main() {
     });
     console.log("category created relation", category);
   }
-
-  // for await (const option of optionRelationsSeed) {
-  //   await prisma.option.update({
-  //     where: { id: option.id },
-  //     data: option,
-  //   });
-  //   console.log("option created relation", option);
-  // }
 
   for await (const product of productRelationsSeed) {
     await prisma.product.update({ where: { id: product.id }, data: product });

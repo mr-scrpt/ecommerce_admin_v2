@@ -1,4 +1,4 @@
-import { OptionDataTypeEnum } from "@/shared/type/optionDataType.enum";
+import { PropertyDataTypeEnum } from "@/shared/type/propertyDataType.enum";
 import { z } from "zod";
 import {
   optionItemCreateSchema,
@@ -9,14 +9,14 @@ import {
 export const optionSchema = z.object({
   id: z.string(),
   name: z.string(),
-  datatype: z.nativeEnum(OptionDataTypeEnum),
+  datatype: z.nativeEnum(PropertyDataTypeEnum),
   createdAt: z.date(),
 });
 
 export const optionRelationSchema = z.object({
   id: z.string(),
   name: z.string(),
-  datatype: z.nativeEnum(OptionDataTypeEnum),
+  datatype: z.nativeEnum(PropertyDataTypeEnum),
   createdAt: z.date(),
 
   optionItemList: z.array(optionItemSchema),
@@ -31,14 +31,14 @@ export const optionRelationSchema = z.object({
 
 export const optionCreateSchema = z.object({
   name: z.string(),
-  datatype: z.nativeEnum(OptionDataTypeEnum),
+  datatype: z.nativeEnum(PropertyDataTypeEnum),
   optionItemList: z.array(optionItemCreateSchema),
 });
 
 export const optionUpdateSchema = z.object({
   id: z.string(),
   name: z.string(),
-  datatype: z.nativeEnum(OptionDataTypeEnum),
+  datatype: z.nativeEnum(PropertyDataTypeEnum),
   optionItemList: z.array(optionItemUpdateSchema),
 });
 
@@ -50,7 +50,7 @@ export const optionFormSchema = z.object({
       message: "Username must not be longer than 30 characters.",
     })
     .transform((name) => name.trim()),
-  datatype: z.nativeEnum(OptionDataTypeEnum),
+  datatype: z.nativeEnum(PropertyDataTypeEnum),
   optionItemList: z.array(optionItemUpdateSchema),
   isPendingAppearance: z.boolean(),
   submitText: z.string(),

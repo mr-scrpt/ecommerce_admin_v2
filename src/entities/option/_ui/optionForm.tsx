@@ -34,7 +34,7 @@ import {
   optionFormSchema,
 } from "../_domain/option/option.schema";
 import { OptionRelation } from "../_domain/option/types";
-import { OptionDataTypeEnum } from "@/shared/type/optionDataType.enum";
+import { PropertyDataTypeEnum } from "@/shared/type/propertyDataType.enum";
 
 interface OptionFormProps extends HTMLAttributes<HTMLFormElement> {
   option?: OptionRelation;
@@ -50,7 +50,7 @@ type OptionFormType = FC<OptionFormProps> & {
 
 const getDefaultValues = (option?: OptionRelation) => ({
   name: option?.name ?? "",
-  datatype: option?.datatype ?? OptionDataTypeEnum.SELECT,
+  datatype: option?.datatype ?? PropertyDataTypeEnum.SELECT,
   optionItemList: option?.optionItemList ?? [{ name: "", value: "" }],
 });
 
@@ -119,10 +119,10 @@ OptionForm.FieldOption = function FieldOption() {
   const form = useFormContext<OptionFormValues>();
 
   const selectDataType = [
-    { type: OptionDataTypeEnum.SELECT, value: "Select" },
-    { type: OptionDataTypeEnum.MULT, value: "Multi select" },
-    { type: OptionDataTypeEnum.CHECKBOX, value: "Checkbox" },
-    { type: OptionDataTypeEnum.RADIO, value: "Radio" },
+    { type: PropertyDataTypeEnum.SELECT, value: "Select" },
+    { type: PropertyDataTypeEnum.MULT, value: "Multi select" },
+    { type: PropertyDataTypeEnum.CHECKBOX, value: "Checkbox" },
+    { type: PropertyDataTypeEnum.RADIO, value: "Radio" },
   ];
 
   return (

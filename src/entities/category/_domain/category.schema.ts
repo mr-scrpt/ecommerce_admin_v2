@@ -1,4 +1,4 @@
-import { OptionDataTypeEnum } from "@/shared/type/optionDataType.enum";
+import { PropertyDataTypeEnum } from "@/shared/type/propertyDataType.enum";
 import { z } from "zod";
 
 export const categorySchema = z.object({
@@ -29,7 +29,7 @@ export const categoryRelationSchema = z.object({
     z.object({
       id: z.string(),
       name: z.string(),
-      datatype: z.nativeEnum(OptionDataTypeEnum),
+      datatype: z.nativeEnum(PropertyDataTypeEnum),
     }),
   ),
 });

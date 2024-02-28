@@ -1,7 +1,7 @@
 "use client";
 import { OptionSelect } from "@/entities/option";
 import { useAppearanceDelay } from "@/shared/lib/react";
-import { OptionDataTypeEnum } from "@/shared/type/optionDataType.enum";
+import { PropertyDataTypeEnum } from "@/shared/type/propertyDataType.enum";
 import { Button } from "@/shared/ui/button";
 import {
   Form,
@@ -152,7 +152,7 @@ export const ProductForm: FC<ProductFormProps> = memo((props) => {
         {optionSelectOptionList &&
           optionSelectOptionList.map((option) => {
             const { datatype } = option;
-            if (datatype === OptionDataTypeEnum.SELECT) {
+            if (datatype === PropertyDataTypeEnum.SELECT) {
               return (
                 <FormField
                   key={option.name}

@@ -29,7 +29,7 @@ model Category {
   board String[]
 
   productList Product[] @relation("ProductToCategory")
-  optionList  Option[]  @relation("OptionToCategory")
+  propertyList  Property[]  @relation("PropertyToCategory")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -44,39 +44,40 @@ model Product {
   img         String[]
 
   categoryList   Category[]   @relation("ProductToCategory")
-  optionItemListSelected OptionItem[] @relation("OptionItemToProduct")
+  propertyItemListSelected PropertyItem[] @relation("PropertyItemToProduct")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-model Option {
+model Property {
   id       String   @id @default(uuid())
   name     String
   datatype DATATYPE
   isFilter Boolean
 
-  optionItemList OptionItem[] @relation("OptionItemToOption")
-  categoryList   Category[]   @relation("OptionToCategory")
+  propertyItemList PropertyItem[] @relation("PropertyItemToProperty")
+  categoryList   Category[]   @relation("PropertyToCategory")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-model OptionItem {
+model PropertyItem {
   id    String @id @default(uuid())
   name  String
   value String
 
-  option      Option    @relation("OptionItemToOption", fields: [optionId], references: [id], onDelete: Cascade)
-  optionId    String
-  productList Product[] @relation("OptionItemToProduct")
+  property      Property    @relation("PropertyItemToProperty", fields: [propertyId], references: [id], onDelete: Cascade)
+  propertyId    String
+  productList Product[] @relation("PropertyItemToProduct")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@unique([optionId, name])
-  @@index([optionId, name])
+  @@unique([propertyId, name])
+  @@index([propertyId, name])
+	@@map("PropertyItem")
 }
 
 model Account {

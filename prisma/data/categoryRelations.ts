@@ -1,26 +1,26 @@
 export const categoryRelationsSeed = [
   {
     id: "cat_585fsddfew7898few",
-    optionList: {
+    propertyList: {
       connect: [
-        { id: "option_585fsddfew7898dd" },
-        // { id: "option_11fsddfew7898186" },
-        // { id: "option_eeesddfew789855" },
+        { id: "property_585fsddfew7898dd" },
+        // { id: "property_11fsddfew7898186" },
+        // { id: "property_eeesddfew789855" },
       ],
     },
   },
   {
     id: "cat_df58775fsd789879",
-    optionList: {
-      connect: [{ id: "option_11fsddfew7898186" }],
+    propertyList: {
+      connect: [{ id: "property_11fsddfew7898186" }],
     },
   },
   {
     id: "cat_ew975fee9885",
-    optionList: {
+    propertyList: {
       connect: [
-        { id: "option_585fsddfew7898dd" },
-        { id: "option_195fsd55846fddew" },
+        { id: "property_585fsddfew7898dd" },
+        { id: "property_195fsd55846fddew" },
       ],
     },
   },

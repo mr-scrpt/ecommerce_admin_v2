@@ -8,7 +8,7 @@ import {
   CategoryRelationEntity,
   CategoryToCreate,
 } from "../_domain/types";
-import { mapPrismaDatatypeToEnum } from "@/shared/type/mapOptionDatatype";
+import { mapPrismaDatatypeToEnum } from "@/shared/type/mapPropertyDatatype";
 
 export class CategoryRepository {
   constructor(readonly db: DbClient) {}

@@ -24,8 +24,8 @@ import { useProductUpdateMutation } from "../_mutation/useProductUpdate.mutation
 import { useOptionListTransform } from "@/shared/lib/map";
 import {
   OptionSelect,
-  useOptionListByCategoryIdList,
   useOptionListWithDataActive,
+  usePropertyListByCategoryIdList,
 } from "@/entities/option";
 import { MultiSelectOptionItem } from "@/shared/ui/multiSelect";
 import { ProductFormOptions } from "@/entities/product/_ui/productFormOptions";
@@ -63,7 +63,7 @@ export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
     categoryOptionList,
     setCategoryIdList,
     isPending: isPendingOptionList,
-  } = useOptionListByCategoryIdList(
+  } = usePropertyListByCategoryIdList(
     categoryOptionListActive,
     product?.optionItemListSelected || [],
   );

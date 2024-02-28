@@ -15,7 +15,7 @@ export {
 export { OptionForm } from "./_ui/optionForm";
 export { OptionFromLayout } from "./_ui/optionFromLayout";
 export { useOptionLikeSelectOptionList } from "./_vm/useOptionLikeSelectOptionList";
-export { usePropertyListByCategoryIdList } from "./_vm/useOptionListByCategoryIdList";
+export { usePropertyListByCategoryIdList } from "./_vm/usePropertyListByCategoryIdList";
 export { useOptionListWithDataActive } from "./_vm/useOptionListWithDataActive";
 
 export type {

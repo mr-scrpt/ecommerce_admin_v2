@@ -9,7 +9,7 @@ import {
 import {
   mapEnumToPrismaDatatype,
   mapPrismaDatatypeToEnum,
-} from "../../../shared/type/mapOptionDatatype";
+} from "../../../shared/type/mapPropertyDatatype";
 
 export class OptionRepository {
   constructor(readonly db: DbClient) {}

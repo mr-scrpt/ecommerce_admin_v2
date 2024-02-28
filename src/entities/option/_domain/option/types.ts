@@ -1,5 +1,5 @@
 import { MultiSelectOptionItem } from "@/shared/ui/multiSelect";
-import { OptionDataTypeEnum } from "../../../../shared/type/optionDataType.enum";
+import { PropertyDataTypeEnum } from "../../../../shared/type/propertyDataType.enum";
 import { OptionItem } from "../optionItem/types";
 
 export const baseQueryKey = "option";
@@ -8,7 +8,7 @@ export type OptionId = string;
 export type OptionEntity = {
   id: OptionId;
   name: string;
-  datatype: OptionDataTypeEnum;
+  datatype: PropertyDataTypeEnum;
   createdAt: Date;
 };
 
@@ -22,7 +22,7 @@ export type OptionRelationEntity = OptionEntity & {
 export type Option = {
   id: OptionId;
   name: string;
-  datatype: OptionDataTypeEnum;
+  datatype: PropertyDataTypeEnum;
   createdAt: Date;
 };
 
@@ -33,14 +33,14 @@ export type OptionRelation = Option & {
 
 export type OptionToCreate = {
   name: string;
-  datatype: OptionDataTypeEnum;
+  datatype: PropertyDataTypeEnum;
   isFilter: boolean;
 };
 
 export type OptionToUpdate = {
   id: OptionId;
   name: string;
-  datatype: OptionDataTypeEnum;
+  datatype: PropertyDataTypeEnum;
 };
 
 //Side
@@ -53,7 +53,7 @@ export type OptionCategory = {
 export type OptionSelect = {
   id: string;
   name: string;
-  datatype: OptionDataTypeEnum;
+  datatype: PropertyDataTypeEnum;
   // optionList: Array<MultiSelectOptionItem & { active: boolean }>;
   optionList: Array<MultiSelectOptionItem>;
 };

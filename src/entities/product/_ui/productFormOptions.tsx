@@ -1,5 +1,5 @@
 import { OptionSelect } from "@/entities/option";
-import { OptionDataTypeEnum } from "@/shared/type/optionDataType.enum";
+import { PropertyDataTypeEnum } from "@/shared/type/propertyDataType.enum";
 import { Button } from "@/shared/ui/button";
 import {
   Form,
@@ -63,7 +63,7 @@ export const ProductFormOptions: FC<ProductFormOptionsProps> = (props) => {
         {optionSelectOptionList &&
           optionSelectOptionList.map((option) => {
             const { datatype } = option;
-            if (datatype === OptionDataTypeEnum.SELECT) {
+            if (datatype === PropertyDataTypeEnum.SELECT) {
               return (
                 <FormField
                   key={option.name}
