@@ -1,8 +1,8 @@
 import { useAppSession } from "@/entities/user/session";
 import { useEmitCategoryUpdate } from "@/features/categoryUpdate";
-import { useEmitPropertyUpdate } from "@/features/propertyUpdate";
 import { useEmitProductUpdate } from "@/features/productUpdate";
 import { useEmitProfileUpdate } from "@/features/profileUpdate";
+import { useEmitPropertyUpdate } from "@/features/propertyUpdate";
 import { useEmitUserUpdate } from "@/features/userUpdate";
 import { ComposeChildren, createStrictContext } from "@/shared/lib/react";
 import { SocketProvider } from "@/shared/lib/socket";
