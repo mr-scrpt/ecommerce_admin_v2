@@ -55,25 +55,19 @@ export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
   const {
     categoryOptionListTotal,
     categoryOptionListActive,
-    categoryIdListSelected,
     isPendingCategoryOptionList,
-    setCategoryIdListSelected,
+    setCategoryOptionListSelected,
   } = useCategoryDataToForm(product);
-
-  console.log(
-    "output_log: categorySelectOptionList =>>>",
-    categoryOptionListTotal,
-  );
-  console.log(
-    "output_log: categoryIdListComputed =>>>",
-    categoryOptionListActive,
-  );
 
   const {
     categoryOptionList,
     setCategoryIdList,
     isPending: isPendingOptionList,
-  } = useOptionListByCategoryIdList(categoryOptionListActive);
+  } = useOptionListByCategoryIdList(
+    categoryOptionListActive,
+    product?.optionItemListSelected || [],
+  );
+  console.log("output_log: categoryOptionList =>>>", categoryOptionList);
 
   const router = useRouter();
 
@@ -90,11 +84,16 @@ export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
   const handleSelectedOption = useCallback(
     (optionListSelected: Array<MultiSelectOptionItem>) => {
       const categoryIdList = toDataIdList(optionListSelected);
-      setCategoryIdListSelected(toOptionList(categoryIdList));
+      setCategoryOptionListSelected(toOptionList(categoryIdList));
       setCategoryIdList(categoryIdList.map((item) => item.id));
       return categoryIdList;
     },
-    [toDataIdList, toOptionList, setCategoryIdListSelected, setCategoryIdList],
+    [
+      toDataIdList,
+      toOptionList,
+      setCategoryOptionListSelected,
+      setCategoryIdList,
+    ],
   );
 
   if (isPendingComplexible) {
@@ -131,7 +130,6 @@ export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
         categorySelectOptionList={categoryOptionListTotal}
         categotySelectOptionListActive={categoryOptionListActive}
         handleCategorySelectOption={handleSelectedOption}
-        // handleCategorySelectOption={() => []}
         optionSelectOptionList={categoryOptionList}
         // optionSelectOptionListActive={optionListWithDataActiveCompleted}
         submitText={"Save change"}

@@ -4,16 +4,17 @@ import { useOptionWithRelationByCategoryQuery } from "../_query/option/optionLis
 import { useOptionListTransform } from "@/shared/lib/map";
 import { OptionSelect } from "../_domain/option/types";
 
-export const useOptionListByCategoryIdList = (
-  categoryIdListInit?: Array<{ value: string; label: string }>,
+export const usePropertyListByCategoryIdList = (
+  categoryIdListActive: Array<{ value: string; label: string }>,
+  productOptionIdListActive: Array<{ id: string; name: string }>,
 ) => {
   const [categoryIdList, setCategoryIdList] = useState<string[]>([]);
-  const { toOptionList } = useOptionListTransform();
+  const { toOptionListWithActive } = useOptionListTransform();
 
   useEffect(() => {
-    if (!categoryIdListInit) return;
-    setCategoryIdList(categoryIdListInit.map((item) => item.value));
-  }, [categoryIdListInit, setCategoryIdList]);
+    if (!categoryIdListActive) return;
+    setCategoryIdList(categoryIdListActive.map((item) => item.value));
+  }, [categoryIdListActive, setCategoryIdList]);
 
   const { isPending, isSuccess, optionList, isFetchedAfterMount } =
     useOptionWithRelationByCategoryQuery(categoryIdList);
@@ -22,7 +23,10 @@ export const useOptionListByCategoryIdList = (
     id: option.id,
     name: option.name,
     datatype: option.datatype,
-    optionList: toOptionList(option.optionItemList),
+    optionList: toOptionListWithActive(
+      option.optionItemList,
+      productOptionIdListActive,
+    ),
   }));
 
   return {

@@ -2,10 +2,10 @@
 import { useCategoryLikeSelectOptionList } from "@/entities/category";
 import { ProductRelation } from "@/entities/product";
 import { useOptionListTransform } from "@/shared/lib/map";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 export const useCategoryDataToForm = (product?: ProductRelation) => {
-  const [categoryIdListSelected, setCategoryIdListSelected] =
+  const [categoryOptionListSelected, setCategoryOptionListSelected] =
     useState<Array<{ label: string; value: string }>>();
 
   const [categoryOptionListActive, setCategoryOptionListActive] = useState<
@@ -34,10 +34,10 @@ export const useCategoryDataToForm = (product?: ProductRelation) => {
   // }, [categoryIdListSelected]);
 
   useEffect(() => {
-    if (categoryIdListSelected) {
-      setCategoryOptionListActive(categoryIdListSelected);
+    if (categoryOptionListSelected) {
+      setCategoryOptionListActive(categoryOptionListSelected);
     }
-  }, [categoryIdListSelected]);
+  }, [categoryOptionListSelected]);
 
   const {
     categorySelectOptionList: categoryOptionListTotal,
@@ -47,9 +47,9 @@ export const useCategoryDataToForm = (product?: ProductRelation) => {
   return {
     categoryOptionListTotal,
     isPendingCategoryOptionList,
-    categoryIdListSelected,
-    setCategoryIdListSelected,
+    categoryOptionListSelected,
+    setCategoryOptionListSelected,
     categoryOptionListActive,
-    setCategoryIdListComputed: setCategoryOptionListActive,
+    setCategoryOptionListActive,
   };
 };
