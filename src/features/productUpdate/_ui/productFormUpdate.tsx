@@ -5,31 +5,16 @@ import {
   productFormSchema,
   useProductWithRelationQuery,
 } from "@/entities/product";
+import { usePropertyListByCategoryIdList } from "@/entities/property";
+import { useOptionListTransform } from "@/shared/lib/map";
+import { Button } from "@/shared/ui/button";
 import { Spinner } from "@/shared/ui/icons/spinner";
+import { MultiSelectOptionItem } from "@/shared/ui/multiSelect";
 import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
-import { uniqBy } from "lodash-es";
-import {
-  FC,
-  HTMLAttributes,
-  memo,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { FC, HTMLAttributes, memo, useCallback } from "react";
 import { z } from "zod";
-import { useCategoryLikeSelectOptionList } from "@/entities/category";
 import { useProductUpdateMutation } from "../_mutation/useProductUpdate.mutation";
-import { useOptionListTransform } from "@/shared/lib/map";
-import {
-  OptionSelect,
-  useOptionListWithDataActive,
-  usePropertyListByCategoryIdList,
-} from "@/entities/property";
-import { MultiSelectOptionItem } from "@/shared/ui/multiSelect";
-import { ProductFormOptions } from "@/entities/product/_ui/productFormOptions";
-import { Button } from "@/shared/ui/button";
 import { useCategoryDataToForm } from "../_vm/useCategoryDataToForm";
 
 interface ProductFormProps extends HTMLAttributes<HTMLDivElement> {
@@ -60,14 +45,14 @@ export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
   } = useCategoryDataToForm(product);
 
   const {
-    categoryOptionList,
+    propertyList,
     setCategoryIdList,
     isPending: isPendingOptionList,
   } = usePropertyListByCategoryIdList(
     categoryOptionListActive,
     product?.optionItemListSelected || [],
   );
-  console.log("output_log: categoryOptionList =>>>", categoryOptionList);
+  console.log("output_log: categoryOptionList =>>>", propertyList);
 
   const router = useRouter();
 
@@ -119,7 +104,7 @@ export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
       router.push(callbackUrl);
     }
   };
-  console.log("output_log: optionList  =>>>", categoryOptionList);
+  console.log("output_log: optionList  =>>>", propertyList);
 
   return (
     <div className={cn(className, "w-full")}>
@@ -130,13 +115,11 @@ export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
         categorySelectOptionList={categoryOptionListTotal}
         categotySelectOptionListActive={categoryOptionListActive}
         handleCategorySelectOption={handleSelectedOption}
-        optionSelectOptionList={categoryOptionList}
+        optionSelectOptionList={propertyList}
         // optionSelectOptionListActive={optionListWithDataActiveCompleted}
         submitText={"Save change"}
       />
-      <Button onClick={() => console.log(categoryOptionList)}>
-        Show state
-      </Button>
+      <Button onClick={() => console.log(propertyList)}>Show state</Button>
       {/* <ProductFormOptions optionSelectOptionList={optionListWithDataActive} /> */}
     </div>
   );

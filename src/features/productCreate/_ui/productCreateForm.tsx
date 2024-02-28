@@ -1,6 +1,6 @@
 "use client";
 import { useCategoryLikeSelectOptionList } from "@/entities/category";
-import { useOptionListByCategoryIdList } from "@/entities/property";
+import { usePropertyListByCategoryIdList } from "@/entities/property";
 import { ProductForm, productFormSchema } from "@/entities/product";
 import { MultiSelectOptionItem } from "@/shared/ui/multiSelect";
 import { cn } from "@/shared/ui/utils";
@@ -25,10 +25,10 @@ export const ProductFormCreate: FC<ProductCreateFormProps> = (props) => {
     useProductCreateMutation();
 
   const {
-    optionList,
+    propertyList,
     setCategoryIdList,
     isPending: isPendingOptionList,
-  } = useOptionListByCategoryIdList();
+  } = usePropertyListByCategoryIdList();
 
   const { categorySelectOptionList, isPending: isPendingCategoryOptionList } =
     useCategoryLikeSelectOptionList();
@@ -66,7 +66,7 @@ export const ProductFormCreate: FC<ProductCreateFormProps> = (props) => {
         isPending={isPendingComplexible}
         submitText={"Create Product"}
         categorySelectOptionList={categorySelectOptionList}
-        optionSelectOptionList={optionList}
+        optionSelectOptionList={propertyList}
         handleCategorySelectOption={handleSelectedOption}
       />
     </div>

@@ -34,7 +34,7 @@ export const usePropertyListByCategoryIdList = (
   return {
     isPending,
     isSuccess,
-    categoryPropertyList: propertyListCompleted,
+    propertyList: propertyListCompleted,
     categoryIdList,
     isFetchedAfterMount,
     setCategoryIdList,
