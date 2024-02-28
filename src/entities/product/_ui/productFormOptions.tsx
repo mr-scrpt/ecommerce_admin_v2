@@ -40,7 +40,6 @@ export const ProductFormOptions: FC<ProductFormOptionsProps> = (props) => {
       }),
     ),
   );
-  // console.log("output_log: schema =>>>", productFormSchema);
 
   type ProductFormValues = z.infer<typeof productFormSchema>;
 
