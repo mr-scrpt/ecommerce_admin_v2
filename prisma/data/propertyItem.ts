@@ -1,21 +1,21 @@
 export const propertyItemListSeed = [
   // Color
   {
-    id: "propertyItem_8fsddfew7898d857",
+    id: "propertyItem_8fsddfew7898d857Red",
     name: "Red",
     value: "red",
 
     property: { connect: { id: "property_11fsddfew7898186" } },
   },
   {
-    id: "propertyItem_d555fsddfew78981fe",
+    id: "propertyItem_d555fsddfew78981feBlue",
     name: "Blue",
     value: "blue",
 
     property: { connect: { id: "property_11fsddfew7898186" } },
   },
   {
-    id: "propertyItem_rs5fsd55846fptes",
+    id: "propertyItem_rs5fsd55846fptesYellow",
     name: "Yellow",
     value: "yellow",
 

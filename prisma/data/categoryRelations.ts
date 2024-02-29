@@ -21,6 +21,7 @@ export const categoryRelationsSeed = [
       connect: [
         { id: "property_585fsddfew7898dd" },
         { id: "property_195fsd55846fddew" },
+        { id: "property_11fsddfew7898186" },
       ],
     },
   },

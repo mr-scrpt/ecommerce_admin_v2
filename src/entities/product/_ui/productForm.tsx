@@ -121,9 +121,20 @@ export const ProductForm: FC<ProductFormProps> = memo((props) => {
 
   const isPendingAppearance = useAppearanceDelay(isPending);
 
-  const handleSelect = useCallback((value: MultiSelectOptionItem[]) => {
+  const handleSelectCat = useCallback((value: MultiSelectOptionItem[]) => {
     form.setValue("categoryList", handleCategorySelectOption(value));
   }, []);
+
+  // const handleMultSelect = (
+  //   value: MultiSelectOptionItem[],
+  //   fieldName: string,
+  // ) => {
+  //   console.log("output_log: handleSelect =>>>", value);
+  //   form.setValue(fieldName, value);
+  // };
+  // const handleSelectMu = useCallback((value: MultiSelectOptionItem[]) => {
+  //   form.setValue("categoryList", handleCategorySelectOption(value));
+  // }, []);
 
   console.log("output_log: form values =>>>", form.getValues());
 
@@ -142,7 +153,7 @@ export const ProductForm: FC<ProductFormProps> = memo((props) => {
                     optionList={categorySelectOptionList}
                     optionActiveList={categotySelectOptionListActive}
                     // optionActiveList={toOptionList(field.value)}
-                    onSelected={handleSelect}
+                    onSelected={handleSelectCat}
                   />
                 </FormControl>
                 <FormMessage />
@@ -160,8 +171,6 @@ export const ProductForm: FC<ProductFormProps> = memo((props) => {
                   control={form.control}
                   name={`propertyList.${option.name}`}
                   render={({ field }) => {
-                    // console.log("output_log: field =>>>", field);
-                    // console.log("output_log: value default =>>>", field.value);
                     return (
                       <FormItem>
                         <FormLabel>{option.name}</FormLabel>
@@ -211,10 +220,6 @@ export const ProductForm: FC<ProductFormProps> = memo((props) => {
                           control={form.control}
                           name={`propertyList.${option.name}`}
                           render={({ field }) => {
-                            // console.log(
-                            //   `output_log: field ${option.name} =>>>`,
-                            //   field,
-                            // );
                             return (
                               <FormItem
                                 key={row.value}
@@ -224,14 +229,6 @@ export const ProductForm: FC<ProductFormProps> = memo((props) => {
                                   <Checkbox
                                     checked={field.value?.includes(row.value)}
                                     onCheckedChange={(checked) => {
-                                      // console.log(
-                                      //   "output_log:  field.value =>>>",
-                                      //   field.value,
-                                      // );
-                                      // console.log(
-                                      //   "output_log:  row.value =>>>",
-                                      //   row.value,
-                                      // );
                                       return checked
                                         ? field.onChange([
                                             ...field.value,
@@ -261,7 +258,48 @@ export const ProductForm: FC<ProductFormProps> = memo((props) => {
               );
             }
             if (datatype === PropertyDataTypeEnum.MULT) {
-              return "MULT";
+              return (
+                <FormField
+                  control={form.control}
+                  key={option.name}
+                  name={`propertyList.${option.name}`}
+                  render={({ field }) => {
+                    console.log("output_log: field mutl =>>>", field);
+                    // console.log(
+                    //   "output_log:  =>>>",
+                    //   option.propertyList.map((row) => ({
+                    //     value: row.value,
+                    //     label: row.label,
+                    //   })),
+                    // );
+                    return (
+                      <FormItem>
+                        <FormLabel>{option.name}</FormLabel>
+                        <FormControl>
+                          <MultiSelect
+                            optionList={option.propertyList.map((row) => ({
+                              value: row.value,
+                              label: row.label,
+                            }))}
+                            optionActiveList={option.propertyList.filter(
+                              (row) => field.value?.includes(row.value),
+                            )}
+                            // optionActiveList={categotySelectOptionListActive}
+                            // optionActiveList={toOptionList(field.value)}
+                            onSelected={(value) => {
+                              form.setValue(
+                                `propertyList.${option.name}`,
+                                value.map((row) => row.value),
+                              );
+                            }}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    );
+                  }}
+                />
+              );
             }
             if (datatype === PropertyDataTypeEnum.RADIO) {
               return (
