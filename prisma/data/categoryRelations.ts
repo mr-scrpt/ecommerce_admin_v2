@@ -4,7 +4,7 @@ export const categoryRelationsSeed = [
     propertyList: {
       connect: [
         { id: "property_585fsddfew7898dd" },
-        // { id: "property_11fsddfew7898186" },
+        { id: "property_eeesddfew789855" },
         // { id: "property_eeesddfew789855" },
       ],
     },

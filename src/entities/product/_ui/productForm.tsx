@@ -38,6 +38,7 @@ import {
 import { ImgField } from "./imgField";
 import { useOptionListTransform } from "@/shared/lib/map";
 import { Checkbox } from "@/shared/ui/checkbox";
+import { RadioGroup, RadioGroupItem } from "@/shared/ui/radio-group";
 
 interface ProductFormProps extends HTMLAttributes<HTMLFormElement> {
   product?: ProductRelation;
@@ -263,7 +264,40 @@ export const ProductForm: FC<ProductFormProps> = memo((props) => {
               return "MULT";
             }
             if (datatype === PropertyDataTypeEnum.RADIO) {
-              return "RADIO";
+              return (
+                <FormField
+                  control={form.control}
+                  key={option.name}
+                  name={`propertyList.${option.name}`}
+                  render={({ field }) => (
+                    <FormItem className="space-y-3">
+                      <FormLabel>{option.name}</FormLabel>
+                      <FormControl>
+                        <RadioGroup
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                          className="flex flex-col space-y-1"
+                        >
+                          {option.propertyList.map((row) => (
+                            <FormItem
+                              key={row.value}
+                              className="flex items-center space-x-3 space-y-0"
+                            >
+                              <FormControl>
+                                <RadioGroupItem value={row.value} />
+                              </FormControl>
+                              <FormLabel className="font-normal">
+                                {row.label}
+                              </FormLabel>
+                            </FormItem>
+                          ))}
+                        </RadioGroup>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              );
             }
           })}
         <FormField

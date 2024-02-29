@@ -9,6 +9,7 @@ export const productRelationsSeed = [
         { id: "propertyItem_8fsddfew7898d857" },
         { id: "propertyItem_M68ddtwaew65687M" },
         { id: "propertyItem_esgeda987waew65OLD" },
+        { id: "propertyItem_77da558waew77YES" },
 
         // { id: "propertyItem_L58ddtwaew65622L" },
       ],
