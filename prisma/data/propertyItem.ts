@@ -65,6 +65,20 @@ export const propertyItemListSeed = [
 
     property: { connect: { id: "property_195fsd55846fddew" } },
   },
+  {
+    id: "propertyItem_esgeda987waew65OLD",
+    name: "Old",
+    value: "old",
+
+    property: { connect: { id: "property_195fsd55846fddew" } },
+  },
+  {
+    id: "propertyItem_9987eda541waew65Sales",
+    name: "Sales",
+    value: "sales",
+
+    property: { connect: { id: "property_195fsd55846fddew" } },
+  },
 
   // New
   {

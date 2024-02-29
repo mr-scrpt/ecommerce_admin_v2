@@ -7,6 +7,7 @@ import { useOptionListTransform } from "@/shared/lib/map";
 import { useEffect, useState } from "react";
 import { PropertyToSelect } from "../_domain/property/types";
 import { usePropertyWithRelationByCategoryQuery } from "../_query/property/propertyListWithRelationByCategory.query";
+import { PropertyDataTypeEnum } from "@/shared/type/propertyDataType.enum";
 
 export const usePropertyListByCategoryIdList = (
   categoryIdListActive: Array<{ value: string; label: string }>,
@@ -38,11 +39,13 @@ export const usePropertyListByCategoryIdList = (
         .filter((item) => item.propertyId === curr.id)
         .map((item) => item.id);
 
-      // console.log("output_log: correspondingItems =>>>", correspondingItems);
-      if (correspondingItems.length === 1) {
-        acc[curr.name] = correspondingItems[0];
-      } else if (correspondingItems.length > 1) {
+      if (
+        curr.datatype === PropertyDataTypeEnum.CHECKBOX ||
+        curr.datatype === PropertyDataTypeEnum.MULT
+      ) {
         acc[curr.name] = correspondingItems;
+      } else {
+        acc[curr.name] = correspondingItems[0];
       }
 
       return acc;

@@ -1,11 +1,15 @@
 export const productRelationsSeed = [
   {
     id: "prod_585fsddfew7898few",
-    categoryList: { connect: [{ id: "cat_585fsddfew7898few" }] },
+    categoryList: {
+      connect: [{ id: "cat_585fsddfew7898few" }, { id: "cat_ew975fee9885" }],
+    },
     propertyItemListSelected: {
       connect: [
         { id: "propertyItem_8fsddfew7898d857" },
         { id: "propertyItem_M68ddtwaew65687M" },
+        { id: "propertyItem_esgeda987waew65OLD" },
+
         // { id: "propertyItem_L58ddtwaew65622L" },
       ],
     },

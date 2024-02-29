@@ -81,8 +81,11 @@ export const ProductForm: FC<ProductFormProps> = memo((props) => {
   const dynamicOptionSchema: Record<string, z.ZodType<any, any>> = {};
 
   for (const option of propertySelectOptionList) {
-    if (option.datatype === "mult" || option.datatype === "checkbox") {
+    if (option.datatype === PropertyDataTypeEnum.MULT) {
       dynamicOptionSchema[option.name] = z.array(z.string());
+    } else if (option.datatype === PropertyDataTypeEnum.CHECKBOX) {
+      dynamicOptionSchema[option.name] = z.array(z.string());
+      // .refine((value) => value.some((item) => item));
     } else {
       dynamicOptionSchema[option.name] = z.string();
     }
@@ -121,7 +124,7 @@ export const ProductForm: FC<ProductFormProps> = memo((props) => {
     form.setValue("categoryList", handleCategorySelectOption(value));
   }, []);
 
-  console.log("output_log:  =>>>", form.getValues());
+  console.log("output_log: form values =>>>", form.getValues());
 
   return (
     <Form {...form}>
@@ -156,8 +159,8 @@ export const ProductForm: FC<ProductFormProps> = memo((props) => {
                   control={form.control}
                   name={`propertyList.${option.name}`}
                   render={({ field }) => {
-                    console.log("output_log: field =>>>", field);
-                    console.log("output_log: value default =>>>", field.value);
+                    // console.log("output_log: field =>>>", field);
+                    // console.log("output_log: value default =>>>", field.value);
                     return (
                       <FormItem>
                         <FormLabel>{option.name}</FormLabel>
@@ -194,9 +197,11 @@ export const ProductForm: FC<ProductFormProps> = memo((props) => {
                   render={() => (
                     <FormItem>
                       <div className="mb-4">
-                        <FormLabel className="text-base">Sidebar</FormLabel>
+                        <FormLabel className="text-base">
+                          {option.name}
+                        </FormLabel>
                         <FormDescription>
-                          Select the items you want to display in the sidebar.
+                          Select the items {option.name.toLowerCase()}
                         </FormDescription>
                       </div>
                       {option.propertyList.map((row) => (
@@ -205,6 +210,10 @@ export const ProductForm: FC<ProductFormProps> = memo((props) => {
                           control={form.control}
                           name={`propertyList.${option.name}`}
                           render={({ field }) => {
+                            // console.log(
+                            //   `output_log: field ${option.name} =>>>`,
+                            //   field,
+                            // );
                             return (
                               <FormItem
                                 key={row.value}
@@ -214,6 +223,14 @@ export const ProductForm: FC<ProductFormProps> = memo((props) => {
                                   <Checkbox
                                     checked={field.value?.includes(row.value)}
                                     onCheckedChange={(checked) => {
+                                      // console.log(
+                                      //   "output_log:  field.value =>>>",
+                                      //   field.value,
+                                      // );
+                                      // console.log(
+                                      //   "output_log:  row.value =>>>",
+                                      //   row.value,
+                                      // );
                                       return checked
                                         ? field.onChange([
                                             ...field.value,
