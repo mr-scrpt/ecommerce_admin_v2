@@ -5,6 +5,7 @@ import { Button } from "@/shared/ui/button";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -36,6 +37,7 @@ import {
 } from "../_domain/types";
 import { ImgField } from "./imgField";
 import { useOptionListTransform } from "@/shared/lib/map";
+import { Checkbox } from "@/shared/ui/checkbox";
 
 interface ProductFormProps extends HTMLAttributes<HTMLFormElement> {
   product?: ProductRelation;
@@ -184,7 +186,61 @@ export const ProductForm: FC<ProductFormProps> = memo((props) => {
               );
             }
             if (datatype === PropertyDataTypeEnum.CHECKBOX) {
-              return "Checkbox";
+              return (
+                <FormField
+                  control={form.control}
+                  key={option.name}
+                  name={`propertyList.${option.name}`}
+                  render={() => (
+                    <FormItem>
+                      <div className="mb-4">
+                        <FormLabel className="text-base">Sidebar</FormLabel>
+                        <FormDescription>
+                          Select the items you want to display in the sidebar.
+                        </FormDescription>
+                      </div>
+                      {option.propertyList.map((row) => (
+                        <FormField
+                          key={row.value}
+                          control={form.control}
+                          name={`propertyList.${option.name}`}
+                          render={({ field }) => {
+                            return (
+                              <FormItem
+                                key={row.value}
+                                className="flex flex-row items-start space-x-3 space-y-0"
+                              >
+                                <FormControl>
+                                  <Checkbox
+                                    checked={field.value?.includes(row.value)}
+                                    onCheckedChange={(checked) => {
+                                      return checked
+                                        ? field.onChange([
+                                            ...field.value,
+                                            row.value,
+                                          ])
+                                        : field.onChange(
+                                            field.value?.filter(
+                                              (value: string) =>
+                                                value !== row.value,
+                                            ),
+                                          );
+                                    }}
+                                  />
+                                </FormControl>
+                                <FormLabel className="text-sm font-normal">
+                                  {row.label}
+                                </FormLabel>
+                              </FormItem>
+                            );
+                          }}
+                        />
+                      ))}
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              );
             }
             if (datatype === PropertyDataTypeEnum.MULT) {
               return "MULT";
