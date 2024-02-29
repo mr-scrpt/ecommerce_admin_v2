@@ -17,4 +17,6 @@ export type {
   ProductRelation,
   ProductToCreate,
   ProductToUpdate,
+  ProductPropertyItem,
+  ProductPropertyObjectList,
 } from "./_domain/types";

@@ -52,9 +52,6 @@ export const ProductFormOptions: FC<ProductFormOptionsProps> = (props) => {
     console.log("output_log: %%%%!!!!!!data result =>>>", data);
   });
 
-  console.log("output_log:  form value=>>>", form.getValues());
-  console.log("output_log:  form error=>>>", form.formState.errors);
-
   return (
     <Form {...form}>
       <form onSubmit={handleSubmit} className="space-y-8">

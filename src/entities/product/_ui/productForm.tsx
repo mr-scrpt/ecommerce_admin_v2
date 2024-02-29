@@ -29,7 +29,11 @@ import {
   ProductFormValues,
   productFormSchema,
 } from "../_domain/product.schema";
-import { ProductPropertyToSelect, ProductRelation } from "../_domain/types";
+import {
+  ProductPropertyObjectList,
+  ProductPropertyToSelect,
+  ProductRelation,
+} from "../_domain/types";
 import { ImgField } from "./imgField";
 import { useOptionListTransform } from "@/shared/lib/map";
 
@@ -41,24 +45,22 @@ interface ProductFormProps extends HTMLAttributes<HTMLFormElement> {
   categorySelectOptionList: Array<MultiSelectOptionItem>;
   categotySelectOptionListActive?: Array<MultiSelectOptionItem>;
   propertySelectOptionList: Array<ProductPropertyToSelect>;
-  propertySelectOptionListActive?: OptionListValues;
+  propertySelectObjectActive?: ProductPropertyObjectList;
   handleCategorySelectOption: (
     itemList: Array<MultiSelectOptionItem>,
   ) => Array<{ id: string; name: string }>;
 }
-type OptionListValues = {
-  [key: string]: string | string[];
-};
+
 const getDefaultValues = (
   product?: ProductRelation,
-  optionList?: OptionListValues,
+  propertyList?: ProductPropertyObjectList,
 ) => ({
   name: product?.name ?? "",
   description: product?.description ?? "",
   about: product?.about ?? "",
   img: product?.img ?? [],
   categoryList: product?.categoryList ?? [],
-  optionList: optionList ?? {},
+  propertyList: propertyList ?? {},
 });
 
 export const ProductForm: FC<ProductFormProps> = memo((props) => {
@@ -70,44 +72,40 @@ export const ProductForm: FC<ProductFormProps> = memo((props) => {
     categorySelectOptionList,
     categotySelectOptionListActive,
     propertySelectOptionList,
-    propertySelectOptionListActive,
+    propertySelectObjectActive,
     handleCategorySelectOption,
   } = props;
-  // console.log(
-  //   "output_log:  optionSelectOptionList=>>>",
-  //   optionSelectOptionList,
-  // );
 
   const dynamicOptionSchema: Record<string, z.ZodType<any, any>> = {};
-  // for (const option of optionSelectOptionList) {
-  //   if (option.datatype === "mult") {
-  //     dynamicOptionSchema[option.name] = z.array(z.string());
-  //   } else {
-  //     dynamicOptionSchema[option.name] = z.string();
-  //   }
-  // }
 
-  // Объединение динамически созданной схемы с исходной схемой данных
+  for (const option of propertySelectOptionList) {
+    if (option.datatype === "mult" || option.datatype === "checkbox") {
+      dynamicOptionSchema[option.name] = z.array(z.string());
+    } else {
+      dynamicOptionSchema[option.name] = z.string();
+    }
+  }
+
   const finalProductFormSchema = productFormSchema.extend({
-    optionList: z.object(dynamicOptionSchema),
+    propertyList: z.object(dynamicOptionSchema),
   });
+
   type FinalProductFormValues = z.infer<typeof finalProductFormSchema>;
 
   const form = useForm<FinalProductFormValues>({
     resolver: zodResolver(finalProductFormSchema),
-    defaultValues: getDefaultValues(product, propertySelectOptionListActive),
+    defaultValues: getDefaultValues(product, propertySelectObjectActive),
   });
+
+  const { toOptionList } = useOptionListTransform();
 
   useEffect(() => {
-    form.reset(getDefaultValues(product));
-  }, [product, form]);
+    form.reset(getDefaultValues(product, propertySelectObjectActive));
+  }, [product, propertySelectObjectActive, form]);
 
   const handleSubmit = form.handleSubmit(async (data) => {
-    // console.log("output_log: submit data  =>>>", data);
     // onSubmit?.(data);
   });
-  // console.log("output_log:  form.getValues() =>>>", form.getValues());
-  // console.log("output_log:  form error=>>>", form.formState.errors);
 
   const handleDeleteimg = (path: string) => {
     const list = form.getValues("img");
@@ -118,10 +116,10 @@ export const ProductForm: FC<ProductFormProps> = memo((props) => {
   const isPendingAppearance = useAppearanceDelay(isPending);
 
   const handleSelect = useCallback((value: MultiSelectOptionItem[]) => {
-    // console.log("output_log: value in handler =>>>", value);
     form.setValue("categoryList", handleCategorySelectOption(value));
   }, []);
-  // console.log("output_log: form value =>>>", form.getValues());
+
+  console.log("output_log:  =>>>", form.getValues());
 
   return (
     <Form {...form}>
@@ -130,7 +128,6 @@ export const ProductForm: FC<ProductFormProps> = memo((props) => {
           control={form.control}
           name="categoryList"
           render={({ field }) => {
-            // console.log("output_log: field value =>>>", field.value);
             return (
               <FormItem>
                 <FormLabel>Category list</FormLabel>
@@ -155,8 +152,10 @@ export const ProductForm: FC<ProductFormProps> = memo((props) => {
                 <FormField
                   key={option.name}
                   control={form.control}
-                  name={`optionList.${option.name}`}
+                  name={`propertyList.${option.name}`}
                   render={({ field }) => {
+                    console.log("output_log: field =>>>", field);
+                    console.log("output_log: value default =>>>", field.value);
                     return (
                       <FormItem>
                         <FormLabel>{option.name}</FormLabel>
@@ -184,46 +183,16 @@ export const ProductForm: FC<ProductFormProps> = memo((props) => {
                 />
               );
             }
+            if (datatype === PropertyDataTypeEnum.CHECKBOX) {
+              return "Checkbox";
+            }
+            if (datatype === PropertyDataTypeEnum.MULT) {
+              return "MULT";
+            }
+            if (datatype === PropertyDataTypeEnum.RADIO) {
+              return "RADIO";
+            }
           })}
-        {/* {optionSelectOptionList && */}
-        {/*   optionSelectOptionList.map((option) => { */}
-        {/*     const { datatype } = option; */}
-        {/*     if (datatype === OptionDataTypeEnum.SELECT) { */}
-        {/*       return ( */}
-        {/*         <FormField */}
-        {/*           key={option.name} */}
-        {/*           control={form.control} */}
-        {/*           name={option.name} */}
-        {/*           render={({ field }) => { */}
-        {/*             console.log("name", option.name); */}
-        {/*             return ( */}
-        {/*               <FormItem> */}
-        {/*                 <FormLabel>{option.name}</FormLabel> */}
-        {/*                 <Select onValueChange={field.onChange}> */}
-        {/*                   <FormControl> */}
-        {/*                     <SelectTrigger> */}
-        {/*                       <SelectValue placeholder="placeholder" /> */}
-        {/*                     </SelectTrigger> */}
-        {/*                   </FormControl> */}
-        {/*                   <SelectContent> */}
-        {/*                     {option.optionList.map((row) => ( */}
-        {/*                       <SelectItem key={row.value} value={row.value}> */}
-        {/*                         {row.label} */}
-        {/*                       </SelectItem> */}
-        {/*                     ))} */}
-        {/*                   </SelectContent> */}
-        {/*                 </Select> */}
-        {/*                 <FormDescription> */}
-        {/*                   You can manage email addresses in your */}
-        {/*                 </FormDescription> */}
-        {/*                 <FormMessage /> */}
-        {/*               </FormItem> */}
-        {/*             ); */}
-        {/*           }} */}
-        {/*         /> */}
-        {/*       ); */}
-        {/*     } */}
-        {/*   })} */}
         <FormField
           control={form.control}
           name="name"

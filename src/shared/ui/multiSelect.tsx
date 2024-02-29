@@ -18,6 +18,11 @@ import {
   KeyboardEvent,
 } from "react";
 
+// export type MultiSelectOptionItem = Record<
+//   "value" | "label" | "active",
+//   string
+// >;
+//
 export type MultiSelectOptionItem = Record<"value" | "label", string>;
 
 interface MultiSelectProps {

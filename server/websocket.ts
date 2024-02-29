@@ -4,7 +4,7 @@ import { userEvent } from "./entity/user.event";
 import { profileEvent } from "./entity/profile.event";
 import { categoryEvent } from "./entity/category.event";
 import { productEvent } from "./entity/product.event";
-import { optionEvent } from "./entity/option.event";
+import { optionEvent } from "./entity/property.event";
 
 const io = socketServer;
 

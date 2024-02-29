@@ -73,6 +73,10 @@ export type ProductPropertyItem = {
   propertyId: string;
 };
 
+export type ProductPropertyObjectList = {
+  [key: string]: string | string[];
+};
+
 // UI
 export type ProductPropertyToSelect = {
   id: string;

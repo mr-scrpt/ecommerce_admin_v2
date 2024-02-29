@@ -6,6 +6,7 @@ import {
   useProductWithRelationQuery,
 } from "@/entities/product";
 import { usePropertyListByCategoryIdList } from "@/entities/property";
+import { useOptionListTransform } from "@/shared/lib/map";
 import { Button } from "@/shared/ui/button";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { MultiSelectOptionItem } from "@/shared/ui/multiSelect";
@@ -15,7 +16,6 @@ import { FC, HTMLAttributes, memo, useCallback } from "react";
 import { z } from "zod";
 import { useProductUpdateMutation } from "../_mutation/useProductUpdate.mutation";
 import { useCategoryDataToForm } from "../_vm/useCategoryDataToForm";
-import { useOptionListTransform } from "@/shared/lib/map";
 
 interface ProductFormProps extends HTMLAttributes<HTMLDivElement> {
   productId: ProductId;
@@ -46,13 +46,13 @@ export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
 
   const {
     propertyList,
+    propertyObjectActive,
     setCategoryIdList,
     isPending: isPendingPropertyList,
   } = usePropertyListByCategoryIdList(
     categoryOptionListActive,
     product?.propertyItemListSelected || [],
   );
-  console.log("output_log: categoryPropertyList =>>>", propertyList);
 
   const router = useRouter();
 
@@ -90,6 +90,7 @@ export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
   }
 
   const handleSubmit = async (data: ProductFormValues) => {
+    console.log("output_log: data final 5555 =>>>", data);
     await productUpdate({
       productId: product.id,
       data: {
@@ -104,7 +105,6 @@ export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
       router.push(callbackUrl);
     }
   };
-  console.log("output_log: propertyList  =>>>", propertyList);
 
   return (
     <div className={cn(className, "w-full")}>
@@ -116,6 +116,7 @@ export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
         categotySelectOptionListActive={categoryOptionListActive}
         handleCategorySelectOption={handleSelectedProperty}
         propertySelectOptionList={propertyList}
+        propertySelectObjectActive={propertyObjectActive}
         // propertySelectPropertyListActive={propertyListWithDataActiveCompleted}
         submitText={"Save change"}
       />
@@ -163,3 +164,14 @@ ProductFormUpdate.displayName = "ProductFormUpdate";
 // );
 //
 //
+// [
+//   {
+//     Type: "propertyItem_333da558waew65HOT",
+//   },
+//   {
+//     Color: ["propertyItem_8fsddfew7898d857", "propertyItem_d555fsddfew78981fe"],
+//   },
+//   {
+//     Size: "propertyItem_M68ddtwaew65687M",
+//   },
+// ];

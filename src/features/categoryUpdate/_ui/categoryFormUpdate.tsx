@@ -72,7 +72,7 @@ export const CategoryFormUpdate: FC<CategoryFormProps> = (props) => {
     }
   };
 
-  const optionSelectOptionListActive = toOptionList(category.optionList);
+  const optionSelectOptionListActive = toOptionList(category.propertyList);
 
   return (
     <div className={cn(className, "w-full")}>
