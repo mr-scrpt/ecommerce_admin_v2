@@ -5,7 +5,6 @@ import { Button } from "@/shared/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -14,36 +13,23 @@ import {
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { Input } from "@/shared/ui/input";
 import { MultiSelect, MultiSelectOptionItem } from "@/shared/ui/multiSelect";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/shared/ui/select";
 import { Textarea } from "@/shared/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, HTMLAttributes, memo, useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import {
-  ProductFormValues,
-  productFormSchema,
-} from "../_domain/product.schema";
+import { productFormSchema } from "../_domain/product.schema";
 import {
   ProductFromFrom,
   ProductPropertyObjectList,
   ProductPropertyToSelect,
   ProductRelation,
 } from "../_domain/types";
-import { ImgField } from "./imgField";
-import { useOptionListTransform } from "@/shared/lib/map";
-import { Checkbox } from "@/shared/ui/checkbox";
-import { RadioGroup, RadioGroupItem } from "@/shared/ui/radio-group";
 import { ProductChechbox } from "./fromField/productChechbox";
+import { ProductMult } from "./fromField/productMult";
 import { ProductRadio } from "./fromField/productRadio";
 import { ProductSelect } from "./fromField/productSelect";
-import { ProductMult } from "./fromField/productMult";
+import { ImgField } from "./imgField";
 
 interface ProductFormProps extends HTMLAttributes<HTMLFormElement> {
   product?: ProductRelation;
@@ -91,7 +77,6 @@ export const ProductForm: FC<ProductFormProps> = memo((props) => {
       dynamicOptionSchema[option.name] = z.array(z.string());
     } else if (option.datatype === PropertyDataTypeEnum.CHECKBOX) {
       dynamicOptionSchema[option.name] = z.array(z.string());
-      // .refine((value) => value.some((item) => item));
     } else {
       dynamicOptionSchema[option.name] = z.string();
     }
@@ -108,34 +93,24 @@ export const ProductForm: FC<ProductFormProps> = memo((props) => {
     defaultValues: getDefaultValues(product, propertySelectObjectActive),
   });
 
-  const { toOptionList } = useOptionListTransform();
-
   useEffect(() => {
     form.reset(getDefaultValues(product, propertySelectObjectActive));
   }, [product, propertySelectObjectActive, form]);
 
   const handleSubmit = form.handleSubmit(async (data) => {
-    const propertyItemListSelected = Object.entries(data.propertyList).flatMap(
-      ([_, value]) => {
-        if (Array.isArray(value)) {
-          return value.map((item) => ({ id: item }));
-        }
-        return { id: value };
-      },
-    );
+    const propertyItemListSelected = propertyToFlatList(data.propertyList);
 
-    const res = {
+    onSubmit?.({
       name: data.name,
       description: data.description,
       about: data.about,
       img: data.img,
       categoryList: data.categoryList,
       propertyItemListSelected,
-    };
-    onSubmit?.(res);
+    });
   });
 
-  const handleDeleteimg = (path: string) => {
+  const handleDeleteImg = (path: string) => {
     const list = form.getValues("img");
     const result = list.filter((item) => item !== path);
     form.setValue("img", result);
@@ -146,8 +121,6 @@ export const ProductForm: FC<ProductFormProps> = memo((props) => {
   const handleSelectCat = useCallback((value: MultiSelectOptionItem[]) => {
     form.setValue("categoryList", handleCategorySelectOption(value));
   }, []);
-
-  console.log("output_log:  =>>>", form.getValues());
 
   return (
     <Form {...form}>
@@ -266,7 +239,7 @@ export const ProductForm: FC<ProductFormProps> = memo((props) => {
                 <ImgField
                   value={field.value}
                   onChange={field.onChange}
-                  onDelete={handleDeleteimg}
+                  onDelete={handleDeleteImg}
                 />
               </FormControl>
               <FormMessage />
