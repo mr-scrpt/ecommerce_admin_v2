@@ -1,6 +1,5 @@
 "use client";
 import { useAppearanceDelay } from "@/shared/lib/react";
-import { PropertyDataTypeEnum } from "@/shared/type/propertyDataType.enum";
 import { Button } from "@/shared/ui/button";
 import {
   Form,
@@ -25,10 +24,9 @@ import {
   ProductPropertyToSelect,
   ProductRelation,
 } from "../_domain/types";
-import { ProductChechbox } from "./fromField/productChechbox";
-import { ProductMult } from "./fromField/productMult";
-import { ProductRadio } from "./fromField/productRadio";
-import { ProductSelect } from "./fromField/productSelect";
+import { generateDynamicSchema } from "../_lib/generateDynamicSchema";
+import { propertyToFlatList } from "../_lib/propertyToFlatList";
+import { renderFormField } from "./fromField/renderFormField";
 import { ImgField } from "./imgField";
 
 interface ProductFormProps extends HTMLAttributes<HTMLFormElement> {
@@ -70,17 +68,7 @@ export const ProductForm: FC<ProductFormProps> = memo((props) => {
     handleCategorySelectOption,
   } = props;
 
-  const dynamicOptionSchema: Record<string, z.ZodType<any, any>> = {};
-
-  for (const option of propertySelectOptionList) {
-    if (option.datatype === PropertyDataTypeEnum.MULT) {
-      dynamicOptionSchema[option.name] = z.array(z.string());
-    } else if (option.datatype === PropertyDataTypeEnum.CHECKBOX) {
-      dynamicOptionSchema[option.name] = z.array(z.string());
-    } else {
-      dynamicOptionSchema[option.name] = z.string();
-    }
-  }
+  const dynamicOptionSchema = generateDynamicSchema(propertySelectOptionList);
 
   const finalProductFormSchema = productFormSchema.extend({
     propertyList: z.object(dynamicOptionSchema),
@@ -146,49 +134,13 @@ export const ProductForm: FC<ProductFormProps> = memo((props) => {
         />
         {propertySelectOptionList &&
           propertySelectOptionList.map((option) => {
-            const { datatype } = option;
-            if (datatype === PropertyDataTypeEnum.SELECT) {
-              return (
-                <ProductSelect
-                  key={option.name}
-                  name={option.name}
-                  propertyList={option.propertyList}
-                  control={form.control}
-                />
-              );
-            }
-            if (datatype === PropertyDataTypeEnum.CHECKBOX) {
-              return (
-                <ProductChechbox
-                  key={option.name}
-                  name={option.name}
-                  propertyList={option.propertyList}
-                  control={form.control}
-                />
-              );
-            }
-            if (datatype === PropertyDataTypeEnum.MULT) {
-              return (
-                <ProductMult
-                  key={option.name}
-                  name={option.name}
-                  propertyList={option.propertyList}
-                  control={form.control}
-                  setValue={form.setValue}
-                />
-              );
-            }
-            if (datatype === PropertyDataTypeEnum.RADIO) {
-              return (
-                <ProductRadio
-                  key={option.name}
-                  name={option.name}
-                  propertyList={option.propertyList}
-                  control={form.control}
-                />
-              );
-            }
+            return renderFormField({
+              option,
+              control: form.control,
+              setValue: form.setValue,
+            });
           })}
+
         <FormField
           control={form.control}
           name="name"

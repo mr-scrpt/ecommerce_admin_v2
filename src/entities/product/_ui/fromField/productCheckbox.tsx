@@ -18,7 +18,7 @@ interface ProductChechboxProps extends HTMLAttributes<HTMLDivElement> {
   control: UseFormReturn<any>["control"];
 }
 
-export const ProductChechbox: FC<ProductChechboxProps> = (props) => {
+export const ProductCheckbox: FC<ProductChechboxProps> = (props) => {
   const { name, propertyList, control } = props;
 
   return (

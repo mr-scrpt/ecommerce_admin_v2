@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { ProductPropertyToSelect } from "./types";
 
 export const productSchema = z.object({
   id: z.string(),
@@ -60,7 +61,7 @@ export const productUpdateSchema = z.object({
   propertyItemListSelected: z.array(z.object({ id: z.string() })),
 });
 
-export type ProductFormUpdateValues = z.infer<typeof productUpdateSchema>;
+// export type ProductFormUpdateValues = z.infer<typeof productUpdateSchema>;
 
 export const productFormSchema = z.object({
   name: z

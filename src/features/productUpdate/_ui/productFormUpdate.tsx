@@ -91,7 +91,6 @@ export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
   }
 
   const handleSubmit = async (data: ProductFromFrom) => {
-    console.log("output_log: data =>>>", data);
     await productUpdate({
       productId: product.id,
       data: {
