@@ -31,6 +31,7 @@ import {
   productFormSchema,
 } from "../_domain/product.schema";
 import {
+  ProductFromFrom,
   ProductPropertyObjectList,
   ProductPropertyToSelect,
   ProductRelation,
@@ -39,10 +40,14 @@ import { ImgField } from "./imgField";
 import { useOptionListTransform } from "@/shared/lib/map";
 import { Checkbox } from "@/shared/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/shared/ui/radio-group";
+import { ProductChechbox } from "./fromField/productChechbox";
+import { ProductRadio } from "./fromField/productRadio";
+import { ProductSelect } from "./fromField/productSelect";
+import { ProductMult } from "./fromField/productMult";
 
 interface ProductFormProps extends HTMLAttributes<HTMLFormElement> {
   product?: ProductRelation;
-  handleSubmit?: (data: ProductFormValues) => void;
+  handleSubmit?: (data: ProductFromFrom) => void;
   isPending: boolean;
   submitText?: string;
   categorySelectOptionList: Array<MultiSelectOptionItem>;
@@ -110,7 +115,24 @@ export const ProductForm: FC<ProductFormProps> = memo((props) => {
   }, [product, propertySelectObjectActive, form]);
 
   const handleSubmit = form.handleSubmit(async (data) => {
-    // onSubmit?.(data);
+    const propertyItemListSelected = Object.entries(data.propertyList).flatMap(
+      ([_, value]) => {
+        if (Array.isArray(value)) {
+          return value.map((item) => ({ id: item }));
+        }
+        return { id: value };
+      },
+    );
+
+    const res = {
+      name: data.name,
+      description: data.description,
+      about: data.about,
+      img: data.img,
+      categoryList: data.categoryList,
+      propertyItemListSelected,
+    };
+    onSubmit?.(res);
   });
 
   const handleDeleteimg = (path: string) => {
@@ -125,18 +147,7 @@ export const ProductForm: FC<ProductFormProps> = memo((props) => {
     form.setValue("categoryList", handleCategorySelectOption(value));
   }, []);
 
-  // const handleMultSelect = (
-  //   value: MultiSelectOptionItem[],
-  //   fieldName: string,
-  // ) => {
-  //   console.log("output_log: handleSelect =>>>", value);
-  //   form.setValue(fieldName, value);
-  // };
-  // const handleSelectMu = useCallback((value: MultiSelectOptionItem[]) => {
-  //   form.setValue("categoryList", handleCategorySelectOption(value));
-  // }, []);
-
-  console.log("output_log: form values =>>>", form.getValues());
+  console.log("output_log:  =>>>", form.getValues());
 
   return (
     <Form {...form}>
@@ -152,7 +163,6 @@ export const ProductForm: FC<ProductFormProps> = memo((props) => {
                   <MultiSelect
                     optionList={categorySelectOptionList}
                     optionActiveList={categotySelectOptionListActive}
-                    // optionActiveList={toOptionList(field.value)}
                     onSelected={handleSelectCat}
                   />
                 </FormControl>
@@ -166,174 +176,42 @@ export const ProductForm: FC<ProductFormProps> = memo((props) => {
             const { datatype } = option;
             if (datatype === PropertyDataTypeEnum.SELECT) {
               return (
-                <FormField
+                <ProductSelect
                   key={option.name}
+                  name={option.name}
+                  propertyList={option.propertyList}
                   control={form.control}
-                  name={`propertyList.${option.name}`}
-                  render={({ field }) => {
-                    return (
-                      <FormItem>
-                        <FormLabel>{option.name}</FormLabel>
-                        <Select
-                          onValueChange={field.onChange}
-                          defaultValue={field.value}
-                        >
-                          <FormControl>
-                            <SelectTrigger>
-                              <SelectValue placeholder="placeholder" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            {option.propertyList.map((row) => (
-                              <SelectItem key={row.value} value={row.value}>
-                                {row.label}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    );
-                  }}
                 />
               );
             }
             if (datatype === PropertyDataTypeEnum.CHECKBOX) {
               return (
-                <FormField
-                  control={form.control}
+                <ProductChechbox
                   key={option.name}
-                  name={`propertyList.${option.name}`}
-                  render={() => (
-                    <FormItem>
-                      <div className="mb-4">
-                        <FormLabel className="text-base">
-                          {option.name}
-                        </FormLabel>
-                        <FormDescription>
-                          Select the items {option.name.toLowerCase()}
-                        </FormDescription>
-                      </div>
-                      {option.propertyList.map((row) => (
-                        <FormField
-                          key={row.value}
-                          control={form.control}
-                          name={`propertyList.${option.name}`}
-                          render={({ field }) => {
-                            return (
-                              <FormItem
-                                key={row.value}
-                                className="flex flex-row items-start space-x-3 space-y-0"
-                              >
-                                <FormControl>
-                                  <Checkbox
-                                    checked={field.value?.includes(row.value)}
-                                    onCheckedChange={(checked) => {
-                                      return checked
-                                        ? field.onChange([
-                                            ...field.value,
-                                            row.value,
-                                          ])
-                                        : field.onChange(
-                                            field.value?.filter(
-                                              (value: string) =>
-                                                value !== row.value,
-                                            ),
-                                          );
-                                    }}
-                                  />
-                                </FormControl>
-                                <FormLabel className="text-sm font-normal">
-                                  {row.label}
-                                </FormLabel>
-                              </FormItem>
-                            );
-                          }}
-                        />
-                      ))}
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  name={option.name}
+                  propertyList={option.propertyList}
+                  control={form.control}
                 />
               );
             }
             if (datatype === PropertyDataTypeEnum.MULT) {
               return (
-                <FormField
-                  control={form.control}
+                <ProductMult
                   key={option.name}
-                  name={`propertyList.${option.name}`}
-                  render={({ field }) => {
-                    console.log("output_log: field mutl =>>>", field);
-                    // console.log(
-                    //   "output_log:  =>>>",
-                    //   option.propertyList.map((row) => ({
-                    //     value: row.value,
-                    //     label: row.label,
-                    //   })),
-                    // );
-                    return (
-                      <FormItem>
-                        <FormLabel>{option.name}</FormLabel>
-                        <FormControl>
-                          <MultiSelect
-                            optionList={option.propertyList.map((row) => ({
-                              value: row.value,
-                              label: row.label,
-                            }))}
-                            optionActiveList={option.propertyList.filter(
-                              (row) => field.value?.includes(row.value),
-                            )}
-                            // optionActiveList={categotySelectOptionListActive}
-                            // optionActiveList={toOptionList(field.value)}
-                            onSelected={(value) => {
-                              form.setValue(
-                                `propertyList.${option.name}`,
-                                value.map((row) => row.value),
-                              );
-                            }}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    );
-                  }}
+                  name={option.name}
+                  propertyList={option.propertyList}
+                  control={form.control}
+                  setValue={form.setValue}
                 />
               );
             }
             if (datatype === PropertyDataTypeEnum.RADIO) {
               return (
-                <FormField
-                  control={form.control}
+                <ProductRadio
                   key={option.name}
-                  name={`propertyList.${option.name}`}
-                  render={({ field }) => (
-                    <FormItem className="space-y-3">
-                      <FormLabel>{option.name}</FormLabel>
-                      <FormControl>
-                        <RadioGroup
-                          onValueChange={field.onChange}
-                          defaultValue={field.value}
-                          className="flex flex-col space-y-1"
-                        >
-                          {option.propertyList.map((row) => (
-                            <FormItem
-                              key={row.value}
-                              className="flex items-center space-x-3 space-y-0"
-                            >
-                              <FormControl>
-                                <RadioGroupItem value={row.value} />
-                              </FormControl>
-                              <FormLabel className="font-normal">
-                                {row.label}
-                              </FormLabel>
-                            </FormItem>
-                          ))}
-                        </RadioGroup>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  name={option.name}
+                  propertyList={option.propertyList}
+                  control={form.control}
                 />
               );
             }

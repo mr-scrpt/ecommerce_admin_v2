@@ -16,6 +16,7 @@ import { FC, HTMLAttributes, memo, useCallback } from "react";
 import { z } from "zod";
 import { useProductUpdateMutation } from "../_mutation/useProductUpdate.mutation";
 import { useCategoryDataToForm } from "../_vm/useCategoryDataToForm";
+import { ProductFromFrom } from "@/entities/product/_domain/types";
 
 interface ProductFormProps extends HTMLAttributes<HTMLDivElement> {
   productId: ProductId;
@@ -89,8 +90,8 @@ export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
     return <div>Failed to load product, you may not have permissions</div>;
   }
 
-  const handleSubmit = async (data: ProductFormValues) => {
-    console.log("output_log: data final 5555 =>>>", data);
+  const handleSubmit = async (data: ProductFromFrom) => {
+    console.log("output_log: data =>>>", data);
     await productUpdate({
       productId: product.id,
       data: {

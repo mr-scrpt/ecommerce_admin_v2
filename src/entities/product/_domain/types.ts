@@ -50,14 +50,18 @@ export type ProductAddCategoryList = {
   categoryListId: Array<{ id: string }>;
 };
 
-export type ProductToUpdate = {
-  id: ProductId;
+export type ProductFromFrom = {
   name: string;
   description: string;
   about: string;
-  slug: ProductSlug;
   img: Array<string>;
   categoryList: Array<{ id: string }>;
+  propertyItemListSelected: Array<{ id: string }>;
+};
+
+export type ProductToUpdate = ProductFromFrom & {
+  id: ProductId;
+  slug: ProductSlug;
 };
 
 // Side

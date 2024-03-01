@@ -88,6 +88,9 @@ export class ProductRepository {
       data: {
         ...product,
         categoryList: { set: [...product.categoryList] },
+        propertyItemListSelected: {
+          set: [...product.propertyItemListSelected],
+        },
       },
     });
   }

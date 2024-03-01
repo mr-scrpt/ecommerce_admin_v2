@@ -19,6 +19,7 @@ class UpdateProductUseCase {
   async exec(data: UpdateProduct): Promise<ProductEntity> {
     const { productId, productData, session } = data;
     const { canUpdateProduct } = createProductAbility(session);
+    console.log("output_log:  =>>>", productData);
 
     if (!canUpdateProduct()) {
       throw new ForbiddenError();

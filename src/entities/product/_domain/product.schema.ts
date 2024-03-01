@@ -57,7 +57,10 @@ export const productUpdateSchema = z.object({
       id: z.string(),
     }),
   ),
+  propertyItemListSelected: z.array(z.object({ id: z.string() })),
 });
+
+export type ProductFormUpdateValues = z.infer<typeof productUpdateSchema>;
 
 export const productFormSchema = z.object({
   name: z
