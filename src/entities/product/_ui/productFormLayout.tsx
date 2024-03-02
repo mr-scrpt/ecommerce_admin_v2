@@ -1,16 +1,8 @@
 "use client";
-import { useAppearanceDelay } from "@/shared/lib/react";
+import { storage } from "@/shared/lib/storege";
 import { MultiSelectOptionItem } from "@/shared/ui/multiSelect";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui/tabs";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import {
-  ChangeEvent,
-  FC,
-  HTMLAttributes,
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
+import { FC, HTMLAttributes, useEffect, useState } from "react";
 import {
   ProductFromFrom,
   ProductPropertyObjectList,
@@ -18,7 +10,6 @@ import {
   ProductRelation,
 } from "../_domain/types";
 import { ProductForm } from "./productForm";
-import { storage } from "@/shared/lib/storege";
 
 interface ProductFormLayoutProps extends HTMLAttributes<HTMLFormElement> {
   product?: ProductRelation;
@@ -98,7 +89,6 @@ export const ProductFormLayout: FC<ProductFormLayoutProps> = (props) => {
               <ProductForm.CategoryListField
                 categorySelectOptionList={categorySelectOptionList}
                 categotySelectOptionListActive={categotySelectOptionListActive}
-                // propertySelectOptionList={propertySelectOptionList}
                 handleCategorySelectOption={handleCategorySelectOption}
               />
             </div>
