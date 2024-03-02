@@ -1,5 +1,3 @@
-"use client";
-import { useAppearanceDelay } from "@/shared/lib/react";
 import { Button } from "@/shared/ui/button";
 import {
   Form,
@@ -13,38 +11,39 @@ import { Spinner } from "@/shared/ui/icons/spinner";
 import { Input } from "@/shared/ui/input";
 import { MultiSelect, MultiSelectOptionItem } from "@/shared/ui/multiSelect";
 import { Textarea } from "@/shared/ui/textarea";
+import { cn } from "@/shared/ui/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FC, HTMLAttributes, memo, useCallback, useEffect } from "react";
-import { useForm, useFormContext } from "react-hook-form";
+import { FC, HTMLAttributes, useCallback, useEffect } from "react";
+import { FormProvider, useForm, useFormContext } from "react-hook-form";
 import { z } from "zod";
-import { productFormSchema } from "../_domain/product.schema";
+import { ProductFormValues } from "../_domain/product.schema";
 import {
   ProductFromFrom,
   ProductPropertyObjectList,
   ProductPropertyToSelect,
   ProductRelation,
 } from "../_domain/types";
-import {
-  generateDynamicSchema,
-  generateProductFormSchema,
-} from "../_lib/generateDynamicSchema";
+import { generateProductFormSchema } from "../_lib/generateDynamicSchema";
 import { propertyToFlatList } from "../_lib/propertyToFlatList";
 import { renderFormField } from "./fromField/renderFormField";
-import { ImgField } from "./imgField";
+import { ImgField as ImgFieldComponent } from "./imgField";
 
 interface ProductFormProps extends HTMLAttributes<HTMLFormElement> {
   product?: ProductRelation;
   handleSubmit?: (data: ProductFromFrom) => void;
-  isPending: boolean;
-  submitText?: string;
-  categorySelectOptionList: Array<MultiSelectOptionItem>;
-  categotySelectOptionListActive?: Array<MultiSelectOptionItem>;
   propertySelectOptionList: Array<ProductPropertyToSelect>;
   propertySelectObjectActive?: ProductPropertyObjectList;
-  handleCategorySelectOption: (
-    itemList: Array<MultiSelectOptionItem>,
-  ) => Array<{ id: string; name: string }>;
 }
+
+type ProductFormType = FC<ProductFormProps> & {
+  CategoryListField: FC<PropertyFieldCategoryListProps>;
+  PropertyField: FC<PropertyFieldProps>;
+  NameField: FC<{}>;
+  DescriptionField: FC<{}>;
+  AboutField: FC<{}>;
+  ImgField: FC<{}>;
+  SubmitButton: FC<PropertySubmitFieldProps>;
+};
 
 const getDefaultValues = (
   product?: ProductRelation,
@@ -58,24 +57,16 @@ const getDefaultValues = (
   propertyList: propertyList ?? {},
 });
 
-export const ProductForm: FC<ProductFormProps> = memo((props) => {
+export const ProductForm: ProductFormType = (props) => {
   const {
     product,
+    className,
+    children,
     handleSubmit: onSubmit,
-    submitText,
-    isPending,
-    categorySelectOptionList,
-    categotySelectOptionListActive,
     propertySelectOptionList,
     propertySelectObjectActive,
-    handleCategorySelectOption,
   } = props;
 
-  // const dynamicOptionSchema = generateDynamicSchema(propertySelectOptionList);
-  //
-  // const finalProductFormSchema = productFormSchema.extend({
-  //   propertyList: z.object(dynamicOptionSchema),
-  // });
   const productFormSchema = generateProductFormSchema(propertySelectOptionList);
 
   type ProductFormValuesCombined = z.infer<typeof productFormSchema>;
@@ -102,135 +93,187 @@ export const ProductForm: FC<ProductFormProps> = memo((props) => {
     });
   });
 
-  const handleDeleteImg = (path: string) => {
-    const list = form.getValues("img");
-    const result = list.filter((item) => item !== path);
-    form.setValue("img", result);
-  };
+  return (
+    <FormProvider {...form}>
+      <Form {...form}>
+        <form onSubmit={handleSubmit} className={cn(className, "w-full")}>
+          {children}
+        </form>
+      </Form>
+    </FormProvider>
+  );
+};
 
-  const isPendingAppearance = useAppearanceDelay(isPending);
+ProductForm.displayName = "ProductForm";
+
+interface PropertyFieldCategoryListProps {
+  categorySelectOptionList: Array<MultiSelectOptionItem>;
+  categotySelectOptionListActive?: Array<MultiSelectOptionItem>;
+  handleCategorySelectOption: (
+    itemList: Array<MultiSelectOptionItem>,
+  ) => Array<{ id: string; name: string }>;
+}
+
+ProductForm.CategoryListField = function CategoryListField({
+  categorySelectOptionList,
+  categotySelectOptionListActive,
+  handleCategorySelectOption,
+}: PropertyFieldCategoryListProps) {
+  const form = useFormContext<ProductFormValues>();
 
   const handleSelectCat = useCallback((value: MultiSelectOptionItem[]) => {
     form.setValue("categoryList", handleCategorySelectOption(value));
   }, []);
 
   return (
-    <Form {...form}>
-      <form onSubmit={handleSubmit} className="space-y-8">
-        <FormField
-          control={form.control}
-          name="categoryList"
-          render={({ field }) => {
-            return (
-              <FormItem>
-                <FormLabel>Category list</FormLabel>
-                <FormControl>
-                  <MultiSelect
-                    optionList={categorySelectOptionList}
-                    optionActiveList={categotySelectOptionListActive}
-                    onSelected={handleSelectCat}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            );
-          }}
-        />
-        {propertySelectOptionList &&
-          propertySelectOptionList.map((option) => {
-            return renderFormField({
-              option,
-              control: form.control,
-              setValue: form.setValue,
-            });
-          })}
-
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Name</FormLabel>
-              <FormControl>
-                <Input placeholder="Enter product name..." {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="description"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Description</FormLabel>
-              <FormControl>
-                <Input placeholder="Enter product description..." {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="about"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>About</FormLabel>
-              <FormControl>
-                <Textarea placeholder="Enter product about..." {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="img"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Avatar</FormLabel>
-              <FormControl>
-                <ImgField
-                  value={field.value}
-                  onChange={field.onChange}
-                  onDelete={handleDeleteImg}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button type="submit" disabled={isPendingAppearance}>
-          {isPendingAppearance && (
-            <Spinner
-              className="mr-2 h-4 w-4 animate-spin"
-              aria-label="Profile updating..."
+    <FormField
+      control={form.control}
+      name="categoryList"
+      render={() => (
+        <FormItem>
+          <FormLabel>Category list</FormLabel>
+          <FormControl>
+            <MultiSelect
+              optionList={categorySelectOptionList}
+              optionActiveList={categotySelectOptionListActive}
+              onSelected={handleSelectCat}
             />
-          )}
-          {submitText}
-        </Button>
-      </form>
-    </Form>
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
   );
-});
+};
 
-ProductForm.displayName = "ProductForm";
+interface PropertySubmitFieldProps {
+  isPending?: boolean;
+  submitText: string;
+  className?: string;
+}
 
-// ProductForm.SubmitButton = function SubmitButton() {
-//   const form = useFormContext<ProductFormValuesCombined>();
-//   const { submitText, isPendingAppearance } = form.getValues();
-//
-//   return (
-//     <Button type="submit" disabled={isPendingAppearance}>
-//       {isPendingAppearance && (
-//         <Spinner
-//           className="mr-2 h-4 w-4 animate-spin"
-//           aria-label="Profile updating..."
-//         />
-//       )}
-//       {submitText}
-//     </Button>
-//   );
-// };
+ProductForm.SubmitButton = function SubmitButton({
+  isPending,
+  submitText,
+  className,
+}: PropertySubmitFieldProps) {
+  return (
+    <Button type="submit" disabled={isPending} className={cn(className)}>
+      {isPending && (
+        <Spinner
+          className="mr-2 h-4 w-4 animate-spin"
+          aria-label="Profile updating..."
+        />
+      )}
+      {submitText}
+    </Button>
+  );
+};
+
+interface PropertyFieldProps {
+  option: ProductPropertyToSelect;
+  propertySelectOptionList: Array<ProductPropertyToSelect>;
+}
+
+ProductForm.PropertyField = function PropertyField({
+  option,
+  propertySelectOptionList,
+}: PropertyFieldProps) {
+  const productFormSchema = generateProductFormSchema(propertySelectOptionList);
+
+  type ProductFormValuesCombined = z.infer<typeof productFormSchema>;
+
+  const { control, setValue } = useFormContext<ProductFormValuesCombined>();
+
+  return renderFormField({
+    option,
+    control,
+    setValue,
+  });
+};
+
+ProductForm.NameField = function NameField() {
+  const { control } = useFormContext<ProductFormValues>();
+
+  return (
+    <FormField
+      control={control}
+      name="name"
+      render={({ field }) => (
+        <FormItem className="w-full">
+          <FormLabel>Name</FormLabel>
+          <FormControl>
+            <Input placeholder="Enter product name..." {...field} />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  );
+};
+
+ProductForm.DescriptionField = function DescriptionField() {
+  const { control } = useFormContext<ProductFormValues>();
+  return (
+    <FormField
+      control={control}
+      name="description"
+      render={({ field }) => (
+        <FormItem className="w-full">
+          <FormLabel>Description</FormLabel>
+          <FormControl>
+            <Textarea placeholder="Enter product description..." {...field} />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  );
+};
+
+ProductForm.AboutField = function AboutField() {
+  const { control } = useFormContext<ProductFormValues>();
+  return (
+    <FormField
+      control={control}
+      name="about"
+      render={({ field }) => (
+        <FormItem className="w-full">
+          <FormLabel>About</FormLabel>
+          <FormControl>
+            <Textarea placeholder="Enter product about..." {...field} />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  );
+};
+
+ProductForm.ImgField = function ImgField() {
+  const { control, getValues, setValue } = useFormContext<ProductFormValues>();
+  const handleDeleteImg = (path: string) => {
+    const list = getValues("img");
+    const result = list.filter((item) => item !== path);
+    setValue("img", result);
+  };
+  return (
+    <FormField
+      control={control}
+      name="img"
+      render={({ field }) => (
+        <FormItem>
+          <FormLabel>Avatar</FormLabel>
+          <FormControl>
+            <ImgFieldComponent
+              value={field.value as string[]} // добавить тип string[]
+              onChange={field.onChange}
+              onDelete={handleDeleteImg}
+            />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  );
+};

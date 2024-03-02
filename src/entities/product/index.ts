@@ -1,4 +1,3 @@
-export { ProductForm } from "./_ui/productForm";
 export { ProductFormLayout } from "./_ui/productFormLayout";
 export {
   productFormSchema,

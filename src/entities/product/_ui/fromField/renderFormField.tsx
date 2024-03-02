@@ -22,6 +22,7 @@ export const renderFormField = ({
   setValue: any;
 }) => {
   const Component = propertyTypeToComponentMap[option.datatype];
+  // console.log("output_log: option in fn =>>>", option);
 
   if (Component) {
     return (

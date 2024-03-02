@@ -24,7 +24,7 @@ export const useProductQuery = (productId: ProductId) => {
 
 export const useInvalidateProduct = () => {
   const queryClient = useQueryClient();
-  console.log("output_log: invalidateQueries Product =>>>");
+  // console.log("output_log: invalidateQueries Product =>>>");
 
   return (productId: ProductId) =>
     queryClient.invalidateQueries({

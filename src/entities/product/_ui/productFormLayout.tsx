@@ -1,14 +1,24 @@
 "use client";
-import { FC, HTMLAttributes } from "react";
+import { useAppearanceDelay } from "@/shared/lib/react";
+import { MultiSelectOptionItem } from "@/shared/ui/multiSelect";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui/tabs";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import {
+  ChangeEvent,
+  FC,
+  HTMLAttributes,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import {
   ProductFromFrom,
   ProductPropertyObjectList,
   ProductPropertyToSelect,
   ProductRelation,
 } from "../_domain/types";
-import { MultiSelectOptionItem } from "@/shared/ui/multiSelect";
-import { ProductFormTest } from "./formT";
-import { generateProductFormSchema } from "../_lib/generateDynamicSchema";
+import { ProductForm } from "./productForm";
+import { storage } from "@/shared/lib/storege";
 
 interface ProductFormLayoutProps extends HTMLAttributes<HTMLFormElement> {
   product?: ProductRelation;
@@ -24,55 +34,86 @@ interface ProductFormLayoutProps extends HTMLAttributes<HTMLFormElement> {
   ) => Array<{ id: string; name: string }>;
 }
 
+const tabActiveStorege = storage("tabActive");
+
 export const ProductFormLayout: FC<ProductFormLayoutProps> = (props) => {
   const {
-    product,
     propertySelectOptionList,
-    propertySelectObjectActive,
-    isPending,
     submitText,
     categorySelectOptionList,
     categotySelectOptionListActive,
     handleCategorySelectOption,
   } = props;
 
+  const onSelect = (value: string) => {
+    tabActiveStorege.setItem(value);
+  };
+
+  const [activeTab, setActiveTab] = useState("general");
+
+  useEffect(() => {
+    const tabActive = tabActiveStorege.getItem();
+    if (tabActive) {
+      setActiveTab(tabActive);
+    }
+  }, []);
+
   return (
-    <ProductFormTest {...props}>
+    <ProductForm {...props}>
       <div className="flex w-full flex-col gap-4">
-        <div className="flex w-full border p-4">
-          <ProductFormTest.CategoryListField
-            categorySelectOptionList={categorySelectOptionList}
-            categotySelectOptionListActive={categotySelectOptionListActive}
-            // propertySelectOptionList={propertySelectOptionList}
-            handleCategorySelectOption={handleCategorySelectOption}
-          />
-        </div>
-        {propertySelectOptionList &&
-          propertySelectOptionList.map((property) => (
-            <div key={property.id} className="flex w-full border p-4">
-              <ProductFormTest.PropertyField
-                option={property}
-                propertySelectOptionList={propertySelectOptionList}
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+          <div className="flex w-full justify-between">
+            <TabsList>
+              <TabsTrigger onClick={() => onSelect("general")} value="general">
+                General
+              </TabsTrigger>
+              <TabsTrigger
+                onClick={() => onSelect("property")}
+                value="property"
+              >
+                Property
+              </TabsTrigger>
+            </TabsList>
+            <ProductForm.SubmitButton
+              className="align-self-end"
+              submitText={submitText}
+            />
+          </div>
+          <TabsContent value="general" className="flex w-full flex-col gap-4">
+            <div className="flex w-full border p-4">
+              <ProductForm.NameField />
+            </div>
+            <div className="flex w-full border p-4">
+              <ProductForm.DescriptionField />
+            </div>
+            <div className="flex w-full border p-4">
+              <ProductForm.AboutField />
+            </div>
+            <div className="flex w-full border p-4">
+              <ProductForm.ImgField />
+            </div>
+          </TabsContent>
+          <TabsContent value="property" className="flex w-full flex-col gap-4">
+            <div className="flex w-full border p-4">
+              <ProductForm.CategoryListField
+                categorySelectOptionList={categorySelectOptionList}
+                categotySelectOptionListActive={categotySelectOptionListActive}
+                // propertySelectOptionList={propertySelectOptionList}
+                handleCategorySelectOption={handleCategorySelectOption}
               />
             </div>
-          ))}
-        <div className="flex w-full border p-4">
-          <ProductFormTest.NameField />
-        </div>
-        <div className="flex w-full border p-4">
-          <ProductFormTest.DescriptionField />
-        </div>
-        <div className="flex w-full border p-4">
-          <ProductFormTest.AboutField />
-        </div>
-        <div className="flex w-full border p-4">
-          <ProductFormTest.ImgField />
-        </div>
-        <ProductFormTest.SubmitButton
-          isPending={isPending}
-          submitText={submitText}
-        />
+            {propertySelectOptionList &&
+              propertySelectOptionList.map((property) => (
+                <div key={property.id} className="flex w-full border p-4">
+                  <ProductForm.PropertyField
+                    option={property}
+                    propertySelectOptionList={propertySelectOptionList}
+                  />
+                </div>
+              ))}
+          </TabsContent>
+        </Tabs>
       </div>
-    </ProductFormTest>
+    </ProductForm>
   );
 };

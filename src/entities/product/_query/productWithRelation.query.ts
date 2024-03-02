@@ -6,7 +6,9 @@ import { useListenProductUpdate } from "../_vm/event/useListenProductUpdate";
 
 export const getProductWithRelationQuery = (productId: ProductId) => ({
   queryKey: [baseQueryKey, "getProduct", productId],
-  queryFn: () => getProductWithRelationAction({ productId }),
+  queryFn: () => {
+    return getProductWithRelationAction({ productId });
+  },
 });
 
 export const useProductWithRelationQuery = (productId: ProductId) => {
@@ -14,7 +16,6 @@ export const useProductWithRelationQuery = (productId: ProductId) => {
 
   const { isPending, isSuccess, data, isFetchedAfterMount } = useQuery(query);
 
-  // console.log("output_log: useProductWithRelationQuery =>>>");
   useListenProductUpdate();
 
   return {
