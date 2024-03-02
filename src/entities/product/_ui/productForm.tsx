@@ -15,7 +15,7 @@ import { MultiSelect, MultiSelectOptionItem } from "@/shared/ui/multiSelect";
 import { Textarea } from "@/shared/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, HTMLAttributes, memo, useCallback, useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useFormContext } from "react-hook-form";
 import { z } from "zod";
 import { productFormSchema } from "../_domain/product.schema";
 import {
@@ -24,7 +24,10 @@ import {
   ProductPropertyToSelect,
   ProductRelation,
 } from "../_domain/types";
-import { generateDynamicSchema } from "../_lib/generateDynamicSchema";
+import {
+  generateDynamicSchema,
+  generateProductFormSchema,
+} from "../_lib/generateDynamicSchema";
 import { propertyToFlatList } from "../_lib/propertyToFlatList";
 import { renderFormField } from "./fromField/renderFormField";
 import { ImgField } from "./imgField";
@@ -68,16 +71,17 @@ export const ProductForm: FC<ProductFormProps> = memo((props) => {
     handleCategorySelectOption,
   } = props;
 
-  const dynamicOptionSchema = generateDynamicSchema(propertySelectOptionList);
+  // const dynamicOptionSchema = generateDynamicSchema(propertySelectOptionList);
+  //
+  // const finalProductFormSchema = productFormSchema.extend({
+  //   propertyList: z.object(dynamicOptionSchema),
+  // });
+  const productFormSchema = generateProductFormSchema(propertySelectOptionList);
 
-  const finalProductFormSchema = productFormSchema.extend({
-    propertyList: z.object(dynamicOptionSchema),
-  });
+  type ProductFormValuesCombined = z.infer<typeof productFormSchema>;
 
-  type FinalProductFormValues = z.infer<typeof finalProductFormSchema>;
-
-  const form = useForm<FinalProductFormValues>({
-    resolver: zodResolver(finalProductFormSchema),
+  const form = useForm<ProductFormValuesCombined>({
+    resolver: zodResolver(productFormSchema),
     defaultValues: getDefaultValues(product, propertySelectObjectActive),
   });
 
@@ -213,3 +217,20 @@ export const ProductForm: FC<ProductFormProps> = memo((props) => {
 });
 
 ProductForm.displayName = "ProductForm";
+
+// ProductForm.SubmitButton = function SubmitButton() {
+//   const form = useFormContext<ProductFormValuesCombined>();
+//   const { submitText, isPendingAppearance } = form.getValues();
+//
+//   return (
+//     <Button type="submit" disabled={isPendingAppearance}>
+//       {isPendingAppearance && (
+//         <Spinner
+//           className="mr-2 h-4 w-4 animate-spin"
+//           aria-label="Profile updating..."
+//         />
+//       )}
+//       {submitText}
+//     </Button>
+//   );
+// };

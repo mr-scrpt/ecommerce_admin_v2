@@ -31,6 +31,7 @@ export const renderFormField = ({
         propertyList={option.propertyList}
         control={control}
         setValue={setValue} // Этот пропс нужен только для ProductMult, удалите его, если он не нужен для других компонентов
+        className="w-full"
       />
     );
   }

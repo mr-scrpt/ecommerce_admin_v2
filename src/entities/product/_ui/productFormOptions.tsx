@@ -21,7 +21,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { ProductPropertyToSelect } from "../_domain/types";
 
-interface ProductFormOptionsProps extends HTMLAttributes<HTMLDivElement> {
+interface ProductFormOptionsProps extends HTMLAttributes<HTMLFormElement> {
   optionSelectOptionList: Array<ProductPropertyToSelect>;
 }
 

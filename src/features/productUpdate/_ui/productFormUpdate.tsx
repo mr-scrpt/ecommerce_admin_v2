@@ -1,6 +1,7 @@
 "use client";
 import {
   ProductForm,
+  ProductFormLayout,
   ProductId,
   productFormSchema,
   useProductWithRelationQuery,
@@ -108,7 +109,7 @@ export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
 
   return (
     <div className={cn(className, "w-full")}>
-      <ProductForm
+      <ProductFormLayout
         handleSubmit={handleSubmit}
         isPending={isPendingComplexible}
         product={product}
@@ -120,7 +121,19 @@ export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
         // propertySelectPropertyListActive={propertyListWithDataActiveCompleted}
         submitText={"Save change"}
       />
-      <Button onClick={() => console.log(propertyList)}>Show state</Button>
+      {/* <ProductForm */}
+      {/*   handleSubmit={handleSubmit} */}
+      {/*   isPending={isPendingComplexible} */}
+      {/*   product={product} */}
+      {/*   categorySelectOptionList={categoryOptionListTotal} */}
+      {/*   categotySelectOptionListActive={categoryOptionListActive} */}
+      {/*   handleCategorySelectOption={handleSelectedProperty} */}
+      {/*   propertySelectOptionList={propertyList} */}
+      {/*   propertySelectObjectActive={propertyObjectActive} */}
+      {/*   // propertySelectPropertyListActive={propertyListWithDataActiveCompleted} */}
+      {/*   submitText={"Save change"} */}
+      {/* /> */}
+      {/* <Button onClick={() => console.log(propertyList)}>Show state</Button> */}
       {/* <ProductFormPropertys propertySelectPropertyList={propertyListWithDataActive} /> */}
     </div>
   );

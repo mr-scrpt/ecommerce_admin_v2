@@ -9,7 +9,7 @@ interface PropertyFromLayoutProps
   property?: PropertyRelation;
   handleSubmit?: (data: PropertyFormValues) => void;
   isPending: boolean;
-  submitText?: string;
+  submitText: string;
 }
 
 export const PropertyFromLayout: FC<PropertyFromLayoutProps> = (props) => {
@@ -28,10 +28,13 @@ export const PropertyFromLayout: FC<PropertyFromLayoutProps> = (props) => {
       </div>
       <Separator />
       <div className="flex w-full">
-        <PropertyForm.FieldPropertysItem />
+        <PropertyForm.FieldPropertysItem isPending={isPending} />
       </div>
       <div className="flex w-full">
-        <PropertyForm.SubmitButton />
+        <PropertyForm.SubmitButton
+          isPending={isPending}
+          submitText={submitText}
+        />
       </div>
     </PropertyForm>
   );

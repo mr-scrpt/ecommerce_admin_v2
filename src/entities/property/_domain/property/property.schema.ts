@@ -52,8 +52,8 @@ export const propertyFormSchema = z.object({
     .transform((name) => name.trim()),
   datatype: z.nativeEnum(PropertyDataTypeEnum),
   propertyItemList: z.array(propertyItemUpdateSchema),
-  isPendingAppearance: z.boolean(),
-  submitText: z.string(),
+  // isPendingAppearance: z.boolean(),
+  // submitText: z.string(),
 });
 
 export type PropertyFormValues = z.infer<typeof propertyFormSchema>;

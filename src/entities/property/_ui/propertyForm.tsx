@@ -44,10 +44,19 @@ interface PropertyFormProps
   submitText?: string;
 }
 
+interface SubmitButtonProps {
+  isPending: boolean;
+  submitText: string;
+}
+
+interface FieldProperyItemProps {
+  isPending: boolean;
+}
+
 type PropertyFormType = FC<PropertyFormProps> & {
-  SubmitButton: FC<{}>;
+  SubmitButton: FC<SubmitButtonProps>;
   FieldProperty: FC<{}>;
-  FieldPropertysItem: FC<{}>;
+  FieldPropertysItem: FC<FieldProperyItemProps>;
 };
 
 const getDefaultValues = (property?: PropertyRelation) => ({
@@ -72,16 +81,12 @@ export const PropertyForm: PropertyFormType = (props) => {
     resolver: zodResolver(propertyFormSchema),
     defaultValues: {
       ...getDefaultValues(property),
-      isPendingAppearance,
-      submitText,
     },
   });
 
   useEffect(() => {
     form.reset({
       ...getDefaultValues(property),
-      isPendingAppearance,
-      submitText,
     });
   }, [property, form, isPendingAppearance, submitText]);
 
@@ -100,13 +105,16 @@ export const PropertyForm: PropertyFormType = (props) => {
   );
 };
 
-PropertyForm.SubmitButton = function SubmitButton() {
-  const form = useFormContext<PropertyFormValues>();
-  const { submitText, isPendingAppearance } = form.getValues();
-
+PropertyForm.SubmitButton = function SubmitButton({
+  isPending,
+  submitText,
+}: {
+  isPending: boolean;
+  submitText: string;
+}) {
   return (
-    <Button type="submit" disabled={isPendingAppearance}>
-      {isPendingAppearance && (
+    <Button type="submit" disabled={isPending}>
+      {isPending && (
         <Spinner
           className="mr-2 h-4 w-4 animate-spin"
           aria-label="Profile updating..."
@@ -171,15 +179,17 @@ PropertyForm.FieldProperty = function FieldProperty() {
   );
 };
 
-PropertyForm.FieldPropertysItem = function FieldPropertysItem() {
+PropertyForm.FieldPropertysItem = function FieldPropertysItem({
+  isPending,
+}: {
+  isPending: boolean;
+}) {
   const form = useFormContext<PropertyFormValues>();
 
   const { fields, append, remove } = useFieldArray({
     name: "propertyItemList",
     control: form.control,
   });
-
-  const { isPendingAppearance } = form.getValues();
 
   return (
     <div className="flex w-full flex-col gap-4">
@@ -194,7 +204,7 @@ PropertyForm.FieldPropertysItem = function FieldPropertysItem() {
                   <FormLabel>Property value name</FormLabel>
                   <FormControl>
                     <Input
-                      disabled={isPendingAppearance}
+                      disabled={isPending}
                       placeholder="Enter property name..."
                       {...field}
                     />
@@ -211,7 +221,7 @@ PropertyForm.FieldPropertysItem = function FieldPropertysItem() {
                   <FormLabel>Property value</FormLabel>
                   <FormControl>
                     <Input
-                      disabled={isPendingAppearance}
+                      disabled={isPending}
                       placeholder="Enter property name..."
                       {...field}
                     />
@@ -223,7 +233,6 @@ PropertyForm.FieldPropertysItem = function FieldPropertysItem() {
             {idx > 0 ? (
               <Button
                 type="button"
-                // onClick={() => }
                 className="mb-0 mt-auto"
                 variant="destructive"
                 onClick={() => remove(idx)}
