@@ -1,5 +1,3 @@
-export { createProductUseCase } from "./_usecase/_createProduct.usecase";
-export { updateProductUseCase } from "./_usecase/_updateProduct.usecase";
 export {
   ProductRepository,
   productRepository,

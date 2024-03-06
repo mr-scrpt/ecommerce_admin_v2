@@ -1,36 +1,36 @@
 "use client";
-import { useQuery } from "@tanstack/react-query";
-import { getProductWithRelationAction } from "../_action/getProductWithRelation.action";
-import { ProductId, baseQueryKey } from "../_domain/types";
-import { useListenProductUpdate } from "../_vm/event/useListenProductUpdate";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { getCartWithRelationAction } from "../_action/getCartWithRelation.action";
+import { CartId, baseQueryKey } from "../_domain/types";
+import { useListenCartUpdate } from "../_vm/event/useListenCartUpdate";
 
-export const getProductWithRelationQuery = (productId: ProductId) => ({
-  queryKey: [baseQueryKey, "getProduct", productId],
+export const getCartWithRelationQuery = (cartId: CartId) => ({
+  queryKey: [baseQueryKey, "getCart", cartId],
   queryFn: () => {
-    return getProductWithRelationAction({ productId });
+    return getCartWithRelationAction({ cartId });
   },
 });
 
-export const useProductWithRelationQuery = (productId: ProductId) => {
-  const query = getProductWithRelationQuery(productId);
+export const useCartWithRelationQuery = (cartId: CartId) => {
+  const query = getCartWithRelationQuery(cartId);
 
   const { isPending, isSuccess, data, isFetchedAfterMount } = useQuery(query);
 
-  useListenProductUpdate();
+  useListenCartUpdate();
 
   return {
     isPending,
     isSuccess,
-    product: data?.product,
+    cart: data?.cart,
     isFetchedAfterMount,
   };
 };
 
-// export const useInvalidateProductWithRelation = () => {
-//   const queryClient = useQueryClient();
-//
-//   return (productId: ProductId) =>
-//     queryClient.invalidateQueries({
-//       queryKey: [baseQueryKey, "getProductWithRelation", productId],
-//     });
-// };
+export const useInvalidateCartWithRelation = () => {
+  const queryClient = useQueryClient();
+
+  return (cartId: CartId) =>
+    queryClient.invalidateQueries({
+      queryKey: [baseQueryKey, "getCartWithRelation", cartId],
+    });
+};

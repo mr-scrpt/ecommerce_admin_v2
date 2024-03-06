@@ -1,106 +1,92 @@
 import { DbClient, Tx, dbClient } from "@/shared/lib/db";
 import {
-  ProductAddCategoryList,
-  ProductEntity,
-  ProductId,
-  ProductRelationEntity,
-  ProductToCreate,
-  ProductToUpdate,
+  CartEntity,
+  CartId,
+  CartRelationEntity,
+  CartToCreate,
+  CartToUpdate,
 } from "../_domain/types";
 
-export class ProductRepository {
+export class CartRepository {
   constructor(readonly db: DbClient) {}
 
-  async getProduct(
-    productId: ProductId,
-    db: Tx = this.db,
-  ): Promise<ProductEntity> {
-    return db.product.findUniqueOrThrow({
-      where: {
-        id: productId,
-      },
-    });
-  }
+  // async getCart(cartId: CartId, db: Tx = this.db): Promise<CartEntity> {
+  //   return db.cart.findUniqueOrThrow({
+  //     where: {
+  //       id: cartId,
+  //     },
+  //   });
+  // }
 
-  async getProductWithRelation(
-    productId: ProductId,
+  async getCartWithRelation(
+    cartId: CartId,
     db: Tx = this.db,
-  ): Promise<ProductRelationEntity> {
-    return db.product.findUniqueOrThrow({
+  ): Promise<CartRelationEntity> {
+    return db.cart.findUniqueOrThrow({
       where: {
-        id: productId,
+        id: cartId,
       },
       include: {
-        categoryList: true,
-        propertyItemListSelected: true,
+        productList: true,
       },
     });
   }
 
-  async getProductBySlug(
-    slug: string,
-    db: Tx = this.db,
-  ): Promise<ProductEntity> {
-    return db.product.findUniqueOrThrow({
-      where: {
-        slug,
-      },
+  // async getCartBySlug(slug: string, db: Tx = this.db): Promise<CartEntity> {
+  //   return db.cart.findUniqueOrThrow({
+  //     where: {
+  //       slug,
+  //     },
+  //   });
+  // }
+
+  async getCartList(db: Tx = this.db): Promise<CartEntity[]> {
+    return db.cart.findMany();
+  }
+
+  async createCart(cart: CartToCreate, db: Tx = this.db): Promise<CartEntity> {
+    return await db.cart.create({
+      data: cart,
     });
   }
 
-  async getProductList(db: Tx = this.db): Promise<ProductEntity[]> {
-    return db.product.findMany();
-  }
+  // async addCategoryList(
+  //   data: CartAddCategoryList,
+  //   db: Tx = this.db,
+  // ): Promise<CartEntity> {
+  //   const { cartId, categoryListId } = data;
+  //   return await db.cart.update({
+  //     where: {
+  //       id: cartId,
+  //     },
+  //     data: {
+  //       categoryList: {
+  //         connect: categoryListId,
+  //       },
+  //     },
+  //   });
+  // }
+  //
+  // async updateCart(
+  //   targetId: CartId,
+  //   cart: CartToUpdate,
+  //   db: Tx = this.db,
+  // ): Promise<CartEntity> {
+  //   return await db.cart.update({
+  //     where: { id: targetId },
+  //     data: {
+  //       ...cart,
+  //       categoryList: { set: [...cart.categoryList] },
+  //       propertyItemListSelected: {
+  //         set: [...cart.propertyItemListSelected],
+  //       },
+  //     },
+  //   });
+  // }
 
-  async createProduct(
-    product: ProductToCreate,
-    db: Tx = this.db,
-  ): Promise<ProductEntity> {
-    return await db.product.create({
-      data: product,
-    });
-  }
-
-  async addCategoryList(
-    data: ProductAddCategoryList,
-    db: Tx = this.db,
-  ): Promise<ProductEntity> {
-    const { productId, categoryListId } = data;
-    return await db.product.update({
-      where: {
-        id: productId,
-      },
-      data: {
-        categoryList: {
-          connect: categoryListId,
-        },
-      },
-    });
-  }
-
-  async updateProduct(
-    targetId: ProductId,
-    product: ProductToUpdate,
-    db: Tx = this.db,
-  ): Promise<ProductEntity> {
-    return await db.product.update({
-      where: { id: targetId },
-      data: {
-        ...product,
-        categoryList: { set: [...product.categoryList] },
-        propertyItemListSelected: {
-          set: [...product.propertyItemListSelected],
-        },
-      },
-    });
-  }
-
-  async removeProductById(
-    productId: ProductId,
-    db: Tx = this.db,
-  ): Promise<ProductEntity> {
-    return await db.product.delete({ where: { id: productId } });
+  async removeCartById(cartId: CartId, db: Tx = this.db): Promise<CartEntity> {
+    return await db.cart.delete({ where: { id: cartId } });
   }
 }
 
-export const productRepository = new ProductRepository(dbClient);
+export const cartRepository = new CartRepository(dbClient);

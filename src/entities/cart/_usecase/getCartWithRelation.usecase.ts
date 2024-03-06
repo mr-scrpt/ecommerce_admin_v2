@@ -1,32 +1,29 @@
 import { AuthorizatoinError } from "@/shared/lib/errors";
 import { SessionEntity } from "@/shared/lib/user";
-import { createProductAbility } from "../_domain/product.ability";
-import { ProductId, ProductRelationEntity } from "../_domain/types";
-import {
-  ProductRepository,
-  productRepository,
-} from "../_repository/cart.repo";
+import { createCartAbility } from "../_domain/cart.ability";
+import { CartId, CartRelationEntity } from "../_domain/types";
+import { CartRepository, cartRepository } from "../_repository/cart.repo";
 
-type GetProductWithRelation = {
-  productId: ProductId;
+type GetCartWithRelation = {
+  cartId: CartId;
   session: SessionEntity;
 };
 
-class GetProductWithRelationUseCase {
-  constructor(private readonly productRepo: ProductRepository) {}
+class GetCartWithRelationUseCase {
+  constructor(private readonly cartRepo: CartRepository) {}
 
-  async exec(data: GetProductWithRelation): Promise<ProductRelationEntity> {
-    const { productId, session } = data;
-    const { canGetProduct } = createProductAbility(session);
+  async exec(data: GetCartWithRelation): Promise<CartRelationEntity> {
+    const { cartId, session } = data;
+    const { canGetCart } = createCartAbility(session);
 
-    if (!canGetProduct()) {
+    if (!canGetCart()) {
       throw new AuthorizatoinError();
     }
 
-    return await this.productRepo.getProductWithRelation(productId);
+    return await this.cartRepo.getCartWithRelation(cartId);
   }
 }
 
-export const getProductWithRelationUseCase = new GetProductWithRelationUseCase(
-  productRepository,
+export const getCartWithRelationUseCase = new GetCartWithRelationUseCase(
+  cartRepository,
 );

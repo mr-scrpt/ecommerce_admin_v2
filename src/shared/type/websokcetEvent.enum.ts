@@ -28,4 +28,6 @@ export enum WSEventEnum {
   PROPERTY_REMOVE = "property_remove",
   PROPERTY_REFRESH = "property_refresh",
   PROPERTY_LIST_REFRESH = "property_list_refresh",
+
+  CART_REFRESH = "cart_refresh",
 }
