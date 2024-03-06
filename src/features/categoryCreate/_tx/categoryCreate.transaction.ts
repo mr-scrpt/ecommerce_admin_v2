@@ -1,6 +1,5 @@
 import {
   CategoryEntity,
-  CategoryRelationEntity,
   CategoryRepository,
   categoryRepository,
 } from "@/entities/category";
@@ -25,10 +24,10 @@ export class CategoryCreateTx extends Transaction {
         tx,
       );
 
-      await this.categoryRepo.addCategoryOptionList(
+      await this.categoryRepo.addCategoryPropertyList(
         {
           categoryId: categoryCreated.id,
-          optionListId: optionListData,
+          propertyListId: optionListData,
         },
         tx,
       );

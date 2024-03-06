@@ -1,10 +1,10 @@
 import { FC, HTMLAttributes } from "react";
 import { Layout } from "./_ui/layout";
-import { Logo } from "./_ui/Logo";
 import { ThemeToggler } from "@/features/theme/_ui/ThemeToggler";
 import { HeaderVariantType } from "./_type/props.type";
 import { Nav } from "./_ui/nav";
 import { Profile } from "./_ui/profile";
+import { Logo } from "./_ui/logo";
 
 interface HeaderProps extends HTMLAttributes<HTMLDivElement> {
   variant: HeaderVariantType;

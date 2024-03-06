@@ -17,6 +17,7 @@ export const getProductListAction = async (): Promise<ResultT> => {
   const productList = await getProductListUseCase.exec({
     session,
   });
+  console.log("output_log:  =>>>", productList);
 
   return resultSchema.parseAsync({
     productList: productList,

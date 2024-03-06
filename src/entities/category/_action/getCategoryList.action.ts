@@ -17,6 +17,6 @@ export const getCategoryListAction = async (): Promise<ResultT> => {
   const categoryList = await getCategoryListUseCase.exec({ session });
 
   return resultSchema.parseAsync({
-    categoryList: categoryList,
+    categoryList,
   });
 };

@@ -27,24 +27,6 @@ export const Nav: FC<NavProps> = (props) => {
           {item.label}
         </Link>
       ))}
-      {/* <Link */}
-      {/*   className="transition-colors hover:text-foreground/80 text-foreground/60" */}
-      {/*   href="/categories" */}
-      {/* > */}
-      {/*   Categories */}
-      {/* </Link> */}
-      {/* <Link */}
-      {/*   className="transition-colors hover:text-foreground/80 text-foreground/60" */}
-      {/*   href="/billboards" */}
-      {/* > */}
-      {/*   Billboards */}
-      {/* </Link> */}
-      {/* <Link */}
-      {/*   className="transition-colors hover:text-foreground/80 text-foreground/60" */}
-      {/*   href="/products" */}
-      {/* > */}
-      {/*   Products */}
-      {/* </Link> */}
     </nav>
   );
 };

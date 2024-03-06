@@ -16,7 +16,6 @@ export { CategoryForm } from "./_ui/categoryForm";
 
 export type {
   Category,
-  CategoryAddOptionList,
   CategoryAddProductList,
   CategoryEntity,
   CategoryId,

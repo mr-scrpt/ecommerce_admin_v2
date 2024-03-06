@@ -37,7 +37,7 @@ interface CategoryFormProps extends HTMLAttributes<HTMLFormElement> {
 const getDefaultValues = (category?: CategoryRelation) => ({
   name: category?.name ?? "",
   board: category?.board ?? [],
-  optionList: category?.optionList ?? [],
+  optionList: category?.propertyList ?? [],
 });
 
 export const CategoryForm: FC<CategoryFormProps> = (props) => {
