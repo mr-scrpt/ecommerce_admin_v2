@@ -1,4 +1,4 @@
-import { nextAuthConfigWithCreateUser } from "@/entities/user/nextAuthConfig";
+import { nextAuthConfigWithCreateUser } from "@/features/userCreate/server";
 import NextAuth from "next-auth/next";
 
 const authHandler = NextAuth(nextAuthConfigWithCreateUser());
