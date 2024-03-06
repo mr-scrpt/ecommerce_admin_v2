@@ -3,8 +3,8 @@ import {
   CartEntity,
   CartId,
   CartRelationEntity,
+  CartToAddProduct,
   CartToCreate,
-  CartToUpdate,
 } from "../_domain/types";
 
 export class CartRepository {
@@ -32,6 +32,20 @@ export class CartRepository {
     });
   }
 
+  async getCartWithRelationByUserId(
+    userId: CartId,
+    db: Tx = this.db,
+  ): Promise<CartRelationEntity> {
+    return db.cart.findUniqueOrThrow({
+      where: {
+        userId: userId,
+      },
+      include: {
+        productList: true,
+      },
+    });
+  }
+
   // async getCartBySlug(slug: string, db: Tx = this.db): Promise<CartEntity> {
   //   return db.cart.findUniqueOrThrow({
   //     where: {
@@ -47,6 +61,22 @@ export class CartRepository {
   async createCart(cart: CartToCreate, db: Tx = this.db): Promise<CartEntity> {
     return await db.cart.create({
       data: cart,
+    });
+  }
+
+  async addProductCart(data: CartToAddProduct): Promise<CartEntity> {
+    const { id, productId } = data;
+    return await this.db.cart.update({
+      where: {
+        id,
+      },
+      data: {
+        productList: {
+          connect: {
+            id: productId,
+          },
+        },
+      },
     });
   }
 

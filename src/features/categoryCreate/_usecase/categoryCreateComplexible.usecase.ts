@@ -1,8 +1,4 @@
-import {
-  CategoryEntity,
-  CategoryRelationEntity,
-  createCategoryAbility,
-} from "@/entities/category";
+import { CategoryEntity, createCategoryAbility } from "@/entities/category";
 import { ForbiddenError } from "@/shared/lib/errors";
 import { SessionEntity } from "@/shared/lib/user";
 import { CategoryCreateComplexible } from "../_domain/types";

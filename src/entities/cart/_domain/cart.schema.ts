@@ -19,6 +19,11 @@ export const cartRelationSchema = z.object({
   ),
 });
 
+export const cartAddProductSchema = z.object({
+  id: z.string(),
+  productId: z.string(),
+});
+
 // export const cartCreateSchema = z.object({
 //   name: z.string(),
 //   description: z.string(),
@@ -31,19 +36,6 @@ export const cartRelationSchema = z.object({
 //   ),
 // });
 //
-// export const cartUpdateSchema = z.object({
-//   id: z.string(),
-//   name: z.string(),
-//   description: z.string(),
-//   about: z.string(),
-//   img: z.array(z.string()),
-//   categoryList: z.array(
-//     z.object({
-//       id: z.string(),
-//     }),
-//   ),
-//   propertyItemListSelected: z.array(z.object({ id: z.string() })),
-// });
 //
 // // export type CartFormUpdateValues = z.infer<typeof cartUpdateSchema>;
 //

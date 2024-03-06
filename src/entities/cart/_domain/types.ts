@@ -30,9 +30,13 @@ export type CartToCreate = {
   userId: string;
 };
 
-export type CartToUpdate = {
+// export type CartToUpdate = {
+//   id: CartId;
+//   productList: Array<CartProduct>;
+// };
+export type CartToAddProduct = {
   id: CartId;
-  productList: Array<CartProduct>;
+  productId: string;
 };
 
 // Side
