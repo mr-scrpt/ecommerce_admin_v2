@@ -1,5 +1,5 @@
 "use client";
-import { storage } from "@/shared/lib/storege";
+// import { storage } from "@/shared/lib/storege";
 import { MultiSelectOptionItem } from "@/shared/ui/multiSelect";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui/tabs";
 import { FC, HTMLAttributes, useEffect, useState } from "react";
@@ -25,7 +25,7 @@ interface ProductFormLayoutProps extends HTMLAttributes<HTMLFormElement> {
   ) => Array<{ id: string; name: string }>;
 }
 
-const tabActiveStorege = storage("tabActive");
+// const tabActiveStorege = storage("tabActive");
 
 export const ProductFormLayout: FC<ProductFormLayoutProps> = (props) => {
   const {
@@ -37,13 +37,15 @@ export const ProductFormLayout: FC<ProductFormLayoutProps> = (props) => {
   } = props;
 
   const onSelect = (value: string) => {
-    tabActiveStorege.setItem(value);
+    // tabActiveStorege.setItem(value);
+    localStorage.setItem("tabActive", value);
   };
 
   const [activeTab, setActiveTab] = useState("general");
 
   useEffect(() => {
-    const tabActive = tabActiveStorege.getItem();
+    // const tabActive = tabActiveStorege.getItem();
+    const tabActive = localStorage.getItem("tabActive");
     if (tabActive) {
       setActiveTab(tabActive);
     }

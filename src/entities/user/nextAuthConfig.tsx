@@ -35,29 +35,29 @@ const emailToken = TEST_EMAIL_TOKEN
 export const nextAuthConfig: AuthOptions = {
   adapter: {
     ...prismaAdapter,
-    createUser: async (user) => {
-      const socket = socketClient("");
-      try {
-        const newUser = await createUserUseCase.exec(user);
-
-        await new Promise<void>((resolve, reject) => {
-          socket.connect();
-          socket.emit(WSEventEnum.USER_CREATE, () => {
-            resolve();
-          });
-
-          socket.on("error", (error) => {
-            reject(error);
-          });
-        });
-
-        return newUser;
-      } catch (error) {
-        throw error;
-      } finally {
-        socket.disconnect();
-      }
-    },
+    // createUser: async (user) => {
+    //   const socket = socketClient("");
+    //   try {
+    //     const newUser = await createUserUseCase.exec(user);
+    //
+    //     await new Promise<void>((resolve, reject) => {
+    //       socket.connect();
+    //       socket.emit(WSEventEnum.USER_CREATE, () => {
+    //         resolve();
+    //       });
+    //
+    //       socket.on("error", (error) => {
+    //         reject(error);
+    //       });
+    //     });
+    //
+    //     return newUser;
+    //   } catch (error) {
+    //     throw error;
+    //   } finally {
+    //     socket.disconnect();
+    //   }
+    // },
   } as AuthOptions["adapter"],
 
   callbacks: {
@@ -101,3 +101,33 @@ export const nextAuthConfig: AuthOptions = {
       }),
   ]),
 };
+
+export const nextAuthConfigWithCreateUser = (): AuthOptions => ({
+  ...nextAuthConfig,
+  adapter: {
+    ...nextAuthConfig.adapter,
+    createUser: async (user) => {
+      const socket = socketClient("");
+      try {
+        const newUser = await createUserUseCase.exec(user);
+
+        await new Promise<void>((resolve, reject) => {
+          socket.connect();
+          socket.emit(WSEventEnum.USER_CREATE, () => {
+            resolve();
+          });
+
+          socket.on("error", (error) => {
+            reject(error);
+          });
+        });
+
+        return newUser;
+      } catch (error) {
+        throw error;
+      } finally {
+        socket.disconnect();
+      }
+    },
+  } as AuthOptions["adapter"],
+});
