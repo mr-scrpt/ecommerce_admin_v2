@@ -7,6 +7,8 @@ import { propertyItemListSeed } from "./data/propertyItem";
 import { userListSeed } from "./data/user";
 import { productRelationsSeed } from "./data/productRelations";
 import { mapEnumToPrismaDatatype } from "../src/shared/lib/prisma";
+import { cartListSeed } from "./data/cart";
+import { cartRelationsSeed } from "./data/cartRelations";
 
 const prisma = new PrismaClient();
 
@@ -41,6 +43,11 @@ async function main() {
     console.log("product created", product);
   }
 
+  for await (const cart of cartListSeed) {
+    await prisma.cart.create({ data: cart });
+    console.log("cart created", cart);
+  }
+
   // Relation
   for await (const category of categoryRelationsSeed) {
     await prisma.category.update({
@@ -53,6 +60,11 @@ async function main() {
   for await (const product of productRelationsSeed) {
     await prisma.product.update({ where: { id: product.id }, data: product });
     console.log("product created relation", product);
+  }
+
+  for await (const cart of cartRelationsSeed) {
+    await prisma.cart.update({ where: { id: cart.id }, data: cart });
+    console.log("product created relation", cart);
   }
 }
 

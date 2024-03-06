@@ -1,4 +1,4 @@
-import { createUserUseCase, nextAuthConfig } from "@/entities/user/user.server";
+import { nextAuthConfig } from "@/entities/user/user.server";
 import { socketClient } from "@/shared/config/socket";
 import { WSEventEnum } from "@/shared/type/websokcetEvent.enum";
 import { AuthOptions } from "next-auth";
