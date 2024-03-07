@@ -13,13 +13,14 @@ interface IBodyCart {
   productId: string;
 }
 
+const metaSchema = z.object({
+  userId: z.string(),
+});
+
 const reqSchema = z.object({
   productId: z.string(),
 });
 
-const metaSchema = z.object({
-  userId: z.string(),
-});
 
 const resultSchema = z.object({
   data: z.array(categorySchema),

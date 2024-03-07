@@ -45,7 +45,6 @@ model Product {
 
   categoryList   Category[]   @relation("ProductToCategory")
   propertyItemListSelected PropertyItem[] @relation("PropertyItemToProduct")
-  cartList       Cart[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -56,7 +55,19 @@ model Cart {
   id        String   @id @default(uuid())
   user      User     @relation(fields: [userId], references: [id])
   userId    String   @unique
-  productList  Product[]
+  cartRowList  CartRow[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+}
+
+model CartRow {
+  id        String   @id @default(uuid())
+  cart	    Cart     @relation(fields: [cartId], references: [id])
+  cartId    String
+  productId String
+  quantity  Int
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

@@ -27,7 +27,7 @@ export class CartRepository {
         id: cartId,
       },
       include: {
-        productList: true,
+        cartRowList: true,
       },
     });
   }
@@ -36,14 +36,15 @@ export class CartRepository {
     userId: CartId,
     db: Tx = this.db,
   ): Promise<CartRelationEntity> {
-    return db.cart.findUniqueOrThrow({
+    const result = await db.cart.findUniqueOrThrow({
       where: {
         userId: userId,
       },
       include: {
-        productList: true,
+        cartRowList: true,
       },
     });
+    return result;
   }
 
   // async getCartBySlug(slug: string, db: Tx = this.db): Promise<CartEntity> {

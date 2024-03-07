@@ -9,6 +9,7 @@ import { productRelationsSeed } from "./data/productRelations";
 import { mapEnumToPrismaDatatype } from "../src/shared/lib/prisma";
 import { cartListSeed } from "./data/cart";
 import { cartRelationsSeed } from "./data/cartRelations";
+import { cartRowListSeed } from "./data/cartRow";
 
 const prisma = new PrismaClient();
 
@@ -46,6 +47,11 @@ async function main() {
   for await (const cart of cartListSeed) {
     await prisma.cart.create({ data: cart });
     console.log("cart created", cart);
+  }
+
+  for await (const cartRow of cartRowListSeed) {
+    await prisma.cartRow.create({ data: cartRow });
+    console.log("cart created", cartRow);
   }
 
   // Relation

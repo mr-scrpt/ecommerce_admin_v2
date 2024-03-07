@@ -1,6 +1,3 @@
-import { PropertyDataTypeEnum } from "@/shared/type/propertyDataType.enum";
-import { MultiSelectOptionItem } from "@/shared/ui/multiSelect";
-
 export const baseQueryKey = "cart";
 export type CartId = string;
 export type CartSlug = string;
@@ -11,8 +8,15 @@ export type CartEntity = {
   createdAt: Date;
 };
 
+export type CartRowEntity = {
+  id: string;
+  cartId: string;
+  productId: string;
+  quantity: number;
+};
+
 export type CartRelationEntity = CartEntity & {
-  productList: Array<CartProduct>;
+  cartRowList: Array<CartRowEntity>;
 };
 
 // Projetions
@@ -23,7 +27,7 @@ export type Cart = {
 };
 
 export type CartRelation = Cart & {
-  productList: Array<CartProduct>;
+  cartRowList: Array<CartRowEntity>;
 };
 
 export type CartToCreate = {
@@ -40,7 +44,7 @@ export type CartToAddProduct = {
 };
 
 // Side
-export type CartProduct = {
-  id: string;
-  // name: string;
-};
+// export type CartRow = {
+//   id: string;
+//   // name: string;
+// };
