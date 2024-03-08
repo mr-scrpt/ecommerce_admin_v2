@@ -8,8 +8,7 @@ const reqSchema = z.object({
 });
 
 const resultSchema = z.object({
-  data: cartRelationSchema.nullable(),
-  error: z.string().optional(),
+  data: cartRelationSchema,
 });
 
 export const PUT = async (req: Request): Promise<NextResponse<any>> => {
@@ -19,19 +18,12 @@ export const PUT = async (req: Request): Promise<NextResponse<any>> => {
     const { cart } = await cartAddProductAction({
       data: {
         productId,
+        quantity: 1,
       },
     });
-    console.log("output_log: cart =>>>", cart);
 
     return NextResponse.json(resultSchema.parse({ data: cart }));
   } catch (e) {
-    if (e instanceof Error) {
-      return NextResponse.json(
-        resultSchema.parse({ data: null, error: e.message as string }),
-      );
-    }
-    return NextResponse.json(
-      resultSchema.parse({ data: null, error: "Something went wrong" }),
-    );
+    return NextResponse.json(e);
   }
 };

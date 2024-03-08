@@ -19,7 +19,7 @@ class RemoveCartProductUseCase {
 
   async exec(data: RemoveProductCart): Promise<CartEntity> {
     const { dataToRemoveProduct, session } = data;
-    const { productId, quantity } = dataToRemoveProduct;
+    const { productId } = dataToRemoveProduct;
     // console.log("output_log: dataToRemoveProduct =>>>", dataToRemoveProduct);
     // console.log("output_log: session =>>>", session);
 
@@ -35,7 +35,6 @@ class RemoveCartProductUseCase {
       await this.CartRowRemoveProductTx.removeCartRowProductComplexible({
         userId,
         productId,
-        quantity,
       });
 
     console.log("output_log: cart 444444 =>>>", cart);

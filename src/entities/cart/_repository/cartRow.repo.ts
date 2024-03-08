@@ -72,12 +72,12 @@ export class CartRowRepository {
     data: CartRowToAddProduct,
     db: Tx = this.db,
   ): Promise<CartRowEntity> {
-    const { cartId, productId, quantity } = data;
+    const { cartId, productId } = data;
     return await db.cartRow.create({
       data: {
         cartId,
         productId,
-        quantity,
+        quantity: 1,
       },
     });
   }

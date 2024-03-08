@@ -24,7 +24,7 @@ export class CartRowAddProductTx extends Transaction {
   async addCartRowProductComplexible(
     data: CartRowAddProductTxData,
   ): Promise<CartEntity> {
-    const { userId, productId, quantity } = data;
+    const { userId, productId } = data;
     const action = async (tx: Tx) => {
       const cart = await this.cartRepo.getCartWithRelationByUserId(userId, tx);
 
@@ -33,30 +33,43 @@ export class CartRowAddProductTx extends Transaction {
         productId,
       });
 
-      const operations: Operations = {
-        true: async () => {
-          await this.cartRowRepo.increaseQuantity(
-            {
-              id: cartRowExisting!.id,
-              quantity,
-            },
-            tx,
-          );
+      if (cartRowExisting) {
+        console.log("output_log: escalate error =>>>", cartRowExisting);
+        throw new Error("Product already in cart");
+      }
+      await this.cartRowRepo.addCartRowProduct(
+        {
+          cartId: cart.id,
+          productId,
         },
-        false: async () => {
-          await this.cartRowRepo.addCartRowProduct(
-            {
-              cartId: cart.id,
-              productId,
-              quantity,
-            },
-            tx,
-          );
-        },
-      };
-      operations[String(!!cartRowExisting)]();
+        tx,
+      );
 
       return await this.cartRepo.getCartWithRelation(cart.id, tx);
+
+      // const operations: Operations = {
+      //   true: async () => {
+      //     await this.cartRowRepo.increaseQuantity(
+      //       {
+      //         id: cartRowExisting!.id,
+      //         quantity,
+      //       },
+      //       tx,
+      //     );
+      //   },
+      //   false: async () => {
+      //     await this.cartRowRepo.addCartRowProduct(
+      //       {
+      //         cartId: cart.id,
+      //         productId,
+      //         quantity,
+      //       },
+      //       tx,
+      //     );
+      //   },
+      // };
+
+      // operations[String(!!cartRowExisting)]();
     };
 
     return await this.start(action);

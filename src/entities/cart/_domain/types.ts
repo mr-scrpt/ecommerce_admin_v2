@@ -57,7 +57,7 @@ export type CartRowChangeQuantity = {
 export type CartRowToAddProduct = {
   cartId: string;
   productId: string;
-  quantity: number;
+  // quantity: number;
 };
 
 export type CartRowToRemoveProduct = {

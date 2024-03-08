@@ -24,7 +24,7 @@ export class CartRowRemoveProductTx extends Transaction {
   async removeCartRowProductComplexible(
     data: CartRowRemoveProductTxData,
   ): Promise<CartEntity> {
-    const { userId, productId, quantity } = data;
+    const { userId, productId } = data;
     const action = async (tx: Tx) => {
       // console.log("output_log: 1) productId =>>>", productId);
 
@@ -37,30 +37,44 @@ export class CartRowRemoveProductTx extends Transaction {
         productId,
       });
 
+      if (!cartRowExisting) {
+        console.log("output_log: escalate error =>>>", cartRowExisting);
+        throw new Error("Product not in cart");
+      }
+
+      await this.cartRowRepo.removeCartRowProduct(
+        {
+          cartId: cart.id,
+          productId,
+        },
+        tx,
+      );
+
+      return await this.cartRepo.getCartWithRelation(cart.id, tx);
       // console.log("output_log:  3) cartRowExisting =>>>", cartRowExisting);
 
-      const operations: Operations = {
-        true: async () => {
-          await this.cartRowRepo.decreaseQuantity(
-            {
-              id: cartRowExisting!.id,
-              quantity,
-            },
-            tx,
-          );
-        },
-        false: async () => {
-          await this.cartRowRepo.removeCartRowProduct(
-            {
-              cartId: cart.id,
-              productId,
-            },
-            tx,
-          );
-        },
-      };
-      operations[String(!!cartRowExisting)]();
-
+      // const operations: Operations = {
+      //   true: async () => {
+      //     await this.cartRowRepo.decreaseQuantity(
+      //       {
+      //         id: cartRowExisting!.id,
+      //         quantity,
+      //       },
+      //       tx,
+      //     );
+      //   },
+      //   false: async () => {
+      //     await this.cartRowRepo.removeCartRowProduct(
+      //       {
+      //         cartId: cart.id,
+      //         productId,
+      //       },
+      //       tx,
+      //     );
+      //   },
+      // };
+      // operations[String(!!cartRowExisting)]();
+      //
       return await this.cartRepo.getCartWithRelation(cart.id, tx);
     };
 
