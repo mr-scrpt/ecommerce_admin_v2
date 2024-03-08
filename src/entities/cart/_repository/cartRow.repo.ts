@@ -2,8 +2,9 @@ import { DbClient, Tx, dbClient } from "@/shared/lib/db";
 import {
   CartRowEntity,
   CartRowGetByProductId,
-  CartRowIncreaseQuantity,
+  CartRowChangeQuantity,
   CartRowToAddProduct,
+  CartRowToRemoveProduct,
 } from "../_domain/types";
 
 export class CartRowRepository {
@@ -33,7 +34,7 @@ export class CartRowRepository {
   }
 
   async increaseQuantity(
-    data: CartRowIncreaseQuantity,
+    data: CartRowChangeQuantity,
     db: Tx = this.db,
   ): Promise<CartRowEntity> {
     const { id, quantity } = data;
@@ -49,6 +50,24 @@ export class CartRowRepository {
     });
   }
 
+  async decreaseQuantity(
+    data: CartRowChangeQuantity,
+    db: Tx = this.db,
+  ): Promise<CartRowEntity> {
+    console.log("output_log: decreaseQuantity =>>>", data);
+    const { id, quantity } = data;
+    return await db.cartRow.update({
+      where: {
+        id,
+      },
+      data: {
+        quantity: {
+          decrement: quantity,
+        },
+      },
+    });
+  }
+
   async addCartRowProduct(
     data: CartRowToAddProduct,
     db: Tx = this.db,
@@ -59,6 +78,20 @@ export class CartRowRepository {
         cartId,
         productId,
         quantity,
+      },
+    });
+  }
+  async removeCartRowProduct(
+    data: CartRowToRemoveProduct,
+    db: Tx = this.db,
+  ): Promise<CartRowEntity> {
+    const { cartId, productId } = data;
+    return await db.cartRow.delete({
+      where: {
+        cartId_productId: {
+          cartId,
+          productId,
+        },
       },
     });
   }

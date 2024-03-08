@@ -2,15 +2,15 @@
 
 import { Cart } from "@/entities/cart";
 import {
-  cartAddProductSchema,
   cartRelationSchema,
+  cartRemoveProductSchema,
 } from "@/entities/cart/server";
-import { getAppSessionStrictServer } from "@/entities/user/user.server";
+import { getAppSessionStrictServer } from "@/entities/user/getAppSessionServer";
 import { z } from "zod";
-import { addCartProductUseCase } from "../_usecase/cartAddProduct.usecase";
+import { removeCartProductUseCase } from "../_usecase/cartRemoveProduct.usecase";
 
 const propsSchema = z.object({
-  data: cartAddProductSchema,
+  data: cartRemoveProductSchema,
 });
 
 const resultSchema = z.object({
@@ -19,15 +19,15 @@ const resultSchema = z.object({
 
 type ResultT = { cart: Cart };
 
-export const cartAddProductAction = async (
+export const cartRemoveProductAction = async (
   props: z.infer<typeof propsSchema>,
 ): Promise<ResultT> => {
   const { data } = propsSchema.parse(props);
 
   const session = await getAppSessionStrictServer();
 
-  const cart = await addCartProductUseCase.exec({
-    dataToAddProduct: data,
+  const cart = await removeCartProductUseCase.exec({
+    dataToRemoveProduct: data,
     session,
   });
 

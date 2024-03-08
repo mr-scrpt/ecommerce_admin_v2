@@ -8,5 +8,4 @@ export type {
   CartEntity,
   CartRelation,
   CartToCreate,
-  CartToUpdate,
 } from "./_domain/types";

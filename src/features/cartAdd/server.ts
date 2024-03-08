@@ -1,1 +1,2 @@
-export { addCartProductUseCase as addProductCartUseCase } from "./_usecase/cartAddProduct.usecase";
+// export { addCartProductUseCase } from "./_usecase/cartAddProduct.usecase";
+export { cartAddProductAction } from "./_action/cartAddProduct.action";

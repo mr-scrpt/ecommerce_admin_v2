@@ -6,13 +6,13 @@ import {
   cartRowRepository,
 } from "@/entities/cart/server";
 import { DbClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
-import { CartRowAddProductTxData } from "../_domain/types";
+import { CartRowRemoveProductTxData } from "../_domain/types";
 
 interface Operations {
   [key: string]: () => Promise<void>;
 }
 
-export class CartRowAddProductTx extends Transaction {
+export class CartRowRemoveProductTx extends Transaction {
   constructor(
     readonly db: DbClient,
     private readonly cartRepo: CartRepository,
@@ -21,21 +21,27 @@ export class CartRowAddProductTx extends Transaction {
     super(dbClient);
   }
 
-  async addCartRowProductComplexible(
-    data: CartRowAddProductTxData,
+  async removeCartRowProductComplexible(
+    data: CartRowRemoveProductTxData,
   ): Promise<CartEntity> {
     const { userId, productId, quantity } = data;
     const action = async (tx: Tx) => {
+      // console.log("output_log: 1) productId =>>>", productId);
+
       const cart = await this.cartRepo.getCartWithRelationByUserId(userId, tx);
+
+      // console.log("output_log: 2) cart =>>>", cart);
 
       const cartRowExisting = await this.cartRowRepo.getCartRowByProductId({
         cartId: cart.id,
         productId,
       });
 
+      // console.log("output_log:  3) cartRowExisting =>>>", cartRowExisting);
+
       const operations: Operations = {
         true: async () => {
-          await this.cartRowRepo.increaseQuantity(
+          await this.cartRowRepo.decreaseQuantity(
             {
               id: cartRowExisting!.id,
               quantity,
@@ -44,11 +50,10 @@ export class CartRowAddProductTx extends Transaction {
           );
         },
         false: async () => {
-          await this.cartRowRepo.addCartRowProduct(
+          await this.cartRowRepo.removeCartRowProduct(
             {
               cartId: cart.id,
               productId,
-              quantity,
             },
             tx,
           );
@@ -63,7 +68,7 @@ export class CartRowAddProductTx extends Transaction {
   }
 }
 
-export const cartRowAddProductTx = new CartRowAddProductTx(
+export const cartRowRemoveProductTx = new CartRowRemoveProductTx(
   dbClient,
   cartRepository,
   cartRowRepository,

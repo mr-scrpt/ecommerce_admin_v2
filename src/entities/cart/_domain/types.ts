@@ -49,7 +49,7 @@ export type CartRowGetByProductId = {
   productId: string;
 };
 
-export type CartRowIncreaseQuantity = {
+export type CartRowChangeQuantity = {
   id: string;
   quantity: number;
 };
@@ -58,6 +58,11 @@ export type CartRowToAddProduct = {
   cartId: string;
   productId: string;
   quantity: number;
+};
+
+export type CartRowToRemoveProduct = {
+  cartId: string;
+  productId: string;
 };
 
 // Side

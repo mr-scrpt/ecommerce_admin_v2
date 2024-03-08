@@ -1,5 +1,5 @@
-import { cartRelationSchema } from "@/entities/cart/server";
-import { cartAddProductAction } from "@/features/cartAdd/server";
+import { cartRelationSchema } from "@/entities/cart/_domain/cart.schema";
+import { cartRemoveProductAction } from "@/features/cartRemove/server";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
@@ -15,12 +15,14 @@ export const PUT = async (req: Request): Promise<NextResponse<any>> => {
   try {
     const { productId } = reqSchema.parse(await req.json());
 
-    const { cart } = await cartAddProductAction({
+    const { cart } = await cartRemoveProductAction({
       data: {
         productId,
         quantity: 1,
       },
     });
+
+    console.log("output_log:  =>>>", cart);
 
     return NextResponse.json(resultSchema.parse({ data: cart }));
   } catch (e) {

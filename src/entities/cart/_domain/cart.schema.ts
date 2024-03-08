@@ -19,7 +19,11 @@ export const cartRelationSchema = z.object({
 });
 
 export const cartAddProductSchema = z.object({
-  // userId: z.string(),
+  productId: z.string(),
+  quantity: z.number(),
+});
+
+export const cartRemoveProductSchema = z.object({
   productId: z.string(),
   quantity: z.number(),
 });
