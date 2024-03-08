@@ -1,7 +1,4 @@
 import { UserEntity, UserToCreate } from "@/entities/user/_domain/user.types";
-import { createUserAbility } from "@/entities/user/user";
-import { ForbiddenError } from "@/shared/lib/errors";
-import { SessionEntity } from "@/shared/lib/user";
 import { UserCreateTx, userCreateTx } from "../_tx/userCreate.transaction";
 
 class CreateUserComplexibleUseCase {

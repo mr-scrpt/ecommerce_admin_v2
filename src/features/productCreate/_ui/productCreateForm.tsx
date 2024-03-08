@@ -1,14 +1,14 @@
 "use client";
 import { useCategoryLikeSelectOptionList } from "@/entities/category";
+import { ProductFormLayout, productFormSchema } from "@/entities/product";
 import { usePropertyListByCategoryIdList } from "@/entities/property";
-import { ProductForm, productFormSchema } from "@/entities/product";
+import { useOptionListTransform } from "@/shared/lib/map";
 import { MultiSelectOptionItem } from "@/shared/ui/multiSelect";
 import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes } from "react";
 import { z } from "zod";
 import { useProductCreateMutation } from "../_mutation/productCreate.mutation";
-import { useOptionListTransform } from "@/shared/lib/map";
 
 interface ProductCreateFormProps extends HTMLAttributes<HTMLDivElement> {
   callbackUrl?: string;
@@ -24,24 +24,24 @@ export const ProductFormCreate: FC<ProductCreateFormProps> = (props) => {
   const { productCreate, isPending: isPendingCreate } =
     useProductCreateMutation();
 
-  const {
-    propertyList,
-    setCategoryIdList,
-    isPending: isPendingOptionList,
-  } = usePropertyListByCategoryIdList();
+  // const {
+  //   propertyList,
+  //   setCategoryIdList,
+  //   isPending: isPendingOptionList,
+  // } = usePropertyListByCategoryIdList();
 
   const { categorySelectOptionList, isPending: isPendingCategoryOptionList } =
     useCategoryLikeSelectOptionList();
 
   const { toDataIdList } = useOptionListTransform();
 
-  const handleSelectedOption = (
-    optionListSelected: Array<MultiSelectOptionItem>,
-  ) => {
-    const categoryIdList = toDataIdList(optionListSelected);
-    setCategoryIdList(categoryIdList.map((item) => item.id));
-    return categoryIdList;
-  };
+  // const handleSelectedOption = (
+  //   optionListSelected: Array<MultiSelectOptionItem>,
+  // ) => {
+  //   const categoryIdList = toDataIdList(optionListSelected);
+  //   setCategoryIdList(categoryIdList.map((item) => item.id));
+  //   return categoryIdList;
+  // };
 
   const router = useRouter();
   const handleSubmit = async (data: ProductFormValues) => {
@@ -56,19 +56,19 @@ export const ProductFormCreate: FC<ProductCreateFormProps> = (props) => {
     }
   };
 
-  const isPendingComplexible =
-    isPendingCreate || isPendingCategoryOptionList || isPendingOptionList;
+  // const isPendingComplexible =
+  //   isPendingCreate || isPendingCategoryOptionList || isPendingOptionList;
 
   return (
     <div className={cn(className, "w-full")}>
-      <ProductForm
-        handleSubmit={handleSubmit}
-        isPending={isPendingComplexible}
-        submitText={"Create Product"}
-        categorySelectOptionList={categorySelectOptionList}
-        optionSelectOptionList={propertyList}
-        handleCategorySelectOption={handleSelectedOption}
-      />
+      {/* <ProductFormLayout */}
+      {/*   handleSubmit={handleSubmit} */}
+      {/*   isPending={isPendingComplexible} */}
+      {/*   submitText={"Create Product"} */}
+      {/*   categorySelectOptionList={categorySelectOptionList} */}
+      {/*   optionSelectOptionList={propertyList} */}
+      {/*   handleCategorySelectOption={handleSelectedOption} */}
+      {/* /> */}
     </div>
   );
 };

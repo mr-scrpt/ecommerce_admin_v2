@@ -1,20 +1,24 @@
 import { CartEntity, createCartAbility } from "@/entities/cart";
-import { CartToAddProduct } from "@/entities/cart/_domain/types";
-import { CartRepository, cartRepository } from "@/entities/cart/server";
 import { ForbiddenError } from "@/shared/lib/errors";
 import { SessionEntity } from "@/shared/lib/user";
+import {
+  CartRowAddProductTx,
+  cartRowAddProductTx,
+} from "../_tx/cartRowAddProduct.transaction";
+import { CartRowAddProductComplexible } from "../_domain/types";
 
 type AddProductCart = {
-  dataToAddProduct: CartToAddProduct;
+  dataToAddProduct: CartRowAddProductComplexible;
   session: SessionEntity;
 };
 
-class AddProductCartUseCase {
-  constructor(private readonly cartRepo: CartRepository) {}
+class AddCartProductUseCase {
+  constructor(private readonly CartRowAddProductTx: CartRowAddProductTx) {}
 
   async exec(data: AddProductCart): Promise<CartEntity> {
+    console.log("output_log:  =>>> in usecase");
     const { dataToAddProduct, session } = data;
-    console.log("output_log: data to create =>>>", dataToAddProduct);
+    const { productId, quantity } = dataToAddProduct;
 
     const { canAddProduct } = createCartAbility(session);
 
@@ -22,8 +26,18 @@ class AddProductCartUseCase {
       throw new ForbiddenError();
     }
 
-    return await this.cartRepo.addProductCart(dataToAddProduct);
+    const userId = session.user.id;
+
+    const cart = await this.CartRowAddProductTx.addCartRowProductComplexible({
+      userId,
+      productId,
+      quantity,
+    });
+
+    return cart;
   }
 }
 
-export const addProductCartUseCase = new AddProductCartUseCase(cartRepository);
+export const addCartProductUseCase = new AddCartProductUseCase(
+  cartRowAddProductTx,
+);

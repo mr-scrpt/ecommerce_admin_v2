@@ -4,7 +4,8 @@ import { Cart, cartSchema } from "@/entities/cart";
 import { cartAddProductSchema } from "@/entities/cart/_domain/cart.schema";
 import { getAppSessionStrictServer } from "@/entities/user/getAppSessionServer";
 import { z } from "zod";
-import { addProductCartUseCase } from "../_usecase/cartAddProduct.usecase";
+import { addCartProductUseCase } from "../_usecase/cartAddProduct.usecase";
+import { UserEntity } from "@/entities/user/user";
 
 const propsSchema = z.object({
   data: cartAddProductSchema,
@@ -24,12 +25,10 @@ export const cartAddProductAction = async (
   // TODO: What Session?
   const session = await getAppSessionStrictServer();
 
-  const cart = await addProductCartUseCase.exec({
-    session,
-    dataToAddProduct: data,
-  });
+  // const cart = await addCartProductUseCase.exec({
+  //   dataToAddProduct: data,
+  //   session,
+  // });
 
-  return resultSchema.parseAsync({
-    cart,
-  });
+  return resultSchema.parseAsync({});
 };

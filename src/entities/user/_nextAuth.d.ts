@@ -16,7 +16,8 @@
 //   }
 // }
 import NextAuth from "next-auth";
-import { SessionEntity, UserEntity } from "./_domain/user.types";
+import { SessionEntity } from "@/shared/lib/user";
+import { UserEntity } from "./_domain/user.types";
 
 declare module "next-auth" {
   interface Session {

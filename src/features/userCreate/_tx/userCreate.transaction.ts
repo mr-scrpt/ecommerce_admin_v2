@@ -15,14 +15,19 @@ export class UserCreateTx extends Transaction {
   async createUser(user: UserToCreate): Promise<UserEntity> {
     const action = async (tx: Tx) => {
       const userCreated = await this.userRepo.createUser(user, tx);
-      console.log("output_log: userCreated =>>>", userCreated);
       await this.cartRepo.createCart(
         {
           userId: userCreated.id,
         },
         tx,
       );
-      return userCreated;
+      const userWithCart = await this.userRepo.getUserWithCart(
+        userCreated.id,
+        tx,
+      );
+
+      console.log("output_log: user after created =>>>", userWithCart);
+      return userWithCart;
     };
 
     return await this.start(action);
