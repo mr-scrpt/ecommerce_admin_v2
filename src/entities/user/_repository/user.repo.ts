@@ -1,5 +1,10 @@
 import { DbClient, Tx, dbClient } from "@/shared/lib/db";
-import { User, UserEntity, UserToCreate } from "../_domain/user.types";
+import {
+  User,
+  UserEntity,
+  UserRelationEntity,
+  UserToCreate,
+} from "../_domain/user.types";
 import { UserId } from "@/shared/lib/user";
 
 export class UserRepository {
@@ -11,6 +16,24 @@ export class UserRepository {
         id: userId,
       },
     });
+  }
+
+  async getUserWithCart(
+    userId: UserId,
+    db: Tx = this.db,
+  ): Promise<UserRelationEntity> {
+    const user = await db.user.findUniqueOrThrow({
+      where: {
+        id: userId,
+      },
+      include: {
+        cart: true,
+      },
+    });
+    return {
+      ...user,
+      cart: { id: user.cart!.id },
+    };
   }
 
   async getUserList(db: Tx = this.db): Promise<UserEntity[]> {

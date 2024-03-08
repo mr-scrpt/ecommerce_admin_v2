@@ -51,6 +51,25 @@ model Product {
 }
 
 
+model User {
+  id            String    @id @default(uuid())
+  name          String?
+  email         String    @unique
+  role          ROLE      @default(USER)
+  emailVerified DateTime?
+  image         String?
+
+  cart     Cart?
+  // cart    Cart    @relation(fields: [cartId], references: [id])
+  // cartId  String
+
+  accounts      Account[]
+  sessions      Session[]
+
+  createdAt     DateTime  @default(now())
+
+}
+
 model Cart {
   id        String   @id @default(uuid())
   user      User     @relation(fields: [userId], references: [id])
@@ -72,6 +91,7 @@ model CartRow {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  @@unique([cartId, productId])
 }
 
 model Property {
@@ -101,7 +121,6 @@ model PropertyItem {
 
   @@unique([propertyId, name])
   @@index([propertyId, name])
-	@@map("PropertyItem")
 }
 
 model Account {
@@ -131,22 +150,6 @@ model Session {
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model User {
-  id            String    @id @default(uuid())
-  name          String?
-  email         String    @unique
-  role          ROLE      @default(USER)
-  emailVerified DateTime?
-  image         String?
-
-  cart     Cart?
-
-  accounts      Account[]
-  sessions      Session[]
-
-  createdAt     DateTime  @default(now())
-
-}
 
 model VerificationToken {
   identifier String

@@ -6,6 +6,7 @@ export type SessionEntity = {
     id: UserId;
     email: string;
     role: Role;
+    cartId: string;
     name?: string | null;
     image?: string | null;
   };

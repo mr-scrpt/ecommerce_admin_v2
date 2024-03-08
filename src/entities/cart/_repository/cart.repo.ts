@@ -65,14 +65,14 @@ export class CartRepository {
     });
   }
 
-  async addProductCart(data: CartToAddProduct): Promise<CartEntity> {
+  async addCartProduct(data: CartToAddProduct): Promise<CartEntity> {
     const { id, productId } = data;
     return await this.db.cart.update({
       where: {
         id,
       },
       data: {
-        productList: {
+        cartRowList: {
           connect: {
             id: productId,
           },

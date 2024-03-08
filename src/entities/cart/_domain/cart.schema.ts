@@ -9,19 +9,19 @@ export const cartRelationSchema = z.object({
   id: z.string(),
   userId: z.string(),
 
-  productList: z.array(
+  cartRowList: z.array(
     z.object({
       id: z.string(),
-      // name: z.string(),
-      // value: z.string(),
-      // propertyId: z.string(),
+      productId: z.string(),
+      quantity: z.number(),
     }),
   ),
 });
 
 export const cartAddProductSchema = z.object({
-  id: z.string(),
+  // userId: z.string(),
   productId: z.string(),
+  quantity: z.number(),
 });
 
 // export const cartCreateSchema = z.object({

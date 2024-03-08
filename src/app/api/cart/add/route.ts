@@ -1,13 +1,16 @@
 import { categorySchema } from "@/entities/category";
 import { getCategoryListAction } from "@/entities/category/server";
+import { getAppSessionStrictServer } from "@/entities/user/user.server";
+import { cartAddProductAction } from "@/features/cartAdd/_action/cartAddProduct.action";
+import { addProductCartUseCase } from "@/features/cartAdd/server";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
-interface IMetaCart {
-  params: {
-    userId: string;
-  };
-}
+// interface IMetaCart {
+//   params: {
+//     userId: string;
+//   };
+// }
 
 interface IBodyCart {
   productId: string;
@@ -21,23 +24,34 @@ const reqSchema = z.object({
   productId: z.string(),
 });
 
-
 const resultSchema = z.object({
   data: z.array(categorySchema),
 });
 
 export const PUT = async (
   req: Request,
-  meta: IMetaCart,
+  // meta: IMetaCart,
 ): Promise<NextResponse<any>> => {
   try {
-    const { userId } = metaSchema.parse(meta.params);
     const { productId } = reqSchema.parse(await req.json());
-    // const {} = meta.params;
-    // const { categoryList } = await getCategoryListAction();
-    // const result = resultSchema.parse({ data: categoryList });
 
-    return NextResponse.json({});
+    const cart = await cartAddProductAction({
+      data: {
+        productId,
+        quantity: 1,
+      },
+    });
+    console.log("output_log: cart in api =>>>", cart);
+
+    // const cart = await addProductCartUseCase.exec({
+    //   dataToAddProduct: {
+    //     productId,
+    //     quantity: 1,
+    //   },
+    //   session,
+    // });
+
+    return NextResponse.json(cart);
   } catch (e) {
     return NextResponse.json(e);
   }

@@ -43,6 +43,23 @@ export type CartToAddProduct = {
   productId: string;
 };
 
+// CartRow
+export type CartRowGetByProductId = {
+  cartId: string;
+  productId: string;
+};
+
+export type CartRowIncreaseQuantity = {
+  id: string;
+  quantity: number;
+};
+
+export type CartRowToAddProduct = {
+  cartId: string;
+  productId: string;
+  quantity: number;
+};
+
 // Side
 // export type CartRow = {
 //   id: string;

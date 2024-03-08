@@ -16,9 +16,10 @@ class AddCartProductUseCase {
   constructor(private readonly CartRowAddProductTx: CartRowAddProductTx) {}
 
   async exec(data: AddProductCart): Promise<CartEntity> {
-    console.log("output_log:  =>>> in usecase");
     const { dataToAddProduct, session } = data;
     const { productId, quantity } = dataToAddProduct;
+    // console.log("output_log: dataToAddProduct =>>>", dataToAddProduct);
+    // console.log("output_log: session =>>>", session);
 
     const { canAddProduct } = createCartAbility(session);
 
@@ -33,6 +34,8 @@ class AddCartProductUseCase {
       productId,
       quantity,
     });
+
+    console.log("output_log: cart 444444 =>>>", cart);
 
     return cart;
   }

@@ -11,6 +11,10 @@ export type UserEntity = {
   createdAt: Date;
 };
 
+export type UserRelationEntity = UserEntity & {
+  cart: UserCart;
+};
+
 export type UserPartial = {
   email: string;
   name?: string | null;
@@ -34,4 +38,9 @@ export type UserToCreate = {
   name?: string | null;
   image?: string | null;
   role: Role;
+};
+
+// Side
+type UserCart = {
+  id: string;
 };

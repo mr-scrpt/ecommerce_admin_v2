@@ -75,9 +75,6 @@ export class CategoryRepository {
   }
 
   async getCategoryList(db: Tx = this.db): Promise<CategoryEntity[]> {
-    // TEST
-    const session = await getAppSessionStrictServer();
-    console.log("output_log: session =>>>", session);
     return db.category.findMany();
   }
 
