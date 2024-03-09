@@ -6,4 +6,6 @@ export const createCartAbility = (session: SessionEntity) => ({
   canAddProduct: () => !!session.user.role,
 
   canRemoveProduct: () => !!session.user.role,
+
+  canChangeProduct: () => !!session.user.role,
 });

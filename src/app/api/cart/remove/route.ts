@@ -12,7 +12,7 @@ const resultSchema = z.object({
   error: z.string().optional(),
 });
 
-export const PUT = async (req: Request): Promise<NextResponse<any>> => {
+export const POST = async (req: Request): Promise<NextResponse<any>> => {
   try {
     const { productId } = reqSchema.parse(await req.json());
 

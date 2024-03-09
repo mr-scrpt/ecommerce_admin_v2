@@ -17,9 +17,7 @@ class AddCartProductUseCase {
 
   async exec(data: AddProductCart): Promise<CartEntity> {
     const { dataToAddProduct, session } = data;
-    const { productId, quantity } = dataToAddProduct;
-    // console.log("output_log: dataToAddProduct =>>>", dataToAddProduct);
-    // console.log("output_log: session =>>>", session);
+    const { productId } = dataToAddProduct;
 
     const { canAddProduct } = createCartAbility(session);
 
@@ -32,7 +30,6 @@ class AddCartProductUseCase {
     const cart = await this.CartRowAddProductTx.addCartRowProductComplexible({
       userId,
       productId,
-      quantity,
     });
 
     console.log("output_log: cart 444444 =>>>", cart);

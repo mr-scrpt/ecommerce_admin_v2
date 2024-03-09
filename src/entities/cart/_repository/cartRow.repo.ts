@@ -33,37 +33,52 @@ export class CartRowRepository {
     });
   }
 
-  async increaseQuantity(
-    data: CartRowChangeQuantity,
-    db: Tx = this.db,
-  ): Promise<CartRowEntity> {
-    const { id, quantity } = data;
-    return await db.cartRow.update({
-      where: {
-        id,
-      },
-      data: {
-        quantity: {
-          increment: quantity,
-        },
-      },
-    });
-  }
+  // async increaseQuantity(
+  //   data: CartRowChangeQuantity,
+  //   db: Tx = this.db,
+  // ): Promise<CartRowEntity> {
+  //   const { id, quantity } = data;
+  //   return await db.cartRow.update({
+  //     where: {
+  //       id,
+  //     },
+  //     data: {
+  //       quantity: {
+  //         increment: quantity,
+  //       },
+  //     },
+  //   });
+  // }
+  //
+  // async decreaseQuantity(
+  //   data: CartRowChangeQuantity,
+  //   db: Tx = this.db,
+  // ): Promise<CartRowEntity> {
+  //   console.log("output_log: decreaseQuantity =>>>", data);
+  //   const { id, quantity } = data;
+  //   return await db.cartRow.update({
+  //     where: {
+  //       id,
+  //     },
+  //     data: {
+  //       quantity: {
+  //         decrement: quantity,
+  //       },
+  //     },
+  //   });
+  // }
 
-  async decreaseQuantity(
+  async changeCartRowProductQuantity(
     data: CartRowChangeQuantity,
     db: Tx = this.db,
   ): Promise<CartRowEntity> {
-    console.log("output_log: decreaseQuantity =>>>", data);
     const { id, quantity } = data;
     return await db.cartRow.update({
       where: {
         id,
       },
       data: {
-        quantity: {
-          decrement: quantity,
-        },
+        quantity,
       },
     });
   }
@@ -81,6 +96,7 @@ export class CartRowRepository {
       },
     });
   }
+
   async removeCartRowProduct(
     data: CartRowToRemoveProduct,
     db: Tx = this.db,

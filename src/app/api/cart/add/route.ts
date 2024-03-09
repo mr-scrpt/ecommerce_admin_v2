@@ -12,7 +12,7 @@ const resultSchema = z.object({
   error: z.string().optional(),
 });
 
-export const PUT = async (req: Request): Promise<NextResponse<any>> => {
+export const POST = async (req: Request): Promise<NextResponse<any>> => {
   try {
     const { productId } = reqSchema.parse(await req.json());
 
@@ -21,7 +21,6 @@ export const PUT = async (req: Request): Promise<NextResponse<any>> => {
         productId,
       },
     });
-    console.log("output_log: cart =>>>", cart);
 
     return NextResponse.json(resultSchema.parse({ data: cart }));
   } catch (e) {
