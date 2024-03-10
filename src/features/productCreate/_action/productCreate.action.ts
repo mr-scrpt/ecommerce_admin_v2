@@ -24,7 +24,7 @@ export const productCreateAction = async (
   props: z.infer<typeof propsSchema>,
 ): Promise<ResultT> => {
   const { data } = propsSchema.parse(props);
-  const { categoryList, ...productData } = data;
+  const { categoryList, propertyItemListSelected, ...productData } = data;
 
   const session = await getAppSessionStrictServer();
 
@@ -39,6 +39,7 @@ export const productCreateAction = async (
       },
 
       categoryListData: categoryList,
+      propertyItemListSelected: propertyItemListSelected,
     },
   });
 

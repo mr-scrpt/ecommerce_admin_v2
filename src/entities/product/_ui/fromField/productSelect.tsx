@@ -36,7 +36,7 @@ export const ProductSelect: FC<ProductSelectProps> = (props) => {
             <Select onValueChange={field.onChange} defaultValue={field.value}>
               <FormControl>
                 <SelectTrigger>
-                  <SelectValue placeholder="placeholder" />
+                  <SelectValue placeholder="Select vatiants" />
                 </SelectTrigger>
               </FormControl>
               <SelectContent>

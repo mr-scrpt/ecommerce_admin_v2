@@ -4,7 +4,6 @@ import { signIn } from "next-auth/react";
 
 export const POST = async (req: Request, res: any) => {
   const body = await req.json();
-  console.log("output_log:  =>>> in api/auth/registration POST", body);
   // const response = await signIn("credentials", {
   //   username,
   //   password,
@@ -15,7 +14,6 @@ export const POST = async (req: Request, res: any) => {
     password: body.password,
     redirect: false,
   });
-  console.log("output_log:  =>>>", response);
   return NextResponse.json(body);
 };
 

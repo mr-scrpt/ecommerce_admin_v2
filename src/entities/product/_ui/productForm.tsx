@@ -75,12 +75,15 @@ export const ProductForm: ProductFormType = (props) => {
     resolver: zodResolver(productFormSchema),
     defaultValues: getDefaultValues(product, propertySelectObjectActive),
   });
+  // console.log("output_log: product =>>>", product);
 
   useEffect(() => {
+    console.log("output_log: RESET =>>>", propertySelectObjectActive);
     form.reset(getDefaultValues(product, propertySelectObjectActive));
-  }, [product, propertySelectObjectActive, form]);
+  }, [propertySelectObjectActive, form, product]);
 
   const handleSubmit = form.handleSubmit(async (data) => {
+    // console.log("output_log: submit =>>>", data);
     const propertyItemListSelected = propertyToFlatList(data.propertyList);
 
     onSubmit?.({
@@ -93,6 +96,7 @@ export const ProductForm: ProductFormType = (props) => {
     });
   });
 
+  console.log("output_log: value in form =>>>", form.getValues());
   return (
     <FormProvider {...form}>
       <Form {...form}>
@@ -122,26 +126,35 @@ ProductForm.CategoryListField = function CategoryListField({
   const form = useFormContext<ProductFormValues>();
 
   const handleSelectCat = useCallback((value: MultiSelectOptionItem[]) => {
+    // console.log("output_log: set category list value =>>>", value);
     form.setValue("categoryList", handleCategorySelectOption(value));
+    // console.log("output_log: get value in field =>>>", form.getValues());
   }, []);
 
   return (
     <FormField
       control={form.control}
       name="categoryList"
-      render={() => (
-        <FormItem>
-          <FormLabel>Category list</FormLabel>
-          <FormControl>
-            <MultiSelect
-              optionList={categorySelectOptionList}
-              optionActiveList={categotySelectOptionListActive}
-              onSelected={handleSelectCat}
-            />
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      )}
+      render={({ field }) => {
+        // console.log("output_log: field =>>>", field);
+        return (
+          <FormItem>
+            <FormLabel>Category list</FormLabel>
+            <FormControl>
+              <MultiSelect
+                optionList={categorySelectOptionList}
+                optionActiveList={categotySelectOptionListActive}
+                // onSelected={handleSelectCat}
+                onSelected={(value) =>
+                  field.onChange(handleCategorySelectOption(value))
+                }
+                // onSelected={() => {}}
+              />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        );
+      }}
     />
   );
 };
@@ -252,6 +265,7 @@ ProductForm.AboutField = function AboutField() {
 
 ProductForm.ImgField = function ImgField() {
   const { control, getValues, setValue } = useFormContext<ProductFormValues>();
+  // console.log("output_log: getValues img =>>>", getValues("img"));
   const handleDeleteImg = (path: string) => {
     const list = getValues("img");
     const result = list.filter((item) => item !== path);

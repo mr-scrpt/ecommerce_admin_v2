@@ -4,7 +4,7 @@ import { ProductRelation } from "@/entities/product";
 import { useOptionListTransform } from "@/shared/lib/map";
 import { useEffect, useState } from "react";
 
-export const useCategoryDataToForm = (product?: ProductRelation) => {
+export const useCategoryDataToForm = () => {
   const [categoryOptionListSelected, setCategoryOptionListSelected] =
     useState<Array<{ label: string; value: string }>>();
 
@@ -12,13 +12,7 @@ export const useCategoryDataToForm = (product?: ProductRelation) => {
     Array<{ label: string; value: string }>
   >([]);
 
-  const { toOptionList } = useOptionListTransform();
-
-  useEffect(() => {
-    if (product?.categoryList) {
-      setCategoryOptionListActive(toOptionList(product.categoryList));
-    }
-  }, [product]);
+  // const { toOptionList } = useOptionListTransform();
 
   useEffect(() => {
     if (categoryOptionListSelected) {

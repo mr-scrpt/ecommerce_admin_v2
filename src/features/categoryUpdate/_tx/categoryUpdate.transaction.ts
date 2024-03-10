@@ -1,6 +1,5 @@
 import {
   CategoryEntity,
-  CategoryRelationEntity,
   CategoryRepository,
   categoryRepository,
 } from "@/entities/category";
@@ -19,17 +18,17 @@ export class CategoryUpdateTx extends Transaction {
     data: CategoryUpdateComplexible,
   ): Promise<CategoryEntity> {
     const action = async (tx: Tx) => {
-      const { categoryId, categoryData, optionListData } = data;
+      const { categoryId, categoryData, propertyListData } = data;
       const categoryUpdated = await this.categoryRepo.updateCategory(
         categoryId,
         categoryData,
         tx,
       );
 
-      await this.categoryRepo.addCategoryOptionList(
+      await this.categoryRepo.addCategoryPropertyList(
         {
           categoryId,
-          optionListId: optionListData,
+          propertyListId: propertyListData,
         },
         tx,
       );

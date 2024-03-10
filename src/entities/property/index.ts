@@ -1,4 +1,3 @@
-export { createPropertyAbility } from "./_domain/property/property.ability";
 export {
   propertyCreateSchema,
   propertyFormSchema,

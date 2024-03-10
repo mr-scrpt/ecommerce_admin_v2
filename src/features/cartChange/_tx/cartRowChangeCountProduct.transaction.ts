@@ -25,7 +25,6 @@ export class CartRowChangeCountProductTx extends Transaction {
     data: CartRowChangeCountProductTxData,
   ): Promise<CartEntity> {
     const { userId, productId, quantity } = data;
-    console.log("output_log:  =>>>", data);
     const action = async (tx: Tx) => {
       const cart = await this.cartRepo.getCartWithRelationByUserId(userId, tx);
 

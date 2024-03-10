@@ -1,4 +1,3 @@
-export { createProductAbility } from "./_domain/product.ability";
 export {
   productCreateSchema,
   productFormSchema,

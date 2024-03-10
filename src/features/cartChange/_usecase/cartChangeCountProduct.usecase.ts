@@ -1,4 +1,4 @@
-import { CartEntity, createCartAbility } from "@/entities/cart";
+import { CartEntity } from "@/entities/cart";
 import { ForbiddenError } from "@/shared/lib/errors";
 import { SessionEntity } from "@/shared/lib/user";
 import {
@@ -6,6 +6,7 @@ import {
   cartRowChangeCountProductTx,
 } from "../_tx/cartRowChangeCountProduct.transaction";
 import { CartRowChangeCountProductComplexible } from "../_domain/types";
+import { createCartAbility } from "@/entities/cart/server";
 
 type ChangeCountProductCart = {
   dataToChangeCountProduct: CartRowChangeCountProductComplexible;

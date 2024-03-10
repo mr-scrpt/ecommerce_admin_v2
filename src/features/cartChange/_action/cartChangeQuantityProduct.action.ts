@@ -29,7 +29,5 @@ export const cartChangeCountProductAction = async (
     session,
   });
 
-  console.log("output_log:  =>>>", cart);
-
   return resultSchema.parseAsync({ cart });
 };

@@ -22,8 +22,6 @@ export const POST = async (req: Request): Promise<NextResponse<any>> => {
       },
     });
 
-    console.log("output_log:  =>>>", cart);
-
     return NextResponse.json(resultSchema.parse({ data: cart }));
   } catch (e) {
     if (e instanceof Error) {

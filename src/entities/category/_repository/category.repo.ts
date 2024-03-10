@@ -7,6 +7,7 @@ import {
   CategoryId,
   CategoryRelationEntity,
   CategoryToCreate,
+  CategoryToUpdate,
 } from "../_domain/types";
 import { mapPrismaDatatypeToEnum } from "@/shared/lib/prisma";
 import { getAppSessionStrictServer } from "@/entities/user/getAppSessionServer";
@@ -123,7 +124,7 @@ export class CategoryRepository {
 
   async updateCategory(
     targetId: CategoryId,
-    categoryData: Partial<Category>,
+    categoryData: Partial<CategoryToUpdate>,
     db: Tx = this.db,
   ): Promise<CategoryEntity> {
     return await db.category.update({

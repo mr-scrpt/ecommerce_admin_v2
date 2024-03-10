@@ -25,7 +25,7 @@ export const updateCategoryAction = async (
   props: z.infer<typeof propsSchema>,
 ): Promise<ResultT> => {
   const { categoryId, data } = propsSchema.parse(props);
-  const { optionList, ...categoryData } = data;
+  const { propertyList, ...categoryData } = data;
 
   const session = await getAppSessionStrictServer();
   const slug = slugGenerator(data.name);
@@ -35,7 +35,7 @@ export const updateCategoryAction = async (
     dataToUpdate: {
       categoryId,
       categoryData: { ...categoryData, slug },
-      optionListData: optionList,
+      propertyListData: propertyList,
     },
   });
 

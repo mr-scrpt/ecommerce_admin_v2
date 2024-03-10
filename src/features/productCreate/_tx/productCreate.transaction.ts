@@ -17,17 +17,38 @@ export class ProductCreateTx extends Transaction {
   async createProductComplexible(
     data: ProductCreateComplexible,
   ): Promise<ProductEntity> {
-    const { productData, categoryListData } = data;
+    const { productData, categoryListData, propertyItemListSelected } = data;
     const action = async (tx: Tx) => {
+      console.log("output_log: data =>>>", data);
       const productCreated = await this.productRepo.createProduct(
-        productData,
+        // productData,
+        {
+          name: productData.name,
+          description: productData.description,
+          about: productData.about,
+          slug: productData.slug,
+          img: productData.img,
+        },
         tx,
+      );
+
+      console.log(
+        "output_log:  propertyItemListSelected =>>>",
+        propertyItemListSelected,
       );
 
       await this.productRepo.addCategoryList(
         {
           productId: productCreated.id,
           categoryListId: categoryListData,
+        },
+        tx,
+      );
+
+      await this.productRepo.addPropertyList(
+        {
+          productId: productCreated.id,
+          propertyListId: propertyItemListSelected,
         },
         tx,
       );

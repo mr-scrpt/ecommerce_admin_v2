@@ -1,4 +1,4 @@
-import { ProductEntity, createProductAbility } from "@/entities/product";
+import { ProductEntity } from "@/entities/product";
 import { ForbiddenError } from "@/shared/lib/errors";
 import { SessionEntity } from "@/shared/lib/user";
 import { ProductCreateComplexible } from "../_domain/types";
@@ -6,6 +6,7 @@ import {
   ProductCreateTx,
   productCreateTx,
 } from "../_tx/productCreate.transaction";
+import { createProductAbility } from "@/entities/product/server";
 
 type CreateProduct = {
   dataToCreate: ProductCreateComplexible;

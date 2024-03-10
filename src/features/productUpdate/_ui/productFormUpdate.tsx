@@ -24,7 +24,6 @@ interface ProductFormProps extends HTMLAttributes<HTMLDivElement> {
 
 export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
   const { productId, callbackUrl, className, onSuccess } = props;
-  console.log("output_log:  productId=>>>", productId);
 
   const {
     isPending: isPendingProduct,

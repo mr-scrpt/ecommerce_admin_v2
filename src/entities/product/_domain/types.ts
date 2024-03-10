@@ -42,12 +42,24 @@ export type ProductToCreate = {
   about: string;
   slug: ProductSlug;
   img: Array<string>;
-  // categoryList: Array<{ id: string }>;
+};
+
+export type ProductToUpdate = {
+  name: string;
+  description: string;
+  about: string;
+  slug: ProductSlug;
+  img: Array<string>;
 };
 
 export type ProductAddCategoryList = {
   productId: string;
   categoryListId: Array<{ id: string }>;
+};
+
+export type ProductAddPropertyList = {
+  productId: string;
+  propertyListId: Array<{ id: string }>;
 };
 
 export type ProductFromFrom = {
@@ -59,10 +71,10 @@ export type ProductFromFrom = {
   propertyItemListSelected: Array<{ id: string }>;
 };
 
-export type ProductToUpdate = ProductFromFrom & {
-  id: ProductId;
-  slug: ProductSlug;
-};
+// export type ProductToUpdate = ProductFromFrom & {
+//   id: ProductId;
+//   slug: ProductSlug;
+// };
 
 // Side
 export type ProductCategory = {

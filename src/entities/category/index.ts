@@ -1,4 +1,3 @@
-export { createCategoryAbility } from "./_domain/category.ability";
 export {
   categoryCreateSchema,
   categoryFormSchema,

@@ -45,6 +45,7 @@ export const productCreateSchema = z.object({
       id: z.string(),
     }),
   ),
+  propertyItemListSelected: z.array(z.object({ id: z.string() })),
 });
 
 export const productUpdateSchema = z.object({

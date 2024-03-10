@@ -25,7 +25,7 @@ export const categoryRelationSchema = z.object({
       createdAt: z.date(),
     }),
   ),
-  optionList: z.array(
+  propertyList: z.array(
     z.object({
       id: z.string(),
       name: z.string(),
@@ -37,7 +37,7 @@ export const categoryRelationSchema = z.object({
 export const categoryCreateSchema = z.object({
   name: z.string(),
   board: z.array(z.string()),
-  optionList: z.array(
+  propertyList: z.array(
     z.object({
       id: z.string(),
     }),
@@ -48,7 +48,7 @@ export const categoryUpdateSchema = z.object({
   id: z.string(),
   name: z.string(),
   board: z.array(z.string()),
-  optionList: z.array(
+  propertyList: z.array(
     z.object({
       id: z.string(),
     }),
@@ -64,7 +64,7 @@ export const categoryFormSchema = z.object({
     })
     .transform((name) => name.trim()),
   board: z.array(z.string()),
-  optionList: z.array(
+  propertyList: z.array(
     z.object({
       id: z.string(),
     }),
