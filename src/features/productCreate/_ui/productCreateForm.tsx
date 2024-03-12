@@ -1,16 +1,14 @@
 "use client";
-import { useCategoryLikeSelectOptionList } from "@/entities/category";
-import { ProductFormLayout, productFormSchema } from "@/entities/product";
+import { ProductFormLayout } from "@/entities/product";
+import { ProductFromFrom } from "@/entities/product/_domain/types";
 import { usePropertyListByCategoryIdList } from "@/entities/property";
 import { useOptionListTransform } from "@/shared/lib/map";
 import { MultiSelectOptionItem } from "@/shared/ui/multiSelect";
 import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes, useCallback } from "react";
-import { z } from "zod";
 import { useProductCreateMutation } from "../_mutation/productCreate.mutation";
 import { useCategoryDataToForm } from "../_vm/useCategoryDataToForm";
-import { ProductFromFrom } from "@/entities/product/_domain/types";
 
 interface ProductCreateFormProps extends HTMLAttributes<HTMLDivElement> {
   callbackUrl?: string;

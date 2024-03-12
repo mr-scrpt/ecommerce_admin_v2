@@ -84,6 +84,7 @@ export const ProductForm: ProductFormType = (props) => {
   const handleSubmit = form.handleSubmit(async (data) => {
     const propertyItemListSelected = propertyToFlatList(data.propertyList);
 
+    // console.log("output_log: data on submit =>>>", data);
     onSubmit?.({
       name: data.name,
       description: data.description,
@@ -93,6 +94,8 @@ export const ProductForm: ProductFormType = (props) => {
       propertyItemListSelected,
     });
   });
+  // console.log("output_log: errors =>>>", form.formState.errors);
+  // console.log("output_log: form value =>>>", form.getValues());
 
   return (
     <FormProvider {...form}>
@@ -124,8 +127,8 @@ ProductForm.CategoryListField = function CategoryListField({
   const form = useFormContext<ProductFormValues>();
 
   const handleSelectCat = useCallback((value: MultiSelectOptionItem[]) => {
-    // form.setValue("categoryList", handleCategorySelectOption(value));
-    handleCategorySelectOption(value);
+    form.setValue("categoryList", handleCategorySelectOption(value));
+    // handleCategorySelectOption(value);
   }, []);
 
   return (
