@@ -24,7 +24,6 @@ export const ProductRadio: FC<ProductRadioProps> = (props) => {
       key={name}
       name={`propertyList.${name}`}
       render={({ field }) => {
-        console.log("field value in radio", field.value);
         return (
           <FormItem className="space-y-3">
             <FormLabel>{name}</FormLabel>

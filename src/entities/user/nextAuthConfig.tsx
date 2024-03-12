@@ -5,7 +5,7 @@ import { compact } from "lodash-es";
 import { AuthOptions } from "next-auth";
 import EmailProvider from "next-auth/providers/email";
 import GithubProvider from "next-auth/providers/github";
-import { createUserUseCase } from "./_useCase/createUser.usecase";
+import { createUserUseCase } from "./_useCase/___createUser.usecase";
 import { socketClient } from "@/shared/config/socket";
 import { WSEventEnum } from "@/shared/type/websokcetEvent.enum";
 // import { socketClient } from "@/shared/config/socket";

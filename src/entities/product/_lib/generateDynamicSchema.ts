@@ -3,7 +3,7 @@ import { ProductPropertyToSelect } from "../_domain/types";
 import { z } from "zod";
 import { productFormSchema } from "../_domain/product.schema";
 
-const dynamicOptionSchema: Record<string, z.ZodType<any, any>> = {};
+// const dynamicOptionSchema: Record<string, z.ZodType<any, any>> = {};
 
 const typeToSchemaMap: Record<PropertyDataTypeEnum, z.ZodType<any, any>> = {
   [PropertyDataTypeEnum.MULT]: z.array(z.string()),
@@ -15,6 +15,7 @@ const typeToSchemaMap: Record<PropertyDataTypeEnum, z.ZodType<any, any>> = {
 export const generateDynamicSchema = (
   propertySelectOptionList: ProductPropertyToSelect[],
 ) => {
+  const dynamicOptionSchema: Record<string, z.ZodType<any, any>> = {};
   for (const option of propertySelectOptionList) {
     const schema = typeToSchemaMap[option.datatype];
     dynamicOptionSchema[option.name] = schema || z.string();

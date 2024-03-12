@@ -56,6 +56,7 @@ const getDefaultValues = (
   categoryList: product?.categoryList ?? [],
   propertyList: propertyList ?? {},
 });
+import { DevTool } from "@hookform/devtools";
 
 export const ProductForm: ProductFormType = (props) => {
   const {
@@ -68,28 +69,13 @@ export const ProductForm: ProductFormType = (props) => {
   } = props;
 
   const productFormSchema = generateProductFormSchema(propertySelectOptionList);
-  console.log("output_log:  product =>>>", product);
 
   type ProductFormValuesCombined = z.infer<typeof productFormSchema>;
 
   const form = useForm<ProductFormValuesCombined>({
     resolver: zodResolver(productFormSchema),
     defaultValues: getDefaultValues(product, propertySelectObjectActive),
-    // defaultValues: getDefaultValues(
-    //   {
-    //     id: product?.id ?? "",
-    //     name: product?.name ?? "",
-    //     description: product?.description ?? "",
-    //     about: product?.about ?? "",
-    //     img: product?.img ?? [],
-    //     slug: product?.slug ?? "",
-    //     categoryLit: product?.categoryList ?? [],
-    //     propertyItemListSelected: product?.propertyItemListSelected ?? [],
-    //   },
-    // propertySelectObjectActive,
-    // ),
   });
-  // console.log("output_log: product =>>>", product);
 
   useEffect(() => {
     form.reset(getDefaultValues(product, propertySelectObjectActive));
@@ -108,12 +94,12 @@ export const ProductForm: ProductFormType = (props) => {
     });
   });
 
-  console.log("outsut_log: value in form =>>>", form.getValues());
   return (
     <FormProvider {...form}>
       <Form {...form}>
         <form onSubmit={handleSubmit} className={cn(className, "w-full")}>
           {children}
+          {/* <DevTool control={form.control} /> */}
         </form>
       </Form>
     </FormProvider>
@@ -138,7 +124,6 @@ ProductForm.CategoryListField = function CategoryListField({
   const form = useFormContext<ProductFormValues>();
 
   const handleSelectCat = useCallback((value: MultiSelectOptionItem[]) => {
-    console.log("output_log: CHANGE =>>>");
     // form.setValue("categoryList", handleCategorySelectOption(value));
     handleCategorySelectOption(value);
   }, []);
@@ -278,7 +263,6 @@ ProductForm.AboutField = function AboutField() {
 
 ProductForm.ImgField = function ImgField() {
   const { control, getValues, setValue } = useFormContext<ProductFormValues>();
-  // console.log("output_log: getValues img =>>>", getValues("img"));
   const handleDeleteImg = (path: string) => {
     const list = getValues("img");
     const result = list.filter((item) => item !== path);

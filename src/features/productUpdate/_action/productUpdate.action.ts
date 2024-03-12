@@ -26,6 +26,7 @@ export const updateProductAction = async (
   const { propertyItemListSelected, categoryList, ...productData } = data;
 
   const session = await getAppSessionStrictServer();
+  console.log("output_log:  =>>>", session.user);
   const slug = slugGenerator(data.name);
 
   const product = await updateProductComplexibleUseCase.exec({

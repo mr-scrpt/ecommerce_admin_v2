@@ -65,9 +65,7 @@ export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
 
   const handleSelectedProperty = useCallback(
     (propertyListSelected: Array<MultiSelectOptionItem>) => {
-      // console.log("output_log: in callback =>>>", propertyListSelected);
       const categoryIdList = toDataIdList(propertyListSelected);
-      // console.log("output_log:  categoryIdList =>>>", categoryIdList);
       setCategoryOptionListSelected(toOptionList(categoryIdList));
       setCategoryIdList(categoryIdList.map((item) => item.id));
       return categoryIdList;
@@ -103,11 +101,6 @@ export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
       router.push(callbackUrl);
     }
   };
-
-  console.log(
-    "output_log: product with active =>>>",
-    productWithActiveCategory,
-  );
 
   return (
     <div className={cn(className, "w-full")}>
