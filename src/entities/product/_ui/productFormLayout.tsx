@@ -36,6 +36,8 @@ export const ProductFormLayout: FC<ProductFormLayoutProps> = (props) => {
     handleCategorySelectOption,
   } = props;
 
+  console.log("output_log: layout =>>>", categotySelectOptionListActive);
+
   const onSelect = (value: string) => {
     // tabActiveStorege.setItem(value);
     localStorage.setItem("tabActive", value);

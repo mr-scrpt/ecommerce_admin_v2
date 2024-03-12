@@ -154,11 +154,15 @@ export const MultiSelect: FC<MultiSelectProps> = memo((props) => {
                       e.stopPropagation();
                     }}
                     onSelect={(_) => {
-                      // console.log("output_log: ))) in select =>>>", optionItem);
+                      // console.log(
+                      //   "output_log: ))) in select =>>>",
+                      //   optionItem,
+                      //   !!onSelected,
+                      // );
                       setInputValue("");
                       setSelected((prev) => [...prev, optionItem]);
                       setSessionItems((prev) => [...prev, optionItem]);
-                      // onSelected && onSelected([...selected, optionItem]);
+                      onSelected && onSelected([...selected, optionItem]);
                     }}
                     className={"cursor-pointer"}
                   >

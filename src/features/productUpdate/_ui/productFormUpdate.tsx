@@ -38,6 +38,7 @@ export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
     categoryOptionListActive,
     isPendingCategoryOptionList,
     setCategoryOptionListSelected,
+    productWithActiveCategory,
   } = useCategoryDataToForm(product);
 
   const {
@@ -64,7 +65,9 @@ export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
 
   const handleSelectedProperty = useCallback(
     (propertyListSelected: Array<MultiSelectOptionItem>) => {
+      // console.log("output_log: in callback =>>>", propertyListSelected);
       const categoryIdList = toDataIdList(propertyListSelected);
+      // console.log("output_log:  categoryIdList =>>>", categoryIdList);
       setCategoryOptionListSelected(toOptionList(categoryIdList));
       setCategoryIdList(categoryIdList.map((item) => item.id));
       return categoryIdList;
@@ -101,12 +104,17 @@ export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
     }
   };
 
+  console.log(
+    "output_log: product with active =>>>",
+    productWithActiveCategory,
+  );
+
   return (
     <div className={cn(className, "w-full")}>
       <ProductFormLayout
         handleSubmit={handleSubmit}
         isPending={isPendingComplexible}
-        product={product}
+        product={productWithActiveCategory}
         categorySelectOptionList={categoryOptionListTotal}
         categotySelectOptionListActive={categoryOptionListActive}
         handleCategorySelectOption={handleSelectedProperty}

@@ -8,17 +8,29 @@ export const useCategoryDataToForm = (product?: ProductRelation) => {
   const [categoryOptionListSelected, setCategoryOptionListSelected] =
     useState<Array<{ label: string; value: string }>>();
 
+  const [productWithActiveCategory, setProductWithActiveCategory] =
+    useState<ProductRelation>();
+
   const [categoryOptionListActive, setCategoryOptionListActive] = useState<
     Array<{ label: string; value: string }>
   >([]);
 
-  const { toOptionList } = useOptionListTransform();
+  const { toOptionList, toDataIdList } = useOptionListTransform();
 
   useEffect(() => {
     if (product?.categoryList) {
       setCategoryOptionListActive(toOptionList(product.categoryList));
     }
-  }, [product]);
+  }, [product, toOptionList]);
+
+  useEffect(() => {
+    if (categoryOptionListActive && product) {
+      setProductWithActiveCategory({
+        ...product,
+        categoryList: toDataIdList(categoryOptionListActive),
+      });
+    }
+  }, [categoryOptionListActive, toDataIdList, product]);
 
   useEffect(() => {
     if (categoryOptionListSelected) {
@@ -30,9 +42,11 @@ export const useCategoryDataToForm = (product?: ProductRelation) => {
     categorySelectOptionList: categoryOptionListTotal,
     isPending: isPendingCategoryOptionList,
   } = useCategoryLikeSelectOptionList();
+  // console.log("output_log: in hook =>>>", categoryOptionListActive);
 
   return {
     categoryOptionListTotal,
+    productWithActiveCategory,
     isPendingCategoryOptionList,
     categoryOptionListSelected,
     setCategoryOptionListSelected,

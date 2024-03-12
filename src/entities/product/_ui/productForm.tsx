@@ -46,7 +46,7 @@ type ProductFormType = FC<ProductFormProps> & {
 };
 
 const getDefaultValues = (
-  product?: ProductRelation,
+  product?: Partial<ProductRelation>,
   propertyList?: ProductPropertyObjectList,
 ) => ({
   name: product?.name ?? "",
@@ -68,22 +68,34 @@ export const ProductForm: ProductFormType = (props) => {
   } = props;
 
   const productFormSchema = generateProductFormSchema(propertySelectOptionList);
+  console.log("output_log:  product =>>>", product);
 
   type ProductFormValuesCombined = z.infer<typeof productFormSchema>;
 
   const form = useForm<ProductFormValuesCombined>({
     resolver: zodResolver(productFormSchema),
     defaultValues: getDefaultValues(product, propertySelectObjectActive),
+    // defaultValues: getDefaultValues(
+    //   {
+    //     id: product?.id ?? "",
+    //     name: product?.name ?? "",
+    //     description: product?.description ?? "",
+    //     about: product?.about ?? "",
+    //     img: product?.img ?? [],
+    //     slug: product?.slug ?? "",
+    //     categoryLit: product?.categoryList ?? [],
+    //     propertyItemListSelected: product?.propertyItemListSelected ?? [],
+    //   },
+    // propertySelectObjectActive,
+    // ),
   });
   // console.log("output_log: product =>>>", product);
 
   useEffect(() => {
-    console.log("output_log: RESET =>>>", propertySelectObjectActive);
     form.reset(getDefaultValues(product, propertySelectObjectActive));
   }, [propertySelectObjectActive, form, product]);
 
   const handleSubmit = form.handleSubmit(async (data) => {
-    // console.log("output_log: submit =>>>", data);
     const propertyItemListSelected = propertyToFlatList(data.propertyList);
 
     onSubmit?.({
@@ -96,7 +108,7 @@ export const ProductForm: ProductFormType = (props) => {
     });
   });
 
-  console.log("output_log: value in form =>>>", form.getValues());
+  console.log("outsut_log: value in form =>>>", form.getValues());
   return (
     <FormProvider {...form}>
       <Form {...form}>
@@ -126,9 +138,9 @@ ProductForm.CategoryListField = function CategoryListField({
   const form = useFormContext<ProductFormValues>();
 
   const handleSelectCat = useCallback((value: MultiSelectOptionItem[]) => {
-    // console.log("output_log: set category list value =>>>", value);
-    form.setValue("categoryList", handleCategorySelectOption(value));
-    // console.log("output_log: get value in field =>>>", form.getValues());
+    console.log("output_log: CHANGE =>>>");
+    // form.setValue("categoryList", handleCategorySelectOption(value));
+    handleCategorySelectOption(value);
   }, []);
 
   return (
@@ -144,10 +156,11 @@ ProductForm.CategoryListField = function CategoryListField({
               <MultiSelect
                 optionList={categorySelectOptionList}
                 optionActiveList={categotySelectOptionListActive}
-                // onSelected={handleSelectCat}
-                onSelected={(value) =>
-                  field.onChange(handleCategorySelectOption(value))
-                }
+                onSelected={handleSelectCat}
+                // onSelected={(value) => {
+                //   console.log("output_log: value on change =>>>", value);
+                //   field.onChange(handleCategorySelectOption(value));
+                // }}
                 // onSelected={() => {}}
               />
             </FormControl>
