@@ -1,8 +1,4 @@
-import {
-  getCartWithRelationByUserIdUseCase,
-  getCartWithRelationUseCase,
-} from "@/entities/cart/server";
-import { getAppSessionStrictServer } from "@/entities/user/user.server";
+import { getCartWithRelationAction } from "@/entities/cart/server";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
@@ -18,13 +14,11 @@ const metaSchema = z.object({
 
 export const GET = async (): Promise<NextResponse<any>> => {
   try {
-    const session = await getAppSessionStrictServer();
-
-    const { id } = metaSchema.parse(session.user);
-    const cart = await getCartWithRelationByUserIdUseCase.exec({
-      userId: id,
-      session,
-    });
+    const cart = await getCartWithRelationAction();
+    // const cart = await getCartWithRelationByUserIdUseCase.exec({
+    //   userId: id,
+    //   session,
+    // });
     // const { productId } = reqSchema.parse(await req.json());
     // const {} = meta.params;
     // const { categoryList } = await getCategoryListAction();

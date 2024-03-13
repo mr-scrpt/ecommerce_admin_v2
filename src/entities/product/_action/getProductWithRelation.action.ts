@@ -21,6 +21,7 @@ export const getProductWithRelationAction = async (
   const { productId } = getByIdSchema.parse(props);
 
   const session = await getAppSessionStrictServer();
+  console.log("output_log:  cartId =>>>", session.user.cartId);
 
   const product = await getProductWithRelationUseCase.exec({
     session,

@@ -1,33 +1,24 @@
 "use server";
-import { getAppSessionStrictServer } from "@/entities/user/getAppSessionServer";
+import { getAppSessionStrictServer } from "@/entities/user/user.server";
 import { z } from "zod";
-import { productRelationSchema } from "../_domain/product.schema";
-import { ProductRelation } from "../_domain/types";
-import { getProductWithRelationUseCase } from "../_usecase/getProductWithRelation.usecase";
-
-const getByIdSchema = z.object({
-  productId: z.string(),
-});
+import { cartRelationSchema } from "../_domain/cart.schema";
+import { getCartWithRelationUseCase } from "../_usecase/getCartWithRelation.usecase";
 
 const resultSchema = z.object({
-  product: productRelationSchema,
+  cart: cartRelationSchema,
 });
 
-type ResultT = { product: ProductRelation };
+// type ResultT = { cart: CartRelation };
 
-export const getProductWithRelationAction = async (
-  props: z.infer<typeof getByIdSchema>,
-): Promise<ResultT> => {
-  const { productId } = getByIdSchema.parse(props);
-
+export const getCartWithRelationAction = async (): Promise<any> => {
   const session = await getAppSessionStrictServer();
 
-  const product = await getProductWithRelationUseCase.exec({
+  const cart = await getCartWithRelationUseCase.exec({
+    cartId: session.user.cartId,
     session,
-    productId,
   });
 
   return resultSchema.parseAsync({
-    product: product,
+    cart,
   });
 };

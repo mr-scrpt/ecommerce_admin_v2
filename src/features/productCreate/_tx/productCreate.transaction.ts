@@ -21,7 +21,6 @@ export class ProductCreateTx extends Transaction {
     const action = async (tx: Tx) => {
       console.log("output_log: data =>>>", data);
       const productCreated = await this.productRepo.createProduct(
-        // productData,
         {
           name: productData.name,
           price: productData.price,

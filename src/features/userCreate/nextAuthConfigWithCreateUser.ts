@@ -32,4 +32,17 @@ export const nextAuthConfigWithCreateUser: AuthOptions = {
       }
     },
   } as AuthOptions["adapter"],
+  // callbacks: {
+  //   session: async ({ session, user }) => {
+  //
+  //     return {
+  //       ...session,
+  //       // user: {
+  //       //   ...session.user,
+  //       //   id: user.id,
+  //       //   role: user.role,
+  //       // },
+  //     };
+  //   },
+  // },
 };

@@ -27,14 +27,33 @@ export class UserRepository {
         id: userId,
       },
       include: {
-        cart: true,
+        cart: {
+          include: {
+            cartRowList: true,
+          },
+        },
       },
     });
-    return {
-      ...user,
-      cart: { id: user.cart!.id },
-    };
+    console.log("output_log: user in repo =>>>", user);
+    return user;
   }
+
+  // async getUserCartId(
+  //   userId: UserId,
+  //   db: Tx = this.db,
+  // ): Promise<{ cart: { id: string } }> {
+  //   const user = await db.user.findUniqueOrThrow({
+  //     where: {
+  //       id: userId,
+  //     },
+  //     include: {
+  //       cart: { select: { id: true } },
+  //     },
+  //   });
+  //   return {
+  //     cart: { id: user.cart!.id },
+  //   };
+  // }
 
   async getUserList(db: Tx = this.db): Promise<UserEntity[]> {
     return db.user.findMany();

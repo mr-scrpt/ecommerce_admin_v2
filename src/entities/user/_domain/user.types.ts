@@ -12,7 +12,7 @@ export type UserEntity = {
 };
 
 export type UserRelationEntity = UserEntity & {
-  cart: UserCart;
+  cart: UserCartRelation | null;
 };
 
 export type UserPartial = {
@@ -43,4 +43,18 @@ export type UserToCreate = {
 // Side
 type UserCart = {
   id: string;
+  userId: string;
+  createdAt: Date;
+};
+
+type UserCartRelation = UserCart & {
+  cartRowList: Array<UserCartRowEntity>;
+};
+
+type UserCartRowEntity = {
+  id: string;
+  cartId: string;
+  productId: string;
+  quantity: number;
+  createdAt: Date;
 };

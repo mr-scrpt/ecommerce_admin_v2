@@ -26,7 +26,6 @@ export class UserCreateTx extends Transaction {
         tx,
       );
 
-      console.log("output_log: user after created =>>>", userWithCart);
       return userWithCart;
     };
 
