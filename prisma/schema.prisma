@@ -37,10 +37,14 @@ model Category {
 
 model Product {
   id          String   @id @default(uuid())
+
   name        String
+  price       Float
+  slug        String   @unique
+
   description String
   about       String
-  slug        String   @unique
+
   img         String[]
 
   categoryList   Category[]   @relation("ProductToCategory")

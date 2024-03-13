@@ -1,24 +1,34 @@
 import { z } from "zod";
-import { ProductPropertyToSelect } from "./types";
 
 export const productSchema = z.object({
   id: z.string(),
+
   name: z.string(),
+  price: z.number().positive(),
   slug: z.string(),
+
   description: z.string(),
   about: z.string(),
+
   img: z.array(z.string()),
+
   createdAt: z.date(),
 });
 
 export const productRelationSchema = z.object({
   id: z.string(),
+
   name: z.string(),
+  price: z.number().positive(),
   slug: z.string(),
+
   description: z.string(),
   about: z.string(),
+
   img: z.array(z.string()),
+
   createdAt: z.date(),
+
   categoryList: z.array(
     z.object({
       id: z.string(),
@@ -37,9 +47,13 @@ export const productRelationSchema = z.object({
 
 export const productCreateSchema = z.object({
   name: z.string(),
+  price: z.number().positive(),
+
   description: z.string(),
   about: z.string(),
+
   img: z.array(z.string()),
+
   categoryList: z.array(
     z.object({
       id: z.string(),
@@ -50,10 +64,15 @@ export const productCreateSchema = z.object({
 
 export const productUpdateSchema = z.object({
   id: z.string(),
+
   name: z.string(),
+  price: z.number().positive(),
+
   description: z.string(),
   about: z.string(),
+
   img: z.array(z.string()),
+
   categoryList: z.array(
     z.object({
       id: z.string(),
@@ -70,9 +89,13 @@ export const productFormSchema = z.object({
     .min(3)
     .max(30)
     .transform((name) => name.trim()),
+  price: z.coerce.number().positive(),
+
   description: z.string(),
   about: z.string(),
+
   img: z.array(z.string()),
+
   categoryList: z.array(
     z.object({
       id: z.string(),

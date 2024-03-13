@@ -24,6 +24,7 @@ export class ProductCreateTx extends Transaction {
         // productData,
         {
           name: productData.name,
+          price: productData.price,
           description: productData.description,
           about: productData.about,
           slug: productData.slug,
