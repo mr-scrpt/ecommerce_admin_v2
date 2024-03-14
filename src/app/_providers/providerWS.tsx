@@ -9,13 +9,13 @@ import { SocketProvider } from "@/shared/lib/socket";
 import { UserId } from "@/shared/lib/user";
 import { FC, HTMLAttributes } from "react";
 
-interface IEventContext {
-  emitUserUpdate: (userId: UserId) => void;
-  emitProfileUpdate: (userId: UserId) => void;
-  emitCategoryUpdate: (userId: UserId) => void;
-  emitProductUpdate: (userId: UserId) => void;
-  emitPropertyUpdate: (userId: UserId) => void;
-}
+// interface IEventContext {
+//   emitUserUpdate: (userId: UserId) => void;
+//   emitProfileUpdate: (userId: UserId) => void;
+//   emitCategoryUpdate: (userId: UserId) => void;
+//   emitProductUpdate: (userId: UserId) => void;
+//   emitPropertyUpdate: (userId: UserId) => void;
+// }
 
 // const EventContext = createStrictContext<IEventContext>();
 

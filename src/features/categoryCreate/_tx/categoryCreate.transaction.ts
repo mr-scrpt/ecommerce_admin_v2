@@ -17,7 +17,7 @@ export class CategoryCreateTx extends Transaction {
   async createCategoryComplexible(
     data: CategoryCreateComplexible,
   ): Promise<CategoryEntity> {
-    const { categoryData, optionListData } = data;
+    const { categoryData, propertyListData } = data;
     const action = async (tx: Tx) => {
       const categoryCreated = await this.categoryRepo.createCategory(
         categoryData,
@@ -27,7 +27,7 @@ export class CategoryCreateTx extends Transaction {
       await this.categoryRepo.addCategoryPropertyList(
         {
           categoryId: categoryCreated.id,
-          propertyListId: optionListData,
+          propertyListId: propertyListData,
         },
         tx,
       );

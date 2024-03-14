@@ -37,7 +37,7 @@ interface CategoryFormProps extends HTMLAttributes<HTMLFormElement> {
 const getDefaultValues = (category?: CategoryRelation) => ({
   name: category?.name ?? "",
   board: category?.board ?? [],
-  optionList: category?.propertyList ?? [],
+  propertyList: category?.propertyList ?? [],
 });
 
 export const CategoryForm: FC<CategoryFormProps> = (props) => {
@@ -73,7 +73,7 @@ export const CategoryForm: FC<CategoryFormProps> = (props) => {
   const isPendingAppearance = useAppearanceDelay(isPending);
 
   const handleSelect = useCallback((value: MultiSelectOptionItem[]) => {
-    form.setValue("optionList", handleOptionSelectOption(value));
+    form.setValue("propertyList", handleOptionSelectOption(value));
   }, []);
 
   return (
@@ -81,7 +81,7 @@ export const CategoryForm: FC<CategoryFormProps> = (props) => {
       <form onSubmit={handleSubmit} className="space-y-8">
         <FormField
           control={form.control}
-          name="optionList"
+          name="propertyList"
           render={({ field }) => {
             return (
               <FormItem>

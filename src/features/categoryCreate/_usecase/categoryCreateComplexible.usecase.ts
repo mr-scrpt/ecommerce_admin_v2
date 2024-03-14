@@ -1,4 +1,4 @@
-import { CategoryEntity, createCategoryAbility } from "@/entities/category";
+import { CategoryEntity } from "@/entities/category";
 import { ForbiddenError } from "@/shared/lib/errors";
 import { SessionEntity } from "@/shared/lib/user";
 import { CategoryCreateComplexible } from "../_domain/types";
@@ -6,6 +6,7 @@ import {
   CategoryCreateTx,
   categoryCreateTx,
 } from "../_tx/categoryCreate.transaction";
+import { createCategoryAbility } from "@/entities/category/server";
 
 type CreateCategory = {
   dataToCreate: CategoryCreateComplexible;

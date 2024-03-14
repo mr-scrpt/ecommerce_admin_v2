@@ -1,4 +1,3 @@
-import { createCategoryAbility } from "@/entities/category";
 import { ForbiddenError } from "@/shared/lib/errors";
 import {
   CategoryRemoveTx,
@@ -6,6 +5,7 @@ import {
 } from "../_repository/categoryRemove.transaction";
 import { CategoryEntity, CategoryId } from "@/entities/category";
 import { SessionEntity } from "@/shared/lib/user";
+import { createCategoryAbility } from "@/entities/category/server";
 
 type RemoveCategory = {
   categoryId: CategoryId;
