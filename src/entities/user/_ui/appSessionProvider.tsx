@@ -8,10 +8,5 @@ interface ProviderSessionProps {
 
 export const SessionProvider: FC<ProviderSessionProps> = (props) => {
   const { children } = props;
-  // return <div>{children}</div>;
-  return (
-    <NextAuthSessionProvider session={undefined}>
-      {children}
-    </NextAuthSessionProvider>
-  );
+  return <NextAuthSessionProvider>{children}</NextAuthSessionProvider>;
 };
