@@ -9,7 +9,7 @@ type GetUserWithCart = {
   session: SessionEntity;
 };
 
-class GetUserWithCartUseCase {
+class GetUserCartIdUseCase {
   constructor(private readonly userRepo: UserRepository) {}
 
   async exec(data: GetUserWithCart): Promise<UserRelationEntity> {
@@ -21,10 +21,9 @@ class GetUserWithCartUseCase {
       throw new AuthorizatoinError();
     }
 
-    return await this.userRepo.getUserWithCart(userId);
+    // return await this.userRepo.getUserWithCart(userId);
+    return {} as any;
   }
 }
 
-export const getUserWithCartUseCase = new GetUserWithCartUseCase(
-  userRepository,
-);
+export const getUserCartIdUseCase = new GetUserCartIdUseCase(userRepository);

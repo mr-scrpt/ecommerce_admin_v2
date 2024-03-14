@@ -5,7 +5,7 @@ import { compact } from "lodash-es";
 import { AuthOptions } from "next-auth";
 import EmailProvider from "next-auth/providers/email";
 import GithubProvider from "next-auth/providers/github";
-import { getUserWithCartAction } from "./_action/getUserWithCart.action";
+import { getUserCartIdAction } from "./_action/getUserCartId.action";
 // import { socketClient } from "@/shared/config/socket";
 // import { WSEventEnum } from "@/shared/type/websokcetEvent.enum";
 
@@ -46,18 +46,19 @@ export const nextAuthConfig: AuthOptions = {
           role: user.role,
         },
       };
-      const { user: userWithRelation } = await getUserWithCartAction({
-        userId: user.id,
-        session: sessionWithRelation,
-      });
+      // const { user: userWithRelation } = await getUserCartIdAction({
+      //   userId: user.id,
+      //   session: sessionWithRelation,
+      // });
 
-      return {
-        ...sessionWithRelation,
-        user: {
-          ...sessionWithRelation.user,
-          cartId: userWithRelation.cart?.id,
-        },
-      };
+      // return {
+      //   ...sessionWithRelation,
+      //   user: {
+      //     ...sessionWithRelation.user,
+      //     cartId: userWithRelation.cart?.id,
+      //   },
+      // };
+      return sessionWithRelation;
     },
   },
 
