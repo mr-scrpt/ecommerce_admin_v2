@@ -3,14 +3,15 @@ import { getAppSessionStrictServer } from "@/entities/user/user.server";
 import { z } from "zod";
 import { cartRelationSchema } from "../_domain/cart.schema";
 import { getCartWithRelationUseCase } from "../_usecase/getCartWithRelation.usecase";
+import { CartRelation } from "../_domain/types";
 
 const resultSchema = z.object({
   cart: cartRelationSchema,
 });
 
-// type ResultT = { cart: CartRelation };
+type ResultT = { cart: CartRelation };
 
-export const getCartWithRelationAction = async (): Promise<any> => {
+export const getCartWithRelationAction = async (): Promise<ResultT> => {
   const session = await getAppSessionStrictServer();
 
   const cart = await getCartWithRelationUseCase.exec({

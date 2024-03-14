@@ -1,31 +1,28 @@
-import { getCartWithRelationAction } from "@/entities/cart/server";
+import {
+  cartRelationSchema,
+  getCartWithRelationAction,
+} from "@/entities/cart/server";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
-// interface IMetaCart {
-//   params: {
-//     userId: string;
-//   };
-// }
-
-const metaSchema = z.object({
-  id: z.string(),
+const resultSchema = z.object({
+  data: cartRelationSchema.nullable(),
+  error: z.string().optional(),
 });
 
 export const GET = async (): Promise<NextResponse<any>> => {
   try {
-    const cart = await getCartWithRelationAction();
-    // const cart = await getCartWithRelationByUserIdUseCase.exec({
-    //   userId: id,
-    //   session,
-    // });
-    // const { productId } = reqSchema.parse(await req.json());
-    // const {} = meta.params;
-    // const { categoryList } = await getCategoryListAction();
-    // const result = resultSchema.parse({ data: categoryList });
+    const { cart } = await getCartWithRelationAction();
 
-    return NextResponse.json(cart);
+    return NextResponse.json(resultSchema.parse({ data: cart }));
   } catch (e) {
-    return NextResponse.json(e);
+    if (e instanceof Error) {
+      return NextResponse.json(
+        resultSchema.parse({ data: null, error: e.message as string }),
+      );
+    }
+    return NextResponse.json(
+      resultSchema.parse({ data: null, error: "Something went wrong" }),
+    );
   }
 };

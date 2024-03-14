@@ -13,6 +13,7 @@ export type CartRowEntity = {
   cartId: string;
   productId: string;
   quantity: number;
+  createdAt: Date;
 };
 
 export type CartRelationEntity = CartEntity & {
@@ -24,20 +25,23 @@ export type CartRelationEntity = CartEntity & {
 export type Cart = {
   id: CartId;
   userId: string;
+  createdAt: Date;
+};
+
+export type CartRow = {
+  id: string;
+  quantity: number;
+  createdAt: Date;
 };
 
 export type CartRelation = Cart & {
-  cartRowList: Array<CartRowEntity>;
+  cartRowList: Array<CartRow>;
 };
 
 export type CartToCreate = {
   userId: string;
 };
 
-// export type CartToUpdate = {
-//   id: CartId;
-//   productList: Array<CartProduct>;
-// };
 export type CartToAddProduct = {
   id: CartId;
   productId: string;
