@@ -5,24 +5,24 @@ export const propertyListSeed = [
     id: "property_585fsddfew7898dd",
     name: "Size",
     datatype: PropertyDataTypeEnum.SELECT,
-    isFilter: true,
+    // isFilter: true,
   },
   {
     id: "property_11fsddfew7898186",
     name: "Color",
     datatype: PropertyDataTypeEnum.MULT,
-    isFilter: true,
+    // isFilter: true,
   },
   {
     id: "property_195fsd55846fddew",
     name: "Type",
     datatype: PropertyDataTypeEnum.CHECKBOX,
-    isFilter: false,
+    // isFilter: false,
   },
   {
     id: "property_eeesddfew789855",
     name: "New",
     datatype: PropertyDataTypeEnum.RADIO,
-    isFilter: true,
+    // isFilter: true,
   },
 ];

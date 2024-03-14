@@ -33,24 +33,24 @@ export class UserRepository {
   //   return user.cart?.id;
   // }
 
-  // async getUserWithCart(
-  //   userId: UserId,
-  //   db: Tx = this.db,
-  // ): Promise<UserRelationEntity> {
-  //   const user = await db.user.findUniqueOrThrow({
-  //     where: {
-  //       id: userId,
-  //     },
-  //     include: {
-  //       cart: {
-  //         include: {
-  //           cartRowList: true,
-  //         },
-  //       },
-  //     },
-  //   });
-  //   return user;
-  // }
+  async getUserWithCart(
+    userId: UserId,
+    db: Tx = this.db,
+  ): Promise<UserRelationEntity> {
+    const user = await db.user.findUniqueOrThrow({
+      where: {
+        id: userId,
+      },
+      include: {
+        cart: {
+          include: {
+            cartRowList: true,
+          },
+        },
+      },
+    });
+    return user;
+  }
 
   // async getUserCartId(
   //   userId: UserId,

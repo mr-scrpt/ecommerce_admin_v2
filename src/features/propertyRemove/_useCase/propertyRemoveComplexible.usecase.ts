@@ -1,4 +1,3 @@
-import { createPropertyAbility } from "@/entities/property";
 import { ForbiddenError } from "@/shared/lib/errors";
 import {
   PropertyRemoveTx,
@@ -6,6 +5,7 @@ import {
 } from "../_tx/propertyRemove.transaction";
 import { PropertyEntity, PropertyId } from "@/entities/property";
 import { SessionEntity } from "@/shared/lib/user";
+import { createPropertyAbility } from "@/entities/property/server";
 
 type RemoveProperty = {
   propertyId: PropertyId;

@@ -142,7 +142,7 @@ PropertyForm.FieldProperty = function FieldProperty() {
         name="name"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Name</FormLabel>
+            <FormLabel>Property name</FormLabel>
             <FormControl>
               <Input placeholder="Enter property name..." {...field} />
             </FormControl>
@@ -201,11 +201,11 @@ PropertyForm.FieldPropertysItem = function FieldPropertysItem({
               name={`propertyItemList.${idx}.name`}
               render={({ field }) => (
                 <FormItem className="flex-grow">
-                  <FormLabel>Property value name</FormLabel>
+                  <FormLabel>Option name</FormLabel>
                   <FormControl>
                     <Input
                       disabled={isPending}
-                      placeholder="Enter property name..."
+                      placeholder="Enter option name..."
                       {...field}
                     />
                   </FormControl>
@@ -218,11 +218,11 @@ PropertyForm.FieldPropertysItem = function FieldPropertysItem({
               name={`propertyItemList.${idx}.value`}
               render={({ field }) => (
                 <FormItem className="flex-grow">
-                  <FormLabel>Property value</FormLabel>
+                  <FormLabel>Option value</FormLabel>
                   <FormControl>
                     <Input
                       disabled={isPending}
-                      placeholder="Enter property name..."
+                      placeholder="Enter optin value..."
                       {...field}
                     />
                   </FormControl>

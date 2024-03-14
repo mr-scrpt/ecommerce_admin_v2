@@ -1,4 +1,4 @@
-import { PropertyEntity, createPropertyAbility } from "@/entities/property";
+import { PropertyEntity } from "@/entities/property";
 import { ForbiddenError } from "@/shared/lib/errors";
 import { SessionEntity } from "@/shared/lib/user";
 import { PropertyUpdateComplexible } from "../_domain/types";
@@ -6,6 +6,7 @@ import {
   PropertyUpdateTx,
   propertyUpdateTx,
 } from "../_tx/propertyUpdate.transaction";
+import { createPropertyAbility } from "@/entities/property/server";
 
 type UpdateProperty = {
   dataToUpdate: PropertyUpdateComplexible;

@@ -10,8 +10,8 @@ const PagePropertys: FC<PageProps> = (props) => {
   return (
     <main className="flex min-h-screen flex-col gap-4 p-8">
       <TitlePage
-        title="Propertys"
-        description="Manage your propertys list"
+        title="Properties"
+        description="Manage your properties list"
         action={<PropertyCreateButton route={RoutePathEnum.PROPERTY_CREATE} />}
       />
       <PropertyTable />

@@ -1,4 +1,3 @@
-import { createProductAbility } from "@/entities/product";
 import { ForbiddenError } from "@/shared/lib/errors";
 import {
   ProductRemoveTx,
@@ -6,6 +5,7 @@ import {
 } from "../_tx/productRemove.transaction";
 import { ProductEntity, ProductId } from "@/entities/product";
 import { SessionEntity } from "@/shared/lib/user";
+import { createProductAbility } from "@/entities/product/server";
 
 type RemoveProduct = {
   productId: ProductId;

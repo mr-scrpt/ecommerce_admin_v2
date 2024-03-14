@@ -102,7 +102,6 @@ model Property {
   id       String   @id @default(uuid())
   name     String
   datatype DATATYPE
-  isFilter Boolean
 
   propertyItemList PropertyItem[] @relation("PropertyItemToProperty")
   categoryList   Category[]   @relation("PropertyToCategory")
