@@ -18,25 +18,39 @@ export class UserRepository {
     });
   }
 
-  async getUserWithCart(
-    userId: UserId,
-    db: Tx = this.db,
-  ): Promise<UserRelationEntity> {
-    const user = await db.user.findUniqueOrThrow({
-      where: {
-        id: userId,
-      },
-      include: {
-        cart: {
-          include: {
-            cartRowList: true,
-          },
-        },
-      },
-    });
-    console.log("output_log: user in repo =>>>", user);
-    return user;
-  }
+  // async getUserCartId(
+  //   userId: UserId,
+  //   db: Tx = this.db,
+  // ): Promise<string | undefined> {
+  //   const user = await db.user.findUniqueOrThrow({
+  //     where: {
+  //       id: userId,
+  //     },
+  //     include: {
+  //       cart: true,
+  //     },
+  //   });
+  //   return user.cart?.id;
+  // }
+
+  // async getUserWithCart(
+  //   userId: UserId,
+  //   db: Tx = this.db,
+  // ): Promise<UserRelationEntity> {
+  //   const user = await db.user.findUniqueOrThrow({
+  //     where: {
+  //       id: userId,
+  //     },
+  //     include: {
+  //       cart: {
+  //         include: {
+  //           cartRowList: true,
+  //         },
+  //       },
+  //     },
+  //   });
+  //   return user;
+  // }
 
   // async getUserCartId(
   //   userId: UserId,

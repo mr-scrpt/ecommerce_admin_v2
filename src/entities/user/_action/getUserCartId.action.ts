@@ -3,7 +3,7 @@ import { SessionSchema } from "@/shared/lib/session.theme";
 import { z } from "zod";
 import { userRelationSchema } from "../_domain/user.schema";
 import { UserRelationEntity } from "../_domain/user.types";
-import { getUserWithCartUseCase } from "../_useCase/getUserWithCart.usecase";
+import { getUserWithCartUseCase } from "../_useCase/getUserCartId.usecase";
 
 const propsSchema = z.object({
   session: SessionSchema,

@@ -37,9 +37,6 @@ export const nextAuthConfig: AuthOptions = {
 
   callbacks: {
     session: async ({ session, user }) => {
-      // console.log("output_log:  =>>>", session, user);
-      // console.log("output_log: user in nextAuth =>>>", user);
-      // console.log("output_log: session =>>>", session);
       const sessionWithRelation = {
         ...session,
         user: {
