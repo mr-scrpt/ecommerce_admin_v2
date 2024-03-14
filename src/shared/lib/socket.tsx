@@ -41,8 +41,6 @@ export const SocketProvider = ({
       socket.off("disconnect", onDisconnect);
     };
   }, [socket]);
-  // console.log("output_log: isConn =>>>", isConnected);
-  // console.log("output_log: socket =>>>", socket);
 
   return (
     <isConnectedContext.Provider value={isConnected}>

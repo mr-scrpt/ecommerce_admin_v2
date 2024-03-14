@@ -17,33 +17,33 @@ interface IEventContext {
   emitPropertyUpdate: (userId: UserId) => void;
 }
 
-const EventContext = createStrictContext<IEventContext>();
+// const EventContext = createStrictContext<IEventContext>();
 
 interface ProviderWSProps extends HTMLAttributes<HTMLDivElement> {}
 
-const EventProvider = (props: ProviderWSProps) => {
-  const { children } = props;
-
-  const { userUpdateEvent } = useEmitUserUpdate();
-  const { profileUpdateEvent } = useEmitProfileUpdate();
-  const { categoryUpdateEvent } = useEmitCategoryUpdate();
-  const { productUpdateEvent } = useEmitProductUpdate();
-  const { propertyUpdateEvent } = useEmitPropertyUpdate();
-
-  const eventContext: IEventContext = {
-    emitUserUpdate: userUpdateEvent,
-    emitProfileUpdate: profileUpdateEvent,
-    emitCategoryUpdate: categoryUpdateEvent,
-    emitProductUpdate: productUpdateEvent,
-    emitPropertyUpdate: propertyUpdateEvent,
-  };
-
-  return (
-    <EventContext.Provider value={eventContext}>
-      {children}
-    </EventContext.Provider>
-  );
-};
+// const EventProvider = (props: ProviderWSProps) => {
+//   const { children } = props;
+//
+//   const { userUpdateEvent } = useEmitUserUpdate();
+//   const { profileUpdateEvent } = useEmitProfileUpdate();
+//   const { categoryUpdateEvent } = useEmitCategoryUpdate();
+//   const { productUpdateEvent } = useEmitProductUpdate();
+//   const { propertyUpdateEvent } = useEmitPropertyUpdate();
+//
+//   const eventContext: IEventContext = {
+//     emitUserUpdate: userUpdateEvent,
+//     emitProfileUpdate: profileUpdateEvent,
+//     emitCategoryUpdate: categoryUpdateEvent,
+//     emitProductUpdate: productUpdateEvent,
+//     emitPropertyUpdate: propertyUpdateEvent,
+//   };
+//
+//   return (
+//     <EventContext.Provider value={eventContext}>
+//       {children}
+//     </EventContext.Provider>
+//   );
+// };
 
 export const ProviderWS: FC<ProviderWSProps> = (props) => {
   const { children } = props;
@@ -51,7 +51,7 @@ export const ProviderWS: FC<ProviderWSProps> = (props) => {
   return (
     <ComposeChildren>
       <SocketProvider clientId={session.data?.user.id ?? ""} />
-      <EventProvider />
+      {/* <EventProvider /> */}
 
       {children}
     </ComposeChildren>
