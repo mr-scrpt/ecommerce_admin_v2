@@ -5,4 +5,4 @@ export {
 export { createCategoryAbility } from "./_domain/category.ability";
 
 export { getCategoryListAction } from "./_action/getCategoryList.action";
-export { getCategoryByIdAction } from "./_action/getCategoryById.action";
+export { getCategoryAction } from "./_action/getCategory.action";

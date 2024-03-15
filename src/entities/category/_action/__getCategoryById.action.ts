@@ -1,8 +1,9 @@
+"use server";
+import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
 import { z } from "zod";
 import { categorySchema } from "..";
 import { Category } from "../_domain/types";
-import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
-import { getCategoryByIdUseCase } from "../_usecase/getCategoryById.usecase";
+import { getCategoryByIdUseCase } from "../_usecase/__getCategoryById.usecase";
 
 const propsSchema = z.object({
   categoryId: z.string(),

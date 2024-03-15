@@ -1,5 +1,5 @@
 import { categorySchema } from "@/entities/category";
-import { getCategoryByIdAction } from "@/entities/category/server";
+import { getCategoryAction } from "@/entities/category/server";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
@@ -22,7 +22,7 @@ export const GET = async (
 ): Promise<NextResponse<any>> => {
   try {
     const { categoryId } = paramsSchema.parse(meta.params);
-    const { category } = await getCategoryByIdAction({ categoryId });
+    const { category } = await getCategoryAction({ categoryId });
     const result = resultSchema.parse({ data: category });
     return NextResponse.json(result);
   } catch (e) {
