@@ -6,7 +6,7 @@ import {
   propertySchema,
   propertyUpdateSchema,
 } from "@/entities/property";
-import { getAppSessionStrictServer } from "@/entities/user/getAppSessionServer";
+import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
 import { updatePropertyComplexibleUseCase } from "../_useCase/propertyUpdateComplexible.usecase";
 
 const propsSchema = z.object({

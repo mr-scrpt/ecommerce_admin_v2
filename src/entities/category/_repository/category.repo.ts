@@ -10,7 +10,7 @@ import {
   CategoryToUpdate,
 } from "../_domain/types";
 import { mapPrismaDatatypeToEnum } from "@/shared/lib/prisma";
-import { getAppSessionStrictServer } from "@/entities/user/getAppSessionServer";
+import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
 
 export class CategoryRepository {
   constructor(readonly db: DbClient) {}

@@ -1,5 +1,5 @@
-import { useAppSession } from "@/entities/user/session";
 import { ROUTING_MAIN_MENU_DATA } from "@/shared/config/routing.config";
+import { useAppSession } from "@/shared/session";
 
 export const useMenu = () => {
   const { data } = useAppSession();

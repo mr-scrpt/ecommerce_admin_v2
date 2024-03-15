@@ -1,5 +1,5 @@
 "use server";
-import { getAppSessionStrictServer } from "@/entities/user/getAppSessionServer";
+import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
 import { z } from "zod";
 import { categoryRelationSchema } from "../_domain/category.schema";
 import { CategoryRelation } from "../_domain/types";

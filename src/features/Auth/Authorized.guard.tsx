@@ -1,10 +1,10 @@
 "use client";
 
 import { FC, HTMLAttributes } from "react";
-import { useAppSession } from "@/entities/user/session";
 import { SpinnerFullPage } from "@/shared/ui/spinnerFullPage";
 import { signIn } from "next-auth/react";
 import { useEffect } from "react";
+import { useAppSession } from "@/shared/session";
 
 interface AuthorizedGuardProps extends HTMLAttributes<HTMLDivElement> {}
 

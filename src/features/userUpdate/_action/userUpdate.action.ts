@@ -1,7 +1,7 @@
 "use server";
 
 import { z } from "zod";
-import { getAppSessionStrictServer } from "@/entities/user/getAppSessionServer";
+import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
 import { UserEntity, userSchema } from "@/entities/user/user";
 import { updateUserUseCase } from "@/entities/user/user.server";
 

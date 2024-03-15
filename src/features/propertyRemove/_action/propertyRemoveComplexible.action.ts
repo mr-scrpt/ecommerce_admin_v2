@@ -3,7 +3,7 @@ import { z } from "zod";
 
 import { Property, propertySchema } from "@/entities/property";
 import { removePropertyComplexibleUseCase } from "../_useCase/propertyRemoveComplexible.usecase";
-import { getAppSessionStrictServer } from "@/entities/user/getAppSessionServer";
+import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
 
 const propsSchema = z.object({
   propertyId: z.string(),

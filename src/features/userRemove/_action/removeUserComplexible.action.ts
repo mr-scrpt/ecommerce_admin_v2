@@ -1,5 +1,5 @@
 "use server";
-import { getAppSessionStrictServer } from "@/entities/user/getAppSessionServer";
+import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
 import { UserEntity, userSchema } from "@/entities/user/user";
 import { z } from "zod";
 import { removeUserComplexibleUseCase } from "../_useCase/removeUserComplexible.usecase";

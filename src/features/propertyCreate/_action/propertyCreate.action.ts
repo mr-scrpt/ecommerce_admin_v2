@@ -5,7 +5,7 @@ import {
   propertyCreateSchema,
   propertySchema,
 } from "@/entities/property";
-import { getAppSessionStrictServer } from "@/entities/user/getAppSessionServer";
+import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
 import { z } from "zod";
 import { createPropertyComplexibleUseCase } from "../_useCase/propertyCreateComplexible.usecase";
 

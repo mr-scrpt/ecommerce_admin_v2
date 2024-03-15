@@ -1,8 +1,8 @@
-import { nextAuthConfig } from "@/entities/user/user.server";
 import { socketClient } from "@/shared/config/socket";
 import { WSEventEnum } from "@/shared/type/websokcetEvent.enum";
 import { AuthOptions } from "next-auth";
 import { createUserComplexibleUseCase } from "./_useCase/createUserComplexible.usecase";
+import { nextAuthConfig } from "@/shared/session/server";
 
 export const nextAuthConfigWithCreateUser: AuthOptions = {
   ...nextAuthConfig,
@@ -32,17 +32,4 @@ export const nextAuthConfigWithCreateUser: AuthOptions = {
       }
     },
   } as AuthOptions["adapter"],
-  // callbacks: {
-  //   session: async ({ session, user }) => {
-  //
-  //     return {
-  //       ...session,
-  //       // user: {
-  //       //   ...session.user,
-  //       //   id: user.id,
-  //       //   role: user.role,
-  //       // },
-  //     };
-  //   },
-  // },
 };

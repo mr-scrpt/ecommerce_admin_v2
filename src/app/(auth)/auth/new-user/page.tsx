@@ -1,4 +1,4 @@
-import { getAppSessionServerOrRedirect } from "@/entities/user/getAppSessionServer";
+import { getAppSessionServerOrRedirect } from "@/shared/session/getAppSessionServer";
 import { ProfileFormUpdate } from "@/features/profileUpdate";
 import { Separator } from "@/shared/ui/separator";
 import { FC, HTMLAttributes } from "react";

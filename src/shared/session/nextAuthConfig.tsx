@@ -5,9 +5,6 @@ import { compact } from "lodash-es";
 import { AuthOptions } from "next-auth";
 import EmailProvider from "next-auth/providers/email";
 import GithubProvider from "next-auth/providers/github";
-import { getUserCartIdAction } from "./_action/getUserCartId.action";
-// import { socketClient } from "@/shared/config/socket";
-// import { WSEventEnum } from "@/shared/type/websokcetEvent.enum";
 
 const {
   GITHUB_SECRET,
@@ -37,27 +34,23 @@ export const nextAuthConfig: AuthOptions = {
 
   callbacks: {
     session: async ({ session, user }) => {
+      const u = await dbClient.user.findUnique({
+        where: {
+          id: user.id,
+        },
+        include: {
+          cart: true,
+        },
+      });
       const sessionWithRelation = {
         ...session,
         user: {
           ...session.user,
           id: user.id,
-          cartId: "",
+          cartId: u?.cart?.id ?? "",
           role: user.role,
         },
       };
-      // const { user: userWithRelation } = await getUserCartIdAction({
-      //   userId: user.id,
-      //   session: sessionWithRelation,
-      // });
-
-      // return {
-      //   ...sessionWithRelation,
-      //   user: {
-      //     ...sessionWithRelation.user,
-      //     cartId: userWithRelation.cart?.id,
-      //   },
-      // };
       return sessionWithRelation;
     },
   },

@@ -6,7 +6,7 @@ import {
   categorySchema,
   categoryUpdateSchema,
 } from "@/entities/category";
-import { getAppSessionStrictServer } from "@/entities/user/getAppSessionServer";
+import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
 import { slugGenerator } from "@/shared/lib/slugGenerator";
 import { updateCategoryComplexibleUseCase } from "../_usecase/categoryUpdateComplexible.usecase";
 

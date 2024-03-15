@@ -5,7 +5,7 @@ import {
   productCreateSchema,
   productSchema,
 } from "@/entities/product";
-import { getAppSessionStrictServer } from "@/entities/user/getAppSessionServer";
+import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
 import { slugGenerator } from "@/shared/lib/slugGenerator";
 import { z } from "zod";
 import { createProductComplexibleUseCase } from "../_usecase/productCreateComplexible.usecase";

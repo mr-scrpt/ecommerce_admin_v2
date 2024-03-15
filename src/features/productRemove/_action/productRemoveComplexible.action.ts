@@ -3,7 +3,7 @@ import { z } from "zod";
 
 import { ProductEntity, productSchema } from "@/entities/product";
 import { removeProductComplexibleUseCase } from "../_useCase/productRemoveComplexible.usecase";
-import { getAppSessionStrictServer } from "@/entities/user/getAppSessionServer";
+import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
 
 const propsSchema = z.object({
   productId: z.string(),

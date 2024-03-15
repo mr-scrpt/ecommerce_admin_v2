@@ -5,7 +5,7 @@ import {
   categoryCreateSchema,
   categorySchema,
 } from "@/entities/category";
-import { getAppSessionStrictServer } from "@/entities/user/getAppSessionServer";
+import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
 import { slugGenerator } from "@/shared/lib/slugGenerator";
 import { z } from "zod";
 import { createCategoryComplexibleUseCase } from "../_usecase/categoryCreateComplexible.usecase";

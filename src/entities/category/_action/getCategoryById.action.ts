@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { categorySchema } from "..";
 import { Category } from "../_domain/types";
-import { getAppSessionStrictServer } from "@/entities/user/getAppSessionServer";
+import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
 import { getCategoryByIdUseCase } from "../_usecase/getCategoryById.usecase";
 
 const propsSchema = z.object({

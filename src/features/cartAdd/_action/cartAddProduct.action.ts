@@ -5,9 +5,9 @@ import {
   cartAddProductSchema,
   cartRelationSchema,
 } from "@/entities/cart/server";
-import { getAppSessionStrictServer } from "@/entities/user/user.server";
 import { z } from "zod";
 import { addCartProductUseCase } from "../_usecase/cartAddProduct.usecase";
+import { getAppSessionStrictServer } from "@/shared/session/server";
 
 const propsSchema = z.object({
   data: cartAddProductSchema,

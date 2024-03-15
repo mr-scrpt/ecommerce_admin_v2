@@ -1,6 +1,6 @@
 import { UserEntity } from "@/entities/user/_domain/user.types";
-import { useAppSession } from "@/entities/user/session";
 import { useUserUpdateMutation } from "../_mutation/useUserUpdate.mutation";
+import { useAppSession } from "@/shared/session";
 
 export const useUserUpdate = () => {
   const { update: updateSession } = useAppSession();

@@ -1,5 +1,4 @@
 "use client";
-import { SessionProvider } from "@/entities/user/session";
 import { ThemeProvider } from "@/features/theme";
 import { queryClient } from "@/shared/api/queryClient";
 import { ComposeChildren } from "@/shared/lib/react";
@@ -8,7 +7,7 @@ import { ModalProvider } from "@/widgets/modal";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { FC, HTMLAttributes } from "react";
 import { ProviderWS } from "./providerWS";
-// import { ProviderSessionUser } from "./__sessionProvider";
+import { SessionProvider } from "@/shared/session";
 
 interface ProvidersRootProps extends HTMLAttributes<HTMLDivElement> {}
 
@@ -18,7 +17,6 @@ export const ProvidersRoot: FC<ProvidersRootProps> = (props) => {
     <ComposeChildren>
       <ThemeProvider />
       <SessionProvider />
-      {/* <ProviderSessionUser /> */}
       <QueryClientProvider client={queryClient} />
       <ProviderWS />
       <Confirmation />

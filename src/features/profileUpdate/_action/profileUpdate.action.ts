@@ -1,6 +1,6 @@
 "use server";
 
-import { getAppSessionStrictServer } from "@/entities/user/getAppSessionServer";
+import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
 import { profileSchema } from "@/entities/user/profile";
 import { updateProfileUseCase } from "@/entities/user/profile.server";
 import { z } from "zod";

@@ -1,8 +1,8 @@
 "use server";
 import { getServerSession } from "next-auth";
-import { nextAuthConfig } from "./nextAuthConfig";
 import { NeedAuthError } from "@/shared/lib/errors";
 import { redirect } from "next/navigation";
+import { nextAuthConfig } from "./nextAuthConfig";
 
 export const getAppSessionServer = () => getServerSession(nextAuthConfig);
 

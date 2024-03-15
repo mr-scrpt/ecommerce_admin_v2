@@ -5,7 +5,7 @@ import {
   cartRelationSchema,
   cartRemoveProductSchema,
 } from "@/entities/cart/server";
-import { getAppSessionStrictServer } from "@/entities/user/getAppSessionServer";
+import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
 import { z } from "zod";
 import { removeCartProductUseCase } from "../_usecase/cartRemoveProduct.usecase";
 

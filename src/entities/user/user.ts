@@ -7,7 +7,7 @@ export { userSchema, userFormSchema } from "./_domain/user.schema";
 export { UserForm } from "./_ui/userForm";
 export { useListenUserUpdate } from "./_vm/event/useListenUserUpdate";
 export { useListenUserListUpdate } from "./_vm/event/useListenUserListUpdate";
-export { useAppSessionOrRedirect } from "./_vm/useAppSession";
+export { useAppSessionOrRedirect } from "../../shared/session/useAppSession";
 
 export type { UserPartial, User, UserEntity } from "./_domain/user.types";
 export type { UserFormValues } from "./_domain/user.schema";

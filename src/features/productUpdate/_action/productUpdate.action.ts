@@ -6,7 +6,7 @@ import {
   productSchema,
   productUpdateSchema,
 } from "@/entities/product";
-import { getAppSessionStrictServer } from "@/entities/user/getAppSessionServer";
+import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
 import { slugGenerator } from "@/shared/lib/slugGenerator";
 import { updateProductComplexibleUseCase } from "../_usecase/updateProductComplexible.usecase";
 

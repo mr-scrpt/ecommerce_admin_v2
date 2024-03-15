@@ -1,9 +1,8 @@
 "use client";
 import { ProfileAvatar, getProfileDisplayName } from "@/entities/user/profile";
-import { useAppSession, useRole } from "@/entities/user/session";
 import { SignInButton } from "@/features/Auth/SignInButton";
 import { UseSignOut } from "@/features/Auth/_vm/useSignOut";
-import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
+import { useAppSession } from "@/shared/session";
 import { Button } from "@/shared/ui/button";
 import {
   DropdownMenu,

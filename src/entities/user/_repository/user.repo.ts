@@ -11,11 +11,13 @@ export class UserRepository {
   constructor(readonly db: DbClient) {}
 
   async getUser(userId: UserId, db: Tx = this.db): Promise<UserEntity> {
-    return db.user.findUniqueOrThrow({
+    const user = await db.user.findUniqueOrThrow({
       where: {
         id: userId,
       },
     });
+    console.log("output_log: user in repo =>>>", user);
+    return user;
   }
 
   // async getUserCartId(
