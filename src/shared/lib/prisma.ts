@@ -1,14 +1,14 @@
 import { DATATYPE } from "@prisma/client";
 import { PropertyDataTypeEnum } from "../type/propertyDataType.enum";
 
-const prismaToEnumMap: Record<DATATYPE, PropertyDataTypeEnum> = {
+const prismaDatatypeToEnumMap: Record<DATATYPE, PropertyDataTypeEnum> = {
   [DATATYPE.SELECT]: PropertyDataTypeEnum.SELECT,
   [DATATYPE.MULT]: PropertyDataTypeEnum.MULT,
   [DATATYPE.CHECKBOX]: PropertyDataTypeEnum.CHECKBOX,
   [DATATYPE.RADIO]: PropertyDataTypeEnum.RADIO,
 };
 
-const enumToPrismaMap: Record<PropertyDataTypeEnum, DATATYPE> = {
+const enumDatatypeToPrismaMap: Record<PropertyDataTypeEnum, DATATYPE> = {
   [PropertyDataTypeEnum.SELECT]: DATATYPE.SELECT,
   [PropertyDataTypeEnum.MULT]: DATATYPE.MULT,
   [PropertyDataTypeEnum.CHECKBOX]: DATATYPE.CHECKBOX,
@@ -18,11 +18,11 @@ const enumToPrismaMap: Record<PropertyDataTypeEnum, DATATYPE> = {
 export const mapPrismaDatatypeToEnum = (
   prismaDatatype: DATATYPE,
 ): PropertyDataTypeEnum => {
-  return prismaToEnumMap[prismaDatatype];
+  return prismaDatatypeToEnumMap[prismaDatatype];
 };
 
 export const mapEnumToPrismaDatatype = (
   enumDatatype: PropertyDataTypeEnum,
 ): DATATYPE => {
-  return enumToPrismaMap[enumDatatype];
+  return enumDatatypeToPrismaMap[enumDatatype];
 };

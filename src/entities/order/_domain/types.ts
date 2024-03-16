@@ -1,10 +1,26 @@
+import {
+  Order as OrderDBType,
+  ORDER_PAYMENT_STATUS as OrderPaymentStatusEnum,
+  ORDER_STATUS as OrderStatusEnum,
+} from "@prisma/client";
 export const baseQueryKey = "order";
 export type OrderId = string;
 export type OrderSlug = string;
+export { OrderStatusEnum, OrderPaymentStatusEnum };
+
+export const orderToEnumMap = (order: OrderDBType): Order => ({
+  ...order,
+  orderStatus: order.orderStatus as OrderStatusEnum,
+  paymentStatus: order.paymentStatus as OrderPaymentStatusEnum,
+});
 
 export type OrderEntity = {
   id: OrderId;
   userId: string;
+  orderStatus: OrderStatusEnum;
+  paymentStatus: OrderPaymentStatusEnum;
+  // orderStatus: string;
+  // paymentStatus: string;
   createdAt: Date;
 };
 
@@ -13,6 +29,8 @@ export type OrderRowEntity = {
   orderId: string;
   productId: string;
   quantity: number;
+  price: number;
+  createdAt: Date;
 };
 
 export type OrderRelationEntity = OrderEntity & {
@@ -24,49 +42,24 @@ export type OrderRelationEntity = OrderEntity & {
 export type Order = {
   id: OrderId;
   userId: string;
+  orderStatus: OrderStatusEnum;
+  paymentStatus: OrderPaymentStatusEnum;
+  createdAt: Date;
+};
+
+export type OrderRow = {
+  id: string;
+  orderId: string;
+  productId: string;
+  quantity: number;
+  price: number;
+  createdAt: Date;
 };
 
 export type OrderRelation = Order & {
-  orderRowList: Array<OrderRowEntity>;
+  orderRowList: Array<OrderRow>;
 };
 
-export type OrderToCreate = {
-  userId: string;
-};
-
-// export type OrderToUpdate = {
-//   id: OrderId;
-//   productList: Array<OrderProduct>;
-// };
-export type OrderToAddProduct = {
-  id: OrderId;
-  productId: string;
-};
-
-// OrderRow
-export type OrderRowGetByProductId = {
-  orderId: string;
-  productId: string;
-};
-
-export type OrderRowChangeQuantity = {
-  id: string;
-  quantity: number;
-};
-
-export type OrderRowToAddProduct = {
-  orderId: string;
-  productId: string;
-  // quantity: number;
-};
-
-export type OrderRowToRemoveProduct = {
-  orderId: string;
-  productId: string;
-};
-
-// Side
-// export type OrderRow = {
-//   id: string;
-//   // name: string;
+// export type OrderToCreate = {
+//   userId: string;
 // };

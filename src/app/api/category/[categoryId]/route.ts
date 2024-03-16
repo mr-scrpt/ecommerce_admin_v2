@@ -1,8 +1,5 @@
 import { categorySchema } from "@/entities/category";
-import {
-  getCategoryAction,
-  getCategoryByIdAction,
-} from "@/entities/category/server";
+import { getCategoryAction } from "@/entities/category/server";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 

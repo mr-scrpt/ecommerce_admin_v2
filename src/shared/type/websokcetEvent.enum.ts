@@ -30,4 +30,9 @@ export enum WSEventEnum {
   PROPERTY_LIST_REFRESH = "property_list_refresh",
 
   CART_REFRESH = "cart_refresh",
+
+  ORDER_CREATE = "order_create",
+  ORDER_CHANGE_STATUS = "order_change_status",
+  ORDER_REFRESH = "order_refresh",
+  ORDER_LIST_REFRESH = "order_list_refresh",
 }

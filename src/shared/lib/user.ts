@@ -1,5 +1,7 @@
+import { ROLE as ROLES } from "@prisma/client";
 export type UserId = string;
-export type Role = "ADMIN" | "USER";
+export type Role = (typeof ROLES)[keyof typeof ROLES];
+export { ROLES };
 
 export type SessionEntity = {
   user: {
@@ -13,7 +15,7 @@ export type SessionEntity = {
   expires: string;
 };
 
-export const ROLES: Record<Role, Role> = {
-  ADMIN: "ADMIN",
-  USER: "USER",
-};
+// export const ROLES: Record<Role, Role> = {
+//   ADMIN: "ADMIN",
+//   USER: "USER",
+// };

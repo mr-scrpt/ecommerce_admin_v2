@@ -22,6 +22,21 @@ enum DATATYPE {
   RADIO
 }
 
+enum ORDER_STATUS {
+  NEW
+  PENDING
+  CALLED
+  NOT_CONTACTED
+  COMPLETED
+  CANCELED
+}
+enum ORDER_PAYMENT_STATUS {
+  PAID
+  NOT_PAID
+  POSTAL_PAID
+  CONTACT_PAID
+}
+
 model Category {
   id    String   @id @default(uuid())
   name  String
@@ -64,6 +79,7 @@ model User {
   image         String?
 
   cart     Cart?
+  orders   Order[]
   // cart    Cart    @relation(fields: [cartId], references: [id])
   // cartId  String
 
@@ -96,6 +112,37 @@ model CartRow {
   updatedAt DateTime @updatedAt
 
   @@unique([cartId, productId])
+}
+
+model Order {
+  id        String   @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+
+  orderStatus       ORDER_STATUS
+  paymentStatus     ORDER_PAYMENT_STATUS
+
+  orderRowList  OrderRow[]
+
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([id,userId])
+}
+
+model OrderRow {
+  id        String   @id @default(uuid())
+  orderId   String
+  order     Order    @relation(fields: [orderId], references: [id])
+
+  productId String
+  quantity  Int
+
+  price     Float
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Property {
