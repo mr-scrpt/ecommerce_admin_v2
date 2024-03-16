@@ -1,10 +1,10 @@
-import {
-  CategoryEntity,
-  CategoryRepository,
-  categoryRepository,
-} from "@/entities/category";
+import { CategoryEntity } from "@/entities/category";
 import { DbClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
 import { CategoryCreateComplexible } from "../_domain/types";
+import {
+  CategoryRepository,
+  categoryRepository,
+} from "@/entities/category/server";
 
 export class CategoryCreateTx extends Transaction {
   constructor(

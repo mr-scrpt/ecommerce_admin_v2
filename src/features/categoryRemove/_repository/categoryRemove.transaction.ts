@@ -1,5 +1,8 @@
 import { CategoryEntity, CategoryId } from "@/entities/category";
-import { CategoryRepository, categoryRepository } from "@/entities/category";
+import {
+  CategoryRepository,
+  categoryRepository,
+} from "@/entities/category/server";
 import { DbClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
 
 export class CategoryRemoveTx extends Transaction {

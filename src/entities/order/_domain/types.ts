@@ -60,6 +60,12 @@ export type OrderRelation = Order & {
   orderRowList: Array<OrderRow>;
 };
 
+export type OrderToUpdate = {
+  id: OrderId;
+  orderStatus: OrderStatusEnum;
+  paymentStatus: OrderPaymentStatusEnum;
+};
+
 // export type OrderToCreate = {
 //   userId: string;
 // };

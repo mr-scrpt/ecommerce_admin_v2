@@ -32,7 +32,7 @@ export enum WSEventEnum {
   CART_REFRESH = "cart_refresh",
 
   ORDER_CREATE = "order_create",
-  ORDER_CHANGE_STATUS = "order_change_status",
+  ORDER_UPDATE = "order_update",
   ORDER_REFRESH = "order_refresh",
   ORDER_LIST_REFRESH = "order_list_refresh",
 }

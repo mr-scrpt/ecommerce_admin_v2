@@ -27,6 +27,8 @@ interface ProductFormLayoutProps extends HTMLAttributes<HTMLFormElement> {
 
 // const tabActiveStorege = storage("tabActive");
 
+const PROUDUCT_TAB_ACTVE = "prouduct_tab_active";
+
 export const ProductFormLayout: FC<ProductFormLayoutProps> = (props) => {
   const {
     propertySelectOptionList,
@@ -38,14 +40,14 @@ export const ProductFormLayout: FC<ProductFormLayoutProps> = (props) => {
 
   const onSelect = (value: string) => {
     // tabActiveStorege.setItem(value);
-    localStorage.setItem("tabActive", value);
+    localStorage.setItem(PROUDUCT_TAB_ACTVE, value);
   };
 
   const [activeTab, setActiveTab] = useState("general");
 
   useEffect(() => {
     // const tabActive = tabActiveStorege.getItem();
-    const tabActive = localStorage.getItem("tabActive");
+    const tabActive = localStorage.getItem(PROUDUCT_TAB_ACTVE);
     if (tabActive) {
       setActiveTab(tabActive);
     }

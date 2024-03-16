@@ -3,9 +3,9 @@ import { SessionEntity } from "@/shared/lib/user";
 export const createOrderAbility = (session: SessionEntity) => ({
   canGetOrder: () => !!session.user.role,
 
-  canAddProduct: () => !!session.user.role,
+  canAddOrder: () => !!session.user.role,
 
-  canRemoveProduct: () => !!session.user.role,
+  canRemoveOrder: () => !!session.user.role,
 
-  canChangeProduct: () => !!session.user.role,
+  canUpdateOrder: () => !!session.user.role,
 });

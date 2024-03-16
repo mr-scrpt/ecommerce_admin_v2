@@ -28,6 +28,12 @@ export const orderRelationSchema = z.object({
   orderRowList: orderRowSchema.array(),
 });
 
+export const orderUpdateSchema = z.object({
+  id: z.string(),
+  orderStatus: z.custom<OrderStatusEnum>(),
+  paymentStatus: z.custom<OrderPaymentStatusEnum>(),
+});
+
 export const orderFormSchema = z.object({
   orderStatus: z.custom<OrderStatusEnum>(),
   paymentStatus: z.custom<OrderPaymentStatusEnum>(),

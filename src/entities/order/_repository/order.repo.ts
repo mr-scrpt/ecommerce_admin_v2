@@ -11,14 +11,6 @@ export class OrderRepository {
       },
     });
     return result;
-
-    // const order = orderToEnumMap(result);
-    // return order;
-    // return {
-    //   ...result,
-    //   orderStatus: result.orderStatus as OrderStatusEnum,
-    //   paymentStatus: result.paymentStatus as OrderPaymentStatusEnum,
-    // };
   }
 
   async getOrderWithRelation(
@@ -38,7 +30,22 @@ export class OrderRepository {
   }
 
   async getOrderList(db: Tx = this.db): Promise<OrderEntity[]> {
-    return db.order.findMany();
+    const orderList = await db.order.findMany();
+    console.log("output_log:  =>>>", orderList);
+    return orderList;
+  }
+
+  async updateOrder(
+    orderId: OrderId,
+    data: Partial<OrderEntity>,
+    db: Tx = this.db,
+  ): Promise<OrderEntity> {
+    return await db.order.update({
+      where: {
+        id: orderId,
+      },
+      data,
+    });
   }
 
   // async getOrderWithRelationByUserId(
