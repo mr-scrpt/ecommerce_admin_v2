@@ -1,9 +1,5 @@
 import { DbClient, Tx, dbClient } from "@/shared/lib/db";
 import {
-  mapEnumToPrismaDatatype,
-  mapPrismaDatatypeToEnum,
-} from "@/shared/lib/prisma";
-import {
   Property,
   PropertyEntity,
   PropertyId,
@@ -24,10 +20,11 @@ export class PropertyRepository {
       },
     });
 
-    return {
-      ...property,
-      datatype: mapPrismaDatatypeToEnum(property.datatype),
-    };
+    // return {
+    //   ...property,
+    //   datatype: mapPrismaDatatypeToEnum(property.datatype),
+    // };
+    return property;
   }
 
   async getPropertyWithRelation(
@@ -44,10 +41,11 @@ export class PropertyRepository {
       },
     });
 
-    return {
-      ...property,
-      datatype: mapPrismaDatatypeToEnum(property.datatype),
-    };
+    // return {
+    //   ...property,
+    //   datatype: mapPrismaDatatypeToEnum(property.datatype),
+    // };
+    return property;
   }
 
   async getPropertyWithRelationByCategory(
@@ -70,19 +68,21 @@ export class PropertyRepository {
       },
     });
 
-    return propertyList.map((property) => ({
-      ...property,
-      datatype: mapPrismaDatatypeToEnum(property.datatype), // Преобразование типа данных
-    }));
+    // return propertyList.map((property) => ({
+    //   ...property,
+    //   datatype: mapPrismaDatatypeToEnum(property.datatype), // Преобразование типа данных
+    // }));
+    return propertyList;
   }
 
   async getPropertyList(db: Tx = this.db): Promise<PropertyEntity[]> {
     const propertyList = await db.property.findMany();
 
-    return propertyList.map((property) => ({
-      ...property,
-      datatype: mapPrismaDatatypeToEnum(property.datatype), // Преобразование типа данных
-    }));
+    // return propertyList.map((property) => ({
+    //   ...property,
+    //   datatype: mapPrismaDatatypeToEnum(property.datatype), // Преобразование типа данных
+    // }));
+    return propertyList;
   }
 
   async createProperty(
@@ -93,13 +93,14 @@ export class PropertyRepository {
     const propertyCreated = await db.property.create({
       data: {
         ...propertyData,
-        datatype: mapEnumToPrismaDatatype(propertyData.datatype),
+        // datatype: mapEnumToPrismaDatatype(propertyData.datatype),
       },
     });
-    return {
-      ...propertyCreated,
-      datatype: mapPrismaDatatypeToEnum(propertyCreated.datatype),
-    };
+    // return {
+    //   ...propertyCreated,
+    //   datatype: mapPrismaDatatypeToEnum(propertyCreated.datatype),
+    // };
+    return propertyCreated;
   }
 
   async updateProperty(
@@ -107,23 +108,24 @@ export class PropertyRepository {
     propertyData: Partial<Property>,
     db: Tx = this.db,
   ): Promise<PropertyEntity> {
-    const prismaDatatype =
-      propertyData.datatype !== undefined
-        ? mapEnumToPrismaDatatype(propertyData.datatype)
-        : undefined;
+    // const prismaDatatype =
+    //   propertyData.datatype !== undefined
+    //     ? mapEnumToPrismaDatatype(propertyData.datatype)
+    //     : undefined;
 
     const propertyUpdated = await db.property.update({
       where: { id: targetId },
       data: {
         ...propertyData,
-        datatype: prismaDatatype ?? undefined,
+        // datatype: prismaDatatype ?? undefined,
       },
     });
 
-    return {
-      ...propertyUpdated,
-      datatype: mapPrismaDatatypeToEnum(propertyUpdated.datatype),
-    };
+    // return {
+    //   ...propertyUpdated,
+    //   datatype: mapPrismaDatatypeToEnum(propertyUpdated.datatype),
+    // };
+    return propertyUpdated;
   }
 
   async removePropertyById(
@@ -133,10 +135,11 @@ export class PropertyRepository {
     const deletedProperty = await db.property.delete({
       where: { id: propertyId },
     });
-    return {
-      ...deletedProperty,
-      datatype: mapPrismaDatatypeToEnum(deletedProperty.datatype),
-    };
+    // return {
+    //   ...deletedProperty,
+    //   datatype: mapPrismaDatatypeToEnum(deletedProperty.datatype),
+    // };
+    return deletedProperty;
   }
 }
 

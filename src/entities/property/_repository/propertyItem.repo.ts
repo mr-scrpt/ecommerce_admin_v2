@@ -38,8 +38,6 @@ export class PropertyItemRepository {
     db: Tx = this.db,
   ): Promise<PropertyItemEntity> {
     const { propertyId, ...propertyItem } = data;
-    console.log("output_log: propertyItem =>>>", propertyItem);
-    console.log("output_log: propertyId =>>>", propertyId);
     return await db.propertyItem.create({
       data: { ...propertyItem, propertyId },
     });
@@ -61,7 +59,6 @@ export class PropertyItemRepository {
     db: Tx = this.db,
   ): Promise<PropertyItemEntity> {
     const { id, ...propertyItem } = data;
-    console.log("output_log: data in repo =>>>", data);
     return await db.propertyItem.upsert({
       where: { id: id ?? "" },
 

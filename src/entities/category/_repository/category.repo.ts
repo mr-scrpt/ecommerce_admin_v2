@@ -1,16 +1,13 @@
 import { DbClient, Tx, dbClient } from "@/shared/lib/db";
 import {
-  Category,
-  CategoryAddPropertyList,
   CategoryAddProductList,
+  CategoryAddPropertyList,
   CategoryEntity,
   CategoryId,
   CategoryRelationEntity,
   CategoryToCreate,
   CategoryToUpdate,
 } from "../_domain/types";
-import { mapPrismaDatatypeToEnum } from "@/shared/lib/prisma";
-import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
 
 export class CategoryRepository {
   constructor(readonly db: DbClient) {}
@@ -40,13 +37,14 @@ export class CategoryRepository {
       },
     });
 
-    return {
-      ...res,
-      propertyList: res.propertyList.map((item) => ({
-        ...item,
-        datatype: mapPrismaDatatypeToEnum(item.datatype),
-      })),
-    };
+    // return {
+    //   ...res,
+    //   propertyList: res.propertyList.map((item) => ({
+    //     ...item,
+    //     datatype: mapPrismaDatatypeToEnum(item.datatype),
+    //   })),
+    // };
+    return res;
   }
 
   async getCategoryBySlug(
