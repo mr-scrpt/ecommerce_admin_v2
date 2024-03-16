@@ -6,7 +6,6 @@ import { propertyListSeed } from "./data/property";
 import { propertyItemListSeed } from "./data/propertyItem";
 import { userListSeed } from "./data/user";
 import { productRelationsSeed } from "./data/productRelations";
-import { mapEnumToPrismaDatatype } from "../src/shared/lib/prisma";
 import { cartListSeed } from "./data/cart";
 import { cartRelationsSeed } from "./data/cartRelations";
 import { cartRowListSeed } from "./data/cartRow";
@@ -25,7 +24,6 @@ async function main() {
     await prisma.property.create({
       data: {
         ...property,
-        datatype: mapEnumToPrismaDatatype(property.datatype),
       },
     });
     console.log("property created", property);

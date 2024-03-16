@@ -27,3 +27,10 @@ export const orderRelationSchema = z.object({
 
   orderRowList: orderRowSchema.array(),
 });
+
+export const orderFormSchema = z.object({
+  orderStatus: z.custom<OrderStatusEnum>(),
+  paymentStatus: z.custom<OrderPaymentStatusEnum>(),
+});
+
+export type OrderFormValues = z.infer<typeof orderFormSchema>;
