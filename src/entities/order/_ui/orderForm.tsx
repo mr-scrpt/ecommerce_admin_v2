@@ -134,11 +134,11 @@ OrderForm.OrderSelectPayment = function OrderSelectPayment() {
   return (
     <FormField
       control={control}
-      name={"orderStatus"}
+      name={"paymentStatus"}
       render={({ field }) => {
         return (
           <FormItem>
-            <FormLabel>Order Status</FormLabel>
+            <FormLabel>Payment Status</FormLabel>
             <Select onValueChange={field.onChange} defaultValue={field.value}>
               <FormControl>
                 <SelectTrigger>

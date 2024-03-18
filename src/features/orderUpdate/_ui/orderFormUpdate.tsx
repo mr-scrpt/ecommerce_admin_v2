@@ -5,14 +5,12 @@ import {
   orderFormSchema,
   useOrderWithRelationQuery,
 } from "@/entities/order";
-import { usePropertyLikeSelectOptionList } from "@/entities/property";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes } from "react";
 import { z } from "zod";
 import { useOrderUpdateMutation } from "../_mutation/useOrderUpdate.mutation";
-import { useOptionListTransform } from "@/shared/lib/map";
 
 interface OrderFormProps extends HTMLAttributes<HTMLDivElement> {
   orderId: OrderId;
