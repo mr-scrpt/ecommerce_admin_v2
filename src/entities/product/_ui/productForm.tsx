@@ -39,6 +39,7 @@ type ProductFormType = FC<ProductFormProps> & {
   CategoryListField: FC<PropertyFieldCategoryListProps>;
   PropertyField: FC<PropertyFieldProps>;
   NameField: FC<{}>;
+  ArticleField: FC<{}>;
   PriceField: FC<{}>;
   DescriptionField: FC<{}>;
   AboutField: FC<{}>;
@@ -51,6 +52,7 @@ const getDefaultValues = (
   propertyList?: ProductPropertyObjectList,
 ) => ({
   name: product?.name ?? "",
+  article: product?.article ?? "",
   price: product?.price ?? 0,
   description: product?.description ?? "",
   about: product?.about ?? "",
@@ -89,6 +91,7 @@ export const ProductForm: ProductFormType = (props) => {
     // console.log("output_log: data on submit =>>>", data);
     onSubmit?.({
       name: data.name,
+      article: data.article,
       price: +data.price,
       description: data.description,
       about: data.about,
@@ -221,6 +224,25 @@ ProductForm.NameField = function NameField() {
           <FormLabel>Name</FormLabel>
           <FormControl>
             <Input placeholder="Enter product name..." {...field} />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  );
+};
+
+ProductForm.ArticleField = function ArticleField() {
+  const { control } = useFormContext<ProductFormValues>();
+  return (
+    <FormField
+      control={control}
+      name="article"
+      render={({ field }) => (
+        <FormItem className="w-full">
+          <FormLabel>Article</FormLabel>
+          <FormControl>
+            <Input placeholder="Enter product article..." {...field} />
           </FormControl>
           <FormMessage />
         </FormItem>

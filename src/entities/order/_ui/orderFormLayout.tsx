@@ -3,9 +3,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui/tabs";
 import { FC, HTMLAttributes, useEffect, useState } from "react";
 import { OrderRelation } from "../_domain/types";
 import { OrderForm } from "./orderForm";
+import { OrderProductList } from "..";
 
 interface OrderFormLayoutProps extends HTMLAttributes<HTMLFormElement> {
   order: OrderRelation;
+  ProductListComp: FC<{ productListId: Array<string> }>;
   handleSubmit?: (data: any) => void;
   isPending: boolean;
   submitText: string;
@@ -14,7 +16,7 @@ interface OrderFormLayoutProps extends HTMLAttributes<HTMLFormElement> {
 const ORDER_TAB_ACTVE = "order_tab_active";
 
 export const OrderFormLayout: FC<OrderFormLayoutProps> = (props) => {
-  const { submitText } = props;
+  const { submitText, order, ProductListComp } = props;
 
   const onSelect = (value: string) => {
     localStorage.setItem(ORDER_TAB_ACTVE, value);
@@ -28,6 +30,8 @@ export const OrderFormLayout: FC<OrderFormLayoutProps> = (props) => {
       setActiveTab(tabActive);
     }
   }, []);
+
+  console.log("output_log: order =>>>", order);
 
   return (
     <OrderForm {...props}>
@@ -48,11 +52,20 @@ export const OrderFormLayout: FC<OrderFormLayoutProps> = (props) => {
             />
           </div>
           <TabsContent value="general" className="flex w-full flex-col gap-4">
-            <div className="flex w-full border p-4">
+            <div className="flex w-full gap-8 border p-4">
               <OrderForm.OrderSelectStatus />
+              <OrderForm.OrderSelectPayment />
             </div>
             <div className="flex w-full border p-4">
-              <OrderForm.OrderSelectPayment />
+              {/* {order && */}
+              {/*   order.orderRowList && */}
+              {/*   order.orderRowList.map((item) => ( */}
+              {/*     <div key={item.id}>{item.id}</div> */}
+              {/*   ))} */}
+              <OrderProductList
+                orderProductRowList={order.orderRowList}
+                ProductListComp={ProductListComp}
+              />
             </div>
           </TabsContent>
           <TabsContent value="contact" className="flex w-full flex-col gap-4">

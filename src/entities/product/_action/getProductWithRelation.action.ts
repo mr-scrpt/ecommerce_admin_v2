@@ -5,7 +5,7 @@ import { productRelationSchema } from "../_domain/product.schema";
 import { ProductRelation } from "../_domain/types";
 import { getProductWithRelationUseCase } from "../_usecase/getProductWithRelation.usecase";
 
-const getByIdSchema = z.object({
+const propsSchema = z.object({
   productId: z.string(),
 });
 
@@ -16,12 +16,11 @@ const resultSchema = z.object({
 type ResultT = { product: ProductRelation };
 
 export const getProductWithRelationAction = async (
-  props: z.infer<typeof getByIdSchema>,
+  props: z.infer<typeof propsSchema>,
 ): Promise<ResultT> => {
-  const { productId } = getByIdSchema.parse(props);
+  const { productId } = propsSchema.parse(props);
 
   const session = await getAppSessionStrictServer();
-  console.log("output_log:  cartId =>>>", session.user.cartId);
 
   const product = await getProductWithRelationUseCase.exec({
     session,

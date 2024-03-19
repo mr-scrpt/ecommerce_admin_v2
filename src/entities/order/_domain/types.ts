@@ -27,7 +27,11 @@ export type OrderEntity = {
 export type OrderRowEntity = {
   id: string;
   orderId: string;
+
   productId: string;
+  productName: string;
+  productArticle: string;
+
   quantity: number;
   price: number;
   createdAt: Date;
@@ -50,7 +54,11 @@ export type Order = {
 export type OrderRow = {
   id: string;
   orderId: string;
+
   productId: string;
+  productName: string;
+  productArticle: string;
+
   quantity: number;
   price: number;
   createdAt: Date;
@@ -66,6 +74,8 @@ export type OrderToUpdate = {
   paymentStatus: OrderPaymentStatusEnum;
 };
 
-// export type OrderToCreate = {
-//   userId: string;
-// };
+// Side
+export type OrderProduct = OrderRow & {
+  priceOrder: number;
+  quantity: number;
+};

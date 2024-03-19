@@ -8,6 +8,7 @@ export type ProductSlug = string;
 export type ProductEntity = {
   id: ProductId;
   name: string;
+  article: string;
   description: string;
   about: string;
   slug: ProductSlug;
@@ -25,6 +26,7 @@ export type ProductRelationEntity = ProductEntity & {
 export type Product = {
   id: ProductId;
   name: string;
+  article: string;
   price: number;
   description: string;
   about: string;
@@ -39,6 +41,7 @@ export type ProductRelation = Product & {
 
 export type ProductToCreate = {
   name: string;
+  article: string;
   price: number;
   description: string;
   about: string;
@@ -48,6 +51,7 @@ export type ProductToCreate = {
 
 export type ProductToUpdate = {
   name: string;
+  article: string;
   price: number;
   description: string;
   about: string;
@@ -67,6 +71,7 @@ export type ProductAddPropertyList = {
 
 export type ProductFromFrom = {
   name: string;
+  article: string;
   price: number;
   description: string;
   about: string;

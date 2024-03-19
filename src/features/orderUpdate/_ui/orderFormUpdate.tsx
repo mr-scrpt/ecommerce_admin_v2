@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes } from "react";
 import { z } from "zod";
 import { useOrderUpdateMutation } from "../_mutation/useOrderUpdate.mutation";
+import { ProductList } from "@/entities/product";
 
 interface OrderFormProps extends HTMLAttributes<HTMLDivElement> {
   orderId: OrderId;
@@ -68,6 +69,7 @@ export const OrderFormUpdate: FC<OrderFormProps> = (props) => {
         order={order}
         handleSubmit={handleSubmit}
         submitText="Update"
+        ProductListComp={ProductList}
       />
     </div>
   );

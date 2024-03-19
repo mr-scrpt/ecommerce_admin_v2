@@ -52,7 +52,18 @@ export class ProductRepository {
   async getProductList(db: Tx = this.db): Promise<ProductEntity[]> {
     return db.product.findMany();
   }
-
+  async getProductListById(
+    productListId: Array<ProductId>,
+    db: Tx = this.db,
+  ): Promise<ProductEntity[]> {
+    return db.product.findMany({
+      where: {
+        id: {
+          in: productListId,
+        },
+      },
+    });
+  }
   async createProduct(
     product: ProductToCreate,
     db: Tx = this.db,

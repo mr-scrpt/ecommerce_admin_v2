@@ -54,6 +54,7 @@ model Product {
   id          String   @id @default(uuid())
 
   name        String
+  article     String
   price       Float
   slug        String   @unique
 
@@ -105,7 +106,12 @@ model CartRow {
   id        String   @id @default(uuid())
   cart	    Cart     @relation(fields: [cartId], references: [id])
   cartId    String
+
   productId String
+  // productName  String
+  //
+  // productArticle  String
+
   quantity  Int
 
   createdAt DateTime @default(now())
@@ -137,6 +143,9 @@ model OrderRow {
   order     Order    @relation(fields: [orderId], references: [id])
 
   productId String
+  productName  String
+
+  productArticle  String
   quantity  Int
 
   price     Float

@@ -7,6 +7,7 @@ import { getCategoryBySlugUseCase } from "../_usecase/getCategoryBySlug.usecase"
 const propsSchema = z.object({
   categorySlug: z.string(),
 });
+
 const resultSchema = z.object({
   category: categorySchema,
 });
