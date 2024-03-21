@@ -122,6 +122,8 @@ model CartRow {
 
 model Order {
   id        String   @id @default(uuid())
+  orderNo   String
+
   user      User     @relation(fields: [userId], references: [id])
   userId    String
 
@@ -129,6 +131,7 @@ model Order {
   paymentStatus     ORDER_PAYMENT_STATUS
 
   orderRowList  OrderRow[]
+  priceTotal  Float
 
 
   createdAt DateTime @default(now())
@@ -144,6 +147,7 @@ model OrderRow {
 
   productId String
   productName  String
+  productImg  String
 
   productArticle  String
   quantity  Int

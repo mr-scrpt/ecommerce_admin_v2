@@ -2,12 +2,12 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui/tabs";
 import { FC, HTMLAttributes, useEffect, useState } from "react";
 import { OrderRelation } from "../_domain/types";
-import { OrderForm } from "./orderForm";
+import { OrderForm } from "./orderFromProduct/orderForm";
 import { OrderProductList } from "..";
 
 interface OrderFormLayoutProps extends HTMLAttributes<HTMLFormElement> {
   order: OrderRelation;
-  ProductListComp: FC<{ productListId: Array<string> }>;
+  // ProductListComp: FC<{ productListId: Array<string> }>;
   handleSubmit?: (data: any) => void;
   isPending: boolean;
   submitText: string;
@@ -16,7 +16,7 @@ interface OrderFormLayoutProps extends HTMLAttributes<HTMLFormElement> {
 const ORDER_TAB_ACTVE = "order_tab_active";
 
 export const OrderFormLayout: FC<OrderFormLayoutProps> = (props) => {
-  const { submitText, order, ProductListComp } = props;
+  const { submitText, order } = props;
 
   const onSelect = (value: string) => {
     localStorage.setItem(ORDER_TAB_ACTVE, value);
@@ -53,8 +53,8 @@ export const OrderFormLayout: FC<OrderFormLayoutProps> = (props) => {
           </div>
           <TabsContent value="general" className="flex w-full flex-col gap-4">
             <div className="flex w-full gap-8 border p-4">
-              <OrderForm.OrderSelectStatus />
-              <OrderForm.OrderSelectPayment />
+              {/* <OrderForm.OrderSelectStatus /> */}
+              {/* <OrderForm.OrderSelectPayment /> */}
             </div>
             <div className="flex w-full border p-4">
               {/* {order && */}
@@ -64,7 +64,7 @@ export const OrderFormLayout: FC<OrderFormLayoutProps> = (props) => {
               {/*   ))} */}
               <OrderProductList
                 orderProductRowList={order.orderRowList}
-                ProductListComp={ProductListComp}
+                // ProductListComp={ProductListComp}
               />
             </div>
           </TabsContent>

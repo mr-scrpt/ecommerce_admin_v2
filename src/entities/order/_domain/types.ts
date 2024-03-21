@@ -31,6 +31,7 @@ export type OrderRowEntity = {
   productId: string;
   productName: string;
   productArticle: string;
+  productImg: string;
 
   quantity: number;
   price: number;
@@ -58,6 +59,7 @@ export type OrderRow = {
   productId: string;
   productName: string;
   productArticle: string;
+  productImg: string;
 
   quantity: number;
   price: number;

@@ -7,6 +7,8 @@ export const orderRowListSeed = [
     productId: "prod_585fsddfew7898few",
     productName: "First Product",
     productArticle: "n584FFF",
+    productImg:
+      "https://images.examples.com/wp-content/uploads/2018/04/School-Billboard-Design-Example.jpg?width=600",
 
     quantity: 1,
     price: 200,
@@ -17,6 +19,8 @@ export const orderRowListSeed = [
 
     productId: "prod_3375fsd7898dew",
     productName: "Second product",
+    productImg:
+      "https://images.examples.com/wp-content/uploads/2018/04/urban-billboard.jpg",
     productArticle: "n594TTT",
 
     quantity: 5,
@@ -31,6 +35,8 @@ export const orderRowListSeed = [
     productId: "prod_3375fsd7898dew",
     productName: "Second product",
     productArticle: "n594TTT",
+    productImg:
+      "https://images.examples.com/wp-content/uploads/2018/04/School-Billboard-Design-Example.jpg?width=600",
 
     quantity: 2,
     price: 320,
@@ -45,6 +51,9 @@ export const orderRowListSeed = [
     productName: "Third product",
     productArticle: "n604EEE",
 
+    productImg:
+      "https://images.examples.com/wp-content/uploads/2018/04/Outdoor-Advertising-Billboard-Design-Example.jpg?width=600",
+
     quantity: 4,
     price: 1200,
   },
@@ -55,6 +64,8 @@ export const orderRowListSeed = [
     productId: "prod_585fsddfew7898few",
     productName: "First Product",
     productArticle: "n584FFF",
+    productImg:
+      "https://images.examples.com/wp-content/uploads/2018/04/Outdoor-Advertising-Billboard-Design-Example.jpg?width=600",
 
     quantity: 3,
     price: 300,

@@ -20,47 +20,43 @@ import { cn } from "@/shared/ui/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, HTMLAttributes, useEffect } from "react";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
-import { OrderFormValues, orderFormSchema } from "../_domain/order.schema";
 import {
-  OrderPaymentStatusEnum,
-  OrderRelation,
-  OrderStatusEnum,
-} from "../_domain/types";
+  OrderFormProductValues,
+  OrderFormValues,
+  orderFormGeneralSchema,
+} from "../../_domain/order.schema";
+import { OrderRow, OrderStatusEnum } from "../../_domain/types";
 
 interface OrderFormProps extends HTMLAttributes<HTMLFormElement> {
-  order?: OrderRelation;
-  handleSubmit?: (data: OrderFormValues) => void;
+  orderRowList?: Array<OrderRow>;
+  handleSubmit?: (data: OrderFormProductValues) => void;
   submitText?: string;
 }
 
 type OrderFormType = FC<OrderFormProps> & {
   SubmitButton: FC<OrderSubmitFieldProps>;
-  OrderSelectStatus: FC<{}>;
-  OrderSelectPayment: FC<{}>;
+  OrderSelectProduct: FC;
 };
 
-const getDefaultValues = (order?: OrderRelation) => ({
-  orderStatus: order?.orderStatus ?? OrderStatusEnum.NEW,
-  paymentStatus: order?.paymentStatus ?? OrderPaymentStatusEnum.NOT_PAID,
+const getDefaultValues = (orderRowList?: Array<OrderRow>) => ({
+  orderRowList,
 });
 
 export const OrderForm: OrderFormType = (props) => {
-  const { order, handleSubmit: onSubmit, children } = props;
+  const { orderRowList, handleSubmit: onSubmit, children } = props;
 
-  const form = useForm<OrderFormValues>({
-    resolver: zodResolver(orderFormSchema),
-    defaultValues: getDefaultValues(order),
+  const form = useForm<OrderFormProductValues>({
+    resolver: zodResolver(orderFormGeneralSchema),
+    defaultValues: getDefaultValues(orderRowList),
   });
 
   useEffect(() => {
-    form.reset(getDefaultValues(order));
-  }, [order, form]);
+    form.reset(getDefaultValues(orderRowList));
+  }, [orderRowList, form]);
 
   const handleSubmit = form.handleSubmit(async (data) => {
     onSubmit?.(data);
   });
-
-  // const isPendingAppearance = useAppearanceDelay(isPending);
 
   return (
     <FormProvider {...form}>
@@ -97,7 +93,7 @@ OrderForm.SubmitButton = function SubmitButton({
   );
 };
 
-OrderForm.OrderSelectStatus = function OrderSelectStatus() {
+OrderForm.OrderSelectProduct = function OrderSelectStatus() {
   const { control } = useFormContext<OrderFormValues>();
   return (
     <FormField
@@ -129,34 +125,34 @@ OrderForm.OrderSelectStatus = function OrderSelectStatus() {
   );
 };
 
-OrderForm.OrderSelectPayment = function OrderSelectPayment() {
-  const { control } = useFormContext<OrderFormValues>();
-  return (
-    <FormField
-      control={control}
-      name={"paymentStatus"}
-      render={({ field }) => {
-        return (
-          <FormItem>
-            <FormLabel>Payment Status</FormLabel>
-            <Select onValueChange={field.onChange} defaultValue={field.value}>
-              <FormControl>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select vatiants" />
-                </SelectTrigger>
-              </FormControl>
-              <SelectContent>
-                {Object.values(OrderPaymentStatusEnum).map((row) => (
-                  <SelectItem key={row} value={row}>
-                    {row}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            <FormMessage />
-          </FormItem>
-        );
-      }}
-    />
-  );
-};
+// OrderForm.OrderSelectPayment = function OrderSelectPayment() {
+//   const { control } = useFormContext<OrderFormValues>();
+//   return (
+//     <FormField
+//       control={control}
+//       name={"paymentStatus"}
+//       render={({ field }) => {
+//         return (
+//           <FormItem>
+//             <FormLabel>Payment Status</FormLabel>
+//             <Select onValueChange={field.onChange} defaultValue={field.value}>
+//               <FormControl>
+//                 <SelectTrigger>
+//                   <SelectValue placeholder="Select vatiants" />
+//                 </SelectTrigger>
+//               </FormControl>
+//               <SelectContent>
+//                 {Object.values(OrderPaymentStatusEnum).map((row) => (
+//                   <SelectItem key={row} value={row}>
+//                     {row}
+//                   </SelectItem>
+//                 ))}
+//               </SelectContent>
+//             </Select>
+//             <FormMessage />
+//           </FormItem>
+//         );
+//       }}
+//     />
+//   );
+// };

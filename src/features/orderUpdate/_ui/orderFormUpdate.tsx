@@ -69,7 +69,7 @@ export const OrderFormUpdate: FC<OrderFormProps> = (props) => {
         order={order}
         handleSubmit={handleSubmit}
         submitText="Update"
-        ProductListComp={ProductList}
+        // ProductListComp={ProductList}
       />
     </div>
   );
