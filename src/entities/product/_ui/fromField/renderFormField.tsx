@@ -1,15 +1,15 @@
 import { PropertyDataTypeEnum } from "@/shared/type/propertyDataType.enum";
-import { ProductSelect } from "./productSelect";
-import { ProductCheckbox } from "./productCheckbox";
-import { ProductMult } from "./productMult";
-import { ProductRadio } from "./productRadio";
+import { ProductFormSelect } from "./productFormSelect";
+import { ProductFormCheckbox } from "./productFormCheckbox";
+import { ProductFormMult } from "./productFormMult";
+import { ProductFormRadio } from "./productFormRadio";
 import { ProductPropertyToSelect } from "../../_domain/types";
 
 const propertyTypeToComponentMap = {
-  [PropertyDataTypeEnum.SELECT]: ProductSelect,
-  [PropertyDataTypeEnum.CHECKBOX]: ProductCheckbox,
-  [PropertyDataTypeEnum.MULT]: ProductMult,
-  [PropertyDataTypeEnum.RADIO]: ProductRadio,
+  [PropertyDataTypeEnum.SELECT]: ProductFormSelect,
+  [PropertyDataTypeEnum.CHECKBOX]: ProductFormCheckbox,
+  [PropertyDataTypeEnum.MULT]: ProductFormMult,
+  [PropertyDataTypeEnum.RADIO]: ProductFormRadio,
 };
 
 export const renderFormField = ({

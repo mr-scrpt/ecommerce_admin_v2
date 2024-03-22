@@ -1,13 +1,14 @@
 "use server";
 import { z } from "zod";
 
-import { Order, orderSchema, orderUpdateSchema } from "@/entities/order";
+import { Order, orderSchema } from "@/entities/order";
+import { orderRowAddSchema } from "@/entities/order/server";
 import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
-import { updateOrderComplexibleUseCase } from "../_usecase/orderUpdateComplexible.usecase";
+import { addOrderRowComplexibleUseCase } from "../_usecase/orderAddRowComplexible.usecase";
 
 const propsSchema = z.object({
   orderId: z.string(),
-  data: orderUpdateSchema,
+  data: orderRowAddSchema,
 });
 
 const resultSchema = z.object({
@@ -16,18 +17,19 @@ const resultSchema = z.object({
 
 type ResultT = { order: Order };
 
-export const updateOrderAction = async (
+export const addOrderRowAction = async (
   props: z.infer<typeof propsSchema>,
 ): Promise<ResultT> => {
-  const { orderId, data } = propsSchema.parse(props);
+  const { data, orderId } = propsSchema.parse(props);
 
   const session = await getAppSessionStrictServer();
 
-  const order = await updateOrderComplexibleUseCase.exec({
+  const order = await addOrderRowComplexibleUseCase.exec({
     session,
-    dataToUpdate: {
+    dataToAdd: {
       orderId,
-      orderData: data,
+      productId: data.productId,
+      quantity: data.quantity,
     },
   });
 

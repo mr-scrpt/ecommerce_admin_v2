@@ -12,6 +12,7 @@ export const useOrderTableList = () => {
   const orderList = data?.map((item) => ({
     id: item.id,
     name: "",
+    orderNo: item.orderNo,
     status: item.orderStatus,
     payment: item.paymentStatus,
     createdAt: buildDate(item.createdAt),

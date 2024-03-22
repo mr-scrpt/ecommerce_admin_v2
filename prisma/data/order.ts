@@ -3,7 +3,7 @@ import { ORDER_STATUS, ORDER_PAYMENT_STATUS } from "@prisma/client";
 export const orderListSeed = [
   {
     id: "orderId_d58Johoj_ORDER_AdminUser",
-    orderNo: "123",
+    orderNo: "1",
 
     userId: "admin_fdsfsddfew789879",
 
@@ -13,7 +13,7 @@ export const orderListSeed = [
   },
   {
     id: "orderId_2158FFFF8_ORDER_2_AdminUser",
-    orderNo: "456",
+    orderNo: "2",
 
     userId: "admin_fdsfsddfew789879",
 
@@ -23,7 +23,7 @@ export const orderListSeed = [
   },
   {
     id: "orderId_FEohd84667_ORDER_User",
-    orderNo: "789",
+    orderNo: "3",
 
     userId: "user_fdseojeioui54645678",
 
@@ -33,7 +33,7 @@ export const orderListSeed = [
   },
   {
     id: "orderId_didonhfff557642fd_ORDER_User2",
-    orderNo: "321",
+    orderNo: "4",
 
     userId: "user_2_fdfoer56468dfsdf",
 

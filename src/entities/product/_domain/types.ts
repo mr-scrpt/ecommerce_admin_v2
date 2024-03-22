@@ -13,6 +13,7 @@ export type ProductEntity = {
   about: string;
   slug: ProductSlug;
   img: Array<string>;
+  price: number;
   createdAt: Date;
 };
 

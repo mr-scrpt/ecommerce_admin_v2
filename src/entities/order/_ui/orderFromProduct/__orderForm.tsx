@@ -25,7 +25,7 @@ import {
   OrderFormValues,
   orderFormGeneralSchema,
 } from "../../_domain/order.schema";
-import { OrderRow, OrderStatusEnum } from "../../_domain/types";
+import { OrderRow, OrderStatusEnum } from "../../_domain/order.types";
 
 interface OrderFormProps extends HTMLAttributes<HTMLFormElement> {
   orderRowList?: Array<OrderRow>;

@@ -1,7 +1,7 @@
 "use client";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getOrderWithRelationAction } from "../_action/getOrderWithRelation.action";
-import { OrderId, baseQueryKey } from "../_domain/types";
+import { OrderId, baseQueryKey } from "../_domain/order.types";
 import { useListenOrderUpdate } from "../_vm/event/useListenOrderUpdate";
 
 export const getOrderWithRelationQuery = (orderId: OrderId) => ({
@@ -31,6 +31,6 @@ export const useInvalidateOrderWithRelation = () => {
 
   return (orderId: OrderId) =>
     queryClient.invalidateQueries({
-      queryKey: [baseQueryKey, "getOrderWithRelation", orderId],
+      queryKey: [baseQueryKey, "getOrder", orderId],
     });
 };

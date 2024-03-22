@@ -5,6 +5,7 @@ import { profileEvent } from "./entity/profile.event";
 import { categoryEvent } from "./entity/category.event";
 import { productEvent } from "./entity/product.event";
 import { optionEvent } from "./entity/property.event";
+import { orderEvent } from "./entity/order.event";
 
 const io = socketServer;
 
@@ -14,6 +15,7 @@ io.on(WSEventEnum.CONNECT, (socket) => {
   categoryEvent(socket, io);
   productEvent(socket, io);
   optionEvent(socket, io);
+  orderEvent(socket, io);
 
   socket.on(WSEventEnum.DISCONNECTD, () => {
     console.log("output_log: disconnect  =>>>", socket.id);

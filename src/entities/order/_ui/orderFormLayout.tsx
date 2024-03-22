@@ -1,8 +1,8 @@
 "use client";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui/tabs";
 import { FC, HTMLAttributes, useEffect, useState } from "react";
-import { OrderRelation } from "../_domain/types";
-import { OrderForm } from "./orderFromProduct/orderForm";
+import { OrderRelation } from "../_domain/order.types";
+import { OrderForm } from "./orderFromProduct/__orderForm";
 import { OrderProductList } from "..";
 
 interface OrderFormLayoutProps extends HTMLAttributes<HTMLFormElement> {

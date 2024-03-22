@@ -10,13 +10,13 @@ import { RadioGroup, RadioGroupItem } from "@/shared/ui/radio-group";
 import { FC, HTMLAttributes } from "react";
 import { UseFormReturn } from "react-hook-form";
 
-interface ProductRadioProps extends HTMLAttributes<HTMLDivElement> {
+interface ProductFormRadioProps extends HTMLAttributes<HTMLDivElement> {
   name: string;
   propertyList: MultiSelectOptionItem[];
   control: UseFormReturn<any>["control"];
 }
 
-export const ProductRadio: FC<ProductRadioProps> = (props) => {
+export const ProductFormRadio: FC<ProductFormRadioProps> = (props) => {
   const { name, propertyList, control } = props;
   return (
     <FormField

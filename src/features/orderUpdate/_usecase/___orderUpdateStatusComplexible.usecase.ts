@@ -2,7 +2,7 @@ import { OrderEntity } from "@/entities/order";
 import { ForbiddenError } from "@/shared/lib/errors";
 import { SessionEntity } from "@/shared/lib/user";
 import { OrderUpdateComplexible } from "../_domain/types";
-import { OrderUpdateTx, orderUpdateTx } from "../_tx/orderUpdate.transaction";
+import { OrderRowAddTx, orderUpdateTx } from "../_tx/orderRowAdd.transaction";
 import { createOrderAbility } from "@/entities/order/server";
 
 type UpdateOrder = {
@@ -10,8 +10,8 @@ type UpdateOrder = {
   session: SessionEntity;
 };
 
-class UpdateOrderComplexibleUseCase {
-  constructor(private readonly orderUpdateTx: OrderUpdateTx) {}
+class UpdateOrderStatusComplexibleUseCase {
+  constructor(private readonly orderUpdateTx: OrderRowAddTx) {}
 
   async exec(data: UpdateOrder): Promise<OrderEntity> {
     const { dataToUpdate, session } = data;
@@ -22,10 +22,9 @@ class UpdateOrderComplexibleUseCase {
       throw new ForbiddenError();
     }
 
-    return await this.orderUpdateTx.updateOrderComplexible(dataToUpdate);
+    return await this.orderUpdateTx.addOrderRowComplexible(dataToUpdate);
   }
 }
 
-export const updateOrderComplexibleUseCase = new UpdateOrderComplexibleUseCase(
-  orderUpdateTx,
-);
+export const updateOrderStatusComplexibleUseCase =
+  new UpdateOrderStatusComplexibleUseCase(orderUpdateTx);

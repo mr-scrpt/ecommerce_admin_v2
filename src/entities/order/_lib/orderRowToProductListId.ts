@@ -1,4 +1,4 @@
-import { OrderRow } from "../_domain/types";
+import { OrderRow } from "../_domain/orderRow.types";
 
 export const orderRowToProductListId = (
   orderRow: Array<OrderRow>,

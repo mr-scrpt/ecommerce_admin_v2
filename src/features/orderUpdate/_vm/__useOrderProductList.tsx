@@ -4,7 +4,6 @@ import { useProductListByIdQuery } from "@/entities/product";
 
 export const useOrderProductList = (order?: OrderRelation) => {
   const productListId = order?.orderRowList.map((item) => item.productId);
-  // console.log("output_log: order =>>>", order);
   const { isPending, isSuccess, data } = useProductListByIdQuery(
     productListId ?? [],
   );

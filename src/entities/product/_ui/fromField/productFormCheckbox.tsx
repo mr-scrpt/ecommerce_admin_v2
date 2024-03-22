@@ -11,14 +11,14 @@ import { MultiSelectOptionItem } from "@/shared/ui/multiSelect";
 import { FC, HTMLAttributes } from "react";
 import { UseFormReturn } from "react-hook-form";
 
-interface ProductChechboxProps extends HTMLAttributes<HTMLDivElement> {
+interface ProductFromChechboxProps extends HTMLAttributes<HTMLDivElement> {
   name: string;
   // label: string;
   propertyList: MultiSelectOptionItem[];
   control: UseFormReturn<any>["control"];
 }
 
-export const ProductCheckbox: FC<ProductChechboxProps> = (props) => {
+export const ProductFormCheckbox: FC<ProductFromChechboxProps> = (props) => {
   const { name, propertyList, control } = props;
 
   return (

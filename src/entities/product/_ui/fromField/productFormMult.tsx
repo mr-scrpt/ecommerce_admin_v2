@@ -9,14 +9,14 @@ import { MultiSelect, MultiSelectOptionItem } from "@/shared/ui/multiSelect";
 import { FC, HTMLAttributes } from "react";
 import { UseFormReturn } from "react-hook-form";
 
-interface ProductMultProps extends HTMLAttributes<HTMLDivElement> {
+interface ProductFormMultProps extends HTMLAttributes<HTMLDivElement> {
   name: string;
   propertyList: MultiSelectOptionItem[];
   control: UseFormReturn<any>["control"];
   setValue: UseFormReturn<any>["setValue"];
 }
 
-export const ProductMult: FC<ProductMultProps> = (props) => {
+export const ProductFormMult: FC<ProductFormMultProps> = (props) => {
   const { name, propertyList, control, setValue } = props;
   return (
     <FormField

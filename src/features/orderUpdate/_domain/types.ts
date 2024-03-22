@@ -1,6 +1,3 @@
-import { OrderId, OrderToUpdate } from "@/entities/order";
+import { OrderRowToAddPayload } from "@/entities/order/_domain/orderRow.types";
 
-export type OrderUpdateComplexible = {
-  orderId: OrderId;
-  orderData: Partial<OrderToUpdate>;
-};
+export type OrderRowAddComplexible = OrderRowToAddPayload;

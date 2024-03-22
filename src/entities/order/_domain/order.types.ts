@@ -3,9 +3,13 @@ import {
   ORDER_PAYMENT_STATUS as OrderPaymentStatusEnum,
   ORDER_STATUS as OrderStatusEnum,
 } from "@prisma/client";
+import { OrderRow, OrderRowEntity } from "./orderRow.types";
+
 export const baseQueryKey = "order";
+
 export type OrderId = string;
 export type OrderSlug = string;
+
 export { OrderStatusEnum, OrderPaymentStatusEnum };
 
 export const orderToEnumMap = (order: OrderDBType): Order => ({
@@ -14,27 +18,16 @@ export const orderToEnumMap = (order: OrderDBType): Order => ({
   paymentStatus: order.paymentStatus as OrderPaymentStatusEnum,
 });
 
-export type OrderEntity = {
-  id: OrderId;
+type OrderBase = {
+  orderNo: string;
   userId: string;
   orderStatus: OrderStatusEnum;
   paymentStatus: OrderPaymentStatusEnum;
-  // orderStatus: string;
-  // paymentStatus: string;
-  createdAt: Date;
+  priceTotal: number;
 };
 
-export type OrderRowEntity = {
-  id: string;
-  orderId: string;
-
-  productId: string;
-  productName: string;
-  productArticle: string;
-  productImg: string;
-
-  quantity: number;
-  price: number;
+export type OrderEntity = OrderBase & {
+  id: OrderId;
   createdAt: Date;
 };
 
@@ -42,27 +35,13 @@ export type OrderRelationEntity = OrderEntity & {
   orderRowList: Array<OrderRowEntity>;
 };
 
-// Projetions
-
+// NOTE: Projetions
 export type Order = {
   id: OrderId;
+  orderNo: string;
   userId: string;
   orderStatus: OrderStatusEnum;
   paymentStatus: OrderPaymentStatusEnum;
-  createdAt: Date;
-};
-
-export type OrderRow = {
-  id: string;
-  orderId: string;
-
-  productId: string;
-  productName: string;
-  productArticle: string;
-  productImg: string;
-
-  quantity: number;
-  price: number;
   createdAt: Date;
 };
 
@@ -70,13 +49,14 @@ export type OrderRelation = Order & {
   orderRowList: Array<OrderRow>;
 };
 
-export type OrderToUpdate = {
+// NOTE: Actions
+export type OrderToUpdateStatus = {
   id: OrderId;
   orderStatus: OrderStatusEnum;
   paymentStatus: OrderPaymentStatusEnum;
 };
 
-// Side
+// NOTE: Side
 export type OrderProduct = OrderRow & {
   priceOrder: number;
   quantity: number;

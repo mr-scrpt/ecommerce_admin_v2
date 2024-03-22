@@ -1,7 +1,7 @@
 "use client";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getOrderListAction } from "../_action/getOrderList.action";
-import { baseQueryKey } from "../_domain/types";
+import { baseQueryKey } from "../_domain/order.types";
 import { useListenOrderListUpdate } from "../_vm/event/useListenOrderListUpdate";
 
 export const getOrderListQuery = () => ({

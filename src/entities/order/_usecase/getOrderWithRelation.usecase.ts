@@ -1,7 +1,7 @@
 import { AuthorizatoinError } from "@/shared/lib/errors";
 import { SessionEntity } from "@/shared/lib/user";
 import { createOrderAbility } from "../_domain/order.ability";
-import { OrderId, OrderRelationEntity } from "../_domain/types";
+import { OrderId, OrderRelationEntity } from "../_domain/order.types";
 import { OrderRepository, orderRepository } from "../_repository/order.repo";
 
 type GetOrderWithRelation = {

@@ -1,8 +1,7 @@
 "use client";
 import {
-  OrderFormLayout,
   OrderId,
-  orderFormSchema,
+  orderFormProductSchema,
   useOrderWithRelationQuery,
 } from "@/entities/order";
 import { Spinner } from "@/shared/ui/icons/spinner";
@@ -10,8 +9,8 @@ import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes } from "react";
 import { z } from "zod";
-import { useOrderUpdateMutation } from "../_mutation/useOrderUpdate.mutation";
-import { ProductList } from "@/entities/product";
+import { useOrderAddRowMutation } from "../_mutation/useOrderAddRow.mutation";
+import { OrderFormProductUpdate } from "./orderFormProductUpdate";
 
 interface OrderFormProps extends HTMLAttributes<HTMLDivElement> {
   orderId: OrderId;
@@ -20,7 +19,7 @@ interface OrderFormProps extends HTMLAttributes<HTMLDivElement> {
   onSuccess?: () => void;
 }
 
-type OrderFormValues = z.infer<typeof orderFormSchema>;
+type OrderFormValues = z.infer<typeof orderFormProductSchema>;
 
 export const OrderFormUpdate: FC<OrderFormProps> = (props) => {
   const { orderId, callbackUrl, className, onSuccess } = props;
@@ -31,9 +30,7 @@ export const OrderFormUpdate: FC<OrderFormProps> = (props) => {
     order,
   } = useOrderWithRelationQuery(orderId);
 
-  const router = useRouter();
-
-  const { orderUpdate, isPending: isPendingUpdate } = useOrderUpdateMutation();
+  const { orderRowAdd, isPending: isPendingUpdate } = useOrderAddRowMutation();
 
   const isPendingComplexible =
     isPendingOrder || isPendingUpdate || !isFetchedAfterMount;
@@ -47,29 +44,22 @@ export const OrderFormUpdate: FC<OrderFormProps> = (props) => {
   }
 
   const handleSubmit = async (data: OrderFormValues) => {
-    await orderUpdate({
+    await orderRowAdd({
       orderId: order.id,
       data: {
-        ...data,
-        id: order.id,
+        productId: data.orderProductToAdd,
+        quantity: 1,
       },
     });
 
     onSuccess?.();
-
-    if (callbackUrl) {
-      router.push(callbackUrl);
-    }
   };
 
   return (
     <div className={cn(className, "w-full")}>
-      <OrderFormLayout
-        isPending={isPendingComplexible}
-        order={order}
+      <OrderFormProductUpdate
+        orderProductList={order.orderRowList}
         handleSubmit={handleSubmit}
-        submitText="Update"
-        // ProductListComp={ProductList}
       />
     </div>
   );

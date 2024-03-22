@@ -1,5 +1,10 @@
 import { DbClient, Tx, dbClient } from "@/shared/lib/db";
-import { OrderEntity, OrderId, OrderRelationEntity } from "../_domain/types";
+import {
+  OrderEntity,
+  OrderId,
+  OrderRelationEntity,
+  OrderToUpdateStatus,
+} from "../_domain/order.types";
 
 export class OrderRepository {
   constructor(readonly db: DbClient) {}
@@ -25,19 +30,19 @@ export class OrderRepository {
         orderRowList: true,
       },
     });
+    result.orderRowList;
 
     return result;
   }
 
   async getOrderList(db: Tx = this.db): Promise<OrderEntity[]> {
     const orderList = await db.order.findMany();
-    console.log("output_log:  =>>>", orderList);
     return orderList;
   }
 
-  async updateOrder(
+  async updateOrderStatus(
     orderId: OrderId,
-    data: Partial<OrderEntity>,
+    data: Partial<OrderToUpdateStatus>,
     db: Tx = this.db,
   ): Promise<OrderEntity> {
     return await db.order.update({

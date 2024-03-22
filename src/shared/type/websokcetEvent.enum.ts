@@ -34,5 +34,6 @@ export enum WSEventEnum {
   ORDER_CREATE = "order_create",
   ORDER_UPDATE = "order_update",
   ORDER_REFRESH = "order_refresh",
+  ORDER_REMOVE = "order_remove",
   ORDER_LIST_REFRESH = "order_list_refresh",
 }

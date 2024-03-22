@@ -1,5 +1,5 @@
 import { FC, HTMLAttributes } from "react";
-import { OrderRow } from "../_domain/types";
+import { OrderRow } from "../_domain/orderRow.types";
 import Image from "next/image";
 
 interface OrderProductSnippetProps extends HTMLAttributes<HTMLDivElement> {
@@ -10,7 +10,6 @@ export const OrderProductSnippet: FC<OrderProductSnippetProps> = (props) => {
   const { product } = props;
   const { productName, productArticle, productImg, price, quantity } = product;
 
-  console.log("output_log: product =>>>", product);
   return (
     <div className="flex flex-col gap-2 border p-2">
       <div className="flex w-full justify-center">

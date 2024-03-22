@@ -1,6 +1,6 @@
 import { FC, HTMLAttributes } from "react";
 import { orderRowToProductListId } from "../_lib/orderRowToProductListId";
-import { OrderRow } from "../_domain/types";
+import { OrderRow } from "../_domain/orderRow.types";
 import { OrderProductSnippet } from "./orderProductSnippet";
 
 interface OrderProductListProps extends HTMLAttributes<HTMLDivElement> {
