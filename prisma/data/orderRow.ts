@@ -4,7 +4,7 @@ export const orderRowListSeed = [
     id: "orderRowId_d58Johoj_ORDER_ROW_AdminUser",
     orderId: "orderId_d58Johoj_ORDER_AdminUser",
 
-    productId: "prod_585fsddfew7898few",
+    productId: "prod_1",
     productName: "First Product",
     productArticle: "n584FFF",
     productImg:
@@ -17,7 +17,7 @@ export const orderRowListSeed = [
     id: "orderRowId_fdjki8_ORDER_ROW_2_AdminUser",
     orderId: "orderId_d58Johoj_ORDER_AdminUser",
 
-    productId: "prod_3375fsd7898dew",
+    productId: "prod_2",
     productName: "Second product",
     productImg:
       "https://images.examples.com/wp-content/uploads/2018/04/urban-billboard.jpg",
@@ -32,7 +32,7 @@ export const orderRowListSeed = [
     id: "orderRowId_EEWddsfso557_ORDER_ROW_AdminUser",
     orderId: "orderId_2158FFFF8_ORDER_2_AdminUser",
 
-    productId: "prod_3375fsd7898dew",
+    productId: "prod_1",
     productName: "Second product",
     productArticle: "n594TTT",
     productImg:
@@ -47,7 +47,7 @@ export const orderRowListSeed = [
     id: "orderRowId_9546dioui54fs78_ORDER_ROW_User",
     orderId: "orderId_FEohd84667_ORDER_User",
 
-    productId: "prod_ew975fee9885",
+    productId: "prod_1",
     productName: "Third product",
     productArticle: "n604EEE",
 
@@ -61,7 +61,7 @@ export const orderRowListSeed = [
   {
     id: "orderRowId_6568jkjkjiw_ORDER_ROW_User2",
     orderId: "orderId_didonhfff557642fd_ORDER_User2",
-    productId: "prod_585fsddfew7898few",
+    productId: "prod_4",
     productName: "First Product",
     productArticle: "n584FFF",
     productImg:

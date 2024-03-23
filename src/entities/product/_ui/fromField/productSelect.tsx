@@ -1,7 +1,13 @@
 "use client";
 import { Button } from "@/shared/ui/button";
 import {
-  Form,
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+} from "@/shared/ui/command";
+import {
   FormControl,
   FormDescription,
   FormField,
@@ -11,25 +17,16 @@ import {
 } from "@/shared/ui/form";
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
 import { cn } from "@/shared/ui/utils";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { CaretSortIcon } from "@radix-ui/react-icons";
 import { FC, HTMLAttributes, useState } from "react";
-import { UseFormReturn, useForm } from "react-hook-form";
-import { z } from "zod";
-import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-} from "@/shared/ui/command";
-import { useProductListQuery } from "../..";
+import { UseFormReturn } from "react-hook-form";
 import { useProductListToSelect } from "../../_vm/useProductListToSelect";
 
 interface ProductSelectProps extends HTMLAttributes<HTMLDivElement> {
   name: string;
   control: UseFormReturn<any>["control"];
   handleSelect?: (value: string) => void;
+  isPending: boolean;
   productList: Array<{
     value: string;
     label: string;
@@ -39,8 +36,8 @@ interface ProductSelectProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 export const ProductSelect: FC<ProductSelectProps> = (props) => {
-  const { control, name } = props;
-  const { productList, isPending } = useProductListToSelect();
+  const { control, name, productList, isPending } = props;
+  // const { productList, isPending } = useProductListToSelect();
 
   const [open, setOpen] = useState(false);
 
@@ -58,7 +55,7 @@ export const ProductSelect: FC<ProductSelectProps> = (props) => {
                   variant="outline"
                   role="combobox"
                   className={cn(
-                    "w-[200px] justify-between",
+                    "w-[280px] justify-between",
                     !field.value && "text-muted-foreground",
                   )}
                 >
@@ -71,26 +68,38 @@ export const ProductSelect: FC<ProductSelectProps> = (props) => {
                 </Button>
               </FormControl>
             </PopoverTrigger>
-            <PopoverContent className="w-[200px] p-0">
+            <PopoverContent className="w-[280px] p-0">
               <Command>
                 <CommandInput placeholder="Search product..." className="h-9" />
                 <CommandEmpty>Product not found</CommandEmpty>
                 <CommandGroup>
-                  {productList.map((product) => (
-                    <CommandItem
-                      value={product.label}
-                      key={product.value}
-                      onSelect={() => {
-                        // form.setValue("language", product.value);
-                        field.onChange(product.value);
-                        setOpen(false);
-                        // handleSelect(product.value);
-                        console.log("output_log:  =>>>", product.value);
-                      }}
-                    >
-                      {product.label}
-                    </CommandItem>
-                  ))}
+                  {productList.map((product) => {
+                    // console.log("output_log:  prodcut =>>>", product);
+                    return (
+                      <CommandItem
+                        value={product.label}
+                        key={product.value}
+                        disabled={product.disabled || !product.inStock}
+                        onSelect={() => {
+                          // form.setValue("language", product.value);
+                          field.onChange(product.value);
+                          setOpen(false);
+                          // handleSelect(product.value);
+                          console.log("output_log:  =>>>", product.value);
+                        }}
+                      >
+                        <div className="grow">{product.label}</div>
+                        <span className="ml-auto flex max-w-[30px] gap-1 text-xs">
+                          <div className="text-lime-400">
+                            {product.disabled && "in"}
+                          </div>
+                          <div className="text-red-400">
+                            {product.inStock || "out"}
+                          </div>
+                        </span>
+                      </CommandItem>
+                    );
+                  })}
                 </CommandGroup>
               </Command>
             </PopoverContent>

@@ -1,6 +1,6 @@
 export const productRelationsSeed = [
   {
-    id: "prod_585fsddfew7898few",
+    id: "prod_1",
     categoryList: {
       connect: [{ id: "cat_585fsddfew7898few" }, { id: "cat_ew975fee9885" }],
     },
@@ -16,7 +16,7 @@ export const productRelationsSeed = [
     },
   },
   {
-    id: "prod_3375fsd7898dew",
+    id: "prod_2",
     categoryList: {
       connect: [{ id: "cat_ew975fee9885" }],
     },
@@ -28,7 +28,7 @@ export const productRelationsSeed = [
     },
   },
   {
-    id: "prod_ew975fee9885",
+    id: "prod_3",
     categoryList: {
       connect: [{ id: "cat_585fsddfew7898few" }, { id: "cat_ew975fee9885" }],
     },

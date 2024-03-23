@@ -60,6 +60,7 @@ export const OrderFormUpdate: FC<OrderFormProps> = (props) => {
       <OrderFormProductUpdate
         orderProductList={order.orderRowList}
         handleSubmit={handleSubmit}
+        orderId={order.id}
       />
     </div>
   );
