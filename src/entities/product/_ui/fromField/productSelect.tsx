@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/shared/ui/button";
 import {
   Form,
@@ -29,6 +30,12 @@ interface ProductSelectProps extends HTMLAttributes<HTMLDivElement> {
   name: string;
   control: UseFormReturn<any>["control"];
   handleSelect?: (value: string) => void;
+  productList: Array<{
+    value: string;
+    label: string;
+    inStock: boolean;
+    disabled: boolean;
+  }>;
 }
 
 export const ProductSelect: FC<ProductSelectProps> = (props) => {

@@ -6,6 +6,7 @@ export const productSchema = z.object({
   name: z.string(),
   article: z.string(),
   price: z.number().positive(),
+  inStock: z.number().nonnegative(),
   slug: z.string(),
 
   description: z.string(),
@@ -22,6 +23,7 @@ export const productRelationSchema = z.object({
   name: z.string(),
   article: z.string(),
   price: z.number().positive(),
+  inStock: z.number().nonnegative(),
   slug: z.string(),
 
   description: z.string(),
@@ -50,6 +52,8 @@ export const productRelationSchema = z.object({
 export const productCreateSchema = z.object({
   name: z.string(),
   article: z.string(),
+  inStock: z.number().nonnegative(),
+
   price: z.number().positive(),
 
   description: z.string(),
@@ -71,6 +75,7 @@ export const productUpdateSchema = z.object({
   name: z.string(),
   article: z.string(),
   price: z.number().positive(),
+  inStock: z.number().nonnegative(),
 
   description: z.string(),
   about: z.string(),
@@ -95,6 +100,7 @@ export const productFormSchema = z.object({
     .transform((name) => name.trim()),
   article: z.string(),
   price: z.coerce.number().positive(),
+  inStock: z.number().nonnegative(),
 
   description: z.string(),
   about: z.string(),

@@ -82,6 +82,9 @@ export const ProductFormLayout: FC<ProductFormLayoutProps> = (props) => {
               <ProductForm.ArticleField />
             </div>
             <div className="flex w-full border p-4">
+              <ProductForm.InStockField />
+            </div>
+            <div className="flex w-full border p-4">
               <ProductForm.PriceField />
             </div>
             <div className="flex w-full border p-4">

@@ -41,6 +41,7 @@ type ProductFormType = FC<ProductFormProps> & {
   NameField: FC<{}>;
   ArticleField: FC<{}>;
   PriceField: FC<{}>;
+  InStockField: FC<{}>;
   DescriptionField: FC<{}>;
   AboutField: FC<{}>;
   ImgField: FC<{}>;
@@ -54,6 +55,7 @@ const getDefaultValues = (
   name: product?.name ?? "",
   article: product?.article ?? "",
   price: product?.price ?? 0,
+  inStock: product?.inStock ?? 0,
   description: product?.description ?? "",
   about: product?.about ?? "",
   img: product?.img ?? [],
@@ -93,6 +95,7 @@ export const ProductForm: ProductFormType = (props) => {
       name: data.name,
       article: data.article,
       price: +data.price,
+      inStock: +data.inStock,
       description: data.description,
       about: data.about,
       img: data.img,
@@ -264,6 +267,29 @@ ProductForm.PriceField = function PriceField() {
             <Input
               type="number"
               placeholder="Enter product price..."
+              {...field}
+            />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  );
+};
+
+ProductForm.InStockField = function InStockField() {
+  const { control } = useFormContext<ProductFormValues>();
+  return (
+    <FormField
+      control={control}
+      name="inStock"
+      render={({ field }) => (
+        <FormItem className="w-full">
+          <FormLabel>In stock</FormLabel>
+          <FormControl>
+            <Input
+              type="number"
+              placeholder="Enter product in stock..."
               {...field}
             />
           </FormControl>

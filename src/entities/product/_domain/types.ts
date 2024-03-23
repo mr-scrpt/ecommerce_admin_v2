@@ -11,6 +11,7 @@ export type ProductEntity = {
   article: string;
   description: string;
   about: string;
+  inStock: number;
   slug: ProductSlug;
   img: Array<string>;
   price: number;
@@ -29,6 +30,7 @@ export type Product = {
   name: string;
   article: string;
   price: number;
+  inStock: number;
   description: string;
   about: string;
   slug: ProductSlug;
@@ -46,6 +48,7 @@ export type ProductToCreate = {
   price: number;
   description: string;
   about: string;
+  inStock: number;
   slug: ProductSlug;
   img: Array<string>;
 };
@@ -56,6 +59,7 @@ export type ProductToUpdate = {
   price: number;
   description: string;
   about: string;
+  inStock: number;
   slug: ProductSlug;
   img: Array<string>;
 };
@@ -76,6 +80,7 @@ export type ProductFromFrom = {
   price: number;
   description: string;
   about: string;
+  inStock: number;
   img: Array<string>;
   categoryList: Array<{ id: string }>;
   propertyItemListSelected: Array<{ id: string }>;

@@ -5,6 +5,7 @@ export const productListSeed = [
     name: "First Product",
     article: "n584FFF",
     price: 20138,
+    inStock: 10,
 
     slug: "first-product",
 
@@ -22,6 +23,8 @@ export const productListSeed = [
     name: "Second product",
     article: "n594TTT",
     price: 12138.854,
+    inStock: 5,
+
     slug: "second-product",
 
     description: "Metadata to second product",
@@ -38,6 +41,8 @@ export const productListSeed = [
     name: "Third product",
     article: "n604EEE",
     price: 438.111,
+    inStock: 0,
+
     slug: "third-product",
 
     description: "Metadata to third product",
