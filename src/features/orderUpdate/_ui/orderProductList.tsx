@@ -10,13 +10,14 @@ interface OrderProductListProps extends HTMLAttributes<HTMLDivElement> {
 
 export const OrderProductSelectList: FC<OrderProductListProps> = (props) => {
   const { orderId, control } = props;
-  const { productList, isPending } = useOrderProductListToSelect(orderId);
-  console.log("output_log: productList =>>>", productList);
+  const { productList, isPending, toSearch, searchValue } =
+    useOrderProductListToSelect(orderId);
   return (
     <ProductSelect
       name={"orderProductToAdd"}
       control={control}
       productList={productList}
+      toSearch={toSearch}
       isPending={isPending}
     />
   );

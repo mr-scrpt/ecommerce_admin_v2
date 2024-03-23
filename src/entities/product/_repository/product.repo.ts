@@ -64,6 +64,33 @@ export class ProductRepository {
       },
     });
   }
+
+  async getProductListSearch(
+    q: string,
+    db: Tx = this.db,
+  ): Promise<ProductEntity[]> {
+    const productList = await db.product.findMany({
+      where: {
+        OR: [
+          {
+            name: {
+              contains: q,
+              mode: "insensitive",
+            },
+          },
+          {
+            article: {
+              contains: q,
+              mode: "insensitive",
+            },
+          },
+        ],
+      },
+    });
+    console.log("output_log: productList =>>>", productList);
+    return productList;
+  }
+
   async createProduct(
     product: ProductToCreate,
     db: Tx = this.db,
