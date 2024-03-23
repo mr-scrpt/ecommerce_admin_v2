@@ -18,9 +18,10 @@ import {
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
 import { cn } from "@/shared/ui/utils";
 import { CaretSortIcon } from "@radix-ui/react-icons";
-import { FC, HTMLAttributes, useState } from "react";
+import { FC, HTMLAttributes, useEffect, useState } from "react";
 import { UseFormReturn } from "react-hook-form";
 import { useProductListToSelect } from "../../_vm/useProductListToSelect";
+import _ from "lodash";
 
 interface ProductSelectProps extends HTMLAttributes<HTMLDivElement> {
   name: string;
@@ -42,6 +43,19 @@ export const ProductSelect: FC<ProductSelectProps> = (props) => {
     props;
 
   const [open, setOpen] = useState(false);
+  const [search, setSearch] = useState(searchValue);
+  // const debouncedToSearch = _.debounce(setSearch, 1000);
+  const debouncedToSearch = _.debounce((search) => toSearch?.(search), 1000);
+  useEffect(() => {
+    console.log("output_log: search =>>>", search);
+    if (search && search.length > 2) {
+      debouncedToSearch(search);
+    } else {
+      debouncedToSearch("");
+    }
+  }, [debouncedToSearch, search, searchValue]);
+  // Создаем debounce-функцию с задержкой в 1 секунду
+  // const debouncedToSearch = toSearch ? _.debounce(toSearch, 1000) : undefined;
 
   return (
     <FormField
@@ -75,10 +89,19 @@ export const ProductSelect: FC<ProductSelectProps> = (props) => {
                 <CommandInput
                   placeholder="Search product..."
                   className="h-9"
-                  onValueChange={toSearch}
-                  value={searchValue}
+                  onValueChange={setSearch}
+                  value={search}
                 />
-                <CommandEmpty>Product not found</CommandEmpty>
+                {/* {searchValue && searchValue.length < 3 ? ( */}
+                {/*   <CommandEmpty>Product not found</CommandEmpty> */}
+                {/* ) : ( */}
+                {/*   <div>Minimum 3 characters</div> */}
+                {/* )} */}
+                <CommandEmpty>
+                  {search && search.length < 3
+                    ? "Minimum 3 characters"
+                    : "Product not found"}
+                </CommandEmpty>
                 <CommandGroup>
                   {productList.map((product) => {
                     return (

@@ -23,6 +23,9 @@ class GetProductListSearchUseCase {
       throw new AuthorizatoinError();
     }
 
+    if (!q || q === "" || q.length < 3) {
+      return [];
+    }
     return await this.productRepo.getProductListSearch(q);
   }
 }

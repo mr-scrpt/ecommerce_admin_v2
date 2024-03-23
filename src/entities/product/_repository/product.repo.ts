@@ -87,7 +87,6 @@ export class ProductRepository {
         ],
       },
     });
-    console.log("output_log: productList =>>>", productList);
     return productList;
   }
 

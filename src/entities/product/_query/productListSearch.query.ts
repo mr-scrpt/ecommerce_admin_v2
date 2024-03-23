@@ -12,11 +12,12 @@ export const getProductListSearchQuery = (q: string) => {
     queryFn: () => {
       return getProductListSearchAction({ q });
     },
+    staleTime: 1000,
   };
 };
 
 export const useProductListSearchQuery = () => {
-  const [q, setQ] = useState("");
+  const [q, setQ] = useState<string>("");
 
   const invalidate = useInvalidateProductList(q);
 

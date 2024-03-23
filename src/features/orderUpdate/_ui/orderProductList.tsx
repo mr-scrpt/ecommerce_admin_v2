@@ -18,6 +18,7 @@ export const OrderProductSelectList: FC<OrderProductListProps> = (props) => {
       control={control}
       productList={productList}
       toSearch={toSearch}
+      searchValue={searchValue}
       isPending={isPending}
     />
   );
