@@ -1,4 +1,5 @@
 "use client";
+import { useAppearanceDelay } from "@/shared/lib/react";
 import { Button } from "@/shared/ui/button";
 import {
   Command,
@@ -18,10 +19,9 @@ import {
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
 import { cn } from "@/shared/ui/utils";
 import { CaretSortIcon } from "@radix-ui/react-icons";
+import _ from "lodash";
 import { FC, HTMLAttributes, useEffect, useState } from "react";
 import { UseFormReturn } from "react-hook-form";
-import { useProductListToSelect } from "../../_vm/useProductListToSelect";
-import _ from "lodash";
 
 interface ProductSelectProps extends HTMLAttributes<HTMLDivElement> {
   name: string;
@@ -30,6 +30,7 @@ interface ProductSelectProps extends HTMLAttributes<HTMLDivElement> {
   toSearch?: (search: string) => void;
   searchValue?: string;
   isPending: boolean;
+  minChars?: number;
   productList: Array<{
     value: string;
     label: string;
@@ -39,23 +40,30 @@ interface ProductSelectProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 export const ProductSelect: FC<ProductSelectProps> = (props) => {
-  const { control, name, productList, isPending, toSearch, searchValue } =
-    props;
+  const {
+    control,
+    name,
+    productList,
+    isPending,
+    minChars = 3,
+    toSearch,
+    searchValue,
+  } = props;
 
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState(searchValue);
-  // const debouncedToSearch = _.debounce(setSearch, 1000);
   const debouncedToSearch = _.debounce((search) => toSearch?.(search), 1000);
+
   useEffect(() => {
-    console.log("output_log: search =>>>", search);
-    if (search && search.length > 2) {
+    if (search && search.length > minChars) {
       debouncedToSearch(search);
     } else {
       debouncedToSearch("");
     }
-  }, [debouncedToSearch, search, searchValue]);
-  // Создаем debounce-функцию с задержкой в 1 секунду
-  // const debouncedToSearch = toSearch ? _.debounce(toSearch, 1000) : undefined;
+  }, [debouncedToSearch, minChars, search, searchValue]);
+
+  const appearancePending = useAppearanceDelay(isPending);
+  console.log("output_log:  appearancePending =>>>", appearancePending);
 
   return (
     <FormField
@@ -92,16 +100,17 @@ export const ProductSelect: FC<ProductSelectProps> = (props) => {
                   onValueChange={setSearch}
                   value={search}
                 />
-                {/* {searchValue && searchValue.length < 3 ? ( */}
-                {/*   <CommandEmpty>Product not found</CommandEmpty> */}
-                {/* ) : ( */}
-                {/*   <div>Minimum 3 characters</div> */}
-                {/* )} */}
-                <CommandEmpty>
-                  {search && search.length < 3
-                    ? "Minimum 3 characters"
-                    : "Product not found"}
-                </CommandEmpty>
+                {appearancePending ? (
+                  <div className="w-full p-2 text-center text-sm">
+                    Loaded...
+                  </div>
+                ) : (
+                  <CommandEmpty>
+                    {search && search.length < 3
+                      ? "Minimum 3 characters"
+                      : "Product not found"}
+                  </CommandEmpty>
+                )}
                 <CommandGroup>
                   {productList.map((product) => {
                     return (
