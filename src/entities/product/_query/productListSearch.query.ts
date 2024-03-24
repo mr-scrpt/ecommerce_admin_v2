@@ -12,7 +12,7 @@ export const getProductListSearchQuery = (q: string) => {
     queryFn: () => {
       return getProductListSearchAction({ q });
     },
-    staleTime: 1000,
+    // staleTime: 1000,
   };
 };
 
