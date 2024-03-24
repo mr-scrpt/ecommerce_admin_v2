@@ -1,6 +1,7 @@
 "use client";
 import {
   OrderId,
+  OrderProductList,
   orderFormProductSchema,
   useOrderWithRelationQuery,
 } from "@/entities/order";
@@ -11,6 +12,7 @@ import { FC, HTMLAttributes } from "react";
 import { z } from "zod";
 import { useOrderAddRowMutation } from "../_mutation/useOrderAddRow.mutation";
 import { OrderFormProductUpdate } from "./orderFormProductUpdate";
+import { useOrderRowChangeQuantityMutation } from "../_mutation/useOrderRowChangeQuantity.mutation";
 
 interface OrderFormProps extends HTMLAttributes<HTMLDivElement> {
   orderId: OrderId;
@@ -29,11 +31,18 @@ export const OrderFormUpdate: FC<OrderFormProps> = (props) => {
     isFetchedAfterMount,
     order,
   } = useOrderWithRelationQuery(orderId);
+  console.log("output_log: order =>>>", order);
+
+  const { orderRowChangeQuantity, isPending: isPendingChangeQuantity } =
+    useOrderRowChangeQuantityMutation();
 
   const { orderRowAdd, isPending: isPendingUpdate } = useOrderAddRowMutation();
 
   const isPendingComplexible =
-    isPendingOrder || isPendingUpdate || !isFetchedAfterMount;
+    isPendingOrder ||
+    isPendingUpdate ||
+    !isFetchedAfterMount ||
+    isPendingChangeQuantity;
 
   if (isPendingComplexible) {
     return <Spinner aria-label="Loading profile..." />;
@@ -57,10 +66,10 @@ export const OrderFormUpdate: FC<OrderFormProps> = (props) => {
 
   return (
     <div className={cn(className, "w-full")}>
-      <OrderFormProductUpdate
-        orderProductList={order.orderRowList}
-        handleSubmit={handleSubmit}
-        orderId={order.id}
+      <OrderFormProductUpdate handleSubmit={handleSubmit} orderId={order.id} />
+      <OrderProductList
+        orderProductRowList={order.orderRowList}
+        changeQuantity={orderRowChangeQuantity}
       />
     </div>
   );

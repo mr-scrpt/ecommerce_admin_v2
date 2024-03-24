@@ -28,6 +28,11 @@ export class OrderRowRepository {
     const result = await db.orderRow.update({ where: { id: data.id }, data });
     return result;
   }
+
+  async getOrderRow(id: string, db: Tx = this.db): Promise<OrderRowEntity> {
+    const result = await db.orderRow.findUniqueOrThrow({ where: { id } });
+    return result;
+  }
 }
 
 export const orderRowRepository = new OrderRowRepository(dbClient);

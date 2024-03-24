@@ -1,9 +1,6 @@
 "use client";
-import {
-  OrderProductList,
-  OrderRow,
-  orderFormProductSchema,
-} from "@/entities/order";
+import { OrderRow, orderFormProductSchema } from "@/entities/order";
+import { ProductSelect } from "@/entities/product";
 import { Button } from "@/shared/ui/button";
 import {
   Form,
@@ -17,23 +14,18 @@ import { cn } from "@/shared/ui/utils";
 import { FC, HTMLAttributes } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { OrderProductSelectList } from "./orderProductList";
-import { ProductSelect } from "@/entities/product";
 import { useOrderProductListToSelect } from "../_vm/useOrderProductList";
 
 interface OrderFormProps extends HTMLAttributes<HTMLDivElement> {
-  orderProductList: Array<OrderRow>;
   handleSubmit: (data: OrderFormValues) => void;
   orderId: string;
-  // callbackUrl?: string;
   className?: string;
-  // onSuccess?: () => void;
 }
 
 type OrderFormValues = z.infer<typeof orderFormProductSchema>;
 
 export const OrderFormProductUpdate: FC<OrderFormProps> = (props) => {
-  const { className, orderProductList, handleSubmit, orderId } = props;
+  const { className, handleSubmit, orderId } = props;
 
   const form = useForm<OrderFormValues>();
   const { productList, isPending, toSearch, searchValue } =
@@ -68,7 +60,6 @@ export const OrderFormProductUpdate: FC<OrderFormProps> = (props) => {
           <Button type="submit">Add product</Button>
         </form>
       </Form>
-      <OrderProductList orderProductRowList={orderProductList} />
     </div>
   );
 };

@@ -27,7 +27,11 @@ export class OrderRepository {
         id: orderId,
       },
       include: {
-        orderRowList: true,
+        orderRowList: {
+          orderBy: {
+            productName: "asc", // или 'desc' для сортировки по убыванию
+          },
+        },
       },
     });
     result.orderRowList;
