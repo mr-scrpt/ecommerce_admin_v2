@@ -1,3 +1,3 @@
-import { OrderRowToAddPayload } from "@/entities/order/_domain/orderRow.types";
+import { OrderRowToAddPayload } from "@/entities/order/";
 
 export type OrderRowAddComplexible = OrderRowToAddPayload;

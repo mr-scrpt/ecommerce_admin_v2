@@ -2,7 +2,8 @@
 import {
   OrderId,
   OrderProductList,
-  OrderRowChangeQuantity,
+  OrderRowToRemovePayload,
+  OrderRowToUpdateQuantityPayload,
   useOrderWithRelationQuery,
 } from "@/entities/order";
 import { Spinner } from "@/shared/ui/icons/spinner";
@@ -13,11 +14,12 @@ interface OrderFormProps extends HTMLAttributes<HTMLDivElement> {
   callbackUrl?: string;
   className?: string;
   onSuccess?: () => void;
-  orderRowUpdateQuantity: (params: OrderRowChangeQuantity) => void;
+  orderRowUpdateQuantity: (params: OrderRowToUpdateQuantityPayload) => void;
+  orderRowRemove: (orderRowId: string) => void;
 }
 
 export const OrderRowList: FC<OrderFormProps> = (props) => {
-  const { orderId, orderRowUpdateQuantity } = props;
+  const { orderId, orderRowUpdateQuantity, orderRowRemove } = props;
 
   const {
     isPending: isPendingOrder,
@@ -39,6 +41,7 @@ export const OrderRowList: FC<OrderFormProps> = (props) => {
     <OrderProductList
       orderProductRowList={order.orderRowList}
       updateQuantity={orderRowUpdateQuantity}
+      orderRowRemove={orderRowRemove}
     />
   );
 };

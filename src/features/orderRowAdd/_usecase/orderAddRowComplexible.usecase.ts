@@ -16,7 +16,7 @@ type AddRowOrder = {
 
 class AddOrderRowComplexibleUseCase {
   constructor(
-    private readonly orderUpdateTx: OrderRowAddTx,
+    private readonly orderRowAddTx: OrderRowAddTx,
     // private readonly productRepo: ProductRepository,
   ) {}
 
@@ -30,7 +30,7 @@ class AddOrderRowComplexibleUseCase {
       throw new ForbiddenError();
     }
 
-    return await this.orderUpdateTx.exec(dataToAdd);
+    return await this.orderRowAddTx.exec(dataToAdd);
   }
 }
 

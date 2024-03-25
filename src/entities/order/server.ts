@@ -5,5 +5,9 @@ export {
 } from "./_repository/orderRow.repo";
 
 export { orderRelationSchema } from "./_domain/order.schema";
-export { orderRowAddSchema, orderRowSchema } from "./_domain/orderRow.schema";
+export {
+  orderRowAddSchema,
+  orderRowSchema,
+  orderRowRemoveSchema,
+} from "./_domain/orderRow.schema";
 export { createOrderAbility } from "./_domain/order.ability";

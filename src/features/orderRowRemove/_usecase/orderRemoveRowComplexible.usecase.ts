@@ -2,27 +2,22 @@ import { OrderEntity } from "@/entities/order";
 import { createOrderAbility } from "@/entities/order/server";
 import { ForbiddenError } from "@/shared/lib/errors";
 import { SessionEntity } from "@/shared/lib/user";
-import { OrderRowAddComplexible } from "../_domain/types";
-import { OrderRowAddTx, orderRowAddTx } from "../_tx/orderRowRemove.transaction";
+import { OrderRowRemoveComplexible } from "../_domain/types";
 import {
-  ProductRepository,
-  productRepository,
-} from "@/entities/product/server";
+  OrderRowRemoveTx,
+  orderRowRemoveTx,
+} from "../_tx/orderRowRemove.transaction";
 
-type AddRowOrder = {
-  dataToAdd: OrderRowAddComplexible;
+type RemoveRowOrder = {
+  dataToRemove: OrderRowRemoveComplexible;
   session: SessionEntity;
 };
 
-class AddOrderRowComplexibleUseCase {
-  constructor(
-    private readonly orderUpdateTx: OrderRowAddTx,
-    // private readonly productRepo: ProductRepository,
-  ) {}
+class RemoveOrderRowComplexibleUseCase {
+  constructor(private readonly orderRowRemoveTx: OrderRowRemoveTx) {}
 
-  async exec(data: AddRowOrder): Promise<OrderEntity> {
-    const { dataToAdd, session } = data;
-    const { productId, quantity, orderId } = dataToAdd;
+  async exec(data: RemoveRowOrder): Promise<OrderEntity> {
+    const { dataToRemove, session } = data;
 
     const { canUpdateOrder } = createOrderAbility(session);
 
@@ -30,10 +25,9 @@ class AddOrderRowComplexibleUseCase {
       throw new ForbiddenError();
     }
 
-    return await this.orderUpdateTx.exec(dataToAdd);
+    return await this.orderRowRemoveTx.exec(dataToRemove);
   }
 }
 
-export const addOrderRowComplexibleUseCase = new AddOrderRowComplexibleUseCase(
-  orderRowAddTx,
-);
+export const removeOrderRowComplexibleUseCase =
+  new RemoveOrderRowComplexibleUseCase(orderRowRemoveTx);

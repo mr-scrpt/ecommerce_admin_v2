@@ -49,9 +49,13 @@ export type OrderRowToAddPayload = {
   quantity: number;
 };
 
-export type OrderRowChangeQuantityPayload = {
+export type OrderRowToUpdateQuantityPayload = {
   productId: string;
   quantity: number;
+  orderRowId: string;
+};
+
+export type OrderRowToRemovePayload = {
   orderRowId: string;
 };
 

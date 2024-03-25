@@ -2,13 +2,11 @@
 import { z } from "zod";
 
 import { Order, orderSchema } from "@/entities/order";
-import { orderRowAddSchema } from "@/entities/order/server";
 import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
-import { addOrderRowComplexibleUseCase } from "../_usecase/orderAddRowComplexible.usecase";
+import { removeOrderRowComplexibleUseCase } from "../_usecase/orderRemoveRowComplexible.usecase";
 
 const propsSchema = z.object({
-  orderId: z.string(),
-  data: orderRowAddSchema,
+  orderRowId: z.string(),
 });
 
 const resultSchema = z.object({
@@ -17,19 +15,17 @@ const resultSchema = z.object({
 
 type ResultT = { order: Order };
 
-export const addOrderRowAction = async (
+export const removeOrderRowAction = async (
   props: z.infer<typeof propsSchema>,
 ): Promise<ResultT> => {
-  const { data, orderId } = propsSchema.parse(props);
+  const { orderRowId } = propsSchema.parse(props);
 
   const session = await getAppSessionStrictServer();
 
-  const order = await addOrderRowComplexibleUseCase.exec({
+  const order = await removeOrderRowComplexibleUseCase.exec({
     session,
-    dataToAdd: {
-      orderId,
-      productId: data.productId,
-      quantity: data.quantity,
+    dataToRemove: {
+      orderRowId,
     },
   });
 

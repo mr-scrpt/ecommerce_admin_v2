@@ -22,3 +22,7 @@ export const orderRowAddSchema = z.object({
   productId: z.string(),
   quantity: z.number(),
 });
+
+export const orderRowRemoveSchema = z.object({
+  id: z.string(),
+});

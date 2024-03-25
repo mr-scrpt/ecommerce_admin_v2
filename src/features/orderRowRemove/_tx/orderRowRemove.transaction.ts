@@ -1,3 +1,4 @@
+import { OrderEntity } from "@/entities/order";
 import {
   OrderRepository,
   OrderRowRepository,
@@ -5,38 +6,22 @@ import {
   orderRowRepository,
 } from "@/entities/order/server";
 import { DbClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
-import { OrderEntity } from "@/entities/order";
-import { OrderRowAddComplexible } from "../_domain/types";
-import {
-  ProductRepository,
-  productRepository,
-} from "@/entities/product/server";
+import { OrderRowRemoveComplexible } from "../_domain/types";
 
-export class OrderRowAddTx extends Transaction {
+export class OrderRowRemoveTx extends Transaction {
   constructor(
     readonly db: DbClient,
     private readonly orderRowRepo: OrderRowRepository,
     private readonly orderRepo: OrderRepository,
-    private readonly productRepo: ProductRepository,
   ) {
     super(dbClient);
   }
 
-  async exec(data: OrderRowAddComplexible): Promise<OrderEntity> {
+  async exec(data: OrderRowRemoveComplexible): Promise<OrderEntity> {
     const action = async (tx: Tx) => {
-      const { productId, orderId, quantity } = data;
-      const product = await this.productRepo.getProduct(productId, tx);
-      await this.orderRowRepo.createOrderRow(
-        {
-          orderId,
-
-          productId,
-          productName: product.name,
-          productArticle: product.article,
-          productImg: product.img[0],
-          quantity,
-          price: product.price,
-        },
+      const { orderRowId } = data;
+      const { orderId } = await this.orderRowRepo.removeOrderRow(
+        orderRowId,
         tx,
       );
 
@@ -47,9 +32,8 @@ export class OrderRowAddTx extends Transaction {
   }
 }
 
-export const orderRowAddTx = new OrderRowAddTx(
+export const orderRowRemoveTx = new OrderRowRemoveTx(
   dbClient,
   orderRowRepository,
   orderRepository,
-  productRepository,
 );

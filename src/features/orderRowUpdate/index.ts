@@ -1,1 +1,1 @@
-export { useEmitOrderUpdate } from "./_vm/event/useEmitOrderUpdate";
+export { useEmitOrderRowUpdate } from "./_vm/event/useEmitOrderRowUpdate";

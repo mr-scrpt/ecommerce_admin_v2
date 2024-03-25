@@ -11,10 +11,11 @@ import { Button } from "@/shared/ui/button";
 interface OrderProductSnippetProps extends HTMLAttributes<HTMLDivElement> {
   orderRow: OrderRow;
   applayChangeQuantity: (value: number) => void;
+  orderRowRemove: () => void;
 }
 
 export const OrderProductSnippet: FC<OrderProductSnippetProps> = (props) => {
-  const { orderRow, applayChangeQuantity } = props;
+  const { orderRow, applayChangeQuantity, orderRowRemove } = props;
   const { productName, productArticle, productImg, price, quantity } = orderRow;
 
   const { product, isPending } = useProductQuery(orderRow.productId);
@@ -71,6 +72,15 @@ export const OrderProductSnippet: FC<OrderProductSnippetProps> = (props) => {
         </div>
         <div className="ml-auto">Price: {price}</div>
         <div className="ml-auto">Total: {quantityActual * price}</div>
+        <div className="ml-auto">
+          <Button
+            onClick={() => {
+              orderRowRemove();
+            }}
+          >
+            Remove
+          </Button>
+        </div>
       </div>
     </div>
   );
