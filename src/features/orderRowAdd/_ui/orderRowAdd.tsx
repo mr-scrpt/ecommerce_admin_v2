@@ -1,5 +1,5 @@
 "use client";
-import { orderFormProductSchema } from "@/entities/order";
+import { OrderRowAddValues, orderFormProductSchema } from "@/entities/order";
 import { ProductSelect } from "@/entities/product";
 import { Button } from "@/shared/ui/button";
 import {
@@ -16,23 +16,24 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useOrderAddRowMutation } from "../_mutation/useOrderAddRow.mutation";
 import { useOrderProductListToSelect } from "../_vm/useOrderProductList";
+import { orderRowAddSchema } from "@/entities/order/server";
 
 interface OrderFormProps extends HTMLAttributes<HTMLDivElement> {
-  // handleSubmit: (data: OrderFormValues) => void;
   orderId: string;
   className?: string;
 }
 
-type OrderFormValues = z.infer<typeof orderFormProductSchema>;
+type OrderFormValues = z.infer<typeof orderRowAddSchema>;
 
 export const OrderRowAdd: FC<OrderFormProps> = (props) => {
   const { className, orderId } = props;
   const { orderRowAdd, isPending: isPendingUpdate } = useOrderAddRowMutation();
-  const handleSubmit = async (data: OrderFormValues) => {
+
+  const handleSubmit = async (data: OrderRowAddValues) => {
     await orderRowAdd({
       orderId,
       data: {
-        productId: data.orderProductToAdd,
+        productId: data.productId,
         quantity: 1,
       },
     });
@@ -50,7 +51,7 @@ export const OrderRowAdd: FC<OrderFormProps> = (props) => {
         <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
           <FormField
             control={form.control}
-            name={"orderProductToAdd"}
+            name={"productId"}
             render={({ field }) => {
               return (
                 <FormItem className="flex flex-col">

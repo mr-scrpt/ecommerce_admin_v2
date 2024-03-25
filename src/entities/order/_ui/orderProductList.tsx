@@ -1,7 +1,6 @@
 import { FC, HTMLAttributes } from "react";
 import {
   OrderRow,
-  OrderRowToRemovePayload,
   OrderRowToUpdateQuantityPayload,
 } from "../_domain/orderRow.types";
 import { OrderProductSnippet } from "./orderProductSnippet";

@@ -21,38 +21,42 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, HTMLAttributes, useEffect } from "react";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
 import {
-  OrderFormProductValues,
+  OrderStatusFormValues,
   OrderFormValues,
   orderFormGeneralSchema,
 } from "../../_domain/order.schema";
-import { OrderRow, OrderStatusEnum } from "../../_domain/order.types";
+import {
+  OrderStatusGroup,
+  OrderStatusEnum,
+  OrderPaymentStatusEnum,
+} from "../../_domain/order.types";
 
 interface OrderFormProps extends HTMLAttributes<HTMLFormElement> {
-  orderRowList?: Array<OrderRow>;
-  handleSubmit?: (data: OrderFormProductValues) => void;
-  submitText?: string;
+  orderStatus: OrderStatusGroup;
+  handleSubmit: (data: OrderStatusFormValues) => void;
 }
 
 type OrderFormType = FC<OrderFormProps> & {
   SubmitButton: FC<OrderSubmitFieldProps>;
-  OrderSelectProduct: FC;
+  SelectStatus: FC;
 };
 
-const getDefaultValues = (orderRowList?: Array<OrderRow>) => ({
-  orderRowList,
+const getDefaultValues = (orderStatus: OrderStatusGroup) => ({
+  orderStatus: orderStatus.orderStatus ?? OrderStatusEnum.NEW,
+  paymentStatus: orderStatus.paymentStatus ?? OrderPaymentStatusEnum.NOT_PAID,
 });
 
-export const OrderForm: OrderFormType = (props) => {
-  const { orderRowList, handleSubmit: onSubmit, children } = props;
+export const OrderStatusFormElements: OrderFormType = (props) => {
+  const { handleSubmit: onSubmit, orderStatus, children } = props;
 
-  const form = useForm<OrderFormProductValues>({
+  const form = useForm<OrderStatusFormValues>({
     resolver: zodResolver(orderFormGeneralSchema),
-    defaultValues: getDefaultValues(orderRowList),
+    defaultValues: getDefaultValues(orderStatus),
   });
 
   useEffect(() => {
-    form.reset(getDefaultValues(orderRowList));
-  }, [orderRowList, form]);
+    form.reset(getDefaultValues(orderStatus));
+  }, [orderStatus, form]);
 
   const handleSubmit = form.handleSubmit(async (data) => {
     onSubmit?.(data);
@@ -75,7 +79,7 @@ interface OrderSubmitFieldProps {
   className?: string;
 }
 
-OrderForm.SubmitButton = function SubmitButton({
+OrderStatusFormElements.SubmitButton = function SubmitButton({
   isPending,
   submitText,
   className,
@@ -93,7 +97,7 @@ OrderForm.SubmitButton = function SubmitButton({
   );
 };
 
-OrderForm.OrderSelectProduct = function OrderSelectStatus() {
+OrderStatusFormElements.SelectStatus = function OrderSelectStatus() {
   const { control } = useFormContext<OrderFormValues>();
   return (
     <FormField

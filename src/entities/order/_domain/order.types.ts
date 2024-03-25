@@ -36,12 +36,15 @@ export type OrderRelationEntity = OrderEntity & {
 };
 
 // NOTE: Projetions
-export type Order = {
+export type OrderStatusGroup = {
+  orderStatus: OrderStatusEnum;
+  paymentStatus: OrderPaymentStatusEnum;
+};
+
+export type Order = OrderStatusGroup & {
   id: OrderId;
   orderNo: string;
   userId: string;
-  orderStatus: OrderStatusEnum;
-  paymentStatus: OrderPaymentStatusEnum;
   createdAt: Date;
 };
 
@@ -50,10 +53,8 @@ export type OrderRelation = Order & {
 };
 
 // NOTE: Actions
-export type OrderToUpdateStatus = {
+export type OrderToUpdateStatus = OrderStatusGroup & {
   id: OrderId;
-  orderStatus: OrderStatusEnum;
-  paymentStatus: OrderPaymentStatusEnum;
 };
 
 // NOTE: Side
