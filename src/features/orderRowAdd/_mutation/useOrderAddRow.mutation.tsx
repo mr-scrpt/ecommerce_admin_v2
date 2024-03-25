@@ -11,7 +11,6 @@ export const useOrderAddRowMutation = () => {
     mutationKey: [baseKey],
     mutationFn: addOrderRowAction,
     onSuccess: async ({ order }) => {
-      console.log("output_log:  success updae =>>>");
       orderUpdateEvent(order.id);
     },
   });

@@ -26,6 +26,6 @@ export type {
 export type {
   OrderRow,
   OrderRowEntity,
-  OrderRowChangeQuantity,
+  OrderRowChangeQuantityPayload as OrderRowChangeQuantity,
   OrderRowToAdd,
 } from "./_domain/orderRow.types";

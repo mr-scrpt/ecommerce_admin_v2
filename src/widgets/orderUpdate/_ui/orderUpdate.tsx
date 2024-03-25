@@ -1,4 +1,9 @@
 "use client";
+import { OrderProductList } from "@/entities/order";
+import { OrderRowAdd } from "@/features/orderRowAdd";
+import { OrderRowList } from "@/features/orderRowList";
+import { OrderRowListUpdate } from "@/features/orderRowUpdate";
+import { useOrderRowUpdateQuantityMutation } from "@/features/orderRowUpdate/_mutation/useOrderRowUpdateQuantity.mutation";
 import { OrderFormUpdate } from "@/features/orderUpdate";
 import { RoutePathEnum } from "@/shared/config/routing.config";
 import { FC, HTMLAttributes } from "react";
@@ -10,5 +15,16 @@ interface OrderUpdateProps extends HTMLAttributes<HTMLDivElement> {
 
 export const OrderUpdate: FC<OrderUpdateProps> = (props) => {
   const { callbackUrl, orderId } = props;
-  return <OrderFormUpdate callbackUrl={callbackUrl} orderId={orderId} />;
+
+  const { orderRowUpdateQuantity } = useOrderRowUpdateQuantityMutation();
+
+  return (
+    <div className="w-full">
+      <OrderRowAdd orderId={orderId} />
+      <OrderRowList
+        orderId={orderId}
+        orderRowUpdateQuantity={orderRowUpdateQuantity}
+      />
+    </div>
+  );
 };

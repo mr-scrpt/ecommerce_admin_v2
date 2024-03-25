@@ -1,22 +1,21 @@
 import { useMutation } from "@tanstack/react-query";
 import { useEmitOrderUpdate } from "../_vm/event/useEmitOrderUpdate";
-import { addOrderRowAction } from "../_action/orderAddRow.action";
-import { changeOrdewRowQuantityAction } from "../_action/orderChangeCount.action";
+import { updateOrdewRowQuantityAction } from "../_action/orderRowUpdateQuantity.action";
 
 const baseKey = "orderAddRowMutation";
 
-export const useOrderRowChangeQuantityMutation = () => {
+export const useOrderRowUpdateQuantityMutation = () => {
   const { orderUpdateEvent } = useEmitOrderUpdate();
   //
   const { isPending, isSuccess, mutateAsync } = useMutation({
     mutationKey: [baseKey],
-    mutationFn: changeOrdewRowQuantityAction,
+    mutationFn: updateOrdewRowQuantityAction,
     onSuccess: async ({ orderRow }) => {
       orderUpdateEvent(orderRow.orderId);
     },
   });
   return {
-    orderRowChangeQuantity: mutateAsync,
+    orderRowUpdateQuantity: mutateAsync,
     isPending,
     isSuccess,
   };

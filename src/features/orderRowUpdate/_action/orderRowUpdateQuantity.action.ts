@@ -4,7 +4,7 @@ import { z } from "zod";
 import { OrderRow } from "@/entities/order";
 import { orderRowSchema } from "@/entities/order/server";
 import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
-import { changeOrderRowQuantityComplexibleUseCase } from "../_usecase/orderRowChangeQuantityComplexible.usecase";
+import { updateOrderRowQuantityComplexibleUseCase } from "../_usecase/orderRowUpdateQuantityComplexible.usecase";
 
 const propsSchema = z.object({
   productId: z.string(),
@@ -18,14 +18,14 @@ const resultSchema = z.object({
 
 type ResultT = { orderRow: OrderRow };
 
-export const changeOrdewRowQuantityAction = async (
+export const updateOrdewRowQuantityAction = async (
   props: z.infer<typeof propsSchema>,
 ): Promise<ResultT> => {
   const { quantity, orderRowId, productId } = propsSchema.parse(props);
 
   const session = await getAppSessionStrictServer();
 
-  const orderRow = await changeOrderRowQuantityComplexibleUseCase.exec({
+  const orderRow = await updateOrderRowQuantityComplexibleUseCase.exec({
     session,
     dataToUpdate: {
       productId,

@@ -1,8 +1,5 @@
 import { useOrderWithRelationQuery } from "@/entities/order";
-import {
-  useProductListQuery,
-  useProductListSearchQuery,
-} from "@/entities/product";
+import { useProductListSearchQuery } from "@/entities/product";
 
 export const useOrderProductListToSelect = (orderId: string) => {
   const {

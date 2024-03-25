@@ -1,6 +1,7 @@
 import { DbClient, Tx, dbClient } from "@/shared/lib/db";
 import {
   OrderRowChangeQuantity,
+  OrderRowChangeQuantityPayload,
   OrderRowEntity,
   OrderRowToAdd,
 } from "../_domain/orderRow.types";
@@ -21,11 +22,14 @@ export class OrderRowRepository {
     return result;
   }
 
-  async changeQuantity(
+  async updateQuantityRow(
     data: OrderRowChangeQuantity,
     db: Tx = this.db,
   ): Promise<OrderRowEntity> {
-    const result = await db.orderRow.update({ where: { id: data.id }, data });
+    const result = await db.orderRow.update({
+      where: { id: data.orderRowId },
+      data: { quantity: data.quantity },
+    });
     return result;
   }
 

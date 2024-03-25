@@ -49,13 +49,18 @@ export type OrderRowToAddPayload = {
   quantity: number;
 };
 
-export type OrderRowChangeQuantity = {
-  id: string;
+export type OrderRowChangeQuantityPayload = {
+  productId: string;
   quantity: number;
+  orderRowId: string;
 };
 
 // NOTE: DB
 export type OrderRowToAdd = OrderRowBaseProjection & {};
+export type OrderRowChangeQuantity = {
+  quantity: number;
+  orderRowId: string;
+};
 
 // NOTE: Side
 export type OrderProduct = OrderRow & {

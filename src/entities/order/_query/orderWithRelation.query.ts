@@ -31,6 +31,6 @@ export const useInvalidateOrderWithRelation = () => {
 
   return (orderId: OrderId) =>
     queryClient.invalidateQueries({
-      queryKey: [baseQueryKey, "getOrde ", orderId],
+      queryKey: [baseQueryKey, "getOrder", orderId],
     });
 };
