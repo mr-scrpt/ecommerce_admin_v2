@@ -1,7 +1,6 @@
 import { DbClient, Tx, dbClient } from "@/shared/lib/db";
 import {
   OrderRowChangeQuantity,
-  OrderRowChangeQuantityPayload,
   OrderRowEntity,
   OrderRowToAdd,
 } from "../_domain/orderRow.types";
