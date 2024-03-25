@@ -59,13 +59,15 @@ export const OrderProductSnippet: FC<OrderProductSnippetProps> = (props) => {
           setReached={setReached}
         />
         <div className="ml-auto">
-          <Button
-            onClick={() => {
-              applayChangeQuantity(quantityActual);
-            }}
-          >
-            Apply
-          </Button>
+          {quantityActual !== quantity && (
+            <Button
+              onClick={() => {
+                applayChangeQuantity(quantityActual);
+              }}
+            >
+              Apply
+            </Button>
+          )}
         </div>
         <div className="ml-auto">Price: {price}</div>
         <div className="ml-auto">Total: {quantityActual * price}</div>
