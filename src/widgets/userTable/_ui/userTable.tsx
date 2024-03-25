@@ -4,9 +4,9 @@ import { Spinner } from "@/shared/ui/icons/spinner";
 import { TableData } from "@/shared/ui/tableData/ui/tableData";
 import { FC, HTMLAttributes } from "react";
 import { useTableColumns } from "../_vm/useTabelColumns";
-import { useUserRemoveConfirm } from "../_vm/useUserRemoveConfirm";
 import { useUserTableList } from "../_vm/useUserTableList";
 import { useUserUpdateModal } from "../_vm/useUserUpdateModal";
+import { useUserRemoveConfirm } from "@/features/userRemove";
 
 interface UserTableProps extends HTMLAttributes<HTMLDivElement> {}
 

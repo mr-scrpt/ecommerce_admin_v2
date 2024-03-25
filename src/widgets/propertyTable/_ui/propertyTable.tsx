@@ -3,9 +3,9 @@
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { TableData } from "@/shared/ui/tableData/ui/tableData";
 import { FC, HTMLAttributes } from "react";
-import { usePropertyRemoveConfirm } from "../_vm/usePropertyRemoveConfirm";
 import { usePropertyTableList } from "../_vm/usePropertyTableList";
 import { useTableColumns } from "../_vm/useTabelColumns";
+import { usePropertyRemoveConfirm } from "@/features/propertyRemove";
 
 interface PropertyTableProps extends HTMLAttributes<HTMLDivElement> {}
 

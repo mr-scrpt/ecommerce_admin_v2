@@ -5,7 +5,7 @@ import { TableData } from "@/shared/ui/tableData/ui/tableData";
 import { FC, HTMLAttributes } from "react";
 import { useCategoryTableList } from "../_vm/useCategoryTableList";
 import { useTableColumns } from "../_vm/useTabelColumns";
-import { useCategoryRemoveConfirm } from "../_vm/useCategoryRemoveConfirm";
+import { useCategoryRemoveConfirm } from "@/features/categoryRemove";
 
 interface CategoryTableProps extends HTMLAttributes<HTMLDivElement> {}
 

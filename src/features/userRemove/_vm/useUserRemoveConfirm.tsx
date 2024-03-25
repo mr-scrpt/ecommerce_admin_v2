@@ -1,6 +1,6 @@
-import { useUserRemoveMutation } from "@/features/userRemove";
 import { useGetConfirmation } from "@/shared/lib/confirmation";
 import { UserId } from "@/shared/lib/user";
+import { useUserRemoveMutation } from "../_mutation/removeUser.mutation";
 
 export const useUserRemoveConfirm = () => {
   const getConfirmation = useGetConfirmation();

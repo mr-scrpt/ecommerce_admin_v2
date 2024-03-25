@@ -1,6 +1,6 @@
 import { ProductId } from "@/entities/product";
-import { useProductRemoveMutation } from "@/features/productRemove";
 import { useGetConfirmation } from "@/shared/lib/confirmation";
+import { useProductRemoveMutation } from "../_mutation/productRemove.mutation";
 
 export const useProductRemoveConfirm = () => {
   const getConfirmation = useGetConfirmation();

@@ -3,9 +3,9 @@
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { TableData } from "@/shared/ui/tableData/ui/tableData";
 import { FC, HTMLAttributes } from "react";
-import { useProductRemoveConfirm } from "../_vm/useProductRemoveConfirm";
 import { useProductTableList } from "../_vm/useProductTableList";
 import { useTableColumns } from "../_vm/useTabelColumns";
+import { useProductRemoveConfirm } from "@/features/productRemove";
 
 interface ProductTableProps extends HTMLAttributes<HTMLDivElement> {}
 

@@ -1,6 +1,6 @@
 import { PropertyId } from "@/entities/property";
-import { usePropertyRemoveMutation } from "@/features/propertyRemove";
 import { useGetConfirmation } from "@/shared/lib/confirmation";
+import { usePropertyRemoveMutation } from "../_mutation/propertyRemove.mutation";
 
 export const usePropertyRemoveConfirm = () => {
   const getConfirmation = useGetConfirmation();

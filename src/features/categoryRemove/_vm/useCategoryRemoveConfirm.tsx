@@ -1,6 +1,6 @@
 import { CategoryId } from "@/entities/category";
-import { useCategoryRemoveMutation } from "@/features/categoryRemove";
 import { useGetConfirmation } from "@/shared/lib/confirmation";
+import { useCategoryRemoveMutation } from "../_mutation/categoryRemove.mutation";
 
 export const useCategoryRemoveConfirm = () => {
   const getConfirmation = useGetConfirmation();
