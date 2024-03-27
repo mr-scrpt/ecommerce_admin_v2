@@ -13,7 +13,10 @@ export const OrderStatusForm: FC<OrderStatusFormProps> = (props) => {
   const { submitText } = props;
   return (
     <OrderStatusFormElements {...props}>
-      <OrderStatusFormElements.SelectStatus />
+      <div className="flex w-full gap-4">
+        <OrderStatusFormElements.SelectStatus className="grow" />
+        <OrderStatusFormElements.SelectPayment className="grow" />
+      </div>
       <OrderStatusFormElements.SubmitButton
         isPending={false}
         submitText={submitText}

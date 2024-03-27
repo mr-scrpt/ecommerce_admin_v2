@@ -20,8 +20,8 @@ export const OrderUpdate: FC<OrderUpdateProps> = (props) => {
   const { removeOrderConfirm, isPending, isSuccess } = useOrderRemoveConfirm();
 
   return (
-    <div className="w-full">
-      <OrderStatusUpdate orderId={orderId} handleUpdate={() => {}} />
+    <div className="flex w-full flex-col gap-4">
+      <OrderStatusUpdate orderId={orderId} />
       <OrderRowAdd orderId={orderId} />
       <OrderRowList
         orderId={orderId}

@@ -22,8 +22,7 @@ import { FC, HTMLAttributes, useEffect } from "react";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
 import {
   OrderStatusFormValues,
-  OrderFormValues,
-  orderFormGeneralSchema,
+  orderStatusFormSchema,
 } from "../../_domain/order.schema";
 import {
   OrderStatusGroup,
@@ -38,7 +37,8 @@ interface OrderFormProps extends HTMLAttributes<HTMLFormElement> {
 
 type OrderFormType = FC<OrderFormProps> & {
   SubmitButton: FC<OrderSubmitFieldProps>;
-  SelectStatus: FC;
+  SelectStatus: FC<HTMLAttributes<HTMLDivElement>>;
+  SelectPayment: FC<HTMLAttributes<HTMLDivElement>>;
 };
 
 const getDefaultValues = (orderStatus: OrderStatusGroup) => ({
@@ -50,7 +50,7 @@ export const OrderStatusFormElements: OrderFormType = (props) => {
   const { handleSubmit: onSubmit, orderStatus, children } = props;
 
   const form = useForm<OrderStatusFormValues>({
-    resolver: zodResolver(orderFormGeneralSchema),
+    resolver: zodResolver(orderStatusFormSchema),
     defaultValues: getDefaultValues(orderStatus),
   });
 
@@ -65,7 +65,7 @@ export const OrderStatusFormElements: OrderFormType = (props) => {
   return (
     <FormProvider {...form}>
       <Form {...form}>
-        <form onSubmit={handleSubmit} className="space-y-8">
+        <form onSubmit={handleSubmit} className="space-y-4">
           {children}
         </form>
       </Form>
@@ -97,15 +97,16 @@ OrderStatusFormElements.SubmitButton = function SubmitButton({
   );
 };
 
-OrderStatusFormElements.SelectStatus = function OrderSelectStatus() {
-  const { control } = useFormContext<OrderFormValues>();
+OrderStatusFormElements.SelectStatus = function OrderSelectStatus(props) {
+  const { className } = props;
+  const { control } = useFormContext<OrderStatusFormValues>();
   return (
     <FormField
       control={control}
       name={"orderStatus"}
       render={({ field }) => {
         return (
-          <FormItem>
+          <FormItem className={cn("flex flex-col", className)}>
             <FormLabel>Order Status</FormLabel>
             <Select onValueChange={field.onChange} defaultValue={field.value}>
               <FormControl>
@@ -129,34 +130,35 @@ OrderStatusFormElements.SelectStatus = function OrderSelectStatus() {
   );
 };
 
-// OrderForm.OrderSelectPayment = function OrderSelectPayment() {
-//   const { control } = useFormContext<OrderFormValues>();
-//   return (
-//     <FormField
-//       control={control}
-//       name={"paymentStatus"}
-//       render={({ field }) => {
-//         return (
-//           <FormItem>
-//             <FormLabel>Payment Status</FormLabel>
-//             <Select onValueChange={field.onChange} defaultValue={field.value}>
-//               <FormControl>
-//                 <SelectTrigger>
-//                   <SelectValue placeholder="Select vatiants" />
-//                 </SelectTrigger>
-//               </FormControl>
-//               <SelectContent>
-//                 {Object.values(OrderPaymentStatusEnum).map((row) => (
-//                   <SelectItem key={row} value={row}>
-//                     {row}
-//                   </SelectItem>
-//                 ))}
-//               </SelectContent>
-//             </Select>
-//             <FormMessage />
-//           </FormItem>
-//         );
-//       }}
-//     />
-//   );
-// };
+OrderStatusFormElements.SelectPayment = function OrderSelectPayment(props) {
+  const { className } = props;
+  const { control } = useFormContext<OrderStatusFormValues>();
+  return (
+    <FormField
+      control={control}
+      name={"paymentStatus"}
+      render={({ field }) => {
+        return (
+          <FormItem className={cn("flex flex-col", className)}>
+            <FormLabel>Payment Status</FormLabel>
+            <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <FormControl>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select vatiants" />
+                </SelectTrigger>
+              </FormControl>
+              <SelectContent>
+                {Object.values(OrderPaymentStatusEnum).map((row) => (
+                  <SelectItem key={row} value={row}>
+                    {row}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <FormMessage />
+          </FormItem>
+        );
+      }}
+    />
+  );
+};

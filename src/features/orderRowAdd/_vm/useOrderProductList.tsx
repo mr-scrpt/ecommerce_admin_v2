@@ -12,8 +12,10 @@ export const useOrderProductListToSelect = (orderId: string) => {
   const { order, isPending: isOrderPending } =
     useOrderWithRelationQuery(orderId);
 
+  console.log("output_log: productData =>>>", productData);
   const productList = productData?.map((item) => ({
     label: item.name,
+    article: item.article,
     value: item.id,
     disabled: !!order?.orderRowList.find((row) => {
       return row.productId === item.id;
