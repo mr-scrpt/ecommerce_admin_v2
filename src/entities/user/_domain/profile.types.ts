@@ -7,6 +7,7 @@ export type ProfileEntity = UserEntity;
 
 export type Profile = {
   email: string;
+  phone: string;
   name?: string | null;
   image?: string | null;
 };

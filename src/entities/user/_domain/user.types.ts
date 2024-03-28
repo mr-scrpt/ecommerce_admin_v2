@@ -4,6 +4,7 @@ import { Role, UserId } from "@/shared/lib/user";
 export type UserEntity = {
   id: UserId;
   name?: string | null;
+  phone?: string | null;
   email: string;
   role: Role;
   emailVerified?: Date | null;
@@ -17,6 +18,7 @@ export type UserRelationEntity = UserEntity & {
 
 export type UserPartial = {
   email: string;
+  phone?: string | null;
   name?: string | null;
   image?: string | null;
   role: Role;
@@ -28,6 +30,7 @@ export type UserPartial = {
 export type User = {
   // id: UserId;
   email?: string;
+  phone?: string | null;
   name?: string | null;
   image?: string | null;
 };
@@ -35,6 +38,7 @@ export type User = {
 export type UserToCreate = {
   // id: UserId;
   email: string;
+  phone?: string | null;
   name?: string | null;
   image?: string | null;
   role: Role;

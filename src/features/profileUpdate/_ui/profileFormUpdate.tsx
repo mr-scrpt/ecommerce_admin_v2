@@ -1,6 +1,10 @@
 "use client";
 import { useProfileQuery } from "@/entities/user/_query/profile.query";
-import { ProfileForm, profileFormSchema } from "@/entities/user/profile";
+import {
+  ProfileForm,
+  ProfileFormValues,
+  profileFormSchema,
+} from "@/entities/user/profile";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
@@ -13,8 +17,6 @@ interface ProfileFormProps extends HTMLAttributes<HTMLDivElement> {
   callbackUrl?: string;
   className?: string;
 }
-
-type ProfileFormValues = z.infer<typeof profileFormSchema>;
 
 export const ProfileFormUpdate: FC<ProfileFormProps> = (props) => {
   const { userId, callbackUrl, className } = props;
@@ -40,6 +42,7 @@ export const ProfileFormUpdate: FC<ProfileFormProps> = (props) => {
   }
 
   const handleSubmit = async (data: ProfileFormValues) => {
+    console.log("output_log: form send =>>>", data);
     await update({
       userId,
       data,

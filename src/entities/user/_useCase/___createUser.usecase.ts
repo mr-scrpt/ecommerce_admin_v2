@@ -8,6 +8,7 @@ import { UserRepository } from "../_repository/user.repo";
 export type CreateUser = {
   email: string;
   name?: string | null;
+  phone?: string | null;
   image?: string | null;
   emailVerified?: Date | null;
 };

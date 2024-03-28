@@ -76,6 +76,7 @@ export class UserRepository {
   }
 
   async createUser(user: UserToCreate, db: Tx = this.db): Promise<UserEntity> {
+    console.log("output_log: user in repo =>>>", user);
     return await db.user.create({
       data: user,
     });

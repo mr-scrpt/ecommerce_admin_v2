@@ -4,6 +4,7 @@ import { Button } from "@/shared/ui/button";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -18,6 +19,7 @@ import { UserFormValues, userFormSchema } from "../_domain/user.schema";
 import { UserPartial } from "../user";
 import { AvatarField } from "./avatarField";
 import { buildDate } from "@/shared/lib/date";
+import { PhoneInput } from "@/shared/ui/phoneInput";
 
 interface UserFormProps extends HTMLAttributes<HTMLFormElement> {
   user: UserPartial;
@@ -109,6 +111,26 @@ export const UserForm: FC<UserFormProps> = (props) => {
               <FormControl>
                 <Input placeholder="" {...field} />
               </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="phone"
+          render={({ field }) => (
+            <FormItem className="flex flex-col items-start">
+              <FormLabel className="text-left">Phone Number</FormLabel>
+              <FormControl className="w-full">
+                <PhoneInput
+                  placeholder="Enter a phone number"
+                  {...field}
+                  value={"123"}
+                />
+              </FormControl>
+              <FormDescription className="text-left">
+                Enter a phone number
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}

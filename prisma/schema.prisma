@@ -76,6 +76,7 @@ model User {
   id            String    @id @default(uuid())
   name          String?
   email         String    @unique
+  phone         String
   role          ROLE      @default(USER)
   emailVerified DateTime?
   image         String?

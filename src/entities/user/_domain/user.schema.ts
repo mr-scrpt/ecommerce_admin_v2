@@ -1,4 +1,5 @@
 import { Role } from "@/shared/lib/user";
+import { isValidPhoneNumber } from "react-phone-number-input";
 import { z } from "zod";
 
 // Relations Entity
@@ -22,6 +23,7 @@ export const userSchema = z.object({
   id: z.string(),
   name: z.string().nullable().optional(),
   email: z.string(),
+  phone: z.string().nullable().optional(),
   role: z.custom<Role>(),
   emailVerified: z.date().nullable(),
   image: z.string().nullable().optional(),
@@ -32,6 +34,7 @@ export const userRelationSchema = z.object({
   id: z.string(),
   name: z.string().nullable().optional(),
   email: z.string(),
+  phone: z.string().nullable().optional(),
   role: z.custom<Role>(),
   emailVerified: z.date().nullable(),
   image: z.string().nullable().optional(),
@@ -41,7 +44,14 @@ export const userRelationSchema = z.object({
 });
 
 export const userFormSchema = z.object({
-  email: z.string().email().optional(),
+  // email: z.string().email().optional(),
+  email: z.string().email(),
+  phone: z
+    .string()
+    // .refine(isValidPhoneNumber, { message: "Invalid phone number" })
+    .or(z.literal(""))
+    .nullable()
+    .optional(),
   name: z
     .string()
     .max(30, {

@@ -4,6 +4,7 @@ import { Button } from "@/shared/ui/button";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -14,18 +15,34 @@ import { Input } from "@/shared/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, HTMLAttributes, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Profile, ProfileFormValues, profileFormSchema } from "../profile";
+import { Profile, profileFormSchema } from "../profile";
 import { AvatarField } from "./avatarField";
+import { PhoneInput } from "@/shared/ui/phoneInput";
+import { isValidPhoneNumber } from "react-phone-number-input";
+import { z } from "zod";
 
 interface ProfileFormProps extends HTMLAttributes<HTMLFormElement> {
   profile: Profile;
-  handleSubmit: (data: ProfileFormValues) => void;
+  handleSubmit: (data: ProfileFormValuesWithPhoneValidation) => void;
   isPending: boolean;
   submitText?: string;
 }
 
+const profileFormWithPhoneValidationSchema = z.object({
+  ...profileFormSchema.shape,
+  phone: z
+    .string()
+    .refine(isValidPhoneNumber, { message: "Invalid phone number" })
+    .or(z.literal("")),
+});
+
+type ProfileFormValuesWithPhoneValidation = z.infer<
+  typeof profileFormWithPhoneValidationSchema
+>;
+
 const getDefaultValues = (profile: Profile) => ({
   email: profile.email,
+  phone: profile.phone ?? "",
   image: profile.image ?? "",
   name: profile.name ?? "",
 });
@@ -33,8 +50,8 @@ const getDefaultValues = (profile: Profile) => ({
 export const ProfileForm: FC<ProfileFormProps> = (props) => {
   const { profile, handleSubmit: onSubmit, submitText, isPending } = props;
 
-  const form = useForm<ProfileFormValues>({
-    resolver: zodResolver(profileFormSchema),
+  const form = useForm<ProfileFormValuesWithPhoneValidation>({
+    resolver: zodResolver(profileFormWithPhoneValidationSchema),
     defaultValues: getDefaultValues(profile),
   });
 
@@ -53,12 +70,12 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
       <form onSubmit={handleSubmit} className="space-y-8">
         <FormField
           control={form.control}
-          name="email"
+          name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input readOnly placeholder="" {...field} />
+                <Input placeholder="" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -66,12 +83,35 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
         />
         <FormField
           control={form.control}
-          name="name"
+          name="phone"
+          render={({ field }) => (
+            <FormItem className="flex flex-col items-start">
+              <FormLabel className="text-left">Phone Number</FormLabel>
+              <FormControl className="w-full">
+                <PhoneInput
+                  placeholder="Enter a phone number"
+                  defaultCountry="UA"
+                  initialValueFormat="national"
+                  {...field}
+                  // value={"+380"}
+                  // defaultValue={field.value ?? ""}
+                />
+              </FormControl>
+              <FormDescription className="text-left">
+                Enter a phone number
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Name</FormLabel>
+              <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="" {...field} />
+                <Input readOnly placeholder="" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

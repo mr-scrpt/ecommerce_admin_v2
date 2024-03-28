@@ -2,12 +2,12 @@ import { z } from "zod";
 
 export const profileSchema = z.object({
   email: z.string(),
+  phone: z.string(),
   name: z.string().nullable().optional(),
   image: z.string().nullable().optional(),
 });
 
 export const profileFormSchema = z.object({
-  email: z.string().email(),
   name: z
     .string()
     .max(30, {
@@ -15,6 +15,8 @@ export const profileFormSchema = z.object({
     })
     .transform((name) => name.trim())
     .optional(),
+  email: z.string().email(),
+  phone: z.string().or(z.literal("")),
   image: z.string().optional(),
 });
 

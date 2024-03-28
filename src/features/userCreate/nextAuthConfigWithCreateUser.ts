@@ -11,7 +11,10 @@ export const nextAuthConfigWithCreateUser: AuthOptions = {
     createUser: async (user) => {
       const socket = socketClient("");
       try {
-        const newUser = await createUserComplexibleUseCase.exec(user);
+        const newUser = await createUserComplexibleUseCase.exec({
+          ...user,
+          phone: user.phone ?? "",
+        });
 
         await new Promise<void>((resolve, reject) => {
           socket.connect();
