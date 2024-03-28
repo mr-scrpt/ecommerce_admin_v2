@@ -2,6 +2,7 @@ import { FC, HTMLAttributes } from "react";
 import { OrderStatusFormElements } from "./orderStatusFormElements";
 import { OrderStatusFormValues } from "../../_domain/order.schema";
 import { OrderStatusGroup } from "../../_domain/order.types";
+import { cn } from "@/shared/ui/utils";
 
 interface OrderStatusFormProps extends HTMLAttributes<HTMLFormElement> {
   orderStatus: OrderStatusGroup;
@@ -10,18 +11,24 @@ interface OrderStatusFormProps extends HTMLAttributes<HTMLFormElement> {
 }
 
 export const OrderStatusForm: FC<OrderStatusFormProps> = (props) => {
-  const { submitText } = props;
+  const { submitText, className } = props;
   return (
-    <OrderStatusFormElements {...props}>
-      <div className="flex w-full gap-4">
+    <OrderStatusFormElements
+      {...props}
+      className={cn("flex w-full gap-4", className)}
+    >
+      <div className="flex w-full grow gap-4">
         <OrderStatusFormElements.SelectStatus className="grow" />
         <OrderStatusFormElements.SelectPayment className="grow" />
       </div>
 
-      <OrderStatusFormElements.SubmitButton
-        isPending={false}
-        submitText={submitText}
-      />
+      <div className="flex gap-4">
+        <OrderStatusFormElements.SubmitButton
+          isPending={false}
+          submitText={submitText}
+          className="mb-0 mt-auto"
+        />
+      </div>
     </OrderStatusFormElements>
   );
 };

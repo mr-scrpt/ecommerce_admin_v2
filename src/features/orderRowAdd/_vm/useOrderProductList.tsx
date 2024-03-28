@@ -37,12 +37,6 @@ export const useOrderProductListToSelect = (orderId: string) => {
     }
   });
 
-  // return {
-  //   productListAvailable,
-  //   productListInOrder,
-  //   productListOutOfStock,
-  // };
-
   return {
     toSearch,
     searchValue,
