@@ -42,7 +42,7 @@ export const OrderRowAdd: FC<OrderFormProps> = (props) => {
   };
 
   const form = useForm<OrderFormValues>();
-  const { productList, isPending, toSearch, searchValue } =
+  const { productGroup, isPending, toSearch, searchValue } =
     useOrderProductListToSelect(orderId);
 
   return (
@@ -59,7 +59,7 @@ export const OrderRowAdd: FC<OrderFormProps> = (props) => {
                   <ProductSelect
                     name={"orderProductToAdd"}
                     control={form.control}
-                    productList={productList}
+                    productGroup={productGroup}
                     toSearch={toSearch}
                     searchValue={searchValue}
                     isPending={isPending}

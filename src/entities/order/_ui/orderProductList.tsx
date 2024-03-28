@@ -4,6 +4,7 @@ import {
   OrderRowToUpdateQuantityPayload,
 } from "../_domain/orderRow.types";
 import { OrderProductSnippet } from "./orderProductSnippet";
+import { cn } from "@/shared/ui/utils";
 
 interface OrderProductListProps extends HTMLAttributes<HTMLDivElement> {
   orderProductRowList: Array<OrderRow>;
@@ -12,9 +13,10 @@ interface OrderProductListProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 export const OrderProductList: FC<OrderProductListProps> = (props) => {
-  const { orderProductRowList, updateQuantity, orderRowRemove } = props;
+  const { orderProductRowList, updateQuantity, orderRowRemove, className } =
+    props;
   return (
-    <div className="flex w-full flex-col gap-4">
+    <div className={cn("flex w-full flex-col gap-4", className)}>
       {orderProductRowList.map((orderRow) => (
         <div key={orderRow.id} className="flex w-full flex-row">
           <OrderProductSnippet

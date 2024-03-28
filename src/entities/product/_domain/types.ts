@@ -115,3 +115,17 @@ export type ProductPropertyToSelect = {
   datatype: PropertyDataTypeEnum;
   propertyList: Array<MultiSelectOptionItem>;
 };
+
+export type ProductToSelect = {
+  value: string;
+  article: string;
+  label: string;
+  inStock: boolean;
+  disabled: boolean;
+};
+
+export type ProductToSelectGroup = {
+  available: Array<ProductToSelect>;
+  inOrder: Array<ProductToSelect>;
+  outOfStock: Array<ProductToSelect>;
+};

@@ -7,6 +7,7 @@ import {
   CommandGroup,
   CommandInput,
   CommandItem,
+  CommandList,
 } from "@/shared/ui/command";
 import {
   FormControl,
@@ -16,20 +17,14 @@ import {
 } from "@/shared/ui/form";
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
 import { RadioGroupItem } from "@/shared/ui/radio-group";
+import { ScrollArea } from "@/shared/ui/scroll-area";
 import { cn } from "@/shared/ui/utils";
 import { CaretSortIcon } from "@radix-ui/react-icons";
 import { RadioGroup } from "@radix-ui/react-radio-group";
 import _ from "lodash";
-import { FC, HTMLAttributes, useEffect, useState } from "react";
+import { FC, HTMLAttributes, useCallback, useEffect, useState } from "react";
 import { ControllerRenderProps, UseFormReturn } from "react-hook-form";
-
-interface Product {
-  value: string;
-  article: string;
-  label: string;
-  inStock: boolean;
-  disabled: boolean;
-}
+import { ProductToSelectGroup } from "../../_domain/types";
 
 interface ProductSelectProps extends HTMLAttributes<HTMLDivElement> {
   name: string;
@@ -40,37 +35,40 @@ interface ProductSelectProps extends HTMLAttributes<HTMLDivElement> {
   isPending: boolean;
   minChars?: number;
   field: ControllerRenderProps<any, any>;
-  productList: Array<Product>;
+  productGroup: ProductToSelectGroup;
 }
 
-interface SearchOption {
-  label: string;
-  value: string;
-  field: keyof Product;
-}
-
-const searchByOptions: Record<string, SearchOption> = {
-  by_name: {
-    label: "By name",
-    value: "by_name",
-    field: "label",
-  },
-  by_article: {
-    label: "By article",
-    value: "by_article",
-    field: "article",
-  },
-};
-
+// interface SearchOption {
+//   label: string;
+//   value: string;
+//   field: keyof Product;
+// }
+//
+// const searchByOptions: Record<string, SearchOption> = {
+//   by_name: {
+//     label: "By name",
+//     value: "by_name",
+//     field: "label",
+//   },
+//   by_article: {
+//     label: "By article",
+//     value: "by_article",
+//     field: "article",
+//   },
+// };
+//
 export const ProductSelect: FC<ProductSelectProps> = (props) => {
   const {
     field,
-    productList,
+    productGroup,
     isPending,
     minChars = 2,
     toSearch,
+    className,
     searchValue,
   } = props;
+
+  const { available, inOrder, outOfStock } = productGroup;
 
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState(searchValue);
@@ -86,55 +84,8 @@ export const ProductSelect: FC<ProductSelectProps> = (props) => {
 
   const appearancePending = useAppearanceDelay(isPending);
 
-  // const [searchBy, setSearchBy] = useState(searchByOptions.by_name.value);
-  // const [searchOption, setSearchOption] = useState(
-  //   searchByOptions.by_name.field,
-  // );
-  const [searchOption, setSearchOption] = useState<keyof Product>(
-    searchByOptions.by_name.field,
-  );
-
   return (
-    <div>
-      <FormItem className="space-y-3">
-        <FormLabel>Notify me about...</FormLabel>
-        <FormControl>
-          <RadioGroup
-            onValueChange={(option) => {
-              setSearchOption(option as keyof Product);
-              // setSearchBy(value);g
-            }}
-            defaultValue={searchOption}
-            className="flex flex-col space-y-1"
-          >
-            {Object.values(searchByOptions).map((option) => (
-              <FormItem
-                key={option.value}
-                className="flex items-center space-x-3 space-y-0"
-              >
-                <FormControl>
-                  <RadioGroupItem value={option.field} />
-                </FormControl>
-                <FormLabel className="font-normal">{option.label}</FormLabel>
-              </FormItem>
-            ))}
-            {/* <FormItem className="flex items-center space-x-3 space-y-0"> */}
-            {/*   <FormControl> */}
-            {/*     <RadioGroupItem value="name" /> */}
-            {/*   </FormControl> */}
-            {/*   <FormLabel className="font-normal">By name</FormLabel> */}
-            {/* </FormItem> */}
-            {/**/}
-            {/* <FormItem className="flex items-center space-x-3 space-y-0"> */}
-            {/*   <FormControl> */}
-            {/*     <RadioGroupItem value="article" /> */}
-            {/*   </FormControl> */}
-            {/*   <FormLabel className="font-normal">By article</FormLabel> */}
-            {/* </FormItem> */}
-          </RadioGroup>
-        </FormControl>
-        <FormMessage />
-      </FormItem>
+    <div className={cn(className, "flex w-full flex-col gap-3")}>
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <FormControl>
@@ -147,15 +98,15 @@ export const ProductSelect: FC<ProductSelectProps> = (props) => {
               )}
             >
               {field.value
-                ? productList.find((product) => product.value === field.value)
-                    ?.label
+                ? available.find((product) => product.value === field.value)
+                    ?.label || "Select product"
                 : "Select product"}
               <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
             </Button>
           </FormControl>
         </PopoverTrigger>
         <PopoverContent className="w-[480px] p-0">
-          <Command value={search}>
+          <Command value={search} filter={() => 1}>
             <CommandInput
               placeholder="Search product..."
               className="h-9"
@@ -171,36 +122,73 @@ export const ProductSelect: FC<ProductSelectProps> = (props) => {
                   : "Product not found"}
               </CommandEmpty>
             )}
-            <CommandGroup>
-              {productList.map((product) => {
-                return (
-                  <CommandItem
-                    // value={
-                    //   searchBy === "by_name" ? product.label : product.article
-                    // }
-                    value={product[searchOption] as string}
-                    key={product.value}
-                    disabled={product.disabled || !product.inStock}
-                    onSelect={() => {
-                      field.onChange(product.value);
-                      setOpen(false);
-                    }}
-                    className="flex w-full items-center gap-2 text-sm"
-                  >
-                    <div className="grow">{product.label}</div>
-                    <div>{product.article}</div>
-                    <span className="ml-auto flex max-w-[30px] gap-1 text-xs">
-                      <div className="text-lime-400">
-                        {product.disabled && "in"}
-                      </div>
-                      <div className="text-red-400">
-                        {product.inStock || "out"}
-                      </div>
-                    </span>
-                  </CommandItem>
-                );
-              })}
-            </CommandGroup>
+            {/* <ScrollArea className="h-auto max-h-72 rounded-md border"> */}
+            <CommandList>
+              {available.length !== 0 && (
+                <CommandGroup heading="Available">
+                  {available.map((product) => {
+                    return (
+                      <CommandItem
+                        value={product.value}
+                        key={product.value}
+                        disabled={product.disabled || !product.inStock}
+                        onSelect={() => {
+                          field.onChange(product.value);
+                          setOpen(false);
+                        }}
+                        className="flex w-full items-center gap-2 text-sm"
+                      >
+                        <div className="grow">{product.label}</div>
+                        <div>{product.article}</div>
+                      </CommandItem>
+                    );
+                  })}
+                </CommandGroup>
+              )}
+
+              {inOrder.length !== 0 && (
+                <CommandGroup heading="In order">
+                  {inOrder.map((product) => {
+                    return (
+                      <CommandItem
+                        value={product.value}
+                        key={product.value}
+                        disabled={true}
+                        className="flex w-full items-center gap-2 text-sm"
+                      >
+                        <div className="grow">{product.label}</div>
+                        <div>{product.article}</div>
+                        <div className="ml-auto flex max-w-[30px] gap-1 text-xs text-lime-400">
+                          in
+                        </div>
+                      </CommandItem>
+                    );
+                  })}
+                </CommandGroup>
+              )}
+              {outOfStock.length !== 0 && (
+                <CommandGroup heading="Out of stock">
+                  {outOfStock.map((product) => {
+                    return (
+                      <CommandItem
+                        value={product.value}
+                        key={product.value}
+                        disabled={true}
+                        className="flex w-full items-center gap-2 text-sm"
+                      >
+                        <div className="grow">{product.label}</div>
+                        <div>{product.article}</div>
+                        <div className="ml-auto flex max-w-[30px] gap-1 text-xs text-red-400">
+                          out
+                        </div>
+                      </CommandItem>
+                    );
+                  })}
+                </CommandGroup>
+              )}
+            </CommandList>
+
+            {/* </ScrollArea> */}
           </Command>
         </PopoverContent>
       </Popover>

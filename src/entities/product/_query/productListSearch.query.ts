@@ -6,7 +6,6 @@ import { baseQueryKey } from "../_domain/types";
 import { useListenProductListUpdate } from "../_vm/event/useListenProductListUpdate";
 
 export const getProductListSearchQuery = (q: string) => {
-  console.log("output_log: in before action $ =>>>", q);
   return {
     queryKey: [baseQueryKey, "getProductListSearch", q],
     queryFn: () => {

@@ -17,6 +17,7 @@ export const OrderStatusForm: FC<OrderStatusFormProps> = (props) => {
         <OrderStatusFormElements.SelectStatus className="grow" />
         <OrderStatusFormElements.SelectPayment className="grow" />
       </div>
+
       <OrderStatusFormElements.SubmitButton
         isPending={false}
         submitText={submitText}

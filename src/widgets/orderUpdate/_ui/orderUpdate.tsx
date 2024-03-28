@@ -21,12 +21,13 @@ export const OrderUpdate: FC<OrderUpdateProps> = (props) => {
 
   return (
     <div className="flex w-full flex-col gap-4">
-      <OrderStatusUpdate orderId={orderId} />
-      <OrderRowAdd orderId={orderId} />
+      <OrderStatusUpdate orderId={orderId} className="flex w-full border p-4" />
+      <OrderRowAdd orderId={orderId} className="flex w-full border p-4" />
       <OrderRowList
         orderId={orderId}
         orderRowUpdateQuantity={orderRowUpdateQuantity}
         orderRowRemove={removeOrderConfirm}
+        className="flex w-full border p-4"
       />
     </div>
   );

@@ -10,7 +10,7 @@ interface OrderStatusUpdateProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 export const OrderStatusUpdate: FC<OrderStatusUpdateProps> = (props) => {
-  const { orderId } = props;
+  const { orderId, className } = props;
   const { orderStatusGroup, isPending, isSuccess } =
     useOrderStatusGroupQuery(orderId);
 
@@ -29,6 +29,7 @@ export const OrderStatusUpdate: FC<OrderStatusUpdateProps> = (props) => {
       orderStatus={orderStatusGroup}
       submitText="Update Order Status"
       handleSubmit={orderUpdateStatus}
+      className={className}
     />
   );
 };

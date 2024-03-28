@@ -19,7 +19,7 @@ interface OrderFormProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 export const OrderRowList: FC<OrderFormProps> = (props) => {
-  const { orderId, orderRowUpdateQuantity, orderRowRemove } = props;
+  const { orderId, orderRowUpdateQuantity, orderRowRemove, className } = props;
 
   const {
     isPending: isPendingOrder,
@@ -42,6 +42,7 @@ export const OrderRowList: FC<OrderFormProps> = (props) => {
       orderProductRowList={order.orderRowList}
       updateQuantity={orderRowUpdateQuantity}
       orderRowRemove={orderRowRemove}
+      className={className}
     />
   );
 };

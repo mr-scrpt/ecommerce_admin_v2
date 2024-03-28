@@ -19,7 +19,6 @@ export const getProductListSearchAction = async (
   props: z.infer<typeof propsSchema>,
 ): Promise<ResultT> => {
   const { q } = props;
-  console.log("output_log: query =>>>", q);
   const session = await getAppSessionStrictServer();
 
   const productList = await getProductListSearchUseCase.exec({

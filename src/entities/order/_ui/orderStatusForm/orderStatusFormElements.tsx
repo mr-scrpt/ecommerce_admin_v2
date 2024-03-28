@@ -47,7 +47,7 @@ const getDefaultValues = (orderStatus: OrderStatusGroup) => ({
 });
 
 export const OrderStatusFormElements: OrderFormType = (props) => {
-  const { handleSubmit: onSubmit, orderStatus, children } = props;
+  const { handleSubmit: onSubmit, orderStatus, children, className } = props;
 
   const form = useForm<OrderStatusFormValues>({
     resolver: zodResolver(orderStatusFormSchema),
@@ -65,7 +65,7 @@ export const OrderStatusFormElements: OrderFormType = (props) => {
   return (
     <FormProvider {...form}>
       <Form {...form}>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className={cn(className, "space-y-4")}>
           {children}
         </form>
       </Form>
