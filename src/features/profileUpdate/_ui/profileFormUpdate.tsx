@@ -1,25 +1,21 @@
 "use client";
 import { useProfileQuery } from "@/entities/user/_query/profile.query";
-import {
-  ProfileForm,
-  ProfileFormValues,
-  profileFormSchema,
-} from "@/entities/user/profile";
+import { ProfileForm, ProfileFormValues } from "@/entities/user/profile";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes } from "react";
-import { z } from "zod";
 import { useProfileUpdate } from "../_vm/useProfileUpdate";
 
 interface ProfileFormProps extends HTMLAttributes<HTMLDivElement> {
   userId: string;
   callbackUrl?: string;
   className?: string;
+  countryDefault?: string;
 }
 
 export const ProfileFormUpdate: FC<ProfileFormProps> = (props) => {
-  const { userId, callbackUrl, className } = props;
+  const { userId, callbackUrl, countryDefault, className } = props;
 
   const {
     isPending: isPendingProfile,
@@ -59,6 +55,7 @@ export const ProfileFormUpdate: FC<ProfileFormProps> = (props) => {
         isPending={isPendingComplexible}
         profile={data.profile}
         submitText={callbackUrl ? "Continue" : "Save change"}
+        countryDefault={countryDefault}
       />
     </div>
   );

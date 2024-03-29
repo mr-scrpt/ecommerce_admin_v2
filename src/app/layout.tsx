@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
 import { ProvidersRoot } from "./_providers/providersRoot";
 import "./globals.css";
+import { AppInit } from "./_init/appInit";
 
 const fontSans = FontSans({
   subsets: ["latin"],

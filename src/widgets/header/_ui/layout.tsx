@@ -2,12 +2,13 @@
 import { Button } from "@/shared/ui/button";
 import {
   Sheet,
-  SheetTrigger,
   SheetContent,
   SheetHeader,
+  SheetTrigger,
 } from "@/shared/ui/sheet";
-import { Menu } from "lucide-react";
 
+// import { setCookie } from "cookies-next";
+import { Menu } from "lucide-react";
 export const Layout = ({
   logo,
   nav,
@@ -19,6 +20,8 @@ export const Layout = ({
   profile?: React.ReactNode;
   actions?: React.ReactNode;
 }) => {
+  // console.log("output_log: set =>>>");
+  // setCookie("test", "test");
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 items-center">

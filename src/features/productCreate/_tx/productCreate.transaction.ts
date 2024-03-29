@@ -19,10 +19,11 @@ export class ProductCreateTx extends Transaction {
   ): Promise<ProductEntity> {
     const { productData, categoryListData, propertyItemListSelected } = data;
     const action = async (tx: Tx) => {
-      console.log("output_log: data =>>>", data);
       const productCreated = await this.productRepo.createProduct(
         {
           name: productData.name,
+          article: productData.article,
+          inStock: productData.inStock,
           price: productData.price,
           description: productData.description,
           about: productData.about,

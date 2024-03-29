@@ -18,7 +18,7 @@ import { useForm } from "react-hook-form";
 import { Profile, profileFormSchema } from "../profile";
 import { AvatarField } from "./avatarField";
 import { PhoneInput } from "@/shared/ui/phoneInput";
-import { isValidPhoneNumber } from "react-phone-number-input";
+import { Country, isValidPhoneNumber } from "react-phone-number-input";
 import { z } from "zod";
 
 interface ProfileFormProps extends HTMLAttributes<HTMLFormElement> {
@@ -26,6 +26,7 @@ interface ProfileFormProps extends HTMLAttributes<HTMLFormElement> {
   handleSubmit: (data: ProfileFormValuesWithPhoneValidation) => void;
   isPending: boolean;
   submitText?: string;
+  countryDefault?: string;
 }
 
 const profileFormWithPhoneValidationSchema = z.object({
@@ -48,7 +49,13 @@ const getDefaultValues = (profile: Profile) => ({
 });
 
 export const ProfileForm: FC<ProfileFormProps> = (props) => {
-  const { profile, handleSubmit: onSubmit, submitText, isPending } = props;
+  const {
+    profile,
+    handleSubmit: onSubmit,
+    countryDefault = "UA",
+    submitText,
+    isPending,
+  } = props;
 
   const form = useForm<ProfileFormValuesWithPhoneValidation>({
     resolver: zodResolver(profileFormWithPhoneValidationSchema),
@@ -90,11 +97,9 @@ export const ProfileForm: FC<ProfileFormProps> = (props) => {
               <FormControl className="w-full">
                 <PhoneInput
                   placeholder="Enter a phone number"
-                  defaultCountry="UA"
+                  defaultCountry={countryDefault as Country}
                   initialValueFormat="national"
                   {...field}
-                  // value={"+380"}
-                  // defaultValue={field.value ?? ""}
                 />
               </FormControl>
               <FormDescription className="text-left">

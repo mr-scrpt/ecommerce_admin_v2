@@ -1,4 +1,3 @@
-import { getCategoryListAction } from "@/entities/category/server";
 import { productSchema } from "@/entities/product";
 import { getProductListAction } from "@/entities/product/server";
 import { NextResponse } from "next/server";
