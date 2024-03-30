@@ -30,7 +30,7 @@ export type UserPartial = {
 export type User = {
   // id: UserId;
   email?: string;
-  phone?: string | null;
+  phone?: string;
   name?: string | null;
   image?: string | null;
 };
@@ -38,7 +38,7 @@ export type User = {
 export type UserToCreate = {
   // id: UserId;
   email: string;
-  phone?: string | null;
+  phone: string;
   name?: string | null;
   image?: string | null;
   role: Role;

@@ -1,4 +1,5 @@
 "use client";
+import { UserInfo } from "@/entities/user/_ui/userInfo";
 import { OrderRowAdd } from "@/features/orderRowAdd";
 import { OrderRowList } from "@/features/orderRowList";
 import { useOrderRemoveConfirm } from "@/features/orderRowRemove";
@@ -20,6 +21,7 @@ export const OrderUpdate: FC<OrderUpdateProps> = (props) => {
 
   return (
     <div className="flex w-full flex-col gap-4">
+      <UserInfo />
       <OrderStatusUpdate orderId={orderId} className="flex w-full border p-4" />
       <OrderRowAdd orderId={orderId} className="flex w-full border p-4" />
       <OrderRowList

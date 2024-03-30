@@ -73,7 +73,7 @@ export const nextAuthConfig: AuthOptions = {
     },
   },
   events: {
-    signOut: async ({ session }) => {
+    signOut: async () => {
       deleteCookie(COOKIE_NETWORK_NAME);
     },
   },
