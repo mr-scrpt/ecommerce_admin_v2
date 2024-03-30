@@ -1,18 +1,19 @@
 import { configPrivate } from "@/shared/config/private.config";
 import { dbClient } from "@/shared/lib/db";
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import { getCookie } from "cookies-next";
 import { compact } from "lodash-es";
 import { AuthOptions } from "next-auth";
 import EmailProvider from "next-auth/providers/email";
 import GithubProvider from "next-auth/providers/github";
-import { cookies, headers } from "next/headers";
-import { ClientNetworkData } from "./types";
-import { z } from "zod";
+import { cookies } from "next/headers";
 import { clientNetworkDataSchema } from "./schema";
+import { ClientNetworkData } from "./types";
+import { deleteCookie } from "cookies-next";
+import { COOKIE_NETWORK_NAME } from "./constant";
 
 const {
   GITHUB_SECRET,
+  COUNTRY_DEFAULT,
   GITHUB_ID,
   EMAIL_SERVER_HOST,
   EMAIL_SERVER_PORT,
@@ -50,7 +51,7 @@ export const nextAuthConfig: AuthOptions = {
       const c = cookies();
 
       const clientData = JSON.parse(
-        c.get("userClientData")?.value ?? "{}",
+        c.get(COOKIE_NETWORK_NAME)?.value ?? "{}",
       ) as ClientNetworkData;
 
       const clientDataParsed = clientNetworkDataSchema.parse(clientData);
@@ -63,16 +64,18 @@ export const nextAuthConfig: AuthOptions = {
           cartId: u?.cart?.id ?? "",
           role: user.role,
         },
-        clientData: clientDataParsed,
+        clientNetworkData: clientDataParsed ?? {
+          country_code: COUNTRY_DEFAULT,
+        },
       };
 
       return sessionWithRelation;
     },
-
-    // signIn: async ({ user }) => {
-    //   getCookie()
-    //  return !!user;
-    // }
+  },
+  events: {
+    signOut: async ({ session }) => {
+      deleteCookie(COOKIE_NETWORK_NAME);
+    },
   },
 
   pages: {

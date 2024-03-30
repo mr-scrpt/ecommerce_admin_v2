@@ -25,7 +25,7 @@ const NewUserPage: FC<PageProps> = async (props) => {
           userId={session.user.id}
           callbackUrl={callbackUrl}
           className="max-w-[500px]"
-          countryDefault={"UA"}
+          countryDefault={session.clientNetworkData.country ?? "UA"}
         />
       </div>
     </main>

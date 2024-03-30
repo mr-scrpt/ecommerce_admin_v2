@@ -21,7 +21,6 @@ export const getProfileAction = async (
   const { userId } = propsSchema.parse(props);
 
   const session = await getAppSessionStrictServer();
-  console.log("output_log: clientData =>>>", session.clientData);
 
   const user = await getProfileUseCase.exec({
     session,
