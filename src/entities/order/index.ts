@@ -8,15 +8,12 @@ export {
   useOrderWithRelationQuery,
 } from "./_query/orderWithRelation.query";
 
-export {
-  orderUpdateStausSchema,
-  // orderStatusGroupSchema,
-} from "./_domain/order.schema";
+export { orderUpdateStausSchema } from "./_domain/order.schema";
 export { OrderPaymentStatusEnum, OrderStatusEnum } from "./_domain/order.types";
 export { useOrderListQuery } from "./_query/orderList.query";
+export { useOrderStatusGroupQuery } from "./_query/orderStatusGroup.query";
 export { OrderProductList } from "./_ui/orderProductList";
 export { OrderStatusForm } from "./_ui/orderStatusForm/orderStatusForm";
-export { useOrderStatusGroupQuery } from "./_query/orderStatusGroup.query";
 
 export type {
   Order,

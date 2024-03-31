@@ -1,8 +1,7 @@
-import { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
+import { cookies } from "next/headers";
 import { COOKIE_NETWORK_NAME, clientNetworkData } from "./constant";
 import { clientNetworkDataSchema } from "./schema";
 import { ClientNetworkData } from "./types";
-import { cookies } from "next/headers";
 
 export const getNetworkClientCookie = (): ClientNetworkData => {
   const c = cookies();

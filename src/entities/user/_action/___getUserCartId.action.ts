@@ -1,9 +1,9 @@
 "use server";
 import { SessionSchema } from "@/shared/lib/session.theme";
 import { z } from "zod";
-import { userRelationSchema } from "../_domain/user.schema";
-import { UserRelationEntity } from "../_domain/user.types";
-import { getUserCartIdUseCase } from "../_useCase/getUserCartId.usecase";
+import { userWithCartSchema } from "../_domain/user.schema";
+import { UserWithCartEntity } from "../_domain/user.types";
+import { getUserCartIdUseCase } from "../_useCase/__getUserCartId.usecase";
 
 const propsSchema = z.object({
   session: SessionSchema,
@@ -14,7 +14,7 @@ const resultSchema = z.object({
   cartId: z.string(),
 });
 
-type ResultT = { user: UserRelationEntity };
+type ResultT = { user: UserWithCartEntity };
 
 export const getUserCartIdAction = async (
   props: z.infer<typeof propsSchema>,
@@ -33,6 +33,6 @@ export const getUserCartIdAction = async (
   //   user: user,
   // });
   return {
-    user: {} as UserRelationEntity,
+    user: {} as UserWithCartEntity,
   };
 };

@@ -2,8 +2,9 @@ import { DbClient, Tx, dbClient } from "@/shared/lib/db";
 import {
   User,
   UserEntity,
-  UserRelationEntity,
+  UserWithCartEntity,
   UserToCreate,
+  UserWithOrdersEntity,
 } from "../_domain/user.types";
 import { UserId } from "@/shared/lib/user";
 
@@ -23,7 +24,7 @@ export class UserRepository {
   async getUserWithCart(
     userId: UserId,
     db: Tx = this.db,
-  ): Promise<UserRelationEntity> {
+  ): Promise<UserWithCartEntity> {
     const user = await db.user.findUniqueOrThrow({
       where: {
         id: userId,
@@ -34,6 +35,21 @@ export class UserRepository {
             cartRowList: true,
           },
         },
+      },
+    });
+    return user;
+  }
+
+  async getUserWithOrderList(
+    userId: UserId,
+    db: Tx = this.db,
+  ): Promise<UserWithOrdersEntity> {
+    const user = await db.user.findUniqueOrThrow({
+      where: {
+        id: userId,
+      },
+      include: {
+        orderList: true,
       },
     });
     return user;

@@ -4,7 +4,7 @@ import { Role, UserId } from "@/shared/lib/user";
 export type UserEntity = {
   id: UserId;
   name?: string | null;
-  phone?: string | null;
+  phone?: string;
   email: string;
   role: Role;
   emailVerified?: Date | null;
@@ -12,8 +12,12 @@ export type UserEntity = {
   createdAt: Date;
 };
 
-export type UserRelationEntity = UserEntity & {
+export type UserWithCartEntity = UserEntity & {
   cart: UserCartRelation | null;
+};
+
+export type UserWithOrdersEntity = UserEntity & {
+  orderList: Array<UserOrderRelaion>;
 };
 
 export type UserPartial = {
@@ -28,7 +32,7 @@ export type UserPartial = {
 // Projetions
 
 export type User = {
-  // id: UserId;
+  id: UserId;
   email?: string;
   phone?: string;
   name?: string | null;
@@ -61,4 +65,13 @@ type UserCartRowEntity = {
   productId: string;
   quantity: number;
   createdAt: Date;
+};
+
+type UserOrderRelaion = {
+  id: string;
+  orderNo: string;
+  userId: string;
+  createdAt: Date;
+  orderStatus: string;
+  paymentStatus: string;
 };

@@ -82,7 +82,7 @@ model User {
   image         String?
 
   cart     Cart?
-  orders   Order[]
+  orderList   Order[]
   // cart    Cart    @relation(fields: [cartId], references: [id])
   // cartId  String
 

@@ -39,6 +39,27 @@ export class OrderRepository {
     return result;
   }
 
+  async getOrderOwner(orderId: OrderId, db: Tx = this.db): Promise<string> {
+    const result = await db.order.findUniqueOrThrow({
+      where: {
+        id: orderId,
+      },
+    });
+    return result.userId;
+  }
+
+  async getOrderOwnerList(
+    ownerId: string,
+    db: Tx = this.db,
+  ): Promise<OrderEntity[]> {
+    const orderList = await db.order.findMany({
+      where: {
+        userId: ownerId,
+      },
+    });
+    return orderList;
+  }
+
   async getOrderList(db: Tx = this.db): Promise<OrderEntity[]> {
     const orderList = await db.order.findMany();
     return orderList;
