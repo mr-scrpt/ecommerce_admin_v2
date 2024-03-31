@@ -1,18 +1,23 @@
 "use client";
+import { RoutePathEnum } from "@/shared/config/routing.config";
+import { createStrictContext, useStrictContext } from "@/shared/lib/react";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/shared/ui/table";
-import { FC, HTMLAttributes, createContext, useContext } from "react";
-import { useGetOwnerOrderData } from "../_vm/getOwnerOrderData";
 import Link from "next/link";
-import { RoutePathEnum } from "@/shared/config/routing.config";
+import { FC, HTMLAttributes } from "react";
 import { OrderOwnerDataUI } from "../_domain/types";
+import { useGetOwnerOrderData } from "../_vm/getOwnerOrderData";
+import {
+  orderOwnerContext,
+  useOrderInfo,
+  useOwnerInfo,
+} from "../_vm/orderOwnerContext";
 
 interface UserInfoProps extends HTMLAttributes<HTMLDivElement> {
   orderId: string;
@@ -23,38 +28,28 @@ type OrderOwnerData = FC<UserInfoProps> & {
   OrderInfo: FC<HTMLAttributes<HTMLTableElement>>;
 };
 
-const OrderOwnerContext = createContext<OrderOwnerDataUI>({});
-
 export const OrderOwnerData: OrderOwnerData = (props) => {
   const { orderId, children } = props;
-  const { isSuccess, isPending, orderOwnerData } =
+  const { orderOwnerData, isSuccess, isPending } =
     useGetOwnerOrderData(orderId);
-  const { owner, orderList } = orderOwnerData;
 
-  // if (isPending) {
-  //   return <div>Loading</div>;
-  // }
-  // if (!owner) {
-  //   return <div>No user</div>;
-  // }
-  // if (!isSuccess) {
-  //   return <div>No data</div>;
-  // }
-
-  // const { name, phone, email } = owner;
+  if (isPending && !isSuccess) {
+    return <div>Loading...</div>;
+  }
 
   return (
-    <OrderOwnerContext.Provider value={orderOwnerData}>
+    <orderOwnerContext.Provider value={orderOwnerData}>
       {children}
-    </OrderOwnerContext.Provider>
+    </orderOwnerContext.Provider>
   );
 };
 
 OrderOwnerData.OwnerInfo = function UserInfo(props) {
   const { className } = props;
-  const { owner } = useContext(OrderOwnerContext);
+  const owner = useOwnerInfo();
+
   if (!owner) {
-    return <div>No user</div>;
+    return <div>No user!</div>;
   }
   const { name, phone, email } = owner;
   return (
@@ -81,7 +76,8 @@ OrderOwnerData.OwnerInfo = function UserInfo(props) {
 
 OrderOwnerData.OrderInfo = function OrderInfo(props) {
   const { className } = props;
-  const { orderList } = useContext(OrderOwnerContext);
+  const orderList = useOrderInfo();
+
   if (!orderList) {
     return <div>No order</div>;
   }

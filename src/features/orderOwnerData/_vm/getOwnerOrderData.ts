@@ -1,8 +1,6 @@
 import { buildDate } from "@/shared/lib/date";
-import { useOrderOwnerQuery } from "../query/orderOwnerData.query";
 import { OrderOwnerDataUI } from "../_domain/types";
-import { User } from "@/entities/user/user";
-import { OrderUI } from "@/entities/order";
+import { useOrderOwnerQuery } from "../query/orderOwnerData.query";
 
 export const useGetOwnerOrderData = (orderId: string) => {
   const { data, isPending, isSuccess } = useOrderOwnerQuery(orderId);
