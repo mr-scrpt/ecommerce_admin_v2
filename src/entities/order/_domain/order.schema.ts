@@ -10,6 +10,7 @@ export const orderStatusGroupSchema = z.object({
 const orderBaseSchema = z.object({
   orderNo: z.string(),
   userId: z.string(),
+  priceTotal: z.number(),
   createdAt: z.date(),
   ...orderStatusGroupSchema.shape,
 });

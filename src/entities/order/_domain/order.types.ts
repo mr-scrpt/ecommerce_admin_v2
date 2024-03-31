@@ -63,3 +63,8 @@ export type OrderProduct = OrderRow & {
   priceOrder: number;
   quantity: number;
 };
+
+// NOTE: UI
+export type OrderUI = Omit<Order, "createdAt"> & {
+  createdAt: string;
+};

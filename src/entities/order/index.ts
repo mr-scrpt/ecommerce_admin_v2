@@ -22,6 +22,7 @@ export type {
   OrderProduct,
   OrderRelation,
   OrderToUpdateStatus,
+  OrderUI,
 } from "./_domain/order.types";
 
 export type {

@@ -35,6 +35,11 @@ interface OrderFormProps extends HTMLAttributes<HTMLFormElement> {
   handleSubmit: (data: OrderStatusFormValues) => void;
 }
 
+interface OrderSubmitFieldProps {
+  isPending?: boolean;
+  submitText: string;
+  className?: string;
+}
 type OrderFormType = FC<OrderFormProps> & {
   SubmitButton: FC<OrderSubmitFieldProps>;
   SelectStatus: FC<HTMLAttributes<HTMLDivElement>>;
@@ -73,17 +78,8 @@ export const OrderStatusFormElements: OrderFormType = (props) => {
   );
 };
 
-interface OrderSubmitFieldProps {
-  isPending?: boolean;
-  submitText: string;
-  className?: string;
-}
-
-OrderStatusFormElements.SubmitButton = function SubmitButton({
-  isPending,
-  submitText,
-  className,
-}: OrderSubmitFieldProps) {
+OrderStatusFormElements.SubmitButton = function SubmitButton(props) {
+  const { isPending, submitText, className } = props;
   return (
     <Button type="submit" disabled={isPending} className={cn(className)}>
       {isPending && (
