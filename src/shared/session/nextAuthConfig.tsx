@@ -9,7 +9,8 @@ import { cookies } from "next/headers";
 import { clientNetworkDataSchema } from "./schema";
 import { ClientNetworkData } from "./types";
 import { deleteCookie } from "cookies-next";
-import { COOKIE_NETWORK_NAME } from "./constant";
+import { COOKIE_NETWORK_NAME, clientNetworkData } from "./constant";
+import { getNetworkClientCookie } from "./coockieParser";
 
 const {
   GITHUB_SECRET,
@@ -48,13 +49,8 @@ export const nextAuthConfig: AuthOptions = {
           cart: true,
         },
       });
-      const c = cookies();
 
-      const clientData = JSON.parse(
-        c.get(COOKIE_NETWORK_NAME)?.value ?? "{}",
-      ) as ClientNetworkData;
-
-      const clientDataParsed = clientNetworkDataSchema.parse(clientData);
+      const clientDataParsed = getNetworkClientCookie();
 
       const sessionWithRelation = {
         ...session,
