@@ -15,6 +15,7 @@ export const orderOwnerDataSchema = z.object({
       orderNo: z.string(),
       userId: z.string(),
       createdAt: z.date(),
+      priceTotal: z.number(),
 
       orderStatus: z.custom<OrderStatusEnum>(),
       paymentStatus: z.custom<OrderPaymentStatusEnum>(),

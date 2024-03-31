@@ -46,6 +46,7 @@ export type Order = OrderStatusGroup & {
   orderNo: string;
   userId: string;
   createdAt: Date;
+  priceTotal: number;
 };
 
 export type OrderRelation = Order & {

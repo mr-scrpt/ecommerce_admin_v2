@@ -61,6 +61,7 @@ export const UserInfoWithOrder: FC<UserInfoProps> = (props) => {
               <TableHead>Order #</TableHead>
               <TableHead>Quantity</TableHead>
               <TableHead>Price</TableHead>
+              <TableHead>Status</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -72,6 +73,7 @@ export const UserInfoWithOrder: FC<UserInfoProps> = (props) => {
                   </Link>
                 </TableCell>
                 <TableCell>{order.createdAt}</TableCell>
+                <TableCell>{order.priceTotal}</TableCell>
                 <TableCell>{order.orderStatus}</TableCell>
               </TableRow>
             ))}
