@@ -1,6 +1,5 @@
 "use client";
 import { RoutePathEnum } from "@/shared/config/routing.config";
-import { createStrictContext, useStrictContext } from "@/shared/lib/react";
 import {
   Table,
   TableBody,
@@ -11,7 +10,6 @@ import {
 } from "@/shared/ui/table";
 import Link from "next/link";
 import { FC, HTMLAttributes } from "react";
-import { OrderOwnerDataUI } from "../_domain/types";
 import { useGetOwnerOrderData } from "../_vm/getOwnerOrderData";
 import {
   orderOwnerContext,
