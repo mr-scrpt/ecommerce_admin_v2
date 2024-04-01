@@ -78,6 +78,21 @@ export class OrderRepository {
     });
   }
 
+  async updateTotalPrice(
+    orderId: OrderId,
+    totalPrice: number,
+    db: Tx = this.db,
+  ): Promise<OrderEntity> {
+    return await db.order.update({
+      where: {
+        id: orderId,
+      },
+      data: {
+        priceTotal: totalPrice,
+      },
+    });
+  }
+
   // async getOrderWithRelationByUserId(
   //   userId: OrderId,
   //   db: Tx = this.db,

@@ -8,6 +8,13 @@ import {
 export class OrderRowRepository {
   constructor(readonly db: DbClient) {}
 
+  async getOrerRowList(
+    orderId: string,
+    db: Tx = this.db,
+  ): Promise<OrderRowEntity[]> {
+    const result = await db.orderRow.findMany({ where: { orderId } });
+    return result;
+  }
   async createOrderRow(
     data: OrderRowToAdd,
     db: Tx = this.db,

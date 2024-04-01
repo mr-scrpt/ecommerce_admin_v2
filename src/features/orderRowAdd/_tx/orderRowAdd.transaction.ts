@@ -40,7 +40,15 @@ export class OrderRowAddTx extends Transaction {
         tx,
       );
 
-      return await this.orderRepo.getOrder(orderId, tx);
+      const order = await this.orderRepo.getOrder(orderId, tx);
+      const totalPrice = order.priceTotal + product.price * quantity;
+      const updatedOrder = await this.orderRepo.updateTotalPrice(
+        orderId,
+        totalPrice,
+        tx,
+      );
+
+      return updatedOrder;
     };
 
     return await this.start(action);

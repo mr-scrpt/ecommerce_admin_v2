@@ -17,7 +17,6 @@ export class UserRepository {
         id: userId,
       },
     });
-    console.log("output_log: user in repo =>>>", user);
     return user;
   }
 

@@ -1,6 +1,8 @@
 import { OrderRowEntity } from "@/entities/order";
 import {
+  OrderRepository,
   OrderRowRepository,
+  orderRepository,
   orderRowRepository,
 } from "@/entities/order/server";
 import {
@@ -14,6 +16,7 @@ export class OrderRowUpdateQuantityTx extends Transaction {
   constructor(
     readonly db: DbClient,
     private readonly orderRowRepo: OrderRowRepository,
+    private readonly orderRepo: OrderRepository,
     private readonly productRepo: ProductRepository,
   ) {
     super(dbClient);
@@ -36,7 +39,15 @@ export class OrderRowUpdateQuantityTx extends Transaction {
         tx,
       );
 
-      return await this.orderRowRepo.getOrderRow(orderRowId, tx);
+      const orderRow = await this.orderRowRepo.getOrderRow(orderRowId, tx);
+      const { orderId } = orderRow;
+      console.log("output_log: order row =>>>", orderRow);
+
+      const order = await this.orderRepo.getOrder(orderId, tx);
+      const totalPrice = order.priceTotal + product.price * quantity;
+
+      await this.orderRepo.updateTotalPrice(orderId, totalPrice, tx);
+      return orderRow;
     };
 
     return await this.start(action);
@@ -46,5 +57,6 @@ export class OrderRowUpdateQuantityTx extends Transaction {
 export const orderRowUpdateQuantityTx = new OrderRowUpdateQuantityTx(
   dbClient,
   orderRowRepository,
+  orderRepository,
   productRepository,
 );

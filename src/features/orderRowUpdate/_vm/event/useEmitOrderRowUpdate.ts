@@ -7,6 +7,7 @@ export const useEmitOrderRowUpdate = () => {
 
   return {
     orderRowUpdateEvent: (orderId: OrderId) => {
+      console.log("output_log: update row =>>>", orderId);
       socket.emit(WSEventEnum.ORDER_UPDATE, orderId);
     },
   };

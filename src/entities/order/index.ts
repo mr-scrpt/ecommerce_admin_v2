@@ -14,6 +14,7 @@ export { useOrderListQuery } from "./_query/orderList.query";
 export { useOrderStatusGroupQuery } from "./_query/orderStatusGroup.query";
 export { OrderProductList } from "./_ui/orderProductList";
 export { OrderStatusForm } from "./_ui/orderStatusForm/orderStatusForm";
+export { useListenOrderListUpdate } from "./_vm/event/useListenOrderListUpdate";
 
 export type {
   Order,
