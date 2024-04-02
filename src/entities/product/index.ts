@@ -23,4 +23,5 @@ export type {
   ProductRelation,
   ProductToCreate,
   ProductToUpdate,
+  ProductToSelect,
 } from "./_domain/types";
