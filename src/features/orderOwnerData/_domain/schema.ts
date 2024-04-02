@@ -12,7 +12,7 @@ export const orderOwnerDataSchema = z.object({
   orderList: z.array(
     z.object({
       id: z.string(),
-      orderNo: z.string(),
+      orderNo: z.number(),
       userId: z.string(),
       createdAt: z.date(),
       priceTotal: z.number(),

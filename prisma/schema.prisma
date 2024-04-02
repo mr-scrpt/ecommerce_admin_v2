@@ -124,7 +124,7 @@ model CartRow {
 
 model Order {
   id        String   @id @default(uuid())
-  orderNo   String
+  orderNo   Int	     @default(autoincrement())
 
   user      User     @relation(fields: [userId], references: [id])
   userId    String

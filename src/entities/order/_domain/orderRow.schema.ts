@@ -18,7 +18,6 @@ export const orderRowSchema = z.object({
 });
 
 export const orderRowAddSchema = z.object({
-  // orderId: z.string(),
   productId: z.string(),
   quantity: z.number(),
 });

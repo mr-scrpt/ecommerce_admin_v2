@@ -8,7 +8,7 @@ export const orderStatusGroupSchema = z.object({
 });
 
 const orderBaseSchema = z.object({
-  orderNo: z.string(),
+  orderNo: z.number(),
   userId: z.string(),
   priceTotal: z.number(),
   createdAt: z.date(),
@@ -37,7 +37,7 @@ export const orderUpdateStausSchema = z.object({
 // NOTE: Main information
 
 export const orderFormGeneralSchema = z.object({
-  orderNo: z.string(),
+  orderNo: z.number(),
   orderStatus: z.custom<OrderStatusEnum>(),
   paymentStatus: z.custom<OrderPaymentStatusEnum>(),
 });

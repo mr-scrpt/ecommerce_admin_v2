@@ -19,7 +19,7 @@ export const orderToEnumMap = (order: OrderDBType): Order => ({
 });
 
 type OrderBase = {
-  orderNo: string;
+  orderNo: number;
   userId: string;
   orderStatus: OrderStatusEnum;
   paymentStatus: OrderPaymentStatusEnum;
@@ -43,7 +43,7 @@ export type OrderStatusGroup = {
 
 export type Order = OrderStatusGroup & {
   id: OrderId;
-  orderNo: string;
+  orderNo: number;
   userId: string;
   createdAt: Date;
   priceTotal: number;
@@ -54,6 +54,11 @@ export type OrderRelation = Order & {
 };
 
 // NOTE: Actions
+export type OrderToCreate = OrderStatusGroup & {
+  userId: string;
+  priceTotal: number;
+};
+
 export type OrderToUpdateStatus = OrderStatusGroup & {
   id: OrderId;
 };

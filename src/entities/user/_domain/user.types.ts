@@ -69,7 +69,7 @@ type UserCartRowEntity = {
 
 type UserOrderRelaion = {
   id: string;
-  orderNo: string;
+  orderNo: number;
   userId: string;
   createdAt: Date;
   orderStatus: string;

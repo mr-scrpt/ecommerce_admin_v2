@@ -43,6 +43,11 @@ export type OrderRow = OrderRowBaseProjection & {
 };
 
 // NOTE: Actions
+export type OrderRowToCreatePayload = {
+  productId: string;
+  quantity: number;
+};
+
 export type OrderRowToAddPayload = {
   orderId: string;
   productId: string;

@@ -3,6 +3,7 @@ import {
   OrderEntity,
   OrderId,
   OrderRelationEntity,
+  OrderToCreate,
   OrderToUpdateStatus,
 } from "../_domain/order.types";
 
@@ -63,6 +64,15 @@ export class OrderRepository {
   async getOrderList(db: Tx = this.db): Promise<OrderEntity[]> {
     const orderList = await db.order.findMany();
     return orderList;
+  }
+
+  async createOrder(
+    data: OrderToCreate,
+    db: Tx = this.db,
+  ): Promise<OrderEntity> {
+    return await db.order.create({
+      data,
+    });
   }
 
   async updateOrderStatus(

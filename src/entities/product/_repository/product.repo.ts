@@ -90,6 +90,21 @@ export class ProductRepository {
     return productList;
   }
 
+  async getTotalPrice(
+    productIdList: Array<ProductId>,
+    db: Tx = this.db,
+  ): Promise<number> {
+    const totalPrice = await db.product.aggregate({
+      where: {
+        id: { in: productIdList },
+      },
+      _sum: {
+        price: true,
+      },
+    });
+    return totalPrice._sum.price || 0;
+  }
+
   async createProduct(
     product: ProductToCreate,
     db: Tx = this.db,

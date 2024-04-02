@@ -11,7 +11,7 @@ export const useOwnerInfo = () => {
 
 export const useOrderInfo = () => {
   const { orderList } = useStrictContext(orderOwnerContext);
-  const orderListBuild = orderList?.sort((a, b) => +a.orderNo - +b.orderNo);
+  const orderListBuild = orderList?.sort((a, b) => a.orderNo - b.orderNo);
 
   return orderListBuild;
 };

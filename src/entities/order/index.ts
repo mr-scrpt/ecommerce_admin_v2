@@ -30,6 +30,7 @@ export type {
   OrderRow,
   OrderRowEntity,
   OrderRowToAdd,
+  OrderRowToCreatePayload,
   OrderRowToAddPayload,
   OrderRowToRemovePayload,
   OrderRowToUpdateQuantityPayload,

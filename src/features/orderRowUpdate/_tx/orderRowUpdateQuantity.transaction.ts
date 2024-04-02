@@ -41,7 +41,6 @@ export class OrderRowUpdateQuantityTx extends Transaction {
 
       const orderRow = await this.orderRowRepo.getOrderRow(orderRowId, tx);
       const { orderId } = orderRow;
-      console.log("output_log: order row =>>>", orderRow);
 
       const order = await this.orderRepo.getOrder(orderId, tx);
       const totalPrice = order.priceTotal + product.price * quantity;
