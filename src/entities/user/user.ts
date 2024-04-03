@@ -7,12 +7,7 @@ export { useUserListQuery } from "./_query/userList.query";
 export { getUserListAction } from "./_action/getUserList.action";
 export { createUserAbility } from "./_domain/user.ability";
 export { userRepository, UserRepository } from "./_repository/user.repo";
-export {
-  userSchema,
-  userFormDefaultSchema,
-  userUpdateSchema,
-  userCreateSchema,
-} from "./_domain/user.schema";
+export { userSchema, userFormDefaultSchema } from "./_domain/user.schema";
 export { UserFormElements } from "./_ui/userFormElements";
 export { useListenUserUpdate } from "./_vm/event/useListenUserUpdate";
 export { useListenUserListUpdate } from "./_vm/event/useListenUserListUpdate";

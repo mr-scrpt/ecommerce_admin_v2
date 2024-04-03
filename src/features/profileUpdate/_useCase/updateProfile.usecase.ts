@@ -1,11 +1,11 @@
 import { ForbiddenError } from "@/shared/lib/errors";
-import { createProfileAbility } from "../_domain/profile.ability";
+import { createProfileAbility } from "../../../entities/user/_domain/profile.ability";
 import {
   ProfileRepository,
   profileRepository,
-} from "../_repository/profile.repo";
+} from "../../../entities/user/_repository/profile.repo";
 import { SessionEntity, UserId } from "@/shared/lib/user";
-import { Profile, ProfileEntity } from "../_domain/profile.types";
+import { Profile, ProfileEntity } from "../../../entities/user/_domain/profile.types";
 
 type UpdateProfile = {
   userId: UserId;

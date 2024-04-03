@@ -10,7 +10,7 @@ interface OrderUpdateProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 export const OrderCreate: FC<OrderUpdateProps> = (props) => {
-  const { callbackUrl, orderId } = props;
+  const { callbackUrl } = props;
 
   const { orderRowUpdateQuantity } = useOrderRowUpdateQuantityMutation();
   const { removeOrderConfirm, isPending, isSuccess } = useOrderRemoveConfirm();

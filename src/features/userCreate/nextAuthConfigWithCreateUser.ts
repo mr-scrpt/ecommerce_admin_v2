@@ -1,7 +1,7 @@
 import { socketClient } from "@/shared/config/socket";
 import { WSEventEnum } from "@/shared/type/websokcetEvent.enum";
 import { AuthOptions } from "next-auth";
-import { createUserComplexibleUseCase } from "./_useCase/createUserComplexible.usecase";
+import { createUserRegistrationUseCase } from "./_useCase/createUserRegistration.usecase";
 import { nextAuthConfig } from "@/shared/session/server";
 
 export const nextAuthConfigWithCreateUser: AuthOptions = {
@@ -11,7 +11,7 @@ export const nextAuthConfigWithCreateUser: AuthOptions = {
     createUser: async (user) => {
       const socket = socketClient("");
       try {
-        const newUser = await createUserComplexibleUseCase.exec({
+        const newUser = await createUserRegistrationUseCase.exec({
           ...user,
           phone: user.phone ?? "",
         });

@@ -1,6 +1,6 @@
 import { ForbiddenError } from "@/shared/lib/errors";
-import { User, UserEntity } from "../_domain/user.types";
-import { UserRepository, createUserAbility, userRepository } from "../user";
+import { User, UserEntity } from "../../../entities/user/_domain/user.types";
+import { UserRepository, createUserAbility, userRepository } from "../../../entities/user/user";
 import { SessionEntity, UserId } from "@/shared/lib/user";
 
 type UpdateUser = {

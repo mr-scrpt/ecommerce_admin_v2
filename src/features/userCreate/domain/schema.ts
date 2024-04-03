@@ -1,8 +1,7 @@
 import { Role } from "@/shared/lib/user";
 import { z } from "zod";
 
-export const userUpdateSchema = z.object({
-  id: z.string(),
+export const userCreateSchema = z.object({
   name: z.string(),
   email: z.string(),
   phone: z.string(),
@@ -12,7 +11,7 @@ export const userUpdateSchema = z.object({
   createdAt: z.date(),
 });
 
-export const userUpdateFormSchema = z.object({
+export const userCreateFormSchema = z.object({
   email: z.string().email(),
   phone: z.string().or(z.literal("")),
   name: z
@@ -26,9 +25,9 @@ export const userUpdateFormSchema = z.object({
     .transform((name) => name.trim())
     .optional(),
 
-  image: z.string().optional(),
+  // image: z.string().optional(),
   emailVerified: z.date().nullable().optional(),
-  role: z.custom<Role>(),
+  // role: z.custom<Role>(),
 });
 
-export type UserUpdateFormValues = z.infer<typeof userUpdateFormSchema>;
+export type UserCreateFormValues = z.infer<typeof userCreateFormSchema>;

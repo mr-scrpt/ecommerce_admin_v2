@@ -38,27 +38,6 @@ export const userSchema = z.object({
   createdAt: z.date(),
 });
 
-export const userUpdateSchema = z.object({
-  id: z.string(),
-  name: z.string(),
-  email: z.string(),
-  phone: z.string(),
-  role: z.custom<Role>(),
-  emailVerified: z.date().nullable(),
-  image: z.string().nullable().optional(),
-  createdAt: z.date(),
-});
-
-export const userCreateSchema = z.object({
-  name: z.string(),
-  email: z.string(),
-  phone: z.string(),
-  role: z.custom<Role>(),
-  emailVerified: z.date().nullable(),
-  image: z.string().nullable().optional(),
-  createdAt: z.date(),
-});
-
 export const userWithCartSchema = z.object({
   ...userSchema.shape,
 

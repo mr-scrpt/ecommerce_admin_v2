@@ -3,29 +3,28 @@
 import { User, userSchema } from "@/entities/user/user";
 import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
 import { z } from "zod";
-import { updateUserUseCase } from "../useCase/updateUser.usecase";
-import { userUpdateSchema } from "../domain/schema";
+import { createUserUseCase } from "../_useCase/createUser.usecase";
+import { userCreateSchema } from "../domain/schema";
+import { ROLES } from "@/shared/lib/user";
 
 const propsSchema = z.object({
-  userId: z.string(),
-  data: userUpdateSchema.partial(),
+  data: userCreateSchema,
 });
 
 const resultSchema = z.object({
   user: userSchema,
 });
 
-export const updateUserAction = async (
+export const createUserAction = async (
   props: z.infer<typeof propsSchema>,
 ): Promise<{ user: User }> => {
-  const { userId, data } = propsSchema.parse(props);
+  const { data } = propsSchema.parse(props);
 
   const session = await getAppSessionStrictServer();
 
-  const user = await updateUserUseCase.exec({
+  const user = await createUserUseCase.exec({
     session,
-    userData: data,
-    userId,
+    userToCreate: { ...data, role: ROLES.USER },
   });
 
   return resultSchema.parseAsync({

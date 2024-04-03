@@ -49,7 +49,7 @@ type UserFormElementsType = FC<UserFormElementsProps> & {
 };
 
 const getDefaultValues = (user?: UserPartial) => ({
-  email: user?.email,
+  email: user?.email ?? "",
   name: user?.name ?? "",
   image: user?.image ?? "",
   phone: user?.phone ?? "",
@@ -129,6 +129,25 @@ UserFormElements.FieldEmailVerified = function FieldEmailVerified(props) {
     />
   );
 };
+UserFormElements.FieldName = function FieldName() {
+  const { control } = useFormContext<UserFormDefaultValues>();
+
+  return (
+    <FormField
+      control={control}
+      name="name"
+      render={({ field }) => (
+        <FormItem>
+          <FormLabel>Name</FormLabel>
+          <FormControl>
+            <Input placeholder="" {...field} />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  );
+};
 
 UserFormElements.FieldEmail = function FieldEmail() {
   const { control } = useFormContext<UserFormDefaultValues>();
@@ -177,45 +196,6 @@ UserFormElements.FieldPhone = function FieldPhone(props) {
     />
   );
 };
-
-UserFormElements.FieldName = function FieldName() {
-  const { control } = useFormContext<UserFormDefaultValues>();
-
-  return (
-    <FormField
-      control={control}
-      name="name"
-      render={({ field }) => (
-        <FormItem>
-          <FormLabel>Name</FormLabel>
-          <FormControl>
-            <Input placeholder="" {...field} />
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      )}
-    />
-  );
-};
-// UserFormElements.FieldTest = function FieldName() {
-//   const { control, register } = useFormContext();
-//
-//   return (
-//     <FormField
-//       control={control}
-//       name="test"
-//       render={({ field }) => (
-//         <FormItem>
-//           <FormLabel>Name</FormLabel>
-//           <FormControl>
-//             <Input placeholder="" {...field} />
-//           </FormControl>
-//           <FormMessage />
-//         </FormItem>
-//       )}
-//     />
-//   );
-// };
 
 UserFormElements.FieldAvatar = function FieldAvatar(props) {
   const { user } = props;
