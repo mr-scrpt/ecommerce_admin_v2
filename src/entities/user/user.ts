@@ -1,4 +1,8 @@
-export { getUserQuery, useInvalidateUser } from "./_query/user.query";
+export {
+  getUserQuery,
+  useInvalidateUser,
+  useUserQuery,
+} from "./_query/user.query";
 export { useUserListQuery } from "./_query/userList.query";
 export { getUserListAction } from "./_action/getUserList.action";
 export { createUserAbility } from "./_domain/user.ability";

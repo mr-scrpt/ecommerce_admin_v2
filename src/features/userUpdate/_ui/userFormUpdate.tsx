@@ -1,10 +1,9 @@
-import { useUserQuery } from "@/entities/user/_query/user.query";
+import { useUserQuery } from "@/entities/user/user";
 import { UserFormElements } from "@/entities/user/user";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes } from "react";
-import { z } from "zod";
 import { useUserUpdate } from "../_vm/useUserUpdate";
 import { UserUpdateFormValues, userUpdateFormSchema } from "../domain/schema";
 
