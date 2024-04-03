@@ -6,11 +6,14 @@ export const userUpdateFormSchema = z.object({
   phone: z.string().or(z.literal("")),
   name: z
     .string()
-    .min(3)
+    .min(2, {
+      message: "Name must be at least 2 characters.",
+    })
     .max(30, {
       message: "Username must not be longer than 30 characters.",
     })
-    .transform((name) => name.trim()),
+    .transform((name) => name.trim())
+    .optional(),
 
   image: z.string().optional(),
   emailVerified: z.date().nullable().optional(),

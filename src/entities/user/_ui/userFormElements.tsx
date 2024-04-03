@@ -13,19 +13,23 @@ import {
 } from "@/shared/ui/form";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { Input } from "@/shared/ui/input";
+import { PhoneInput } from "@/shared/ui/phoneInput";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, HTMLAttributes, useEffect } from "react";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
-import { UserFormValues, userFormSchema } from "../_domain/user.schema";
+import { Country } from "react-phone-number-input";
+import { ZodTypeAny } from "zod";
+import {
+  UserFormDefaultValues,
+  userFormDefaultSchema,
+} from "../_domain/user.schema";
 import { UserPartial } from "../user";
 import { AvatarField } from "./avatarField";
-import { PhoneInput } from "@/shared/ui/phoneInput";
-import { Country } from "react-phone-number-input";
-import { z } from "zod";
 
 interface UserFormElementsProps extends HTMLAttributes<HTMLFormElement> {
   user?: UserPartial;
-  handleSubmit: (data: UserFormValues) => void;
+  handleSubmit: (data: UserFormDefaultValues) => void;
+  schema?: ZodTypeAny;
 }
 
 interface OrderSubmitFieldProps {
@@ -54,10 +58,10 @@ const getDefaultValues = (user?: UserPartial) => ({
 });
 
 export const UserFormElements: UserFormElementsType = (props) => {
-  const { user, handleSubmit: onSubmit, children } = props;
+  const { user, handleSubmit: onSubmit, children, schema } = props;
 
-  const form = useForm<z.infer<typeof userFormSchema>>({
-    resolver: zodResolver(userFormSchema),
+  const form = useForm<UserFormDefaultValues>({
+    resolver: zodResolver(schema ?? userFormDefaultSchema),
     defaultValues: getDefaultValues(user),
   });
 
@@ -82,7 +86,7 @@ export const UserFormElements: UserFormElementsType = (props) => {
 
 UserFormElements.FieldRole = function FieldRole(props) {
   const { disabled = true } = props;
-  const { control } = useFormContext<UserFormValues>();
+  const { control } = useFormContext<UserFormDefaultValues>();
   return (
     <FormField
       control={control}
@@ -103,7 +107,7 @@ UserFormElements.FieldRole = function FieldRole(props) {
 
 UserFormElements.FieldEmailVerified = function FieldEmailVerified(props) {
   const { disabled = true } = props;
-  const { control } = useFormContext<UserFormValues>();
+  const { control } = useFormContext<UserFormDefaultValues>();
   return (
     <FormField
       control={control}
@@ -127,7 +131,7 @@ UserFormElements.FieldEmailVerified = function FieldEmailVerified(props) {
 };
 
 UserFormElements.FieldEmail = function FieldEmail() {
-  const { control } = useFormContext<UserFormValues>();
+  const { control } = useFormContext<UserFormDefaultValues>();
   return (
     <FormField
       control={control}
@@ -147,7 +151,7 @@ UserFormElements.FieldEmail = function FieldEmail() {
 
 UserFormElements.FieldPhone = function FieldPhone(props) {
   const { countryDefault = "UA" } = props;
-  const { control } = useFormContext<UserFormValues>();
+  const { control } = useFormContext<UserFormDefaultValues>();
 
   return (
     <FormField
@@ -175,7 +179,7 @@ UserFormElements.FieldPhone = function FieldPhone(props) {
 };
 
 UserFormElements.FieldName = function FieldName() {
-  const { control } = useFormContext<UserFormValues>();
+  const { control } = useFormContext<UserFormDefaultValues>();
 
   return (
     <FormField
@@ -215,7 +219,7 @@ UserFormElements.FieldName = function FieldName() {
 
 UserFormElements.FieldAvatar = function FieldAvatar(props) {
   const { user } = props;
-  const { control } = useFormContext<UserFormValues>();
+  const { control } = useFormContext<UserFormDefaultValues>();
 
   return (
     <FormField

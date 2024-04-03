@@ -1,9 +1,5 @@
 import { useUserQuery } from "@/entities/user/_query/user.query";
-import {
-  UserFormElements,
-  userCreateSchema,
-  userFormSchema,
-} from "@/entities/user/user";
+import { UserFormElements } from "@/entities/user/user";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
@@ -18,8 +14,6 @@ interface UserFormProps extends HTMLAttributes<HTMLDivElement> {
   className?: string;
   onSuccess?: () => void;
 }
-
-type UserFormValues = z.infer<typeof userFormSchema>;
 
 export const UserFormUpdate: FC<UserFormProps> = (props) => {
   const { userId, callbackUrl, className, onSuccess } = props;
@@ -44,7 +38,7 @@ export const UserFormUpdate: FC<UserFormProps> = (props) => {
     return <div>Failed to load user, you may not have permissions</div>;
   }
 
-  const handleSubmit = async (data: UserFormValues) => {
+  const handleSubmit = async (data: UserUpdateFormValues) => {
     await userUpdate({
       userId,
       data,
@@ -59,12 +53,16 @@ export const UserFormUpdate: FC<UserFormProps> = (props) => {
 
   return (
     <div className={cn(className, "w-full")}>
-      <UserFormElements handleSubmit={handleSubmit} user={data.user}>
+      <UserFormElements
+        handleSubmit={handleSubmit}
+        user={data.user}
+        schema={userUpdateFormSchema}
+      >
         <UserFormElements.FieldRole />
         <UserFormElements.FieldEmailVerified />
         <UserFormElements.FieldEmail />
+        <UserFormElements.FieldName />
         <UserFormElements.FieldPhone />
-        {/* <UserFormElements.FieldName /> */}
         <UserFormElements.FieldAvatar user={data.user} />
         <UserFormElements.SubmitButton
           isPending={isPendingComplexible}

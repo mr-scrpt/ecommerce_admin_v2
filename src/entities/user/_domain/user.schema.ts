@@ -1,5 +1,4 @@
 import { Role } from "@/shared/lib/user";
-import { isValidPhoneNumber } from "react-phone-number-input";
 import { z } from "zod";
 
 // Relations Entity
@@ -61,34 +60,18 @@ export const userCreateSchema = z.object({
 });
 
 export const userWithCartSchema = z.object({
-  // id: z.string(),
-  // name: z.string().nullable().optional(),
-  // email: z.string(),
-  // phone: z.string().nullable().optional(),
-  // role: z.custom<Role>(),
-  // emailVerified: z.date().nullable(),
-  // image: z.string().nullable().optional(),
-  // createdAt: z.date(),
   ...userSchema.shape,
 
   cart: userRelationCartSchema,
 });
 
 export const userWithOrderListSchema = z.object({
-  // id: z.string(),
-  // name: z.string().nullable().optional(),
-  // email: z.string(),
-  // phone: z.string().nullable().optional(),
-  // role: z.custom<Role>(),
-  // emailVerified: z.date().nullable(),
-  // image: z.string().nullable().optional(),
-  // createdAt: z.date(),
   ...userSchema.shape,
 
   orderList: z.array(userRelationOrderSchema),
 });
 
-export const userFormSchema = z.object({
+export const userFormDefaultSchema = z.object({
   email: z.string().email(),
   phone: z.string().or(z.literal("")),
   name: z
@@ -96,30 +79,13 @@ export const userFormSchema = z.object({
     .max(30, {
       message: "Username must not be longer than 30 characters.",
     })
-    .min(3)
-    .transform((name) => name.trim()),
-  image: z.string().optional(),
-  emailVerified: z.date().nullable().optional(),
-  role: z.custom<Role>(),
-});
-
-export type UserFormValues = z.infer<typeof userFormSchema>;
-
-export const userCreateFormSchema = z.object({
-  // email: z.string().email().optional(),
-  email: z.string().email(),
-  phone: z.string().or(z.literal("")),
-  name: z
-    .string()
-    .min(3)
-    .max(30, {
-      message: "Username must not be longer than 30 characters.",
+    .min(3, {
+      message: "Username must not be shorter than 3!! characters.",
     })
     .transform((name) => name.trim()),
-
   image: z.string().optional(),
   emailVerified: z.date().nullable().optional(),
   role: z.custom<Role>(),
 });
 
-export type UserCreateFormValues = z.infer<typeof userCreateFormSchema>;
+export type UserFormDefaultValues = z.infer<typeof userFormDefaultSchema>;

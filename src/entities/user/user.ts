@@ -5,7 +5,7 @@ export { createUserAbility } from "./_domain/user.ability";
 export { userRepository, UserRepository } from "./_repository/user.repo";
 export {
   userSchema,
-  userFormSchema,
+  userFormDefaultSchema,
   userUpdateSchema,
   userCreateSchema,
 } from "./_domain/user.schema";
@@ -14,4 +14,4 @@ export { useListenUserUpdate } from "./_vm/event/useListenUserUpdate";
 export { useListenUserListUpdate } from "./_vm/event/useListenUserListUpdate";
 
 export type { UserPartial, User, UserEntity } from "./_domain/user.types";
-export type { UserFormValues } from "./_domain/user.schema";
+export type { UserFormDefaultValues } from "./_domain/user.schema";
