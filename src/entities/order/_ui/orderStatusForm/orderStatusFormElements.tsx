@@ -40,6 +40,7 @@ interface OrderSubmitFieldProps {
   submitText: string;
   className?: string;
 }
+
 type OrderFormType = FC<OrderFormProps> & {
   SubmitButton: FC<OrderSubmitFieldProps>;
   SelectStatus: FC<HTMLAttributes<HTMLDivElement>>;
@@ -85,7 +86,7 @@ OrderStatusFormElements.SubmitButton = function SubmitButton(props) {
       {isPending && (
         <Spinner
           className="mr-2 h-4 w-4 animate-spin"
-          aria-label="Profile updating..."
+          aria-label="Order updating..."
         />
       )}
       {submitText}

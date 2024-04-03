@@ -3,8 +3,8 @@ import { Role, UserId } from "@/shared/lib/user";
 
 export type UserEntity = {
   id: UserId;
-  name?: string | null;
-  phone?: string;
+  name: string | null;
+  phone: string;
   email: string;
   role: Role;
   emailVerified?: Date | null;
@@ -22,7 +22,7 @@ export type UserWithOrdersEntity = UserEntity & {
 
 export type UserPartial = {
   email: string;
-  phone?: string | null;
+  phone: string;
   name?: string | null;
   image?: string | null;
   role: Role;

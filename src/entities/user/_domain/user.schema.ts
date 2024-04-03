@@ -39,6 +39,27 @@ export const userSchema = z.object({
   createdAt: z.date(),
 });
 
+export const userUpdateSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  email: z.string(),
+  phone: z.string(),
+  role: z.custom<Role>(),
+  emailVerified: z.date().nullable(),
+  image: z.string().nullable().optional(),
+  createdAt: z.date(),
+});
+
+export const userCreateSchema = z.object({
+  name: z.string(),
+  email: z.string(),
+  phone: z.string(),
+  role: z.custom<Role>(),
+  emailVerified: z.date().nullable(),
+  image: z.string().nullable().optional(),
+  createdAt: z.date(),
+});
+
 export const userWithCartSchema = z.object({
   // id: z.string(),
   // name: z.string().nullable().optional(),
@@ -66,26 +87,39 @@ export const userWithOrderListSchema = z.object({
 
   orderList: z.array(userRelationOrderSchema),
 });
+
 export const userFormSchema = z.object({
-  // email: z.string().email().optional(),
   email: z.string().email(),
-  phone: z
-    .string()
-    // .refine(isValidPhoneNumber, { message: "Invalid phone number" })
-    .or(z.literal(""))
-    .nullable()
-    .optional(),
+  phone: z.string().or(z.literal("")),
   name: z
     .string()
     .max(30, {
       message: "Username must not be longer than 30 characters.",
     })
-    .transform((name) => name.trim())
-    .optional(),
+    .min(3)
+    .transform((name) => name.trim()),
   image: z.string().optional(),
   emailVerified: z.date().nullable().optional(),
-  // role: z.string(),
   role: z.custom<Role>(),
 });
 
 export type UserFormValues = z.infer<typeof userFormSchema>;
+
+export const userCreateFormSchema = z.object({
+  // email: z.string().email().optional(),
+  email: z.string().email(),
+  phone: z.string().or(z.literal("")),
+  name: z
+    .string()
+    .min(3)
+    .max(30, {
+      message: "Username must not be longer than 30 characters.",
+    })
+    .transform((name) => name.trim()),
+
+  image: z.string().optional(),
+  emailVerified: z.date().nullable().optional(),
+  role: z.custom<Role>(),
+});
+
+export type UserCreateFormValues = z.infer<typeof userCreateFormSchema>;

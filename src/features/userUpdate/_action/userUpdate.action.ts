@@ -1,22 +1,22 @@
 "use server";
 
-import { z } from "zod";
-import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
-import { UserEntity, userSchema } from "@/entities/user/user";
+import { User, userUpdateSchema } from "@/entities/user/user";
 import { updateUserUseCase } from "@/entities/user/user.server";
+import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
+import { z } from "zod";
 
 const propsSchema = z.object({
   userId: z.string(),
-  data: userSchema.partial(),
+  data: userUpdateSchema.partial(),
 });
 
 const resultSchema = z.object({
-  user: userSchema,
+  user: userUpdateSchema,
 });
 
 export const updateUserAction = async (
   props: z.infer<typeof propsSchema>,
-): Promise<{ user: UserEntity }> => {
+): Promise<{ user: User }> => {
   const { userId, data } = propsSchema.parse(props);
 
   const session = await getAppSessionStrictServer();

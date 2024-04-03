@@ -30,7 +30,7 @@ export const AvatarField: FC<AvatarFieldProps> = (props) => {
       )}
       <ProfileAvatar
         className="h-full w-full"
-        profile={{ email: forLetters, image: value }}
+        profile={{ email: forLetters, image: value, phone: "" }}
       />
     </Button>
   );

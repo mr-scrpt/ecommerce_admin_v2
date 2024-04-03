@@ -20,6 +20,7 @@ export enum RoutePathEnum {
   SETTINGS = "/settings",
 
   ORDERS = "/orders",
+  ORDER_CREATE = "/orders/create",
   ORDER_UPDATE = "/orders/update",
 
   SIGN_IN = "/auth/sign-in",
