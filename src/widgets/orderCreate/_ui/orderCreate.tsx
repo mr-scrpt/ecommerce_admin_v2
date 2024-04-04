@@ -1,12 +1,11 @@
 "use client";
-import { useOrderRemoveConfirm } from "@/features/orderRowRemove";
-import { useOrderRowUpdateQuantityMutation } from "@/features/orderRowUpdate/_mutation/useOrderRowUpdateQuantity.mutation";
+import { OrderProductAdd, OrderRowCreate } from "@/features/orderRowAdd";
 import { OrderSelectOwner } from "@/features/orderSelectOwner";
 import { UserFormCreate } from "@/features/userCreate";
-import { useUserCreateMutation } from "@/features/userCreate/_mutation/useUserCreate.mutation";
+import { useUserCreateMutation } from "@/features/userCreate";
 import { UserCreate } from "@/features/userCreate/domain/types";
 import { RoutePathEnum } from "@/shared/config/routing.config";
-import { FC, HTMLAttributes } from "react";
+import { FC, HTMLAttributes, useState } from "react";
 
 interface OrderUpdateProps extends HTMLAttributes<HTMLDivElement> {
   callbackUrl: RoutePathEnum;
@@ -15,9 +14,15 @@ interface OrderUpdateProps extends HTMLAttributes<HTMLDivElement> {
 export const OrderCreate: FC<OrderUpdateProps> = (props) => {
   const { callbackUrl } = props;
 
-  const { orderRowUpdateQuantity } = useOrderRowUpdateQuantityMutation();
-  const { removeOrderConfirm, isPending, isSuccess } = useOrderRemoveConfirm();
   const { createUser } = useUserCreateMutation();
+
+  const [productList, setProductList] = useState<Array<OrderProductAdd>>([]);
+
+  const handleRowCreate = (product: OrderProductAdd) => {
+    setProductList([...productList, product]);
+  };
+
+  const productlIdList = productList.map((product) => product.productId);
 
   return (
     <div className="flex w-full flex-col gap-4">
@@ -28,7 +33,10 @@ export const OrderCreate: FC<OrderUpdateProps> = (props) => {
         isPending={false}
       />
       <OrderSelectOwner onSelectOwner={console.log} />
-      {/* <OrderRowAdd orderId={orderId} className="" /> */}
+      <OrderRowCreate
+        productIdList={productlIdList}
+        handleRowCreate={handleRowCreate}
+      />
       {/* <OrderRowList */}
       {/*   orderId={orderId} */}
       {/*   orderRowUpdateQuantity={orderRowUpdateQuantity} */}

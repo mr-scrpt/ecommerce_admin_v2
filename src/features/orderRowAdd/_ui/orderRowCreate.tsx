@@ -2,31 +2,27 @@
 import { OrderRowAddValues } from "@/entities/order/server";
 import { cn } from "@/shared/ui/utils";
 import { FC, HTMLAttributes } from "react";
-import { useOrderAddRowMutation } from "../_mutation/useOrderAddRow.mutation";
-import { useOrderProductListToSelect } from "../_vm/useOrderProductList";
+import { OrderProductAdd } from "../_domain/types";
+import { useNewOrderProductListToSelect } from "../_vm/useNewOrderProductList";
 import { OrderRowAddTmp } from "./tmp/orderRowAddTmp";
 
 interface OrderFormProps extends HTMLAttributes<HTMLDivElement> {
-  orderId: string;
-  className?: string;
+  handleRowCreate: (product: OrderProductAdd) => void;
+  productIdList: Array<string>;
 }
 
-export const OrderRowAdd: FC<OrderFormProps> = (props) => {
-  const { className, orderId } = props;
-  const { orderRowAdd, isPending: isPendingUpdate } = useOrderAddRowMutation();
+export const OrderRowCreate: FC<OrderFormProps> = (props) => {
+  const { className, productIdList, handleRowCreate } = props;
 
   const handleSubmit = async (data: OrderRowAddValues) => {
-    await orderRowAdd({
-      orderId,
-      data: {
-        productId: data.productId,
-        quantity: 1,
-      },
+    handleRowCreate({
+      productId: data.productId,
+      quantity: 1,
     });
   };
 
   const { productGroup, isPending, toSearch, searchValue } =
-    useOrderProductListToSelect(orderId);
+    useNewOrderProductListToSelect(productIdList);
 
   return (
     <OrderRowAddTmp
@@ -35,7 +31,7 @@ export const OrderRowAdd: FC<OrderFormProps> = (props) => {
       searchValue={searchValue}
       handleSubmit={handleSubmit}
       toSearch={toSearch}
-      isPending={isPending || isPendingUpdate}
+      isPending={isPending}
     />
   );
 };
