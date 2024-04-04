@@ -6,6 +6,7 @@ import {
   ProductRepository,
   productRepository,
 } from "../_repository/product.repo";
+import { SEARCH_MIN_LENGTH } from "@/shared/config/constant";
 
 type GetProductListSearch = {
   q: string;
@@ -23,7 +24,7 @@ class GetProductListSearchUseCase {
       throw new AuthorizatoinError();
     }
 
-    if (!q || q === "" || q.length < 3) {
+    if (!q || q === "" || q.length < SEARCH_MIN_LENGTH) {
       return [];
     }
     return await this.productRepo.getProductListSearch(q);

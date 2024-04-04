@@ -16,11 +16,10 @@ import { CaretSortIcon } from "@radix-ui/react-icons";
 import _ from "lodash";
 import { FC, HTMLAttributes, useEffect, useState } from "react";
 import { ControllerRenderProps, UseFormReturn } from "react-hook-form";
-import { ProductToSelectGroup } from "../../_domain/types";
+import { UserToSelect } from "../_domain/user.types";
 import { SEARCH_MIN_LENGTH } from "@/shared/config/constant";
 
-interface ProductSelectProps extends HTMLAttributes<HTMLDivElement> {
-  name: string;
+interface UserSelectProps extends HTMLAttributes<HTMLDivElement> {
   control: UseFormReturn<any>["control"];
   handleSelect?: (value: string) => void;
   toSearch?: (search: string) => void;
@@ -28,21 +27,20 @@ interface ProductSelectProps extends HTMLAttributes<HTMLDivElement> {
   isPending: boolean;
   minChars?: number;
   field: ControllerRenderProps<any, any>;
-  productGroup: ProductToSelectGroup;
+  userList: Array<UserToSelect>;
 }
 
-export const ProductSelect: FC<ProductSelectProps> = (props) => {
+export const UserSelect: FC<UserSelectProps> = (props) => {
   const {
     field,
-    productGroup,
+    userList,
     isPending,
     minChars = SEARCH_MIN_LENGTH,
     toSearch,
     className,
     searchValue,
+    handleSelect,
   } = props;
-
-  const { available, inOrder, outOfStock } = productGroup;
 
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState(searchValue);
@@ -72,9 +70,9 @@ export const ProductSelect: FC<ProductSelectProps> = (props) => {
               )}
             >
               {field.value
-                ? available.find((product) => product.value === field.value)
-                    ?.label || "Select product"
-                : "Select product"}
+                ? userList.find((user) => user.value === field.value)?.label ||
+                  "Select user"
+                : "Select user"}
               <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
             </Button>
           </FormControl>
@@ -82,7 +80,7 @@ export const ProductSelect: FC<ProductSelectProps> = (props) => {
         <PopoverContent className="w-[480px] p-0">
           <Command value={search} filter={() => 1}>
             <CommandInput
-              placeholder="Search product..."
+              placeholder="Search user..."
               className="h-9"
               onValueChange={setSearch}
               value={search}
@@ -93,67 +91,27 @@ export const ProductSelect: FC<ProductSelectProps> = (props) => {
               <CommandEmpty>
                 {search && search.length <= minChars
                   ? "Minimum 3 characters"
-                  : "Product not found"}
+                  : "User not found"}
               </CommandEmpty>
             )}
             <CommandList>
-              {available.length !== 0 && (
-                <CommandGroup heading="Available">
-                  {available.map((product) => {
+              {userList.length !== 0 && (
+                <CommandGroup heading="User">
+                  {userList.map((user) => {
                     return (
                       <CommandItem
-                        value={product.value}
-                        key={product.value}
-                        disabled={product.disabled || !product.inStock}
+                        value={user.value}
+                        key={user.value}
+                        // disabled={user.disabled || !user.inStock}
                         onSelect={() => {
-                          field.onChange(product.value);
+                          field.onChange(user.value);
+                          handleSelect?.(user.value);
                           setOpen(false);
                         }}
                         className="flex w-full items-center gap-2 text-sm"
                       >
-                        <div className="grow">{product.label}</div>
-                        <div>{product.article}</div>
-                      </CommandItem>
-                    );
-                  })}
-                </CommandGroup>
-              )}
-
-              {inOrder.length !== 0 && (
-                <CommandGroup heading="In order">
-                  {inOrder.map((product) => {
-                    return (
-                      <CommandItem
-                        value={product.value}
-                        key={product.value}
-                        disabled={true}
-                        className="flex w-full items-center gap-2 text-sm"
-                      >
-                        <div className="grow">{product.label}</div>
-                        <div>{product.article}</div>
-                        <div className="ml-auto flex max-w-[30px] gap-1 text-xs text-lime-400">
-                          in
-                        </div>
-                      </CommandItem>
-                    );
-                  })}
-                </CommandGroup>
-              )}
-              {outOfStock.length !== 0 && (
-                <CommandGroup heading="Out of stock">
-                  {outOfStock.map((product) => {
-                    return (
-                      <CommandItem
-                        value={product.value}
-                        key={product.value}
-                        disabled={true}
-                        className="flex w-full items-center gap-2 text-sm"
-                      >
-                        <div className="grow">{product.label}</div>
-                        <div>{product.article}</div>
-                        <div className="ml-auto flex max-w-[30px] gap-1 text-xs text-red-400">
-                          out
-                        </div>
+                        <div className="grow">{user.label}</div>
+                        <div>{user.phone}</div>
                       </CommandItem>
                     );
                   })}

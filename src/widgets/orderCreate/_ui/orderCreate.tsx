@@ -1,7 +1,10 @@
 "use client";
 import { useOrderRemoveConfirm } from "@/features/orderRowRemove";
 import { useOrderRowUpdateQuantityMutation } from "@/features/orderRowUpdate/_mutation/useOrderRowUpdateQuantity.mutation";
+import { OrderSelectOwner } from "@/features/orderSelectOwner";
 import { UserFormCreate } from "@/features/userCreate";
+import { useUserCreateMutation } from "@/features/userCreate/_mutation/useUserCreate.mutation";
+import { UserCreate } from "@/features/userCreate/domain/types";
 import { RoutePathEnum } from "@/shared/config/routing.config";
 import { FC, HTMLAttributes } from "react";
 
@@ -14,16 +17,18 @@ export const OrderCreate: FC<OrderUpdateProps> = (props) => {
 
   const { orderRowUpdateQuantity } = useOrderRowUpdateQuantityMutation();
   const { removeOrderConfirm, isPending, isSuccess } = useOrderRemoveConfirm();
+  const { createUser } = useUserCreateMutation();
 
   return (
     <div className="flex w-full flex-col gap-4">
       <UserFormCreate
-        onUserCreate={(user: any) => {
-          console.log("output_log: user =>>>", user);
+        onUserCreate={(user: UserCreate) => {
+          createUser({ data: user });
         }}
         isPending={false}
       />
-      {/* <OrderRowAdd orderId={orderId} className="flex w-full border p-4" /> */}
+      <OrderSelectOwner onSelectOwner={console.log} />
+      {/* <OrderRowAdd orderId={orderId} className="" /> */}
       {/* <OrderRowList */}
       {/*   orderId={orderId} */}
       {/*   orderRowUpdateQuantity={orderRowUpdateQuantity} */}

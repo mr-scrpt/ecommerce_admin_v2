@@ -4,10 +4,18 @@ export {
   orderRowRepository,
 } from "./_repository/orderRow.repo";
 
-export { orderRelationSchema } from "./_domain/order.schema";
+export {
+  orderRelationSchema,
+  orderSelectOwnerSchema,
+} from "./_domain/order.schema";
+
 export {
   orderRowAddSchema,
   orderRowSchema,
   orderRowRemoveSchema,
 } from "./_domain/orderRow.schema";
+
 export { createOrderAbility } from "./_domain/order.ability";
+
+export type { OrderRowAddValues } from "./_domain/orderRow.schema";
+export type { OrderSelectOwnerValues } from "./_domain/order.schema";

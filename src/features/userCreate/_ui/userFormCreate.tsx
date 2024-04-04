@@ -1,14 +1,14 @@
-import { UserToCreate } from "@/entities/user/_domain/user.types";
 import { UserFormElements } from "@/entities/user/user";
 import { cn } from "@/shared/ui/utils";
 import { FC, HTMLAttributes } from "react";
 import { UserCreateFormValues, userCreateFormSchema } from "../domain/schema";
+import { UserCreate } from "../domain/types";
 
 interface UserFormProps extends HTMLAttributes<HTMLDivElement> {
   callbackUrl?: string;
   className?: string;
   onSuccess?: () => void;
-  onUserCreate: (user: UserCreateFormValues) => void;
+  onUserCreate: (user: UserCreate) => void;
   isPending: boolean;
 }
 

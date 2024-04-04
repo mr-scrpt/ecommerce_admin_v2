@@ -29,12 +29,12 @@ export const userRelationOrderSchema = z.object({
 
 export const userSchema = z.object({
   id: z.string(),
-  name: z.string().nullable().optional(),
+  name: z.string(),
   email: z.string(),
   phone: z.string(),
   role: z.custom<Role>(),
   emailVerified: z.date().nullable(),
-  image: z.string().nullable().optional(),
+  image: z.string().nullable(),
   createdAt: z.date(),
 });
 

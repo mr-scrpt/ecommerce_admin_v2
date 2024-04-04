@@ -30,10 +30,8 @@ export type {
   OrderRow,
   OrderRowEntity,
   OrderRowToAdd,
-  OrderRowToCreatePayload,
   OrderRowToAddPayload,
+  OrderRowToCreatePayload,
   OrderRowToRemovePayload,
   OrderRowToUpdateQuantityPayload,
 } from "./_domain/orderRow.types";
-
-export type { OrderRowAddValues } from "./_domain/orderRow.schema";

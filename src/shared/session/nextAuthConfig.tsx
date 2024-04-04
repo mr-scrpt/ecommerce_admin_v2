@@ -1,15 +1,12 @@
 import { configPrivate } from "@/shared/config/private.config";
 import { dbClient } from "@/shared/lib/db";
 import { PrismaAdapter } from "@auth/prisma-adapter";
+import { deleteCookie } from "cookies-next";
 import { compact } from "lodash-es";
 import { AuthOptions } from "next-auth";
 import EmailProvider from "next-auth/providers/email";
 import GithubProvider from "next-auth/providers/github";
-import { cookies } from "next/headers";
-import { clientNetworkDataSchema } from "./schema";
-import { ClientNetworkData } from "./types";
-import { deleteCookie } from "cookies-next";
-import { COOKIE_NETWORK_NAME, clientNetworkData } from "./constant";
+import { COOKIE_NETWORK_NAME } from "./constant";
 import { getNetworkClientCookie } from "./coockieParser";
 
 const {

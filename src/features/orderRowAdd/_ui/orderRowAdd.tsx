@@ -1,5 +1,5 @@
 "use client";
-import { OrderRowAddValues, orderFormProductSchema } from "@/entities/order";
+import { OrderRowAddValues } from "@/entities/order/server";
 import { ProductSelect } from "@/entities/product";
 import { Button } from "@/shared/ui/button";
 import {
@@ -13,17 +13,13 @@ import {
 import { cn } from "@/shared/ui/utils";
 import { FC, HTMLAttributes } from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { useOrderAddRowMutation } from "../_mutation/useOrderAddRow.mutation";
 import { useOrderProductListToSelect } from "../_vm/useOrderProductList";
-import { orderRowAddSchema } from "@/entities/order/server";
 
 interface OrderFormProps extends HTMLAttributes<HTMLDivElement> {
   orderId: string;
   className?: string;
 }
-
-type OrderFormValues = z.infer<typeof orderRowAddSchema>;
 
 export const OrderRowAdd: FC<OrderFormProps> = (props) => {
   const { className, orderId } = props;
@@ -41,7 +37,7 @@ export const OrderRowAdd: FC<OrderFormProps> = (props) => {
     // onSuccess?.();
   };
 
-  const form = useForm<OrderFormValues>();
+  const form = useForm<OrderRowAddValues>();
   const { productGroup, isPending, toSearch, searchValue } =
     useOrderProductListToSelect(orderId);
 

@@ -58,6 +58,28 @@ export class UserRepository {
     return db.user.findMany();
   }
 
+  async getUserListSearch(q: string, db: Tx = this.db): Promise<UserEntity[]> {
+    return db.user.findMany({
+      where: {
+        OR: [
+          {
+            name: {
+              contains: q,
+
+              mode: "insensitive",
+            },
+          },
+          {
+            phone: {
+              contains: q,
+              mode: "insensitive",
+            },
+          },
+        ],
+      },
+    });
+  }
+
   async createUser(user: UserToCreate, db: Tx = this.db): Promise<UserEntity> {
     return await db.user.create({
       data: user,

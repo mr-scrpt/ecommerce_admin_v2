@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { orderSelectOwnerSchema } from "./order.schema";
 
 const orderRowBaseSchema = z.object({
   orderId: z.string(),
@@ -27,8 +28,8 @@ export const orderRowRemoveSchema = z.object({
 });
 
 // NOTE: FORM
+
 // NOTE: Main information
-//
 export const orderRowAddForm = z.object({
   productId: z.string(),
   quantity: z.number(),

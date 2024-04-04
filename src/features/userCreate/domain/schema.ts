@@ -5,10 +5,10 @@ export const userCreateSchema = z.object({
   name: z.string(),
   email: z.string(),
   phone: z.string(),
-  role: z.custom<Role>(),
-  emailVerified: z.date().nullable(),
-  image: z.string().nullable().optional(),
-  createdAt: z.date(),
+  // role: z.custom<Role>(),
+  // emailVerified: z.date().nullable(),
+  // image: z.string().nullable().optional(),
+  // createdAt: z.date(),
 });
 
 export const userCreateFormSchema = z.object({
@@ -22,11 +22,10 @@ export const userCreateFormSchema = z.object({
     .max(30, {
       message: "Username must not be longer than 30 characters.",
     })
-    .transform((name) => name.trim())
-    .optional(),
+    .transform((name) => name.trim()),
 
   // image: z.string().optional(),
-  emailVerified: z.date().nullable().optional(),
+  // emailVerified: z.date().nullable().optional(),
   // role: z.custom<Role>(),
 });
 

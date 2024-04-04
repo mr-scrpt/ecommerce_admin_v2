@@ -29,14 +29,14 @@ export type UserPartial = {
   emailVerified?: Date | null;
 };
 
-// Projetions
+// NOTE: Projetions
 
 export type User = {
   id: UserId;
-  email?: string;
-  phone?: string;
-  name?: string | null;
-  image?: string | null;
+  email: string;
+  phone: string;
+  name: string;
+  image: string | null;
 };
 
 export type UserToCreate = {
@@ -48,7 +48,7 @@ export type UserToCreate = {
   role: Role;
 };
 
-// Side
+// NOTE: Side
 type UserCart = {
   id: string;
   userId: string;
@@ -74,4 +74,13 @@ type UserOrderRelaion = {
   createdAt: Date;
   orderStatus: string;
   paymentStatus: string;
+};
+
+// NOTE: UI
+export type UserToSelect = {
+  value: string;
+  name: string;
+  phone: string;
+  label: string;
+  // disabled: boolean;
 };
