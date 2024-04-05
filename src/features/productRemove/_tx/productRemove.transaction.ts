@@ -3,11 +3,11 @@ import {
   ProductRepository,
   productRepository,
 } from "@/entities/product/server";
-import { DbClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
+import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
 
 export class ProductRemoveTx extends Transaction {
   constructor(
-    readonly db: DbClient,
+    readonly db: DBClient,
     private readonly productRepo: ProductRepository,
   ) {
     super(dbClient);

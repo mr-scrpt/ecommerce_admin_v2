@@ -1,4 +1,4 @@
-import { DbClient, Tx, dbClient } from "@/shared/lib/db";
+import { DBClient, Tx, dbClient } from "@/shared/lib/db";
 import { PropertyId } from "../_domain/property/types";
 import {
   PropertyItemCombineCreate,
@@ -9,7 +9,7 @@ import {
 } from "../_domain/propertyItem/types";
 
 export class PropertyItemRepository {
-  constructor(readonly db: DbClient) {}
+  constructor(readonly db: DBClient) {}
 
   async getPropertyItem(
     propertyItemId: PropertyItemId,

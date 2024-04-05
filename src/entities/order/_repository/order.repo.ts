@@ -1,4 +1,4 @@
-import { DbClient, Tx, dbClient } from "@/shared/lib/db";
+import { DBClient, Tx, dbClient } from "@/shared/lib/db";
 import {
   OrderEntity,
   OrderId,
@@ -8,7 +8,7 @@ import {
 } from "../_domain/order.types";
 
 export class OrderRepository {
-  constructor(readonly db: DbClient) {}
+  constructor(readonly db: DBClient) {}
 
   async getOrder(orderId: OrderId, db: Tx = this.db): Promise<OrderEntity> {
     const result = await db.order.findUniqueOrThrow({

@@ -1,4 +1,4 @@
-import { DbClient, Tx, dbClient } from "@/shared/lib/db";
+import { DBClient, Tx, dbClient } from "@/shared/lib/db";
 import {
   CartEntity,
   CartId,
@@ -8,7 +8,7 @@ import {
 } from "../_domain/types";
 
 export class CartRepository {
-  constructor(readonly db: DbClient) {}
+  constructor(readonly db: DBClient) {}
 
   // async getCart(cartId: CartId, db: Tx = this.db): Promise<CartEntity> {
   //   return db.cart.findUniqueOrThrow({

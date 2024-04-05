@@ -1,3 +1,5 @@
+import "./reflect-metadata-client-side";
+
 import { cn } from "@/shared/ui/utils";
 import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";

@@ -1,9 +1,9 @@
-import { DbClient, Tx, dbClient } from "@/shared/lib/db";
+import { DBClient, Tx, dbClient } from "@/shared/lib/db";
 import { UserId } from "@/shared/lib/user";
 import { Profile, ProfileEntity } from "../_domain/profile.types";
 
 export class ProfileRepository {
-  constructor(readonly db: DbClient) {}
+  constructor(readonly db: DBClient) {}
 
   async getProfile(userId: UserId, db: Tx = this.db): Promise<ProfileEntity> {
     return db.user.findUniqueOrThrow({

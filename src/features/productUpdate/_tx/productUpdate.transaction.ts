@@ -1,5 +1,5 @@
 import { ProductEntity } from "@/entities/product";
-import { DbClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
+import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
 import {
   ProductRepository,
   productRepository,
@@ -8,7 +8,7 @@ import { ProductUpdateComplexible } from "../_domain/types";
 
 export class ProductUpdateTx extends Transaction {
   constructor(
-    readonly db: DbClient,
+    readonly db: DBClient,
     private readonly productRepo: ProductRepository,
   ) {
     super(dbClient);

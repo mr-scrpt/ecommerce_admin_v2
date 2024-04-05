@@ -1,4 +1,4 @@
-import { DbClient, Tx, dbClient } from "@/shared/lib/db";
+import { DBClient, Tx, dbClient } from "@/shared/lib/db";
 import {
   Property,
   PropertyEntity,
@@ -8,7 +8,7 @@ import {
 } from "../_domain/property/types";
 
 export class PropertyRepository {
-  constructor(readonly db: DbClient) {}
+  constructor(readonly db: DBClient) {}
 
   async getProperty(
     propertyId: PropertyId,

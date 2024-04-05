@@ -5,7 +5,7 @@ import {
   cartRepository,
   cartRowRepository,
 } from "@/entities/cart/server";
-import { DbClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
+import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
 import { CartRowChangeCountProductTxData } from "../_domain/types";
 
 interface Operations {
@@ -14,7 +14,7 @@ interface Operations {
 
 export class CartRowChangeCountProductTx extends Transaction {
   constructor(
-    readonly db: DbClient,
+    readonly db: DBClient,
     private readonly cartRepo: CartRepository,
     private readonly cartRowRepo: CartRowRepository,
   ) {

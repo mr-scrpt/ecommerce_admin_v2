@@ -1,5 +1,5 @@
 import { CategoryEntity } from "@/entities/category";
-import { DbClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
+import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
 import { CategoryCreateComplexible } from "../_domain/types";
 import {
   CategoryRepository,
@@ -8,7 +8,7 @@ import {
 
 export class CategoryCreateTx extends Transaction {
   constructor(
-    readonly db: DbClient,
+    readonly db: DBClient,
     private readonly categoryRepo: CategoryRepository,
   ) {
     super(dbClient);

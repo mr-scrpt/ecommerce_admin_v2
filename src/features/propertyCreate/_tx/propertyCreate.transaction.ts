@@ -5,12 +5,12 @@ import {
   propertyItemRepository,
   propertyRepository,
 } from "@/entities/property/server";
-import { DbClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
+import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
 import { PropertyCreateComplexible } from "../_domain/types";
 
 export class PropertyCreateTx extends Transaction {
   constructor(
-    readonly db: DbClient,
+    readonly db: DBClient,
     private readonly propertyRepo: PropertyRepository,
     private readonly propertyItemRepo: PropertyItemRepository,
   ) {

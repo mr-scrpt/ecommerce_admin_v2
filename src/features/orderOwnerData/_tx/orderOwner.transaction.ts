@@ -1,11 +1,11 @@
 import { OrderRepository, orderRepository } from "@/entities/order/server";
 import { UserRepository, userRepository } from "@/entities/user/user";
-import { DbClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
+import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
 import { OrderOwnerDataEntity } from "../_domain/types";
 
 export class OrderOwnerTx extends Transaction {
   constructor(
-    readonly db: DbClient,
+    readonly db: DBClient,
     private readonly orderRepo: OrderRepository,
     private readonly userRepo: UserRepository,
   ) {

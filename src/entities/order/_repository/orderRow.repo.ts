@@ -1,4 +1,4 @@
-import { DbClient, Tx, dbClient } from "@/shared/lib/db";
+import { DBClient, Tx, dbClient } from "@/shared/lib/db";
 import {
   OrderRowChangeQuantity,
   OrderRowEntity,
@@ -6,7 +6,7 @@ import {
 } from "../_domain/orderRow.types";
 
 export class OrderRowRepository {
-  constructor(readonly db: DbClient) {}
+  constructor(readonly db: DBClient) {}
 
   async getOrerRowList(
     orderId: string,

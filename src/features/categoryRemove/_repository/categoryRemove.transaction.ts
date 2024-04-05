@@ -3,11 +3,11 @@ import {
   CategoryRepository,
   categoryRepository,
 } from "@/entities/category/server";
-import { DbClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
+import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
 
 export class CategoryRemoveTx extends Transaction {
   constructor(
-    readonly db: DbClient,
+    readonly db: DBClient,
     private readonly categoryRepo: CategoryRepository,
   ) {
     super(dbClient);

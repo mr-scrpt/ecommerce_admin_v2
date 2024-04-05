@@ -1,4 +1,4 @@
-import { DbClient, Tx, dbClient } from "@/shared/lib/db";
+import { Tx, dbClient } from "@/shared/lib/db";
 import {
   CategoryAddProductList,
   CategoryAddPropertyList,
@@ -8,9 +8,12 @@ import {
   CategoryToCreate,
   CategoryToUpdate,
 } from "../_domain/types";
+import { injectable } from "inversify";
+import { PrismaClient } from "@prisma/client";
 
+@injectable()
 export class CategoryRepository {
-  constructor(readonly db: DbClient) {}
+  constructor(readonly db: PrismaClient) {}
 
   async getCategory(
     categoryId: CategoryId,
@@ -37,13 +40,6 @@ export class CategoryRepository {
       },
     });
 
-    // return {
-    //   ...res,
-    //   propertyList: res.propertyList.map((item) => ({
-    //     ...item,
-    //     datatype: mapPrismaDatatypeToEnum(item.datatype),
-    //   })),
-    // };
     return res;
   }
 
@@ -138,5 +134,3 @@ export class CategoryRepository {
     return await db.category.delete({ where: { id: categoryId } });
   }
 }
-
-export const categoryRepository = new CategoryRepository(dbClient);

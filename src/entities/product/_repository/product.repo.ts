@@ -1,4 +1,4 @@
-import { DbClient, Tx, dbClient } from "@/shared/lib/db";
+import { DBClient, Tx, dbClient } from "@/shared/lib/db";
 import {
   ProductAddCategoryList,
   ProductAddPropertyList,
@@ -10,7 +10,7 @@ import {
 } from "../_domain/types";
 
 export class ProductRepository {
-  constructor(readonly db: DbClient) {}
+  constructor(readonly db: DBClient) {}
 
   async getProduct(
     productId: ProductId,

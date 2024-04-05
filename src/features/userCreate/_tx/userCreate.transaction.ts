@@ -1,11 +1,11 @@
 import { CartRepository, cartRepository } from "@/entities/cart/server";
 import { UserEntity, UserToCreate } from "@/entities/user/_domain/user.types";
 import { UserRepository, userRepository } from "@/entities/user/user";
-import { DbClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
+import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
 
 export class UserCreateTx extends Transaction {
   constructor(
-    readonly db: DbClient,
+    readonly db: DBClient,
     private readonly userRepo: UserRepository,
     private readonly cartRepo: CartRepository,
   ) {

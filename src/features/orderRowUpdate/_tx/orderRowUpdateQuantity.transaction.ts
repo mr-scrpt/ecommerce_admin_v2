@@ -9,12 +9,12 @@ import {
   ProductRepository,
   productRepository,
 } from "@/entities/product/server";
-import { DbClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
+import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
 import { OrderRowUpdateQuantityComplexible } from "../_domain/types";
 
 export class OrderRowUpdateQuantityTx extends Transaction {
   constructor(
-    readonly db: DbClient,
+    readonly db: DBClient,
     private readonly orderRowRepo: OrderRowRepository,
     private readonly orderRepo: OrderRepository,
     private readonly productRepo: ProductRepository,

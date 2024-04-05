@@ -5,7 +5,7 @@ import {
   orderRepository,
   orderRowRepository,
 } from "@/entities/order/server";
-import { DbClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
+import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
 import { OrderCreateComplexible } from "../_domain/types";
 import {
   ProductRepository,
@@ -14,7 +14,7 @@ import {
 
 export class OrderCreateTx extends Transaction {
   constructor(
-    readonly db: DbClient,
+    readonly db: DBClient,
     private readonly orderRepo: OrderRepository,
     private readonly orderRowRepo: OrderRowRepository,
     private readonly productRepo: ProductRepository,

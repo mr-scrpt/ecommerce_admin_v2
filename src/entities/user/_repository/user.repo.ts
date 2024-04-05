@@ -1,4 +1,4 @@
-import { DbClient, Tx, dbClient } from "@/shared/lib/db";
+import { DBClient, Tx, dbClient } from "@/shared/lib/db";
 import {
   User,
   UserEntity,
@@ -9,7 +9,7 @@ import {
 import { UserId } from "@/shared/lib/user";
 
 export class UserRepository {
-  constructor(readonly db: DbClient) {}
+  constructor(readonly db: DBClient) {}
 
   async getUser(userId: UserId, db: Tx = this.db): Promise<UserEntity> {
     const user = await db.user.findUniqueOrThrow({

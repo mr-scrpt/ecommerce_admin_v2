@@ -1,11 +1,11 @@
 import { UserEntity } from "@/entities/user/_domain/user.types";
 import { UserRepository, userRepository } from "@/entities/user/user";
-import { DbClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
+import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
 import { UserId } from "@/shared/lib/user";
 
 export class UserRemoveTx extends Transaction {
   constructor(
-    readonly db: DbClient,
+    readonly db: DBClient,
     private readonly userRepo: UserRepository,
   ) {
     super(dbClient);

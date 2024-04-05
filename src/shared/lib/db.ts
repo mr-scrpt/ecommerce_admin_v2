@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 
 export class Transaction {
-  constructor(readonly db: DbClient) {}
+  constructor(readonly db: DBClient) {}
 
   async start<T>(callback: (tx: Tx) => Promise<T>): Promise<T> {
     const result = await this.db.$transaction(async (transaction) => {
@@ -12,7 +12,7 @@ export class Transaction {
   }
 }
 
-export class DbClient extends PrismaClient {
+export class DBClient extends PrismaClient {
   constructor() {
     super({
       log: ["info"],
@@ -21,8 +21,8 @@ export class DbClient extends PrismaClient {
 }
 
 export type Tx = Omit<
-  DbClient,
+  DBClient,
   "$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends"
 >;
 
-export const dbClient = new DbClient();
+export const dbClient = new DBClient();

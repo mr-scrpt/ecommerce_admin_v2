@@ -95,6 +95,9 @@ dependencies:
   express:
     specifier: ^4.18.2
     version: 4.18.2
+  inversify:
+    specifier: ^6.0.2
+    version: 6.0.2
   lodash:
     specifier: ^4.17.21
     version: 4.17.21
@@ -131,6 +134,9 @@ dependencies:
   react-phone-number-input:
     specifier: ^3.3.9
     version: 3.3.9(react-dom@18.2.0)(react@18.2.0)
+  reflect-metadata:
+    specifier: ^0.2.2
+    version: 0.2.2
   slugify:
     specifier: ^1.6.6
     version: 1.6.6
@@ -5876,6 +5882,10 @@ packages:
       loose-envify: 1.4.0
     dev: false
 
+  /inversify@6.0.2:
+    resolution: {integrity: sha512-i9m8j/7YIv4mDuYXUAcrpKPSaju/CIly9AHK5jvCBeoiM/2KEsuCQTTP+rzSWWpLYWRukdXFSl6ZTk2/uumbiA==}
+    dev: false
+
   /ipaddr.js@1.9.1:
     resolution: {integrity: sha512-0KI/607xoxSToH7GjN1FfSbLoU0+btTicjsQSWQlh/hZykN8KpmMf7uYwPW3R+akZ6R/w18ZlXSHBYXiYUPO3g==}
     engines: {node: '>= 0.10'}
@@ -7738,6 +7748,10 @@ packages:
       indent-string: 4.0.0
       strip-indent: 3.0.0
     dev: true
+
+  /reflect-metadata@0.2.2:
+    resolution: {integrity: sha512-urBwgfrvVP/eAyXx4hluJivBKzuEbSQs9rKWCrCkbSxNv8mxPcUZKeuoF3Uy4mJl3Lwprp6yy5/39VWigZ4K6Q==}
+    dev: false
 
   /reflect.getprototypeof@1.0.4:
     resolution: {integrity: sha512-ECkTw8TmJwW60lOTR+ZkODISW6RQ8+2CL3COqtiJKLd6MmB45hN51HprHFziKLGkAuTGQhBb91V8cy+KHlaCjw==}

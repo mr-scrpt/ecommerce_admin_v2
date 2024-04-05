@@ -5,12 +5,12 @@ import {
   orderRepository,
   orderRowRepository,
 } from "@/entities/order/server";
-import { DbClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
+import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
 import { OrderRowRemoveComplexible } from "../_domain/types";
 
 export class OrderRowRemoveTx extends Transaction {
   constructor(
-    readonly db: DbClient,
+    readonly db: DBClient,
     private readonly orderRowRepo: OrderRowRepository,
     private readonly orderRepo: OrderRepository,
   ) {
