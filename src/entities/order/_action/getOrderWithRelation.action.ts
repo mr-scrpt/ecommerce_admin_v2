@@ -2,8 +2,8 @@
 import { z } from "zod";
 import { orderRelationSchema } from "../_domain/order.schema";
 import { OrderRelation } from "../_domain/order.types";
-import { getOrderWithRelationUseCase } from "../_usecase/getOrderWithRelation.usecase";
 import { getAppSessionStrictServer } from "@/shared/session/server";
+import { getOrderWithRelationUseCase } from "../_usecase/instans.usecase";
 
 const propsSchema = z.object({
   orderId: z.string(),

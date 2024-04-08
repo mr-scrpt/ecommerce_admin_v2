@@ -1,11 +1,10 @@
 import { CategoryEntity } from "@/entities/category";
 import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
 import { CategoryUpdateComplexible } from "../_domain/types";
-import {
-  CategoryRepository,
-  categoryRepository,
-} from "@/entities/category/server";
+import { CategoryRepository } from "@/entities/category/server";
+import { injectable } from "inversify";
 
+@injectable()
 export class CategoryUpdateTx extends Transaction {
   constructor(
     readonly db: DBClient,
@@ -35,12 +34,7 @@ export class CategoryUpdateTx extends Transaction {
 
       return await this.categoryRepo.getCategory(categoryUpdated.id, tx);
     };
-    //
+
     return await this.start(action);
   }
 }
-
-export const categoryUpdateTx = new CategoryUpdateTx(
-  dbClient,
-  categoryRepository,
-);

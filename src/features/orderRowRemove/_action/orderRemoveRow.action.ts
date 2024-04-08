@@ -3,7 +3,7 @@ import { z } from "zod";
 
 import { Order, orderSchema } from "@/entities/order";
 import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
-import { removeOrderRowComplexibleUseCase } from "../_usecase/orderRemoveRowComplexible.usecase";
+import { removeOrderRowComplexibleUseCase } from "../_usecase/instans.usecase";
 
 const propsSchema = z.object({
   orderRowId: z.string(),

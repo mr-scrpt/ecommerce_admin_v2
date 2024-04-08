@@ -1,8 +1,8 @@
 import { z } from "zod";
-import { categorySchema } from "..";
 import { Category } from "../_domain/types";
 import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
-import { getCategoryBySlugUseCase } from "../_usecase/getCategoryBySlug.usecase";
+import { getCategoryBySlugUseCase } from "../_usecase/instans.usecase";
+import { categorySchema } from "../_domain/category.schema";
 
 const propsSchema = z.object({
   categorySlug: z.string(),

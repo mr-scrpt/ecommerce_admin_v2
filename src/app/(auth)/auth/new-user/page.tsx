@@ -11,6 +11,7 @@ const NewUserPage: FC<PageProps> = async (props) => {
   const { searchParams } = props;
   const { callbackUrl } = searchParams;
   const session = await getAppSessionServerOrRedirect();
+
   return (
     <main className="container space-y-6 py-14">
       <div className="flex flex-col items-center">
@@ -22,10 +23,9 @@ const NewUserPage: FC<PageProps> = async (props) => {
       <Separator />
       <div className="flex justify-center">
         <ProfileFormUpdate
-          userId={session.user.id}
+          profileId={session.user.id}
           callbackUrl={callbackUrl}
           className="max-w-[500px]"
-          countryDefault={session.clientNetworkData.country ?? "UA"}
         />
       </div>
     </main>

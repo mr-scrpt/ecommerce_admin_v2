@@ -2,17 +2,16 @@ import { AuthorizatoinError } from "@/shared/lib/errors";
 import { SessionEntity } from "@/shared/lib/user";
 import { createProductAbility } from "../_domain/product.ability";
 import { ProductId, ProductRelationEntity } from "../_domain/types";
-import {
-  ProductRepository,
-  productRepository,
-} from "../_repository/product.repo";
+import { ProductRepository } from "../_repository/product.repo";
+import { injectable } from "inversify";
 
 type GetProductWithRelation = {
   productId: ProductId;
   session: SessionEntity;
 };
 
-class GetProductWithRelationUseCase {
+@injectable()
+export class GetProductWithRelationUseCase {
   constructor(private readonly productRepo: ProductRepository) {}
 
   async exec(data: GetProductWithRelation): Promise<ProductRelationEntity> {
@@ -26,7 +25,3 @@ class GetProductWithRelationUseCase {
     return await this.productRepo.getProductWithRelation(productId);
   }
 }
-
-export const getProductWithRelationUseCase = new GetProductWithRelationUseCase(
-  productRepository,
-);

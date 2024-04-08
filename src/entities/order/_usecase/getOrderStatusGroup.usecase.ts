@@ -6,14 +6,16 @@ import {
   OrderRelationEntity,
   OrderStatusGroup,
 } from "../_domain/order.types";
-import { OrderRepository, orderRepository } from "../_repository/order.repo";
+import { OrderRepository } from "../_repository/order.repo";
+import { injectable } from "inversify";
 
 type GetOrderStatusGroup = {
   orderId: OrderId;
   session: SessionEntity;
 };
 
-class GetOrderStatusGroupUseCase {
+@injectable()
+export class GetOrderStatusGroupUseCase {
   constructor(private readonly orderRepo: OrderRepository) {}
 
   async exec(data: GetOrderStatusGroup): Promise<OrderStatusGroup> {
@@ -36,7 +38,3 @@ class GetOrderStatusGroupUseCase {
     };
   }
 }
-
-export const getOrderStatusGroupUseCase = new GetOrderStatusGroupUseCase(
-  orderRepository,
-);

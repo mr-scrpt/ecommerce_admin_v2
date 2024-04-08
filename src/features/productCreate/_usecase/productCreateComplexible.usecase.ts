@@ -2,18 +2,17 @@ import { ProductEntity } from "@/entities/product";
 import { ForbiddenError } from "@/shared/lib/errors";
 import { SessionEntity } from "@/shared/lib/user";
 import { ProductCreateComplexible } from "../_domain/types";
-import {
-  ProductCreateTx,
-  productCreateTx,
-} from "../_tx/productCreate.transaction";
+import { ProductCreateTx } from "../_tx/productCreate.transaction";
 import { createProductAbility } from "@/entities/product/server";
+import { injectable } from "inversify";
 
 type CreateProduct = {
   dataToCreate: ProductCreateComplexible;
   session: SessionEntity;
 };
 
-class CreateProductComplexibleUseCase {
+@injectable()
+export class CreateProductComplexibleUseCase {
   constructor(private readonly productCreateTx: ProductCreateTx) {}
 
   async exec(data: CreateProduct): Promise<ProductEntity> {
@@ -28,6 +27,3 @@ class CreateProductComplexibleUseCase {
     return await this.productCreateTx.createProductComplexible(dataToCreate);
   }
 }
-
-export const createProductComplexibleUseCase =
-  new CreateProductComplexibleUseCase(productCreateTx);

@@ -1,5 +1,5 @@
 "use client";
-import { getOwnerWithOrderListAction } from "@/features/orderOwnerData/_action/getOwnerWithOrderList.action";
+import { getOrderOwnerDataAction } from "@/features/orderOwnerData/_action/getOrderOwnerData.action";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { baseQueryKey } from "../_domain/types";
 import { useListenOrderOwnerUpdate } from "../_vm/event/useListenOrderOwnerUpdate";
@@ -7,7 +7,7 @@ import { useListenOrderOwnerUpdate } from "../_vm/event/useListenOrderOwnerUpdat
 export const getOrderOwnerQuery = (orderId: string) => ({
   queryKey: [baseQueryKey, "getOrderOwner", orderId],
 
-  queryFn: () => getOwnerWithOrderListAction({ orderId }),
+  queryFn: () => getOrderOwnerDataAction({ orderId }),
 });
 
 export const useOrderOwnerQuery = (orderId: string) => {

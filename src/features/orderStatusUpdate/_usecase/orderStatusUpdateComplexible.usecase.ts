@@ -3,17 +3,16 @@ import { createOrderAbility } from "@/entities/order/server";
 import { ForbiddenError } from "@/shared/lib/errors";
 import { SessionEntity } from "@/shared/lib/user";
 import { OrderUpdateStatusComplexible } from "../_domain/types";
-import {
-  OrderUpdateStatusTx,
-  orderUpdateStatusTx,
-} from "../_tx/orderStatusUpdate.transaction";
+import { OrderUpdateStatusTx } from "../_tx/orderStatusUpdate.transaction";
+import { injectable } from "inversify";
 
 type UpdateOrderStatus = {
   dataToUpdate: OrderUpdateStatusComplexible;
   session: SessionEntity;
 };
 
-class UpdateOrderStatusComplexibleUseCase {
+@injectable()
+export class UpdateOrderStatusComplexibleUseCase {
   constructor(private readonly orderUpdateStatusTx: OrderUpdateStatusTx) {}
 
   async exec(data: UpdateOrderStatus): Promise<OrderEntity> {
@@ -28,6 +27,3 @@ class UpdateOrderStatusComplexibleUseCase {
     return await this.orderUpdateStatusTx.exec(dataToUpdate);
   }
 }
-
-export const updateOrderStatusComplexibleUseCase =
-  new UpdateOrderStatusComplexibleUseCase(orderUpdateStatusTx);

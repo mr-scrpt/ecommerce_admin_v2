@@ -17,7 +17,7 @@ const PageProfile: FC<PageProfileProps> = (props) => {
         </p>
       </div>
       <Separator />
-      <ProfileFormUpdate userId={params.id} />
+      <ProfileFormUpdate profileId={params.id} />
     </main>
   );
 };

@@ -2,13 +2,15 @@ import { AuthorizatoinError } from "@/shared/lib/errors";
 import { SessionEntity } from "@/shared/lib/user";
 import { createOrderAbility } from "../_domain/order.ability";
 import { Order } from "../_domain/order.types";
-import { OrderRepository, orderRepository } from "../_repository/order.repo";
+import { OrderRepository } from "../_repository/order.repo";
+import { injectable } from "inversify";
 
 type GetOrderList = {
   session: SessionEntity;
 };
 
-class GetOrderListUseCase {
+@injectable()
+export class GetOrderListUseCase {
   constructor(private readonly orderRepo: OrderRepository) {}
 
   async exec(data: GetOrderList): Promise<Order[]> {
@@ -22,5 +24,3 @@ class GetOrderListUseCase {
     return await this.orderRepo.getOrderList();
   }
 }
-
-export const getOrderListUseCase = new GetOrderListUseCase(orderRepository);

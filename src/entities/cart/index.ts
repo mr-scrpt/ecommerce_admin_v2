@@ -1,4 +1,3 @@
-export { cartSchema } from "./_domain/cart.schema";
 export { useCartWithRelationQuery } from "./_query/cartWithRelation.query";
 
 export type {

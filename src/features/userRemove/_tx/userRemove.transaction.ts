@@ -1,8 +1,10 @@
 import { UserEntity } from "@/entities/user/_domain/user.types";
-import { UserRepository, userRepository } from "@/entities/user/user";
+import { UserRepository } from "@/entities/user/user.server";
 import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
 import { UserId } from "@/shared/lib/user";
+import { injectable } from "inversify";
 
+@injectable()
 export class UserRemoveTx extends Transaction {
   constructor(
     readonly db: DBClient,
@@ -19,5 +21,3 @@ export class UserRemoveTx extends Transaction {
     return await this.start(action);
   }
 }
-
-export const userRemoveTx = new UserRemoveTx(dbClient, userRepository);

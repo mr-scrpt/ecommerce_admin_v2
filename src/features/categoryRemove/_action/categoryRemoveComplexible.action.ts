@@ -1,9 +1,10 @@
 "use server";
 import { z } from "zod";
 
-import { Category, categorySchema } from "@/entities/category";
+import { Category } from "@/entities/category";
 import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
-import { removeCategoryComplexibleUseCase } from "../_useCase/categoryRemoveComplexible.usecase";
+import { removeCategoryComplexibleUseCase } from "../_useCase/instans.usecase";
+import { categorySchema } from "@/entities/category/server";
 
 const propsSchema = z.object({
   categoryId: z.string(),
@@ -19,7 +20,6 @@ export const removeCategoryComplexibleAction = async (
   props: z.infer<typeof propsSchema>,
 ): Promise<ResultT> => {
   const { categoryId } = propsSchema.parse(props);
-  console.log("output_log: removeCategoryComplexibleAction  =>>>", categoryId);
 
   const session = await getAppSessionStrictServer();
 

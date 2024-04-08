@@ -1,5 +1,5 @@
 "use client";
-import { OrderOwnerData } from "@/features/orderOwnerData/_ui/orderOwnerData";
+import { OrderOwnerData } from "@/features/orderOwnerData";
 import { OrderRowAdd } from "@/features/orderRowAdd";
 import { OrderRowList } from "@/features/orderRowList";
 import { useOrderRemoveConfirm } from "@/features/orderRowRemove";

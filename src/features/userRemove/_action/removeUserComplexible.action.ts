@@ -2,7 +2,7 @@
 import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
 import { UserEntity, userSchema } from "@/entities/user/user";
 import { z } from "zod";
-import { removeUserComplexibleUseCase } from "../_useCase/removeUserComplexible.usecase";
+import { removeUserComplexibleUseCase } from "../_useCase/instans.usecase";
 
 const propsSchema = z.object({
   userId: z.string(),

@@ -7,7 +7,7 @@ export const orderOwnerDataSchema = z.object({
     email: z.string(),
     phone: z.string(),
     name: z.string(),
-    image: z.string().nullable().optional(),
+    image: z.string().nullable(),
   }),
   orderList: z.array(
     z.object({

@@ -35,18 +35,19 @@ export type User = {
   id: UserId;
   email: string;
   phone: string;
-  name: string;
+  name: string | null;
   image: string | null;
 };
 
 export type UserToCreate = {
-  // id: UserId;
   email: string;
   phone: string;
   name?: string | null;
   image?: string | null;
   role: Role;
 };
+
+export type UserToUpdate = Partial<User>;
 
 // NOTE: Side
 type UserCart = {

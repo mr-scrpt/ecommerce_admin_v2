@@ -4,7 +4,9 @@ import {
   OrderRowEntity,
   OrderRowToAdd,
 } from "../_domain/orderRow.types";
+import { injectable } from "inversify";
 
+@injectable()
 export class OrderRowRepository {
   constructor(readonly db: DBClient) {}
 
@@ -44,5 +46,3 @@ export class OrderRowRepository {
     return result;
   }
 }
-
-export const orderRowRepository = new OrderRowRepository(dbClient);

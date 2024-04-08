@@ -3,7 +3,7 @@ import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer"
 import { z } from "zod";
 import { categorySchema } from "../_domain/category.schema";
 import { Category } from "../_domain/types";
-import { getCategoryUseCase } from "../_usecase/getCategory.usecase";
+import { getCategoryUseCase } from "../_usecase/instans.usecase";
 
 const propsSchema = z.object({
   categoryId: z.string(),

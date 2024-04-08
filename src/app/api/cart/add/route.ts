@@ -1,5 +1,5 @@
 import { cartRelationSchema } from "@/entities/cart/server";
-import { cartAddProductAction } from "@/features/cartAdd/server";
+import { cartRowAddAction } from "@/features/cartRowAdd/server";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
@@ -16,7 +16,7 @@ export const POST = async (req: Request): Promise<NextResponse<any>> => {
   try {
     const { productId } = reqSchema.parse(await req.json());
 
-    const { cart } = await cartAddProductAction({
+    const { cart } = await cartRowAddAction({
       data: {
         productId,
       },

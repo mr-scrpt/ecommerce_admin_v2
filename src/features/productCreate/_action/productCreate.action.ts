@@ -1,14 +1,12 @@
 "use server";
 
-import {
-  Product,
-  productCreateSchema,
-  productSchema,
-} from "@/entities/product";
+import { Product } from "@/entities/product";
 import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
 import { slugGenerator } from "@/shared/lib/slugGenerator";
 import { z } from "zod";
-import { createProductComplexibleUseCase } from "../_usecase/productCreateComplexible.usecase";
+import { productSchema } from "@/entities/product/server";
+import { createProductComplexibleUseCase } from "../_usecase/instans.usecase";
+import { productCreateSchema } from "../_domain/schema";
 
 const propsSchema = z.object({
   data: productCreateSchema,

@@ -1,9 +1,4 @@
-export {
-  categoryCreateSchema,
-  categoryFormSchema,
-  categorySchema,
-  categoryUpdateSchema,
-} from "./_domain/category.schema";
+export { categoryFormSchema } from "./_domain/category.schema";
 export { useCategoryQuery } from "./_query/category.query";
 export { useCategoryListQuery } from "./_query/categoryList.query";
 export { useCategoryWithRelationQuery } from "./_query/categoryWithRelation.query";

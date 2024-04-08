@@ -1,18 +1,17 @@
-import { CategoryEntity, CategoryId } from "../_domain/types";
-import {
-  CategoryRepository,
-  categoryRepository,
-} from "../_repository/category.repo";
-import { createCategoryAbility } from "../_domain/category.ability";
 import { AuthorizatoinError } from "@/shared/lib/errors";
 import { SessionEntity } from "@/shared/lib/user";
+import { injectable } from "inversify";
+import { createCategoryAbility } from "../_domain/category.ability";
+import { CategoryEntity, CategoryId } from "../_domain/types";
+import { CategoryRepository } from "../_repository/category.repo";
 
 type GetCategory = {
   categoryId: CategoryId;
   session: SessionEntity;
 };
 
-class GetCategoryUseCase {
+@injectable()
+export class GetCategoryUseCase {
   constructor(private readonly categoryRepo: CategoryRepository) {}
 
   async exec(data: GetCategory): Promise<CategoryEntity> {
@@ -26,5 +25,3 @@ class GetCategoryUseCase {
     return await this.categoryRepo.getCategory(categoryId);
   }
 }
-
-export const getCategoryUseCase = new GetCategoryUseCase(categoryRepository);

@@ -1,8 +1,8 @@
 import { UserFormElements } from "@/entities/user/user";
 import { cn } from "@/shared/ui/utils";
 import { FC, HTMLAttributes } from "react";
-import { UserCreateFormValues, userCreateFormSchema } from "../domain/schema";
-import { UserCreate } from "../domain/types";
+import { UserCreateFormValues, userCreateFormSchema } from "../_domain/schema";
+import { UserCreate } from "../_domain/types";
 
 interface UserFormProps extends HTMLAttributes<HTMLDivElement> {
   callbackUrl?: string;

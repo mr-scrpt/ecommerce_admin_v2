@@ -1,9 +1,9 @@
 "use server";
 import { z } from "zod";
 import { cartRelationSchema } from "../_domain/cart.schema";
-import { getCartWithRelationUseCase } from "../_usecase/getCartWithRelation.usecase";
 import { CartRelation } from "../_domain/types";
 import { getAppSessionStrictServer } from "@/shared/session/server";
+import { getCartWithRelationUseCase } from "../_usecase/instans.usecase";
 
 const resultSchema = z.object({
   cart: cartRelationSchema,

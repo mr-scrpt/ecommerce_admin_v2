@@ -1,8 +1,10 @@
 import { OrderEntity } from "@/entities/order";
-import { OrderRepository, orderRepository } from "@/entities/order/server";
+import { OrderRepository } from "@/entities/order/server";
 import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
 import { OrderUpdateStatusComplexible } from "../_domain/types";
+import { injectable } from "inversify";
 
+@injectable()
 export class OrderUpdateStatusTx extends Transaction {
   constructor(
     readonly db: DBClient,
@@ -30,8 +32,3 @@ export class OrderUpdateStatusTx extends Transaction {
     return await this.start(action);
   }
 }
-
-export const orderUpdateStatusTx = new OrderUpdateStatusTx(
-  dbClient,
-  orderRepository,
-);

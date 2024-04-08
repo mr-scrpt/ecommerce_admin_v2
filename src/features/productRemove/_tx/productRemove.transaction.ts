@@ -1,10 +1,9 @@
 import { ProductEntity, ProductId } from "@/entities/product";
-import {
-  ProductRepository,
-  productRepository,
-} from "@/entities/product/server";
+import { ProductRepository } from "@/entities/product/server";
 import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
+import { injectable } from "inversify";
 
+@injectable()
 export class ProductRemoveTx extends Transaction {
   constructor(
     readonly db: DBClient,
@@ -21,5 +20,3 @@ export class ProductRemoveTx extends Transaction {
     return await this.start(action);
   }
 }
-
-export const productRemoveTx = new ProductRemoveTx(dbClient, productRepository);

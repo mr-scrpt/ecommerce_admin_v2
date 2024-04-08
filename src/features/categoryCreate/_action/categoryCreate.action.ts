@@ -1,14 +1,12 @@
 "use server";
 
-import {
-  Category,
-  categoryCreateSchema,
-  categorySchema,
-} from "@/entities/category";
+import { Category } from "@/entities/category";
 import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
 import { slugGenerator } from "@/shared/lib/slugGenerator";
 import { z } from "zod";
-import { createCategoryComplexibleUseCase } from "../_usecase/categoryCreateComplexible.usecase";
+import { createCategoryComplexibleUseCase } from "../_usecase/instans.usecase";
+import { categoryCreateSchema } from "../_domain/schema";
+import { categorySchema } from "@/entities/category/server";
 
 const propsSchema = z.object({
   data: categoryCreateSchema,

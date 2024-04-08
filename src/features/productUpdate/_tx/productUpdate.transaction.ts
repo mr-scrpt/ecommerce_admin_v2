@@ -1,11 +1,10 @@
 import { ProductEntity } from "@/entities/product";
 import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
-import {
-  ProductRepository,
-  productRepository,
-} from "@/entities/product/server";
+import { ProductRepository } from "@/entities/product/server";
 import { ProductUpdateComplexible } from "../_domain/types";
+import { injectable } from "inversify";
 
+@injectable()
 export class ProductUpdateTx extends Transaction {
   constructor(
     readonly db: DBClient,
@@ -40,33 +39,6 @@ export class ProductUpdateTx extends Transaction {
         },
         tx,
       );
-      // const productUpdated = await this.productRepo.updateProduct(
-      //   // productData,
-      //   {
-      //     name: productData.name,
-      //     description: productData.description,
-      //     about: productData.about,
-      //     slug: productData.slug,
-      //     img: productData.img,
-      //   },
-      //   tx,
-      // );
-
-      // await this.productRepo.addCategoryList(
-      //   {
-      //     productId: productUpdated.id,
-      //     categoryListId: categoryListData,
-      //   },
-      //   tx,
-      // );
-      //
-      // await this.productRepo.addPropertyList(
-      //   {
-      //     productId: productUpdated.id,
-      //     propertyListId: propertyItemListSelected,
-      //   },
-      //   tx,
-      // );
 
       return await this.productRepo.getProduct(productUpdated.id, tx);
     };
@@ -74,5 +46,3 @@ export class ProductUpdateTx extends Transaction {
     return await this.start(action);
   }
 }
-
-export const productUpdateTx = new ProductUpdateTx(dbClient, productRepository);

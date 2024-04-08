@@ -2,6 +2,7 @@ import { z } from "zod";
 import { OrderPaymentStatusEnum, OrderStatusEnum } from "./order.types";
 import { orderRowSchema } from "./orderRow.schema";
 
+// NOTE: Base Schema
 export const orderStatusGroupSchema = z.object({
   orderStatus: z.custom<OrderStatusEnum>(),
   paymentStatus: z.custom<OrderPaymentStatusEnum>(),
@@ -36,13 +37,13 @@ export const orderUpdateStausSchema = z.object({
 // NOTE: FORM
 // NOTE: Main information
 
-export const orderFormGeneralSchema = z.object({
+export const orderFormDefaultSchema = z.object({
   orderNo: z.number(),
   orderStatus: z.custom<OrderStatusEnum>(),
   paymentStatus: z.custom<OrderPaymentStatusEnum>(),
 });
 
-export type OrderFormValues = z.infer<typeof orderFormGeneralSchema>;
+export type OrderFormValues = z.infer<typeof orderFormDefaultSchema>;
 
 // NOTE: Product information
 export const orderStatusFormSchema = z.object({

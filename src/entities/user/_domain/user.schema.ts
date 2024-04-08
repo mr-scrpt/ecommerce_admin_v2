@@ -1,7 +1,7 @@
 import { Role } from "@/shared/lib/user";
 import { z } from "zod";
 
-// Relations Entity
+// NOTE: Relations Schema
 export const userRelationCartSchema = z.object({
   id: z.string(),
   userId: z.string(),
@@ -27,9 +27,9 @@ export const userRelationOrderSchema = z.object({
   paymentStatus: z.string(),
 });
 
-export const userSchema = z.object({
-  id: z.string(),
-  name: z.string(),
+// NOTE: Base Schema
+export const userBaseSchema = z.object({
+  name: z.string().nullable(),
   email: z.string(),
   phone: z.string(),
   role: z.custom<Role>(),
@@ -38,17 +38,25 @@ export const userSchema = z.object({
   createdAt: z.date(),
 });
 
+export const userSchema = z.object({
+  id: z.string(),
+  ...userBaseSchema.shape,
+});
+
 export const userWithCartSchema = z.object({
-  ...userSchema.shape,
+  ...userBaseSchema.shape,
 
   cart: userRelationCartSchema,
 });
 
 export const userWithOrderListSchema = z.object({
-  ...userSchema.shape,
+  ...userBaseSchema.shape,
 
   orderList: z.array(userRelationOrderSchema),
 });
+
+// NOTE: FORM
+// NOTE: Main information
 
 export const userFormDefaultSchema = z.object({
   email: z.string().email(),

@@ -2,18 +2,17 @@ import { CategoryEntity } from "@/entities/category";
 import { ForbiddenError } from "@/shared/lib/errors";
 import { SessionEntity } from "@/shared/lib/user";
 import { CategoryUpdateComplexible } from "../_domain/types";
-import {
-  CategoryUpdateTx,
-  categoryUpdateTx,
-} from "../_tx/categoryUpdate.transaction";
+import { CategoryUpdateTx } from "../_tx/categoryUpdate.transaction";
 import { createCategoryAbility } from "@/entities/category/server";
+import { injectable } from "inversify";
 
 type UpdateCategory = {
   dataToUpdate: CategoryUpdateComplexible;
   session: SessionEntity;
 };
 
-class UpdateCategoryComplexibleUseCase {
+@injectable()
+export class UpdateCategoryComplexibleUseCase {
   constructor(private readonly categoryUpdateTx: CategoryUpdateTx) {}
 
   async exec(data: UpdateCategory): Promise<CategoryEntity> {
@@ -28,6 +27,3 @@ class UpdateCategoryComplexibleUseCase {
     return await this.categoryUpdateTx.updateCategoryComplexible(dataToUpdate);
   }
 }
-
-export const updateCategoryComplexibleUseCase =
-  new UpdateCategoryComplexibleUseCase(categoryUpdateTx);

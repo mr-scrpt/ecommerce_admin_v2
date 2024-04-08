@@ -2,7 +2,6 @@
 import {
   OrderId,
   OrderProductList,
-  OrderRowToRemovePayload,
   OrderRowToUpdateQuantityPayload,
   useOrderWithRelationQuery,
 } from "@/entities/order";

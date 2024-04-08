@@ -1,11 +1,10 @@
 import { ProductEntity } from "@/entities/product";
 import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
 import { ProductCreateComplexible } from "../_domain/types";
-import {
-  ProductRepository,
-  productRepository,
-} from "@/entities/product/server";
+import { ProductRepository } from "@/entities/product/server";
+import { injectable } from "inversify";
 
+@injectable()
 export class ProductCreateTx extends Transaction {
   constructor(
     readonly db: DBClient,
@@ -33,11 +32,6 @@ export class ProductCreateTx extends Transaction {
         tx,
       );
 
-      console.log(
-        "output_log:  propertyItemListSelected =>>>",
-        propertyItemListSelected,
-      );
-
       await this.productRepo.addCategoryList(
         {
           productId: productCreated.id,
@@ -60,5 +54,3 @@ export class ProductCreateTx extends Transaction {
     return await this.start(action);
   }
 }
-
-export const productCreateTx = new ProductCreateTx(dbClient, productRepository);

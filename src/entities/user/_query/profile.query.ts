@@ -4,9 +4,9 @@ import { useListenProfileUpdate } from "../_vm/event/useListenProfileUpdate";
 import { UserId } from "@/shared/lib/user";
 import { profileBaseQueryKey } from "../_domain/profile.types";
 
-export const getProfileQuery = (userId: UserId) => ({
-  queryKey: [profileBaseQueryKey, "getProfile", userId],
-  queryFn: () => getProfileAction({ userId }),
+export const getProfileQuery = (profileId: string) => ({
+  queryKey: [profileBaseQueryKey, "getProfile", profileId],
+  queryFn: () => getProfileAction({ profileId: profileId }),
 });
 
 export const useProfileQuery = (userId: UserId) => {

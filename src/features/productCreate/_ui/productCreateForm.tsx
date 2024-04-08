@@ -38,7 +38,7 @@ export const ProductFormCreate: FC<ProductCreateFormProps> = (props) => {
   const router = useRouter();
 
   const handleSubmit = async (data: ProductFromFrom) => {
-    console.log("output_log: in submit =>>>", data);
+    data.inStock;
     await productCreate({
       data,
     });

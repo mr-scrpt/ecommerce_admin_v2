@@ -1,14 +1,19 @@
-import { DBClient, Tx, dbClient } from "@/shared/lib/db";
+import { DBClient, Tx } from "@/shared/lib/db";
 import { UserId } from "@/shared/lib/user";
+import { injectable } from "inversify";
 import { Profile, ProfileEntity } from "../_domain/profile.types";
 
+@injectable()
 export class ProfileRepository {
   constructor(readonly db: DBClient) {}
 
-  async getProfile(userId: UserId, db: Tx = this.db): Promise<ProfileEntity> {
+  async getProfile(
+    profileId: string,
+    db: Tx = this.db,
+  ): Promise<ProfileEntity> {
     return db.user.findUniqueOrThrow({
       where: {
-        id: userId,
+        id: profileId,
       },
     });
   }
@@ -28,5 +33,3 @@ export class ProfileRepository {
     });
   }
 }
-
-export const profileRepository = new ProfileRepository(dbClient);

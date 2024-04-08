@@ -1,17 +1,11 @@
 import { OrderRowEntity } from "@/entities/order";
-import {
-  OrderRepository,
-  OrderRowRepository,
-  orderRepository,
-  orderRowRepository,
-} from "@/entities/order/server";
-import {
-  ProductRepository,
-  productRepository,
-} from "@/entities/product/server";
+import { OrderRepository, OrderRowRepository } from "@/entities/order/server";
+import { ProductRepository } from "@/entities/product/server";
 import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
 import { OrderRowUpdateQuantityComplexible } from "../_domain/types";
+import { injectable } from "inversify";
 
+@injectable()
 export class OrderRowUpdateQuantityTx extends Transaction {
   constructor(
     readonly db: DBClient,
@@ -52,10 +46,3 @@ export class OrderRowUpdateQuantityTx extends Transaction {
     return await this.start(action);
   }
 }
-
-export const orderRowUpdateQuantityTx = new OrderRowUpdateQuantityTx(
-  dbClient,
-  orderRowRepository,
-  orderRepository,
-  productRepository,
-);

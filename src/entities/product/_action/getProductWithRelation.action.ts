@@ -3,7 +3,7 @@ import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer"
 import { z } from "zod";
 import { productRelationSchema } from "../_domain/product.schema";
 import { ProductRelation } from "../_domain/types";
-import { getProductWithRelationUseCase } from "../_usecase/getProductWithRelation.usecase";
+import { getProductWithRelationUseCase } from "../_usecase/instans.usecase";
 
 const propsSchema = z.object({
   productId: z.string(),

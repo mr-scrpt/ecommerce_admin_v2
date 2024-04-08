@@ -8,7 +8,7 @@ import {
   orderSchema,
 } from "@/entities/order";
 import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
-import { updateOrderStatusComplexibleUseCase } from "../_usecase/orderStatusUpdateComplexible.usecase";
+import { updateOrderStatusComplexibleUseCase } from "../_usecase/instans.usecase";
 
 const propsSchema = z.object({
   orderId: z.string(),

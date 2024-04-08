@@ -1,15 +1,17 @@
 import { ForbiddenError } from "@/shared/lib/errors";
-import { UserRepository, userRepository } from "../_repository/user.repo";
-import { createUserAbility } from "../user";
+import { UserRepository } from "../_repository/user.repo";
 import { SessionEntity, UserId } from "@/shared/lib/user";
 import { UserEntity } from "../_domain/user.types";
+import { createUserAbility } from "../_domain/user.ability";
+import { injectable } from "inversify";
 
 type RemoveUser = {
   userId: UserId;
   session: SessionEntity;
 };
 
-class RemoveUserUseCase {
+@injectable()
+export class RemoveUserUseCase {
   constructor(private readonly userRepo: UserRepository) {}
 
   async exec(data: RemoveUser): Promise<UserEntity> {
@@ -23,5 +25,3 @@ class RemoveUserUseCase {
     return await this.userRepo.removeUserById(userId);
   }
 }
-
-export const removeUserUseCase = new RemoveUserUseCase(userRepository);

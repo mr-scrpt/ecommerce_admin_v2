@@ -3,17 +3,16 @@ import { createOrderAbility } from "@/entities/order/server";
 import { ForbiddenError } from "@/shared/lib/errors";
 import { SessionEntity } from "@/shared/lib/user";
 import { OrderRowUpdateQuantityComplexible } from "../_domain/types";
-import {
-  OrderRowUpdateQuantityTx,
-  orderRowUpdateQuantityTx,
-} from "../_tx/orderRowUpdateQuantity.transaction";
+import { OrderRowUpdateQuantityTx } from "../_tx/orderRowUpdateQuantity.transaction";
+import { injectable } from "inversify";
 
 type UpdateQuantityOrderRow = {
   dataToUpdate: OrderRowUpdateQuantityComplexible;
   session: SessionEntity;
 };
 
-class UpdateOrderRowQuantityComplexibleUseCase {
+@injectable()
+export class UpdateOrderRowQuantityComplexibleUseCase {
   constructor(
     private readonly orderRowUpdateQuantityTx: OrderRowUpdateQuantityTx,
   ) {}
@@ -30,6 +29,3 @@ class UpdateOrderRowQuantityComplexibleUseCase {
     return await this.orderRowUpdateQuantityTx.exec(dataToUpdate);
   }
 }
-
-export const updateOrderRowQuantityComplexibleUseCase =
-  new UpdateOrderRowQuantityComplexibleUseCase(orderRowUpdateQuantityTx);

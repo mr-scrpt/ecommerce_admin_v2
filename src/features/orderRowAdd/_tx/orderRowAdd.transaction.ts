@@ -1,17 +1,11 @@
-import {
-  OrderRepository,
-  OrderRowRepository,
-  orderRepository,
-  orderRowRepository,
-} from "@/entities/order/server";
-import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
 import { OrderEntity } from "@/entities/order";
+import { OrderRepository, OrderRowRepository } from "@/entities/order/server";
+import { ProductRepository } from "@/entities/product/server";
+import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
 import { OrderRowAddComplexible } from "../_domain/types";
-import {
-  ProductRepository,
-  productRepository,
-} from "@/entities/product/server";
+import { injectable } from "inversify";
 
+@injectable()
 export class OrderRowAddTx extends Transaction {
   constructor(
     readonly db: DBClient,
@@ -54,10 +48,3 @@ export class OrderRowAddTx extends Transaction {
     return await this.start(action);
   }
 }
-
-export const orderRowAddTx = new OrderRowAddTx(
-  dbClient,
-  orderRowRepository,
-  orderRepository,
-  productRepository,
-);

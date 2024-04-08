@@ -1,11 +1,10 @@
 import { CategoryEntity } from "@/entities/category";
-import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
+import { DBClient, Tx, dbClient, Transaction } from "@/shared/lib/db";
 import { CategoryCreateComplexible } from "../_domain/types";
-import {
-  CategoryRepository,
-  categoryRepository,
-} from "@/entities/category/server";
+import { CategoryRepository } from "@/entities/category/server";
+import { injectable } from "inversify";
 
+@injectable()
 export class CategoryCreateTx extends Transaction {
   constructor(
     readonly db: DBClient,
@@ -38,8 +37,3 @@ export class CategoryCreateTx extends Transaction {
     return await this.start(action);
   }
 }
-
-export const categoryCreateTx = new CategoryCreateTx(
-  dbClient,
-  categoryRepository,
-);

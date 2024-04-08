@@ -6,17 +6,11 @@ import {
   CartRowToAddProduct,
   CartRowToRemoveProduct,
 } from "../_domain/types";
+import { injectable } from "inversify";
 
+@injectable()
 export class CartRowRepository {
   constructor(readonly db: DBClient) {}
-
-  // async getCart(cartId: CartId, db: Tx = this.db): Promise<CartEntity> {
-  //   return db.cart.findUniqueOrThrow({
-  //     where: {
-  //       id: cartId,
-  //     },
-  //   });
-  // }
 
   async getCartRowByProductId(
     data: CartRowGetByProductId,
@@ -32,41 +26,6 @@ export class CartRowRepository {
       },
     });
   }
-
-  // async increaseQuantity(
-  //   data: CartRowChangeQuantity,
-  //   db: Tx = this.db,
-  // ): Promise<CartRowEntity> {
-  //   const { id, quantity } = data;
-  //   return await db.cartRow.update({
-  //     where: {
-  //       id,
-  //     },
-  //     data: {
-  //       quantity: {
-  //         increment: quantity,
-  //       },
-  //     },
-  //   });
-  // }
-  //
-  // async decreaseQuantity(
-  //   data: CartRowChangeQuantity,
-  //   db: Tx = this.db,
-  // ): Promise<CartRowEntity> {
-  //   console.log("output_log: decreaseQuantity =>>>", data);
-  //   const { id, quantity } = data;
-  //   return await db.cartRow.update({
-  //     where: {
-  //       id,
-  //     },
-  //     data: {
-  //       quantity: {
-  //         decrement: quantity,
-  //       },
-  //     },
-  //   });
-  // }
 
   async changeCartRowProductQuantity(
     data: CartRowChangeQuantity,
@@ -111,6 +70,12 @@ export class CartRowRepository {
       },
     });
   }
-}
 
-export const cartRowRepository = new CartRowRepository(dbClient);
+  async removeCartRowAll(cartId: string, db: Tx = this.db): Promise<void> {
+    await db.cartRow.deleteMany({
+      where: {
+        cartId,
+      },
+    });
+  }
+}

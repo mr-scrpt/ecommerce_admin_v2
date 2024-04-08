@@ -1,5 +1,5 @@
 import { cartRelationSchema } from "@/entities/cart/_domain/cart.schema";
-import { cartRemoveProductAction } from "@/features/cartRemove/server";
+import { cartRemoveProductAction } from "@/features/cartRowRemove/server";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 

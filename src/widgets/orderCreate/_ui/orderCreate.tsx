@@ -3,7 +3,7 @@ import { OrderProductAdd, OrderRowCreate } from "@/features/orderRowAdd";
 import { OrderSelectOwner } from "@/features/orderSelectOwner";
 import { UserFormCreate } from "@/features/userCreate";
 import { useUserCreateMutation } from "@/features/userCreate";
-import { UserCreate } from "@/features/userCreate/domain/types";
+import { UserCreate } from "@/features/userCreate/_domain/types";
 import { RoutePathEnum } from "@/shared/config/routing.config";
 import { FC, HTMLAttributes, useState } from "react";
 

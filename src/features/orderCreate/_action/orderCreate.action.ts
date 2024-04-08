@@ -4,7 +4,7 @@ import { z } from "zod";
 import { Order, orderSchema } from "@/entities/order";
 import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
 import { orderCreateSchema } from "../_domain/schema";
-import { createOrderComplexibleUseCase } from "../_usecase/orderCreateCopmlexible.usecase";
+import { createOrderComplexibleUseCase } from "../_usecase/instans.usecase";
 
 const propsSchema = z.object({
   userId: z.string(),

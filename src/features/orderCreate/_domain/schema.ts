@@ -1,6 +1,10 @@
 import { OrderPaymentStatusEnum, OrderStatusEnum } from "@/entities/order";
-import { orderRowAddSchema } from "@/entities/order/server";
 import { z } from "zod";
+
+export const orderRowAddSchema = z.object({
+  productId: z.string(),
+  quantity: z.number(),
+});
 
 export const orderCreateSchema = z.object({
   orderRowData: z.array(orderRowAddSchema),

@@ -2,14 +2,16 @@ import { AuthorizatoinError } from "@/shared/lib/errors";
 import { SessionEntity } from "@/shared/lib/user";
 import { createOrderAbility } from "../_domain/order.ability";
 import { OrderId } from "../_domain/order.types";
-import { OrderRepository, orderRepository } from "../_repository/order.repo";
+import { OrderRepository } from "../_repository/order.repo";
+import { injectable } from "inversify";
 
 type GetOrderOwnerRelation = {
   orderId: OrderId;
   session: SessionEntity;
 };
 
-class GetOrderOwnerUseCase {
+@injectable()
+export class GetOrderOwnerUseCase {
   constructor(private readonly orderRepo: OrderRepository) {}
 
   async exec(data: GetOrderOwnerRelation): Promise<{ ownerId: string }> {
@@ -24,5 +26,3 @@ class GetOrderOwnerUseCase {
     return { ownerId };
   }
 }
-
-export const getOrderOwnerUseCase = new GetOrderOwnerUseCase(orderRepository);

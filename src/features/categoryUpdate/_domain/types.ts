@@ -4,5 +4,4 @@ export type CategoryUpdateComplexible = {
   categoryId: CategoryId;
   categoryData: Partial<CategoryToUpdate>;
   propertyListData: Array<{ id: string }>;
-  // productListData: Array<{ id: string }>;
 };

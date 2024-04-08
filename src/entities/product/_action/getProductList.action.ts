@@ -3,7 +3,7 @@ import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer"
 import { z } from "zod";
 import { productSchema } from "../_domain/product.schema";
 import { ProductEntity } from "../_domain/types";
-import { getProductListUseCase } from "../_usecase/getProductList.usecase";
+import { getProductListUseCase } from "../_usecase/instans.usecase";
 
 const resultSchema = z.object({
   productList: z.array(productSchema),

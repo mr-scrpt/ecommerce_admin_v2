@@ -1,4 +1,5 @@
-import { Tx, dbClient } from "@/shared/lib/db";
+import { DBClient, Tx } from "@/shared/lib/db";
+import { injectable } from "inversify";
 import {
   CategoryAddProductList,
   CategoryAddPropertyList,
@@ -8,12 +9,10 @@ import {
   CategoryToCreate,
   CategoryToUpdate,
 } from "../_domain/types";
-import { injectable } from "inversify";
-import { PrismaClient } from "@prisma/client";
 
 @injectable()
 export class CategoryRepository {
-  constructor(readonly db: PrismaClient) {}
+  constructor(readonly db: DBClient) {}
 
   async getCategory(
     categoryId: CategoryId,

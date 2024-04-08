@@ -1,27 +1,32 @@
 "use client";
 import { useProfileQuery } from "@/entities/user/_query/profile.query";
-import { ProfileForm, ProfileFormValues } from "@/entities/user/profile";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes } from "react";
 import { useProfileUpdate } from "../_vm/useProfileUpdate";
+import { ProfileFormElements } from "@/entities/user/profile";
+import {
+  ProfileFromUpdateValues,
+  profileFormUpdateSchema,
+} from "../_domain/schema";
 
 interface ProfileFormProps extends HTMLAttributes<HTMLDivElement> {
-  userId: string;
+  profileId: string;
   callbackUrl?: string;
   className?: string;
-  countryDefault?: string;
+  onSuccess?: () => void;
 }
 
 export const ProfileFormUpdate: FC<ProfileFormProps> = (props) => {
-  const { userId, callbackUrl, countryDefault, className } = props;
+  const { profileId, callbackUrl, className, onSuccess } = props;
 
   const {
     isPending: isPendingProfile,
     isFetchedAfterMount,
     data,
-  } = useProfileQuery(userId);
+  } = useProfileQuery(profileId);
+
   const router = useRouter();
 
   const { update, isPending: isPendingUpdate } = useProfileUpdate();
@@ -37,12 +42,14 @@ export const ProfileFormUpdate: FC<ProfileFormProps> = (props) => {
     return <div>Failed to load profile, you may not have permissions</div>;
   }
 
-  const handleSubmit = async (data: ProfileFormValues) => {
-    console.log("output_log: form send =>>>", data);
+  const handleSubmit = async (data: ProfileFromUpdateValues) => {
     await update({
-      userId,
+      profileId,
       data,
     });
+
+    onSuccess?.();
+
     if (callbackUrl) {
       router.push(callbackUrl);
     }
@@ -50,13 +57,20 @@ export const ProfileFormUpdate: FC<ProfileFormProps> = (props) => {
 
   return (
     <div className={cn(className, "w-full")}>
-      <ProfileForm
+      <ProfileFormElements
         handleSubmit={handleSubmit}
-        isPending={isPendingComplexible}
         profile={data.profile}
-        submitText={callbackUrl ? "Continue" : "Save change"}
-        countryDefault={countryDefault}
-      />
+        schema={profileFormUpdateSchema}
+      >
+        <ProfileFormElements.FieldEmail />
+        <ProfileFormElements.FieldName />
+        <ProfileFormElements.FieldPhone />
+        <ProfileFormElements.FieldAvatar profile={data.profile} />
+        <ProfileFormElements.SubmitButton
+          isPending={isPendingComplexible}
+          submitText="Save change"
+        />
+      </ProfileFormElements>
     </div>
   );
 };

@@ -1,10 +1,3 @@
-export {
-  productCreateSchema,
-  productFormSchema,
-  productSchema,
-  productUpdateSchema,
-} from "./_domain/product.schema";
-
 export { ProductSelect } from "./_ui/fromField/productSelect";
 export { useProductQuery } from "./_query/product.query";
 export { useProductListQuery } from "./_query/productList.query";

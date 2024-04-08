@@ -1,8 +1,5 @@
-export { OrderRepository, orderRepository } from "./_repository/order.repo";
-export {
-  OrderRowRepository,
-  orderRowRepository,
-} from "./_repository/orderRow.repo";
+export { OrderRepository } from "./_repository/order.repo";
+export { OrderRowRepository } from "./_repository/orderRow.repo";
 
 export {
   orderRelationSchema,
@@ -10,7 +7,6 @@ export {
 } from "./_domain/order.schema";
 
 export {
-  orderRowAddSchema,
   orderRowSchema,
   orderRowRemoveSchema,
 } from "./_domain/orderRow.schema";

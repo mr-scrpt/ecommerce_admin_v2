@@ -2,9 +2,9 @@
 import { z } from "zod";
 
 import { Order, orderSchema } from "@/entities/order";
-import { orderRowAddSchema } from "@/entities/order/server";
 import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
-import { addOrderRowComplexibleUseCase } from "../_usecase/orderAddRowComplexible.usecase";
+import { orderRowAddSchema } from "../_domain/schema";
+import { addOrderRowComplexibleUseCase } from "../_usecase/instans.usecase";
 
 const propsSchema = z.object({
   orderId: z.string(),

@@ -21,7 +21,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { ProductPropertyToSelect } from "../_domain/types";
 
-interface ProductFormOptionsProps extends HTMLAttributes<HTMLFormElement> {
+interface ProductFormOptionsProps extends HTMLAttributes<HTMLDivElement> {
   optionSelectOptionList: Array<ProductPropertyToSelect>;
 }
 
@@ -32,7 +32,7 @@ export const ProductFormOptions: FC<ProductFormOptionsProps> = (props) => {
   const productFormSchema = z.object(
     Object.fromEntries(
       optionSelectOptionList.map((option) => {
-        if (option.datatype === "mult") {
+        if (option.datatype === PropertyDataTypeEnum.MULT) {
           return [option.name, z.array(z.string({}))];
         } else {
           return [option.name, z.string({})];

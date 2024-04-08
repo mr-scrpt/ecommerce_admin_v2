@@ -5,8 +5,6 @@ export {
 } from "./_query/user.query";
 export { useUserListQuery } from "./_query/userList.query";
 export { getUserListAction } from "./_action/getUserList.action";
-export { createUserAbility } from "./_domain/user.ability";
-export { userRepository, UserRepository } from "./_repository/user.repo";
 export { userSchema, userFormDefaultSchema } from "./_domain/user.schema";
 export { UserFormElements } from "./_ui/userFormElements";
 export { UserSelect } from "./_ui/userSelect";

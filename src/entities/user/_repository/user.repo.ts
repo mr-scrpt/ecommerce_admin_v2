@@ -1,13 +1,15 @@
-import { DBClient, Tx, dbClient } from "@/shared/lib/db";
+import { DBClient, Tx } from "@/shared/lib/db";
+import { UserId } from "@/shared/lib/user";
+import { injectable } from "inversify";
 import {
   User,
   UserEntity,
-  UserWithCartEntity,
   UserToCreate,
+  UserWithCartEntity,
   UserWithOrdersEntity,
 } from "../_domain/user.types";
-import { UserId } from "@/shared/lib/user";
 
+@injectable()
 export class UserRepository {
   constructor(readonly db: DBClient) {}
 
@@ -101,5 +103,3 @@ export class UserRepository {
     return await db.user.delete({ where: { id: userId } });
   }
 }
-
-export const userRepository = new UserRepository(dbClient);

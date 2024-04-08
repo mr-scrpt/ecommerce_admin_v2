@@ -3,9 +3,9 @@ import { $Enums } from "@prisma/client";
 export const userListSeed = [
   {
     id: "admin_fdsfsddfew789879",
+    name: "ADMIN",
     email: "admin@gmail.com",
     phone: "+380993282451",
-    name: "ADMIN",
     // testPassword: "1234",
     role: $Enums.ROLE.ADMIN,
   },

@@ -1,6 +1,6 @@
 "use client";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { getProductAction } from "../_action/getProduct.action";
+import { getProductAction } from "../_action/getProductAction";
 import { ProductId, baseQueryKey } from "../_domain/types";
 import { useListenProductUpdate } from "../_vm/event/useListenProductUpdate";
 

@@ -3,7 +3,7 @@ import { getAppSessionStrictServer } from "@/shared/session/server";
 import { z } from "zod";
 import { orderStatusGroupSchema } from "../_domain/order.schema";
 import { OrderStatusGroup } from "../_domain/order.types";
-import { getOrderStatusGroupUseCase } from "../_usecase/getOrderStatusGroup.usecase";
+import { getOrderStatusGroupUseCase } from "../_usecase/instans.usecase";
 
 const propsSchema = z.object({
   orderId: z.string(),

@@ -2,13 +2,15 @@ import { AuthorizatoinError } from "@/shared/lib/errors";
 import { SessionEntity } from "@/shared/lib/user";
 import { createUserAbility } from "../_domain/user.ability";
 import { UserEntity } from "../_domain/user.types";
-import { UserRepository, userRepository } from "../_repository/user.repo";
+import { UserRepository } from "../_repository/user.repo";
+import { injectable } from "inversify";
 
 type GetUserList = {
   session: SessionEntity;
 };
 
-class GetUserListUseCase {
+@injectable()
+export class GetUserListUseCase {
   constructor(private readonly userRepo: UserRepository) {}
 
   async exec(data: GetUserList): Promise<UserEntity[]> {
@@ -22,5 +24,3 @@ class GetUserListUseCase {
     return await this.userRepo.getUserList();
   }
 }
-
-export const getUserListUseCase = new GetUserListUseCase(userRepository);

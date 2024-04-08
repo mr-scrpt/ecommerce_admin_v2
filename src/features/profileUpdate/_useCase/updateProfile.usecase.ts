@@ -1,31 +1,29 @@
+import { ProfileEntity } from "@/entities/user/profile";
+import { ProfileToUpdate } from "@/entities/user/profile.server";
 import { ForbiddenError } from "@/shared/lib/errors";
-import { createProfileAbility } from "../../../entities/user/_domain/profile.ability";
-import {
-  ProfileRepository,
-  profileRepository,
-} from "../../../entities/user/_repository/profile.repo";
 import { SessionEntity, UserId } from "@/shared/lib/user";
-import { Profile, ProfileEntity } from "../../../entities/user/_domain/profile.types";
+import { injectable } from "inversify";
+import { createProfileAbility } from "../../../entities/user/_domain/profile.ability";
+import { ProfileUpdateTx } from "../_tx/profileUpdate.transaction";
 
 type UpdateProfile = {
-  userId: UserId;
-  profileData: Partial<Profile>;
+  profileId: UserId;
+  profileData: ProfileToUpdate;
   session: SessionEntity;
 };
 
-class UpdateProfileUseCase {
-  constructor(private readonly profileRepo: ProfileRepository) {}
+@injectable()
+export class UpdateProfileUseCase {
+  constructor(private readonly profileTx: ProfileUpdateTx) {}
 
   async exec(data: UpdateProfile): Promise<ProfileEntity> {
-    const { userId, profileData, session } = data;
+    const { profileId, profileData, session } = data;
     const { canUpdateProfile } = createProfileAbility(session);
 
-    if (!canUpdateProfile(userId)) {
+    if (!canUpdateProfile(profileId)) {
       throw new ForbiddenError();
     }
 
-    return await this.profileRepo.updateProfile(userId, profileData);
+    return await this.profileTx.updateProfile({ profileId, profileData });
   }
 }
-
-export const updateProfileUseCase = new UpdateProfileUseCase(profileRepository);

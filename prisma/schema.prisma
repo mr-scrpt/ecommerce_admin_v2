@@ -95,7 +95,7 @@ model User {
 
 model Cart {
   id        String   @id @default(uuid())
-  user      User     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String   @unique
   cartRowList  CartRow[]
 
@@ -106,7 +106,7 @@ model Cart {
 
 model CartRow {
   id        String   @id @default(uuid())
-  cart	    Cart     @relation(fields: [cartId], references: [id])
+  cart	    Cart     @relation(fields: [cartId], references: [id], onDelete: Cascade)
   cartId    String
 
   productId String
@@ -126,7 +126,7 @@ model Order {
   id        String   @id @default(uuid())
   orderNo   Int	     @default(autoincrement())
 
-  user      User     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
 
   orderStatus       ORDER_STATUS
@@ -145,7 +145,7 @@ model Order {
 model OrderRow {
   id        String   @id @default(uuid())
   orderId   String
-  order     Order    @relation(fields: [orderId], references: [id])
+  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
 
   productId String
   productName  String

@@ -4,7 +4,7 @@ import { z } from "zod";
 import { OrderRow } from "@/entities/order";
 import { orderRowSchema } from "@/entities/order/server";
 import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
-import { updateOrderRowQuantityComplexibleUseCase } from "../_usecase/orderRowUpdateQuantityComplexible.usecase";
+import { updateOrderRowQuantityComplexibleUseCase } from "../_usecase/instans.usecase";
 
 const propsSchema = z.object({
   productId: z.string(),

@@ -10,9 +10,9 @@ export const useProfileUpdateMutation = (
 
   const { mutateAsync, isPending } = useMutation({
     mutationFn: updateProfileAction,
-    onSuccess: async ({ profile }, { userId }) => {
+    onSuccess: async ({ profile }, { profileId }) => {
       onSuccess(profile);
-      profileUpdateEvent(userId);
+      profileUpdateEvent(profileId);
     },
   });
   return {

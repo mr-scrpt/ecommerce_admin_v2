@@ -1,8 +1,8 @@
 import { socketClient } from "@/shared/config/socket";
 import { WSEventEnum } from "@/shared/type/websokcetEvent.enum";
 import { AuthOptions } from "next-auth";
-import { createUserRegistrationUseCase } from "./_useCase/createUserRegistration.usecase";
 import { nextAuthConfig } from "@/shared/session/server";
+import { createUserRegistrationUseCase } from "./_useCase/instans.usecase";
 
 export const nextAuthConfigWithCreateUser: AuthOptions = {
   ...nextAuthConfig,

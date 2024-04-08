@@ -3,9 +3,9 @@
 import { User, userSchema } from "@/entities/user/user";
 import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
 import { z } from "zod";
-import { createUserUseCase } from "../_useCase/createUser.usecase";
-import { userCreateSchema } from "../domain/schema";
+import { userCreateSchema } from "../_domain/schema";
 import { ROLES } from "@/shared/lib/user";
+import { createUserUseCase } from "../_useCase/instans.usecase";
 
 const propsSchema = z.object({
   data: userCreateSchema,

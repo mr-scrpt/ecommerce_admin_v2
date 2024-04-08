@@ -1,20 +1,19 @@
+import { UserEntity } from "@/entities/user/user";
+import { createUserAbility } from "@/entities/user/user.server";
 import { ForbiddenError } from "@/shared/lib/errors";
 import { SessionEntity } from "@/shared/lib/user";
-import { UserEntity } from "../../../entities/user/_domain/user.types";
-import {
-  UserRepository,
-  createUserAbility,
-  userRepository,
-} from "../../../entities/user/user";
-import { UserCreateComplexible } from "../domain/types";
+import { injectable } from "inversify";
+import { UserCreateComplexible } from "../_domain/types";
+import { UserCreateTx } from "../_tx/userCreate.transaction";
 
 type CreateUser = {
   userToCreate: UserCreateComplexible;
   session: SessionEntity;
 };
 
-class CreateUserUseCase {
-  constructor(private readonly userRepo: UserRepository) {}
+@injectable()
+export class CreateUserUseCase {
+  constructor(private readonly userCreateTx: UserCreateTx) {}
 
   async exec(data: CreateUser): Promise<UserEntity> {
     const { session, userToCreate } = data;
@@ -24,10 +23,8 @@ class CreateUserUseCase {
       throw new ForbiddenError();
     }
 
-    return await this.userRepo.createUser({
+    return await this.userCreateTx.createUser({
       ...userToCreate,
     });
   }
 }
-
-export const createUserUseCase = new CreateUserUseCase(userRepository);

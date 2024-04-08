@@ -1,9 +1,10 @@
 "use server";
 import { z } from "zod";
 
-import { ProductEntity, productSchema } from "@/entities/product";
-import { removeProductComplexibleUseCase } from "../_useCase/productRemoveComplexible.usecase";
+import { ProductEntity } from "@/entities/product";
 import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
+import { productSchema } from "@/entities/product/server";
+import { removeProductComplexibleUseCase } from "../_useCase/instans.usecase";
 
 const propsSchema = z.object({
   productId: z.string(),

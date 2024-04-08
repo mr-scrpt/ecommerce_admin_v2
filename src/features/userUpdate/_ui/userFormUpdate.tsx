@@ -5,7 +5,7 @@ import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes } from "react";
 import { useUserUpdate } from "../_vm/useUserUpdate";
-import { UserUpdateFormValues, userUpdateFormSchema } from "../domain/schema";
+import { UserUpdateFormValues, userUpdateFormSchema } from "../_domain/schema";
 
 interface UserFormProps extends HTMLAttributes<HTMLDivElement> {
   userId: string;
@@ -22,6 +22,7 @@ export const UserFormUpdate: FC<UserFormProps> = (props) => {
     isFetchedAfterMount,
     data,
   } = useUserQuery(userId);
+
   const router = useRouter();
 
   const { userUpdate, isPending: isPendingUpdate } = useUserUpdate();

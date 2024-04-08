@@ -1,6 +1,6 @@
 export {
-  orderFormGeneralSchema,
-  orderStatusFormSchema as orderFormProductSchema,
+  orderFormDefaultSchema,
+  orderStatusFormSchema,
   orderSchema,
 } from "./_domain/order.schema";
 export {

@@ -2,16 +2,15 @@ import { AuthorizatoinError } from "@/shared/lib/errors";
 import { SessionEntity } from "@/shared/lib/user";
 import { createProductAbility } from "../_domain/product.ability";
 import { ProductEntity } from "../_domain/types";
-import {
-  ProductRepository,
-  productRepository,
-} from "../_repository/product.repo";
+import { ProductRepository } from "../_repository/product.repo";
+import { injectable } from "inversify";
 
 type GetProductList = {
   session: SessionEntity;
 };
 
-class GetProductListUseCase {
+@injectable()
+export class GetProductListUseCase {
   constructor(private readonly productRepo: ProductRepository) {}
 
   async exec(data: GetProductList): Promise<ProductEntity[]> {
@@ -25,7 +24,3 @@ class GetProductListUseCase {
     return await this.productRepo.getProductList();
   }
 }
-
-export const getProductListUseCase = new GetProductListUseCase(
-  productRepository,
-);

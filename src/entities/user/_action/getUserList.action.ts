@@ -1,9 +1,9 @@
 "use server";
 import { z } from "zod";
-import { UserEntity } from "../_domain/user.types";
-import { userSchema } from "../_domain/user.schema";
-import { getUserListUseCase } from "../_useCase/getUserList.usecase";
 import { getAppSessionStrictServer } from "../../../shared/session/getAppSessionServer";
+import { userSchema } from "../_domain/user.schema";
+import { UserEntity } from "../_domain/user.types";
+import { getUserListUseCase } from "../_useCase/instans.usecase";
 
 const resultSchema = z.object({
   userList: z.array(userSchema),
@@ -17,6 +17,8 @@ export const getUserListAction = async (): Promise<ResultT> => {
   const userList = await getUserListUseCase.exec({
     session,
   });
+
+  console.log("output_log:  =>>>", userList);
 
   return resultSchema.parseAsync({
     userList: userList,

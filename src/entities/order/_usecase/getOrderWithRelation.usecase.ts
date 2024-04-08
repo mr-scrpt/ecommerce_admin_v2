@@ -2,14 +2,16 @@ import { AuthorizatoinError } from "@/shared/lib/errors";
 import { SessionEntity } from "@/shared/lib/user";
 import { createOrderAbility } from "../_domain/order.ability";
 import { OrderId, OrderRelationEntity } from "../_domain/order.types";
-import { OrderRepository, orderRepository } from "../_repository/order.repo";
+import { OrderRepository } from "../_repository/order.repo";
+import { injectable } from "inversify";
 
 type GetOrderWithRelation = {
   orderId: OrderId;
   session: SessionEntity;
 };
 
-class GetOrderWithRelationUseCase {
+@injectable()
+export class GetOrderWithRelationUseCase {
   constructor(private readonly orderRepo: OrderRepository) {}
 
   async exec(data: GetOrderWithRelation): Promise<OrderRelationEntity> {
@@ -23,7 +25,3 @@ class GetOrderWithRelationUseCase {
     return await this.orderRepo.getOrderWithRelation(orderId);
   }
 }
-
-export const getOrderWithRelationUseCase = new GetOrderWithRelationUseCase(
-  orderRepository,
-);

@@ -32,7 +32,7 @@ interface UserFormElementsProps extends HTMLAttributes<HTMLFormElement> {
   schema?: ZodTypeAny;
 }
 
-interface OrderSubmitFieldProps {
+interface UserSubmitFieldProps {
   isPending?: boolean;
   submitText: string;
   className?: string;
@@ -45,7 +45,7 @@ type UserFormElementsType = FC<UserFormElementsProps> & {
   FieldPhone: FC<{ countryDefault?: Country }>;
   FieldName: FC<{}>;
   FieldAvatar: FC<{ user?: UserPartial }>;
-  SubmitButton: FC<OrderSubmitFieldProps>;
+  SubmitButton: FC<UserSubmitFieldProps>;
 };
 
 const getDefaultValues = (user?: UserPartial) => ({
@@ -129,6 +129,7 @@ UserFormElements.FieldEmailVerified = function FieldEmailVerified(props) {
     />
   );
 };
+
 UserFormElements.FieldName = function FieldName() {
   const { control } = useFormContext<UserFormDefaultValues>();
 

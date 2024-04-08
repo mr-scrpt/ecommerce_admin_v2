@@ -1,6 +1,8 @@
+import "reflect-metadata";
 import { PrismaClient } from "@prisma/client";
+import { injectable } from "inversify";
 
-export class Transaction {
+export class BaseTransaction {
   constructor(readonly db: DBClient) {}
 
   async start<T>(callback: (tx: Tx) => Promise<T>): Promise<T> {
@@ -26,3 +28,10 @@ export type Tx = Omit<
 >;
 
 export const dbClient = new DBClient();
+
+@injectable()
+export class Transaction extends BaseTransaction {
+  constructor(readonly db: DBClient) {
+    super(db);
+  }
+}

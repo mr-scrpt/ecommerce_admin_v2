@@ -3,8 +3,8 @@
 import { User, userSchema } from "@/entities/user/user";
 import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
 import { z } from "zod";
-import { updateUserUseCase } from "../useCase/updateUser.usecase";
-import { userUpdateSchema } from "../domain/schema";
+import { userUpdateSchema } from "../_domain/schema";
+import { updateUserUseCase } from "../_useCase/instans.usecase";
 
 const propsSchema = z.object({
   userId: z.string(),

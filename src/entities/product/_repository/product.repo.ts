@@ -1,4 +1,5 @@
-import { DBClient, Tx, dbClient } from "@/shared/lib/db";
+import { DBClient, Tx } from "@/shared/lib/db";
+import { injectable } from "inversify";
 import {
   ProductAddCategoryList,
   ProductAddPropertyList,
@@ -9,6 +10,7 @@ import {
   ProductToUpdate,
 } from "../_domain/types";
 
+@injectable()
 export class ProductRepository {
   constructor(readonly db: DBClient) {}
 
@@ -159,22 +161,6 @@ export class ProductRepository {
       data: product,
     });
   }
-  // async updateProduct(
-  //   targetId: ProductId,
-  //   product: ProductToUpdate,
-  //   db: Tx = this.db,
-  // ): Promise<ProductEntity> {
-  //   return await db.product.update({
-  //     where: { id: targetId },
-  //     data: {
-  //       ...product,
-  //       categoryList: { set: [...product.categoryList] },
-  //       propertyItemListSelected: {
-  //         set: [...product.propertyItemListSelected],
-  //       },
-  //     },
-  //   });
-  // }
 
   async removeProductById(
     productId: ProductId,
@@ -183,5 +169,3 @@ export class ProductRepository {
     return await db.product.delete({ where: { id: productId } });
   }
 }
-
-export const productRepository = new ProductRepository(dbClient);
