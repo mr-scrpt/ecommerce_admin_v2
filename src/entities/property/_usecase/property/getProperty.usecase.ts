@@ -1,18 +1,17 @@
 import { PropertyEntity, PropertyId } from "../../_domain/property/types";
-import {
-  PropertyRepository,
-  propertyRepository,
-} from "../../_repository/property.repo";
+import { PropertyRepository } from "../../_repository/property.repo";
 import { createPropertyAbility } from "../../_domain/property/property.ability";
 import { AuthorizatoinError } from "@/shared/lib/errors";
 import { SessionEntity } from "@/shared/lib/user";
+import { injectable } from "inversify";
 
 type GetProperty = {
   propertyId: PropertyId;
   session: SessionEntity;
 };
 
-class GetPropertyUseCase {
+@injectable()
+export class GetPropertyUseCase {
   constructor(private readonly propertyRepo: PropertyRepository) {}
 
   async exec(data: GetProperty): Promise<PropertyEntity> {
@@ -26,5 +25,3 @@ class GetPropertyUseCase {
     return await this.propertyRepo.getProperty(propertyId);
   }
 }
-
-export const getPropertyUseCase = new GetPropertyUseCase(propertyRepository);

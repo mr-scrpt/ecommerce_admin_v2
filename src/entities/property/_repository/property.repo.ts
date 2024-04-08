@@ -1,4 +1,4 @@
-import { DBClient, Tx, dbClient } from "@/shared/lib/db";
+import { DBClient, Tx } from "@/shared/lib/db";
 import {
   Property,
   PropertyEntity,
@@ -6,7 +6,9 @@ import {
   PropertyRelationEntity,
   PropertyToCreate,
 } from "../_domain/property/types";
+import { injectable } from "inversify";
 
+@injectable()
 export class PropertyRepository {
   constructor(readonly db: DBClient) {}
 
@@ -20,10 +22,6 @@ export class PropertyRepository {
       },
     });
 
-    // return {
-    //   ...property,
-    //   datatype: mapPrismaDatatypeToEnum(property.datatype),
-    // };
     return property;
   }
 
@@ -142,5 +140,3 @@ export class PropertyRepository {
     return deletedProperty;
   }
 }
-
-export const propertyRepository = new PropertyRepository(dbClient);

@@ -7,7 +7,7 @@ import {
 } from "@/entities/property";
 import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
 import { z } from "zod";
-import { createPropertyComplexibleUseCase } from "../_useCase/propertyCreateComplexible.usecase";
+import { createPropertyComplexibleUseCase } from "../_useCase/instans.usecase";
 
 const propsSchema = z.object({
   data: propertyCreateSchema,

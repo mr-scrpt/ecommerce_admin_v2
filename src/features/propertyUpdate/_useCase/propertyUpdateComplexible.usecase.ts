@@ -2,18 +2,17 @@ import { PropertyEntity } from "@/entities/property";
 import { ForbiddenError } from "@/shared/lib/errors";
 import { SessionEntity } from "@/shared/lib/user";
 import { PropertyUpdateComplexible } from "../_domain/types";
-import {
-  PropertyUpdateTx,
-  propertyUpdateTx,
-} from "../_tx/propertyUpdate.transaction";
+import { PropertyUpdateTx } from "../_tx/propertyUpdate.transaction";
 import { createPropertyAbility } from "@/entities/property/server";
+import { injectable } from "inversify";
 
 type UpdateProperty = {
   dataToUpdate: PropertyUpdateComplexible;
   session: SessionEntity;
 };
 
-class UpdatePropertyComplexibleUseCase {
+@injectable()
+export class UpdatePropertyComplexibleUseCase {
   constructor(private readonly propertyUpdateTx: PropertyUpdateTx) {}
 
   async exec(data: UpdateProperty): Promise<PropertyEntity> {
@@ -27,6 +26,3 @@ class UpdatePropertyComplexibleUseCase {
     return await this.propertyUpdateTx.updatePropertyById(dataToUpdate);
   }
 }
-
-export const updatePropertyComplexibleUseCase =
-  new UpdatePropertyComplexibleUseCase(propertyUpdateTx);

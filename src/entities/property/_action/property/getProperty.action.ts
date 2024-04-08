@@ -3,7 +3,7 @@ import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer"
 import { z } from "zod";
 import { propertySchema } from "../../_domain/property/property.schema";
 import { Property } from "../../_domain/property/types";
-import { getPropertyUseCase } from "../../_usecase/property/getProperty.usecase";
+import { getPropertyUseCase } from "../../_usecase/instans.usecase";
 
 const propsSchema = z.object({
   propertyId: z.string(),

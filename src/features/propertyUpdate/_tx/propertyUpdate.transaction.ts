@@ -1,4 +1,4 @@
-import { PropertyEntity, PropertyRelationEntity } from "@/entities/property";
+import { PropertyEntity } from "@/entities/property";
 import {
   PropertyItemRepository,
   PropertyRepository,
@@ -7,7 +7,9 @@ import {
 } from "@/entities/property/server";
 import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
 import { PropertyUpdateComplexible } from "../_domain/types";
+import { injectable } from "inversify";
 
+@injectable()
 export class PropertyUpdateTx extends Transaction {
   constructor(
     readonly db: DBClient,
@@ -55,9 +57,3 @@ export class PropertyUpdateTx extends Transaction {
     return await this.start(action);
   }
 }
-
-export const propertyUpdateTx = new PropertyUpdateTx(
-  dbClient,
-  propertyRepository,
-  propertyItemRepository,
-);

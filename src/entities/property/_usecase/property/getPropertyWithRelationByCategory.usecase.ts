@@ -2,17 +2,16 @@ import { AuthorizatoinError } from "@/shared/lib/errors";
 import { SessionEntity } from "@/shared/lib/user";
 import { createPropertyAbility } from "../../_domain/property/property.ability";
 import { PropertyRelationEntity } from "../../_domain/property/types";
-import {
-  PropertyRepository,
-  propertyRepository,
-} from "../../_repository/property.repo";
+import { PropertyRepository } from "../../_repository/property.repo";
+import { injectable } from "inversify";
 
 type GetPropertyWithRelation = {
   categoryIdList: Array<string>;
   session: SessionEntity;
 };
 
-class GetPropertyWithRelationByCategoryUseCase {
+@injectable()
+export class GetPropertyWithRelationByCategoryUseCase {
   constructor(private readonly propertyRepo: PropertyRepository) {}
 
   async exec(data: GetPropertyWithRelation): Promise<PropertyRelationEntity[]> {
@@ -28,6 +27,3 @@ class GetPropertyWithRelationByCategoryUseCase {
     );
   }
 }
-
-export const getPropertyWithRelationByCategoryUseCase =
-  new GetPropertyWithRelationByCategoryUseCase(propertyRepository);

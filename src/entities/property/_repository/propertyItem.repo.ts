@@ -1,4 +1,4 @@
-import { DBClient, Tx, dbClient } from "@/shared/lib/db";
+import { DBClient, Tx } from "@/shared/lib/db";
 import { PropertyId } from "../_domain/property/types";
 import {
   PropertyItemCombineCreate,
@@ -7,7 +7,9 @@ import {
   PropertyItemId,
   PropertyItemToUpdate,
 } from "../_domain/propertyItem/types";
+import { injectable } from "inversify";
 
+@injectable()
 export class PropertyItemRepository {
   constructor(readonly db: DBClient) {}
 
@@ -84,24 +86,4 @@ export class PropertyItemRepository {
       },
     });
   }
-
-  // async updatePropertyItem(
-  //   targetId: PropertyItemId,
-  //   propertyItemData: Partial<PropertyItem>,
-  //   db: Tx = this.db,
-  // ): Promise<PropertyItemEntity> {
-  //   return await db.propertyItem.update({
-  //     where: { id: targetId },
-  //     data: propertyItemData,
-  //   });
-  // }
-  //
-  // async removePropertyItemById(
-  //   propertyItemId: PropertyItemId,
-  //   db: Tx = this.db,
-  // ): Promise<PropertyItemEntity> {
-  //   return await db.propertyItem.delete({ where: { id: propertyItemId } });
-  // }
 }
-
-export const propertyItemRepository = new PropertyItemRepository(dbClient);

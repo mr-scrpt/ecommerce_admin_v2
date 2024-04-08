@@ -4,18 +4,17 @@ import {
   PropertyId,
   PropertyRelationEntity,
 } from "../../_domain/property/types";
-import {
-  PropertyRepository,
-  propertyRepository,
-} from "../../_repository/property.repo";
+import { PropertyRepository } from "../../_repository/property.repo";
 import { createPropertyAbility } from "../../_domain/property/property.ability";
+import { injectable } from "inversify";
 
 type GetPropertyWithRelation = {
   propertyId: PropertyId;
   session: SessionEntity;
 };
 
-class GetPropertyWithRelationUseCase {
+@injectable()
+export class GetPropertyWithRelationUseCase {
   constructor(private readonly propertyRepo: PropertyRepository) {}
 
   async exec(data: GetPropertyWithRelation): Promise<PropertyRelationEntity> {
@@ -29,6 +28,3 @@ class GetPropertyWithRelationUseCase {
     return await this.propertyRepo.getPropertyWithRelation(propertyId);
   }
 }
-
-export const getPropertyWithRelationUseCase =
-  new GetPropertyWithRelationUseCase(propertyRepository);
