@@ -43,36 +43,20 @@ export const userSchema = z.object({
   ...userBaseSchema.shape,
 });
 
-export const userWithCartSchema = z.object({
+export const userFiledSchema = z.object({
+  id: z.string(),
   ...userBaseSchema.shape,
-
-  cart: userRelationCartSchema,
+  name: z.string(),
 });
 
-export const userWithOrderListSchema = z.object({
-  ...userBaseSchema.shape,
-
-  orderList: z.array(userRelationOrderSchema),
-});
-
-// NOTE: FORM
-// NOTE: Main information
-
-export const userFormDefaultSchema = z.object({
-  email: z.string().email(),
-  phone: z.string().or(z.literal("")),
-  name: z
-    .string()
-    .max(30, {
-      message: "Username must not be longer than 30 characters.",
-    })
-    .min(3, {
-      message: "Username must not be shorter than 3!! characters.",
-    })
-    .transform((name) => name.trim()),
-  image: z.string().optional(),
-  emailVerified: z.date().nullable().optional(),
-  role: z.custom<Role>(),
-});
-
-export type UserFormDefaultValues = z.infer<typeof userFormDefaultSchema>;
+// export const userWithCartSchema = z.object({
+//   ...userBaseSchema.shape,
+//
+//   cart: userRelationCartSchema,
+// });
+//
+// export const userWithOrderListSchema = z.object({
+//   ...userBaseSchema.shape,
+//
+//   orderList: z.array(userRelationOrderSchema),
+// });

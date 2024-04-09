@@ -1,10 +1,10 @@
 "use client";
-import { OrderRowAddValues } from "@/entities/order/server";
 import { cn } from "@/shared/ui/utils";
 import { FC, HTMLAttributes } from "react";
 import { useOrderAddRowMutation } from "../_mutation/useOrderAddRow.mutation";
 import { useOrderProductListToSelect } from "../_vm/useOrderProductList";
 import { OrderRowAddTmp } from "./tmp/orderRowAddTmp";
+import { OrderRowAddValues } from "../_domain/form.schema";
 
 interface OrderFormProps extends HTMLAttributes<HTMLDivElement> {
   orderId: string;

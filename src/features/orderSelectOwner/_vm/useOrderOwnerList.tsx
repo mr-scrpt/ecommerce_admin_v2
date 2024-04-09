@@ -8,10 +8,7 @@ export const useOrderUserListToSelect = () => {
     toSearch,
   } = useUserListSearchQuery();
 
-  // const { order, isPending: isOrderPending } =
-  //   useOrderWithRelationQuery(orderId);
-
-  const userList = userData?.map((item) => ({
+  const userList = userData.map((item) => ({
     value: item.id,
     name: item.name,
     phone: item.phone,

@@ -29,12 +29,12 @@ import {
   useForm,
   useFormContext,
 } from "react-hook-form";
+import { PropertyRelation } from "../_domain/property/types";
+import { PropertyDataTypeEnum } from "@/shared/type/propertyDataType.enum";
 import {
   PropertyFormValues,
   propertyFormSchema,
-} from "../_domain/property/property.schema";
-import { PropertyRelation } from "../_domain/property/types";
-import { PropertyDataTypeEnum } from "@/shared/type/propertyDataType.enum";
+} from "../_domain/property/form.schema";
 
 interface PropertyFormProps
   extends Omit<HTMLAttributes<HTMLFormElement>, "property"> {

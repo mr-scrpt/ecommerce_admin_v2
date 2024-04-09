@@ -1,7 +1,5 @@
 import { OrderStatusForm, useOrderStatusGroupQuery } from "@/entities/order";
-import { OrderStatusGroup } from "@/entities/order/_domain/order.types";
 import { FC, HTMLAttributes } from "react";
-import { useOrderUpdateStatusMutation } from "../_mutation/useOrderStatusUpdate.mutation";
 import { useOrderUpdateStatus } from "../_vm/useOrderUpdateStatus";
 
 interface OrderStatusUpdateProps extends HTMLAttributes<HTMLDivElement> {

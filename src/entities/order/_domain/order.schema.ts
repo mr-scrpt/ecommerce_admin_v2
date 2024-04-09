@@ -28,34 +28,8 @@ export const orderRelationSchema = z.object({
   orderRowList: orderRowSchema.array(),
 });
 
-export const orderUpdateStausSchema = z.object({
-  id: z.string(),
-  orderStatus: z.custom<OrderStatusEnum>(),
-  paymentStatus: z.custom<OrderPaymentStatusEnum>(),
-});
-
-// NOTE: FORM
-// NOTE: Main information
-
-export const orderFormDefaultSchema = z.object({
-  orderNo: z.number(),
-  orderStatus: z.custom<OrderStatusEnum>(),
-  paymentStatus: z.custom<OrderPaymentStatusEnum>(),
-});
-
-export type OrderFormValues = z.infer<typeof orderFormDefaultSchema>;
-
-// NOTE: Product information
-export const orderStatusFormSchema = z.object({
-  orderStatus: z.custom<OrderStatusEnum>(),
-  paymentStatus: z.custom<OrderPaymentStatusEnum>(),
-});
-
-export type OrderStatusFormValues = z.infer<typeof orderStatusFormSchema>;
-
-// NOTE: Select Owner
-export const orderSelectOwnerSchema = z.object({
-  ownerId: z.string(),
-});
-
-export type OrderSelectOwnerValues = z.infer<typeof orderSelectOwnerSchema>;
+// export const orderUpdateStausSchema = z.object({
+//   id: z.string(),
+//   orderStatus: z.custom<OrderStatusEnum>(),
+//   paymentStatus: z.custom<OrderPaymentStatusEnum>(),
+// });

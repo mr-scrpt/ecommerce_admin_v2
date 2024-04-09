@@ -19,12 +19,12 @@ import { FC, HTMLAttributes, useEffect } from "react";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
 import { Country } from "react-phone-number-input";
 import { ZodTypeAny } from "zod";
+import { UserPartial } from "../user";
+import { AvatarField } from "./avatarField";
 import {
   UserFormDefaultValues,
   userFormDefaultSchema,
-} from "../_domain/user.schema";
-import { UserPartial } from "../user";
-import { AvatarField } from "./avatarField";
+} from "../_domain/user.form.schema";
 
 interface UserFormElementsProps extends HTMLAttributes<HTMLFormElement> {
   user?: UserPartial;

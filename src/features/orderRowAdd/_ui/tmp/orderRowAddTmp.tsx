@@ -1,5 +1,4 @@
 "use client";
-import { OrderRowAddValues } from "@/entities/order/server";
 import { ProductSelect } from "@/entities/product";
 import { Button } from "@/shared/ui/button";
 import {
@@ -14,6 +13,7 @@ import { cn } from "@/shared/ui/utils";
 import { FC, HTMLAttributes } from "react";
 import { useForm } from "react-hook-form";
 import { OrderProductGroup } from "../../_domain/types";
+import { OrderRowAddValues } from "../../_domain/form.schema";
 
 interface OrderFormProps extends HTMLAttributes<HTMLDivElement> {
   orderProductGroup: OrderProductGroup;

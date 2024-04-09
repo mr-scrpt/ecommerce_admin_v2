@@ -1,5 +1,5 @@
 "use client";
-import { Button } from "@/shared/ui/button";
+import { UserSelect } from "@/entities/user/user";
 import {
   Form,
   FormDescription,
@@ -12,8 +12,7 @@ import { cn } from "@/shared/ui/utils";
 import { FC, HTMLAttributes } from "react";
 import { useForm } from "react-hook-form";
 import { useOrderUserListToSelect } from "../_vm/useOrderOwnerList";
-import { UserSelect, useUserListSearchQuery } from "@/entities/user/user";
-import { OrderSelectOwnerValues } from "@/entities/order/server";
+import { OrderSelectOwnerValues } from "../_domain/form.schema";
 
 interface OrderFormProps extends HTMLAttributes<HTMLDivElement> {
   className?: string;
@@ -25,11 +24,6 @@ export const OrderSelectOwner: FC<OrderFormProps> = (props) => {
 
   const { toSearch, searchValue, isPending, userList } =
     useOrderUserListToSelect();
-
-  // const handleSubmit = async (data: OrderSelectOwnerValues) => {
-  //   const { ownerId } = data;
-  //   onSelectOwner(ownerId);
-  // };
 
   const form = useForm<OrderSelectOwnerValues>();
 
@@ -59,7 +53,6 @@ export const OrderSelectOwner: FC<OrderFormProps> = (props) => {
               );
             }}
           />
-          {/* <Button type="submit">Add user</Button> */}
         </form>
       </Form>
     </div>

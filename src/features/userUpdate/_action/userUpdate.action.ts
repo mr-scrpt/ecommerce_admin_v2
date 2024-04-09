@@ -1,10 +1,11 @@
 "use server";
 
-import { User, userSchema } from "@/entities/user/user";
+import { User } from "@/entities/user/user";
 import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
 import { z } from "zod";
 import { userUpdateSchema } from "../_domain/schema";
 import { updateUserUseCase } from "../_useCase/instans.usecase";
+import { userSchema } from "@/entities/user/user.server";
 
 const propsSchema = z.object({
   userId: z.string(),

@@ -1,8 +1,8 @@
 "use server";
 import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
 import { z } from "zod";
-import { userSchema } from "../_domain/user.schema";
-import { User } from "../_domain/user.types";
+import { userFiledSchema } from "../_domain/user.schema";
+import { UserFiled } from "../_domain/user.types";
 import { getUserListSearchUseCase } from "../_useCase/instans.usecase";
 
 const propsSchema = z.object({
@@ -10,10 +10,10 @@ const propsSchema = z.object({
 });
 
 const resultSchema = z.object({
-  userList: z.array(userSchema),
+  userList: z.array(userFiledSchema),
 });
 
-type ResultT = { userList: Array<User> };
+type ResultT = { userList: Array<UserFiled> };
 
 export const getUserListSearchAction = async (
   props: z.infer<typeof propsSchema>,
