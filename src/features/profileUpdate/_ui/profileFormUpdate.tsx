@@ -9,7 +9,7 @@ import { ProfileFormElements } from "@/entities/user/profile";
 import {
   ProfileFromUpdateValues,
   profileFormUpdateSchema,
-} from "../_domain/schema";
+} from "../_domain/form.schema";
 
 interface ProfileFormProps extends HTMLAttributes<HTMLDivElement> {
   profileId: string;
