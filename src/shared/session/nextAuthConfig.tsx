@@ -46,6 +46,7 @@ export const nextAuthConfig: AuthOptions = {
           cart: true,
         },
       });
+      console.log("output_log: user in nextAuth =>>>", u);
 
       const clientDataParsed = getNetworkClientCookie();
 

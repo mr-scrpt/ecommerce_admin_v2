@@ -18,8 +18,6 @@ export const getUserListAction = async (): Promise<ResultT> => {
     session,
   });
 
-  console.log("output_log:  =>>>", userList);
-
   return resultSchema.parseAsync({
     userList: userList,
   });

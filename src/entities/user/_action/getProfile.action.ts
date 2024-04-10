@@ -1,8 +1,8 @@
 "use server";
 import { z } from "zod";
-import { profileSchema } from "../_domain/profile.schema";
 import { getAppSessionStrictServer } from "../../../shared/session/getAppSessionServer";
-import { Profile } from "../profile";
+import { profileDammySchema } from "../_domain/profile.schema";
+import { ProfileDummy } from "../_domain/profile.types";
 import { getProfileUseCase } from "../_useCase/instans.usecase";
 
 const propsSchema = z.object({
@@ -10,10 +10,10 @@ const propsSchema = z.object({
 });
 
 const resultSchema = z.object({
-  profile: profileSchema,
+  profile: profileDammySchema,
 });
 
-type ResultT = { profile: Profile };
+type ResultT = { profile: ProfileDummy };
 
 export const getProfileAction = async (
   props: z.infer<typeof propsSchema>,

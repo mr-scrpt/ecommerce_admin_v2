@@ -1,4 +1,4 @@
-import { nextAuthConfigWithCreateUser } from "@/features/userCreate/server";
+import { nextAuthConfigWithCreateUser } from "@/features/userRegistration/server";
 import NextAuth from "next-auth/next";
 import { NextRequest } from "next/server";
 

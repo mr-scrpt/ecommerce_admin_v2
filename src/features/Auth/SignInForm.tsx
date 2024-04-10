@@ -1,13 +1,13 @@
 "use server";
 
-import { FC, HTMLAttributes } from "react";
-import { getProviders } from "next-auth/react";
+import { configPrivate } from "@/shared/config/private.config";
 import { cn } from "@/shared/ui/utils";
+import { getProviders } from "next-auth/react";
+import { FC, HTMLAttributes } from "react";
 import { Divider } from "./_ui/Divider";
 import { EmailSignInForm } from "./_ui/EmailSignInForm";
 import { ProviderButton } from "./_ui/ProviderButton";
 import { TestEmailSignInForm } from "./_ui/TestEmailSignInForm";
-import { configPrivate } from "@/shared/config/private.config";
 // import { EmailSignInForm } from "./_ui/email-sign-in-form";
 // import { Divider } from "./_ui/divider";
 // import { ProviderButton } from "./_ui/provider-button";

@@ -13,17 +13,10 @@ export const profileSchema = z.object({
   ...profileBaseSchema.shape,
 });
 
-export const profileFormDefaultSchema = z.object({
-  name: z
-    .string()
-    .max(30, {
-      message: "Username must not be longer than 30 characters.",
-    })
-    .transform((name) => name.trim())
-    .optional(),
-  email: z.string().email(),
-  phone: z.string().or(z.literal("")),
-  image: z.string().optional(),
+export const profileDammySchema = z.object({
+  id: z.string(),
+  email: z.string(),
+  phone: z.string().nullable(),
+  name: z.string().nullable(),
+  image: z.string().nullable(),
 });
-
-export type ProfileFormDefaultValues = z.infer<typeof profileFormDefaultSchema>;

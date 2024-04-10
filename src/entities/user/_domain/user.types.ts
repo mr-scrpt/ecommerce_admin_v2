@@ -1,25 +1,25 @@
 export const userBaseQueryKey = "user";
 import { Role, UserId } from "@/shared/lib/user";
 
-export type UserEntity = {
+export type UserDummyEntity = {
   id: UserId;
   name: string | null;
-  phone: string;
+  phone: string | null;
   email: string;
+  image: string | null;
   role: Role;
-  emailVerified?: Date | null;
-  image?: string | null;
+  emailVerified: Date | null;
   createdAt: Date;
 };
 
-export type UserFiledEntity = {
+export type UserEntity = {
   id: UserId;
-  name: string | null;
+  name: string;
   phone: string;
   email: string;
   role: Role;
-  emailVerified?: Date | null;
-  image?: string | null;
+  emailVerified: Date | null;
+  image: string | null;
   createdAt: Date;
 };
 
@@ -34,7 +34,7 @@ export type UserWithOrdersEntity = UserEntity & {
 export type UserPartial = {
   email: string;
   phone: string;
-  name?: string | null;
+  name: string | null;
   image?: string | null;
   role: Role;
   emailVerified?: Date | null;
@@ -57,7 +57,15 @@ export type UserFiled = User & {
 export type UserToCreate = {
   email: string;
   phone: string;
-  name?: string | null;
+  name: string;
+  image?: string | null;
+  role: Role;
+};
+
+export type UserToRegistration = {
+  email: string;
+  phone: string | null;
+  name: string | null;
   image?: string | null;
   role: Role;
 };

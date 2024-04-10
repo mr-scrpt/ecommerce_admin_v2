@@ -17,15 +17,15 @@ import { FC, HTMLAttributes, useEffect } from "react";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
 import { Country } from "react-phone-number-input";
 import { ZodTypeAny } from "zod";
+import { AvatarField } from "./avatarField";
+import { ProfileDummy } from "../_domain/profile.types";
 import {
   ProfileFormDefaultValues,
   profileFormDefaultSchema,
-} from "../_domain/profile.schema";
-import { Profile } from "../profile";
-import { AvatarField } from "./avatarField";
+} from "../_domain/profile.form.schema";
 
 interface ProfileFormElementsProps extends HTMLAttributes<HTMLFormElement> {
-  profile: Profile;
+  profile: ProfileDummy;
   handleSubmit: (data: ProfileFormDefaultValues) => void;
   schema?: ZodTypeAny;
 }
@@ -40,11 +40,11 @@ type ProfileFormElementsType = FC<ProfileFormElementsProps> & {
   FieldName: FC<{}>;
   FieldEmail: FC<{}>;
   FieldPhone: FC<{ countryDefault?: Country }>;
-  FieldAvatar: FC<{ profile?: Profile }>;
+  FieldAvatar: FC<{ profile?: ProfileDummy }>;
   SubmitButton: FC<ProfileSubmitFieldProps>;
 };
 
-const getDefaultValues = (profile: Profile) => ({
+const getDefaultValues = (profile: ProfileDummy) => ({
   email: profile.email,
   phone: profile.phone ?? "",
   image: profile.image ?? "",

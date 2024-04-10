@@ -29,7 +29,7 @@ export const userRelationOrderSchema = z.object({
 
 // NOTE: Base Schema
 export const userBaseSchema = z.object({
-  name: z.string().nullable(),
+  name: z.string(),
   email: z.string(),
   phone: z.string(),
   role: z.custom<Role>(),
@@ -41,6 +41,17 @@ export const userBaseSchema = z.object({
 export const userSchema = z.object({
   id: z.string(),
   ...userBaseSchema.shape,
+});
+
+export const userDammySchema = z.object({
+  id: z.string(),
+  name: z.string().nullable(),
+  email: z.string(),
+  phone: z.string().nullable(),
+  role: z.custom<Role>(),
+  emailVerified: z.date().nullable(),
+  image: z.string().nullable(),
+  createdAt: z.date(),
 });
 
 export const userFiledSchema = z.object({

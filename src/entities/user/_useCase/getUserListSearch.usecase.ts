@@ -2,7 +2,7 @@ import { AuthorizatoinError } from "@/shared/lib/errors";
 import { SessionEntity } from "@/shared/lib/user";
 import { createUserAbility } from "../_domain/user.ability";
 import { UserRepository } from "../_repository/user.repo";
-import { UserEntity, UserFiledEntity } from "../_domain/user.types";
+import { UserEntity, UserEntity } from "../_domain/user.types";
 import { SEARCH_MIN_LENGTH } from "@/shared/config/constant";
 import { injectable } from "inversify";
 
@@ -15,7 +15,7 @@ type GetUserListSearch = {
 export class GetUserListSearchUseCase {
   constructor(private readonly userRepo: UserRepository) {}
 
-  async exec(data: GetUserListSearch): Promise<UserFiledEntity[]> {
+  async exec(data: GetUserListSearch): Promise<UserEntity[]> {
     const { session, q } = data;
     const { canGetUser } = createUserAbility(session);
 
@@ -31,7 +31,7 @@ export class GetUserListSearchUseCase {
     return this.userFilteredList(userList);
   }
 
-  async userFilteredList(userList: UserEntity[]): Promise<UserFiledEntity[]> {
+  async userFilteredList(userList: UserEntity[]): Promise<UserEntity[]> {
     const filteredUserList = userList.filter((user) => {
       if (user.name) {
         return user;

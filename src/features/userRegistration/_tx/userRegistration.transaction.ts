@@ -1,11 +1,11 @@
 import { CartRepository } from "@/entities/cart/server";
-import { UserWithCartEntity } from "@/entities/user/_domain/user.types";
-import { UserRepository, UserToCreate } from "@/entities/user/user.server";
+import { UserDummyEntity, UserToRegistration } from "@/entities/user/user";
+import { UserRepository } from "@/entities/user/user.server";
 import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
 import { injectable } from "inversify";
 
 @injectable()
-export class UserCreateTx extends Transaction {
+export class UserRegistrationTx extends Transaction {
   constructor(
     readonly db: DBClient,
     private readonly userRepo: UserRepository,
@@ -14,22 +14,19 @@ export class UserCreateTx extends Transaction {
     super(dbClient);
   }
 
-  async createUser(user: UserToCreate): Promise<UserWithCartEntity> {
+  async createUserRegistration(
+    user: UserToRegistration,
+  ): Promise<UserDummyEntity> {
     const action = async (tx: Tx) => {
-      const userCreated = await this.userRepo.createUser(user, tx);
+      const userRegistered = await this.userRepo.registrationUser(user, tx);
+
       await this.cartRepo.createCart(
         {
-          userId: userCreated.id,
+          userId: userRegistered.id,
         },
         tx,
       );
-
-      const userWithCart = await this.userRepo.getUserWithCart(
-        userCreated.id,
-        tx,
-      );
-
-      return userWithCart;
+      return userRegistered;
     };
 
     return await this.start(action);

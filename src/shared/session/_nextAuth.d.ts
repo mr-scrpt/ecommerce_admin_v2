@@ -8,5 +8,6 @@ declare module "next-auth" {
     user: SessionEntity["user"];
     clientNetworkData: ClientNetworkData;
   }
+
   interface User extends UserEntity {}
 }

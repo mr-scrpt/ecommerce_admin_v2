@@ -13,5 +13,11 @@ export { useUserListSearchQuery } from "./_query/userListSearch.query";
 
 export { userFormDefaultSchema } from "./_domain/user.form.schema";
 
-export type { UserPartial, User, UserEntity } from "./_domain/user.types";
+export type {
+  UserPartial,
+  User,
+  UserEntity,
+  UserDummyEntity,
+  UserToRegistration,
+} from "./_domain/user.types";
 export type { UserFormDefaultValues } from "./_domain/user.form.schema";

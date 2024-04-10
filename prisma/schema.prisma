@@ -76,15 +76,13 @@ model User {
   id            String    @id @default(uuid())
   name          String?
   email         String    @unique
-  phone         String
+  phone         String?   @unique
   role          ROLE      @default(USER)
   emailVerified DateTime?
   image         String?
 
   cart     Cart?
   orderList   Order[]
-  // cart    Cart    @relation(fields: [cartId], references: [id])
-  // cartId  String
 
   accounts      Account[]
   sessions      Session[]

@@ -9,13 +9,9 @@ export const userFormDefaultSchema = z.object({
   phone: z.string().or(z.literal("")),
   name: z
     .string()
-    .max(30, {
-      message: "Username must not be longer than 30 characters.",
-    })
-    .min(3, {
-      message: "Username must not be shorter than 3!! characters.",
-    })
-    .transform((name) => name.trim()),
+    .transform((name) => name.trim())
+    .pipe(z.string().max(30).min(2)),
+
   image: z.string().optional(),
   emailVerified: z.date().nullable().optional(),
   role: z.custom<Role>(),
