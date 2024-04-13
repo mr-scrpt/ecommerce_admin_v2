@@ -6,14 +6,8 @@ export {
 } from "./_domain/property/property.schema";
 export { usePropertyListQuery } from "./_query/property/propertyList.query";
 export { usePropertyWithRelationQuery } from "./_query/property/properyWithRelation.query";
-export {
-  PropertyRepository,
-  propertyRepository,
-} from "./_repository/property.repo";
-export {
-  PropertyItemRepository,
-  propertyItemRepository,
-} from "./_repository/propertyItem.repo";
+export { PropertyRepository } from "./_repository/property.repo";
+export { PropertyItemRepository } from "./_repository/propertyItem.repo";
 export { PropertyForm } from "./_ui/propertyForm";
 export { PropertyFromLayout } from "./_ui/propertyFromLayout";
 export { usePropertyLikeSelectOptionList } from "./_vm/usePropertyLikeSelectOptionList";
