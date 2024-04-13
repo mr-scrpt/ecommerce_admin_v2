@@ -1,4 +1,4 @@
-import { OrderRepository, OrderRowRepository } from "@/entities/order/server";
+import { OrderRepository } from "@/entities/order/server";
 import { DBClient, dbClient } from "@/shared/lib/db";
 import { Container, ContainerModule } from "inversify";
 import { OrderCreateTx } from "./_tx/orderCreate.transaction";
@@ -10,7 +10,6 @@ export const OrderCreateModule = new ContainerModule((bind) => {
   bind(DBClient).toConstantValue(dbClient);
   bind(OrderCreateTx).toSelf();
   bind(OrderRepository).toSelf();
-  bind(OrderRowRepository).toSelf();
 
   bind(CreateOrderComplexibleUseCase).toSelf();
 });

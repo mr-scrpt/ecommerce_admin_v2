@@ -20,6 +20,7 @@ export const createUserAction = async (
 ): Promise<{ user: User }> => {
   const { data } = propsSchema.parse(props);
 
+  console.log("output_log: phone =>>>", data.phone);
   const session = await getAppSessionStrictServer();
 
   const user = await createUserUseCase.exec({

@@ -9,7 +9,7 @@ export type OrderProductGroup = {
   outOfStock: Array<ProductToSelect>;
 };
 
-export type OrderProductAdd = {
+export type OrderProductCreate = {
   productId: string;
   quantity: number;
 };

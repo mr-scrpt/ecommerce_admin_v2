@@ -1,7 +1,7 @@
 "use client";
 import { OrderOwnerData } from "@/features/orderOwnerData";
 import { OrderRowAdd } from "@/features/orderRowAdd";
-import { OrderRowList } from "@/features/orderRowList";
+import { OrderRowListUpdate } from "@/features/orderRowList";
 import { useOrderRemoveConfirm } from "@/features/orderRowRemove";
 import { useOrderRowUpdateQuantityMutation } from "@/features/orderRowUpdate/_mutation/useOrderRowUpdateQuantity.mutation";
 import { OrderStatusUpdate } from "@/features/orderStatusUpdate";
@@ -27,7 +27,7 @@ export const OrderUpdate: FC<OrderUpdateProps> = (props) => {
       </OrderOwnerData>
       <OrderStatusUpdate orderId={orderId} className="flex w-full border p-4" />
       <OrderRowAdd orderId={orderId} className="flex w-full border p-4" />
-      <OrderRowList
+      <OrderRowListUpdate
         orderId={orderId}
         orderRowUpdateQuantity={orderRowUpdateQuantity}
         orderRowRemove={removeOrderConfirm}

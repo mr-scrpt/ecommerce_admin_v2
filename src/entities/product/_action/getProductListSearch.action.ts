@@ -25,7 +25,6 @@ export const getProductListSearchAction = async (
     q,
     session,
   });
-  console.log("output_log:  =>>>", productList);
 
   return resultSchema.parseAsync({
     productList: productList,

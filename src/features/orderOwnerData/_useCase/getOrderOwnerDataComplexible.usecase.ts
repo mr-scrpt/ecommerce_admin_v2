@@ -22,7 +22,6 @@ export class GetOrderOwnerDataComplexibleUseCase {
     if (!canGetUser()) {
       throw new ForbiddenError();
     }
-    console.log("output_log:  =>>> in usecase", orderId);
 
     const result = await this.orderOwnerTx.getOwnerWithOrderList(orderId);
     return result;

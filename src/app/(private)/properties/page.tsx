@@ -1,4 +1,4 @@
-import { PropertyCreateButton } from "@/features/propertyCreate";
+import { ToPropertyCreateButton } from "@/features/propertyCreate";
 import { RoutePathEnum } from "@/shared/config/routing.config";
 import { TitlePage } from "@/shared/ui/titlePage";
 import { PropertyTable } from "@/widgets/propertyTable";
@@ -12,7 +12,9 @@ const PagePropertys: FC<PageProps> = (props) => {
       <TitlePage
         title="Properties"
         description="Manage your properties list"
-        action={<PropertyCreateButton route={RoutePathEnum.PROPERTY_CREATE} />}
+        action={
+          <ToPropertyCreateButton route={RoutePathEnum.PROPERTY_CREATE} />
+        }
       />
       <PropertyTable />
     </main>

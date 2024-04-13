@@ -16,7 +16,6 @@ export const InitUserData: FC<InitUserDataProps> = (props) => {
   const cookieUserInfo = getCookie(COOKIE_NETWORK_NAME);
 
   const requestData = async () => {
-    console.log("output_log:  =>>> requestData");
     const data = await fetch("https://ipapi.co/json/");
     const dataJson: ClientNetworkData = await data.json();
     setCookie(COOKIE_NETWORK_NAME, JSON.stringify(dataJson), {

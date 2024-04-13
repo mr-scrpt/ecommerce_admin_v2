@@ -1,17 +1,17 @@
 "use client";
-import { OrderRowAddValues } from "@/entities/order/server";
 import { cn } from "@/shared/ui/utils";
 import { FC, HTMLAttributes } from "react";
-import { OrderProductAdd } from "../_domain/types";
+import { OrderProductCreate } from "../_domain/types";
 import { useNewOrderProductListToSelect } from "../_vm/useNewOrderProductList";
 import { OrderRowAddTmp } from "./tmp/orderRowAddTmp";
+import { OrderRowAddValues } from "../_domain/form.schema";
 
-interface OrderFormProps extends HTMLAttributes<HTMLDivElement> {
-  handleRowCreate: (product: OrderProductAdd) => void;
+interface OrderRowCreateProps extends HTMLAttributes<HTMLDivElement> {
+  handleRowCreate: (product: OrderProductCreate) => void;
   productIdList: Array<string>;
 }
 
-export const OrderRowCreate: FC<OrderFormProps> = (props) => {
+export const OrderRowCreate: FC<OrderRowCreateProps> = (props) => {
   const { className, productIdList, handleRowCreate } = props;
 
   const handleSubmit = async (data: OrderRowAddValues) => {

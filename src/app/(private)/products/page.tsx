@@ -1,4 +1,4 @@
-import { ProductCreateButton } from "@/features/productCreate";
+import { ToProductCreateButton } from "@/features/productCreate";
 import { RoutePathEnum } from "@/shared/config/routing.config";
 import { TitlePage } from "@/shared/ui/titlePage";
 import { ProductTable } from "@/widgets/productTable";
@@ -12,7 +12,7 @@ const PageCategories: FC<PageProps> = (props) => {
       <TitlePage
         title="Products"
         description="Manage your product list"
-        action={<ProductCreateButton route={RoutePathEnum.PRODUCT_CREATE} />}
+        action={<ToProductCreateButton route={RoutePathEnum.PRODUCT_CREATE} />}
       />
       <ProductTable />
     </main>

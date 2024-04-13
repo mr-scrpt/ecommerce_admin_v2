@@ -1,4 +1,4 @@
-import { OrderCreateButton } from "@/features/orderCreate";
+import { ToOrderCreateButton } from "@/features/orderCreate";
 import { RoutePathEnum } from "@/shared/config/routing.config";
 import { TitlePage } from "@/shared/ui/titlePage";
 import { OrderTable } from "@/widgets/orderTable";
@@ -12,7 +12,7 @@ const PageOrders: FC<PageProps> = (props) => {
       <TitlePage
         title="Orders"
         description="Manage your order list"
-        action={<OrderCreateButton route={RoutePathEnum.ORDER_CREATE} />}
+        action={<ToOrderCreateButton route={RoutePathEnum.ORDER_CREATE} />}
       />
       <OrderTable />
     </main>

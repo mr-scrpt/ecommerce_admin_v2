@@ -1,2 +1,2 @@
-export { CategoryCreateButton } from "./_ui/categoryCreateButton";
+export { ToCategoryCreateButton } from "./_ui/categoryCreateButton";
 export { CategoryFormCreate } from "./_ui/categoryCreateForm";

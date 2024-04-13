@@ -1,10 +1,11 @@
 "use client";
-import { OrderProductAdd, OrderRowCreate } from "@/features/orderRowAdd";
+import { useOrderCreateMutation } from "@/features/orderCreate/_mutation/useCreate.mutation";
 import { OrderSelectOwner } from "@/features/orderSelectOwner";
-import { UserFormCreate } from "@/features/userCreate";
-import { useUserCreateMutation } from "@/features/userCreate";
+import { UserFormCreate, useUserCreateMutation } from "@/features/userCreate";
 import { UserCreate } from "@/features/userCreate/_domain/types";
 import { RoutePathEnum } from "@/shared/config/routing.config";
+import { Button } from "@/shared/ui/button";
+import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes, useState } from "react";
 
 interface OrderUpdateProps extends HTMLAttributes<HTMLDivElement> {
@@ -13,16 +14,19 @@ interface OrderUpdateProps extends HTMLAttributes<HTMLDivElement> {
 
 export const OrderCreate: FC<OrderUpdateProps> = (props) => {
   const { callbackUrl } = props;
+  const [userId, setUserId] = useState("");
 
   const { createUser } = useUserCreateMutation();
+  const { orderCreate, isSuccess } = useOrderCreateMutation();
 
-  const [productList, setProductList] = useState<Array<OrderProductAdd>>([]);
+  const router = useRouter();
+  const handleCreate = async (userId: string) => {
+    const { order } = await orderCreate({ userId });
 
-  const handleRowCreate = (product: OrderProductAdd) => {
-    setProductList([...productList, product]);
+    if (callbackUrl) {
+      router.push(`${RoutePathEnum.ORDER_UPDATE}/${order.id}`);
+    }
   };
-
-  const productlIdList = productList.map((product) => product.productId);
 
   return (
     <div className="flex w-full flex-col gap-4">
@@ -32,17 +36,8 @@ export const OrderCreate: FC<OrderUpdateProps> = (props) => {
         }}
         isPending={false}
       />
-      <OrderSelectOwner onSelectOwner={console.log} />
-      <OrderRowCreate
-        productIdList={productlIdList}
-        handleRowCreate={handleRowCreate}
-      />
-      {/* <OrderRowList */}
-      {/*   orderId={orderId} */}
-      {/*   orderRowUpdateQuantity={orderRowUpdateQuantity} */}
-      {/*   orderRowRemove={removeOrderConfirm} */}
-      {/*   className="flex w-full border p-4" */}
-      {/* /> */}
+      <OrderSelectOwner onSelectOwner={setUserId} />
+      <Button onClick={() => handleCreate(userId)}>Create Order</Button>
     </div>
   );
 };

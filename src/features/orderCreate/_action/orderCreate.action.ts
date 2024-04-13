@@ -8,7 +8,7 @@ import { createOrderComplexibleUseCase } from "../_usecase/instans.usecase";
 
 const propsSchema = z.object({
   userId: z.string(),
-  data: orderCreateSchema,
+  // data: orderCreateSchema,
 });
 
 const resultSchema = z.object({
@@ -20,8 +20,7 @@ type ResultT = { order: Order };
 export const createOrderAction = async (
   props: z.infer<typeof propsSchema>,
 ): Promise<ResultT> => {
-  const { userId, data } = propsSchema.parse(props);
-  const { orderStatus, paymentStatus, orderRowData } = data;
+  const { userId } = propsSchema.parse(props);
 
   const session = await getAppSessionStrictServer();
 
@@ -29,9 +28,9 @@ export const createOrderAction = async (
     session,
     dataToCreate: {
       userId,
-      orderStatus,
-      paymentStatus,
-      orderRowData,
+      // orderStatus,
+      // paymentStatus,
+      // orderRowData,
     },
   });
 

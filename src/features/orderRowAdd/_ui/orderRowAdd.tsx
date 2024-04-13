@@ -6,12 +6,12 @@ import { useOrderAddRowMutation } from "../_mutation/useOrderAddRow.mutation";
 import { useOrderProductListToSelect } from "../_vm/useOrderProductList";
 import { OrderRowAddTmp } from "./tmp/orderRowAddTmp";
 
-interface OrderFormProps extends HTMLAttributes<HTMLDivElement> {
+interface OrderRowAddProps extends HTMLAttributes<HTMLDivElement> {
   orderId: string;
   className?: string;
 }
 
-export const OrderRowAdd: FC<OrderFormProps> = (props) => {
+export const OrderRowAdd: FC<OrderRowAddProps> = (props) => {
   const { className, orderId } = props;
   const { orderRowAdd, isPending: isPendingUpdate } = useOrderAddRowMutation();
 

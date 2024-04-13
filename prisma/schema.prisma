@@ -23,6 +23,7 @@ enum DATATYPE {
 }
 
 enum ORDER_STATUS {
+  TEMP
   NEW
   PENDING
   CALLED
@@ -31,6 +32,7 @@ enum ORDER_STATUS {
   CANCELED
 }
 enum ORDER_PAYMENT_STATUS {
+  TEMP
   PAID
   NOT_PAID
   POSTAL_PAID
@@ -83,8 +85,7 @@ model User {
 
   cart     Cart?
   orderList   Order[]
-  // cart    Cart    @relation(fields: [cartId], references: [id])
-  // cartId  String
+  receiverList  Receiver[]
 
   accounts      Account[]
   sessions      Session[]
@@ -92,6 +93,7 @@ model User {
   createdAt     DateTime  @default(now())
 
 }
+
 
 model Cart {
   id        String   @id @default(uuid())
@@ -110,9 +112,6 @@ model CartRow {
   cartId    String
 
   productId String
-  // productName  String
-  //
-  // productArticle  String
 
   quantity  Int
 
@@ -159,6 +158,47 @@ model OrderRow {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model DeliveryAddress {
+  id        String   @id @default(uuid())
+  userId    String
+  receiver  Receiver @relation(fields: [receiverId], references: [id], onDelete: Cascade)
+  receiverId    String @unique
+  deliveryType  DeliveryType @relation(fields: [deliveryTypeId], references: [id], onDelete: Cascade)
+  deliveryTypeId    String @unique
+
+
+  @@unique([receiverId, userId])
+  @@index([receiverId, userId])
+}
+
+model Receiver {
+  id        String   @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  name      String
+  lastName  String
+  phone     String
+  deliveryAddress  DeliveryAddress?
+  @@unique([userId, name, lastName, phone])
+}
+
+model DeliveryType {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  fields    DeliveryField[]
+  deliveryAddress  DeliveryAddress?
+}
+
+model DeliveryField {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  value     String
+  property  String
+  deliveryType  DeliveryType[]
+
+}
+
 
 model Property {
   id       String   @id @default(uuid())

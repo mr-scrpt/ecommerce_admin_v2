@@ -1,12 +1,12 @@
 "use client";
-import { FC, HTMLAttributes, useEffect, useState } from "react";
-import { OrderRow } from "../_domain/orderRow.types";
-import Image from "next/image";
-import Counter from "@/shared/ui/counter";
 import { useProductQuery } from "@/entities/product";
 import { useAppearanceDelay } from "@/shared/lib/react";
-import { cn } from "@/shared/ui/utils";
 import { Button } from "@/shared/ui/button";
+import Counter from "@/shared/ui/counter";
+import { cn } from "@/shared/ui/utils";
+import Image from "next/image";
+import { FC, HTMLAttributes, useState } from "react";
+import { OrderRow } from "../_domain/orderRow.types";
 
 interface OrderProductSnippetProps extends HTMLAttributes<HTMLDivElement> {
   orderRow: OrderRow;

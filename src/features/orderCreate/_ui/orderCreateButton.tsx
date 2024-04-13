@@ -8,7 +8,7 @@ interface OrderCreateButtonProps extends HTMLAttributes<HTMLButtonElement> {
   route: RoutePathEnum;
 }
 
-export const OrderCreateButton: FC<OrderCreateButtonProps> = (props) => {
+export const ToOrderCreateButton: FC<OrderCreateButtonProps> = (props) => {
   const { route } = props;
   return (
     <Button size="icon" asChild>

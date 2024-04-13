@@ -72,6 +72,7 @@ export class OrderRepository {
     data: OrderToCreate,
     db: Tx = this.db,
   ): Promise<OrderEntity> {
+    console.log("output_log: order =>>>", data);
     return await db.order.create({
       data,
     });

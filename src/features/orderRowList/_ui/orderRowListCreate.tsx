@@ -1,13 +1,13 @@
 "use client";
 import {
   OrderProductList,
-  OrderRelation,
+  OrderRow,
   OrderRowToUpdateQuantityPayload,
 } from "@/entities/order";
 import { FC, HTMLAttributes } from "react";
 
-interface OrderRowListProps extends HTMLAttributes<HTMLDivElement> {
-  order: OrderRelation;
+interface OrderFormProps extends HTMLAttributes<HTMLDivElement> {
+  orderRowList: Array<OrderRow>;
   callbackUrl?: string;
   className?: string;
   onSuccess?: () => void;
@@ -17,9 +17,9 @@ interface OrderRowListProps extends HTMLAttributes<HTMLDivElement> {
   handleOrderRowRemove: (orderRowId: string) => void;
 }
 
-export const OrderRowList: FC<OrderRowListProps> = (props) => {
+export const OrderRowListCreate: FC<OrderFormProps> = (props) => {
   const {
-    order,
+    orderRowList,
     handleOrderRowUpdateQuantity,
     handleOrderRowRemove,
     className,
@@ -27,7 +27,7 @@ export const OrderRowList: FC<OrderRowListProps> = (props) => {
 
   return (
     <OrderProductList
-      orderProductRowList={order.orderRowList}
+      orderProductRowList={orderRowList}
       handleOrderRowUpdateQuantity={handleOrderRowUpdateQuantity}
       handleOrderRowRemove={handleOrderRowRemove}
       className={className}

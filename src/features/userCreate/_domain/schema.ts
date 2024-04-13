@@ -2,10 +2,11 @@ import { userSchema } from "@/entities/user/user";
 import { z } from "zod";
 
 export const userCreateSchema = z.object({
-  // name: z.string(),
-  // email: z.string(),
-  // phone: z.string(),
-  ...userSchema.omit({ id: true }).shape,
+  ...userSchema.pick({
+    name: true,
+    email: true,
+    phone: true,
+  }).shape,
 });
 
 export const userCreateFormSchema = z.object({

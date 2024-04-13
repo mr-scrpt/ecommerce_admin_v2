@@ -1,4 +1,4 @@
-import { CategoryCreateButton } from "@/features/categoryCreate";
+import { ToCategoryCreateButton } from "@/features/categoryCreate";
 import { RoutePathEnum } from "@/shared/config/routing.config";
 import { TitlePage } from "@/shared/ui/titlePage";
 import { CategoryTable } from "@/widgets/categoryTable";
@@ -12,7 +12,9 @@ const PageCategories: FC<PageProps> = (props) => {
       <TitlePage
         title="Categories"
         description="Manage your category list"
-        action={<CategoryCreateButton route={RoutePathEnum.CATEGORY_CREATE} />}
+        action={
+          <ToCategoryCreateButton route={RoutePathEnum.CATEGORY_CREATE} />
+        }
       />
       <CategoryTable />
     </main>

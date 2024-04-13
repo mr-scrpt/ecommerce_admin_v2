@@ -5,8 +5,10 @@ import { baseQueryKey } from "../_domain/types";
 import { useListenProductListUpdate } from "../_vm/event/useListenProductListUpdate";
 
 export const getProductListByIdQuery = (productListId: Array<string>) => ({
-  queryKey: [baseQueryKey, "getProductList"],
-  queryFn: () => getProductListByIdAction({ productListId }),
+  queryKey: [baseQueryKey, "getProductList", productListId],
+  queryFn: () => {
+    return getProductListByIdAction({ productListId });
+  },
 });
 
 export const useProductListByIdQuery = (productListId: Array<string>) => {

@@ -7,7 +7,7 @@ const baseKey = "orderCreateMutation";
 export const useOrderCreateMutation = () => {
   const { orderCreateStausEvent } = useEmitOrderCreate();
   //
-  const { isPending, isSuccess, mutateAsync } = useMutation({
+  const { isPending, isSuccess, mutateAsync, data } = useMutation({
     mutationKey: [baseKey],
     mutationFn: createOrderAction,
     onSuccess: async ({ order }) => {
@@ -16,6 +16,7 @@ export const useOrderCreateMutation = () => {
   });
   return {
     orderCreate: mutateAsync,
+    order: data?.order,
     isPending,
     isSuccess,
   };

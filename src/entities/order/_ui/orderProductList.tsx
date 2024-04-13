@@ -8,13 +8,19 @@ import { cn } from "@/shared/ui/utils";
 
 interface OrderProductListProps extends HTMLAttributes<HTMLDivElement> {
   orderProductRowList: Array<OrderRow>;
-  updateQuantity: (params: OrderRowToUpdateQuantityPayload) => void;
-  orderRowRemove: (orderRowId: string) => void;
+  handleOrderRowUpdateQuantity: (
+    params: OrderRowToUpdateQuantityPayload,
+  ) => void;
+  handleOrderRowRemove: (orderRowId: string) => void;
 }
 
 export const OrderProductList: FC<OrderProductListProps> = (props) => {
-  const { orderProductRowList, updateQuantity, orderRowRemove, className } =
-    props;
+  const {
+    orderProductRowList,
+    handleOrderRowUpdateQuantity,
+    handleOrderRowRemove,
+    className,
+  } = props;
   return (
     <div className={cn("flex w-full flex-col gap-4", className)}>
       {orderProductRowList.map((orderRow) => (
@@ -22,13 +28,13 @@ export const OrderProductList: FC<OrderProductListProps> = (props) => {
           <OrderProductSnippet
             orderRow={orderRow}
             applayChangeQuantity={(value) => {
-              return updateQuantity({
+              return handleOrderRowUpdateQuantity({
                 productId: orderRow.productId,
                 orderRowId: orderRow.id,
                 quantity: value,
               });
             }}
-            orderRowRemove={() => orderRowRemove(orderRow.id)}
+            orderRowRemove={() => handleOrderRowRemove(orderRow.id)}
           />
         </div>
       ))}

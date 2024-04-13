@@ -5,10 +5,10 @@ import {
   Order,
   OrderPaymentStatusEnum,
   OrderStatusEnum,
-  orderSchema,
 } from "@/entities/order";
 import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
 import { updateOrderStatusComplexibleUseCase } from "../_usecase/instans.usecase";
+import { orderSchema } from "@/entities/order/server";
 
 const propsSchema = z.object({
   orderId: z.string(),
