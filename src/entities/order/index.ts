@@ -1,8 +1,10 @@
+export { orderSchema } from "./_domain/order.schema";
+
 export {
   orderFormDefaultSchema,
   orderStatusFormSchema,
-  orderSchema,
-} from "./_domain/order.schema";
+} from "./_domain/form.schema";
+
 export {
   getOrderWithRelationQuery,
   useOrderWithRelationQuery,

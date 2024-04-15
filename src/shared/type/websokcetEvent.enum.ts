@@ -36,4 +36,10 @@ export enum WSEventEnum {
   ORDER_REFRESH = "order_refresh",
   ORDER_REMOVE = "order_remove",
   ORDER_LIST_REFRESH = "order_list_refresh",
+
+  DELIVERY_CREATE = "delivery_create",
+  DELIVERY_UPDATE = "delivery_update",
+  DELIVERY_REFRESH = "delivery_refresh",
+  DELIVERY_REMOVE = "delivery_remove",
+  DELIVERY_LIST_REFRESH = "delivery_list_refresh",
 }

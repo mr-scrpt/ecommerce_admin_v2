@@ -1,10 +1,11 @@
 import { DBClient, dbClient } from "@/shared/lib/db";
 import { Container, ContainerModule } from "inversify";
-import { OrderRepository, OrderRowRepository } from "./server";
 import { GetOrderListUseCase } from "./_usecase/getOrderList.usecase";
 import { GetOrderOwnerUseCase } from "./_usecase/getOrderOwner.usecase";
 import { GetOrderStatusGroupUseCase } from "./_usecase/getOrderStatusGroup.usecase";
 import { GetOrderWithRelationUseCase } from "./_usecase/getOrderWithRelation.usecase";
+import { OrderRepository } from "./_repository/order.repo";
+import { OrderRowRepository } from "./_repository/orderRow.repo";
 
 const orderContainer = new Container();
 

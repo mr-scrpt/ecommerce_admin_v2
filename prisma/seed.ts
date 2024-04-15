@@ -11,6 +11,8 @@ import { cartRelationsSeed } from "./data/cartRelations";
 import { cartRowListSeed } from "./data/cartRow";
 import { orderListSeed } from "./data/order";
 import { orderRowListSeed } from "./data/orderRow";
+import { receiverListSeed } from "./data/receiver";
+import { deliveryListSeed } from "./data/delivery";
 
 const prisma = new PrismaClient();
 
@@ -57,6 +59,16 @@ async function main() {
   for await (const order of orderListSeed) {
     await prisma.order.create({ data: order });
     console.log("order created", order);
+  }
+
+  for await (const receiver of receiverListSeed) {
+    await prisma.receiver.create({ data: receiver });
+    console.log("receiver created", receiver);
+  }
+
+  for await (const delivery of deliveryListSeed) {
+    await prisma.delivery.create({ data: delivery });
+    console.log("receiver created", delivery);
   }
 
   for await (const orderRow of orderRowListSeed) {

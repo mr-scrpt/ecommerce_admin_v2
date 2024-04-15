@@ -29,12 +29,13 @@ import {
   useForm,
   useFormContext,
 } from "react-hook-form";
+import { PropertyRelation } from "../_domain/property/types";
+import { PropertyDataTypeEnum } from "@/shared/type/propertyDataType.enum";
 import {
   PropertyFormValues,
   propertyFormSchema,
-} from "../_domain/property/property.schema";
-import { PropertyRelation } from "../_domain/property/types";
-import { PropertyDataTypeEnum } from "@/shared/type/propertyDataType.enum";
+} from "../_domain/property/form.schema";
+import { selectDataType } from "../_vm/selectDataType";
 
 interface PropertyFormProps
   extends Omit<HTMLAttributes<HTMLFormElement>, "property"> {
@@ -65,7 +66,7 @@ const getDefaultValues = (property?: PropertyRelation) => ({
   propertyItemList: property?.propertyItemList ?? [{ name: "", value: "" }],
 });
 
-export const PropertyForm: PropertyFormType = (props) => {
+export const PropertyFormElements: PropertyFormType = (props) => {
   const {
     property,
     handleSubmit: onSubmit,
@@ -105,7 +106,7 @@ export const PropertyForm: PropertyFormType = (props) => {
   );
 };
 
-PropertyForm.SubmitButton = function SubmitButton({
+PropertyFormElements.SubmitButton = function SubmitButton({
   isPending,
   submitText,
 }: {
@@ -125,15 +126,8 @@ PropertyForm.SubmitButton = function SubmitButton({
   );
 };
 
-PropertyForm.FieldProperty = function FieldProperty() {
+PropertyFormElements.FieldProperty = function FieldProperty() {
   const form = useFormContext<PropertyFormValues>();
-
-  const selectDataType = [
-    { type: PropertyDataTypeEnum.SELECT, value: "Select" },
-    { type: PropertyDataTypeEnum.MULT, value: "Multi select" },
-    { type: PropertyDataTypeEnum.CHECKBOX, value: "Checkbox" },
-    { type: PropertyDataTypeEnum.RADIO, value: "Radio" },
-  ];
 
   return (
     <div className="flex w-full flex-col gap-2">
@@ -164,7 +158,7 @@ PropertyForm.FieldProperty = function FieldProperty() {
               </FormControl>
               <SelectContent>
                 {selectDataType.map((item) => (
-                  <SelectItem key={item.type} value={item.type as string}>
+                  <SelectItem key={item.type} value={item.type}>
                     {item.value}
                   </SelectItem>
                 ))}
@@ -179,7 +173,7 @@ PropertyForm.FieldProperty = function FieldProperty() {
   );
 };
 
-PropertyForm.FieldPropertysItem = function FieldPropertysItem({
+PropertyFormElements.FieldPropertysItem = function FieldPropertysItem({
   isPending,
 }: {
   isPending: boolean;

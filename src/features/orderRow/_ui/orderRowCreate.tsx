@@ -4,7 +4,7 @@ import { FC, HTMLAttributes } from "react";
 import { OrderProductCreate } from "../_domain/types";
 import { useNewOrderProductListToSelect } from "../_vm/useNewOrderProductList";
 import { OrderRowAddTmp } from "./tmp/orderRowAddTmp";
-import { OrderRowAddValues } from "../_domain/form.schema";
+import { OrderRowAddValues } from "@/entities/order/server";
 
 interface OrderRowCreateProps extends HTMLAttributes<HTMLDivElement> {
   handleRowCreate: (product: OrderProductCreate) => void;

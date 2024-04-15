@@ -1,6 +1,11 @@
 "use client";
+import {
+  useDeliveryByOrderIdQuery,
+  useDeliveryQuery,
+} from "@/entities/delivery";
+import { DeliveryFormUpdate } from "@/features/orderDeliveryUpdate";
 import { OrderOwnerData } from "@/features/orderOwnerData";
-import { OrderRowAdd } from "@/features/orderRowAdd";
+import { OrderRowAdd } from "@/features/orderRow";
 import { OrderRowListUpdate } from "@/features/orderRowList";
 import { useOrderRemoveConfirm } from "@/features/orderRowRemove";
 import { useOrderRowUpdateQuantityMutation } from "@/features/orderRowUpdate/_mutation/useOrderRowUpdateQuantity.mutation";
@@ -19,6 +24,8 @@ export const OrderUpdate: FC<OrderUpdateProps> = (props) => {
   const { orderRowUpdateQuantity } = useOrderRowUpdateQuantityMutation();
   const { removeOrderConfirm, isPending, isSuccess } = useOrderRemoveConfirm();
 
+  const { delivery } = useDeliveryByOrderIdQuery(orderId);
+
   return (
     <div className="flex w-full flex-col gap-4">
       <OrderOwnerData orderId={orderId}>
@@ -33,6 +40,7 @@ export const OrderUpdate: FC<OrderUpdateProps> = (props) => {
         orderRowRemove={removeOrderConfirm}
         className="flex w-full border p-4"
       />
+      <DeliveryFormUpdate orderId={orderId} />
     </div>
   );
 };

@@ -21,14 +21,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, HTMLAttributes, useEffect } from "react";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
 import {
-  OrderStatusFormValues,
-  orderStatusFormSchema,
-} from "../../_domain/order.schema";
-import {
   OrderStatusGroup,
   OrderStatusEnum,
   OrderPaymentStatusEnum,
 } from "../../_domain/order.types";
+import {
+  OrderStatusFormValues,
+  orderStatusFormSchema,
+} from "../../_domain/form.schema";
 
 interface OrderFormProps extends HTMLAttributes<HTMLFormElement> {
   orderStatus: OrderStatusGroup;

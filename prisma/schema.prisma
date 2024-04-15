@@ -39,6 +39,12 @@ enum ORDER_PAYMENT_STATUS {
   CONTACT_PAID
 }
 
+enum DELIVERY_TYPE {
+  PICKUP
+  POST
+  COURIER
+}
+
 model Category {
   id    String   @id @default(uuid())
   name  String
@@ -134,6 +140,11 @@ model Order {
   orderRowList  OrderRow[]
   priceTotal  Float
 
+  delivery      Delivery?
+
+  receiver      Receiver? @relation(fields: [receiverId], references: [id])
+  receiverId    String?
+
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -159,18 +170,6 @@ model OrderRow {
   updatedAt DateTime @updatedAt
 }
 
-model DeliveryAddress {
-  id        String   @id @default(uuid())
-  userId    String
-  receiver  Receiver @relation(fields: [receiverId], references: [id], onDelete: Cascade)
-  receiverId    String @unique
-  deliveryType  DeliveryType @relation(fields: [deliveryTypeId], references: [id], onDelete: Cascade)
-  deliveryTypeId    String @unique
-
-
-  @@unique([receiverId, userId])
-  @@index([receiverId, userId])
-}
 
 model Receiver {
   id        String   @id @default(uuid())
@@ -179,25 +178,34 @@ model Receiver {
   name      String
   lastName  String
   phone     String
-  deliveryAddress  DeliveryAddress?
+  orderList  Order[]
+
   @@unique([userId, name, lastName, phone])
 }
 
-model DeliveryType {
-  id        String   @id @default(uuid())
-  name      String   @unique
-  fields    DeliveryField[]
-  deliveryAddress  DeliveryAddress?
+// model DeliveryFieldOrder {
+//   id        String   @id @default(uuid())
+//   orderId   String
+//   deliveryFieldId    String
+//   value     String
+// }
+
+model Delivery {
+  id          String   @id @default(uuid())
+  order       Order    @relation(fields: [orderId], references: [id])
+  orderId     String   @unique
+  deliveryType DELIVERY_TYPE
+  city        String
+  street      String?
+  house       String?
+  apartment   String?
+  postOffice  String?
+  pickupPoint String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
-model DeliveryField {
-  id        String   @id @default(uuid())
-  name      String   @unique
-  value     String
-  property  String
-  deliveryType  DeliveryType[]
-
-}
 
 
 model Property {

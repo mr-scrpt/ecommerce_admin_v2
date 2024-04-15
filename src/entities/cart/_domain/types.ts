@@ -20,7 +20,7 @@ export type CartRelationEntity = CartEntity & {
   cartRowList: Array<CartRowEntity>;
 };
 
-// Projetions
+// NOTE: Projetions
 
 export type Cart = {
   id: CartId;
