@@ -74,7 +74,7 @@ export const DeliveryFormElements: DeliveryFormElementsType = (props) => {
   return (
     <FormProvider {...form}>
       <Form {...form}>
-        <form onSubmit={handleSubmit} className="space-y-8">
+        <form onSubmit={handleSubmit} className="w-full space-y-8">
           {children}
         </form>
       </Form>

@@ -9,7 +9,6 @@ import { RadioGroup, RadioGroupItem } from "@/shared/ui/radio-group";
 import { FC, HTMLAttributes } from "react";
 import { useFormContext } from "react-hook-form";
 import { DeliveryFormDefaultValues } from "../../_domain/form.schema";
-import { selectDataType } from "@/entities/property/_vm/selectDataType";
 import { selectDeliveryType } from "../../_vm/selectDeliveryType";
 
 interface DeliveryTypeRadioProps extends HTMLAttributes<HTMLDivElement> {}
@@ -31,15 +30,23 @@ export const DeliveryTypeRadio: FC<DeliveryTypeRadioProps> = (props) => {
                 className="flex flex-col space-y-1"
               >
                 {selectDeliveryType.map((row) => (
-                  <FormItem
+                  <div
                     key={row.type}
-                    className="flex items-center space-x-3 space-y-0"
+                    className="flex w-full flex-col gap-2 border p-4"
                   >
-                    <FormControl>
-                      <RadioGroupItem value={row.type} />
-                    </FormControl>
-                    <FormLabel className="font-normal">{row.value}</FormLabel>
-                  </FormItem>
+                    <FormItem
+                      key={row.type}
+                      className="flex w-full items-center space-x-3 space-y-0"
+                    >
+                      <FormControl>
+                        <RadioGroupItem value={row.type} />
+                      </FormControl>
+                      <FormLabel className="font-normal">{row.value}</FormLabel>
+                    </FormItem>
+                    {field.value === row.type &&
+                      row.formElement.length > 0 &&
+                      row.formElement.map((row) => row())}
+                  </div>
                 ))}
               </RadioGroup>
             </FormControl>

@@ -18,7 +18,7 @@ interface OrderRowListUpdateProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 export const OrderRowListUpdate: FC<OrderRowListUpdateProps> = (props) => {
-  const { orderId, orderRowUpdateQuantity, orderRowRemove } = props;
+  const { orderId, orderRowUpdateQuantity, orderRowRemove, className } = props;
 
   const {
     isPending: isPendingOrder,
@@ -38,6 +38,7 @@ export const OrderRowListUpdate: FC<OrderRowListUpdateProps> = (props) => {
 
   return (
     <OrderRowList
+      className={className}
       order={order}
       handleOrderRowUpdateQuantity={orderRowUpdateQuantity}
       handleOrderRowRemove={orderRowRemove}

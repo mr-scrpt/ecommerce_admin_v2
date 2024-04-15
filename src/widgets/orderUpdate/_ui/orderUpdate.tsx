@@ -40,7 +40,10 @@ export const OrderUpdate: FC<OrderUpdateProps> = (props) => {
         orderRowRemove={removeOrderConfirm}
         className="flex w-full border p-4"
       />
-      <DeliveryFormUpdate orderId={orderId} />
+      <DeliveryFormUpdate
+        orderId={orderId}
+        className="flex w-full border p-4"
+      />
     </div>
   );
 };
