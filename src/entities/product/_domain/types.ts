@@ -91,7 +91,7 @@ export type ProductFromFrom = {
 //   slug: ProductSlug;
 // };
 
-// Side
+// NOTE: Side
 export type ProductCategory = {
   id: string;
   name: string;
@@ -108,7 +108,7 @@ export type ProductPropertyObjectList = {
   [key: string]: string | string[];
 };
 
-// UI
+// NOTE: UI
 export type ProductPropertyToSelect = {
   id: string;
   name: string;

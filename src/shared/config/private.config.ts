@@ -19,6 +19,9 @@ const configPrivateSchema = z.object({
   S3_IMAGES_BUCKET: z.string(),
   S3_ENDPOINT: z.string(),
   S3_REGION: z.string(),
+
+  API_NOVA_POSHTA_KEY: z.string(),
+  API_NOVA_POSHTA_URL: z.string(),
 });
 
 export const configPrivate = configPrivateSchema.parse(process.env);

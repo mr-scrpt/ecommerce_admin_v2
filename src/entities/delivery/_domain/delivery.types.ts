@@ -7,7 +7,12 @@ export { DeliveryTypeEnum };
 type DeliveryBase = {
   orderId: string;
   deliveryType: DeliveryTypeEnum;
+  area: string;
+  araeCode: string;
+
   city: string;
+  cityCode: string;
+
   street: string | null;
   house: string | null;
   apartment: string | null;
@@ -26,7 +31,12 @@ export type Delivery = {
   id: string;
   orderId: string;
   deliveryType: DeliveryTypeEnum;
+  // area: string;
+  // araeCode: string;
+
   city: string;
+  // cityCode: string;
+
   street: string | null;
   house: string | null;
   apartment: string | null;
@@ -38,6 +48,13 @@ export type Delivery = {
 export type DeliveryToCreate = Delivery;
 export type DeliveryToUpdate = Delivery & {
   id: string;
+};
+
+// NOTE: UI
+export type SettleToSelect = {
+  value: string;
+  area: string;
+  label: string;
 };
 
 // NOTE: Side

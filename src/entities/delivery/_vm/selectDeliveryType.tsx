@@ -7,7 +7,6 @@ export const selectDeliveryType = [
     type: DeliveryTypeEnum.PICKUP,
     value: "Pickup",
     formElement: [
-      () => <DeliveryFormElements.FieldCity key="city" />,
       () => <DeliveryFormElements.FieldPickupPoint key="pickupPoint" />,
     ],
   },
@@ -15,7 +14,6 @@ export const selectDeliveryType = [
     type: DeliveryTypeEnum.POST,
     value: "Post",
     formElement: [
-      () => <DeliveryFormElements.FieldCity key="city" />,
       () => <DeliveryFormElements.FieldPostOffice key="postOffice" />,
     ],
   },
@@ -23,7 +21,6 @@ export const selectDeliveryType = [
     type: DeliveryTypeEnum.COURIER,
     value: "Courier",
     formElement: [
-      () => <DeliveryFormElements.FieldCity key="city" />,
       () => <DeliveryFormElements.FieldStreet key="street" />,
       () => <DeliveryFormElements.FieldHouse key="house" />,
       () => <DeliveryFormElements.FieldApartment key="apartment" />,

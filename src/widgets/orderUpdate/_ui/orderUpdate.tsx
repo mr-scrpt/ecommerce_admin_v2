@@ -1,7 +1,7 @@
 "use client";
 import {
   useDeliveryByOrderIdQuery,
-  useDeliveryQuery,
+  useSettlementListSearchToSelectQuery,
 } from "@/entities/delivery";
 import { DeliveryFormUpdate } from "@/features/orderDeliveryUpdate";
 import { OrderOwnerData } from "@/features/orderOwnerData";
@@ -11,7 +11,7 @@ import { useOrderRemoveConfirm } from "@/features/orderRowRemove";
 import { useOrderRowUpdateQuantityMutation } from "@/features/orderRowUpdate/_mutation/useOrderRowUpdateQuantity.mutation";
 import { OrderStatusUpdate } from "@/features/orderStatusUpdate";
 import { RoutePathEnum } from "@/shared/config/routing.config";
-import { FC, HTMLAttributes } from "react";
+import { FC, HTMLAttributes, useEffect } from "react";
 
 interface OrderUpdateProps extends HTMLAttributes<HTMLDivElement> {
   callbackUrl: RoutePathEnum;
@@ -25,6 +25,8 @@ export const OrderUpdate: FC<OrderUpdateProps> = (props) => {
   const { removeOrderConfirm, isPending, isSuccess } = useOrderRemoveConfirm();
 
   const { delivery } = useDeliveryByOrderIdQuery(orderId);
+
+  // toSearch("бров");
 
   return (
     <div className="flex w-full flex-col gap-4">

@@ -6,7 +6,10 @@ import { DeliveryTypeEnum } from "./delivery.types";
 const deliveryBaseSchema = z.object({
   orderId: z.string(),
   deliveryType: z.custom<DeliveryTypeEnum>(),
+  // area: z.string(),
+  // araeCode: z.string(),
   city: z.string(),
+  // cityCode: z.string(),
   street: z.string().nullable(),
   house: z.string().nullable(),
   apartment: z.string().nullable(),
@@ -17,4 +20,10 @@ const deliveryBaseSchema = z.object({
 export const deliverySchema = z.object({
   id: z.string(),
   ...deliveryBaseSchema.shape,
+});
+
+export const settleToSelectSchema = z.object({
+  value: z.string(),
+  area: z.string(),
+  label: z.string(),
 });

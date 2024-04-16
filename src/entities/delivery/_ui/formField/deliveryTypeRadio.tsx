@@ -44,7 +44,7 @@ export const DeliveryTypeRadio: FC<DeliveryTypeRadioProps> = (props) => {
                       <FormLabel className="font-normal">{row.value}</FormLabel>
                     </FormItem>
                     {field.value === row.type &&
-                      row.formElement.length > 0 &&
+                      !!row.formElement.length &&
                       row.formElement.map((row) => row())}
                   </div>
                 ))}

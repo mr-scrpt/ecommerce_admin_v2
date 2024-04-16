@@ -195,7 +195,10 @@ model Delivery {
   order       Order    @relation(fields: [orderId], references: [id])
   orderId     String   @unique
   deliveryType DELIVERY_TYPE
+  area        String
+  areaCode    String
   city        String
+  cityCode    String
   street      String?
   house       String?
   apartment   String?

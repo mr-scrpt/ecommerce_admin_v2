@@ -1,10 +1,11 @@
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { cn } from "@/shared/ui/utils";
-import { FC, HTMLAttributes } from "react";
+import { FC, HTMLAttributes, useEffect } from "react";
 import { useOrderDeliveryUpdate } from "../_vm/useOrderDeliveryUpdate";
 import {
   DeliveryFormElements,
   useDeliveryByOrderIdQuery,
+  useSettlementListSearchToSelectQuery,
 } from "@/entities/delivery";
 import { useRouter } from "next/navigation";
 import {
@@ -35,6 +36,13 @@ export const OrderDeliveryFormUpdate: FC<OrderDeliveryFormProps> = (props) => {
 
   const isPendingComplexible =
     isPendingUpdate || isPendingDelivery || !isFetchedAfterMount;
+
+  const { toSearch, settlementListToSelect } =
+    useSettlementListSearchToSelectQuery();
+
+  useEffect(() => {
+    toSearch("бров");
+  }, []);
 
   if (isPendingComplexible) {
     return <Spinner aria-label="Loading profile..." />;
@@ -67,6 +75,9 @@ export const OrderDeliveryFormUpdate: FC<OrderDeliveryFormProps> = (props) => {
         delivery={delivery}
         schema={orderDeliveryUpdateFormSchema}
       >
+        <DeliveryFormElements.FieldCity
+          settlementListToSelect={settlementListToSelect}
+        />
         <DeliveryFormElements.FieldDeliveryType />
         {/* <DeliveryFormElements.FieldRole /> */}
         {/* <DeliveryFormElements.FieldEmailVerified /> */}

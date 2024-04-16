@@ -24,7 +24,7 @@ export const useProductListSearchQuery = () => {
     if (q) {
       invalidate();
     }
-  }, [q]);
+  }, [invalidate, q]);
 
   const query = getProductListSearchQuery(q);
 

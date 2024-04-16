@@ -14,12 +14,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, HTMLAttributes, useEffect } from "react";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
 import { ZodTypeAny } from "zod";
-import { Delivery } from "../_domain/delivery.types";
+import { Delivery, SettleToSelect } from "../_domain/delivery.types";
 import {
   DeliveryFormDefaultValues,
   deliveryFormDefaultSchema,
 } from "../_domain/form.schema";
 import { DeliveryTypeRadio } from "./formField/deliveryTypeRadio";
+import { DeliveryCitySelect } from "./formField/deliveryCitySelect";
 
 interface DeliveryFormElementsProps extends HTMLAttributes<HTMLFormElement> {
   delivery: Delivery;
@@ -35,7 +36,7 @@ interface DeliverySubmitFieldProps {
 
 type DeliveryFormElementsType = FC<DeliveryFormElementsProps> & {
   FieldDeliveryType: FC<{}>;
-  FieldCity: FC<{}>;
+  FieldCity: FC<{ settlementListToSelect: SettleToSelect[] }>;
   FieldStreet: FC<{}>;
   FieldHouse: FC<{}>;
   FieldApartment: FC<{}>;
@@ -56,7 +57,6 @@ const getDefaultValues = (delivery: Delivery) => ({
 
 export const DeliveryFormElements: DeliveryFormElementsType = (props) => {
   const { delivery, handleSubmit: onSubmit, schema, children } = props;
-  console.log("output_log: deliveryFormElements =>>>", delivery);
 
   const form = useForm<DeliveryFormDefaultValues>({
     resolver: zodResolver(schema ?? deliveryFormDefaultSchema),
@@ -86,23 +86,41 @@ DeliveryFormElements.FieldDeliveryType = function FieldDeliveryType() {
   return <DeliveryTypeRadio />;
 };
 
-DeliveryFormElements.FieldCity = function FieldCity() {
+DeliveryFormElements.FieldCity = function FieldCity(props) {
+  const { settlementListToSelect } = props;
   const { control } = useFormContext<DeliveryFormDefaultValues>();
   return (
     <FormField
       control={control}
-      name="city"
+      name="street"
       render={({ field }) => (
-        <FormItem>
-          <FormLabel>City</FormLabel>
-          <FormControl>
-            <Input placeholder="" {...field} />
-          </FormControl>
-          <FormMessage />
-        </FormItem>
+        <DeliveryCitySelect
+          control={control}
+          className="w-full"
+          name="city"
+          citiesList={settlementListToSelect}
+          isPending={false}
+          // handleSelect={(value: string)=>console.log(value)}
+          field={field}
+        />
       )}
     />
   );
+  // return (
+  //   <FormField
+  //     control={control}
+  //     name="city"
+  //     render={({ field }) => (
+  //       <FormItem>
+  //         <FormLabel>City</FormLabel>
+  //         <FormControl>
+  //           <Input placeholder="" {...field} />
+  //         </FormControl>
+  //         <FormMessage />
+  //       </FormItem>
+  //     )}
+  //   />
+  // );
 };
 
 DeliveryFormElements.FieldStreet = function FieldStreet() {
