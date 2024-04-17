@@ -1,7 +1,7 @@
 "use server";
 import { getAppSessionStrictServer } from "@/shared/session/server";
 import { z } from "zod";
-import { getSeetmentListSearchToSelectUseCase } from "../_usecase/instans.usecase";
+import { getSettlementListSearchToSelectUseCase } from "../_usecase/instans.usecase";
 import { SettleToSelect } from "../_domain/delivery.types";
 import { settleToSelectSchema } from "../_domain/delivery.schema";
 
@@ -22,12 +22,11 @@ export const getSettlementListSearchToSelectAction = async (
   const session = await getAppSessionStrictServer();
 
   const settlementListToSelect =
-    await getSeetmentListSearchToSelectUseCase.exec({
+    await getSettlementListSearchToSelectUseCase.exec({
       q,
       session,
     });
 
-  console.log("output_log:  =>>>", settlementListToSelect);
   return resultSchema.parseAsync({
     settlementListToSelect,
   });

@@ -7,11 +7,11 @@ export { DeliveryTypeEnum };
 type DeliveryBase = {
   orderId: string;
   deliveryType: DeliveryTypeEnum;
-  area: string;
-  araeCode: string;
+  // area: string;
+  // araeCode: string;
 
   city: string;
-  cityCode: string;
+  // cityCode: string;
 
   street: string | null;
   house: string | null;
@@ -31,11 +31,8 @@ export type Delivery = {
   id: string;
   orderId: string;
   deliveryType: DeliveryTypeEnum;
-  // area: string;
-  // araeCode: string;
 
   city: string;
-  // cityCode: string;
 
   street: string | null;
   house: string | null;

@@ -3,7 +3,7 @@ import { SessionEntity } from "@/shared/lib/user";
 import { injectable } from "inversify";
 import { createDeliveryAbility } from "../_domain/delivery.ability";
 import { SettleToSelect } from "../_domain/delivery.types";
-import { SettlementEntity } from "../_domain/novaposhta.type";
+import { SettlementNovaPostha } from "../_domain/novaposhta.type";
 import { NovaPoshtaRepository } from "../_repository/novaposhta.repo";
 
 type GetSettlementListSearchToSelect = {
@@ -31,7 +31,7 @@ export class GetSettlementListSearchToSelectUseCase {
   }
 
   async mapToSelect(
-    data: Array<SettlementEntity>,
+    data: Array<SettlementNovaPostha>,
   ): Promise<Array<SettleToSelect>> {
     return data.map((settlement) => {
       return {

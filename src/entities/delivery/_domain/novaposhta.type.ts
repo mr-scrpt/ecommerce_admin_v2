@@ -1,4 +1,18 @@
-export type SettlementEntity = {
+export type NovaPoshtaResponse<T> = {
+  success: boolean;
+  data: T;
+  errors: string[];
+  warnings: string[];
+  info: {
+    totalCount: number;
+  };
+  messageCodes: string[];
+  errorCodes: string[];
+  warningCodes: string[];
+  infoCodes: string[];
+};
+
+export type SettlementNovaPostha = {
   Ref: string;
   SettlementType: string;
   Latitude: string;
@@ -32,4 +46,8 @@ export type SettlementEntity = {
   RadiusExpressPickUp: string;
   RadiusDrop: string;
   Warehouse: string;
+};
+
+export type SettlementNovaPosthaIndex = SettlementNovaPostha & {
+  [key: string]: any;
 };

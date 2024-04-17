@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "Settlement" ALTER COLUMN "latitude" SET DATA TYPE TEXT,
+ALTER COLUMN "longitude" SET DATA TYPE TEXT,
+ALTER COLUMN "specialCashCheck" SET DATA TYPE TEXT;

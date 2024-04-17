@@ -183,22 +183,13 @@ model Receiver {
   @@unique([userId, name, lastName, phone])
 }
 
-// model DeliveryFieldOrder {
-//   id        String   @id @default(uuid())
-//   orderId   String
-//   deliveryFieldId    String
-//   value     String
-// }
 
 model Delivery {
   id          String   @id @default(uuid())
   order       Order    @relation(fields: [orderId], references: [id])
   orderId     String   @unique
   deliveryType DELIVERY_TYPE
-  area        String
-  areaCode    String
   city        String
-  cityCode    String
   street      String?
   house       String?
   apartment   String?
@@ -273,4 +264,44 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+
+model Settlement {
+  id                               String   @id @default(uuid())
+  ref                              String
+  settlementType                   String
+  latitude                         String
+  longitude                        String
+  description                      String
+  descriptionRu                    String
+  descriptionTranslit              String
+  settlementTypeDescription        String
+  settlementTypeDescriptionRu      String
+  settlementTypeDescriptionTranslit String
+  region                           String
+  regionsDescription               String
+  regionsDescriptionRu             String
+  regionsDescriptionTranslit       String
+  area                             String
+  areaDescription                  String
+  areaDescriptionRu                String
+  areaDescriptionTranslit          String
+  index1                           String
+  index2                           String
+  indexCOATSU1                     String
+  delivery1                        String
+  delivery2                        String
+  delivery3                        String
+  delivery4                        String
+  delivery5                        String
+  delivery6                        String
+  delivery7                        String
+  specialCashCheck                 Int
+  radiusHomeDelivery               String
+  radiusExpressPickUp              String
+  radiusDrop                       String
+  warehouse                        String
+  createdAt                        DateTime @default(now())
+  updatedAt                        DateTime @updatedAt
 }
