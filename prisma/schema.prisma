@@ -269,7 +269,7 @@ model VerificationToken {
 
 model Settlement {
   id                               String   @id @default(uuid())
-  ref                              String
+  ref                              String   @unique
   settlementType                   String
   latitude                         String
   longitude                        String

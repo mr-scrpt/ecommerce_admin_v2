@@ -15,12 +15,9 @@ import { MultiSelect, MultiSelectOptionItem } from "@/shared/ui/multiSelect";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, HTMLAttributes, useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import {
-  CategoryFormValues,
-  categoryFormSchema,
-} from "../_domain/category.schema";
 import { CategoryRelation } from "../_domain/types";
 import { BoardField } from "./boardField";
+import { CategoryFormValues, categoryFormSchema } from "../_domain/form.schema";
 
 interface CategoryFormProps extends HTMLAttributes<HTMLFormElement> {
   category?: CategoryRelation;

@@ -39,6 +39,7 @@ export class NovaPoshtaApi {
   }
 
   async getSettlementList(page: number): Promise<SettlementNovaPostha[]> {
+    console.log("output_log: page =>>>", page);
     const result = await this.client.post<
       NovaPoshtaResponse<SettlementNovaPostha[]>
     >(configPrivate.API_NOVA_POSHTA_URL, {
@@ -46,7 +47,7 @@ export class NovaPoshtaApi {
       modelName: modelName.address,
       calledMethod: calledMethod.getSettlements,
       methodProperties: {
-        page,
+        Page: page,
       },
     });
     return result.data.data;

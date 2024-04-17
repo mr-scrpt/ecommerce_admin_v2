@@ -1,6 +1,7 @@
 "use client";
 import {
   useDeliveryByOrderIdQuery,
+  useInitSettlementQuery,
   useSettlementListSearchToSelectQuery,
 } from "@/entities/delivery";
 import { DeliveryFormUpdate } from "@/features/orderDeliveryUpdate";
@@ -25,8 +26,6 @@ export const OrderUpdate: FC<OrderUpdateProps> = (props) => {
   const { removeOrderConfirm, isPending, isSuccess } = useOrderRemoveConfirm();
 
   const { delivery } = useDeliveryByOrderIdQuery(orderId);
-
-  // toSearch("бров");
 
   return (
     <div className="flex w-full flex-col gap-4">

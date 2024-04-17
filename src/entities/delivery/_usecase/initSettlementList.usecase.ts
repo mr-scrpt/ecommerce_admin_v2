@@ -19,7 +19,7 @@ export class InitSettlementListUseCase {
   private async fetchAndSaveAllSettlement(): Promise<void> {
     let page = INIT_PAGE;
 
-    while (page <= 3) {
+    while (true) {
       const result = await this.np.getSettlementList(page);
 
       for await (const settlement of result) {

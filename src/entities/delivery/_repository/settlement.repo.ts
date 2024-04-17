@@ -13,10 +13,13 @@ export class SettlementRepository {
     settlement: SettlementToCreate,
     db: Tx = this.db,
   ): Promise<SettlementEntity> {
-    return await db.settlement.create({
-      data: {
-        ...settlement,
+    return await db.settlement.upsert({
+      where: {
+        ref: settlement.ref,
       },
+      create: settlement,
+
+      update: settlement,
     });
   }
 }

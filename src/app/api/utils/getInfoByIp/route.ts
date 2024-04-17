@@ -1,14 +1,8 @@
-import { productSchema } from "@/entities/product";
-import { getProductListAction } from "@/entities/product/server";
 import { NextResponse } from "next/server";
-import { z } from "zod";
-
-// const resultSchema = z.object({
-//   data: z.array(productSchema),
-// });
 
 export const GET = async (): Promise<NextResponse<any>> => {
   try {
+    console.log("output_log:  =>>> in getInfoByIp/route");
     const data = await fetch("https://ipapi.co/json/")
       .then((response) => {
         if (!response.ok) {
