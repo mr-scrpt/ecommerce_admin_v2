@@ -1,6 +1,6 @@
 "use client";
 import { useQuery } from "@tanstack/react-query";
-import { initSettlementListAction } from "../_action/initSettlementList";
+import { initSettlementListAction } from "../../settlement/_action/initSettlementList";
 import { baseQueryKey } from "../_domain/delivery.types";
 
 const QUERY_KEY = "initSettlement";

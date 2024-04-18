@@ -1,3 +1,4 @@
+export const baseQueryKey = "settlement";
 type SettlementBase = {
   ref: string;
   settlementType: string;
@@ -45,4 +46,11 @@ export type Settlement = SettlementBase; // NOTE: Actions
 export type SettlementToCreate = Settlement;
 export type SettlementToUpdate = Settlement & {
   id: string;
+};
+
+// NOTE: UI
+export type SettleToSelect = {
+  value: string;
+  area: string;
+  label: string;
 };

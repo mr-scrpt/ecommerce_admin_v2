@@ -1,9 +1,9 @@
 "use server";
 import { getAppSessionStrictServer } from "@/shared/session/server";
 import { z } from "zod";
-import { getSettlementListSearchToSelectUseCase } from "../_usecase/instans.usecase";
-import { SettleToSelect } from "../_domain/delivery.types";
-import { settleToSelectSchema } from "../_domain/delivery.schema";
+import { settleToSelectSchema } from "../_domain/settlement.schema";
+import { SettleToSelect } from "../_domain/settlement.type";
+import { getSettlementListSearchToSelectUseCase } from "../_usecase/instans.usecasets";
 
 const propsSchema = z.object({
   q: z.string(),

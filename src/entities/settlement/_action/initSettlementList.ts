@@ -1,5 +1,6 @@
 "use server";
-import { initSettlementListUseCase } from "../_usecase/instans.usecase";
+
+import { initSettlementListUseCase } from "../_usecase/instans.usecasets";
 
 export const initSettlementListAction = async (): Promise<string> => {
   try {

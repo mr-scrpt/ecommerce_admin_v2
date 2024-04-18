@@ -21,9 +21,3 @@ export const deliverySchema = z.object({
   id: z.string(),
   ...deliveryBaseSchema.shape,
 });
-
-export const settleToSelectSchema = z.object({
-  value: z.string(),
-  area: z.string(),
-  label: z.string(),
-});

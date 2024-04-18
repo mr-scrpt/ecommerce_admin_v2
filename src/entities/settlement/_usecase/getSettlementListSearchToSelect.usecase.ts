@@ -1,10 +1,10 @@
 import { AuthorizatoinError } from "@/shared/lib/errors";
 import { SessionEntity } from "@/shared/lib/user";
 import { injectable } from "inversify";
-import { createDeliveryAbility } from "../_domain/delivery.ability";
-import { SettleToSelect } from "../_domain/delivery.types";
 import { SettlementNovaPostha } from "../_domain/novaposhta.type";
 import { NovaPoshtaRepository } from "../_repository/novaposhta.repo";
+import { SettleToSelect } from "../_domain/settlement.type";
+import { createSettlementAbility } from "../_domain/settlement.ability";
 
 type GetSettlementListSearchToSelect = {
   q: string;
@@ -19,9 +19,9 @@ export class GetSettlementListSearchToSelectUseCase {
     data: GetSettlementListSearchToSelect,
   ): Promise<Array<SettleToSelect>> {
     const { session, q } = data;
-    const { canGetDelivery } = createDeliveryAbility(session);
+    const { canGetSettlement } = createSettlementAbility(session);
 
-    if (!canGetDelivery()) {
+    if (!canGetSettlement()) {
       throw new AuthorizatoinError();
     }
 
