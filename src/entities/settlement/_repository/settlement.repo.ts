@@ -9,6 +9,30 @@ import {
 export class SettlementRepository {
   constructor(readonly db: DBClient) {}
 
+  async getSettlementListSearch(q: string): Promise<Array<SettlementEntity>> {
+    return await this.db.settlement.findMany({
+      where: {
+        OR: [
+          {
+            description: {
+              contains: q,
+            },
+          },
+          {
+            descriptionRu: {
+              contains: q,
+            },
+          },
+          {
+            descriptionTranslit: {
+              contains: q,
+            },
+          },
+        ],
+      },
+    });
+  }
+
   async createSettlement(
     settlement: SettlementToCreate,
     db: Tx = this.db,

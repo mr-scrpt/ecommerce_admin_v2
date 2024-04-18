@@ -14,13 +14,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, HTMLAttributes, useEffect } from "react";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
 import { ZodTypeAny } from "zod";
-import { Delivery, SettleToSelect } from "../_domain/delivery.types";
+import { Delivery } from "../_domain/delivery.types";
 import {
   DeliveryFormDefaultValues,
   deliveryFormDefaultSchema,
 } from "../_domain/form.schema";
 import { DeliveryTypeRadio } from "./formField/deliveryTypeRadio";
 import { DeliveryCitySelect } from "./formField/deliveryCitySelect";
+import { SettleToSelect } from "@/entities/settlement";
 
 interface DeliveryFormElementsProps extends HTMLAttributes<HTMLFormElement> {
   delivery: Delivery;
@@ -36,7 +37,10 @@ interface DeliverySubmitFieldProps {
 
 type DeliveryFormElementsType = FC<DeliveryFormElementsProps> & {
   FieldDeliveryType: FC<{}>;
-  FieldCity: FC<{ settlementListToSelect: SettleToSelect[] }>;
+  FieldCity: FC<{
+    settlementListToSelect: SettleToSelect[];
+    toSearch: (q: string) => void;
+  }>;
   FieldStreet: FC<{}>;
   FieldHouse: FC<{}>;
   FieldApartment: FC<{}>;
@@ -87,7 +91,7 @@ DeliveryFormElements.FieldDeliveryType = function FieldDeliveryType() {
 };
 
 DeliveryFormElements.FieldCity = function FieldCity(props) {
-  const { settlementListToSelect } = props;
+  const { settlementListToSelect, toSearch } = props;
   const { control } = useFormContext<DeliveryFormDefaultValues>();
   return (
     <FormField
@@ -100,6 +104,7 @@ DeliveryFormElements.FieldCity = function FieldCity(props) {
           name="city"
           citiesList={settlementListToSelect}
           isPending={false}
+          toSearch={toSearch}
           // handleSelect={(value: string)=>console.log(value)}
           field={field}
         />

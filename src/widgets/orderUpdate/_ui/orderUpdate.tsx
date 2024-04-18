@@ -2,7 +2,6 @@
 import {
   useDeliveryByOrderIdQuery,
   useInitSettlementQuery,
-  useSettlementListSearchToSelectQuery,
 } from "@/entities/delivery";
 import { DeliveryFormUpdate } from "@/features/orderDeliveryUpdate";
 import { OrderOwnerData } from "@/features/orderOwnerData";

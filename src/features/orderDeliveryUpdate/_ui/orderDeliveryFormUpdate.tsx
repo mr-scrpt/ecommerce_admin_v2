@@ -5,13 +5,13 @@ import { useOrderDeliveryUpdate } from "../_vm/useOrderDeliveryUpdate";
 import {
   DeliveryFormElements,
   useDeliveryByOrderIdQuery,
-  useSettlementListSearchToSelectQuery,
 } from "@/entities/delivery";
 import { useRouter } from "next/navigation";
 import {
   OrderDeliveryUpdateFormValues,
   orderDeliveryUpdateFormSchema,
 } from "../_domain/form.schema";
+import { useSettlementListSearchToSelectQuery } from "@/entities/settlement";
 
 interface OrderDeliveryFormProps extends HTMLAttributes<HTMLDivElement> {
   orderId: string;
@@ -40,9 +40,9 @@ export const OrderDeliveryFormUpdate: FC<OrderDeliveryFormProps> = (props) => {
   const { toSearch, settlementListToSelect } =
     useSettlementListSearchToSelectQuery();
 
-  useEffect(() => {
-    toSearch("бров");
-  }, []);
+  // useEffect(() => {
+  //   toSearch("бров");
+  // }, []);
 
   if (isPendingComplexible) {
     return <Spinner aria-label="Loading profile..." />;
@@ -77,6 +77,7 @@ export const OrderDeliveryFormUpdate: FC<OrderDeliveryFormProps> = (props) => {
       >
         <DeliveryFormElements.FieldCity
           settlementListToSelect={settlementListToSelect}
+          toSearch={toSearch}
         />
         <DeliveryFormElements.FieldDeliveryType />
         {/* <DeliveryFormElements.FieldRole /> */}

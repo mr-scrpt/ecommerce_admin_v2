@@ -1,6 +1,5 @@
 "use client";
 import { queryOptions, useQuery, useQueryClient } from "@tanstack/react-query";
-// import { getCartWithRelationAction } from "../_action/getCartWithRelation.action";
 import { getCartWithRelationAction } from "../_action/getCartWithRelation.action";
 import { CartId, baseQueryKey } from "../_domain/types";
 import { useListenCartUpdate } from "../_vm/event/useListenCartUpdate";
@@ -9,7 +8,7 @@ export const getCartWithRelationQuery = (cartId: CartId) =>
   queryOptions({
     queryKey: [baseQueryKey, "getCart", cartId],
     queryFn: () => {
-      return getCartWithRelationAction({ cartId });
+      return getCartWithRelationAction();
     },
   });
 

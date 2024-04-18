@@ -6,6 +6,7 @@ import { baseQueryKey } from "../_domain/settlement.type";
 
 const QUERY_KEY = "settlementListSearchToSelect";
 const REFRESH_INTERVAL = 1000 * 60 * 60 * 3;
+
 export const getSettlementListSearchToSelectQuery = (q: string) =>
   queryOptions({
     queryKey: [baseQueryKey, QUERY_KEY, q],

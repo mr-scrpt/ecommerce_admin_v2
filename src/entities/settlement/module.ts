@@ -6,6 +6,7 @@ import { API_NOVA_POSHTA_KEY, NovaPoshtaApi } from "./_api/novaposhta.api";
 import { SettlementRepository } from "./_repository/settlement.repo";
 import { NovaPoshtaRepository } from "./_repository/novaposhta.repo";
 import { InitSettlementListUseCase } from "./_usecase/initSettlementList.usecase";
+import { GetSettlementListSearchToSelectUseCase } from "./_usecase/getSettlementListSearchToSelect.usecase";
 
 const settlementContainer = new Container();
 
@@ -22,6 +23,7 @@ export const SettlementModule = new ContainerModule((bind) => {
   bind(NovaPoshtaRepository).toSelf();
 
   bind(InitSettlementListUseCase).toSelf();
+  bind(GetSettlementListSearchToSelectUseCase).toSelf();
 });
 
 settlementContainer.load(SettlementModule);

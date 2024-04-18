@@ -4,7 +4,6 @@ import { DeliveryRepository } from "./_repository/delivery.repo";
 import { GetDeliveryUseCase } from "./_usecase/getDelivery.usecase";
 import { GetDeliveryListUseCase } from "./_usecase/getDeliveryList.usecase";
 import { GetDeliveryByOrderIdUseCase } from "./_usecase/getDeliveryOrderId.usecase";
-import { GetDeliveryListSearchToSelectUseCase } from "../settlement/_usecase/getSettlementListSearchToSelect.usecase";
 
 const deliveryContainer = new Container();
 
@@ -16,7 +15,6 @@ export const DeliveryModule = new ContainerModule((bind) => {
   bind(GetDeliveryListUseCase).toSelf();
   bind(GetDeliveryUseCase).toSelf();
   bind(GetDeliveryByOrderIdUseCase).toSelf();
-  bind(GetDeliveryListSearchToSelectUseCase).toSelf();
 });
 
 deliveryContainer.load(DeliveryModule);

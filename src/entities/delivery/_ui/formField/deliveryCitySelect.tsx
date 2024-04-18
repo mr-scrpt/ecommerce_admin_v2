@@ -13,10 +13,10 @@ import { cn } from "@/shared/ui/utils";
 import { CaretSortIcon } from "@radix-ui/react-icons";
 import { FC, HTMLAttributes, useEffect, useState } from "react";
 import { ControllerRenderProps, UseFormReturn } from "react-hook-form";
-import { SettleToSelect } from "../../_domain/delivery.types";
 import { SEARCH_MIN_LENGTH } from "@/shared/config/constant";
 import _ from "lodash";
 import { useAppearanceDelay } from "@/shared/lib/react";
+import { SettleToSelect } from "@/entities/settlement";
 
 interface DeliveryCitySelectProps extends HTMLAttributes<HTMLDivElement> {
   name: string;
@@ -94,26 +94,28 @@ export const DeliveryCitySelect: FC<DeliveryCitySelectProps> = (props) => {
               </CommandEmpty>
             )}
             <CommandList>
-              {!!citiesList.length && (
-                <CommandGroup heading="Available">
-                  {citiesList.map((city) => {
-                    return (
-                      <CommandItem
-                        value={city.value}
-                        key={city.value}
-                        onSelect={() => {
-                          field.onChange(city.value);
-                          setOpen(false);
-                        }}
-                        className="flex w-full items-center gap-2 text-sm"
-                      >
-                        <div className="grow">{city.label}</div>
-                        <div>{city.area}</div>
-                      </CommandItem>
-                    );
-                  })}
-                </CommandGroup>
-              )}
+              {!!citiesList.length &&
+                citiesList.map((city) => {
+                  return (
+                    <CommandItem
+                      value={city.value}
+                      key={city.value}
+                      onSelect={() => {
+                        field.onChange(city.value);
+                        setOpen(false);
+                      }}
+                      className="flex w-full items-center gap-2 text-sm"
+                    >
+                      <div className="grow">
+                        <span className="mr-1">{city.label}</span>
+
+                        <span className="text-xs text-muted-foreground">
+                          - {city.area} {city.region ?? `(${city.region})`}
+                        </span>
+                      </div>
+                    </CommandItem>
+                  );
+                })}
             </CommandList>
           </Command>
         </PopoverContent>
