@@ -30,6 +30,7 @@ export class InitSettlementListUseCase {
 
       if (!result.length) break;
 
+      console.log("output_log: parse novaposhta settlements: page =>>>", page);
       page++;
       await this.delay(500);
     }
