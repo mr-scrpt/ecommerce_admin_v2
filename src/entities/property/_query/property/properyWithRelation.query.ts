@@ -1,13 +1,14 @@
 "use client";
-import { useQuery } from "@tanstack/react-query";
+import { queryOptions, useQuery } from "@tanstack/react-query";
 import { getPropertyWithRelationAction } from "../../_action/property/getPropertyWithRelation.action";
 import { PropertyId, baseQueryKey } from "../../_domain/property/types";
 import { useListenPropertyUpdate } from "../../_vm/event/useListenPropertyUpdate";
 
-export const getPropertyWithRelationQuery = (propertyId: PropertyId) => ({
-  queryKey: [baseQueryKey, "getProperty", propertyId],
-  queryFn: () => getPropertyWithRelationAction({ propertyId }),
-});
+export const getPropertyWithRelationQuery = (propertyId: PropertyId) =>
+  queryOptions({
+    queryKey: [baseQueryKey, "getProperty", propertyId],
+    queryFn: () => getPropertyWithRelationAction({ propertyId }),
+  });
 
 export const usePropertyWithRelationQuery = (propertyId: PropertyId) => {
   const query = getPropertyWithRelationQuery(propertyId);

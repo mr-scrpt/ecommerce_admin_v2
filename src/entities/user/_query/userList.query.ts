@@ -1,12 +1,13 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { queryOptions, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getUserListAction } from "../_action/getUserList.action";
 import { userBaseQueryKey } from "../_domain/user.types";
 import { useListenUserListUpdate } from "../_vm/event/useListenUserListUpdate";
 
-export const getUserListQuery = () => ({
-  queryKey: [userBaseQueryKey, "getUserList"],
-  queryFn: () => getUserListAction(),
-});
+export const getUserListQuery = () =>
+  queryOptions({
+    queryKey: [userBaseQueryKey, "getUserList"],
+    queryFn: () => getUserListAction(),
+  });
 
 export const useUserListQuery = () => {
   const query = getUserListQuery();

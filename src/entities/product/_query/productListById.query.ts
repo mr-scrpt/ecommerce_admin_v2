@@ -1,15 +1,16 @@
 "use client";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { queryOptions, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getProductListByIdAction } from "../_action/getProductListById.action";
 import { baseQueryKey } from "../_domain/types";
 import { useListenProductListUpdate } from "../_vm/event/useListenProductListUpdate";
 
-export const getProductListByIdQuery = (productListId: Array<string>) => ({
-  queryKey: [baseQueryKey, "getProductList", productListId],
-  queryFn: () => {
-    return getProductListByIdAction({ productListId });
-  },
-});
+export const getProductListByIdQuery = (productListId: Array<string>) =>
+  queryOptions({
+    queryKey: [baseQueryKey, "getProductList", productListId],
+    queryFn: () => {
+      return getProductListByIdAction({ productListId });
+    },
+  });
 
 export const useProductListByIdQuery = (productListId: Array<string>) => {
   const query = getProductListByIdQuery(productListId);

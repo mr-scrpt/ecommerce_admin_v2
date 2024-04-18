@@ -1,19 +1,17 @@
 "use client";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { queryOptions, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { getProductListSearchAction } from "../_action/getProductListSearch.action";
 import { baseQueryKey } from "../_domain/types";
 import { useListenProductListUpdate } from "../_vm/event/useListenProductListUpdate";
 
-export const getProductListSearchQuery = (q: string) => {
-  return {
+export const getProductListSearchQuery = (q: string) =>
+  queryOptions({
     queryKey: [baseQueryKey, "getProductListSearch", q],
     queryFn: () => {
       return getProductListSearchAction({ q });
     },
-    // staleTime: 1000,
-  };
-};
+  });
 
 export const useProductListSearchQuery = () => {
   const [q, setQ] = useState<string>("");

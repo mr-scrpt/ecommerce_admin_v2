@@ -1,13 +1,14 @@
 "use client";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { queryOptions, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getCategoryListAction } from "../_action/getCategoryList.action";
 import { baseQueryKey } from "../_domain/types";
 import { useListenCategoryListUpdate } from "../_vm/event/useListenCategoryListUpdate";
 
-export const getCategoryListQuery = () => ({
-  queryKey: [baseQueryKey, "getCategoryList"],
-  queryFn: () => getCategoryListAction(),
-});
+export const getCategoryListQuery = () =>
+  queryOptions({
+    queryKey: [baseQueryKey, "getCategoryList"],
+    queryFn: () => getCategoryListAction(),
+  });
 
 export const useCategoryListQuery = () => {
   const query = getCategoryListQuery();

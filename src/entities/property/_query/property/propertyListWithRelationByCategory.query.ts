@@ -1,16 +1,23 @@
 "use client";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { queryOptions, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getPropertyWithRelationByCategoryAction } from "../../_action/property/getPropertyWithRelationByCategory.action";
 import { baseQueryKey } from "../../_domain/property/types";
 import { useListenPropertyUpdate } from "../../_vm/event/useListenPropertyUpdate";
 
 export const getPropertyWithRelationByCategoryQuery = (
   categoryIdList: Array<string>,
-) => ({
-  queryKey: [baseQueryKey, "getPropertyWithRelationByCategory", categoryIdList],
-  queryFn: () =>
-    getPropertyWithRelationByCategoryAction({ categoryIdList: categoryIdList }),
-});
+) =>
+  queryOptions({
+    queryKey: [
+      baseQueryKey,
+      "getPropertyWithRelationByCategory",
+      categoryIdList,
+    ],
+    queryFn: () =>
+      getPropertyWithRelationByCategoryAction({
+        categoryIdList: categoryIdList,
+      }),
+  });
 
 export const usePropertyWithRelationByCategoryQuery = (
   categoryIdList: Array<string>,

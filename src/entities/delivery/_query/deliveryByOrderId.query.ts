@@ -1,13 +1,14 @@
 "use client";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { queryOptions, useQuery, useQueryClient } from "@tanstack/react-query";
 import { baseQueryKey } from "../_domain/delivery.types";
 import { useListenDeliveryUpdate } from "../_vm/event/useListenDeliveryUpdate";
 import { getDeliveryByOrderIdAction } from "../_action/getDeliveryByOrderId.action";
 
-export const getDeliveryByOrderIdQuery = (orderId: string) => ({
-  queryKey: [baseQueryKey, "getDelivery", orderId],
-  queryFn: () => getDeliveryByOrderIdAction({ orderId: orderId }),
-});
+export const getDeliveryByOrderIdQuery = (orderId: string) =>
+  queryOptions({
+    queryKey: [baseQueryKey, "getDelivery", orderId],
+    queryFn: () => getDeliveryByOrderIdAction({ orderId: orderId }),
+  });
 
 export const useDeliveryByOrderIdQuery = (orderId: string) => {
   const query = getDeliveryByOrderIdQuery(orderId);

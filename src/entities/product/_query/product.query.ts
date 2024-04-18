@@ -1,13 +1,14 @@
 "use client";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { queryOptions, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getProductAction } from "../_action/getProductAction";
 import { ProductId, baseQueryKey } from "../_domain/types";
 import { useListenProductUpdate } from "../_vm/event/useListenProductUpdate";
 
-export const getProductQuery = (productId: ProductId) => ({
-  queryKey: [baseQueryKey, "getProduct", productId],
-  queryFn: () => getProductAction({ productId }),
-});
+export const getProductQuery = (productId: ProductId) =>
+  queryOptions({
+    queryKey: [baseQueryKey, "getProduct", productId],
+    queryFn: () => getProductAction({ productId }),
+  });
 
 export const useProductQuery = (productId: ProductId) => {
   const query = getProductQuery(productId);

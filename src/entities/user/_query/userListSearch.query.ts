@@ -1,19 +1,18 @@
 "use client";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { queryOptions, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { useListenUserListUpdate } from "../_vm/event/useListenUserListUpdate";
 import { userBaseQueryKey } from "../_domain/user.types";
 import { getUserListSearchAction } from "../_action/getUserListSearch.action";
 
-export const getUserListSearchQuery = (q: string) => {
-  return {
+export const getUserListSearchQuery = (q: string) =>
+  queryOptions({
     queryKey: [userBaseQueryKey, "getUserListSearch", q],
     queryFn: () => {
       return getUserListSearchAction({ q });
     },
     // staleTime: 1000,
-  };
-};
+  });
 
 export const useUserListSearchQuery = () => {
   const [q, setQ] = useState<string>("");

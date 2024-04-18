@@ -1,15 +1,16 @@
 "use client";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { queryOptions, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getOrderStatusGroupAction } from "../_action/getOrderStatusGroup.action";
 import { OrderId, baseQueryKey } from "../_domain/order.types";
 import { useListenOrderUpdate } from "../_vm/event/useListenOrderUpdate";
 
-export const getOrderStatusGroupQuery = (orderId: OrderId) => ({
-  queryKey: [baseQueryKey, "getOrderStatusGroup", orderId],
-  queryFn: () => {
-    return getOrderStatusGroupAction({ orderId });
-  },
-});
+export const getOrderStatusGroupQuery = (orderId: OrderId) =>
+  queryOptions({
+    queryKey: [baseQueryKey, "getOrderStatusGroup", orderId],
+    queryFn: () => {
+      return getOrderStatusGroupAction({ orderId });
+    },
+  });
 
 export const useOrderStatusGroupQuery = (orderId: OrderId) => {
   const query = getOrderStatusGroupQuery(orderId);

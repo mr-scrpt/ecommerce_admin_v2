@@ -1,13 +1,14 @@
 "use client";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { queryOptions, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getCategoryAction } from "../_action/getCategory.action";
 import { CategoryId, baseQueryKey } from "../_domain/types";
 import { useListenCategoryUpdate } from "../_vm/event/useListenCategoryUpdate";
 
-export const getCategoryQuery = (categoryId: CategoryId) => ({
-  queryKey: [baseQueryKey, "getCategory", categoryId],
-  queryFn: () => getCategoryAction({ categoryId }),
-});
+export const getCategoryQuery = (categoryId: CategoryId) =>
+  queryOptions({
+    queryKey: [baseQueryKey, "getCategory", categoryId],
+    queryFn: () => getCategoryAction({ categoryId }),
+  });
 
 export const useCategoryQuery = (categoryId: CategoryId) => {
   const query = getCategoryQuery(categoryId);

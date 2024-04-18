@@ -1,13 +1,14 @@
 "use client";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { queryOptions, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getDeliveryListAction } from "../_action/getDeliveryList.action";
 import { baseQueryKey } from "../_domain/delivery.types";
 import { useListenDeliveryListUpdate } from "../_vm/event/useListenDeliveryListUpdate";
 
-export const getDeliveryListQuery = () => ({
-  queryKey: [baseQueryKey, "getDeliveryList"],
-  queryFn: () => getDeliveryListAction(),
-});
+export const getDeliveryListQuery = () =>
+  queryOptions({
+    queryKey: [baseQueryKey, "getDeliveryList"],
+    queryFn: () => getDeliveryListAction(),
+  });
 
 export const useDeliveryListQuery = () => {
   const query = getDeliveryListQuery();

@@ -1,13 +1,14 @@
 import { getProfileAction } from "../_action/getProfile.action";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { queryOptions, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useListenProfileUpdate } from "../_vm/event/useListenProfileUpdate";
 import { UserId } from "@/shared/lib/user";
 import { profileBaseQueryKey } from "../_domain/profile.types";
 
-export const getProfileQuery = (profileId: string) => ({
-  queryKey: [profileBaseQueryKey, "getProfile", profileId],
-  queryFn: () => getProfileAction({ profileId: profileId }),
-});
+export const getProfileQuery = (profileId: string) =>
+  queryOptions({
+    queryKey: [profileBaseQueryKey, "getProfile", profileId],
+    queryFn: () => getProfileAction({ profileId: profileId }),
+  });
 
 export const useProfileQuery = (userId: UserId) => {
   const query = getProfileQuery(userId);

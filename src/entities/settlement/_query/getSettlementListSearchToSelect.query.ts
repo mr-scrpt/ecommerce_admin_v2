@@ -1,13 +1,8 @@
 "use client";
-import {
-  QueryOptions,
-  queryOptions,
-  useQuery,
-  useQueryClient,
-} from "@tanstack/react-query";
+import { queryOptions, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import { baseQueryKey } from "../_domain/settlement.type";
 import { getSettlementListSearchToSelectAction } from "../_action/getSettlementListSearchToSelect";
+import { baseQueryKey } from "../_domain/settlement.type";
 
 const QUERY_KEY = "settlementListSearchToSelect";
 const REFRESH_INTERVAL = 1000 * 60 * 60 * 3;
