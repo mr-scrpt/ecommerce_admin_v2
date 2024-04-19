@@ -29,8 +29,8 @@ export class GetSettlementListSearchToSelectUseCase {
       return [];
     }
 
-    // const result = await this.np.getSettlementListSearch(q);
     const result = await this.settlementRepo.getSettlementListSearch(q);
+    // console.log("output_log:  =>>>", result);
 
     return await this.mapToSelect(result);
   }

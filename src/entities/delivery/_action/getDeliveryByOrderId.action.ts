@@ -25,7 +25,7 @@ export const getDeliveryByOrderIdAction = async (
     orderId,
     session,
   });
-  console.log("output_log:  delivery=>>>", delivery);
+  console.log("output_log: by Id delivery=>>>", delivery);
 
   return resultSchema.parseAsync({
     delivery,

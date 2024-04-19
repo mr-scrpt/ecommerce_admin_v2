@@ -1,8 +1,10 @@
+import { SettleToSelect } from "@/entities/settlement";
+import { SEARCH_MIN_LENGTH } from "@/shared/config/constant";
+import { useAppearanceDelay } from "@/shared/lib/react";
 import { Button } from "@/shared/ui/button";
 import {
   Command,
   CommandEmpty,
-  CommandGroup,
   CommandInput,
   CommandItem,
   CommandList,
@@ -11,14 +13,11 @@ import { FormControl } from "@/shared/ui/form";
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
 import { cn } from "@/shared/ui/utils";
 import { CaretSortIcon } from "@radix-ui/react-icons";
+import _ from "lodash";
 import { FC, HTMLAttributes, useEffect, useState } from "react";
 import { ControllerRenderProps, UseFormReturn } from "react-hook-form";
-import { SEARCH_MIN_LENGTH } from "@/shared/config/constant";
-import _ from "lodash";
-import { useAppearanceDelay } from "@/shared/lib/react";
-import { SettleToSelect } from "@/entities/settlement";
 
-interface DeliveryCitySelectProps extends HTMLAttributes<HTMLDivElement> {
+interface DeliverySettlementSelectProps extends HTMLAttributes<HTMLDivElement> {
   name: string;
   control: UseFormReturn<any>["control"];
   handleSelect?: (value: string) => void;
@@ -30,7 +29,9 @@ interface DeliveryCitySelectProps extends HTMLAttributes<HTMLDivElement> {
   citiesList: Array<SettleToSelect>;
 }
 
-export const DeliveryCitySelect: FC<DeliveryCitySelectProps> = (props) => {
+export const DeliverySettlementSelect: FC<DeliverySettlementSelectProps> = (
+  props,
+) => {
   const {
     field,
     citiesList,
@@ -69,17 +70,18 @@ export const DeliveryCitySelect: FC<DeliveryCitySelectProps> = (props) => {
               )}
             >
               {field.value
-                ? citiesList.find((city) => city.value === field.value)
-                    ?.label || "Select city"
-                : "Select city"}
-              <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                ? citiesList.find(
+                    (settlement) => settlement.value === field.value,
+                  )?.label || "Select settlement"
+                : "Select settlement"}
+              <CaretSortIcon className="opasettlement-50 ml-2 h-4 w-4 shrink-0" />
             </Button>
           </FormControl>
         </PopoverTrigger>
         <PopoverContent className="w-[480px] p-0">
           <Command value={search} filter={() => 1}>
             <CommandInput
-              placeholder="Search city..."
+              placeholder="Search settlements..."
               className="h-9"
               onValueChange={setSearch}
               value={search}
@@ -90,27 +92,28 @@ export const DeliveryCitySelect: FC<DeliveryCitySelectProps> = (props) => {
               <CommandEmpty>
                 {search && search.length <= minChars
                   ? "Minimum 3 characters"
-                  : "City not found"}
+                  : "Settlement not found"}
               </CommandEmpty>
             )}
             <CommandList>
               {!!citiesList.length &&
-                citiesList.map((city) => {
+                citiesList.map((settlement) => {
                   return (
                     <CommandItem
-                      value={city.value}
-                      key={city.value}
+                      value={settlement.value}
+                      key={settlement.value}
                       onSelect={() => {
-                        field.onChange(city.value);
+                        field.onChange(settlement.value);
                         setOpen(false);
                       }}
                       className="flex w-full items-center gap-2 text-sm"
                     >
                       <div className="grow">
-                        <span className="mr-1">{city.label}</span>
+                        <span className="mr-1">{settlement.label}</span>
 
                         <span className="text-xs text-muted-foreground">
-                          - {city.area} {city.region ?? `(${city.region})`}
+                          - {settlement.area}{" "}
+                          {settlement.region ?? `(${settlement.region})`}
                         </span>
                       </div>
                     </CommandItem>

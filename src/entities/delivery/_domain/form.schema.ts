@@ -7,7 +7,7 @@ import { DeliveryTypeEnum } from "./delivery.types";
 export const deliveryFormDefaultSchema = z.object({
   orderId: z.string(),
   deliveryType: z.custom<DeliveryTypeEnum>(),
-  city: z.string(),
+  settlement: z.string(),
   street: z.string(),
   house: z.string(),
   apartment: z.string(),

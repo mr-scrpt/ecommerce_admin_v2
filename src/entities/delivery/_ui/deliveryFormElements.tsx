@@ -20,8 +20,8 @@ import {
   deliveryFormDefaultSchema,
 } from "../_domain/form.schema";
 import { DeliveryTypeRadio } from "./formField/deliveryTypeRadio";
-import { DeliveryCitySelect } from "./formField/deliveryCitySelect";
 import { SettleToSelect } from "@/entities/settlement";
+import { DeliverySettlementSelect } from "./formField/deliverySettlementSelect";
 
 interface DeliveryFormElementsProps extends HTMLAttributes<HTMLFormElement> {
   delivery: Delivery;
@@ -37,7 +37,7 @@ interface DeliverySubmitFieldProps {
 
 type DeliveryFormElementsType = FC<DeliveryFormElementsProps> & {
   FieldDeliveryType: FC<{}>;
-  FieldCity: FC<{
+  FieldSettlement: FC<{
     settlementListToSelect: SettleToSelect[];
     toSearch: (q: string) => void;
   }>;
@@ -51,7 +51,7 @@ type DeliveryFormElementsType = FC<DeliveryFormElementsProps> & {
 
 const getDefaultValues = (delivery: Delivery) => ({
   deliveryType: delivery.deliveryType,
-  city: delivery.city,
+  settlement: delivery.settlement,
   street: delivery.street ?? "",
   house: delivery.house ?? "",
   apartment: delivery.apartment ?? "",
@@ -90,7 +90,7 @@ DeliveryFormElements.FieldDeliveryType = function FieldDeliveryType() {
   return <DeliveryTypeRadio />;
 };
 
-DeliveryFormElements.FieldCity = function FieldCity(props) {
+DeliveryFormElements.FieldSettlement = function FieldSettlement(props) {
   const { settlementListToSelect, toSearch } = props;
   const { control } = useFormContext<DeliveryFormDefaultValues>();
   return (
@@ -98,10 +98,10 @@ DeliveryFormElements.FieldCity = function FieldCity(props) {
       control={control}
       name="street"
       render={({ field }) => (
-        <DeliveryCitySelect
+        <DeliverySettlementSelect
           control={control}
           className="w-full"
-          name="city"
+          name="settlement"
           citiesList={settlementListToSelect}
           isPending={false}
           toSearch={toSearch}
@@ -114,10 +114,10 @@ DeliveryFormElements.FieldCity = function FieldCity(props) {
   // return (
   //   <FormField
   //     control={control}
-  //     name="city"
+  //     name="settlement"
   //     render={({ field }) => (
   //       <FormItem>
-  //         <FormLabel>City</FormLabel>
+  //         <FormLabel>Settlement</FormLabel>
   //         <FormControl>
   //           <Input placeholder="" {...field} />
   //         </FormControl>

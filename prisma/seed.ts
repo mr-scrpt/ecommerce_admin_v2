@@ -13,6 +13,7 @@ import { orderListSeed } from "./data/order";
 import { orderRowListSeed } from "./data/orderRow";
 import { receiverListSeed } from "./data/receiver";
 import { deliveryListSeed } from "./data/delivery";
+import { settlementListSeed } from "./data/settlement";
 
 const prisma = new PrismaClient();
 
@@ -74,6 +75,11 @@ async function main() {
   for await (const orderRow of orderRowListSeed) {
     await prisma.orderRow.create({ data: orderRow });
     console.log("orderRow created", orderRow);
+  }
+
+  for await (const settlementRow of settlementListSeed) {
+    await prisma.settlement.create({ data: settlementRow });
+    console.log("settlementRow created", settlementRow);
   }
 
   // Relation

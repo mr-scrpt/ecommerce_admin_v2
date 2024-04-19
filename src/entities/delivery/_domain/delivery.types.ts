@@ -10,8 +10,8 @@ type DeliveryBase = {
   // area: string;
   // araeCode: string;
 
-  city: string;
-  // cityCode: string;
+  settlement: string;
+  // settlementCode: string;
 
   street: string | null;
   house: string | null;
@@ -32,7 +32,7 @@ export type Delivery = {
   orderId: string;
   deliveryType: DeliveryTypeEnum;
 
-  city: string;
+  settlement: string;
 
   street: string | null;
   house: string | null;

@@ -75,7 +75,7 @@ export const OrderDeliveryFormUpdate: FC<OrderDeliveryFormProps> = (props) => {
         delivery={delivery}
         schema={orderDeliveryUpdateFormSchema}
       >
-        <DeliveryFormElements.FieldCity
+        <DeliveryFormElements.FieldSettlement
           settlementListToSelect={settlementListToSelect}
           toSearch={toSearch}
         />

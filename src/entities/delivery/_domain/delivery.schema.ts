@@ -8,7 +8,7 @@ const deliveryBaseSchema = z.object({
   deliveryType: z.custom<DeliveryTypeEnum>(),
   // area: z.string(),
   // araeCode: z.string(),
-  city: z.string(),
+  settlement: z.string(),
   // cityCode: z.string(),
   street: z.string().nullable(),
   house: z.string().nullable(),

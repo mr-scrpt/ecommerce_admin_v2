@@ -189,7 +189,7 @@ model Delivery {
   order       Order    @relation(fields: [orderId], references: [id])
   orderId     String   @unique
   deliveryType DELIVERY_TYPE
-  city        String
+  settlement        String
   street      String?
   house       String?
   apartment   String?

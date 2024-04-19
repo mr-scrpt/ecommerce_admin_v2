@@ -23,10 +23,10 @@ export class GetProductListSearchUseCase {
       throw new AuthorizatoinError();
     }
 
-    console.log("output_log: query =>>>", q);
     if (!q || q === "" || q.length < SEARCH_MIN_LENGTH) {
       return [];
     }
+
     return await this.productRepo.getProductListSearch(q);
   }
 }

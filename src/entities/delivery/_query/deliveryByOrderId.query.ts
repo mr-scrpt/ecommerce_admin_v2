@@ -11,6 +11,7 @@ export const getDeliveryByOrderIdQuery = (orderId: string) =>
   });
 
 export const useDeliveryByOrderIdQuery = (orderId: string) => {
+  console.log("output_log: in query =>>>");
   const query = getDeliveryByOrderIdQuery(orderId);
   const { isPending, isSuccess, isFetchedAfterMount, data } = useQuery(query);
 
