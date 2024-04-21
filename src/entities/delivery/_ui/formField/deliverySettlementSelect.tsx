@@ -48,14 +48,16 @@ export const DeliverySettlementSelect: FC<DeliverySettlementSelectProps> = (
 
   useEffect(() => {
     if (search && search.length > minChars) {
+      console.log("output_log:  search =>>>", search);
       debouncedToSearch(search);
     } else {
-      debouncedToSearch("");
+      // debouncedToSearch("");
     }
   }, [debouncedToSearch, minChars, search, searchValue]);
 
   const appearancePending = useAppearanceDelay(isPending);
 
+  // console.log("output_log: citiesList =>>>", citiesList);
   return (
     <div className={cn(className, "flex w-full flex-col gap-3")}>
       <Popover open={open} onOpenChange={setOpen}>
@@ -70,10 +72,15 @@ export const DeliverySettlementSelect: FC<DeliverySettlementSelectProps> = (
               )}
             >
               {field.value
-                ? citiesList.find(
-                    (settlement) => settlement.value === field.value,
-                  )?.label || "Select settlement"
-                : "Select settlement"}
+                ? citiesList.find((settlement) => {
+                    console.log(
+                      "output_log: is =>>>",
+                      settlement.value,
+                      field.value,
+                    );
+                    return settlement.value === field.value;
+                  })?.label || "Select settlement 1"
+                : "Select settlement 2"}
               <CaretSortIcon className="opasettlement-50 ml-2 h-4 w-4 shrink-0" />
             </Button>
           </FormControl>

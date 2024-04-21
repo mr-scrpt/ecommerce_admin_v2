@@ -37,12 +37,9 @@ export const OrderDeliveryFormUpdate: FC<OrderDeliveryFormProps> = (props) => {
   const isPendingComplexible =
     isPendingUpdate || isPendingDelivery || !isFetchedAfterMount;
 
+  console.log("output_log:delivery  =>>>", delivery);
   const { toSearch, settlementListToSelect } =
-    useSettlementListSearchToSelectQuery();
-
-  // useEffect(() => {
-  //   toSearch("бров");
-  // }, []);
+    useSettlementListSearchToSelectQuery(delivery?.settlement);
 
   if (isPendingComplexible) {
     return <Spinner aria-label="Loading profile..." />;

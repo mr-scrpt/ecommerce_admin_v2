@@ -19,6 +19,7 @@ export const getSettlementListSearchToSelectAction = async (
   props: z.infer<typeof propsSchema>,
 ): Promise<ResultT> => {
   const { q } = propsSchema.parse(props);
+  console.log("output_log: q =>>>", q);
   const session = await getAppSessionStrictServer();
 
   const settlementListToSelect =

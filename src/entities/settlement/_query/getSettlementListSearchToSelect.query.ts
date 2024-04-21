@@ -14,8 +14,16 @@ export const getSettlementListSearchToSelectQuery = (q: string) =>
     gcTime: REFRESH_INTERVAL,
   });
 
-export const useSettlementListSearchToSelectQuery = () => {
+export const useSettlementListSearchToSelectQuery = (
+  settlementSelected: string = "",
+) => {
   const [q, setQ] = useState<string>("");
+
+  useEffect(() => {
+    if (!settlementSelected) return;
+    setQ(settlementSelected);
+  }, [settlementSelected]);
+
   const invalidate = useInvalidateSettlementListSearchToSelect();
   useEffect(() => {
     if (q) {
@@ -26,6 +34,7 @@ export const useSettlementListSearchToSelectQuery = () => {
   const query = getSettlementListSearchToSelectQuery(q);
   const { isPending, isSuccess, isFetchedAfterMount, data } = useQuery(query);
 
+  console.log("output_log:  =>>>", data?.settlementListToSelect);
   return {
     toSearch: (q: string) => setQ(q),
     isPending,

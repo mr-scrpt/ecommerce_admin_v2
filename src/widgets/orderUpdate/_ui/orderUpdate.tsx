@@ -28,6 +28,10 @@ export const OrderUpdate: FC<OrderUpdateProps> = (props) => {
 
   return (
     <div className="flex w-full flex-col gap-4">
+      <DeliveryFormUpdate
+        orderId={orderId}
+        className="flex w-full border p-4"
+      />
       <OrderOwnerData orderId={orderId}>
         <OrderOwnerData.OwnerInfo className="flex w-full border p-4" />
         <OrderOwnerData.OrderInfo className="flex w-full border p-4" />
@@ -38,10 +42,6 @@ export const OrderUpdate: FC<OrderUpdateProps> = (props) => {
         orderId={orderId}
         orderRowUpdateQuantity={orderRowUpdateQuantity}
         orderRowRemove={removeOrderConfirm}
-        className="flex w-full border p-4"
-      />
-      <DeliveryFormUpdate
-        orderId={orderId}
         className="flex w-full border p-4"
       />
     </div>
