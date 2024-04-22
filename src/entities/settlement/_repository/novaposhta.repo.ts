@@ -1,6 +1,6 @@
 import { injectable } from "inversify";
 import { NovaPoshtaApi } from "../_api/novaposhta.api";
-import { SettlementNovaPostha } from "../_domain/novaposhta.type";
+import { SettlementNovaPoshta } from "@/shared/lib/novaposhta/novaposhta.type";
 
 @injectable()
 export class NovaPoshtaRepository {
@@ -8,11 +8,11 @@ export class NovaPoshtaRepository {
 
   async getSettlementListSearch(
     q: string,
-  ): Promise<Array<SettlementNovaPostha>> {
+  ): Promise<Array<SettlementNovaPoshta>> {
     return await this.np.getSettlementListSearch(q);
   }
 
-  async getSettlementList(p: number): Promise<Array<SettlementNovaPostha>> {
+  async getSettlementList(p: number): Promise<Array<SettlementNovaPoshta>> {
     return await this.np.getSettlementList(p);
   }
 }

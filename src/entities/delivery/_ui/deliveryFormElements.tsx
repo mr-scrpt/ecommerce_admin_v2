@@ -22,6 +22,14 @@ import {
 import { DeliveryTypeRadio } from "./formField/deliveryTypeRadio";
 import { SettleToSelect } from "@/entities/settlement";
 import { DeliverySettlementSelect } from "./formField/deliverySettlementSelect";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/shared/ui/select";
+import { PostOfficeToSelect } from "../_domain/postOffice.type";
 
 interface DeliveryFormElementsProps extends HTMLAttributes<HTMLFormElement> {
   delivery: Delivery;
@@ -36,15 +44,20 @@ interface DeliverySubmitFieldProps {
 }
 
 type DeliveryFormElementsType = FC<DeliveryFormElementsProps> & {
-  FieldDeliveryType: FC<{}>;
+  FieldDeliveryType: FC<{
+    postOfficeListToSelect: PostOfficeToSelect[];
+  }>;
   FieldSettlement: FC<{
     settlementListToSelect: SettleToSelect[];
     toSearch: (q: string) => void;
+    handleSelect?: (value: string) => void;
   }>;
   FieldStreet: FC<{}>;
   FieldHouse: FC<{}>;
   FieldApartment: FC<{}>;
-  FieldPostOffice: FC<{}>;
+  FieldPostOffice: FC<{
+    postOfficeListToSelect: PostOfficeToSelect[];
+  }>;
   FieldPickupPoint: FC<{}>;
   SubmitButton: FC<DeliverySubmitFieldProps>;
 };
@@ -86,12 +99,13 @@ export const DeliveryFormElements: DeliveryFormElementsType = (props) => {
   );
 };
 
-DeliveryFormElements.FieldDeliveryType = function FieldDeliveryType() {
-  return <DeliveryTypeRadio />;
+DeliveryFormElements.FieldDeliveryType = function FieldDeliveryType(props) {
+  const { postOfficeListToSelect } = props;
+  return <DeliveryTypeRadio postOfficeListToSelect={postOfficeListToSelect} />;
 };
 
 DeliveryFormElements.FieldSettlement = function FieldSettlement(props) {
-  const { settlementListToSelect, toSearch } = props;
+  const { settlementListToSelect, toSearch, handleSelect } = props;
   const { control } = useFormContext<DeliveryFormDefaultValues>();
   return (
     <FormField
@@ -106,27 +120,48 @@ DeliveryFormElements.FieldSettlement = function FieldSettlement(props) {
           citiesList={settlementListToSelect}
           isPending={false}
           toSearch={toSearch}
+          handleSelect={handleSelect}
           // handleSelect={(value: string)=>console.log(value)}
           field={field}
         />
       )}
     />
   );
-  // return (
-  //   <FormField
-  //     control={control}
-  //     name="settlement"
-  //     render={({ field }) => (
-  //       <FormItem>
-  //         <FormLabel>Settlement</FormLabel>
-  //         <FormControl>
-  //           <Input placeholder="" {...field} />
-  //         </FormControl>
-  //         <FormMessage />
-  //       </FormItem>
-  //     )}
-  //   />
-  // );
+};
+
+DeliveryFormElements.FieldPostOffice = function FieldPostOffice(props) {
+  const { postOfficeListToSelect } = props;
+  const { control } = useFormContext<DeliveryFormDefaultValues>();
+  return (
+    <FormField
+      control={control}
+      name="postOffice"
+      render={({ field }) => (
+        <FormItem>
+          <FormLabel>Post office</FormLabel>
+          <Select onValueChange={field.onChange} defaultValue={field.value}>
+            <FormControl>
+              <SelectTrigger>
+                <SelectValue placeholder="Select a verified email to display" />
+              </SelectTrigger>
+            </FormControl>
+            <SelectContent>
+              {postOfficeListToSelect &&
+                postOfficeListToSelect.map((postOffice) => (
+                  <SelectItem value={postOffice.value} key={postOffice.value}>
+                    {postOffice.label}
+                  </SelectItem>
+                ))}
+            </SelectContent>
+          </Select>
+          {/* <FormControl> */}
+          {/*   <Input placeholder="" {...field} /> */}
+          {/* </FormControl> */}
+          {/* <FormMessage /> */}
+        </FormItem>
+      )}
+    />
+  );
 };
 
 DeliveryFormElements.FieldStreet = function FieldStreet() {
@@ -176,25 +211,6 @@ DeliveryFormElements.FieldApartment = function FieldApartment() {
       render={({ field }) => (
         <FormItem>
           <FormLabel>Apartment</FormLabel>
-          <FormControl>
-            <Input placeholder="" {...field} />
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      )}
-    />
-  );
-};
-
-DeliveryFormElements.FieldPostOffice = function FieldPostOffice() {
-  const { control } = useFormContext<DeliveryFormDefaultValues>();
-  return (
-    <FormField
-      control={control}
-      name="postOffice"
-      render={({ field }) => (
-        <FormItem>
-          <FormLabel>Post office</FormLabel>
           <FormControl>
             <Input placeholder="" {...field} />
           </FormControl>

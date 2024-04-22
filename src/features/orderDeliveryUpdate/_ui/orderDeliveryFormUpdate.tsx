@@ -1,6 +1,6 @@
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { cn } from "@/shared/ui/utils";
-import { FC, HTMLAttributes, useEffect } from "react";
+import { FC, HTMLAttributes, useEffect, useState } from "react";
 import { useOrderDeliveryUpdate } from "../_vm/useOrderDeliveryUpdate";
 import {
   DeliveryFormElements,
@@ -12,6 +12,7 @@ import {
   orderDeliveryUpdateFormSchema,
 } from "../_domain/form.schema";
 import { useSettlementListSearchToSelectQuery } from "@/entities/settlement";
+import { usePostOfficeListToSelectQuery } from "@/entities/delivery/_query/getPostOfficeListToSelect.query";
 
 interface OrderDeliveryFormProps extends HTMLAttributes<HTMLDivElement> {
   orderId: string;
@@ -37,9 +38,19 @@ export const OrderDeliveryFormUpdate: FC<OrderDeliveryFormProps> = (props) => {
   const isPendingComplexible =
     isPendingUpdate || isPendingDelivery || !isFetchedAfterMount;
 
-  console.log("output_log:delivery  =>>>", delivery);
   const { toSearch, settlementListToSelect } =
     useSettlementListSearchToSelectQuery(delivery?.settlement);
+
+  const [selectedSettlement, setSelectedSettlement] = useState<string>("");
+  useEffect(() => {
+    if (delivery?.settlement) {
+      setSelectedSettlement(delivery?.settlement);
+    }
+  }, [delivery]);
+  // console.log("output_log: selectedSettlement =>>>", selectedSettlement);
+
+  const { postOfficeListToSelect } =
+    usePostOfficeListToSelectQuery(selectedSettlement);
 
   if (isPendingComplexible) {
     return <Spinner aria-label="Loading profile..." />;
@@ -75,8 +86,11 @@ export const OrderDeliveryFormUpdate: FC<OrderDeliveryFormProps> = (props) => {
         <DeliveryFormElements.FieldSettlement
           settlementListToSelect={settlementListToSelect}
           toSearch={toSearch}
+          handleSelect={setSelectedSettlement}
         />
-        <DeliveryFormElements.FieldDeliveryType />
+        <DeliveryFormElements.FieldDeliveryType
+          postOfficeListToSelect={postOfficeListToSelect}
+        />
         {/* <DeliveryFormElements.FieldRole /> */}
         {/* <DeliveryFormElements.FieldEmailVerified /> */}
         {/* <DeliveryFormElements.FieldEmail /> */}

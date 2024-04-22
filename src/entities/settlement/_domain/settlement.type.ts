@@ -42,7 +42,9 @@ export type SettlementEntity = SettlementBase & {
 
 // NOTE: Projetions
 
-export type Settlement = SettlementBase; // NOTE: Actions
+export type Settlement = SettlementBase;
+
+// NOTE: Actions
 export type SettlementToCreate = Settlement;
 export type SettlementToUpdate = Settlement & {
   id: string;

@@ -2,7 +2,7 @@ import { configPrivate } from "@/shared/config/private.config";
 import { ApiClient } from "@/shared/lib/httpClient";
 import {
   NovaPoshtaResponse,
-  SettlementNovaPoshta,
+  PostOfficeNovaPoshta,
 } from "@/shared/lib/novaposhta/novaposhta.type";
 import { inject, injectable } from "inversify";
 
@@ -13,7 +13,7 @@ export const modelName = {
 };
 
 export const calledMethod = {
-  getSettlements: "getSettlements",
+  getWarehouses: "getWarehouses",
 };
 
 @injectable()
@@ -23,32 +23,18 @@ export class NovaPoshtaApi {
     @inject(API_NOVA_POSHTA_KEY) private readonly apiKey: string,
   ) {}
 
-  async getSettlementListSearch(q: string): Promise<SettlementNovaPoshta[]> {
+  async getPostListBySettlement(s: string): Promise<PostOfficeNovaPoshta[]> {
     const result = await this.client.post<
-      NovaPoshtaResponse<SettlementNovaPoshta[]>
+      NovaPoshtaResponse<PostOfficeNovaPoshta[]>
     >(configPrivate.API_NOVA_POSHTA_URL, {
       apiKey: this.apiKey,
       modelName: modelName.address,
-      calledMethod: calledMethod.getSettlements,
+      calledMethod: calledMethod.getWarehouses,
       methodProperties: {
-        FindByString: q,
+        SettlementRef: s,
       },
     });
 
-    return result.data.data;
-  }
-
-  async getSettlementList(page: number): Promise<SettlementNovaPoshta[]> {
-    const result = await this.client.post<
-      NovaPoshtaResponse<SettlementNovaPoshta[]>
-    >(configPrivate.API_NOVA_POSHTA_URL, {
-      apiKey: this.apiKey,
-      modelName: modelName.address,
-      calledMethod: calledMethod.getSettlements,
-      methodProperties: {
-        Page: page,
-      },
-    });
     return result.data.data;
   }
 }

@@ -1,7 +1,6 @@
 import { AuthorizatoinError } from "@/shared/lib/errors";
 import { SessionEntity } from "@/shared/lib/user";
 import { injectable } from "inversify";
-import { SettlementNovaPostha } from "../_domain/novaposhta.type";
 import { createSettlementAbility } from "../_domain/settlement.ability";
 import { SettleToSelect, SettlementEntity } from "../_domain/settlement.type";
 import { SettlementRepository } from "../_repository/settlement.repo";

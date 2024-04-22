@@ -10,10 +10,16 @@ import { FC, HTMLAttributes } from "react";
 import { useFormContext } from "react-hook-form";
 import { DeliveryFormDefaultValues } from "../../_domain/form.schema";
 import { selectDeliveryType } from "../../_vm/selectDeliveryType";
+import { PostOfficeToSelect } from "../../_domain/postOffice.type";
+import { DeliveryTypeEnum } from "../../_domain/delivery.types";
 
-interface DeliveryTypeRadioProps extends HTMLAttributes<HTMLDivElement> {}
+interface DeliveryTypeRadioProps extends HTMLAttributes<HTMLDivElement> {
+  postOfficeListToSelect: PostOfficeToSelect[];
+}
 
 export const DeliveryTypeRadio: FC<DeliveryTypeRadioProps> = (props) => {
+  const { postOfficeListToSelect } = props;
+
   const { control } = useFormContext<DeliveryFormDefaultValues>();
   return (
     <FormField
@@ -45,7 +51,10 @@ export const DeliveryTypeRadio: FC<DeliveryTypeRadioProps> = (props) => {
                     </FormItem>
                     {field.value === row.type &&
                       !!row.formElement.length &&
-                      row.formElement.map((row) => row())}
+                      row.type === DeliveryTypeEnum.POST &&
+                      row.formElement.map((row) => {
+                        return row(postOfficeListToSelect);
+                      })}
                   </div>
                 ))}
               </RadioGroup>

@@ -1,5 +1,6 @@
 // "use client";
 import { DeliveryTypeEnum } from "../_domain/delivery.types";
+import { PostOfficeToSelect } from "../_domain/postOffice.type";
 import { DeliveryFormElements } from "../_ui/deliveryFormElements";
 
 export const selectDeliveryType = [
@@ -14,7 +15,12 @@ export const selectDeliveryType = [
     type: DeliveryTypeEnum.POST,
     value: "Post",
     formElement: [
-      () => <DeliveryFormElements.FieldPostOffice key="postOffice" />,
+      (postOfficeListToSelect: PostOfficeToSelect[]) => (
+        <DeliveryFormElements.FieldPostOffice
+          key="postOffice"
+          postOfficeListToSelect={postOfficeListToSelect}
+        />
+      ),
     ],
   },
   {

@@ -1,8 +1,8 @@
 import { injectable } from "inversify";
-import { SettlementNovaPosthaIndex } from "../_domain/novaposhta.type";
 import { SettlementEntity } from "../_domain/settlement.type";
 import { NovaPoshtaRepository } from "../_repository/novaposhta.repo";
 import { SettlementRepository } from "../_repository/settlement.repo";
+import { SettlementNovaPoshtaIndex } from "@/shared/lib/novaposhta/novaposhta.type";
 
 const INIT_PAGE = 1;
 @injectable()
@@ -37,7 +37,7 @@ export class InitSettlementListUseCase {
   }
 
   private convertToLowerCase(
-    settlementData: SettlementNovaPosthaIndex,
+    settlementData: SettlementNovaPoshtaIndex,
   ): SettlementEntity {
     const convertedSettle: any = {};
     for (const key in settlementData) {

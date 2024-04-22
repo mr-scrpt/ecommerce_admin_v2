@@ -37,4 +37,13 @@ export const orderListSeed = [
     paymentStatus: ORDER_PAYMENT_STATUS.POSTAL_PAID,
     priceTotal: 8423,
   },
+  {
+    id: "orderId5_ssiwwwff55ee5573PP_ORDER_User2",
+
+    userId: "user_2_fdfoer56468dfsdf",
+
+    orderStatus: ORDER_STATUS.NEW,
+    paymentStatus: ORDER_PAYMENT_STATUS.POSTAL_PAID,
+    priceTotal: 8423,
+  },
 ];

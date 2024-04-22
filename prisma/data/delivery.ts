@@ -14,7 +14,7 @@ export const deliveryListSeed = [
     orderId: "orderId_2158FFFF8_ORDER_2_AdminUser",
     deliveryType: DELIVERY_TYPE.POST,
     settlement: "e71f8842-4b33-11e4-ab6d-005056801329",
-    postOffice: "postOffice_1",
+    postOffice: "169227f4-e1c2-11e3-8c4a-0050568002cf",
   },
   {
     id: "delivery_id_3",
@@ -30,6 +30,13 @@ export const deliveryListSeed = [
     orderId: "orderId_didonhfff557642fd_ORDER_User2",
     deliveryType: DELIVERY_TYPE.POST,
     settlement: "e71c2a15-4b33-11e4-ab6d-005056801329",
-    postOffice: "postOffice_2",
+    postOffice: "7b422fc4-e1b8-11e3-8c4a-0050568002cf",
+  },
+  {
+    id: "delivery_id_5",
+    orderId: "orderId5_ssiwwwff55ee5573PP_ORDER_User2",
+    deliveryType: DELIVERY_TYPE.POST,
+    settlement: "e71f8e8f-4b33-11e4-ab6d-005056801329",
+    postOffice: "1692286c-e1c2-11e3-8c4a-0050568002cf",
   },
 ];

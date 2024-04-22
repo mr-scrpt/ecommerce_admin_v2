@@ -38,6 +38,8 @@ export const DeliverySettlementSelect: FC<DeliverySettlementSelectProps> = (
     isPending,
     minChars = SEARCH_MIN_LENGTH,
     toSearch,
+    handleSelect,
+
     className,
     searchValue,
   } = props;
@@ -48,7 +50,7 @@ export const DeliverySettlementSelect: FC<DeliverySettlementSelectProps> = (
 
   useEffect(() => {
     if (search && search.length > minChars) {
-      console.log("output_log:  search =>>>", search);
+      // console.log("output_log:  search =>>>", search);
       debouncedToSearch(search);
     } else {
       // debouncedToSearch("");
@@ -73,11 +75,11 @@ export const DeliverySettlementSelect: FC<DeliverySettlementSelectProps> = (
             >
               {field.value
                 ? citiesList.find((settlement) => {
-                    console.log(
-                      "output_log: is =>>>",
-                      settlement.value,
-                      field.value,
-                    );
+                    // console.log(
+                    //   "output_log: is =>>>",
+                    //   settlement.value,
+                    //   field.value,
+                    // );
                     return settlement.value === field.value;
                   })?.label || "Select settlement 1"
                 : "Select settlement 2"}
@@ -111,6 +113,7 @@ export const DeliverySettlementSelect: FC<DeliverySettlementSelectProps> = (
                       key={settlement.value}
                       onSelect={() => {
                         field.onChange(settlement.value);
+                        handleSelect?.(settlement.value);
                         setOpen(false);
                       }}
                       className="flex w-full items-center gap-2 text-sm"
