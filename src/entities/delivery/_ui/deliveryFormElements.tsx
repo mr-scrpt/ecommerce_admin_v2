@@ -111,7 +111,6 @@ DeliveryFormElements.FieldSettlement = function FieldSettlement(props) {
     <FormField
       control={control}
       name="settlement"
-      // defaultValue="0e834da5-4b3a-11e4-ab6d-005056801329"
       render={({ field }) => (
         <DeliverySettlementSelect
           control={control}
@@ -132,6 +131,7 @@ DeliveryFormElements.FieldSettlement = function FieldSettlement(props) {
 DeliveryFormElements.FieldPostOffice = function FieldPostOffice(props) {
   const { postOfficeListToSelect } = props;
   const { control } = useFormContext<DeliveryFormDefaultValues>();
+
   return (
     <FormField
       control={control}
@@ -142,7 +142,7 @@ DeliveryFormElements.FieldPostOffice = function FieldPostOffice(props) {
           <Select onValueChange={field.onChange} defaultValue={field.value}>
             <FormControl>
               <SelectTrigger>
-                <SelectValue placeholder="Select a verified email to display" />
+                <SelectValue placeholder="Select post office" />
               </SelectTrigger>
             </FormControl>
             <SelectContent>
@@ -154,10 +154,6 @@ DeliveryFormElements.FieldPostOffice = function FieldPostOffice(props) {
                 ))}
             </SelectContent>
           </Select>
-          {/* <FormControl> */}
-          {/*   <Input placeholder="" {...field} /> */}
-          {/* </FormControl> */}
-          {/* <FormMessage /> */}
         </FormItem>
       )}
     />

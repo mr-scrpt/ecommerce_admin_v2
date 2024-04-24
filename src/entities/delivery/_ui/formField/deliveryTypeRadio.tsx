@@ -12,6 +12,9 @@ import { DeliveryFormDefaultValues } from "../../_domain/form.schema";
 import { selectDeliveryType } from "../../_vm/selectDeliveryType";
 import { PostOfficeToSelect } from "../../_domain/postOffice.type";
 import { DeliveryTypeEnum } from "../../_domain/delivery.types";
+import { DeliveryPostSelect } from "./deliveryPostSelect";
+import { DeliveryPickupField } from "./deliveryPickupField";
+import { DeliveryCourierField } from "./deliveryCourierField";
 
 interface DeliveryTypeRadioProps extends HTMLAttributes<HTMLDivElement> {
   postOfficeListToSelect: PostOfficeToSelect[];
@@ -21,6 +24,7 @@ export const DeliveryTypeRadio: FC<DeliveryTypeRadioProps> = (props) => {
   const { postOfficeListToSelect } = props;
 
   const { control } = useFormContext<DeliveryFormDefaultValues>();
+
   return (
     <FormField
       control={control}
@@ -35,28 +39,39 @@ export const DeliveryTypeRadio: FC<DeliveryTypeRadioProps> = (props) => {
                 defaultValue={field.value}
                 className="flex flex-col space-y-1"
               >
-                {selectDeliveryType.map((row) => (
-                  <div
-                    key={row.type}
-                    className="flex w-full flex-col gap-2 border p-4"
-                  >
-                    <FormItem
-                      key={row.type}
-                      className="flex w-full items-center space-x-3 space-y-0"
-                    >
-                      <FormControl>
-                        <RadioGroupItem value={row.type} />
-                      </FormControl>
-                      <FormLabel className="font-normal">{row.value}</FormLabel>
-                    </FormItem>
-                    {field.value === row.type &&
-                      !!row.formElement.length &&
-                      row.type === DeliveryTypeEnum.POST &&
-                      row.formElement.map((row) => {
-                        return row(postOfficeListToSelect);
-                      })}
-                  </div>
-                ))}
+                {Object.entries(selectDeliveryType).map(([key, row]) => {
+                  if (
+                    key === DeliveryTypeEnum.POST &&
+                    !!postOfficeListToSelect.length
+                  ) {
+                    return (
+                      <DeliveryPostSelect
+                        key={key}
+                        delivery={row}
+                        postOfficeListToSelect={postOfficeListToSelect}
+                        selected={field.value === DeliveryTypeEnum.POST}
+                      />
+                    );
+                  }
+                  if (key === DeliveryTypeEnum.PICKUP) {
+                    return (
+                      <DeliveryPickupField
+                        delivery={row}
+                        key={key}
+                        selected={field.value === DeliveryTypeEnum.PICKUP}
+                      />
+                    );
+                  }
+                  if (key === DeliveryTypeEnum.COURIER) {
+                    return (
+                      <DeliveryCourierField
+                        key={key}
+                        delivery={row}
+                        selected={field.value === DeliveryTypeEnum.COURIER}
+                      />
+                    );
+                  }
+                })}
               </RadioGroup>
             </FormControl>
             <FormMessage />

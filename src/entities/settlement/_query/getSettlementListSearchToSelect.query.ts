@@ -34,7 +34,6 @@ export const useSettlementListSearchToSelectQuery = (
   const query = getSettlementListSearchToSelectQuery(q);
   const { isPending, isSuccess, isFetchedAfterMount, data } = useQuery(query);
 
-  console.log("output_log:  =>>>", data?.settlementListToSelect);
   return {
     toSearch: (q: string) => setQ(q),
     isPending,

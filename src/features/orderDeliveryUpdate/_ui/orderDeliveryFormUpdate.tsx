@@ -35,9 +35,6 @@ export const OrderDeliveryFormUpdate: FC<OrderDeliveryFormProps> = (props) => {
   const { deliveryUpdate, isPending: isPendingUpdate } =
     useOrderDeliveryUpdate();
 
-  const isPendingComplexible =
-    isPendingUpdate || isPendingDelivery || !isFetchedAfterMount;
-
   const { toSearch, settlementListToSelect } =
     useSettlementListSearchToSelectQuery(delivery?.settlement);
 
@@ -47,10 +44,11 @@ export const OrderDeliveryFormUpdate: FC<OrderDeliveryFormProps> = (props) => {
       setSelectedSettlement(delivery?.settlement);
     }
   }, [delivery]);
-  // console.log("output_log: selectedSettlement =>>>", selectedSettlement);
 
-  const { postOfficeListToSelect } =
+  const { postOfficeListToSelect, isPending: isPendingPostOfficeList } =
     usePostOfficeListToSelectQuery(selectedSettlement);
+  const isPendingComplexible =
+    isPendingUpdate || isPendingDelivery || !isFetchedAfterMount;
 
   if (isPendingComplexible) {
     return <Spinner aria-label="Loading profile..." />;
