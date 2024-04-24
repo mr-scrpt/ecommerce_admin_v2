@@ -200,7 +200,52 @@ model Delivery {
   updatedAt DateTime @updatedAt
 }
 
+model Settlement {
+  id                               String   @id @default(uuid())
+  ref                              String   @unique
+  settlementType                   String
+  latitude                         String
+  longitude                        String
+  description                      String
+  descriptionRu                    String
+  descriptionTranslit              String
+  settlementTypeDescription        String
+  settlementTypeDescriptionRu      String
+  settlementTypeDescriptionTranslit String
+  region                           String
+  regionsDescription               String
+  regionsDescriptionRu             String
+  regionsDescriptionTranslit       String
+  area                             String
+  areaDescription                  String
+  areaDescriptionRu                String
+  areaDescriptionTranslit          String
+  index1                           String
+  index2                           String
+  indexCOATSU1                     String
+  delivery1                        String
+  delivery2                        String
+  delivery3                        String
+  delivery4                        String
+  delivery5                        String
+  delivery6                        String
+  delivery7                        String
+  specialCashCheck                 Int
+  radiusHomeDelivery               String
+  radiusExpressPickUp              String
+  radiusDrop                       String
+  warehouse                        String
+  createdAt                        DateTime @default(now())
+  updatedAt                        DateTime @updatedAt
+}
 
+model Store {
+  id        String   @id @default(uuid())
+  settlement String
+  address      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
 
 model Property {
   id       String   @id @default(uuid())
@@ -267,41 +312,3 @@ model VerificationToken {
 }
 
 
-model Settlement {
-  id                               String   @id @default(uuid())
-  ref                              String   @unique
-  settlementType                   String
-  latitude                         String
-  longitude                        String
-  description                      String
-  descriptionRu                    String
-  descriptionTranslit              String
-  settlementTypeDescription        String
-  settlementTypeDescriptionRu      String
-  settlementTypeDescriptionTranslit String
-  region                           String
-  regionsDescription               String
-  regionsDescriptionRu             String
-  regionsDescriptionTranslit       String
-  area                             String
-  areaDescription                  String
-  areaDescriptionRu                String
-  areaDescriptionTranslit          String
-  index1                           String
-  index2                           String
-  indexCOATSU1                     String
-  delivery1                        String
-  delivery2                        String
-  delivery3                        String
-  delivery4                        String
-  delivery5                        String
-  delivery6                        String
-  delivery7                        String
-  specialCashCheck                 Int
-  radiusHomeDelivery               String
-  radiusExpressPickUp              String
-  radiusDrop                       String
-  warehouse                        String
-  createdAt                        DateTime @default(now())
-  updatedAt                        DateTime @updatedAt
-}

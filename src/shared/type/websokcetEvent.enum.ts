@@ -42,4 +42,10 @@ export enum WSEventEnum {
   DELIVERY_REFRESH = "delivery_refresh",
   DELIVERY_REMOVE = "delivery_remove",
   DELIVERY_LIST_REFRESH = "delivery_list_refresh",
+
+  STORE_CREATE = "store_create",
+  STORE_UPDATE = "store_update",
+  STORE_REMOVE = "store_remove",
+  STORE_REFRESH = "store_refresh",
+  STORE_LIST_REFRESH = "store_list_refresh",
 }
