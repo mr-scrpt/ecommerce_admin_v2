@@ -2,11 +2,11 @@ import { AuthorizatoinError } from "@/shared/lib/errors";
 import { SessionEntity } from "@/shared/lib/user";
 import { injectable } from "inversify";
 import { createStoreAbility } from "../_domain/store.ability";
-import { StoreEntity, StoreId } from "../_domain/types";
+import { StoreEntity } from "../_domain/types";
 import { StoreRepository } from "../_repository/store.repo";
 
 type GetStore = {
-  storeId: StoreId;
+  storeId: string;
   session: SessionEntity;
 };
 

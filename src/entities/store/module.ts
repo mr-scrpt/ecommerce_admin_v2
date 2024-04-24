@@ -1,22 +1,18 @@
 import { DBClient, dbClient } from "@/shared/lib/db";
 import { Container, ContainerModule } from "inversify";
-import { CategoryRepository } from "./_repository/store.repo";
-import { GetCategoryUseCase } from "./_usecase/getStore.usecase";
-import { GetCategoryBySlugUseCase } from "./_usecase/getStoreBySlug.usecase";
-import { GetCategoryListUseCase } from "./_usecase/getStoreList.usecase";
-import { GetCategoryWithRelationUseCase } from "./_usecase/getStoreWithRelation.usecase";
+import { StoreRepository } from "./_repository/store.repo";
+import { GetStoreUseCase } from "./_usecase/getStore.usecase";
+import { GetStoreListUseCase } from "./_usecase/getStoreList.usecase";
 
-const categoryContainer = new Container();
+const storeContainer = new Container();
 
-export const CategoryModule = new ContainerModule((bind) => {
+export const StoreModule = new ContainerModule((bind) => {
   bind(DBClient).toConstantValue(dbClient);
-  bind(CategoryRepository).toSelf();
-  bind(GetCategoryListUseCase).toSelf();
-  bind(GetCategoryUseCase).toSelf();
-  bind(GetCategoryBySlugUseCase).toSelf();
-  bind(GetCategoryWithRelationUseCase).toSelf();
+  bind(StoreRepository).toSelf();
+  bind(GetStoreListUseCase).toSelf();
+  bind(GetStoreUseCase).toSelf();
 });
 
-categoryContainer.load(CategoryModule);
+storeContainer.load(StoreModule);
 
-export default categoryContainer;
+export default storeContainer;

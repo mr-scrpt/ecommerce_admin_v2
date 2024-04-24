@@ -1,16 +1,13 @@
-export { categoryFormSchema } from "./_domain/form.schema";
-export { useCategoryQuery } from "./_query/store.query";
-export { useCategoryListQuery } from "./_query/storeList.query";
-export { useCategoryWithRelationQuery } from "./_query/storeWithRelation.query";
-export { CategoryForm } from "./_ui/storeForm";
+export { storeFormDefaultSchema } from "./_domain/form.schema";
+export { useStoreQuery } from "./_query/store.query";
+export { useStoreListQuery } from "./_query/storeList.query";
+// export { useStoreWithRelationQuery } from "./_query/__storeWithRelation.query";
+export { StoreFormElements } from "./_ui/storeFormElements";
 
 export type {
-  Category,
-  CategoryAddProductList,
-  CategoryEntity,
-  CategoryId,
-  CategoryRelationEntity,
-  CategoryToCreate,
-  CategoryToUpdate,
+  Store,
+  StoreEntity,
+  StoreToCreate,
+  StoreToUpdate,
 } from "./_domain/types";
-export { useCategoryLikeSelectOptionList } from "./_vm/useStoreLikeSelectOptionList";
+export { useStoreLikeSelectOptionList } from "./_vm/useStoreLikeSelectOptionList";

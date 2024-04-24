@@ -15,7 +15,6 @@ export type StoreEntity = StoreBase & {
 export type Store = StoreBase & {
   id: string;
   createdAt: Date;
-  updatedAt: Date;
 };
 
 // NOTE: Actions

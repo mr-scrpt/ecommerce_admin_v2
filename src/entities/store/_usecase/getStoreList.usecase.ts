@@ -2,7 +2,7 @@ import { AuthorizatoinError } from "@/shared/lib/errors";
 import { SessionEntity } from "@/shared/lib/user";
 import { injectable } from "inversify";
 import { createStoreAbility } from "../_domain/store.ability";
-import { StoreEntity } from "../_domain/types";
+import { Store } from "../_domain/types";
 import { StoreRepository } from "../_repository/store.repo";
 
 type GetStoreList = {
@@ -13,7 +13,7 @@ type GetStoreList = {
 export class GetStoreListUseCase {
   constructor(private readonly storeRepo: StoreRepository) {}
 
-  async exec(data: GetStoreList): Promise<StoreEntity[]> {
+  async exec(data: GetStoreList): Promise<Store[]> {
     const { session } = data;
     const { canGetStore } = createStoreAbility(session);
 
