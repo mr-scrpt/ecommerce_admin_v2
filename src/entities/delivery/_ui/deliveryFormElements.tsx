@@ -20,8 +20,6 @@ import {
   deliveryFormDefaultSchema,
 } from "../_domain/form.schema";
 import { DeliveryTypeRadio } from "./formField/deliveryTypeRadio";
-import { SettleToSelect } from "@/entities/settlement";
-import { DeliverySettlementSelect } from "./formField/deliverySettlementSelect";
 import {
   Select,
   SelectContent,
@@ -30,6 +28,10 @@ import {
   SelectValue,
 } from "@/shared/ui/select";
 import { PostOfficeToSelect } from "../_domain/postOffice.type";
+import {
+  SettleToSelect,
+  SettlementSelect,
+} from "@/shared/ui/select/settleSelect";
 
 interface DeliveryFormElementsProps extends HTMLAttributes<HTMLFormElement> {
   delivery: Delivery;
@@ -112,7 +114,7 @@ DeliveryFormElements.FieldSettlement = function FieldSettlement(props) {
       control={control}
       name="settlement"
       render={({ field }) => (
-        <DeliverySettlementSelect
+        <SettlementSelect
           control={control}
           className="w-full"
           name="settlement"
@@ -120,7 +122,6 @@ DeliveryFormElements.FieldSettlement = function FieldSettlement(props) {
           isPending={false}
           toSearch={toSearch}
           handleSelect={handleSelect}
-          // handleSelect={(value: string)=>console.log(value)}
           field={field}
         />
       )}

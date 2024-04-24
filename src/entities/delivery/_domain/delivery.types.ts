@@ -52,8 +52,3 @@ export type DeliveryToUpdate = Delivery & {
 //   priceDelivery: number;
 //   quantity: number;
 // };
-
-// NOTE: UI
-// export type DeliveryUI = Omit<Delivery, "createdAt"> & {
-//   createdAt: string;
-// };

@@ -1,4 +1,3 @@
-import { SettleToSelect } from "@/entities/settlement";
 import { SEARCH_MIN_LENGTH } from "@/shared/config/constant";
 import { useAppearanceDelay } from "@/shared/lib/react";
 import { Button } from "@/shared/ui/button";
@@ -17,7 +16,14 @@ import _ from "lodash";
 import { FC, HTMLAttributes, useEffect, useState } from "react";
 import { ControllerRenderProps, UseFormReturn } from "react-hook-form";
 
-interface DeliverySettlementSelectProps extends HTMLAttributes<HTMLDivElement> {
+export type SettleToSelect = {
+  value: string;
+  area: string;
+  region: string;
+  label: string;
+};
+
+interface SettlementSelectProps extends HTMLAttributes<HTMLDivElement> {
   name: string;
   control: UseFormReturn<any>["control"];
   handleSelect?: (value: string) => void;
@@ -29,9 +35,7 @@ interface DeliverySettlementSelectProps extends HTMLAttributes<HTMLDivElement> {
   citiesList: Array<SettleToSelect>;
 }
 
-export const DeliverySettlementSelect: FC<DeliverySettlementSelectProps> = (
-  props,
-) => {
+export const SettlementSelect: FC<SettlementSelectProps> = (props) => {
   const {
     field,
     citiesList,
@@ -75,11 +79,6 @@ export const DeliverySettlementSelect: FC<DeliverySettlementSelectProps> = (
             >
               {field.value
                 ? citiesList.find((settlement) => {
-                    // console.log(
-                    //   "output_log: is =>>>",
-                    //   settlement.value,
-                    //   field.value,
-                    // );
                     return settlement.value === field.value;
                   })?.label || "Select settlement 1"
                 : "Select settlement 2"}
