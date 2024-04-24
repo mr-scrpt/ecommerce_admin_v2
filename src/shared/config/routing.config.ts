@@ -4,7 +4,6 @@ export enum RoutePathEnum {
   HOME = "/",
 
   CATEGORIES = "/categories",
-  // CATEGORY = "/categories/:slug",
   CATEGORY_UPDATE = "/categories/update",
   CATEGORY_CREATE = "/categories/create",
 
@@ -15,6 +14,10 @@ export enum RoutePathEnum {
   PROPERTIES = "/properties",
   PROPERTY_UPDATE = "/properties/update",
   PROPERTY_CREATE = "/properties/create",
+
+  STORES = "/stores",
+  STORE_UPDATE = "/stores/update",
+  STORE_CREATE = "/stores/create",
 
   USERS = "/users",
   SETTINGS = "/settings",
@@ -35,6 +38,7 @@ enum RouteNameEnum {
   PRODUCTS = "Products",
 
   PROPERTIES = "Properties",
+  STORES = "Stores",
 
   SETTINGS = "Settings",
   USERS = "Users",
@@ -72,6 +76,10 @@ export const ROUTING_MAIN_MENU_DATA = [
     href: `${RoutePathEnum.USERS}`,
     label: RouteNameEnum.USERS,
     role: [ROLE.ADMIN],
+  },
+  {
+    href: `${RoutePathEnum.STORES}`,
+    label: RouteNameEnum.STORES,
   },
   {
     href: `${RoutePathEnum.SETTINGS}`,
