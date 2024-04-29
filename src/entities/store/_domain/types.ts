@@ -10,12 +10,20 @@ export type StoreEntity = StoreBase & {
   createdAt: Date;
 };
 
+// export type StoreRelationEntity = StoreEntity & {
+//   settlementName: string;
+// };
+
 // NOTE: Projetions
 
 export type Store = StoreBase & {
   id: string;
   createdAt: Date;
 };
+
+// export type StoreRelation = Store & {
+//   settlementName: string;
+// };
 
 // NOTE: Actions
 export type StoreToCreate = {

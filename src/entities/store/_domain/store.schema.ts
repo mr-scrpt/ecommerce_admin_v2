@@ -1,14 +1,19 @@
-import { PropertyDataTypeEnum } from "@/shared/type/propertyDataType.enum";
 import { z } from "zod";
 
 export const storeBaseSchema = z.object({
-  name: z.string(),
-  slug: z.string(),
-  board: z.array(z.string()),
-  createdAt: z.date(),
+  settlement: z.string(),
+  address: z.string(),
 });
 
 export const storeSchema = z.object({
   id: z.string(),
   ...storeBaseSchema.shape,
+  createdAt: z.date(),
+});
+
+export const storeRelationSchema = z.object({
+  id: z.string(),
+  ...storeBaseSchema.shape,
+  settlementName: z.string(),
+  createdAt: z.date(),
 });
