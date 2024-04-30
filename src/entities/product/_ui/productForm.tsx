@@ -35,6 +35,12 @@ interface ProductFormProps extends HTMLAttributes<HTMLFormElement> {
   propertySelectObjectActive?: ProductPropertyObjectList;
 }
 
+interface PropertySubmitFieldProps {
+  isPending?: boolean;
+  submitText: string;
+  className?: string;
+}
+
 type ProductFormType = FC<ProductFormProps> & {
   CategoryListField: FC<PropertyFieldCategoryListProps>;
   PropertyField: FC<PropertyFieldProps>;
@@ -169,17 +175,11 @@ ProductForm.CategoryListField = function CategoryListField({
   );
 };
 
-interface PropertySubmitFieldProps {
-  isPending?: boolean;
-  submitText: string;
-  className?: string;
-}
-
 ProductForm.SubmitButton = function SubmitButton({
   isPending,
   submitText,
   className,
-}: PropertySubmitFieldProps) {
+}) {
   return (
     <Button type="submit" disabled={isPending} className={cn(className)}>
       {isPending && (

@@ -20,6 +20,9 @@ import {
   SettlementSelect,
 } from "@/shared/ui/select/settleSelect";
 import { Input } from "@/shared/ui/input";
+import { Button } from "@/shared/ui/button";
+import { cn } from "@/shared/ui/utils";
+import { Spinner } from "@/shared/ui/icons/spinner";
 
 interface StoreFormElementsProps extends HTMLAttributes<HTMLFormElement> {
   store: Store;
@@ -34,6 +37,11 @@ type StoreFormElementsType = FC<StoreFormElementsProps> & {
     handleSelect?: (value: string) => void;
   }>;
   FieldAddress: FC<{}>;
+  SubmitButton: FC<{
+    isPending: boolean;
+    submitText: string;
+    className?: string;
+  }>;
 };
 
 const getDefaultValues = (store: Store) => ({
@@ -106,5 +114,23 @@ StoreFormElements.FieldAddress = function FieldAddress() {
         </FormItem>
       )}
     />
+  );
+};
+
+StoreFormElements.SubmitButton = function SubmitButton({
+  isPending,
+  submitText,
+  className,
+}) {
+  return (
+    <Button type="submit" disabled={isPending} className={cn(className)}>
+      {isPending && (
+        <Spinner
+          className="mr-2 h-4 w-4 animate-spin"
+          aria-label="Profile updating..."
+        />
+      )}
+      {submitText}
+    </Button>
   );
 };

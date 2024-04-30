@@ -89,6 +89,10 @@ export const StoreFormUpdate: FC<StoreFormProps> = (props) => {
           handleSelect={setSelectedSettlement}
         />
         <StoreFormElements.FieldAddress />
+        <StoreFormElements.SubmitButton
+          isPending={isPendingComplexible}
+          submitText={"Save change"}
+        />
       </StoreFormElements>
     </div>
   );
