@@ -1,5 +1,5 @@
 import { AuthorizedGuard } from "@/features/Auth/Authorized.guard";
-import { Header } from "@/widgets/Header/header";
+import { Header } from "@/widgets/header/header";
 
 const Layout = async ({ children }: { children: React.ReactNode }) => {
   return (

@@ -38,6 +38,7 @@ type StoreFormElementsType = FC<StoreFormElementsProps> & {
 
 const getDefaultValues = (store: Store) => ({
   settlement: store.settlement ?? "",
+  // settlement: "71f8842-4b33-11e4-ab6d-005056801329",
   address: store.address ?? "",
 });
 

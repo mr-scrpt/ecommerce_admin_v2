@@ -63,7 +63,8 @@ export const SettlementSelect: FC<SettlementSelectProps> = (props) => {
 
   const appearancePending = useAppearanceDelay(isPending);
 
-  // console.log("output_log: citiesList =>>>", citiesList);
+  console.log("output_log: citiesList =>>>", citiesList);
+  console.log("output_log: value =>>>", field.value);
   return (
     <div className={cn(className, "flex w-full flex-col gap-3")}>
       <Popover open={open} onOpenChange={setOpen}>

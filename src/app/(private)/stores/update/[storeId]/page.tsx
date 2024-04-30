@@ -1,6 +1,6 @@
 import { RoutePathEnum } from "@/shared/config/routing.config";
 import { TitlePage } from "@/shared/ui/titlePage";
-// import { StoreUpdate } from "@/widgets/storeUpdate";
+import { StoreUpdate } from "@/widgets/storeUpdate";
 import { FC, HTMLAttributes } from "react";
 
 interface PageProps extends HTMLAttributes<HTMLDivElement> {
@@ -14,7 +14,7 @@ const StoreUpdatePage: FC<PageProps> = (props) => {
   return (
     <main className="flex min-h-screen flex-col gap-4 p-8">
       <TitlePage title="Categories update" description="Update store item" />
-      {/* <StoreUpdate callbackUrl={RoutePathEnum.CATEGORIES} storeId={storeId} /> */}
+      <StoreUpdate callbackUrl={RoutePathEnum.STORE_UPDATE} storeId={storeId} />
     </main>
   );
 };

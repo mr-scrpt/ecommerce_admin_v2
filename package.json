@@ -15,7 +15,8 @@
     "test:e2e": "prisma migrate reset --force && playwright test",
     "prettier": "prettier -w .",
     "studio": "prisma studio",
-    "migrate:dev": "prisma migrate dev"
+    "migrate:dev": "prisma migrate dev",
+    "migrate:reset": "prisma migrate reset"
   },
   "prisma": {
     "seed": "ts-node --project tsconfig.script.json prisma/seed.ts"

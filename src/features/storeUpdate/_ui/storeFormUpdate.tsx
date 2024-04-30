@@ -1,18 +1,16 @@
 "use client";
+import { useSettlementListSearchToSelectQuery } from "@/entities/settlement";
 import {
   StoreFormElements,
   storeFormDefaultSchema,
   useStoreQuery,
 } from "@/entities/store";
-import { usePropertyLikeSelectOptionList } from "@/entities/property";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
-import { FC, HTMLAttributes, useState } from "react";
+import { FC, HTMLAttributes, useEffect, useState } from "react";
 import { z } from "zod";
 import { useStoreUpdateMutation } from "../_mutation/useStoreUpdate.mutation";
-import { useOptionListTransform } from "@/shared/lib/map";
-import { useSettlementListSearchToSelectQuery } from "@/entities/settlement";
 
 interface StoreFormProps extends HTMLAttributes<HTMLDivElement> {
   storeId: string;
@@ -37,18 +35,22 @@ export const StoreFormUpdate: FC<StoreFormProps> = (props) => {
 
   const { storeUpdate, isPending: isPendingUpdate } = useStoreUpdateMutation();
 
-  const { propertySelectOptionList, isPending: isPendingOptionList } =
-    usePropertyLikeSelectOptionList();
+  // const { propertySelectOptionList, isPending: isPendingOptionList } =
+  //   usePropertyLikeSelectOptionList();
 
-  const { toDataIdList, toOptionList } = useOptionListTransform();
+  // const { toDataIdList, toOptionList } = useOptionListTransform();
+
   const { toSearch, settlementListToSelect } =
     useSettlementListSearchToSelectQuery();
 
+  useEffect(() => {
+    if (store) {
+      toSearch(store.settlement);
+    }
+  }, [store]);
+
   const isPendingComplexible =
-    isPendingStore ||
-    isPendingUpdate ||
-    !isFetchedAfterMount ||
-    isPendingOptionList;
+    isPendingStore || isPendingUpdate || !isFetchedAfterMount;
 
   if (isPendingComplexible) {
     return <Spinner aria-label="Loading profile..." />;
