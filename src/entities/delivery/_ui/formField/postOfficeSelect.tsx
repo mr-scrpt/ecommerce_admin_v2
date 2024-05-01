@@ -8,8 +8,7 @@ import {
 } from "@/shared/ui/select";
 import { FC, HTMLAttributes, forwardRef, useRef } from "react";
 import { UseFormReturn } from "react-hook-form";
-import { PostOfficeToSelect } from "../../_domain/postOffice.type";
-import { FixedSizeList } from "react-window";
+import { FixedSizeList, ListChildComponentProps } from "react-window";
 
 interface PostOfficeSelectProps extends HTMLAttributes<HTMLDivElement> {
   control: UseFormReturn<any>["control"];
@@ -87,7 +86,7 @@ interface PostOfficeSelectProps extends HTMLAttributes<HTMLDivElement> {
 //     />
 //   );
 // };
-// eslint-disable-next-line react/display
+
 interface PostOfficeToSelect {
   value: string;
   label: string;
@@ -106,19 +105,22 @@ interface VirtualizedSelectListProps {
 
 // Создаем компонент VirtualizedSelectList с forwardRef
 const VirtualizedSelectList = forwardRef<
-  HTMLDivElement,
+  FixedSizeList,
   VirtualizedSelectListProps
 >(({ postOfficeListToSelect, onChange, value }, ref) => {
   // Функция для рендеринга каждого элемента списка
-  const renderRow = ({ index, style }) => {
+  const Row = ({ index, style }: ListChildComponentProps) => {
     const postOffice = postOfficeListToSelect[index];
+    // Обработчик клика для элемента списка, который вызывает onChange с правильным значением
+    const handleClick = () => {
+      onChange(postOffice.value);
+    };
     return (
       <SelectItem
         value={postOffice.value}
         key={postOffice.value}
         style={style}
-        // Добавьте любые другие обработчики или свойства, которые необходимы для SelectItem
-        onClick={() => onChange(postOffice.value)}
+        onClick={handleClick} // Используем handleClick для обработки клика
       >
         {postOffice.label}
       </SelectItem>
@@ -132,9 +134,9 @@ const VirtualizedSelectList = forwardRef<
       height={350}
       itemCount={postOfficeListToSelect.length}
       itemSize={35}
-      itemData={postOfficeListToSelect} // Передаем данные элементов как itemData
+      itemData={postOfficeListToSelect}
     >
-      {renderRow}
+      {Row}
     </FixedSizeList>
   );
 });
@@ -145,8 +147,7 @@ export const PostOfficeSelect: FC<PostOfficeSelectProps> = ({
   control,
   postOfficeListToSelect,
 }) => {
-  // Создаем ref для списка
-  const listRef = useRef();
+  const listRef = useRef(null);
 
   return (
     <FormField
