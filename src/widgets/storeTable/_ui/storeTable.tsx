@@ -29,6 +29,7 @@ export const StoreTable: FC<StoreTableProps> = (props) => {
   if (isPendingComplexible) {
     return <Spinner aria-label="Store loaded..." />;
   }
+  console.log("output_log:  =>>>", storeList);
 
   return (
     <TableData

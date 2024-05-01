@@ -16,6 +16,7 @@ export const getStoreListAction = async (): Promise<ResultT> => {
   const session = await getAppSessionStrictServer();
 
   const storeList = await getStoreListUseCase.exec({ session });
+  console.log("output_log:  =>>>", storeList);
 
   return resultSchema.parseAsync({
     storeList,

@@ -9,8 +9,23 @@ import {
 export class SettlementRepository {
   constructor(readonly db: DBClient) {}
 
-  async getSettlementListSearch(q: string): Promise<Array<SettlementEntity>> {
-    const res = await this.db.settlement.findMany({
+  async getSettlement(
+    settlement: string,
+    db: Tx = this.db,
+  ): Promise<SettlementEntity> {
+    const res = await db.settlement.findUniqueOrThrow({
+      where: {
+        ref: settlement,
+      },
+    });
+    return res;
+  }
+
+  async getSettlementListSearch(
+    q: string,
+    db: Tx = this.db,
+  ): Promise<Array<SettlementEntity>> {
+    const res = await db.settlement.findMany({
       where: {
         OR: [
           {

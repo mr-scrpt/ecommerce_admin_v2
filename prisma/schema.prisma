@@ -241,6 +241,7 @@ model Settlement {
 
 model Store {
   id        String   @id @default(uuid())
+  name      String
   settlement String
   address      String
   createdAt DateTime @default(now())

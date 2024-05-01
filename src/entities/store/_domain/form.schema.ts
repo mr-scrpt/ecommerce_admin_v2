@@ -4,6 +4,7 @@ import { z } from "zod";
 // NOTE: Main information
 
 export const storeFormDefaultSchema = z.object({
+  name: z.string(),
   settlement: z.string(),
   address: z.string(),
 });

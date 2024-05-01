@@ -1,4 +1,4 @@
-import { useStoreListQuery } from "@/entities/store";
+import { useStoreWithSettlementNameListQuery } from "@/features/storeData";
 import { buildDate } from "@/shared/lib/date";
 
 export const useStoreTableList = () => {
@@ -7,11 +7,12 @@ export const useStoreTableList = () => {
     isSuccess,
     isFetchedAfterMount,
     storeList: data,
-  } = useStoreListQuery();
+  } = useStoreWithSettlementNameListQuery();
 
   const storeList = data?.map((item) => ({
     id: item.id,
-    settlement: item.settlement,
+    name: item.name,
+    settlement: item.settlementName,
     createdAt: buildDate(item.createdAt),
   }));
 

@@ -1,6 +1,7 @@
 export const baseQueryKey = "store";
 
 type StoreBase = {
+  name: string;
   settlement: string;
   address: string;
 };
@@ -21,18 +22,26 @@ export type Store = StoreBase & {
   createdAt: Date;
 };
 
+export type StoreWithSettlementName = StoreBase & {
+  id: string;
+  settlementName: string;
+  createdAt: Date;
+};
+
 // export type StoreRelation = Store & {
 //   settlementName: string;
 // };
 
 // NOTE: Actions
 export type StoreToCreate = {
+  name: string;
   settlement: string;
   address: string;
 };
 
 export type StoreToUpdate = {
   id: string;
+  name: string;
   settlement: string;
   address: string;
 };

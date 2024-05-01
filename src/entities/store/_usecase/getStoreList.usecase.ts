@@ -20,6 +20,7 @@ export class GetStoreListUseCase {
     if (!canGetStore()) {
       throw new AuthorizatoinError();
     }
+
     return await this.storeRepo.getStoreList();
   }
 }

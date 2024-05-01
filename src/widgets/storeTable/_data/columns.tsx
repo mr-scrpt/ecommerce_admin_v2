@@ -5,6 +5,10 @@ import { StoreColumnType } from "../_type/table.type";
 
 export const storeColumns: ColumnDef<StoreColumnType>[] = [
   {
+    accessorKey: "name",
+    header: "Name",
+  },
+  {
     accessorKey: "settlement",
     header: "Settlement",
   },
