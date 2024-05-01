@@ -1,4 +1,19 @@
 "use client";
+import { Button } from "@/shared/ui/button";
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/shared/ui/form";
+import { Spinner } from "@/shared/ui/icons/spinner";
+import { Input } from "@/shared/ui/input";
+import {
+  SettleToSelect,
+  SettlementSelect,
+} from "@/shared/ui/select/settleSelect";
+import { cn } from "@/shared/ui/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, HTMLAttributes, useEffect } from "react";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
@@ -8,21 +23,6 @@ import {
   storeFormDefaultSchema,
 } from "../_domain/form.schema";
 import { Store } from "../_domain/types";
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/shared/ui/form";
-import {
-  SettleToSelect,
-  SettlementSelect,
-} from "@/shared/ui/select/settleSelect";
-import { Input } from "@/shared/ui/input";
-import { Button } from "@/shared/ui/button";
-import { cn } from "@/shared/ui/utils";
-import { Spinner } from "@/shared/ui/icons/spinner";
 
 interface StoreFormElementsProps extends HTMLAttributes<HTMLFormElement> {
   store: Store;
@@ -31,6 +31,7 @@ interface StoreFormElementsProps extends HTMLAttributes<HTMLFormElement> {
 }
 
 type StoreFormElementsType = FC<StoreFormElementsProps> & {
+  FieldName: FC<{}>;
   FieldSettlement: FC<{
     settlementListToSelect: SettleToSelect[];
     toSearch: (q: string) => void;
@@ -45,8 +46,8 @@ type StoreFormElementsType = FC<StoreFormElementsProps> & {
 };
 
 const getDefaultValues = (store: Store) => ({
+  name: store.name ?? "",
   settlement: store.settlement ?? "",
-  // settlement: "71f8842-4b33-11e4-ab6d-005056801329",
   address: store.address ?? "",
 });
 
@@ -72,6 +73,25 @@ export const StoreFormElements: StoreFormElementsType = (props) => {
         {children}
       </form>
     </FormProvider>
+  );
+};
+
+StoreFormElements.FieldName = function FieldName() {
+  const { control } = useFormContext<StoreFormDefaultValues>();
+  return (
+    <FormField
+      control={control}
+      name="name"
+      render={({ field }) => (
+        <FormItem>
+          <FormLabel>Settlement Name</FormLabel>
+          <FormControl>
+            <Input placeholder="" {...field} />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
   );
 };
 

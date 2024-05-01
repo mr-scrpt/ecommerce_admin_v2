@@ -83,6 +83,7 @@ export const StoreFormUpdate: FC<StoreFormProps> = (props) => {
         handleSubmit={handleSubmit}
         schema={storeFormDefaultSchema}
       >
+        <StoreFormElements.FieldName />
         <StoreFormElements.FieldSettlement
           settlementListToSelect={settlementListToSelect}
           toSearch={toSearch}

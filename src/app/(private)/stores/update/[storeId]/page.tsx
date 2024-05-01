@@ -14,7 +14,7 @@ const StoreUpdatePage: FC<PageProps> = (props) => {
   return (
     <main className="flex min-h-screen flex-col gap-4 p-8">
       <TitlePage title="Categories update" description="Update store item" />
-      <StoreUpdate callbackUrl={RoutePathEnum.STORE_UPDATE} storeId={storeId} />
+      <StoreUpdate callbackUrl={RoutePathEnum.STORES} storeId={storeId} />
     </main>
   );
 };
