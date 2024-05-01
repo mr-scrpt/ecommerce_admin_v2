@@ -27,7 +27,7 @@ export const DeliveryPostSelect: FC<DeliveryPostSelectProps> = (props) => {
             postOfficeListToSelect: postOfficeListToSelect,
             isPendingPostOfficeList: false,
           });
-        })}{" "}
+        })}
     </div>
   );
 };

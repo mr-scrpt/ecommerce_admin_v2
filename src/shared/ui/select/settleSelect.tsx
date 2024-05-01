@@ -1,4 +1,5 @@
 import { SEARCH_MIN_LENGTH } from "@/shared/config/constant";
+import { FixedSizeList } from "react-window";
 import { useAppearanceDelay } from "@/shared/lib/react";
 import { Button } from "@/shared/ui/button";
 import {
@@ -129,6 +130,35 @@ export const SettlementSelect: FC<SettlementSelectProps> = (props) => {
                     </CommandItem>
                   );
                 })}
+              {/* <FixedSizeList */}
+              {/*   width={"100%"} */}
+              {/*   height={350} */}
+              {/*   itemCount={citiesList.length} */}
+              {/*   itemSize={40} */}
+              {/* > */}
+              {/*   {({ index, style, isScrolling }) => ( */}
+              {/*     <CommandItem */}
+              {/*       value={citiesList[index].value} */}
+              {/*       key={citiesList[index].value} */}
+              {/*       onSelect={() => { */}
+              {/*         field.onChange(citiesList[index].value); */}
+              {/*         handleSelect?.(citiesList[index].value); */}
+              {/*         setOpen(false); */}
+              {/*       }} */}
+              {/*       className="flex w-full items-center gap-2 text-sm" */}
+              {/*     > */}
+              {/*       <div className="grow"> */}
+              {/*         <span className="mr-1">{citiesList[index].label}</span> */}
+              {/**/}
+              {/*         <span className="text-xs text-muted-foreground"> */}
+              {/*           - {citiesList[index].area}{" "} */}
+              {/*           {citiesList[index].region ?? */}
+              {/*             `(${citiesList[index].region})`} */}
+              {/*         </span> */}
+              {/*       </div> */}
+              {/*     </CommandItem> */}
+              {/*   )} */}
+              {/* </FixedSizeList> */}
             </CommandList>
           </Command>
         </PopoverContent>

@@ -32,6 +32,7 @@ import {
   SettleToSelect,
   SettlementSelect,
 } from "@/shared/ui/select/settleSelect";
+import { PostOfficeSelect } from "./formField/postOfficeSelect";
 
 interface DeliveryFormElementsProps extends HTMLAttributes<HTMLFormElement> {
   delivery: Delivery;
@@ -134,29 +135,9 @@ DeliveryFormElements.FieldPostOffice = function FieldPostOffice(props) {
   const { control } = useFormContext<DeliveryFormDefaultValues>();
 
   return (
-    <FormField
+    <PostOfficeSelect
       control={control}
-      name="postOffice"
-      render={({ field }) => (
-        <FormItem>
-          <FormLabel>Post office</FormLabel>
-          <Select onValueChange={field.onChange} defaultValue={field.value}>
-            <FormControl>
-              <SelectTrigger>
-                <SelectValue placeholder="Select post office" />
-              </SelectTrigger>
-            </FormControl>
-            <SelectContent>
-              {postOfficeListToSelect &&
-                postOfficeListToSelect.map((postOffice) => (
-                  <SelectItem value={postOffice.value} key={postOffice.value}>
-                    {postOffice.label}
-                  </SelectItem>
-                ))}
-            </SelectContent>
-          </Select>
-        </FormItem>
-      )}
+      postOfficeListToSelect={postOfficeListToSelect}
     />
   );
 };
