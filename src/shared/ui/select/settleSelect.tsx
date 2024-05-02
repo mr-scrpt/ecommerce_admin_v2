@@ -1,5 +1,4 @@
 import { SEARCH_MIN_LENGTH } from "@/shared/config/constant";
-import { FixedSizeList } from "react-window";
 import { useAppearanceDelay } from "@/shared/lib/react";
 import { Button } from "@/shared/ui/button";
 import {
@@ -64,8 +63,6 @@ export const SettlementSelect: FC<SettlementSelectProps> = (props) => {
 
   const appearancePending = useAppearanceDelay(isPending);
 
-  console.log("output_log: citiesList =>>>", citiesList);
-  console.log("output_log: value =>>>", field.value);
   return (
     <div className={cn(className, "flex w-full flex-col gap-3")}>
       <Popover open={open} onOpenChange={setOpen}>

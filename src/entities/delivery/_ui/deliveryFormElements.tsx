@@ -33,6 +33,8 @@ import {
   SettlementSelect,
 } from "@/shared/ui/select/settleSelect";
 import { PostOfficeSelect } from "./formField/postOfficeSelect";
+import { UniversalSelect } from "@/shared/ui/select/selectVirtual";
+import { ListChildComponentProps } from "react-window";
 
 interface DeliveryFormElementsProps extends HTMLAttributes<HTMLFormElement> {
   delivery: Delivery;
@@ -132,14 +134,36 @@ DeliveryFormElements.FieldSettlement = function FieldSettlement(props) {
 
 DeliveryFormElements.FieldPostOffice = function FieldPostOffice(props) {
   const { postOfficeListToSelect } = props;
-  const { control } = useFormContext<DeliveryFormDefaultValues>();
+  const { control, setValue } = useFormContext<DeliveryFormDefaultValues>();
+
+  const renderItem = ({
+    index,
+    style,
+    data,
+  }: ListChildComponentProps<PostOfficeToSelect[]>) => {
+    const item = data[index];
+    return (
+      <div style={style} onClick={() => setValue("postOffice", item.value)}>
+        <strong>{item.label}</strong>
+      </div>
+    );
+  };
 
   return (
-    <PostOfficeSelect
+    <UniversalSelect<PostOfficeToSelect>
+      items={postOfficeListToSelect}
       control={control}
-      postOfficeListToSelect={postOfficeListToSelect}
+      name="postOffice"
+      renderItem={renderItem}
     />
   );
+
+  // return (
+  //   <PostOfficeSelect
+  //     control={control}
+  //     postOfficeListToSelect={postOfficeListToSelect}
+  //   />
+  // );
 };
 
 DeliveryFormElements.FieldStreet = function FieldStreet() {
