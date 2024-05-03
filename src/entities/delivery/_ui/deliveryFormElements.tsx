@@ -144,6 +144,7 @@ DeliveryFormElements.FieldSettlement = function FieldSettlement(props) {
       isPending={false}
       toSearch={toSearch}
       handleSelect={handleSelect}
+      maxHeight="300px"
     />
   );
   // const options = [
