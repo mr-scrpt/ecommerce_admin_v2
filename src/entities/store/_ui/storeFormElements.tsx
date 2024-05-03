@@ -12,7 +12,7 @@ import { Input } from "@/shared/ui/input";
 import {
   SettleToSelect,
   SettlementSelect,
-} from "@/shared/ui/select/settleSelect";
+} from "@/shared/ui/select/settlementSelect";
 import { cn } from "@/shared/ui/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, HTMLAttributes, useEffect } from "react";

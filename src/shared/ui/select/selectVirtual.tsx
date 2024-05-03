@@ -15,7 +15,7 @@ interface ListItem {
   [key: string]: any;
 }
 
-interface UniversalSelectProps<T extends ListItem>
+interface SelectVirtualProps<T extends ListItem>
   extends HTMLAttributes<HTMLDivElement> {
   control: UseFormReturn<any>["control"];
   items: T[];
@@ -50,8 +50,8 @@ const VirtualizedSelectList = forwardRef<
 
 VirtualizedSelectList.displayName = "VirtualizedSelectList";
 
-export const UniversalSelect = <T extends ListItem>(
-  props: UniversalSelectProps<T>,
+export const SelectVirtual = <T extends ListItem>(
+  props: SelectVirtualProps<T>,
 ) => {
   const { control, items, renderItem, name } = props;
   const listRef = useRef<FixedSizeList>(null);
@@ -61,8 +61,6 @@ export const UniversalSelect = <T extends ListItem>(
       control={control}
       name={name}
       render={({ field }) => {
-        console.log("output_log:  =>>>", field);
-
         return (
           <FormItem>
             <FormLabel>{name}</FormLabel>

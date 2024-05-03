@@ -66,7 +66,6 @@ export const PostOfficeSelect: FC<PostOfficeSelectProps> = ({
   postOfficeListToSelect,
 }) => {
   const listRef = useRef(null);
-  console.log("output_log: work =>>>", control);
 
   return (
     <FormField
