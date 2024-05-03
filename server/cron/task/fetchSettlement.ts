@@ -4,13 +4,14 @@ import {
   saveLastRequestDate,
 } from "../../utils/fileUtils";
 
-const API_URL = `${process.env.BASE_URL}/${process.env.API_INIT_SETTLEMENT_URL}`;
+const API_URL = `${process.env.BASE_URL}${process.env.API_INIT_SETTLEMENT_URL}`;
 
 export const cronScheduleSettlement = "0 14 * * *";
 
 export async function checkAndFetchData() {
   const lastRequestDate = await readLastRequestDate();
   const currentDate = new Date().toISOString().slice(0, 10);
+  console.log("output_log:  =>>>", API_URL);
 
   if (!lastRequestDate || lastRequestDate !== currentDate) {
     try {

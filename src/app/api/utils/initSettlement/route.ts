@@ -1,4 +1,4 @@
-import { initSettlementListAction } from "@/entities/delivery/server";
+import { initSettlementListAction } from "@/entities/settlement/server";
 import { NextResponse } from "next/server";
 
 export const POST = async (): Promise<NextResponse<any>> => {
