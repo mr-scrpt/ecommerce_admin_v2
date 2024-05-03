@@ -1,7 +1,4 @@
 // "use client";
-import { FC, HTMLAttributes, forwardRef, useRef } from "react";
-import { UseFormReturn } from "react-hook-form";
-import { FixedSizeList, ListChildComponentProps } from "react-window";
 import { FormControl, FormField, FormItem, FormLabel } from "@/shared/ui/form";
 import {
   Select,
@@ -9,6 +6,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/shared/ui/select";
+import { HTMLAttributes, forwardRef, useRef } from "react";
+import { UseFormReturn } from "react-hook-form";
+import { FixedSizeList, ListChildComponentProps } from "react-window";
 
 interface ListItem {
   value: string;

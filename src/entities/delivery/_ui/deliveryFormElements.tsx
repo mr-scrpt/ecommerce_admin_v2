@@ -36,8 +36,9 @@ import { PostOfficeSelect } from "./formField/__postOfficeSelect";
 import { SelectVirtual } from "@/shared/ui/select/selectVirtual";
 import { ListChildComponentProps } from "react-window";
 import { SelectVirtualItem } from "./formField/postOfficeSelectItem";
+import { ComboboxVirtualItem } from "@/shared/ui/combobox/comboboxVirtualItem";
+import { ComboboxVirtualSettlementItem } from "./formField/comboboxVirtualSettlementItem";
 import { ComboboxVirtual } from "@/shared/ui/combobox/comboboxVirtual";
-import { ComboboxVirtual2 } from "@/shared/ui/combobox/comboboxVirtual2";
 
 interface DeliveryFormElementsProps extends HTMLAttributes<HTMLFormElement> {
   delivery: Delivery;
@@ -136,15 +137,15 @@ DeliveryFormElements.FieldSettlement = function FieldSettlement(props) {
   // );
 
   return (
-    <ComboboxVirtual2
+    <ComboboxVirtual
       control={control}
       className="w-full"
       name="settlement"
-      citiesList={settlementListToSelect}
-      isPending={false}
+      itemList={settlementListToSelect}
       toSearch={toSearch}
       handleSelect={handleSelect}
       maxHeight="300px"
+      renderItem={ComboboxVirtualSettlementItem}
     />
   );
   // const options = [
@@ -186,7 +187,7 @@ DeliveryFormElements.FieldPostOffice = function FieldPostOffice(props) {
   // };
 
   return (
-    <SelectVirtual<PostOfficeToSelect>
+    <SelectVirtual
       items={postOfficeListToSelect}
       control={control}
       name="postOffice"

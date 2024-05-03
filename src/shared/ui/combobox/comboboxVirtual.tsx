@@ -1,83 +1,139 @@
 import { SEARCH_MIN_LENGTH } from "@/shared/config/constant";
-import { useAppearanceDelay } from "@/shared/lib/react";
 import { Button } from "@/shared/ui/button";
 import {
   Command,
   CommandEmpty,
+  CommandGroup,
   CommandInput,
   CommandItem,
-  CommandList,
 } from "@/shared/ui/command";
 import { FormControl, FormField } from "@/shared/ui/form";
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
 import { cn } from "@/shared/ui/utils";
 import { CaretSortIcon } from "@radix-ui/react-icons";
+import { VirtualItem, useVirtualizer } from "@tanstack/react-virtual";
 import _ from "lodash";
-import {
-  FC,
-  HTMLAttributes,
-  forwardRef,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { HTMLAttributes, useEffect, useRef, useState } from "react";
 import { UseFormReturn } from "react-hook-form";
-import { FixedSizeList, ListChildComponentProps } from "react-window";
 
-export type SettleToSelect = {
+interface CommandItem {
   value: string;
-  area: string;
-  region: string;
-  label: string;
+  [key: string]: any;
+}
+
+interface CommandVirtualItem<T extends CommandItem>
+  extends HTMLAttributes<HTMLDivElement> {
+  virtualData: VirtualItem;
+  item: T;
+  onSelect: () => void;
+  isSelected: boolean;
+}
+
+interface VirtualizedCommandProps<T extends CommandItem> {
+  maxHeight: string;
+  options: T[];
+  placeholder: string;
+  selectedOption: string;
+  onSelectOption?: (option: string) => void;
+  setSearch?: (search: string) => void;
+  renderItem: (props: CommandVirtualItem<T>) => React.ReactNode;
+}
+
+const VirtualizedCommand = <T extends CommandItem>({
+  maxHeight,
+  options,
+  placeholder,
+  selectedOption,
+  onSelectOption,
+  setSearch,
+  renderItem,
+}: VirtualizedCommandProps<T>) => {
+  const [filteredOptions, setFilteredOptions] = useState<T[]>(options);
+  const parentRef = useRef(null);
+
+  useEffect(() => {
+    if (options.length > 0) {
+      setFilteredOptions(options);
+    }
+  }, [options]);
+
+  const virtualizer = useVirtualizer({
+    count: filteredOptions.length,
+    getScrollElement: () => parentRef.current,
+    estimateSize: () => 35,
+    overscan: 5,
+  });
+
+  const virtualOptions = virtualizer.getVirtualItems();
+
+  const handleSearch = (search: string) => {
+    setSearch?.(search);
+    setFilteredOptions(
+      options.filter((option) =>
+        option.value.toLowerCase().includes(search.toLowerCase() ?? []),
+      ),
+    );
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+      event.preventDefault();
+    }
+  };
+
+  return (
+    <Command shouldFilter={false} onKeyDown={handleKeyDown}>
+      <CommandInput onValueChange={handleSearch} placeholder={placeholder} />
+      <CommandEmpty>No item found.</CommandEmpty>
+      <CommandGroup
+        ref={parentRef}
+        style={{
+          maxHeight: maxHeight,
+          width: "100%",
+          overflow: "auto",
+        }}
+      >
+        <div
+          style={{
+            height: `${virtualizer.getTotalSize()}px`,
+            width: "100%",
+            position: "relative",
+          }}
+        >
+          {virtualOptions.map((virtualOption) =>
+            renderItem({
+              virtualData: virtualOption,
+              item: filteredOptions[virtualOption.index],
+              isSelected:
+                selectedOption === filteredOptions[virtualOption.index].value,
+              onSelect: () =>
+                onSelectOption?.(filteredOptions[virtualOption.index].value),
+            }),
+          )}
+        </div>
+      </CommandGroup>
+    </Command>
+  );
 };
 
-interface ComboboxVirtualProps extends HTMLAttributes<HTMLDivElement> {
+interface ComboboxVirtualProps<T extends CommandItem>
+  extends HTMLAttributes<HTMLDivElement> {
+  renderItem: (props: CommandVirtualItem<T>) => React.ReactNode;
   name: string;
   control: UseFormReturn<any>["control"];
   handleSelect?: (value: string) => void;
   toSearch?: (search: string) => void;
   searchValue?: string;
-  isPending: boolean;
   minChars?: number;
-  citiesList: Array<SettleToSelect>;
+  itemList: Array<T>;
+  maxHeight?: string;
 }
 
-interface ListItem {
-  value: string;
-  [key: string]: any;
-}
-
-interface ComboboxVirtualizedListProps<T extends ListItem> {
-  items: T[];
-  renderItem: (props: ListChildComponentProps<T[]>) => React.ReactNode;
-  onChange: (value: string) => void;
-  value: string;
-}
-
-const VirtualizedList = forwardRef<
-  FixedSizeList,
-  ComboboxVirtualizedListProps<any>
->(({ items, renderItem, onChange, value }, ref) => {
-  return (
-    <FixedSizeList
-      ref={ref}
-      width={"100%"}
-      height={350}
-      itemCount={items.length ?? 0}
-      itemSize={35}
-      itemData={items ?? []}
-    >
-      {renderItem}
-    </FixedSizeList>
-  );
-});
-
-VirtualizedList.displayName = "VirtualizedList";
-
-export const ComboboxVirtual: FC<ComboboxVirtualProps> = (props) => {
+export const ComboboxVirtual = <T extends CommandItem>(
+  props: ComboboxVirtualProps<T>,
+) => {
   const {
-    citiesList,
-    isPending,
+    itemList,
     minChars = SEARCH_MIN_LENGTH,
     toSearch,
     handleSelect,
@@ -85,9 +141,9 @@ export const ComboboxVirtual: FC<ComboboxVirtualProps> = (props) => {
     className,
     searchValue,
     name,
+    maxHeight = "300px",
+    renderItem,
   } = props;
-
-  const listRef = useRef<FixedSizeList>(null);
 
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState(searchValue);
@@ -95,14 +151,9 @@ export const ComboboxVirtual: FC<ComboboxVirtualProps> = (props) => {
 
   useEffect(() => {
     if (search && search.length > minChars) {
-      // console.log("output_log:  search =>>>", search);
       debouncedToSearch(search);
-    } else {
-      // debouncedToSearch("");
     }
   }, [debouncedToSearch, minChars, search, searchValue]);
-
-  const appearancePending = useAppearanceDelay(isPending);
 
   return (
     <FormField
@@ -122,63 +173,29 @@ export const ComboboxVirtual: FC<ComboboxVirtualProps> = (props) => {
                   )}
                 >
                   {field.value
-                    ? citiesList.find((settlement) => {
-                        return settlement.value === field.value;
+                    ? itemList.find((item) => {
+                        return item.value === field.value;
                       })?.label || "Select settlement 1"
                     : "Select settlement 2"}
+
                   <CaretSortIcon className="opasettlement-50 ml-2 h-4 w-4 shrink-0" />
                 </Button>
               </FormControl>
             </PopoverTrigger>
             <PopoverContent className="w-[480px] p-0">
-              <Command value={search} filter={() => 1}>
-                <CommandInput
-                  placeholder="Search settlements..."
-                  className="h-9"
-                  onValueChange={setSearch}
-                  value={search}
-                />
-                {appearancePending ? (
-                  <div className="w-full p-2 text-center text-sm">
-                    Loaded...
-                  </div>
-                ) : (
-                  <CommandEmpty>
-                    {search && search.length <= minChars
-                      ? "Minimum 3 characters"
-                      : "Settlement not found"}
-                  </CommandEmpty>
-                )}
-
-                <CommandList>
-                  <VirtualizedList
-                    ref={listRef}
-                    items={citiesList}
-                    onChange={field.onChange}
-                    value={field.value}
-                    // renderItem={SelectItem}
-                    renderItem={({ index, style, data }) => {
-                      const item = data[index];
-                      if (!item) return null;
-
-                      return (
-                        <CommandItem
-                        // value={item.value}
-                        // key={item.value}
-                        // style={style}
-                        // onSelect={() => {
-                        //   field.onChange(item.value);
-                        //   handleSelect?.(item.value);
-                        //   setOpen(false);
-                        // }}
-                        >
-                          {item.label}
-                        </CommandItem>
-                      );
-                    }}
-                  />
-                </CommandList>
-              </Command>
+              <VirtualizedCommand
+                maxHeight={maxHeight}
+                options={itemList}
+                placeholder="Search settlements..."
+                selectedOption={field.value}
+                setSearch={setSearch}
+                onSelectOption={(value) => {
+                  field.onChange(value);
+                  handleSelect?.(value);
+                  setOpen(false);
+                }}
+                renderItem={(props) => renderItem(props)}
+              />
             </PopoverContent>
           </Popover>
         </div>
@@ -186,45 +203,3 @@ export const ComboboxVirtual: FC<ComboboxVirtualProps> = (props) => {
     />
   );
 };
-
-const SelectItem = ({
-  key,
-  index,
-  style,
-  data,
-}: {
-  key: string;
-  index: number;
-  style: React.CSSProperties;
-  data: SettleToSelect[];
-}) => (
-  <CommandItem value={data[index]?.label} style={style} key={key}>
-    {data[index]?.label}
-  </CommandItem>
-);
-
-// {!!citiesList.length &&
-//   citiesList.map((settlement) => {
-//     return (
-//       <CommandItem
-//         value={settlement.value}
-//         key={settlement.value}
-//         onSelect={() => {
-//           field.onChange(settlement.value);
-//           handleSelect?.(settlement.value);
-//           setOpen(false);
-//         }}
-//         className="flex w-full items-center gap-2 text-sm"
-//       >
-//         <div className="grow">
-//           <span className="mr-1">{settlement.label}</span>
-//
-//           <span className="text-xs text-muted-foreground">
-//             - {settlement.area}{" "}
-//             {settlement.region ?? `(${settlement.region})`}
-//           </span>
-//         </div>
-//       </CommandItem>
-//     );
-//   })}
-//

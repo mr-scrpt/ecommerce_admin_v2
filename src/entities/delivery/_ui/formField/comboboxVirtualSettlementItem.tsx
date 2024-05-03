@@ -1,3 +1,4 @@
+import { SettleToSelect } from "@/entities/settlement";
 import { CommandItem } from "@/shared/ui/command";
 import { cn } from "@/shared/ui/utils";
 import { VirtualItem } from "@tanstack/react-virtual";
@@ -6,9 +7,10 @@ import { FC, HTMLAttributes } from "react";
 
 interface CommandItem {
   value: string;
-  [key: string]: any;
+  label: string;
 }
-interface CommandVirtualItem<T extends CommandItem>
+
+interface CommandVirtualSettlementItem<T extends CommandItem>
   extends HTMLAttributes<HTMLDivElement> {
   virtualData: VirtualItem;
   item: T;
@@ -16,9 +18,9 @@ interface CommandVirtualItem<T extends CommandItem>
   isSelected: boolean;
 }
 
-export const ComboboxVirtualItem: FC<CommandVirtualItem<CommandItem>> = (
-  props,
-) => {
+export const ComboboxVirtualSettlementItem: FC<
+  CommandVirtualSettlementItem<SettleToSelect>
+> = (props) => {
   const { virtualData, item, onSelect, isSelected } = ({} = props);
 
   const { size, start } = virtualData;
