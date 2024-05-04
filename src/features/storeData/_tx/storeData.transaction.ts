@@ -38,4 +38,32 @@ export class StoreDataTx extends Transaction {
 
     return await this.start(action);
   }
+
+  async getStoreWithSettlementNameListBySettlement(
+    settlement: string,
+  ): Promise<Array<StoreWithSettlementName>> {
+    const action = async (tx: Tx) => {
+      const storeListResult: Array<StoreWithSettlementName> = [];
+      const storeList = await this.storeRepo.getStoreListBySettlement(
+        settlement,
+        tx,
+      );
+
+      for await (const store of storeList) {
+        const settlement = await this.settlementRepo.getSettlement(
+          store.settlement,
+          tx,
+        );
+
+        storeListResult.push({
+          ...store,
+          settlementName: settlement.description,
+        });
+      }
+
+      return storeListResult;
+    };
+
+    return await this.start(action);
+  }
 }

@@ -18,6 +18,17 @@ export class StoreRepository {
     return db.store.findMany();
   }
 
+  async getStoreListBySettlement(
+    settlement: string,
+    db: Tx = this.db,
+  ): Promise<StoreEntity[]> {
+    return this.db.store.findMany({
+      where: {
+        settlement,
+      },
+    });
+  }
+
   async createStore(
     store: StoreToCreate,
     db: Tx = this.db,

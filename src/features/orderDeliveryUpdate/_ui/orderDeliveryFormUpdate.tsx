@@ -13,6 +13,10 @@ import {
 } from "../_domain/form.schema";
 import { useSettlementListSearchToSelectQuery } from "@/entities/settlement";
 import { usePostOfficeListToSelectQuery } from "@/entities/delivery/_query/getPostOfficeListToSelect.query";
+import {
+  useStoreWithSettlementNameListBySettlementQuery,
+  useStoreWithSettlementNameListQuery,
+} from "@/features/storeData";
 
 interface OrderDeliveryFormProps extends HTMLAttributes<HTMLDivElement> {
   orderId: string;
@@ -39,15 +43,19 @@ export const OrderDeliveryFormUpdate: FC<OrderDeliveryFormProps> = (props) => {
     useSettlementListSearchToSelectQuery(delivery?.settlement);
 
   const [selectedSettlement, setSelectedSettlement] = useState<string>("");
+
   useEffect(() => {
     if (delivery?.settlement) {
       setSelectedSettlement(delivery?.settlement);
     }
   }, [delivery]);
-  console.log("output_log: selectedSettlement =>>>", selectedSettlement);
 
   const { postOfficeListToSelect, isPending: isPendingPostOfficeList } =
     usePostOfficeListToSelectQuery(selectedSettlement);
+
+  const { storeList } =
+    useStoreWithSettlementNameListBySettlementQuery(selectedSettlement);
+  console.log("output_log: sotreList by settlement =>>>", storeList);
 
   const isPendingComplexible =
     isPendingUpdate || isPendingDelivery || !isFetchedAfterMount;
