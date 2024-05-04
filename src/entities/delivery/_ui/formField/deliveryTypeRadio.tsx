@@ -15,13 +15,15 @@ import { selectDeliveryType } from "../../_vm/selectDeliveryType";
 import { DeliveryCourierField } from "./deliveryCourierField";
 import { DeliveryPickupField } from "./deliveryPickupField";
 import { DeliveryPostSelect } from "./deliveryPostSelect";
+import { StoreToSelect } from "@/entities/store";
 
 interface DeliveryTypeRadioProps extends HTMLAttributes<HTMLDivElement> {
   postOfficeListToSelect: PostOfficeToSelect[];
+  storeListToSelect: StoreToSelect[];
 }
 
 export const DeliveryTypeRadio: FC<DeliveryTypeRadioProps> = (props) => {
-  const { postOfficeListToSelect } = props;
+  const { postOfficeListToSelect, storeListToSelect } = props;
 
   const { control } = useFormContext<DeliveryFormDefaultValues>();
 
@@ -59,6 +61,7 @@ export const DeliveryTypeRadio: FC<DeliveryTypeRadioProps> = (props) => {
                         delivery={row}
                         key={key}
                         selected={field.value === DeliveryTypeEnum.PICKUP}
+                        storeListToSelect={storeListToSelect}
                       />
                     );
                   }

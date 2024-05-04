@@ -1,4 +1,5 @@
 // "use client";
+import { StoreToSelect } from "@/entities/store";
 import { DeliveryTypeEnum } from "../_domain/delivery.types";
 import { PostOfficeToSelect } from "../_domain/postOffice.type";
 import { DeliveryFormElements } from "../_ui/deliveryFormElements";
@@ -64,7 +65,12 @@ export const selectDeliveryType: SelectDeliveryType = {
     value: "Pickup",
     type: DeliveryTypeEnum.PICKUP,
     formElement: [
-      () => <DeliveryFormElements.FieldPickupPoint key="pickupPoint" />,
+      ({ storeListToSelect }: { storeListToSelect: StoreToSelect[] }) => (
+        <DeliveryFormElements.FieldPickupPoint
+          key="pickupPoint"
+          storeListToSelect={storeListToSelect}
+        />
+      ),
     ],
   },
   [DeliveryTypeEnum.POST]: {

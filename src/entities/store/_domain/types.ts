@@ -45,3 +45,9 @@ export type StoreToUpdate = {
   settlement: string;
   address: string;
 };
+
+// NOTE: UI
+export type StoreToSelect = {
+  value: string;
+  label: string;
+};

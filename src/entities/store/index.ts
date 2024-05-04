@@ -14,4 +14,5 @@ export type {
   StoreToCreate,
   StoreToUpdate,
   StoreWithSettlementName,
+  StoreToSelect,
 } from "./_domain/types";

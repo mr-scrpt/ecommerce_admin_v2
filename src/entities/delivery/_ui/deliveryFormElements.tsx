@@ -35,11 +35,13 @@ import {
 import { PostOfficeSelect } from "./formField/__postOfficeSelect";
 import { SelectVirtual } from "@/shared/ui/select/selectVirtual";
 import { ListChildComponentProps } from "react-window";
-import { SelectVirtualItemPost } from "./formField/postOfficeSelectItem";
+import { PostOfficeSelectItem } from "./formField/postOfficeSelectItem";
 import { ComboboxVirtualItem } from "@/shared/ui/combobox/comboboxVirtualItem";
 import { ComboboxVirtualSettlementItem } from "./formField/comboboxVirtualSettlementItem";
 import { ComboboxVirtual } from "@/shared/ui/combobox/comboboxVirtual";
 import { SelectVirtualItem } from "@/shared/ui/select/selectVirtualItem";
+import { StoreToSelect } from "@/entities/store";
+import { StoreSelectItem } from "./formField/storeSelectItem";
 
 interface DeliveryFormElementsProps extends HTMLAttributes<HTMLFormElement> {
   delivery: Delivery;
@@ -56,7 +58,9 @@ interface DeliverySubmitFieldProps {
 type DeliveryFormElementsType = FC<DeliveryFormElementsProps> & {
   FieldDeliveryType: FC<{
     postOfficeListToSelect: PostOfficeToSelect[];
+    storeListToSelect: StoreToSelect[];
   }>;
+
   FieldSettlement: FC<{
     settlementListToSelect: SettleToSelect[];
     toSearch: (q: string) => void;
@@ -68,18 +72,20 @@ type DeliveryFormElementsType = FC<DeliveryFormElementsProps> & {
   FieldPostOffice: FC<{
     postOfficeListToSelect: PostOfficeToSelect[];
   }>;
-  FieldPickupPoint: FC<{}>;
+  FieldPickupPoint: FC<{
+    storeListToSelect: StoreToSelect[];
+  }>;
   SubmitButton: FC<DeliverySubmitFieldProps>;
 };
 
 const getDefaultValues = (delivery: Delivery) => ({
   deliveryType: delivery.deliveryType,
   settlement: delivery.settlement,
+  pickupPoint: delivery.pickupPoint ?? "",
   street: delivery.street ?? "",
   house: delivery.house ?? "",
   apartment: delivery.apartment ?? "",
   postOffice: delivery.postOffice ?? "",
-  pickupPoint: delivery.pickupPoint ?? "",
 });
 
 export const DeliveryFormElements: DeliveryFormElementsType = (props) => {
@@ -110,8 +116,13 @@ export const DeliveryFormElements: DeliveryFormElementsType = (props) => {
 };
 
 DeliveryFormElements.FieldDeliveryType = function FieldDeliveryType(props) {
-  const { postOfficeListToSelect } = props;
-  return <DeliveryTypeRadio postOfficeListToSelect={postOfficeListToSelect} />;
+  const { postOfficeListToSelect, storeListToSelect } = props;
+  return (
+    <DeliveryTypeRadio
+      postOfficeListToSelect={postOfficeListToSelect}
+      storeListToSelect={storeListToSelect}
+    />
+  );
 };
 
 DeliveryFormElements.FieldSettlement = function FieldSettlement(props) {
@@ -142,10 +153,43 @@ DeliveryFormElements.FieldPostOffice = function FieldPostOffice(props) {
       itemList={postOfficeListToSelect}
       control={control}
       name="postOffice"
-      renderItem={SelectVirtualItemPost}
-      // renderItem={SelectVirtualItem}
+      renderItem={PostOfficeSelectItem}
     />
   );
+};
+
+DeliveryFormElements.FieldPickupPoint = function FieldPickupPoint(props) {
+  const { storeListToSelect } = props;
+  const { control } = useFormContext<DeliveryFormDefaultValues>();
+  console.log(
+    "output_log: in field store list to select =>>>",
+    storeListToSelect,
+  );
+  // return <div>1</div>;
+
+  return (
+    <SelectVirtual
+      itemList={storeListToSelect}
+      control={control}
+      name="postOffice"
+      renderItem={StoreSelectItem}
+    />
+  );
+  // return (
+  //   <FormField
+  //     control={control}
+  //     name="pickupPoint"
+  //     render={({ field }) => (
+  //       <FormItem>
+  //         <FormLabel>Pickup point</FormLabel>
+  //         <FormControl>
+  //           <Input placeholder="" {...field} />
+  //         </FormControl>
+  //         <FormMessage />
+  //       </FormItem>
+  //     )}
+  //   />
+  // );
 };
 
 DeliveryFormElements.FieldStreet = function FieldStreet() {
@@ -195,25 +239,6 @@ DeliveryFormElements.FieldApartment = function FieldApartment() {
       render={({ field }) => (
         <FormItem>
           <FormLabel>Apartment</FormLabel>
-          <FormControl>
-            <Input placeholder="" {...field} />
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      )}
-    />
-  );
-};
-
-DeliveryFormElements.FieldPickupPoint = function FieldPickupPoint() {
-  const { control } = useFormContext<DeliveryFormDefaultValues>();
-  return (
-    <FormField
-      control={control}
-      name="pickupPoint"
-      render={({ field }) => (
-        <FormItem>
-          <FormLabel>Pickup point</FormLabel>
           <FormControl>
             <Input placeholder="" {...field} />
           </FormControl>

@@ -14,6 +14,7 @@ import {
 import { useSettlementListSearchToSelectQuery } from "@/entities/settlement";
 import { usePostOfficeListToSelectQuery } from "@/entities/delivery/_query/getPostOfficeListToSelect.query";
 import {
+  useStoreSettlementToSelectQuery,
   useStoreWithSettlementNameListBySettlementQuery,
   useStoreWithSettlementNameListQuery,
 } from "@/features/storeData";
@@ -53,9 +54,8 @@ export const OrderDeliveryFormUpdate: FC<OrderDeliveryFormProps> = (props) => {
   const { postOfficeListToSelect, isPending: isPendingPostOfficeList } =
     usePostOfficeListToSelectQuery(selectedSettlement);
 
-  const { storeList } =
-    useStoreWithSettlementNameListBySettlementQuery(selectedSettlement);
-  console.log("output_log: sotreList by settlement =>>>", storeList);
+  const { storeListToSelect } =
+    useStoreSettlementToSelectQuery(selectedSettlement);
 
   const isPendingComplexible =
     isPendingUpdate || isPendingDelivery || !isFetchedAfterMount;
@@ -88,6 +88,7 @@ export const OrderDeliveryFormUpdate: FC<OrderDeliveryFormProps> = (props) => {
   //   postOfficeListToSelect,
   // );
 
+  console.log("output_log: ********************* =>>>", storeListToSelect);
   return (
     <div className={cn(className, "w-full")}>
       <DeliveryFormElements
@@ -102,6 +103,7 @@ export const OrderDeliveryFormUpdate: FC<OrderDeliveryFormProps> = (props) => {
         />
         <DeliveryFormElements.FieldDeliveryType
           postOfficeListToSelect={postOfficeListToSelect}
+          storeListToSelect={storeListToSelect}
         />
         {/* <DeliveryFormElements.FieldRole /> */}
         {/* <DeliveryFormElements.FieldEmailVerified /> */}

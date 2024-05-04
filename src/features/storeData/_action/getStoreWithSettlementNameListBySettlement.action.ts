@@ -1,13 +1,10 @@
 "use server";
 
+import { StoreWithSettlementName } from "@/entities/store";
+import { storeWithSettlementNameSchema } from "@/entities/store/server";
 import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
 import { z } from "zod";
-import { StoreWithSettlementName } from "@/entities/store";
-import {
-  getStoreListWithSettlementNameBySettlementUseCase,
-  getStoreListWithSettlementNameUseCase,
-} from "../_usecase/instans.usecase";
-import { storeWithSettlementNameSchema } from "@/entities/store/server";
+import { getStoreListWithSettlementNameBySettlementUseCase } from "../_usecase/instans.usecase";
 
 const propsSchema = z.object({
   settlement: z.string(),

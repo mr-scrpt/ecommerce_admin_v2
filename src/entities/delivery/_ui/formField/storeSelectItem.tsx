@@ -2,16 +2,17 @@ import { SelectItem } from "@/shared/ui/select";
 import { VirtualItem } from "@tanstack/react-virtual";
 import { FC, HTMLAttributes } from "react";
 import { PostOfficeToSelect } from "../../_domain/postOffice.type";
+import { StoreToSelect } from "@/entities/store";
 
-interface SelectVirtualItemProps<T> extends HTMLAttributes<HTMLDivElement> {
+interface StoreSelectItemProps<T> extends HTMLAttributes<HTMLDivElement> {
   virtualData: VirtualItem;
   item: T;
   onSelect: () => void;
   // isSelected: boolean;
 }
-export const PostOfficeSelectItem: FC<
-  SelectVirtualItemProps<PostOfficeToSelect>
-> = (props) => {
+export const StoreSelectItem: FC<StoreSelectItemProps<StoreToSelect>> = (
+  props,
+) => {
   const { virtualData, item, style, onSelect } = props;
 
   const { size, start } = virtualData;
