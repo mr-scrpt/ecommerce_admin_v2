@@ -35,10 +35,11 @@ import {
 import { PostOfficeSelect } from "./formField/__postOfficeSelect";
 import { SelectVirtual } from "@/shared/ui/select/selectVirtual";
 import { ListChildComponentProps } from "react-window";
-import { SelectVirtualItem } from "./formField/postOfficeSelectItem";
+import { SelectVirtualItemPost } from "./formField/postOfficeSelectItem";
 import { ComboboxVirtualItem } from "@/shared/ui/combobox/comboboxVirtualItem";
 import { ComboboxVirtualSettlementItem } from "./formField/comboboxVirtualSettlementItem";
 import { ComboboxVirtual } from "@/shared/ui/combobox/comboboxVirtual";
+import { SelectVirtualItem } from "@/shared/ui/select/selectVirtualItem";
 
 interface DeliveryFormElementsProps extends HTMLAttributes<HTMLFormElement> {
   delivery: Delivery;
@@ -117,25 +118,6 @@ DeliveryFormElements.FieldSettlement = function FieldSettlement(props) {
   const { settlementListToSelect, toSearch, handleSelect } = props;
   const { control } = useFormContext<DeliveryFormDefaultValues>();
 
-  // return (
-  //   <FormField
-  //     control={control}
-  //     name="settlement"
-  //     render={({ field }) => (
-  //       <ComboboxVirtual
-  //         control={control}
-  //         className="w-full"
-  //         name="settlement"
-  //         citiesList={settlementListToSelect}
-  //         isPending={false}
-  //         toSearch={toSearch}
-  //         handleSelect={handleSelect}
-  //         field={field}
-  //       />
-  //     )}
-  //   />
-  // );
-
   return (
     <ComboboxVirtual
       control={control}
@@ -143,64 +125,27 @@ DeliveryFormElements.FieldSettlement = function FieldSettlement(props) {
       name="settlement"
       itemList={settlementListToSelect}
       toSearch={toSearch}
+      placeholder="Select settlement"
       handleSelect={handleSelect}
       maxHeight="300px"
       renderItem={ComboboxVirtualSettlementItem}
     />
   );
-  // const options = [
-  //   "test1",
-  //   "test2",
-  //   "test3",
-  //   "test4",
-  //   "test5",
-  //   "test6",
-  //   "test7",
-  //   "test8",
-  //   "test9",
-  //   "test10",
-  //   "test12",
-  //   "test13",
-  //   "test14",
-  //   "test15",
-  //   "test16",
-  //   "test17",
-  // ];
-  // return <VirtualizedCombobox options={options} height="200" />;
 };
 
 DeliveryFormElements.FieldPostOffice = function FieldPostOffice(props) {
   const { postOfficeListToSelect } = props;
   const { control } = useFormContext<DeliveryFormDefaultValues>();
 
-  // const renderItem = ({
-  //   index,
-  //   style,
-  //   data,
-  // }: ListChildComponentProps<PostOfficeToSelect[]>) => {
-  //   const item = data[index];
-  //   return (
-  //     <SelectItem value={item.value} key={item.value} style={style}>
-  //       {item.label}
-  //     </SelectItem>
-  //   );
-  // };
-
   return (
     <SelectVirtual
-      items={postOfficeListToSelect}
+      itemList={postOfficeListToSelect}
       control={control}
       name="postOffice"
-      renderItem={SelectVirtualItem}
+      renderItem={SelectVirtualItemPost}
+      // renderItem={SelectVirtualItem}
     />
   );
-
-  // return (
-  //   <PostOfficeSelect
-  //     control={control}
-  //     postOfficeListToSelect={postOfficeListToSelect}
-  //   />
-  // );
 };
 
 DeliveryFormElements.FieldStreet = function FieldStreet() {

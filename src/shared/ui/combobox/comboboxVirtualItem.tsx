@@ -19,7 +19,7 @@ interface CommandVirtualItem<T extends CommandItem>
 export const ComboboxVirtualItem: FC<CommandVirtualItem<CommandItem>> = (
   props,
 ) => {
-  const { virtualData, item, onSelect, isSelected } = ({} = props);
+  const { virtualData, item, onSelect, isSelected } = props;
 
   const { size, start } = virtualData;
   const { label, value } = item;

@@ -44,9 +44,11 @@ export const OrderDeliveryFormUpdate: FC<OrderDeliveryFormProps> = (props) => {
       setSelectedSettlement(delivery?.settlement);
     }
   }, [delivery]);
+  console.log("output_log: selectedSettlement =>>>", selectedSettlement);
 
   const { postOfficeListToSelect, isPending: isPendingPostOfficeList } =
     usePostOfficeListToSelectQuery(selectedSettlement);
+
   const isPendingComplexible =
     isPendingUpdate || isPendingDelivery || !isFetchedAfterMount;
 
@@ -73,6 +75,10 @@ export const OrderDeliveryFormUpdate: FC<OrderDeliveryFormProps> = (props) => {
       router.push(callbackUrl);
     }
   };
+  // console.log(
+  //   "output_log: postOfficeListToSelect =>>>",
+  //   postOfficeListToSelect,
+  // );
 
   return (
     <div className={cn(className, "w-full")}>

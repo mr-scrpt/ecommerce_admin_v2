@@ -5,12 +5,12 @@ import { VirtualItem } from "@tanstack/react-virtual";
 import { Check } from "lucide-react";
 import { FC, HTMLAttributes } from "react";
 
-interface CommandItem {
-  value: string;
-  label: string;
-}
+// interface CommandItem {
+//   value: string;
+//   label: string;
+// }
 
-interface CommandVirtualSettlementItem<T extends CommandItem>
+interface CommandVirtualSettlementItem<T>
   extends HTMLAttributes<HTMLDivElement> {
   virtualData: VirtualItem;
   item: T;

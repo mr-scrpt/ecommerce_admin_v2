@@ -100,16 +100,16 @@ const VirtualizedCommand = <T extends CommandItem>({
             position: "relative",
           }}
         >
-          {virtualOptions.map((virtualOption) =>
-            renderItem({
+          {virtualOptions.map((virtualOption) => {
+            const item = filteredOptions[virtualOption.index];
+
+            return renderItem({
               virtualData: virtualOption,
-              item: filteredOptions[virtualOption.index],
-              isSelected:
-                selectedOption === filteredOptions[virtualOption.index].value,
-              onSelect: () =>
-                onSelectOption?.(filteredOptions[virtualOption.index].value),
-            }),
-          )}
+              item,
+              isSelected: selectedOption === item.value,
+              onSelect: () => onSelectOption?.(item.value),
+            });
+          })}
         </div>
       </CommandGroup>
     </Command>
@@ -118,15 +118,17 @@ const VirtualizedCommand = <T extends CommandItem>({
 
 interface ComboboxVirtualProps<T extends CommandItem>
   extends HTMLAttributes<HTMLDivElement> {
+  control: UseFormReturn<any>["control"];
+  itemList: Array<T>;
   renderItem: (props: CommandVirtualItem<T>) => React.ReactNode;
   name: string;
-  control: UseFormReturn<any>["control"];
+
   handleSelect?: (value: string) => void;
   toSearch?: (search: string) => void;
   searchValue?: string;
   minChars?: number;
-  itemList: Array<T>;
   maxHeight?: string;
+  placeholder?: string;
 }
 
 export const ComboboxVirtual = <T extends CommandItem>(
@@ -143,6 +145,7 @@ export const ComboboxVirtual = <T extends CommandItem>(
     name,
     maxHeight = "300px",
     renderItem,
+    placeholder,
   } = props;
 
   const [open, setOpen] = useState(false);
@@ -173,10 +176,12 @@ export const ComboboxVirtual = <T extends CommandItem>(
                   )}
                 >
                   {field.value
-                    ? itemList.find((item) => {
+                    ? (itemList.find((item) => {
                         return item.value === field.value;
-                      })?.label || "Select settlement 1"
-                    : "Select settlement 2"}
+                      })?.label ||
+                        placeholder) ??
+                      "Select item"
+                    : "Select item"}
 
                   <CaretSortIcon className="opasettlement-50 ml-2 h-4 w-4 shrink-0" />
                 </Button>
