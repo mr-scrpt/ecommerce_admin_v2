@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, HTMLAttributes } from "react";
+import React, { useRef, useState, useEffect, HTMLAttributes, FC } from "react";
 import { UseFormReturn } from "react-hook-form";
 import { VirtualItem, useVirtualizer } from "@tanstack/react-virtual";
 import { FormControl, FormField, FormItem, FormLabel } from "@/shared/ui/form";
@@ -36,14 +36,15 @@ interface VirtualizedContentProps<T extends ListItem> {
   placeholder: string;
   onSelectOption?: (option: string) => void;
   renderItem: (props: SelectVirtualItem<T>) => React.ReactNode;
+  isOpen: boolean;
+  fieldValue: string;
 }
 
 const VirtualizedContent = <T extends ListItem>({
   maxHeight,
   options,
-  placeholder,
-  onSelectOption,
-  renderItem,
+  isOpen,
+  fieldValue,
 }: VirtualizedContentProps<T>) => {
   const [optionList, setOptionList] = useState<T[]>(options);
 
@@ -62,7 +63,15 @@ const VirtualizedContent = <T extends ListItem>({
     overscan: 5,
   });
 
+  // useEffect(() => {
+  //   console.log("output_log: in virtualizedContent =>>>");
+  //   if (!isOpen) return;
+  //   virtualizer.measure();
+  // }, [virtualizer, isOpen]);
+
   const virtualOptions = virtualizer.getVirtualItems();
+
+  const curruntItem = optionList.find((item) => item.value === fieldValue);
 
   return (
     <div
@@ -71,30 +80,54 @@ const VirtualizedContent = <T extends ListItem>({
         height: maxHeight,
         width: "100%",
         overflow: "auto",
-        position: "absolute",
       }}
     >
-      <SelectContent>
-        <div
-          style={{
-            height: `${virtualizer.getTotalSize()}px`,
-            width: "100%",
-            position: "relative",
-          }}
-        >
-          {virtualOptions.map((virtualRow) => {
+      <div
+        style={{
+          height: `${virtualizer.getTotalSize()}px`,
+          width: "100%",
+          position: "relative",
+        }}
+      >
+        {!isOpen && curruntItem && (
+          <SelectItem
+            value={curruntItem.value}
+            key={curruntItem.value}
+            // onSelect={onSelect}
+          >
+            {curruntItem.label}
+          </SelectItem>
+        )}
+        {isOpen &&
+          virtualOptions.map((virtualRow) => {
             const item = optionList[virtualRow.index];
             return (
-              <SelectItem value={item.value} key={item.value}>
+              <SelectItem
+                value={item.value}
+                key={item.value}
+                // onSelect={onSelect}
+              >
                 {item.label}
               </SelectItem>
             );
           })}
-        </div>
-      </SelectContent>
+      </div>
     </div>
   );
 };
+
+// const Wrapper: FC<HTMLAttributes<HTMLDivElement>> = ({ children, ref }) => {
+//   return (
+//     <div
+//       ref={parentRef}
+//       style={{
+//         height: maxHeight,
+//         width: "100%",
+//         overflow: "auto",
+//       }}
+//     ></div>
+//   );
+// };
 
 export const SelectVirtual = <T extends ListItem>({
   control,
@@ -102,6 +135,7 @@ export const SelectVirtual = <T extends ListItem>({
   renderItem,
   name,
 }: SelectVirtualProps<T>) => {
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <FormField
       control={control}
@@ -111,25 +145,32 @@ export const SelectVirtual = <T extends ListItem>({
         return (
           <FormItem>
             <FormLabel>{name}</FormLabel>
-            <Select onValueChange={field.onChange} defaultValue={field.value}>
+            <Select
+              onValueChange={field.onChange}
+              defaultValue={field.value}
+              onOpenChange={(open) => {
+                setIsOpen(open);
+              }}
+            >
               <FormControl>
                 <SelectTrigger>
-                  <SelectValue placeholder={`Select ${name}`} />
+                  <SelectValue
+                    placeholder={`Select ${name}`}
+                    defaultValue={field.value}
+                  />
                 </SelectTrigger>
               </FormControl>
-              {/* {itemList && */}
-              {/*   itemList.map((postOffice) => ( */}
-              {/*     <SelectItem value={postOffice.value} key={postOffice.value}> */}
-              {/*       {postOffice.label} */}
-              {/*     </SelectItem> */}
-              {/*   ))} */}
-              <VirtualizedContent
-                maxHeight="300px"
-                options={itemList}
-                placeholder={`Select ${name}`}
-                renderItem={renderItem}
-                onSelectOption={field.onChange}
-              />
+              <SelectContent>
+                <VirtualizedContent
+                  maxHeight="300px"
+                  options={itemList}
+                  placeholder={`Select ${name}`}
+                  renderItem={renderItem}
+                  onSelectOption={field.onChange}
+                  isOpen={isOpen}
+                  fieldValue={field.value}
+                />
+              </SelectContent>
             </Select>
           </FormItem>
         );

@@ -148,6 +148,20 @@ DeliveryFormElements.FieldPostOffice = function FieldPostOffice(props) {
   const { postOfficeListToSelect } = props;
   const { control } = useFormContext<DeliveryFormDefaultValues>();
 
+  // return (
+  //   <ComboboxVirtual
+  //     control={control}
+  //     className="w-full"
+  //     name="postOffice"
+  //     itemList={postOfficeListToSelect}
+  //     toSearch={() => {}}
+  //     placeholder="Select settlement"
+  //     handleSelect={() => {}}
+  //     maxHeight="300px"
+  //     renderItem={PostOfficeSelectItem}
+  //   />
+  // );
+
   return (
     <SelectVirtual
       itemList={postOfficeListToSelect}
