@@ -1,3 +1,4 @@
+"use client";
 import { FC, HTMLAttributes, useState } from "react";
 import { Modal } from "@/shared/ui/modal";
 import { ModalProviderParams } from "../_type/modalProviderParams";

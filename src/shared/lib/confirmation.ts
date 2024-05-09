@@ -1,3 +1,4 @@
+// "use client";
 import { createStrictContext, useStrictContext } from "./react";
 
 export type ConfirmationParams = {

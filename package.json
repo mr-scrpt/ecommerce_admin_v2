@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbo",
     "start:all": "concurrently \"pnpm dev\" \"pnpm server:cron\" \"pnpm server:ws\"",
     "server:cron": "ts-node -r dotenv/config ./server/cron/cron.ts",
     "server:ws": "ts-node ./server/websocket.ts",
@@ -60,7 +60,7 @@
     "lodash-es": "^4.17.21",
     "lucide-react": "^0.316.0",
     "mime-types": "^2.1.35",
-    "next": "14.1.0",
+    "next": "14.2.3",
     "next-auth": "^4.24.5",
     "next-themes": "^0.2.1",
     "node-cron": "^3.0.3",

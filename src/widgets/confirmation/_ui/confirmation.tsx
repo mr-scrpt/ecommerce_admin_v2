@@ -1,3 +1,4 @@
+"use client";
 import { FC, HTMLAttributes, useState } from "react";
 import { ConfirmModalParams } from "../_type/confirmationModalParams";
 import {

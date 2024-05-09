@@ -8,22 +8,24 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { FC, HTMLAttributes } from "react";
 import { ProviderWS } from "./providerWS";
 import { SessionProvider } from "@/shared/session";
-import { AppInit } from "../_init/appInit";
+import { InitUserData } from "../_init/initUserData";
 
 interface ProvidersRootProps extends HTMLAttributes<HTMLDivElement> {}
 
 export const ProvidersRoot: FC<ProvidersRootProps> = (props) => {
   const { children } = props;
   return (
-    <ComposeChildren>
-      <ThemeProvider />
-      <SessionProvider />
-      <QueryClientProvider client={queryClient} />
-      <ProviderWS />
-      <Confirmation />
-      <ModalProvider />
-      <AppInit />
-      {children}
-    </ComposeChildren>
+    <>
+      <ComposeChildren>
+        <ThemeProvider />
+        <SessionProvider />
+        <QueryClientProvider client={queryClient} />
+        <ProviderWS />
+        <Confirmation />
+        <ModalProvider />
+        <InitUserData />
+        {children}
+      </ComposeChildren>
+    </>
   );
 };
