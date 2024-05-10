@@ -1,17 +1,17 @@
-import { ProfileAvatar } from "@/entities/user/profile";
 import { Button } from "@/shared/ui/button";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { FC } from "react";
 import { useUploadAvatar } from "../_vm/useUploadAvatar";
+import { ProfileAvatar } from "@/shared/ui/profileAvatar";
 
 interface AvatarFieldProps {
-  value?: string;
   onChange: (value?: string) => void;
-  forLetters: string;
+  avatarName: string;
+  avatarUrl?: string;
 }
 
 export const AvatarField: FC<AvatarFieldProps> = (props) => {
-  const { value, onChange, forLetters } = props;
+  const { onChange, avatarName, avatarUrl } = props;
   const { openFileDialog, isPending } = useUploadAvatar({
     onSuccess: onChange,
   });
@@ -30,7 +30,9 @@ export const AvatarField: FC<AvatarFieldProps> = (props) => {
       )}
       <ProfileAvatar
         className="h-full w-full"
-        profile={{ email: forLetters, image: value, phone: "" }}
+        avatarName={avatarName}
+        avatarUrl={avatarUrl}
+        // avatarName={{ email: forLetters, image: value, phone: "" }}
       />
     </Button>
   );

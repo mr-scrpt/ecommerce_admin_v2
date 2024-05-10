@@ -1,5 +1,3 @@
-export { getProfileDisplayName } from "./_vm/getProfileDisplayName";
-export { ProfileAvatar } from "./_ui/profileAvatar";
 export { getProfileQuery, useInvalidateProfile } from "./_query/profile.query";
 export {
   profileSchema,

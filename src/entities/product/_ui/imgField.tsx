@@ -6,13 +6,13 @@ import { useUploadImgList } from "../_vm/useUploadImgList";
 import { ImgPreviewer } from "@/shared/ui/imgPreviewer/imgPreviewer";
 import { Image as ImgIcon } from "lucide-react";
 
-interface AvatarFieldProps {
+interface ProductImgFieldProps {
   value: Array<string>;
   onChange: (value?: Array<string>) => void;
   onDelete: (path: string) => void;
 }
 
-export const ImgField: FC<AvatarFieldProps> = (props) => {
+export const ImgField: FC<ProductImgFieldProps> = (props) => {
   const { value, onChange, onDelete } = props;
   const { openFileDialog, isPending } = useUploadImgList({
     onSuccess: (imgs) => onChange([...value, ...imgs]),

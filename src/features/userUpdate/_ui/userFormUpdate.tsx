@@ -63,7 +63,7 @@ export const UserFormUpdate: FC<UserFormProps> = (props) => {
         <UserFormElements.FieldEmail />
         <UserFormElements.FieldName />
         <UserFormElements.FieldPhone />
-        <UserFormElements.FieldAvatar user={data.user} />
+        {/* <UserFormElements.FieldAvatar user={data.user} /> */}
         <UserFormElements.SubmitButton
           isPending={isPendingComplexible}
           submitText="Save change"

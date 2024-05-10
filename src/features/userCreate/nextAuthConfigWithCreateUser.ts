@@ -11,9 +11,12 @@ export const nextAuthConfigWithCreateUser: AuthOptions = {
     createUser: async (user) => {
       const socket = socketClient("");
       try {
+        console.log("output_log:  =>>> on create", user);
         const newUser = await createUserRegistrationUseCase.exec({
           ...user,
+          name: user.name ?? "",
           phone: user.phone ?? "",
+          image: user.image ?? "",
         });
 
         await new Promise<void>((resolve, reject) => {

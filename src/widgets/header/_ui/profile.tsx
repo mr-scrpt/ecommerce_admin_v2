@@ -1,5 +1,4 @@
 "use client";
-import { ProfileAvatar, getProfileDisplayName } from "@/entities/user/profile";
 import { SignInButton } from "@/features/Auth/SignInButton";
 import { UseSignOut } from "@/features/Auth/_vm/useSignOut";
 import { useAppSession } from "@/shared/session";
@@ -13,6 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/shared/ui/dropdown-menu";
+import { ProfileAvatar } from "@/shared/ui/profileAvatar";
 import { Skeleton } from "@/shared/ui/skeleton";
 import { LogOut as IconLogOut } from "lucide-react";
 import Link from "next/link";
@@ -33,6 +33,7 @@ export const Profile: FC<ProfileProps> = (props) => {
   }
   const user = data?.user;
 
+  const username = user?.name || user?.email || "";
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -40,14 +41,19 @@ export const Profile: FC<ProfileProps> = (props) => {
           variant="ghost"
           className="h-8 w-8 self-center rounded-full p-px"
         >
-          <ProfileAvatar profile={user} className="h-8 w-8" />
+          <ProfileAvatar
+            avatarName={username}
+            avatarUrl={user?.image ?? undefined}
+            className="h-8 w-8"
+          />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="mr-2 w-56 ">
         <DropdownMenuLabel>
           <p>My account</p>
           <p className="overflow-hidden text-ellipsis text-xs text-muted-foreground">
-            {user ? getProfileDisplayName(user) : undefined}
+            {username}
+            {/* {user ? getProfileDisplayName(user) : undefined} */}
           </p>
         </DropdownMenuLabel>
         <DropdownMenuGroup></DropdownMenuGroup>

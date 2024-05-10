@@ -148,7 +148,10 @@ ProfileFormElements.FieldPhone = function FieldPhone(props) {
 
 ProfileFormElements.FieldAvatar = function FieldAvatar(props) {
   const { profile } = props;
-  const { control } = useFormContext<ProfileFormDefaultValues>();
+  const { control, watch } = useFormContext<ProfileFormDefaultValues>();
+
+  const email = watch("email");
+  const name = watch("name");
 
   return (
     <FormField
@@ -159,9 +162,11 @@ ProfileFormElements.FieldAvatar = function FieldAvatar(props) {
           <FormLabel>Avatar</FormLabel>
           <FormControl>
             <AvatarField
-              value={field.value}
+              // value={field.value}
               onChange={field.onChange}
-              forLetters={profile?.email ?? ""}
+              avatarName={name ?? email}
+              avatarUrl={field.value ?? profile?.image ?? ""}
+              // forLetters={profile?.email ?? ""}
             />
           </FormControl>
           <FormMessage />

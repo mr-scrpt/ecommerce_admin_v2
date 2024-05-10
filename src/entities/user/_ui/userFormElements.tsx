@@ -200,8 +200,13 @@ UserFormElements.FieldPhone = function FieldPhone(props) {
 
 UserFormElements.FieldAvatar = function FieldAvatar(props) {
   const { user } = props;
-  const { control } = useFormContext<UserFormDefaultValues>();
+  const { control, watch } = useFormContext<UserFormDefaultValues>();
 
+  const email = watch("email");
+  const name = watch("name");
+
+  console.log("output_log:  =>>> img", user?.image);
+  console.log("output_log:  =>>> is img", user?.image ?? "");
   return (
     <FormField
       control={control}
@@ -211,9 +216,11 @@ UserFormElements.FieldAvatar = function FieldAvatar(props) {
           <FormLabel>Avatar</FormLabel>
           <FormControl>
             <AvatarField
-              value={field.value}
               onChange={field.onChange}
-              forLetters={user?.email ?? ""}
+              avatarName={name ?? email}
+              avatarUrl={field.value ?? user?.image ?? ""}
+              // forLetters={user?.email ?? ""}
+              // forLetters={name ?? email}
             />
           </FormControl>
           <FormMessage />
