@@ -1,10 +1,10 @@
 "use server";
 
 import { User, userSchema } from "@/entities/user/user";
-import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
 import { z } from "zod";
 import { userUpdateSchema } from "../_domain/schema";
 import { updateUserUseCase } from "../_useCase/instans.usecase";
+import { SessionContainer } from "@/shared/session/instans";
 
 const propsSchema = z.object({
   userId: z.string(),
@@ -20,7 +20,7 @@ export const updateUserAction = async (
 ): Promise<{ user: User }> => {
   const { userId, data } = propsSchema.parse(props);
 
-  const session = await getAppSessionStrictServer();
+  const session = await SessionContainer.getStrict();
 
   const user = await updateUserUseCase.exec({
     session,

@@ -1,9 +1,9 @@
 "use server";
-import { getAppSessionStrictServer } from "@/shared/session/server";
 import { z } from "zod";
 import { settleToSelectSchema } from "../_domain/settlement.schema";
 import { SettleToSelect } from "../_domain/settlement.type";
 import { getSettlementListSearchToSelectUseCase } from "../_usecase/instans.usecasets";
+import { SessionContainer } from "@/shared/session/instans";
 
 const propsSchema = z.object({
   q: z.string(),
@@ -19,7 +19,7 @@ export const getSettlementListSearchToSelectAction = async (
   props: z.infer<typeof propsSchema>,
 ): Promise<ResultT> => {
   const { q } = propsSchema.parse(props);
-  const session = await getAppSessionStrictServer();
+  const session = await SessionContainer.getStrict();
 
   const settlementListToSelect =
     await getSettlementListSearchToSelectUseCase.exec({

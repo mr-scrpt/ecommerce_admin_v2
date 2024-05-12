@@ -2,9 +2,9 @@
 import { z } from "zod";
 
 import { Category } from "@/entities/category";
-import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
 import { removeCategoryComplexibleUseCase } from "../_useCase/instans.usecase";
 import { categorySchema } from "@/entities/category/server";
+import { SessionContainer } from "@/shared/session/instans";
 
 const propsSchema = z.object({
   categoryId: z.string(),
@@ -21,7 +21,7 @@ export const removeCategoryComplexibleAction = async (
 ): Promise<ResultT> => {
   const { categoryId } = propsSchema.parse(props);
 
-  const session = await getAppSessionStrictServer();
+  const session = await SessionContainer.getStrict();
 
   const category = await removeCategoryComplexibleUseCase.exec({
     categoryId,

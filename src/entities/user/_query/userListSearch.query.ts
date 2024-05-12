@@ -3,13 +3,13 @@ import { queryOptions, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { useListenUserListUpdate } from "../_vm/event/useListenUserListUpdate";
 import { userBaseQueryKey } from "../_domain/user.types";
-import { getUserListSearchAction } from "../_action/getUserListSearch.action";
+import { getUserStrictListSearchAction } from "../_action/getUserListSearch.action";
 
 export const getUserListSearchQuery = (q: string) =>
   queryOptions({
     queryKey: [userBaseQueryKey, "getUserListSearch", q],
     queryFn: () => {
-      return getUserListSearchAction({ q });
+      return getUserStrictListSearchAction({ q });
     },
     // staleTime: 1000,
   });

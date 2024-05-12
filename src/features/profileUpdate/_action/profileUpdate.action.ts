@@ -1,9 +1,9 @@
 "use server";
 
-import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
 import { profileSchema } from "@/entities/user/profile";
 import { z } from "zod";
 import { updateProfileUseCase } from "../_useCase/instans.usecase";
+import { SessionContainer } from "@/shared/session/instans";
 
 const propsSchema = z.object({
   profileId: z.string(),
@@ -19,7 +19,7 @@ export const updateProfileAction = async (
 ) => {
   const { profileId, data } = propsSchema.parse(props);
 
-  const session = await getAppSessionStrictServer();
+  const session = await SessionContainer.getStrict();
 
   const profile = await updateProfileUseCase.exec({
     session,

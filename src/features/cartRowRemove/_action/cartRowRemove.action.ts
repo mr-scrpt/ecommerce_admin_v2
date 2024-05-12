@@ -2,10 +2,10 @@
 
 import { Cart } from "@/entities/cart";
 import { cartRelationSchema } from "@/entities/cart/server";
-import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
 import { z } from "zod";
 import { cartRowRemoveSchema } from "../_domain/schema";
-import { removeCartProductUseCase } from "../_usecase/cartRowRemove.usecase";
+import { SessionContainer } from "@/shared/session/instans";
+import { removeCartRowUseCase } from "../_usecase/instans.usecase";
 
 const propsSchema = z.object({
   data: cartRowRemoveSchema,
@@ -22,9 +22,9 @@ export const cartRowRemoveAction = async (
 ): Promise<ResultT> => {
   const { data } = propsSchema.parse(props);
 
-  const session = await getAppSessionStrictServer();
+  const session = await SessionContainer.getStrict();
 
-  const cart = await removeCartProductUseCase.exec({
+  const cart = await removeCartRowUseCase.exec({
     dataToRemoveProduct: data,
     session,
   });

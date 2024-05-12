@@ -1,8 +1,4 @@
-import { Profile } from "../_domain/profile.types";
-import { getProfileDisplayName } from "./getProfileDisplayName";
-
 export const getProfileLetters = (str: string) => {
-  // const displaName = getProfileDisplayName(profile);
   if (!str) {
     return "";
   }

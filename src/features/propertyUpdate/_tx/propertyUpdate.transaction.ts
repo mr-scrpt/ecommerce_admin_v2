@@ -2,8 +2,6 @@ import { PropertyEntity } from "@/entities/property";
 import {
   PropertyItemRepository,
   PropertyRepository,
-  propertyItemRepository,
-  propertyRepository,
 } from "@/entities/property/server";
 import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
 import { PropertyUpdateComplexible } from "../_domain/types";

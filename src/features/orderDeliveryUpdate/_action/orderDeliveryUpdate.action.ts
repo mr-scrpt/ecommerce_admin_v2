@@ -1,11 +1,11 @@
 "use server";
 
-import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
 import { z } from "zod";
 import { orderDeliveryUpdateSchema } from "../_domain/schema";
 import { updateOrderDeliveryUseCase } from "../_useCase/instans.usecase";
 import { deliverySchema } from "@/entities/delivery/server";
 import { Delivery } from "@/entities/delivery";
+import { SessionContainer } from "@/shared/session/instans";
 
 const propsSchema = z.object({
   deliveryId: z.string(),
@@ -21,7 +21,7 @@ export const updateOrderDeliveryAction = async (
 ): Promise<{ delivery: Delivery }> => {
   const { deliveryId, data } = propsSchema.parse(props);
 
-  const session = await getAppSessionStrictServer();
+  const session = await SessionContainer.getStrict();
 
   const delivery = await updateOrderDeliveryUseCase.exec({
     session,

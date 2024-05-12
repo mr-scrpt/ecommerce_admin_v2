@@ -10,11 +10,9 @@ import { API_NOVA_POSHTA_KEY, NovaPoshtaApi } from "./_api/novaposhta.api";
 import { API_BASE_URL, ApiClient } from "@/shared/lib/httpClient";
 import { configPrivate } from "@/shared/config/private.config";
 
-const deliveryContainer = new Container();
+export const deliveryContainer = new Container();
 
 export const DeliveryModule = new ContainerModule((bind) => {
-  bind(DBClient).toConstantValue(dbClient);
-
   bind(API_BASE_URL).toConstantValue(configPrivate.API_NOVA_POSHTA_URL);
   bind(API_NOVA_POSHTA_KEY).toConstantValue(configPrivate.API_NOVA_POSHTA_KEY);
 
@@ -31,5 +29,3 @@ export const DeliveryModule = new ContainerModule((bind) => {
 });
 
 deliveryContainer.load(DeliveryModule);
-
-export default deliveryContainer;

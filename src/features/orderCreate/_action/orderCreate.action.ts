@@ -2,9 +2,8 @@
 import { z } from "zod";
 
 import { Order, orderSchema } from "@/entities/order";
-import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
-import { orderCreateSchema } from "../_domain/schema";
 import { createOrderComplexibleUseCase } from "../_usecase/instans.usecase";
+import { SessionContainer } from "@/shared/session/instans";
 
 const propsSchema = z.object({
   userId: z.string(),
@@ -22,7 +21,7 @@ export const createOrderAction = async (
 ): Promise<ResultT> => {
   const { userId } = propsSchema.parse(props);
 
-  const session = await getAppSessionStrictServer();
+  const session = await SessionContainer.getStrict();
 
   const order = await createOrderComplexibleUseCase.exec({
     session,

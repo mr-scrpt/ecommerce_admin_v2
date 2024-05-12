@@ -1,7 +1,7 @@
 import "reflect-metadata";
-import productCreateContainer from "../module";
+import productUpdateContainer from "../module";
 import { UpdateProductComplexibleUseCase } from "./updateProductComplexible.usecase";
 
-export const updateProductComplexibleUseCase = productCreateContainer.get(
+export const updateProductComplexibleUseCase = productUpdateContainer.get(
   UpdateProductComplexibleUseCase,
 );

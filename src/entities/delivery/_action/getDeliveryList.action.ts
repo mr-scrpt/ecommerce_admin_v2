@@ -1,9 +1,9 @@
 "use server";
-import { getAppSessionStrictServer } from "@/shared/session/server";
 import { z } from "zod";
 import { deliverySchema } from "../_domain/delivery.schema";
 import { Delivery } from "../_domain/delivery.types";
 import { getDeliveryListUseCase } from "../_usecase/instans.usecase";
+import { SessionContainer } from "@/shared/session/instans";
 
 const resultSchema = z.object({
   deliveryList: deliverySchema.array(),
@@ -12,7 +12,7 @@ const resultSchema = z.object({
 type ResultT = { deliveryList: Delivery[] };
 
 export const getDeliveryListAction = async (): Promise<ResultT> => {
-  const session = await getAppSessionStrictServer();
+  const session = await SessionContainer.getStrict();
 
   const deliveryList = await getDeliveryListUseCase.exec({
     session,

@@ -2,8 +2,8 @@
 import { z } from "zod";
 
 import { Property, propertySchema } from "@/entities/property";
-import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
 import { removePropertyComplexibleUseCase } from "../_useCase/instans.usecase";
+import { SessionContainer } from "@/shared/session/instans";
 
 const propsSchema = z.object({
   propertyId: z.string(),
@@ -20,7 +20,7 @@ export const removePropertyComplexibleAction = async (
 ): Promise<ResultT> => {
   const { propertyId } = propsSchema.parse(props);
 
-  const session = await getAppSessionStrictServer();
+  const session = await SessionContainer.getStrict();
 
   const property = await removePropertyComplexibleUseCase.exec({
     propertyId,

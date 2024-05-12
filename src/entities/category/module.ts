@@ -1,12 +1,12 @@
-import { DBClient, dbClient } from "@/shared/lib/db";
 import { Container, ContainerModule } from "inversify";
 import { CategoryRepository } from "./_repository/category.repo";
 import { GetCategoryUseCase } from "./_usecase/getCategory.usecase";
 import { GetCategoryBySlugUseCase } from "./_usecase/getCategoryBySlug.usecase";
 import { GetCategoryListUseCase } from "./_usecase/getCategoryList.usecase";
 import { GetCategoryWithRelationUseCase } from "./_usecase/getCategoryWithRelation.usecase";
+import { DBClient, dbClient } from "@/shared/lib/db";
 
-const categoryContainer = new Container();
+export const categoryContainer = new Container();
 
 export const CategoryModule = new ContainerModule((bind) => {
   bind(DBClient).toConstantValue(dbClient);
@@ -18,5 +18,3 @@ export const CategoryModule = new ContainerModule((bind) => {
 });
 
 categoryContainer.load(CategoryModule);
-
-export default categoryContainer;

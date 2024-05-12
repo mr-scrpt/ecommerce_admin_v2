@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import { PrismaClient } from "@prisma/client";
-import { injectable } from "inversify";
+import { Container, ContainerModule, injectable } from "inversify";
 
 export class BaseTransaction {
   constructor(readonly db: DBClient) {}
@@ -35,3 +35,12 @@ export class Transaction extends BaseTransaction {
     super(db);
   }
 }
+
+const dbContainer = new Container();
+
+export const DbModule = new ContainerModule((bind) => {
+  bind(DBClient).toConstantValue(dbClient);
+});
+
+dbContainer.load(DbModule);
+export { dbContainer };

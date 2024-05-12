@@ -1,9 +1,9 @@
 "use server";
-import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
 import { z } from "zod";
 import { Property } from "../../_domain/property/types";
 import { propertySchema } from "../../_domain/property/property.schema";
 import { getPropertyListUseCase } from "../../_usecase/instans.usecase";
+import { SessionContainer } from "@/shared/session/instans";
 
 const resultSchema = z.object({
   propertyList: z.array(propertySchema),
@@ -12,7 +12,7 @@ const resultSchema = z.object({
 type ResultT = { propertyList: Property[] };
 
 export const getPropertyListAction = async (): Promise<ResultT> => {
-  const session = await getAppSessionStrictServer();
+  const session = await SessionContainer.getStrict();
 
   const propertyList = await getPropertyListUseCase.exec({ session });
 

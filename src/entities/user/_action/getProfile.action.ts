@@ -1,9 +1,9 @@
 "use server";
 import { z } from "zod";
 import { profileSchema } from "../_domain/profile.schema";
-import { getAppSessionStrictServer } from "../../../shared/session/getAppSessionServer";
 import { Profile } from "../profile";
 import { getProfileUseCase } from "../_useCase/instans.usecase";
+import { SessionContainer } from "@/shared/session/instans";
 
 const propsSchema = z.object({
   profileId: z.string(),
@@ -20,7 +20,7 @@ export const getProfileAction = async (
 ): Promise<ResultT> => {
   const { profileId } = propsSchema.parse(props);
 
-  const session = await getAppSessionStrictServer();
+  const session = await SessionContainer.getStrict();
 
   const profile = await getProfileUseCase.exec({
     session,

@@ -1,9 +1,9 @@
 "use server";
-import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
 import { z } from "zod";
 import { categorySchema } from "../_domain/category.schema";
 import { Category } from "../_domain/types";
 import { getCategoryUseCase } from "../_usecase/instans.usecase";
+import { SessionContainer } from "@/shared/session/instans";
 
 const propsSchema = z.object({
   categoryId: z.string(),
@@ -20,7 +20,7 @@ export const getCategoryAction = async (
 ): Promise<ResultT> => {
   const { categoryId } = propsSchema.parse(props);
 
-  const session = await getAppSessionStrictServer();
+  const session = await SessionContainer.getStrict();
 
   const category = await getCategoryUseCase.exec({
     session,

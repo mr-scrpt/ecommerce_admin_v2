@@ -2,8 +2,8 @@
 import { z } from "zod";
 import { cartRelationSchema } from "../_domain/cart.schema";
 import { CartRelation } from "../_domain/types";
-import { getAppSessionStrictServer } from "@/shared/session/server";
 import { getCartWithRelationUseCase } from "../_usecase/instans.usecase";
+import { SessionContainer } from "@/shared/session/instans";
 
 const resultSchema = z.object({
   cart: cartRelationSchema,
@@ -12,7 +12,7 @@ const resultSchema = z.object({
 type ResultT = { cart: CartRelation };
 
 export const getCartWithRelationAction = async (): Promise<ResultT> => {
-  const session = await getAppSessionStrictServer();
+  const session = await SessionContainer.getStrict();
 
   const cart = await getCartWithRelationUseCase.exec({
     cartId: session.user.cartId,

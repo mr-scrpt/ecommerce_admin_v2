@@ -1,24 +1,21 @@
 import { CartEntity } from "@/entities/cart";
 import { ForbiddenError } from "@/shared/lib/errors";
 import { SessionEntity } from "@/shared/lib/user";
-import {
-  CartRowRemoveProductTx,
-  cartRowRemoveProductTx,
-} from "../_tx/cartRowRemove.transaction";
+import { CartRowRemoveProductTx } from "../_tx/cartRowRemove.transaction";
 import { CartRowRemoveProductComplexible } from "../_domain/types";
 import { createCartAbility } from "@/entities/cart/server";
 
-type RemoveProductCart = {
+type RemoveRowCart = {
   dataToRemoveProduct: CartRowRemoveProductComplexible;
   session: SessionEntity;
 };
 
-class RemoveCartProductUseCase {
+export class RemoveCartRowUseCase {
   constructor(
     private readonly CartRowRemoveProductTx: CartRowRemoveProductTx,
   ) {}
 
-  async exec(data: RemoveProductCart): Promise<CartEntity> {
+  async exec(data: RemoveRowCart): Promise<CartEntity> {
     const { dataToRemoveProduct, session } = data;
     const { productId } = dataToRemoveProduct;
     // console.log("output_log: dataToRemoveProduct =>>>", dataToRemoveProduct);
@@ -43,7 +40,3 @@ class RemoveCartProductUseCase {
     return cart;
   }
 }
-
-export const removeCartProductUseCase = new RemoveCartProductUseCase(
-  cartRowRemoveProductTx,
-);

@@ -1,5 +1,5 @@
-import { getAppSessionServerOrRedirect } from "@/shared/session/getAppSessionServer";
 import { ProfileFormUpdate } from "@/features/profileUpdate";
+import { SessionContainer } from "@/shared/session/instans";
 import { Separator } from "@/shared/ui/separator";
 import { FC, HTMLAttributes } from "react";
 
@@ -10,7 +10,7 @@ interface PageProps extends HTMLAttributes<HTMLDivElement> {
 const NewUserPage: FC<PageProps> = async (props) => {
   const { searchParams } = props;
   const { callbackUrl } = searchParams;
-  const session = await getAppSessionServerOrRedirect();
+  const session = await SessionContainer.getOrRedirect();
 
   return (
     <main className="container space-y-6 py-14">

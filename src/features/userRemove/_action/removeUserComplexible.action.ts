@@ -1,8 +1,8 @@
 "use server";
-import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
 import { UserEntity, userSchema } from "@/entities/user/user";
 import { z } from "zod";
 import { removeUserComplexibleUseCase } from "../_useCase/instans.usecase";
+import { SessionContainer } from "@/shared/session/instans";
 
 const propsSchema = z.object({
   userId: z.string(),
@@ -17,7 +17,7 @@ export const removeUserComplexibleAction = async (
 ): Promise<{ user: UserEntity }> => {
   const { userId } = propsSchema.parse(props);
 
-  const session = await getAppSessionStrictServer();
+  const session = await SessionContainer.getStrict();
 
   const user = await removeUserComplexibleUseCase.exec({
     userId,

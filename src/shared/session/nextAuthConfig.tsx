@@ -2,12 +2,14 @@ import { configPrivate } from "@/shared/config/private.config";
 import { dbClient } from "@/shared/lib/db";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { deleteCookie } from "cookies-next";
+import { injectable } from "inversify";
 import { compact } from "lodash-es";
 import { AuthOptions } from "next-auth";
 import EmailProvider from "next-auth/providers/email";
 import GithubProvider from "next-auth/providers/github";
 import { COOKIE_NETWORK_NAME } from "./constant";
 import { getNetworkClientCookie } from "./coockieParser";
+import { CreateUserService } from "./types";
 
 const {
   GITHUB_SECRET,
@@ -23,79 +25,190 @@ const {
 
 const prismaAdapter = PrismaAdapter(dbClient);
 
-const emailToken = TEST_EMAIL_TOKEN
-  ? {
-      generateVerificationToken: () => TEST_EMAIL_TOKEN ?? "",
-      sendVerificationRequest: () =>
-        console.log("we don't send emails in test mode"),
-    }
-  : {};
+@injectable()
+export class NextAuthConfig {
+  constructor(private readonly createUserService: CreateUserService) {}
+  options: AuthOptions = {
+    adapter: {
+      ...prismaAdapter,
+      // createUser: async (user) => {
+      //   return await this.createUserService.exec(user);
+      //   // const socket = socketClient("");
+      //   // try {
+      //   //   const newUser = await createUserRegistrationUseCase.exec({
+      //   //     ...user,
+      //   //     name: user.name ?? "",
+      //   //     phone: user.phone ?? "",
+      //   //     image: user.image ?? "",
+      //   //   });
+      //   //
+      //   //   await new Promise<void>((resolve, reject) => {
+      //   //     socket.connect();
+      //   //     socket.emit(WSEventEnum.USER_CREATE, () => {
+      //   //       resolve();
+      //   //     });
+      //   //
+      //   //     socket.on("error", (error) => {
+      //   //       reject(error);
+      //   //     });
+      //   //   });
+      //   //
+      //   //   return newUser;
+      //   // } catch (error) {
+      //   //   throw error;
+      //   // } finally {
+      //   //   socket.disconnect();
+      //   // }
+      // },
+    } as AuthOptions["adapter"],
 
-export const nextAuthConfig: AuthOptions = {
-  adapter: {
-    ...prismaAdapter,
-  } as AuthOptions["adapter"],
+    callbacks: {
+      session: async ({ session, user }) => {
+        const u = await dbClient.user.findUnique({
+          where: {
+            id: user.id,
+          },
+          include: {
+            cart: true,
+          },
+        });
 
-  callbacks: {
-    session: async ({ session, user }) => {
-      const u = await dbClient.user.findUnique({
-        where: {
-          id: user.id,
-        },
-        include: {
-          cart: true,
-        },
-      });
+        const clientDataParsed = getNetworkClientCookie();
 
-      const clientDataParsed = getNetworkClientCookie();
+        const sessionWithRelation = {
+          ...session,
+          user: {
+            ...session.user,
+            id: user.id,
+            cartId: u?.cart?.id ?? "",
+            role: user.role,
+          },
+          clientNetworkData: clientDataParsed ?? {
+            country_code: COUNTRY_DEFAULT,
+          },
+        };
 
-      const sessionWithRelation = {
-        ...session,
-        user: {
-          ...session.user,
-          id: user.id,
-          cartId: u?.cart?.id ?? "",
-          role: user.role,
-        },
-        clientNetworkData: clientDataParsed ?? {
-          country_code: COUNTRY_DEFAULT,
-        },
-      };
-
-      return sessionWithRelation;
-    },
-  },
-  events: {
-    signOut: async () => {
-      deleteCookie(COOKIE_NETWORK_NAME);
-    },
-  },
-
-  pages: {
-    signIn: "/auth/sign-in",
-    newUser: "/auth/new-user",
-    verifyRequest: "/auth/verify-request",
-    error: "/when-error-page",
-    signOut: "/by-by",
-  },
-  providers: compact([
-    EmailProvider({
-      ...emailToken,
-      server: {
-        host: EMAIL_SERVER_HOST,
-        port: EMAIL_SERVER_PORT,
-        auth: {
-          user: EMAIL_SERVER_USER,
-          pass: EMAIL_SERVER_PASSWORD,
-        },
+        return sessionWithRelation;
       },
-      from: EMAIL_FROM,
-    }),
-    GITHUB_ID &&
-      GITHUB_SECRET &&
-      GithubProvider({
-        clientId: GITHUB_ID ?? "",
-        clientSecret: GITHUB_SECRET ?? "",
+    },
+    events: {
+      signOut: async () => {
+        deleteCookie(COOKIE_NETWORK_NAME);
+      },
+    },
+
+    pages: {
+      signIn: "/auth/sign-in",
+      newUser: "/auth/new-user",
+      verifyRequest: "/auth/verify-request",
+      error: "/when-error-page",
+      signOut: "/by-by",
+    },
+    providers: compact([
+      EmailProvider({
+        ...this.emailToken,
+        server: {
+          host: EMAIL_SERVER_HOST,
+          port: EMAIL_SERVER_PORT,
+          auth: {
+            user: EMAIL_SERVER_USER,
+            pass: EMAIL_SERVER_PASSWORD,
+          },
+        },
+        from: EMAIL_FROM,
       }),
-  ]),
-};
+      GITHUB_ID &&
+        GITHUB_SECRET &&
+        GithubProvider({
+          clientId: GITHUB_ID ?? "",
+          clientSecret: GITHUB_SECRET ?? "",
+        }),
+    ]),
+  };
+
+  get emailToken() {
+    return TEST_EMAIL_TOKEN
+      ? {
+          generateVerificationToken: () => TEST_EMAIL_TOKEN ?? "",
+          sendVerificationRequest: () =>
+            console.log("we don't send emails in test mode"),
+        }
+      : {};
+  }
+}
+// const emailToken = TEST_EMAIL_TOKEN
+//   ? {
+//       generateVerificationToken: () => TEST_EMAIL_TOKEN ?? "",
+//       sendVerificationRequest: () =>
+//         console.log("we don't send emails in test mode"),
+//     }
+//   : {};
+//
+// export const nextAuthConfig: AuthOptions = {
+//   adapter: {
+//     ...prismaAdapter,
+//   } as AuthOptions["adapter"],
+//
+//   callbacks: {
+//     session: async ({ session, user }) => {
+//       const u = await dbClient.user.findUnique({
+//         where: {
+//           id: user.id,
+//         },
+//         include: {
+//           cart: true,
+//         },
+//       });
+//
+//       const clientDataParsed = getNetworkClientCookie();
+//
+//       const sessionWithRelation = {
+//         ...session,
+//         user: {
+//           ...session.user,
+//           id: user.id,
+//           cartId: u?.cart?.id ?? "",
+//           role: user.role,
+//         },
+//         clientNetworkData: clientDataParsed ?? {
+//           country_code: COUNTRY_DEFAULT,
+//         },
+//       };
+//
+//       return sessionWithRelation;
+//     },
+//   },
+//   events: {
+//     signOut: async () => {
+//       deleteCookie(COOKIE_NETWORK_NAME);
+//     },
+//   },
+//
+//   pages: {
+//     signIn: "/auth/sign-in",
+//     newUser: "/auth/new-user",
+//     verifyRequest: "/auth/verify-request",
+//     error: "/when-error-page",
+//     signOut: "/by-by",
+//   },
+//   providers: compact([
+//     EmailProvider({
+//       ...emailToken,
+//       server: {
+//         host: EMAIL_SERVER_HOST,
+//         port: EMAIL_SERVER_PORT,
+//         auth: {
+//           user: EMAIL_SERVER_USER,
+//           pass: EMAIL_SERVER_PASSWORD,
+//         },
+//       },
+//       from: EMAIL_FROM,
+//     }),
+//     GITHUB_ID &&
+//       GITHUB_SECRET &&
+//       GithubProvider({
+//         clientId: GITHUB_ID ?? "",
+//         clientSecret: GITHUB_SECRET ?? "",
+//       }),
+//   ]),
+// };

@@ -1,16 +1,7 @@
 import { CartEntity } from "@/entities/cart";
-import {
-  CartRepository,
-  CartRowRepository,
-  cartRepository,
-  cartRowRepository,
-} from "@/entities/cart/server";
+import { CartRepository, CartRowRepository } from "@/entities/cart/server";
 import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
 import { CartRowRemoveProductTxData } from "../_domain/types";
-
-interface Operations {
-  [key: string]: () => Promise<void>;
-}
 
 export class CartRowRemoveProductTx extends Transaction {
   constructor(
@@ -81,9 +72,3 @@ export class CartRowRemoveProductTx extends Transaction {
     return await this.start(action);
   }
 }
-
-export const cartRowRemoveProductTx = new CartRowRemoveProductTx(
-  dbClient,
-  cartRepository,
-  cartRowRepository,
-);

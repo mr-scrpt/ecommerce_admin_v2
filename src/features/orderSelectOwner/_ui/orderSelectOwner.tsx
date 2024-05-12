@@ -1,5 +1,5 @@
 "use client";
-import { Button } from "@/shared/ui/button";
+import { UserSelect } from "@/entities/user/user";
 import {
   Form,
   FormDescription,
@@ -12,8 +12,7 @@ import { cn } from "@/shared/ui/utils";
 import { FC, HTMLAttributes } from "react";
 import { useForm } from "react-hook-form";
 import { useOrderUserListToSelect } from "../_vm/useOrderOwnerList";
-import { UserSelect, useUserListSearchQuery } from "@/entities/user/user";
-import { OrderSelectOwnerValues } from "@/entities/order/server";
+import { OrderSelectOwnerFormValues } from "@/entities/order";
 
 interface OrderFormProps extends HTMLAttributes<HTMLDivElement> {
   className?: string;
@@ -31,7 +30,7 @@ export const OrderSelectOwner: FC<OrderFormProps> = (props) => {
   //   onSelectOwner(ownerId);
   // };
 
-  const form = useForm<OrderSelectOwnerValues>();
+  const form = useForm<OrderSelectOwnerFormValues>();
 
   return (
     <div className={cn(className, "w-full")}>

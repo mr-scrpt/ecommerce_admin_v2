@@ -1,6 +1,6 @@
 import "reflect-metadata";
 
-import categoryContainer from "../module";
+import { categoryContainer } from "../module";
 import { GetCategoryListUseCase } from "../_usecase/getCategoryList.usecase";
 import { GetCategoryUseCase } from "./getCategory.usecase";
 import { GetCategoryBySlugUseCase } from "./getCategoryBySlug.usecase";

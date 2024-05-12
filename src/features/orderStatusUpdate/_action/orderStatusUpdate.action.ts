@@ -7,8 +7,8 @@ import {
   OrderStatusEnum,
   orderSchema,
 } from "@/entities/order";
-import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
 import { updateOrderStatusComplexibleUseCase } from "../_usecase/instans.usecase";
+import { SessionContainer } from "@/shared/session/instans";
 
 const propsSchema = z.object({
   orderId: z.string(),
@@ -27,7 +27,7 @@ export const updateOrderStatusAction = async (
 ): Promise<ResultT> => {
   const { orderId, orderStatus, paymentStatus } = propsSchema.parse(props);
 
-  const session = await getAppSessionStrictServer();
+  const session = await SessionContainer.getStrict();
 
   const order = await updateOrderStatusComplexibleUseCase.exec({
     session,

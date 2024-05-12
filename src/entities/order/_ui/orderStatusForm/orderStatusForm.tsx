@@ -1,8 +1,8 @@
 import { FC, HTMLAttributes } from "react";
 import { OrderStatusFormElements } from "./orderStatusFormElements";
-import { OrderStatusFormValues } from "../../_domain/order.schema";
 import { OrderStatusGroup } from "../../_domain/order.types";
 import { cn } from "@/shared/ui/utils";
+import { OrderStatusFormValues } from "../../_domain/form.schema";
 
 interface OrderStatusFormProps extends HTMLAttributes<HTMLFormElement> {
   orderStatus: OrderStatusGroup;

@@ -2,9 +2,9 @@
 
 import { StoreWithSettlementName } from "@/entities/store";
 import { storeWithSettlementNameSchema } from "@/entities/store/server";
-import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
 import { z } from "zod";
 import { getStoreListWithSettlementNameBySettlementUseCase } from "../_usecase/instans.usecase";
+import { SessionContainer } from "@/shared/session/instans";
 
 const propsSchema = z.object({
   settlement: z.string(),
@@ -20,7 +20,7 @@ export const getStoreWithSettlementNameListBySettlementAction = async (
   props: z.infer<typeof propsSchema>,
 ): Promise<ResultT> => {
   const { settlement } = props;
-  const session = await getAppSessionStrictServer();
+  const session = await SessionContainer.getStrict();
 
   const storeList =
     await getStoreListWithSettlementNameBySettlementUseCase.exec({

@@ -1,8 +1,8 @@
 import { z } from "zod";
 import { Category } from "../_domain/types";
-import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
 import { getCategoryBySlugUseCase } from "../_usecase/instans.usecase";
 import { categorySchema } from "../_domain/category.schema";
+import { SessionContainer } from "@/shared/session/instans";
 
 const propsSchema = z.object({
   categorySlug: z.string(),
@@ -19,7 +19,7 @@ export const getCategoryBySlugAction = async (
 ): Promise<ResultT> => {
   const { categorySlug } = propsSchema.parse(props);
 
-  const session = await getAppSessionStrictServer();
+  const session = await SessionContainer.getStrict();
 
   const category = await getCategoryBySlugUseCase.exec({
     session,

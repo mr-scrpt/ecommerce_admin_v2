@@ -1,12 +1,12 @@
 "use server";
 
 import { Product } from "@/entities/product";
-import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
 import { slugGenerator } from "@/shared/lib/slugGenerator";
 import { z } from "zod";
 import { productSchema } from "@/entities/product/server";
 import { createProductComplexibleUseCase } from "../_usecase/instans.usecase";
 import { productCreateSchema } from "../_domain/schema";
+import { SessionContainer } from "@/shared/session/instans";
 
 const propsSchema = z.object({
   data: productCreateSchema,
@@ -24,7 +24,7 @@ export const productCreateAction = async (
   const { data } = propsSchema.parse(props);
   const { categoryList, propertyItemListSelected, ...productData } = data;
 
-  const session = await getAppSessionStrictServer();
+  const session = await SessionContainer.getStrict();
 
   const slug = slugGenerator(data.name);
 

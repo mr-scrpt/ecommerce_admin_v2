@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { registerUser } from "../../lib/auth"; // ваша функция для регистрации пользователя
 import { signIn } from "next-auth/react";
 
 export const POST = async (req: Request, res: any) => {

@@ -5,9 +5,9 @@ import {
   propertyCreateSchema,
   propertySchema,
 } from "@/entities/property";
-import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
 import { z } from "zod";
 import { createPropertyComplexibleUseCase } from "../_useCase/instans.usecase";
+import { SessionContainer } from "@/shared/session/instans";
 
 const propsSchema = z.object({
   data: propertyCreateSchema,
@@ -25,7 +25,7 @@ export const propertyCreateAction = async (
   const { data } = propsSchema.parse(props);
   const { propertyItemList, ...propertyData } = data;
 
-  const session = await getAppSessionStrictServer();
+  const session = await SessionContainer.getStrict();
 
   const property = await createPropertyComplexibleUseCase.exec({
     session,

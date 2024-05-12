@@ -6,8 +6,8 @@ import {
   propertySchema,
   propertyUpdateSchema,
 } from "@/entities/property";
-import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
 import { updatePropertyComplexibleUseCase } from "../_useCase/instans.usecase";
+import { SessionContainer } from "@/shared/session/instans";
 
 const propsSchema = z.object({
   propertyId: z.string(),
@@ -26,7 +26,7 @@ export const updatePropertyAction = async (
   const { propertyId, data } = propsSchema.parse(props);
   const { propertyItemList: propertyItemListData, ...propertyData } = data;
 
-  const session = await getAppSessionStrictServer();
+  const session = await SessionContainer.getStrict();
 
   const property = await updatePropertyComplexibleUseCase.exec({
     session,

@@ -1,9 +1,9 @@
 "use server";
-import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
 import { z } from "zod";
 import { productRelationSchema } from "../_domain/product.schema";
 import { ProductRelation } from "../_domain/types";
 import { getProductWithRelationUseCase } from "../_usecase/instans.usecase";
+import { SessionContainer } from "@/shared/session/instans";
 
 const propsSchema = z.object({
   productId: z.string(),
@@ -20,7 +20,7 @@ export const getProductWithRelationAction = async (
 ): Promise<ResultT> => {
   const { productId } = propsSchema.parse(props);
 
-  const session = await getAppSessionStrictServer();
+  const session = await SessionContainer.getStrict();
 
   const product = await getProductWithRelationUseCase.exec({
     session,

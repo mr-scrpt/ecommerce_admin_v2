@@ -16,6 +16,10 @@ export type UserWithCartEntity = UserEntity & {
   cart: UserCartRelation | null;
 };
 
+export type UserStrictEntity = UserEntity & {
+  name: string;
+};
+
 export type UserWithOrdersEntity = UserEntity & {
   orderList: Array<UserOrderRelaion>;
 };
@@ -39,6 +43,13 @@ export type User = {
   image: string | null;
 };
 
+export type UserStrict = {
+  id: UserId;
+  email: string;
+  phone: string;
+  name: string;
+  image: string | null;
+};
 export type UserToCreate = {
   email: string;
   phone: string;

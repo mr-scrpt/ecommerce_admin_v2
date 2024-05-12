@@ -2,9 +2,9 @@
 import { z } from "zod";
 
 import { Store } from "@/entities/store";
-import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
 import { removeStoreComplexibleUseCase } from "../_useCase/instans.usecase";
 import { storeSchema } from "@/entities/store/server";
+import { SessionContainer } from "@/shared/session/instans";
 
 const propsSchema = z.object({
   storeId: z.string(),
@@ -21,7 +21,7 @@ export const removeStoreComplexibleAction = async (
 ): Promise<ResultT> => {
   const { storeId } = propsSchema.parse(props);
 
-  const session = await getAppSessionStrictServer();
+  const session = await SessionContainer.getStrict();
 
   const store = await removeStoreComplexibleUseCase.exec({
     storeId,

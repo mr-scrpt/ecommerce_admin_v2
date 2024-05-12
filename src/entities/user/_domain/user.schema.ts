@@ -43,6 +43,12 @@ export const userSchema = z.object({
   ...userBaseSchema.shape,
 });
 
+export const userStrictSchema = z.object({
+  id: z.string(),
+  ...userBaseSchema.shape,
+  name: z.string(),
+});
+
 export const userWithCartSchema = z.object({
   ...userBaseSchema.shape,
 

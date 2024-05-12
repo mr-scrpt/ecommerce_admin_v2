@@ -1,7 +1,7 @@
 import "reflect-metadata";
-import productCreateContainer from "../module";
+import productRemoveContainer from "../module";
 import { RemoveProductComplexibleUseCase } from "./productRemoveComplexible.usecase";
 
-export const removeProductComplexibleUseCase = productCreateContainer.get(
+export const removeProductComplexibleUseCase = productRemoveContainer.get(
   RemoveProductComplexibleUseCase,
 );

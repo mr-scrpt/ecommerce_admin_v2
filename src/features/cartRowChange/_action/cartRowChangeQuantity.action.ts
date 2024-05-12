@@ -3,9 +3,9 @@
 import { Cart } from "@/entities/cart";
 import { cartRelationSchema } from "@/entities/cart/server";
 import { z } from "zod";
-import { getAppSessionStrictServer } from "@/shared/session/server";
 import { changeQuantityCartRowUseCase } from "../_usecase/instans.usecase";
 import { cartRowChangeQuantitySchema } from "../_domain/schema";
+import { SessionContainer } from "@/shared/session/instans";
 
 const propsSchema = z.object({
   data: cartRowChangeQuantitySchema,
@@ -22,7 +22,7 @@ export const cartRowChangeQuantityAction = async (
 ): Promise<ResultT> => {
   const { data } = propsSchema.parse(props);
 
-  const session = await getAppSessionStrictServer();
+  const session = await SessionContainer.getStrict();
 
   const cart = await changeQuantityCartRowUseCase.exec({
     dataToChangeCountProduct: data,

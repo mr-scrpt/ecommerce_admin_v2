@@ -2,11 +2,11 @@
 import { z } from "zod";
 
 import { Category } from "@/entities/category";
-import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
 import { slugGenerator } from "@/shared/lib/slugGenerator";
 import { updateCategoryComplexibleUseCase } from "../_usecase/instans.usecase";
 import { categoryUpdateSchema } from "../_domain/schema";
 import { categorySchema } from "@/entities/category/server";
+import { SessionContainer } from "@/shared/session/instans";
 
 const propsSchema = z.object({
   categoryId: z.string(),
@@ -25,7 +25,8 @@ export const updateCategoryAction = async (
   const { categoryId, data } = propsSchema.parse(props);
   const { propertyList, ...categoryData } = data;
 
-  const session = await getAppSessionStrictServer();
+  const session = await SessionContainer.getStrict();
+
   const slug = slugGenerator(data.name);
 
   const category = await updateCategoryComplexibleUseCase.exec({

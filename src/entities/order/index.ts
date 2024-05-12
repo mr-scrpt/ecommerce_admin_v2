@@ -37,3 +37,5 @@ export type {
   OrderRowToRemovePayload,
   OrderRowToUpdateQuantityPayload,
 } from "./_domain/orderRow.types";
+
+export type { OrderSelectOwnerFormValues } from "./_domain/form.schema";

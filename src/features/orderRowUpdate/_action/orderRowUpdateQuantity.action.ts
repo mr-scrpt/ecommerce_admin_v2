@@ -3,8 +3,8 @@ import { z } from "zod";
 
 import { OrderRow } from "@/entities/order";
 import { orderRowSchema } from "@/entities/order/server";
-import { getAppSessionStrictServer } from "@/shared/session/getAppSessionServer";
 import { updateOrderRowQuantityComplexibleUseCase } from "../_usecase/instans.usecase";
+import { SessionContainer } from "@/shared/session/instans";
 
 const propsSchema = z.object({
   productId: z.string(),
@@ -23,7 +23,7 @@ export const updateOrdewRowQuantityAction = async (
 ): Promise<ResultT> => {
   const { quantity, orderRowId, productId } = propsSchema.parse(props);
 
-  const session = await getAppSessionStrictServer();
+  const session = await SessionContainer.getStrict();
 
   const orderRow = await updateOrderRowQuantityComplexibleUseCase.exec({
     session,
