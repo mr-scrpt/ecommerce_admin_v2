@@ -6,6 +6,7 @@ import { ClientNetworkData } from "./types";
 export const getNetworkClientCookie = (): ClientNetworkData => {
   const c = cookies();
   const cookieValue = c.get(COOKIE_NETWORK_NAME)?.value;
+  // const cookieValue = "";
 
   const clientData = cookieValue ? JSON.parse(cookieValue) : clientNetworkData;
 

@@ -9,7 +9,7 @@ export const categoryCreateContainer = new Container();
 export const CategoryCreateModule = new ContainerModule((bind) => {
   // bind(DBClient).toConstantValue(dbClient);
   bind(CategoryCreateTx).toSelf();
-  bind(CategoryRepository).toSelf();
+  // bind(CategoryRepository).toSelf();
   bind(CreateCategoryComplexibleUseCase).toSelf();
 });
 

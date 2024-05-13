@@ -9,6 +9,7 @@ import { FC, HTMLAttributes } from "react";
 import { ProviderWS } from "./providerWS";
 import { SessionProvider } from "@/shared/session";
 import { InitUserData } from "../_init/initUserData";
+import { ProviderModule } from "./moduleProvier";
 
 interface ProvidersRootProps extends HTMLAttributes<HTMLDivElement> {}
 
@@ -24,6 +25,7 @@ export const ProvidersRoot: FC<ProvidersRootProps> = (props) => {
         <Confirmation />
         <ModalProvider />
         <InitUserData />
+        <ProviderModule />
         {children}
       </ComposeChildren>
     </>

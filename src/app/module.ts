@@ -41,10 +41,11 @@ import { propertyRemoveContainer } from "@/features/propertyRemove/module";
 
 export const loadModule = () => {
   const mergeContainer = Container.merge(
-    // dbContainer,
+    dbContainer,
     sessionContainer,
     cartContainer,
     categoryContainer,
+    categoryCreateContainer,
     // deliveryContainer,
     // orderContainer,
     // productContainer,
@@ -52,7 +53,7 @@ export const loadModule = () => {
     // settlementContainer,
     // storeContainer,
     // userContainer,
-    //
+
     // cartAddContainer,
     // cartRowChangeQuantityContainer,
     // cartRowRemoveContainer,
