@@ -1,6 +1,7 @@
 import { createStrictContext, useStrictContext } from "./react";
 
-export type ServerActionType = Record<string, (...args: any[]) => any>;
+// export type ServerActionType = Record<string, (...args: any[]) => any>;
+export type ServerActionType = Record<string, (...args: any[]) => Promise<any>>;
 
 export const serverActionContext = createStrictContext<ServerActionType>();
 

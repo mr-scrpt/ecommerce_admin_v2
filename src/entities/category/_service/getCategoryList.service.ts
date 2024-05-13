@@ -4,6 +4,10 @@ import { categorySchema } from "../_domain/category.schema";
 import { Category } from "../_domain/types";
 import { SessionService } from "@/shared/session/session.service";
 import { injectable } from "inversify";
+import { Service } from "@/app/initAction";
+import { createCategoryAbility } from "../_domain/category.ability";
+import { AuthorizatoinError } from "@/shared/lib/errors";
+import { CategoryRepository } from "../server";
 
 const resultSchema = z.object({
   categoryList: z.array(categorySchema),
@@ -12,17 +16,22 @@ const resultSchema = z.object({
 type ResultT = { categoryList: Category[] };
 
 @injectable()
-export class GetCategoryListService {
+export class GetCategoryListService extends Service {
   constructor(
-    private readonly getCategoryListUseCase: GetCategoryListUseCase,
+    private readonly categoryRepo: CategoryRepository,
     private readonly sessionService: SessionService,
-  ) {}
+  ) {
+    super();
+  }
 
   async execute(): Promise<ResultT> {
-    console.log("output_log: request 666666 =>>>");
-    const categoryList = await this.getCategoryListUseCase.exec({
-      session: await this.getSession(),
-    });
+    const { canGetCategory } = createCategoryAbility(await this.getSession());
+
+    if (!canGetCategory()) {
+      throw new AuthorizatoinError();
+    }
+
+    const categoryList = await this.categoryRepo.getCategoryList();
 
     return resultSchema.parseAsync({ categoryList });
   }

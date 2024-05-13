@@ -4,18 +4,19 @@ import { Category, baseQueryKey } from "../_domain/types";
 import { useListenCategoryListUpdate } from "../_vm/event/useListenCategoryListUpdate";
 import { useGetServerAction } from "@/shared/lib/serverAction";
 
-export const getCategoryListQuery = () => {
+export const useGetCategoryListQuery = () => {
   const { getCategoryList } = useGetServerAction<{
     getCategoryList: () => Promise<{ categoryList: Category[] }>;
   }>();
   return queryOptions({
     queryKey: [baseQueryKey, "getCategoryList"],
     queryFn: () => getCategoryList(),
+    // queryFn: () => [],
   });
 };
 
 export const useCategoryListQuery = () => {
-  const query = getCategoryListQuery();
+  const query = useGetCategoryListQuery();
   const { isPending, isSuccess, isFetchedAfterMount, data } = useQuery(query);
 
   useListenCategoryListUpdate();

@@ -5,7 +5,7 @@ import { categoryContainer } from "@/entities/category/module";
 import { deliveryContainer } from "@/entities/delivery/module";
 import { dbContainer } from "@/shared/lib/db";
 import { sessionContainer } from "@/shared/session/module";
-import { Container } from "inversify";
+import { Container, ContainerModule } from "inversify";
 import { userCreateContainer } from "@/features/userCreate/module";
 import { orderContainer } from "@/entities/order/module";
 import { productContainer } from "@/entities/product/module";
@@ -38,10 +38,20 @@ import { userUpdateContainer } from "@/features/userUpdate/module";
 import { orderRowAddContainer } from "@/features/orderRow/module";
 import { propertyCreateContainer } from "@/features/propertyCreate/module";
 import { propertyRemoveContainer } from "@/features/propertyRemove/module";
+import { Service } from "./initAction";
+
+// const serviceContainer = new Container();
+//
+// const ServiceModule = new ContainerModule((bind) => {
+//   bind(Service).toSelf();
+// });
+//
+// serviceContainer.load(ServiceModule);
 
 export const loadModule = () => {
   const mergeContainer = Container.merge(
     dbContainer,
+    // serviceContainer,
     sessionContainer,
     cartContainer,
     categoryContainer,
