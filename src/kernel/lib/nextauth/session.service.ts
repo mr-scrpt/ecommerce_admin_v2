@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth";
 import { NextAuthConfig } from "./nextAuthConfig";
 import { injectable } from "inversify";
-import { NeedAuthError } from "../lib/errors";
+import { NeedAuthError } from "../../../shared/lib/errors";
 import { redirect } from "next/navigation";
 
 @injectable()

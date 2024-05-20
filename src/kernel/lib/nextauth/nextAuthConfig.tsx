@@ -1,5 +1,8 @@
 import { configPrivate } from "@/shared/config/private.config";
 import { dbClient } from "@/shared/lib/db";
+import { COOKIE_NETWORK_NAME } from "@/shared/session/constant";
+import { getNetworkClientCookie } from "@/shared/session/coockieParser";
+import { CreateUserService } from "@/shared/session/types";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { deleteCookie } from "cookies-next";
 import { injectable } from "inversify";
@@ -7,9 +10,6 @@ import { compact } from "lodash-es";
 import { AuthOptions } from "next-auth";
 import EmailProvider from "next-auth/providers/email";
 import GithubProvider from "next-auth/providers/github";
-import { COOKIE_NETWORK_NAME } from "./constant";
-import { getNetworkClientCookie } from "./coockieParser";
-import { CreateUserService } from "./types";
 
 const {
   GITHUB_SECRET,
