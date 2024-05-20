@@ -2,7 +2,7 @@ import { z } from "zod";
 import { GetCategoryListUseCase } from "../_usecase/getCategoryList.usecase";
 import { categorySchema } from "../_domain/category.schema";
 import { Category } from "../_domain/types";
-import { SessionService } from "@/shared/session/session.service";
+import { SessionService } from "@/kernel/lib/nextauth/session.service";
 import { injectable } from "inversify";
 import { Service } from "@/app/initAction";
 import { createCategoryAbility } from "../_domain/category.ability";

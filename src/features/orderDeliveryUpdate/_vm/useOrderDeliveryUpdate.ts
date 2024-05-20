@@ -1,6 +1,6 @@
 import { Delivery } from "@/entities/delivery";
 import { useOrderDeliveryUpdateMutation } from "../_mutation/useOrderDeliveryUpdate.mutation";
-import { useAppSession } from "@/shared/session";
+import { useAppSession } from "@/kernel/lib/nextauth";
 
 export const useOrderDeliveryUpdate = () => {
   const { update: updateSession } = useAppSession();

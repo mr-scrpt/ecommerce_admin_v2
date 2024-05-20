@@ -1,5 +1,5 @@
 "use client";
-import { useAppSession } from "@/shared/session";
+import { useAppSession } from "@/kernel/lib/nextauth";
 import {
   COOKIE_NETWORK_MAX_AGE,
   COOKIE_NETWORK_NAME,

@@ -1,3 +1,5 @@
+import { Role } from "./role.type";
+
 export type SessionEntity = {
   user: {
     id: string;

@@ -1,7 +1,7 @@
 "use client";
 import { SignInButton } from "@/features/Auth/SignInButton";
 import { UseSignOut } from "@/features/Auth/_vm/useSignOut";
-import { useAppSession } from "@/shared/session";
+import { useAppSession } from "@/kernel/lib/nextauth";
 import { Button } from "@/shared/ui/button";
 import {
   DropdownMenu,

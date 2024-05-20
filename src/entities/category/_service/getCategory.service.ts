@@ -1,5 +1,5 @@
 import { Service } from "@/app/initAction";
-import { SessionService } from "@/shared/session/session.service";
+import { SessionService } from "@/kernel/lib/nextauth/session.service";
 import { injectable } from "inversify";
 import { z } from "zod";
 import { createCategoryAbility } from "../_domain/category.ability";
