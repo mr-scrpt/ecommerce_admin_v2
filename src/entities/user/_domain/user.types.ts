@@ -1,16 +1,7 @@
-export const userBaseQueryKey = "user";
-import { Role, UserId } from "@/shared/lib/user";
+import { Role } from "@/kernel/domain/role.type";
+import { UserEntity } from "@/kernel/domain/user.type";
 
-export type UserEntity = {
-  id: UserId;
-  name: string | null;
-  phone: string;
-  email: string;
-  role: Role;
-  emailVerified?: Date | null;
-  image?: string | null;
-  createdAt: Date;
-};
+export const userBaseQueryKey = "user";
 
 export type UserWithCartEntity = UserEntity & {
   cart: UserCartRelation | null;
@@ -36,7 +27,7 @@ export type UserPartial = {
 // NOTE: Projetions
 
 export type User = {
-  id: UserId;
+  id: string;
   email: string;
   phone: string;
   name: string | null;
@@ -44,7 +35,7 @@ export type User = {
 };
 
 export type UserStrict = {
-  id: UserId;
+  id: string;
   email: string;
   phone: string;
   name: string;
