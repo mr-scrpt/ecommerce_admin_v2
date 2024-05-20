@@ -1,5 +1,5 @@
 "use server";
-import { getAppSessionStrictServer } from "@/shared/session/server";
+import { getAppSessionStrictServer } from "@/kernel/lib/nextauth/server";
 import { z } from "zod";
 import { deliverySchema } from "../_domain/delivery.schema";
 import { Delivery } from "../_domain/delivery.types";

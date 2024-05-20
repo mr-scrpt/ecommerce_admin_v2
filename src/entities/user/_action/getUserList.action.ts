@@ -1,6 +1,6 @@
 "use server";
 import { z } from "zod";
-import { getAppSessionStrictServer } from "../../../shared/session/getAppSessionServer";
+import { getAppSessionStrictServer } from "../../../shared/network/getAppSessionServer";
 import { userSchema } from "../_domain/user.schema";
 import { UserEntity } from "../_domain/user.types";
 import { getUserListUseCase } from "../_useCase/instans.usecase";

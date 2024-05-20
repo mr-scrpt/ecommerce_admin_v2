@@ -3,7 +3,7 @@
 import { Cart } from "@/entities/cart";
 import { cartRelationSchema } from "@/entities/cart/server";
 import { z } from "zod";
-import { getAppSessionStrictServer } from "@/shared/session/server";
+import { getAppSessionStrictServer } from "@/kernel/lib/nextauth/server";
 import { changeQuantityCartRowUseCase } from "../_usecase/instans.usecase";
 import { cartRowChangeQuantitySchema } from "../_domain/schema";
 

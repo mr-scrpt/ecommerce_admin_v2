@@ -1,13 +1,16 @@
+import { createUserRegistrationUseCase } from "@/entities/property/instans.usecase";
 import { configPrivate } from "@/shared/config/private.config";
+import { socketClient } from "@/shared/config/socket";
 import { dbClient } from "@/shared/lib/db";
+import { COOKIE_NETWORK_NAME } from "@/shared/network/constant";
+import { getNetworkClientCookie } from "@/shared/network/coockieParser";
+import { WSEventEnum } from "@/shared/type/websokcetEvent.enum";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { deleteCookie } from "cookies-next";
 import { compact } from "lodash-es";
 import { AuthOptions } from "next-auth";
 import EmailProvider from "next-auth/providers/email";
 import GithubProvider from "next-auth/providers/github";
-import { COOKIE_NETWORK_NAME } from "./constant";
-import { getNetworkClientCookie } from "./coockieParser";
 
 const {
   GITHUB_SECRET,
@@ -34,6 +37,32 @@ const emailToken = TEST_EMAIL_TOKEN
 export const nextAuthConfig: AuthOptions = {
   adapter: {
     ...prismaAdapter,
+    createUser: async (user) => {
+      const socket = socketClient("");
+      try {
+        const newUser = await createUserRegistrationUseCase.exec({
+          ...user,
+          phone: user.phone ?? "",
+        });
+
+        await new Promise<void>((resolve, reject) => {
+          socket.connect();
+          socket.emit(WSEventEnum.USER_CREATE, () => {
+            resolve();
+          });
+
+          socket.on("error", (error) => {
+            reject(error);
+          });
+        });
+
+        return newUser;
+      } catch (error) {
+        throw error;
+      } finally {
+        socket.disconnect();
+      }
+    },
   } as AuthOptions["adapter"],
 
   callbacks: {

@@ -1,13 +1,17 @@
-import { nextAuthConfigWithCreateUser } from "@/features/userCreate/server";
+import { nextAuthConfig } from "@/kernel/lib/nextauth/server";
 import NextAuth from "next-auth/next";
-import { NextRequest } from "next/server";
+// import { NextRequest } from "next/server";
 
-interface RouteHandlerContext {
-  params: { nextauth: string[] };
-}
+// interface RouteHandlerContext {
+//   params: { nextauth: string[] };
+// }
 
-const handler = async (req: NextRequest, context: RouteHandlerContext) => {
-  return NextAuth(req, context, nextAuthConfigWithCreateUser);
-};
+// const handler = async (req: NextRequest, context: RouteHandlerContext) => {
+//   return NextAuth(req, context, nextAuthConfigWithCreateUser);
+// };
+//
+// export { handler as GET, handler as POST };
 
-export { handler as GET, handler as POST };
+const authHandler = NextAuth(nextAuthConfig);
+
+export { authHandler as GET, authHandler as POST };

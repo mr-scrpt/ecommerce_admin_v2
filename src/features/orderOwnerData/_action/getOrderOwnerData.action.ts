@@ -1,6 +1,6 @@
 "use server";
 import { z } from "zod";
-import { getAppSessionStrictServer } from "../../../shared/session/getAppSessionServer";
+import { getAppSessionStrictServer } from "../../../shared/network/getAppSessionServer";
 import { orderOwnerDataSchema } from "../_domain/schema";
 import { OrderOwnerData } from "../_domain/types";
 import { getOrderOwnerDataComplexibleUseCase } from "../_useCase/instans.usecase";

@@ -1,5 +1,5 @@
 "use server";
-import { getAppSessionStrictServer } from "@/shared/session/server";
+import { getAppSessionStrictServer } from "@/kernel/lib/nextauth/server";
 import { z } from "zod";
 import { postOfficeToSelectSchema } from "../_domain/postOffice.schema";
 import { PostOfficeToSelect } from "../_domain/postOffice.type";

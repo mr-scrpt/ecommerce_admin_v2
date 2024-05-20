@@ -1,5 +1,5 @@
 "use server";
-import { getAppSessionStrictServer } from "@/shared/session/server";
+import { getAppSessionStrictServer } from "@/kernel/lib/nextauth/server";
 import { z } from "zod";
 import { settleToSelectSchema } from "../_domain/settlement.schema";
 import { SettleToSelect } from "../_domain/settlement.type";

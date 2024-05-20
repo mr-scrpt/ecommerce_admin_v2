@@ -1,5 +1,5 @@
 import { ROUTING_MAIN_MENU_DATA } from "@/shared/config/routing.config";
-import { useAppSession } from "@/shared/session";
+import { useAppSession } from "@/kernel/lib/nextauth";
 
 export const useMenu = () => {
   const { data } = useAppSession();

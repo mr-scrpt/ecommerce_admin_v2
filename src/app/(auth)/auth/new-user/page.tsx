@@ -1,5 +1,5 @@
-import { getAppSessionServerOrRedirect } from "@/shared/session/getAppSessionServer";
 import { ProfileFormUpdate } from "@/features/profileUpdate";
+import { getAppSessionServerOrRedirect } from "@/kernel/lib/nextauth/server";
 import { Separator } from "@/shared/ui/separator";
 import { FC, HTMLAttributes } from "react";
 

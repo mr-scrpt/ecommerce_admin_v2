@@ -1,7 +1,7 @@
 "use server";
 import { z } from "zod";
 import { profileSchema } from "../_domain/profile.schema";
-import { getAppSessionStrictServer } from "../../../shared/session/getAppSessionServer";
+import { getAppSessionStrictServer } from "../../../shared/network/getAppSessionServer";
 import { Profile } from "../profile";
 import { getProfileUseCase } from "../_useCase/instans.usecase";
 

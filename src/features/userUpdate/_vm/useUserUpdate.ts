@@ -1,6 +1,6 @@
 import { User } from "@/entities/user/user";
 import { useUserUpdateMutation } from "../_mutation/useUserUpdate.mutation";
-import { useAppSession } from "@/shared/session";
+import { useAppSession } from "@/kernel/lib/nextauth";
 
 export const useUserUpdate = () => {
   const { update: updateSession } = useAppSession();

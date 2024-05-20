@@ -1,5 +1,5 @@
 import { Profile } from "@/entities/user/profile";
-import { useAppSession } from "@/shared/session";
+import { useAppSession } from "@/kernel/lib/nextauth";
 import { useProfileUpdateMutation } from "../_mutation/useProfileUpdate.mutation";
 
 export const useProfileUpdate = () => {

@@ -1,10 +1,10 @@
 "use client";
-import { useAppSession } from "@/shared/session";
+import { useAppSession } from "@/kernel/lib/nextauth";
 import {
   COOKIE_NETWORK_MAX_AGE,
   COOKIE_NETWORK_NAME,
-} from "@/shared/session/constant";
-import { ClientNetworkData } from "@/shared/session/types";
+} from "@/shared/network/constant";
+import { ClientNetworkData } from "@/shared/network/types";
 import { getCookie, setCookie } from "cookies-next";
 import { FC, HTMLAttributes, useEffect } from "react";
 

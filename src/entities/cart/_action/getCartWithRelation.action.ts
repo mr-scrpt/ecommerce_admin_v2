@@ -2,7 +2,7 @@
 import { z } from "zod";
 import { cartRelationSchema } from "../_domain/cart.schema";
 import { CartRelation } from "../_domain/types";
-import { getAppSessionStrictServer } from "@/shared/session/server";
+import { getAppSessionStrictServer } from "@/kernel/lib/nextauth/server";
 import { getCartWithRelationUseCase } from "../_usecase/instans.usecase";
 
 const resultSchema = z.object({

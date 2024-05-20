@@ -4,7 +4,7 @@ import { FC, HTMLAttributes } from "react";
 import { SpinnerFullPage } from "@/shared/ui/spinnerFullPage";
 import { signIn } from "next-auth/react";
 import { useEffect } from "react";
-import { useAppSession } from "@/shared/session";
+import { useAppSession } from "@/kernel/lib/nextauth";
 
 interface AuthorizedGuardProps extends HTMLAttributes<HTMLDivElement> {}
 

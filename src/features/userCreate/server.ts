@@ -1,1 +1,0 @@
-export { nextAuthConfigWithCreateUser } from "./nextAuthConfigWithCreateUser";

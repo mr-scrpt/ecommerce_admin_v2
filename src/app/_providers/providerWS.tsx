@@ -6,7 +6,7 @@ import { useEmitUserUpdate } from "@/features/userUpdate";
 import { ComposeChildren, createStrictContext } from "@/shared/lib/react";
 import { SocketProvider } from "@/shared/lib/socket";
 import { UserId } from "@/shared/lib/user";
-import { useAppSession } from "@/shared/session";
+import { useAppSession } from "@/kernel/lib/nextauth";
 import { FC, HTMLAttributes } from "react";
 
 // interface IEventContext {

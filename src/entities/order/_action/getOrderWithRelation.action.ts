@@ -2,7 +2,7 @@
 import { z } from "zod";
 import { orderRelationSchema } from "../_domain/order.schema";
 import { OrderRelation } from "../_domain/order.types";
-import { getAppSessionStrictServer } from "@/shared/session/server";
+import { getAppSessionStrictServer } from "@/kernel/lib/nextauth/server";
 import { getOrderWithRelationUseCase } from "../_usecase/instans.usecase";
 
 const propsSchema = z.object({
