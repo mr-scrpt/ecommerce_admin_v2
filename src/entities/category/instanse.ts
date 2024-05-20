@@ -1,18 +1,24 @@
 "use server";
 import { initModule } from "@/app/module";
+
 import { GetCategoryService } from "./_service/getCategory.service";
 import { GetCategoryListService } from "./_service/getCategoryList.service";
 
 export const categoryListService = async () =>
   initModule.get(GetCategoryListService).execute();
 
-type CategoryPayload = {
+export type CategoryPayload = {
   categoryId?: string;
   categorySlug?: string;
 };
 
 export const categoryService = async (payload: CategoryPayload) =>
   initModule.get(GetCategoryService).execute(payload);
+
+// export const serviceExecutorsT = async () => ({
+//   getCategoryList: async () => await categoryListService(),
+//   getCategory: async (props) => await categoryService(props),
+// });
 
 // export const categoryService = async () => ({
 //   getCategoryList: async () => await categoryListService(),

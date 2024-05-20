@@ -18,6 +18,7 @@ export const ProvidersRoot: FC<ProvidersRootProps> = (props) => {
   return (
     <>
       <ComposeChildren>
+        <ProviderModule />
         <ThemeProvider />
         <SessionProvider />
         <QueryClientProvider client={queryClient} />
@@ -25,7 +26,6 @@ export const ProvidersRoot: FC<ProvidersRootProps> = (props) => {
         <Confirmation />
         <ModalProvider />
         <InitUserData />
-        <ProviderModule />
         {children}
       </ComposeChildren>
     </>
