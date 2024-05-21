@@ -4,7 +4,7 @@ import {
   saveLastRequestDate,
 } from "../../utils/fileUtils";
 
-const API_URL = `${process.env.BASE_URL}${process.env.API_INIT_SETTLEMENT_URL}`;
+const API_URL = `${process.env.NEXT_PUBLIC_URL}${process.env.API_INIT_SETTLEMENT_URL}`;
 
 export const cronScheduleSettlement = "0 14 * * *";
 

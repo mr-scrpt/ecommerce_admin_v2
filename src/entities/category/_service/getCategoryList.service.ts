@@ -4,7 +4,6 @@ import { categorySchema } from "../_domain/category.schema";
 import { Category } from "../_domain/types";
 import { SessionService } from "@/kernel/lib/nextauth/session.service";
 import { injectable } from "inversify";
-import { Service } from "@/app/initAction";
 import { createCategoryAbility } from "../_domain/category.ability";
 import { AuthorizatoinError } from "@/shared/lib/errors";
 import { CategoryRepository } from "../server";
@@ -16,13 +15,11 @@ const resultSchema = z.object({
 type ResultT = { categoryList: Category[] };
 
 @injectable()
-export class GetCategoryListService extends Service {
+export class GetCategoryListService {
   constructor(
     private readonly categoryRepo: CategoryRepository,
     private readonly sessionService: SessionService,
-  ) {
-    super();
-  }
+  ) {}
 
   async execute(): Promise<ResultT> {
     const { canGetCategory } = createCategoryAbility(await this.getSession());

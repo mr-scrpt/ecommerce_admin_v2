@@ -1,4 +1,4 @@
-import { configPrivate } from "@/shared/config/private.config";
+import { configPrivate } from "@/kernel/config/private.config";
 import { dbClient } from "@/shared/lib/db";
 import { COOKIE_NETWORK_NAME } from "@/shared/session/constant";
 import { getNetworkClientCookie } from "@/shared/session/coockieParser";

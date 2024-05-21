@@ -1,12 +1,12 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { Socket } from "socket.io-client";
-import { socketClient } from "../config/socket";
 import {
   createStrictContext,
   useEventCallback,
   useStrictContext,
 } from "./react";
+import { socketClient } from "@/kernel/config/socket";
 
 const socketContext = createStrictContext<Socket>();
 const isConnectedContext = createStrictContext<boolean>();
