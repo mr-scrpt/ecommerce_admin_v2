@@ -1,6 +1,5 @@
 import { SessionEntity } from "@/kernel/domain/session.type";
-import { createServerSideHelpers } from "@trpc/react-query/server";
-import { AnyRouter, TRPCError } from "@trpc/server";
+import { TRPCError } from "@trpc/server";
 import { ZodTypeAny, z } from "zod";
 import { t } from "./_inti";
 
@@ -62,9 +61,3 @@ export const checkAbilityInputProcedure = <Ability, Input extends ZodTypeAny>({
       },
     });
   });
-
-export const createPublicServerApi = <T extends AnyRouter>(router: T) =>
-  createServerSideHelpers<T>({
-    router: router,
-    ctx: () => ({}),
-  } as any);

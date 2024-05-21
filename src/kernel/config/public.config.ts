@@ -1,11 +1,11 @@
 import { z } from "zod";
 
-const publicConfigSchema = z.object({
+const configPublicSchema = z.object({
   isDev: z.boolean(),
   PUBLIC_URL: z.string(),
 });
 
-export const publicConfig = publicConfigSchema.parse({
+export const configPublic = configPublicSchema.parse({
   isDev: process.env.NODE_ENV === "development",
   PUBLIC_URL: process.env.NEXT_PUBLIC_PUBLIC_URL,
 });
