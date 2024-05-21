@@ -22,6 +22,7 @@ export class GetCategoryListService {
   ) {}
 
   async execute(): Promise<ResultT> {
+    console.log("output_log:  =>>> in request");
     const { canGetCategory } = createCategoryAbility(await this.getSession());
 
     if (!canGetCategory()) {

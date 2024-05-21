@@ -1,5 +1,5 @@
 import { ToCategoryCreateButton } from "@/features/categoryCreate";
-import { RoutePathEnum } from "@/shared/config/routing.config";
+import { RoutePathEnum } from "@/kernel/config/routing.config";
 import { TitlePage } from "@/shared/ui/titlePage";
 import { CategoryTable } from "@/widgets/categoryTable";
 import { FC, HTMLAttributes } from "react";

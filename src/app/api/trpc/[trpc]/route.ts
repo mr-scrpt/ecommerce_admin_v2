@@ -5,6 +5,7 @@ import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
 
 const routers = appModule.getAll(Controller).map((c) => c.router);
 
+console.log("output_log:  =>>> in route.ts", routers);
 const handler = (req: Request) =>
   fetchRequestHandler({
     endpoint: "/api/trpc",

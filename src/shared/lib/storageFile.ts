@@ -1,6 +1,6 @@
+import { configPrivate } from "@/kernel/config/private.config";
 import { S3Client } from "@aws-sdk/client-s3";
 import { Upload } from "@aws-sdk/lib-storage";
-import { configPrivate } from "../config/private.config";
 import { createId } from "@paralleldrive/cuid2";
 
 export type StoredFile = {

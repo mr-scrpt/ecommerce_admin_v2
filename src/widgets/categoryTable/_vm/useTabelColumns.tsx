@@ -2,7 +2,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { categoryColumns } from "../_data/columns";
 import { CategoryTableAction } from "../_ui/categoryTableAction";
 import { CategoryColumnType } from "../_type/table.type";
-import { RoutePathEnum } from "@/shared/config/routing.config";
+import { RoutePathEnum } from "@/kernel/config/routing.config";
 
 interface HandlersProps {
   onDeleteClick: (id: string) => void;

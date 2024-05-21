@@ -10,6 +10,11 @@ export class CategoryController extends Controller {
   }
 
   public router = router({
-    get: publicProcedure.query(() => this.courseService.execute()),
+    category: {
+      get: publicProcedure.query(() => {
+        console.log("output_log:  =>>> in trcp");
+        return this.courseService.execute();
+      }),
+    },
   });
 }
