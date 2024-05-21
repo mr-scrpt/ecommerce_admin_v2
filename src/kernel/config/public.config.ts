@@ -7,5 +7,5 @@ const configPublicSchema = z.object({
 
 export const configPublic = configPublicSchema.parse({
   isDev: process.env.NODE_ENV === "development",
-  PUBLIC_URL: process.env.NEXT_PUBLIC_PUBLIC_URL,
+  PUBLIC_URL: process.env.NEXT_BASE_URL,
 });

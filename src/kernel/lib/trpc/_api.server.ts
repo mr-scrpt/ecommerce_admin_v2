@@ -3,6 +3,6 @@ import { AnyRouter } from "@trpc/server";
 
 export const createPublicServerApi = <T extends AnyRouter>(router: T) =>
   createServerSideHelpers<T>({
-    router: router,
+    router,
     ctx: () => ({}),
   } as any);

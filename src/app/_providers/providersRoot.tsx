@@ -9,6 +9,7 @@ import { FC, HTMLAttributes } from "react";
 import { ProviderWS } from "./providerWS";
 import { SessionProvider } from "@/kernel/lib/nextauth";
 import { InitUserData } from "../_init/initUserData";
+import { ProviderTRPC } from "./providerTRPC";
 
 interface ProvidersRootProps extends HTMLAttributes<HTMLDivElement> {}
 
@@ -17,9 +18,10 @@ export const ProvidersRoot: FC<ProvidersRootProps> = (props) => {
   return (
     <>
       <ComposeChildren>
+        <ProviderTRPC />
         <ThemeProvider />
         <SessionProvider />
-        <QueryClientProvider client={queryClient} />
+        {/* <QueryClientProvider client={queryClient} /> */}
         <ProviderWS />
         <Confirmation />
         <ModalProvider />
