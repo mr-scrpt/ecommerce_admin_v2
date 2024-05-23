@@ -1,6 +1,6 @@
 export { categoryFormSchema } from "./_domain/form.schema";
 // export { useCategoryQuery } from "./_query/category.query";
-// export { useCategoryListQuery } from "./_query/categoryList.query";
+export { useCategoryListQuery } from "./_query/categoryList.query";
 // export { useCategoryWithRelationQuery } from "./_query/categoryWithRelation.query";
 export { CategoryForm } from "./_ui/categoryForm";
 

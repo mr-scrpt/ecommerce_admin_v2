@@ -1,11 +1,11 @@
-import { categoryApi } from "@/entities/category";
+import { useCategoryListQuery } from "@/entities/category";
 import { buildDate } from "@/shared/lib/date";
 
 export const useCategoryTableList = () => {
-  const { data, isPending, isSuccess, isFetchedAfterMount } =
-    categoryApi.category.getList.useQuery();
+  const { categoryList, isPending, isSuccess, isFetchedAfterMount } =
+    useCategoryListQuery();
 
-  const categoryList = data?.map((item) => ({
+  const categoryListBuild = categoryList?.map((item) => ({
     id: item.id,
     name: item.name,
     slug: item.slug,
@@ -16,6 +16,6 @@ export const useCategoryTableList = () => {
     isPending,
     isSuccess,
     isFetchedAfterMount,
-    categoryList: categoryList ?? [],
+    categoryList: categoryListBuild ?? [],
   };
 };

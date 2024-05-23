@@ -1,6 +1,6 @@
 import { selectFile, validateImgSizeMedium } from "@/shared/lib/file";
 import { useMutation } from "@tanstack/react-query";
-import { uploadBoardListAction } from "../_action/uploadBoardList";
+import { uploadBoardListAction } from "../_action/uploadBoardList.action";
 import { BOARD_LIST_FILE_KEY } from "../_constant/formData.contstant";
 
 interface UseUploadBoardListProps {
