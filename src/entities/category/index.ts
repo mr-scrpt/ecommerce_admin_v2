@@ -1,7 +1,13 @@
 export { categoryFormSchema } from "./_domain/form.schema";
-// export { useCategoryQuery } from "./_query/category.query";
-export { useCategoryListQuery } from "./_query/categoryList.query";
-// export { useCategoryWithRelationQuery } from "./_query/categoryWithRelation.query";
+export {
+  useCategoryListQuery,
+  useInvalidateCategoryList,
+} from "./_query/categoryList.query";
+export {
+  useCategoryWithRelationQuery,
+  useInvalidateCategoryWithRelation,
+} from "./_query/categoryWithRelation.query";
+
 export { CategoryForm } from "./_ui/categoryForm";
 
 export { useCategoryLikeSelectOptionList } from "./_vm/useCategoryLikeSelectOptionList";

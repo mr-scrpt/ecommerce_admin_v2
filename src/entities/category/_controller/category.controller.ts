@@ -9,18 +9,6 @@ import {
 import { GetCategoryListService } from "../_service/getCategoryList.service";
 import { GetCategoryService } from "../_service/getCategory.service";
 
-// const withUserIdSchema = z.object({
-//   userId: z.string(),
-// });
-//
-// const categoryIdSchema = z.object({
-//   id: z.string(),
-// });
-//
-// const categorySlugSchema = z.object({
-//   slug: z.string(),
-// });
-
 const categoryListSchema = z.array(categorySchema);
 
 const getCategorySchema = z

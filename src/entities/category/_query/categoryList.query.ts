@@ -17,5 +17,6 @@ export const useCategoryListQuery = () => {
 };
 
 export const useInvalidateCategoryList = () => {
-  categoryApi.useUtils().invalidate();
+  const invalidateCategory = categoryApi.useUtils().category.getList.invalidate;
+  return () => invalidateCategory();
 };

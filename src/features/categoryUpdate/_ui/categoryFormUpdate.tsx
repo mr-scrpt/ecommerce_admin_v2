@@ -14,6 +14,7 @@ import { FC, HTMLAttributes } from "react";
 import { z } from "zod";
 import { useCategoryUpdateMutation } from "../_mutation/useCategoryUpdate.mutation";
 import { useOptionListTransform } from "@/shared/lib/map";
+import { useCategoryWithRelationQuery } from "@/entities/category";
 
 interface CategoryFormProps extends HTMLAttributes<HTMLDivElement> {
   categoryId: CategoryId;
@@ -27,12 +28,10 @@ type CategoryFormValues = z.infer<typeof categoryFormSchema>;
 export const CategoryFormUpdate: FC<CategoryFormProps> = (props) => {
   const { categoryId, callbackUrl, className, onSuccess } = props;
 
-  const { data, isPending, isFetchedAfterMount } =
-    categoryApi.category.getWithRelation.useQuery({
-      categoryId,
-    });
+  const { category, isPending, isFetchedAfterMount } =
+    useCategoryWithRelationQuery({ categoryId });
 
-  console.log("output_log: category with relation =>>>", data);
+  console.log("output_log: category with relation =>>>", category);
 
   // const {
   //   isPending: isPendingCategory,
