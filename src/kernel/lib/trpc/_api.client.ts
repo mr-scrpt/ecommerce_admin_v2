@@ -6,7 +6,7 @@ import {
 import { CreateTRPCReact, createTRPCReact } from "@trpc/react-query";
 import { SharedRouter } from "./server";
 import { AnyRouter } from "@trpc/server";
-import { configPublic } from "@/kernel/config/public.config";
+import { configPublic } from "@/shared/config/public.config";
 
 export const sharedApi = createTRPCReact<SharedRouter>();
 

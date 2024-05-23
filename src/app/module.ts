@@ -18,5 +18,3 @@ export const loadModule = () => {
 };
 
 export const appModule = loadModule();
-
-console.log("output_log: appModule =>>>", appModule);

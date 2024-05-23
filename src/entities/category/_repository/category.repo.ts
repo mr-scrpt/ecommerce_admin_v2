@@ -18,11 +18,13 @@ export class CategoryRepository {
     categoryId: CategoryId,
     db: Tx = this.db,
   ): Promise<CategoryEntity> {
-    return db.category.findUniqueOrThrow({
+    const res = db.category.findUniqueOrThrow({
       where: {
         id: categoryId,
       },
     });
+
+    return res;
   }
 
   async getCategoryWithRelation(
@@ -49,6 +51,21 @@ export class CategoryRepository {
     return db.category.findUniqueOrThrow({
       where: {
         slug,
+      },
+    });
+  }
+
+  async getCategoryBySlugWithRelation(
+    slug: string,
+    db: Tx = this.db,
+  ): Promise<CategoryRelationEntity> {
+    return await db.category.findUniqueOrThrow({
+      where: {
+        slug,
+      },
+      include: {
+        propertyList: true,
+        productList: true,
       },
     });
   }

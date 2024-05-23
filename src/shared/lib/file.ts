@@ -1,4 +1,4 @@
-import { FILE_SIZE_IMG_SIZE_MEDIUM } from "@/kernel/config/file.config";
+import { FILE_SIZE_IMG_SIZE_MEDIUM } from "../config/file.config";
 
 export function selectFile(
   contentType: string,

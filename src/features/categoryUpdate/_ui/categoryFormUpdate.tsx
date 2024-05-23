@@ -2,8 +2,9 @@
 import {
   CategoryForm,
   CategoryId,
+  categoryApi,
   categoryFormSchema,
-  useCategoryWithRelationQuery,
+  // useCategoryWithRelationQuery,
 } from "@/entities/category";
 import { usePropertyLikeSelectOptionList } from "@/entities/property";
 import { Spinner } from "@/shared/ui/icons/spinner";
@@ -26,12 +27,19 @@ type CategoryFormValues = z.infer<typeof categoryFormSchema>;
 export const CategoryFormUpdate: FC<CategoryFormProps> = (props) => {
   const { categoryId, callbackUrl, className, onSuccess } = props;
 
-  const {
-    isPending: isPendingCategory,
-    isFetchedAfterMount,
-    category,
-  } = useCategoryWithRelationQuery(categoryId);
-  console.log("output_log: cat  =>>>", category);
+  const { data, isPending, isFetchedAfterMount } =
+    categoryApi.category.getWithRelation.useQuery({
+      categoryId,
+    });
+
+  console.log("output_log: category with relation =>>>", data);
+
+  // const {
+  //   isPending: isPendingCategory,
+  //   isFetchedAfterMount,
+  //   category,
+  // } = useCategoryWithRelationQuery(categoryId);
+  // console.log("output_log: cat  =>>>", category);
 
   // const router = useRouter();
   //

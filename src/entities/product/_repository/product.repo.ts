@@ -138,7 +138,6 @@ export class ProductRepository {
     db: Tx = this.db,
   ): Promise<ProductEntity> {
     const { productId, propertyListId } = data;
-    console.log("output_log: in repo =>>>", productId, propertyListId);
     return db.product.update({
       where: {
         id: productId,

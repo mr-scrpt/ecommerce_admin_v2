@@ -1,6 +1,6 @@
 "use client";
-import { configPublic } from "@/kernel/config/public.config";
 import { sharedApi } from "@/kernel/lib/trpc/client";
+import { configPublic } from "@/shared/config/public.config";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { TRPCUntypedClient, httpBatchLink } from "@trpc/client";
 import { AnyRouter } from "@trpc/server";

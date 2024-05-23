@@ -1,8 +1,9 @@
-import { UserEntity, UserToCreate } from "@/entities/user/_domain/user.types";
+import { UserToCreate } from "@/entities/user/_domain/user.types";
 import { UserCreateTx } from "../_tx/userCreate.transaction";
-import { configPrivate } from "@/shared/config/private.config";
-import { ROLES } from "@/shared/lib/user";
 import { injectable } from "inversify";
+import { UserEntity } from "@/entities/user/user";
+import { configPrivate } from "@/shared/config/private.config";
+import { ROLES } from "@/kernel/domain/role.type";
 
 @injectable()
 export class CreateUserRegistrationUseCase {

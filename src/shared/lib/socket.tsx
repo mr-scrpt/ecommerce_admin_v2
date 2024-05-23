@@ -6,7 +6,7 @@ import {
   useEventCallback,
   useStrictContext,
 } from "./react";
-import { socketClient } from "@/kernel/config/socket";
+import { socketClient } from "../config/socket";
 
 const socketContext = createStrictContext<Socket>();
 const isConnectedContext = createStrictContext<boolean>();

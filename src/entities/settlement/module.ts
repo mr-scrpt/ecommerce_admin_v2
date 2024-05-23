@@ -5,7 +5,7 @@ import { NovaPoshtaRepository } from "./_repository/novaposhta.repo";
 import { SettlementRepository } from "./_repository/settlement.repo";
 import { GetSettlementListSearchToSelectUseCase } from "./_usecase/getSettlementListSearchToSelect.usecase";
 import { InitSettlementListUseCase } from "./_usecase/initSettlementList.usecase";
-import { configPrivate } from "@/kernel/config/private.config";
+import { configPrivate } from "@/shared/config/private.config";
 
 export const settlementContainer = new Container();
 

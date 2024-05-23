@@ -2,8 +2,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { signIn } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
-import { generateTestLink } from "../_lib/generateTestAuthLink";
-import { configPrivate } from "@/shared/config/private.config";
 
 export const useTestEmailSignIn = () =>
   // {
