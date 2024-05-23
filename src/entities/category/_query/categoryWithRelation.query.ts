@@ -9,7 +9,7 @@ type CategoryPayload = {
 
 export const useCategoryWithRelationQuery = (params: CategoryPayload) => {
   const { data, isPending, isSuccess, isFetchedAfterMount } =
-    categoryApi.category.getWithRelation.useQuery(params);
+    categoryApi.getWithRelation.useQuery(params);
 
   useListenCategoryUpdate();
 
@@ -22,7 +22,6 @@ export const useCategoryWithRelationQuery = (params: CategoryPayload) => {
 };
 
 export const useInvalidateCategoryWithRelation = () => {
-  const invalidateCategory =
-    categoryApi.useUtils().category.getWithRelation.invalidate;
+  const invalidateCategory = categoryApi.useUtils().getWithRelation.invalidate;
   return (categoryId: string) => invalidateCategory({ categoryId });
 };

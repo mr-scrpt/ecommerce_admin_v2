@@ -30,16 +30,14 @@ export class CategoryController extends Controller {
   }
 
   public router = router({
-    category: {
-      getWithRelation: publicProcedure
-        .input(getCategorySchema)
-        .output(categoryRelationSchema)
-        .query(({ input }) => {
-          return this.getCategoryService.execute(input);
-        }),
-      getList: publicProcedure.output(categoryListSchema).query(() => {
-        return this.getCategoryListService.execute();
+    getWithRelation: publicProcedure
+      .input(getCategorySchema)
+      .output(categoryRelationSchema)
+      .query(({ input }) => {
+        return this.getCategoryService.execute(input);
       }),
-    },
+    getList: publicProcedure.output(categoryListSchema).query(() => {
+      return this.getCategoryListService.execute();
+    }),
   });
 }

@@ -20,12 +20,10 @@ export class CategoryRemoveController extends Controller {
   }
 
   public router = router({
-    categoryRemove: {
-      remove: publicProcedure
-        .input(removeCategorySchema)
-        .mutation(async ({ input }) => {
-          return this.removeCategoryService.execute(input);
-        }),
-    },
+    remove: publicProcedure
+      .input(removeCategorySchema)
+      .mutation(async ({ input }) => {
+        return this.removeCategoryService.execute(input);
+      }),
   });
 }

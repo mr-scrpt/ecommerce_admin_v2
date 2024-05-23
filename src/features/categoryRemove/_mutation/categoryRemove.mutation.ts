@@ -6,7 +6,7 @@ import { useEmitCategoryRemove } from "../_vm/event/useEmitCategoryRemove";
 export const useCategoryRemoveMutation = () => {
   const { categoryRemoveEvent } = useEmitCategoryRemove();
   const { isPending, isSuccess, mutateAsync } =
-    categoryRemoveApi.categoryRemove.remove.useMutation({
+    categoryRemoveApi.remove.useMutation({
       onSuccess: ({ id }) => {
         categoryRemoveEvent(id);
       },
