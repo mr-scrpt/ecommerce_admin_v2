@@ -1,16 +1,16 @@
 import { Container, ContainerModule } from "inversify";
 import { CategoryRepository } from "./_repository/category.repo";
-import { GetCategoryListService } from "./_service/getCategoryList.service";
+import { CategoryListGetService } from "./_service/CategoryListGet.service";
 import { CategoryController } from "./_controller/category.controller";
 import { Controller } from "@/kernel/lib/trpc/module";
-import { GetCategoryService } from "./_service/getCategory.service";
+import { CategoryGetService } from "./_service/CategoryGet.service";
 
 export const categoryContainer = new Container();
 
 export const CategoryModule = new ContainerModule((bind) => {
   bind(CategoryRepository).toSelf();
-  bind(GetCategoryListService).toSelf();
-  bind(GetCategoryService).toSelf();
+  bind(CategoryListGetService).toSelf();
+  bind(CategoryGetService).toSelf();
   bind(Controller).to(CategoryController);
 });
 

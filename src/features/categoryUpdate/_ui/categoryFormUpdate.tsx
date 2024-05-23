@@ -4,6 +4,7 @@ import {
   CategoryId,
   categoryApi,
   categoryFormSchema,
+  useInvalidateCategoryWithRelation,
   // useCategoryWithRelationQuery,
 } from "@/entities/category";
 import { usePropertyLikeSelectOptionList } from "@/entities/property";
@@ -15,6 +16,7 @@ import { z } from "zod";
 import { useCategoryUpdateMutation } from "../_mutation/useCategoryUpdate.mutation";
 import { useOptionListTransform } from "@/shared/lib/map";
 import { useCategoryWithRelationQuery } from "@/entities/category";
+import { Button } from "@/shared/ui/button";
 
 interface CategoryFormProps extends HTMLAttributes<HTMLDivElement> {
   categoryId: CategoryId;
@@ -30,8 +32,6 @@ export const CategoryFormUpdate: FC<CategoryFormProps> = (props) => {
 
   const { category, isPending, isFetchedAfterMount } =
     useCategoryWithRelationQuery({ categoryId });
-
-  console.log("output_log: category with relation =>>>", category);
 
   // const {
   //   isPending: isPendingCategory,

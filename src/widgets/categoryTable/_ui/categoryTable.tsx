@@ -16,15 +16,16 @@ export const CategoryTable: FC<CategoryTableProps> = (props) => {
     isFetchedAfterMount,
   } = useCategoryTableList();
 
-  // const {
-  //   removeCategoryConfirm: onDeleteClick,
-  //   isPending: isPendingRemoveCategory,
-  // } = useCategoryRemoveConfirm();
+  const {
+    removeCategoryConfirm: onDeleteClick,
+    isPending: isPendingRemoveCategory,
+  } = useCategoryRemoveConfirm();
 
-  const isPendingComplexible = isPendingCategoryList || !isFetchedAfterMount;
+  const isPendingComplexible =
+    isPendingCategoryList || !isFetchedAfterMount || isPendingRemoveCategory;
 
   const categoryColumns = useTableColumns({
-    onDeleteClick: (id: string) => {},
+    onDeleteClick,
   });
 
   if (isPendingComplexible) {

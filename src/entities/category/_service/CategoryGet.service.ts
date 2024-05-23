@@ -3,23 +3,23 @@ import { CategoryRelationEntity } from "../_domain/types";
 import { CategoryRepository } from "../_repository/category.repo";
 import { OperationsMap } from "@/shared/type/operation.type";
 
-type GetCategoryWithRelation = {
+type CategoryGetWithRelation = {
   categoryId?: string;
   categorySlug?: string;
 };
 
 @injectable()
-export class GetCategoryService {
+export class CategoryGetService {
   constructor(private readonly categoryRepo: CategoryRepository) {}
 
   async execute(
-    props: GetCategoryWithRelation,
+    props: CategoryGetWithRelation,
   ): Promise<CategoryRelationEntity> {
     return await this.operation(props);
   }
 
   async operation(
-    props: GetCategoryWithRelation,
+    props: CategoryGetWithRelation,
   ): Promise<CategoryRelationEntity> {
     const operationsMap: OperationsMap<CategoryRelationEntity> = {
       categoryId: (categoryId: string) =>
@@ -29,7 +29,7 @@ export class GetCategoryService {
     };
 
     for (const key of Object.keys(props)) {
-      const value = props[key as keyof GetCategoryWithRelation];
+      const value = props[key as keyof CategoryGetWithRelation];
       if (value && operationsMap[key]) {
         return await operationsMap[key](value);
       }

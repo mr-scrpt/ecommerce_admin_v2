@@ -149,4 +149,11 @@ export class CategoryRepository {
   ): Promise<CategoryEntity> {
     return await db.category.delete({ where: { id: categoryId } });
   }
+
+  async removeCategoryBySlug(
+    slug: string,
+    db: Tx = this.db,
+  ): Promise<CategoryEntity> {
+    return await db.category.delete({ where: { slug } });
+  }
 }

@@ -2,7 +2,7 @@ import { injectable } from "inversify";
 import { CategoryRepository } from "../server";
 
 @injectable()
-export class GetCategoryListService {
+export class CategoryListGetService {
   constructor(private readonly categoryRepo: CategoryRepository) {}
 
   async execute() {

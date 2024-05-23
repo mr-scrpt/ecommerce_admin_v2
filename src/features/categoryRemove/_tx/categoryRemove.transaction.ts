@@ -19,4 +19,12 @@ export class CategoryRemoveTx extends Transaction {
 
     return await this.start(action);
   }
+
+  async removeCategoryBySlug(categorySlug: string): Promise<CategoryEntity> {
+    const action = async (tx: Tx) => {
+      return await this.categoryRepo.removeCategoryBySlug(categorySlug, tx);
+    };
+
+    return await this.start(action);
+  }
 }

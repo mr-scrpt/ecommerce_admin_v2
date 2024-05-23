@@ -5,6 +5,7 @@ import { DbModule } from "@/shared/lib/db";
 import { Container, ContainerModule } from "inversify";
 import { CategoryModule } from "@/entities/category/module";
 import { Controller, TrpcModule } from "@/kernel/lib/trpc/module";
+import { CategoryRemoveModule } from "@/features/categoryRemove/module";
 
 // const ControllerModule = new ContainerModule((bind) => {
 //   bind(Controller).toSelf();
@@ -13,7 +14,13 @@ import { Controller, TrpcModule } from "@/kernel/lib/trpc/module";
 export const loadModule = () => {
   const container = new Container();
 
-  container.load(DbModule, NextAuthModule, TrpcModule, CategoryModule);
+  container.load(
+    DbModule,
+    NextAuthModule,
+    TrpcModule,
+    CategoryModule,
+    CategoryRemoveModule,
+  );
   return container;
 };
 

@@ -6,8 +6,8 @@ import {
   categoryRelationSchema,
   categorySchema,
 } from "../_domain/category.schema";
-import { GetCategoryListService } from "../_service/getCategoryList.service";
-import { GetCategoryService } from "../_service/getCategory.service";
+import { CategoryListGetService } from "../_service/CategoryListGet.service";
+import { CategoryGetService } from "../_service/CategoryGet.service";
 
 const categoryListSchema = z.array(categorySchema);
 
@@ -23,8 +23,8 @@ const getCategorySchema = z
 @injectable()
 export class CategoryController extends Controller {
   constructor(
-    private readonly getCategoryListService: GetCategoryListService,
-    private readonly getCategoryService: GetCategoryService,
+    private readonly getCategoryListService: CategoryListGetService,
+    private readonly getCategoryService: CategoryGetService,
   ) {
     super();
   }
