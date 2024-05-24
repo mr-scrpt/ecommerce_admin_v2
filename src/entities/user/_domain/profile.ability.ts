@@ -1,8 +1,9 @@
-import { ROLES, SessionEntity, UserId } from "@/shared/lib/user";
+import { ROLES } from "@/kernel/domain/role.type";
+import { SessionEntity } from "@/kernel/domain/session.type";
 
 export const createProfileAbility = (session: SessionEntity) => ({
-  canGetProfile: (userId: UserId) => true,
+  canGetProfile: (userId: string) => true,
 
-  canUpdateProfile: (userId: UserId) =>
+  canUpdateProfile: (userId: string) =>
     session.user.id === userId || session.user.role === ROLES.ADMIN,
 });

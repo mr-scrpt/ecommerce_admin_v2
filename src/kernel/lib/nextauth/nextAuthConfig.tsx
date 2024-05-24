@@ -9,7 +9,9 @@ import { compact } from "lodash-es";
 import { AuthOptions } from "next-auth";
 import EmailProvider from "next-auth/providers/email";
 import GithubProvider from "next-auth/providers/github";
-import { CreateUserService } from "./type";
+import { UserCreateServiceAbstract } from "./type";
+import { socketClient } from "@/shared/config/socket";
+import { WSEventEnum } from "@/shared/type/websokcetEvent.enum";
 
 const {
   GITHUB_SECRET,
@@ -27,38 +29,38 @@ const prismaAdapter = PrismaAdapter(dbClient);
 
 @injectable()
 export class NextAuthConfig {
-  constructor(private readonly createUserService: CreateUserService) {}
+  // constructor(private readonly createUserService: UserCreateServiceAbstract) {}
   options: AuthOptions = {
     adapter: {
       ...prismaAdapter,
       // createUser: async (user) => {
-      //   return await this.createUserService.exec(user);
-      //   // const socket = socketClient("");
-      //   // try {
-      //   //   const newUser = await createUserRegistrationUseCase.exec({
-      //   //     ...user,
-      //   //     name: user.name ?? "",
-      //   //     phone: user.phone ?? "",
-      //   //     image: user.image ?? "",
-      //   //   });
-      //   //
-      //   //   await new Promise<void>((resolve, reject) => {
-      //   //     socket.connect();
-      //   //     socket.emit(WSEventEnum.USER_CREATE, () => {
-      //   //       resolve();
-      //   //     });
-      //   //
-      //   //     socket.on("error", (error) => {
-      //   //       reject(error);
-      //   //     });
-      //   //   });
-      //   //
-      //   //   return newUser;
-      //   // } catch (error) {
-      //   //   throw error;
-      //   // } finally {
-      //   //   socket.disconnect();
-      //   // }
+      //   // return await this.createUserService.exec(user);
+      //   const socket = socketClient("");
+      //   try {
+      //     const newUser = await this.createUserService.exec({
+      //       ...user,
+      //       name: user.name ?? "",
+      //       phone: user.phone ?? "",
+      //       image: user.image ?? "",
+      //     });
+      //
+      //     await new Promise<void>((resolve, reject) => {
+      //       socket.connect();
+      //       socket.emit(WSEventEnum.USER_CREATE, () => {
+      //         resolve();
+      //       });
+      //
+      //       socket.on("error", (error) => {
+      //         reject(error);
+      //       });
+      //     });
+      //
+      //     return newUser;
+      //   } catch (error) {
+      //     throw error;
+      //   } finally {
+      //     socket.disconnect();
+      //   }
       // },
     } as AuthOptions["adapter"],
 

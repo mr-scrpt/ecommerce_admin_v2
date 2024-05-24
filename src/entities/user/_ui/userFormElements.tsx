@@ -1,6 +1,5 @@
 "use client";
 import { buildDate } from "@/shared/lib/date";
-import { ROLES } from "@/shared/lib/user";
 import { Button } from "@/shared/ui/button";
 import {
   Form,
@@ -25,6 +24,7 @@ import {
 } from "../_domain/user.schema";
 import { UserPartial } from "../user";
 import { AvatarField } from "./avatarField";
+import { ROLES } from "@/kernel/domain/role.type";
 
 interface UserFormElementsProps extends HTMLAttributes<HTMLFormElement> {
   user?: UserPartial;

@@ -4,7 +4,7 @@ import { useListenCategoryListUpdate } from "../_vm/event/useListenCategoryListU
 
 export const useCategoryListQuery = () => {
   const { data, isPending, isSuccess, isFetchedAfterMount } =
-    categoryApi.getList.useQuery();
+    categoryApi.category.getList.useQuery();
 
   useListenCategoryListUpdate();
 
@@ -17,6 +17,6 @@ export const useCategoryListQuery = () => {
 };
 
 export const useInvalidateCategoryList = () => {
-  const invalidateCategory = categoryApi.useUtils().getList.invalidate;
+  const invalidateCategory = categoryApi.useUtils().category.getList.invalidate;
   return () => invalidateCategory();
 };

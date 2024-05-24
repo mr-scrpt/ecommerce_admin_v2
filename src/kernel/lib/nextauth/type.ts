@@ -11,6 +11,6 @@ type UserToCreate = {
 };
 
 @injectable()
-export abstract class CreateUserService {
-  abstract exec(data: UserToCreate): Promise<UserEntity>;
+export abstract class UserCreateServiceAbstract {
+  abstract execute(data: UserToCreate): Promise<UserEntity>;
 }

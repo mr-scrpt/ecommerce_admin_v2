@@ -1,5 +1,6 @@
 import { Role } from "@/kernel/domain/role.type";
-import { UserEntity } from "@/kernel/domain/user.type";
+import type { UserEntity } from "@/kernel/domain/user.type";
+export { UserEntity };
 
 export const userBaseQueryKey = "user";
 

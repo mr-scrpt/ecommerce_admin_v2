@@ -1,18 +1,12 @@
-import { UserRepository } from "@/entities/user/user.server";
-import { CreateUserService } from "@/shared/session/types";
-import { Container, ContainerModule } from "inversify";
+import { UserCreateServiceAbstract } from "@/kernel/lib/nextauth/type";
+import { Controller } from "@/kernel/lib/trpc/server";
+import { ContainerModule } from "inversify";
+import { UserCreateController } from "./_controller/userCreate.controller";
+import { UserCreateService } from "./_service/userCreate.service";
 import { UserCreateTx } from "./_tx/userCreate.transaction";
-import { CreateUserUseCase } from "./_useCase/createUser.usecase";
-import { CreateUserRegistrationUseCase } from "./_useCase/createUserRegistration.usecase";
-
-export const userCreateContainer = new Container();
 
 export const UserCreateModule = new ContainerModule((bind) => {
-  bind(UserRepository).toSelf();
   bind(UserCreateTx).toSelf();
-  bind(CreateUserUseCase).toSelf();
-  bind(CreateUserRegistrationUseCase).toSelf();
-  bind(CreateUserService).to(CreateUserRegistrationUseCase);
+  bind(UserCreateServiceAbstract).to(UserCreateService);
+  bind(Controller).to(UserCreateController);
 });
-
-userCreateContainer.load(UserCreateModule);

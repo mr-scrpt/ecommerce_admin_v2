@@ -1,8 +1,8 @@
 import { ProfileRepository } from "@/entities/user/profile.server";
-import { UserEntity } from "@/entities/user/user.server";
 import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
 import { injectable } from "inversify";
 import { ProfileUpdateComplexible } from "../_domain/types";
+import { UserEntity } from "@/entities/user/user";
 
 @injectable()
 export class ProfileUpdateTx extends Transaction {

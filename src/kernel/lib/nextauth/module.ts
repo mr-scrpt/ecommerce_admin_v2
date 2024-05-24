@@ -1,10 +1,10 @@
 import { ContainerModule } from "inversify";
 import { NextAuthConfig } from "./nextAuthConfig";
 import { SessionService } from "./session.service";
-import { CreateUserService } from "./type";
+// import { UserCreateService } from "./type";
 
 export const NextAuthModule = new ContainerModule((bind) => {
   bind(NextAuthConfig).toSelf();
   bind(SessionService).toSelf();
-  bind(CreateUserService).toSelf();
+  // bind(UserCreateService).toSelf();
 });

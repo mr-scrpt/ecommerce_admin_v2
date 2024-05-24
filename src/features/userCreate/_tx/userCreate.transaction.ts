@@ -1,6 +1,7 @@
 import { CartRepository } from "@/entities/cart/server";
-import { UserEntity, UserToCreate } from "@/entities/user/user.server";
+import { UserToCreate } from "@/entities/user/user.server";
 import { UserRepository } from "@/entities/user/user.server";
+import { UserEntity } from "@/kernel/domain/user.type";
 import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
 import { injectable } from "inversify";
 

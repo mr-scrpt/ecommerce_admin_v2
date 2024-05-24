@@ -1,19 +1,15 @@
-import { useMutation } from "@tanstack/react-query";
-import { createUserAction } from "../_action/userCreate.action";
 import { useEmitUserUpdate } from "../_vm/event/useEmitUserUpdate";
-
-const baseKey = "userCreateMutation";
+import { userCreateApi } from "../_api/userCreate.api";
 
 export const useUserCreateMutation = () => {
   const { userUpdateEvent } = useEmitUserUpdate();
 
-  const { mutateAsync, isPending } = useMutation({
-    mutationKey: [baseKey],
-    mutationFn: createUserAction,
-    onSuccess: async ({ user }) => {
-      userUpdateEvent(user.id);
-    },
-  });
+  const { mutateAsync, isPending } =
+    userCreateApi.userCreate.create.useMutation({
+      onSuccess: async ({ id }) => {
+        userUpdateEvent(id);
+      },
+    });
   return {
     createUser: mutateAsync,
     isPending,

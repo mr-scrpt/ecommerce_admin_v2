@@ -1,9 +1,8 @@
 import { DBClient, Tx } from "@/shared/lib/db";
-import { UserId } from "@/shared/lib/user";
 import { injectable } from "inversify";
+import { UserEntity } from "../_domain/user.types";
 import {
   User,
-  UserEntity,
   UserToCreate,
   UserWithCartEntity,
   UserWithOrdersEntity,
@@ -13,7 +12,7 @@ import {
 export class UserRepository {
   constructor(readonly db: DBClient) {}
 
-  async getUser(userId: UserId, db: Tx = this.db): Promise<UserEntity> {
+  async getUser(userId: string, db: Tx = this.db): Promise<UserEntity> {
     const user = await db.user.findUniqueOrThrow({
       where: {
         id: userId,
@@ -23,7 +22,7 @@ export class UserRepository {
   }
 
   async getUserWithCart(
-    userId: UserId,
+    userId: string,
     db: Tx = this.db,
   ): Promise<UserWithCartEntity> {
     const user = await db.user.findUniqueOrThrow({
@@ -42,7 +41,7 @@ export class UserRepository {
   }
 
   async getUserWithOrderList(
-    userId: UserId,
+    userId: string,
     db: Tx = this.db,
   ): Promise<UserWithOrdersEntity> {
     const user = await db.user.findUniqueOrThrow({
@@ -89,7 +88,7 @@ export class UserRepository {
   }
 
   async updateUser(
-    targetId: UserId,
+    targetId: string,
     userData: Partial<User>,
     db: Tx = this.db,
   ): Promise<UserEntity> {
@@ -99,7 +98,7 @@ export class UserRepository {
     });
   }
 
-  async removeUserById(userId: UserId, db: Tx = this.db): Promise<UserEntity> {
+  async removeUserById(userId: string, db: Tx = this.db): Promise<UserEntity> {
     return await db.user.delete({ where: { id: userId } });
   }
 }
