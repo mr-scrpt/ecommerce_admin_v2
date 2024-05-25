@@ -1,5 +1,5 @@
 import { configPrivate } from "@/shared/config/private.config";
-import { dbClient } from "@/shared/lib/db";
+import { dbClient } from "@/shared/lib/db/db";
 import { COOKIE_NETWORK_NAME } from "@/shared/session/constant";
 import { getNetworkClientCookie } from "@/shared/session/coockieParser";
 import { PrismaAdapter } from "@auth/prisma-adapter";

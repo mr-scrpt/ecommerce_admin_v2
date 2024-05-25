@@ -3,7 +3,7 @@ import {
   PropertyItemRepository,
   PropertyRepository,
 } from "@/entities/property/server";
-import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
+import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db/db";
 import { PropertyUpdateComplexible } from "../_domain/types";
 import { injectable } from "inversify";
 

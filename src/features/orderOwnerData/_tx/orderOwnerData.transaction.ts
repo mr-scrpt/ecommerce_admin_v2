@@ -1,5 +1,5 @@
 import { OrderRepository } from "@/entities/order/server";
-import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
+import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
 import { OrderOwnerDataEntity } from "../_domain/types";
 import { UserRepository } from "@/entities/user/user.server";

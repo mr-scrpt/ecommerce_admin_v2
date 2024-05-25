@@ -1,6 +1,6 @@
 import { StoreEntity } from "@/entities/store";
 import { StoreRepository } from "@/entities/store/server";
-import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
+import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
 
 @injectable()

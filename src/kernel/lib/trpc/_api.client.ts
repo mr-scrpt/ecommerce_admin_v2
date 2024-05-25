@@ -7,6 +7,7 @@ import { CreateTRPCReact, createTRPCReact } from "@trpc/react-query";
 import { SharedRouter } from "./server";
 import { AnyRouter } from "@trpc/server";
 import { configPublic } from "@/shared/config/public.config";
+import superjson from "superjson";
 
 export const sharedApi = createTRPCReact<SharedRouter>();
 
@@ -17,6 +18,7 @@ export const sharedHttpApi = createTRPCClient<SharedRouter>({
   links: [
     httpBatchLink({
       url: `${configPublic.PUBLIC_URL}/api/trpc`,
+      transformer: superjson,
     }),
   ],
 });

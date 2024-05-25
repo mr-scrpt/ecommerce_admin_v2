@@ -5,7 +5,7 @@ import {
 } from "@/entities/order";
 import { OrderRepository, OrderRowRepository } from "@/entities/order/server";
 import { ProductRepository } from "@/entities/product/server";
-import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
+import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db/db";
 import { OrderCreateComplexible } from "../_domain/types";
 import { injectable } from "inversify";
 

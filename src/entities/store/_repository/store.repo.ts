@@ -1,4 +1,4 @@
-import { DBClient, Tx } from "@/shared/lib/db";
+import { DBClient, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
 import { StoreEntity, StoreToCreate, StoreToUpdate } from "../_domain/types";
 

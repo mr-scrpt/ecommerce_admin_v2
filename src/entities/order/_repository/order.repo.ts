@@ -1,4 +1,4 @@
-import { DBClient, Tx, dbClient } from "@/shared/lib/db";
+import { DBClient, Tx, dbClient } from "@/shared/lib/db/db";
 import {
   OrderEntity,
   OrderId,

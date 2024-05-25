@@ -1,4 +1,4 @@
-import { DBClient, Tx } from "@/shared/lib/db";
+import { DBClient, Tx } from "@/shared/lib/db/db";
 import {
   Property,
   PropertyEntity,

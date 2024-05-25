@@ -1,4 +1,4 @@
-import { DBClient, dbClient } from "@/shared/lib/db";
+import { DBClient, dbClient } from "@/shared/lib/db/db";
 import { Container, ContainerModule } from "inversify";
 import { CreateCategoryComplexibleUseCase } from "./_usecase/categoryCreateComplexible.usecase";
 import { CategoryCreateTx } from "./_tx/categoryCreate.transaction";

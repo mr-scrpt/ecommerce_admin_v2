@@ -1,5 +1,5 @@
 import { UserRepository } from "@/entities/user/user.server";
-import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
+import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
 import { UserUpdateComplexible } from "../_domain/types";
 import { UserEntity } from "@/entities/user/user";

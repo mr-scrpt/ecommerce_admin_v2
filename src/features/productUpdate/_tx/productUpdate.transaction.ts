@@ -1,5 +1,5 @@
 import { ProductEntity } from "@/entities/product";
-import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
+import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db/db";
 import { ProductRepository } from "@/entities/product/server";
 import { ProductUpdateComplexible } from "../_domain/types";
 import { injectable } from "inversify";

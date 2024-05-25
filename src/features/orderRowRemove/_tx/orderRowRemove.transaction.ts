@@ -1,6 +1,6 @@
 import { OrderEntity } from "@/entities/order";
 import { OrderRepository, OrderRowRepository } from "@/entities/order/server";
-import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
+import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db/db";
 import { OrderRowRemoveComplexible } from "../_domain/types";
 import { injectable } from "inversify";
 

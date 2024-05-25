@@ -1,7 +1,5 @@
 import { Profile } from "@/entities/user/profile";
-import { useMutation } from "@tanstack/react-query";
 import { useEmitProfileUpdate } from "..";
-import { updateProfileAction } from "../_action/profileUpdate.action";
 import { profileUpdateApi } from "../_api/profileUpdate.api";
 
 export const useProfileUpdateMutation = (

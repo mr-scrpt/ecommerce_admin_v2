@@ -1,4 +1,4 @@
-import { DBClient, Tx } from "@/shared/lib/db";
+import { DBClient, Tx } from "@/shared/lib/db/db";
 import { PropertyId } from "../_domain/property/types";
 import {
   PropertyItemCombineCreate,

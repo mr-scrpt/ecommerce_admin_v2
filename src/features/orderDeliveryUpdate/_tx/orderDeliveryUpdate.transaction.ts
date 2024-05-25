@@ -1,4 +1,4 @@
-import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
+import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
 import { OrderDeliveryUpdateComplexible } from "../_domain/types";
 import { DeliveryRepository } from "@/entities/delivery/server";

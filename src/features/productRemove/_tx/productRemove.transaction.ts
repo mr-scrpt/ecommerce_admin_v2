@@ -1,6 +1,6 @@
 import { ProductEntity, ProductId } from "@/entities/product";
 import { ProductRepository } from "@/entities/product/server";
-import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
+import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
 
 @injectable()

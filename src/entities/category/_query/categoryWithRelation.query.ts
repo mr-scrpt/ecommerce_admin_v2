@@ -10,6 +10,7 @@ type CategoryPayload = {
 export const useCategoryWithRelationQuery = (params: CategoryPayload) => {
   const { data, isPending, isSuccess, isFetchedAfterMount } =
     categoryApi.category.getWithRelation.useQuery(params);
+  console.log("output_log: data  =>>>", data);
 
   useListenCategoryUpdate();
 

@@ -1,5 +1,5 @@
 import { StoreWithSettlementName } from "@/entities/store";
-import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
+import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db/db";
 import { StoreRepository } from "@/entities/store/server";
 import { injectable } from "inversify";
 import { SettlementRepository } from "@/entities/settlement/_repository/settlement.repo";

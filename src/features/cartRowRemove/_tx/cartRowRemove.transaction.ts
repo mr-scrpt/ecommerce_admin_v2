@@ -1,6 +1,6 @@
 import { CartEntity } from "@/entities/cart";
 import { CartRepository, CartRowRepository } from "@/entities/cart/server";
-import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
+import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db/db";
 import { CartRowRemoveProductTxData } from "../_domain/types";
 
 export class CartRowRemoveProductTx extends Transaction {

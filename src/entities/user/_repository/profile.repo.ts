@@ -1,4 +1,4 @@
-import { DBClient, Tx } from "@/shared/lib/db";
+import { DBClient, Tx } from "@/shared/lib/db/db";
 import { UserId } from "@/shared/lib/user";
 import { injectable } from "inversify";
 import { Profile, ProfileEntity } from "../_domain/profile.types";

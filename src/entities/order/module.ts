@@ -1,4 +1,4 @@
-import { DBClient, dbClient } from "@/shared/lib/db";
+import { DBClient, dbClient } from "@/shared/lib/db/db";
 import { Container, ContainerModule } from "inversify";
 import { GetOrderListUseCase } from "./_usecase/getOrderList.usecase";
 import { GetOrderOwnerUseCase } from "./_usecase/getOrderOwner.usecase";

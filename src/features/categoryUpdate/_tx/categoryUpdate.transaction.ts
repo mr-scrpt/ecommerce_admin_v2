@@ -1,5 +1,5 @@
 import { CategoryEntity } from "@/entities/category";
-import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db";
+import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db/db";
 import { CategoryUpdateComplexible } from "../_domain/types";
 import { CategoryRepository } from "@/entities/category/server";
 import { injectable } from "inversify";
