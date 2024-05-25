@@ -1,37 +1,32 @@
-import { injectable } from "inversify";
-import { OperationsMap } from "@/shared/type/operation.type";
-import { CategoryRemoveTx } from "../_tx/categoryRemove.transaction";
 import { CategoryEntity } from "@/entities/category";
-
-type CategoryRemove = {
-  categoryId?: string;
-  categorySlug?: string;
-};
+import { injectable } from "inversify";
+import { CategoryUpdateComplexible } from "../_domain/types";
+import { CategoryUpdateTx } from "../_tx/categoryUpdate.transaction";
 
 @injectable()
-export class CategoryRemoveService {
-  constructor(private readonly categoryRemoveTx: CategoryRemoveTx) {}
+export class CategoryUpdateService {
+  constructor(private readonly categoryUpdateTx: CategoryUpdateTx) {}
 
-  async execute(props: CategoryRemove): Promise<CategoryEntity> {
-    return await this.operation(props);
+  async execute(props: CategoryUpdateComplexible): Promise<CategoryEntity> {
+    return await this.categoryUpdateTx.updateCategoryComplexible(props);
   }
 
-  async operation(props: CategoryRemove): Promise<CategoryEntity> {
-    const operationsMap: OperationsMap<CategoryEntity> = {
-      categoryId: (categoryId: string) =>
-        this.categoryRemoveTx.removeCategoryById(categoryId),
-      categorySlug: (categorySlug: string) =>
-        this.categoryRemoveTx.removeCategoryBySlug(categorySlug),
-    };
-
-    for (const key of Object.keys(props)) {
-      const value = props[key as keyof CategoryRemove];
-      if (value && operationsMap[key]) {
-        return await operationsMap[key](value);
-      }
-    }
-
-    // TODO: Error custom handling
-    throw new Error("Either 'categoryId' or 'categorySlug' must be provided.");
-  }
+  // async operation(props: CategoryUpdate): Promise<CategoryEntity> {
+  //   const operationsMap: OperationsMap<CategoryEntity> = {
+  //     categoryId: (categoryId: string) =>
+  //       this.categoryRemoveTx.removeCategoryById(categoryId),
+  //     categorySlug: (categorySlug: string) =>
+  //       this.categoryRemoveTx.removeCategoryBySlug(categorySlug),
+  //   };
+  //
+  //   for (const key of Object.keys(props)) {
+  //     const value = props[key as keyof CategoryUpdate];
+  //     if (value && operationsMap[key]) {
+  //       return await operationsMap[key](value);
+  //     }
+  //   }
+  //
+  //   // TODO: Error custom handling
+  //   throw new Error("Either 'categoryId' or 'categorySlug' must be provided.");
+  // }
 }

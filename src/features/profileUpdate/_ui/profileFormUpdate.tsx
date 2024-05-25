@@ -24,7 +24,7 @@ export const ProfileFormUpdate: FC<ProfileFormProps> = (props) => {
   const {
     isPending: isPendingProfile,
     isFetchedAfterMount,
-    data,
+    data: profile,
   } = useProfileQuery(profileId);
 
   const router = useRouter();
@@ -38,14 +38,14 @@ export const ProfileFormUpdate: FC<ProfileFormProps> = (props) => {
     return <Spinner aria-label="Loading profile..." />;
   }
 
-  if (!data) {
+  if (!profile) {
     return <div>Failed to load profile, you may not have permissions</div>;
   }
 
-  const handleSubmit = async (data: ProfileFromUpdateValues) => {
+  const handleSubmit = async (profileData: ProfileFromUpdateValues) => {
     await update({
       profileId,
-      data,
+      profileData,
     });
 
     onSuccess?.();
@@ -59,13 +59,13 @@ export const ProfileFormUpdate: FC<ProfileFormProps> = (props) => {
     <div className={cn(className, "w-full")}>
       <ProfileFormElements
         handleSubmit={handleSubmit}
-        profile={data.profile}
+        profile={profile}
         schema={profileFormUpdateSchema}
       >
         <ProfileFormElements.FieldEmail />
         <ProfileFormElements.FieldName />
         <ProfileFormElements.FieldPhone />
-        <ProfileFormElements.FieldAvatar profile={data.profile} />
+        <ProfileFormElements.FieldAvatar profile={profile} />
         <ProfileFormElements.SubmitButton
           isPending={isPendingComplexible}
           submitText="Save change"

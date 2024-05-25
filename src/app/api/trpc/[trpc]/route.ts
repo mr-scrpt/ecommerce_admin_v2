@@ -1,6 +1,10 @@
 import { appModule } from "@/app/module";
-import { Controller } from "@/kernel/lib/trpc/module";
-import { ContextFactory, sharedRouter, t } from "@/kernel/lib/trpc/server";
+import {
+  ContextFactory,
+  Controller,
+  sharedRouter,
+  t,
+} from "@/kernel/lib/trpc/server";
 import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
 
 const routers = appModule.getAll(Controller).map((c) => c.router);

@@ -29,39 +29,39 @@ const prismaAdapter = PrismaAdapter(dbClient);
 
 @injectable()
 export class NextAuthConfig {
-  // constructor(private readonly createUserService: UserCreateServiceAbstract) {}
+  constructor(private readonly createUserService: UserCreateServiceAbstract) {}
   options: AuthOptions = {
     adapter: {
       ...prismaAdapter,
-      // createUser: async (user) => {
-      //   // return await this.createUserService.exec(user);
-      //   const socket = socketClient("");
-      //   try {
-      //     const newUser = await this.createUserService.exec({
-      //       ...user,
-      //       name: user.name ?? "",
-      //       phone: user.phone ?? "",
-      //       image: user.image ?? "",
-      //     });
-      //
-      //     await new Promise<void>((resolve, reject) => {
-      //       socket.connect();
-      //       socket.emit(WSEventEnum.USER_CREATE, () => {
-      //         resolve();
-      //       });
-      //
-      //       socket.on("error", (error) => {
-      //         reject(error);
-      //       });
-      //     });
-      //
-      //     return newUser;
-      //   } catch (error) {
-      //     throw error;
-      //   } finally {
-      //     socket.disconnect();
-      //   }
-      // },
+      createUser: async (user) => {
+        return await this.createUserService.execute(user);
+        //   const socket = socketClient("");
+        //   try {
+        //     const newUser = await this.createUserService.exec({
+        //       ...user,
+        //       name: user.name ?? "",
+        //       phone: user.phone ?? "",
+        //       image: user.image ?? "",
+        //     });
+        //
+        //     await new Promise<void>((resolve, reject) => {
+        //       socket.connect();
+        //       socket.emit(WSEventEnum.USER_CREATE, () => {
+        //         resolve();
+        //       });
+        //
+        //       socket.on("error", (error) => {
+        //         reject(error);
+        //       });
+        //     });
+        //
+        //     return newUser;
+        //   } catch (error) {
+        //     throw error;
+        //   } finally {
+        //     socket.disconnect();
+        //   }
+      },
     } as AuthOptions["adapter"],
 
     callbacks: {

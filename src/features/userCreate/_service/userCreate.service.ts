@@ -16,6 +16,9 @@ export class UserCreateService implements UserCreateServiceAbstract {
 
     const user: UserToCreate = {
       ...props,
+      name: props.name ?? "",
+      phone: props.phone ?? "",
+      image: props.image ?? "",
       role,
     };
 

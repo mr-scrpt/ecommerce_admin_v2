@@ -1,16 +1,25 @@
+import { appModule } from "@/app/module";
 import { ProfileFormUpdate } from "@/features/profileUpdate";
-import { SessionContainer } from "@/shared/session/instans";
+import { SessionService } from "@/kernel/lib/nextauth/session.service";
 import { Separator } from "@/shared/ui/separator";
+import { redirect } from "next/navigation";
 import { FC, HTMLAttributes } from "react";
 
 interface PageProps extends HTMLAttributes<HTMLDivElement> {
   searchParams: { callbackUrl: string };
 }
 
+const sessionService = appModule.get(SessionService);
+
 const NewUserPage: FC<PageProps> = async (props) => {
   const { searchParams } = props;
   const { callbackUrl } = searchParams;
-  const session = await SessionContainer.getOrRedirect();
+
+  const session = await sessionService.get();
+
+  if (!session) {
+    return redirect("/auth/sign-in");
+  }
 
   return (
     <main className="container space-y-6 py-14">

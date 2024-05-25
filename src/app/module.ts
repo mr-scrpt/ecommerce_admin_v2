@@ -8,7 +8,8 @@ import { DbModule } from "@/shared/lib/db";
 import { Container } from "inversify";
 import { UserCreateModule } from "@/features/userCreate/module";
 import { CartModule } from "@/entities/cart/module";
-import { UserModule } from "@/entities/user/module";
+import { ProfileModule, UserModule } from "@/entities/user/module";
+import { ProfileUpdateModule } from "@/features/profileUpdate/module";
 
 export const loadModule = () => {
   const container = new Container();
@@ -18,6 +19,8 @@ export const loadModule = () => {
     NextAuthModule,
     UserModule,
     UserCreateModule,
+    ProfileModule,
+    ProfileUpdateModule,
     CategoryModule,
     CategoryRemoveModule,
     TrpcModule,

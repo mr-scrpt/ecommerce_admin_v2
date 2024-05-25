@@ -5,6 +5,16 @@ import { t } from "./_inti";
 
 export const publicProcedure = t.procedure;
 
+const transformDataMiddleware = t.middleware(async ({ ctx, next }) => {
+  const res = await next();
+
+  return next({
+    ctx: {
+      session: ctx.session,
+    },
+  });
+});
+
 export const authorizedProcedure = t.procedure.use(({ ctx, next }) => {
   if (!ctx.session) {
     throw new TRPCError({ code: "UNAUTHORIZED" });

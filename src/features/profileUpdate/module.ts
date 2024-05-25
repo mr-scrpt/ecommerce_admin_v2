@@ -1,14 +1,11 @@
-import { ProfileRepository } from "@/entities/user/profile.server";
-import { Container, ContainerModule } from "inversify";
+import { ContainerModule } from "inversify";
+import { ProfileUpdateController } from "./_controller/profileUpdate.controller";
+import { ProfileUpdateService } from "./_service/profileUpdate.service";
 import { ProfileUpdateTx } from "./_tx/profileUpdate.transaction";
-import { UpdateProfileUseCase } from "./_useCase/updateProfile.usecase";
-
-export const profileUpdateContainer = new Container();
+import { Controller } from "@/kernel/lib/trpc/server";
 
 export const ProfileUpdateModule = new ContainerModule((bind) => {
   bind(ProfileUpdateTx).toSelf();
-  bind(ProfileRepository).toSelf();
-  bind(UpdateProfileUseCase).toSelf();
+  bind(ProfileUpdateService).toSelf();
+  bind(Controller).to(ProfileUpdateController);
 });
-
-profileUpdateContainer.load(ProfileUpdateModule);

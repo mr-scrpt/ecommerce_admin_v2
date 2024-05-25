@@ -1,13 +1,12 @@
-import { Controller } from "@/kernel/lib/trpc/_controller";
-import { publicProcedure, router } from "@/kernel/lib/trpc/server";
+import { Controller, publicProcedure, router } from "@/kernel/lib/trpc/server";
 import { injectable } from "inversify";
 import { z } from "zod";
 import {
   categoryRelationSchema,
   categorySchema,
 } from "../_domain/category.schema";
-import { CategoryListGetService } from "../_service/CategoryListGet.service";
-import { CategoryGetService } from "../_service/CategoryGet.service";
+import { CategoryListGetService } from "../_service/categoryListGet.service";
+import { CategoryGetService } from "../_service/categoryGet.service";
 
 const categoryListSchema = z.array(categorySchema);
 
@@ -33,12 +32,13 @@ export class CategoryController extends Controller {
     category: {
       getWithRelation: publicProcedure
         .input(getCategorySchema)
-        .output(categoryRelationSchema)
-        .query(({ input }) => {
-          return this.getCategoryService.execute(input);
+        .query(async ({ input }) => {
+          const result = await this.getCategoryService.execute(input);
+          return categoryRelationSchema.parse(result);
         }),
-      getList: publicProcedure.output(categoryListSchema).query(() => {
-        return this.getCategoryListService.execute();
+      getList: publicProcedure.output(categoryListSchema).query(async () => {
+        const result = await this.getCategoryListService.execute();
+        return categoryListSchema.parse(result);
       }),
     },
   });
