@@ -1,5 +1,5 @@
 import { CategoryEntity } from "@/entities/category";
-import { DBClient, Tx, dbClient, Transaction } from "@/shared/lib/db/db";
+import { DBClient, Tx, Transaction } from "@/shared/lib/db/db";
 import { CategoryCreateComplexible } from "../_domain/types";
 import { CategoryRepository } from "@/entities/category/server";
 import { injectable } from "inversify";
@@ -10,7 +10,7 @@ export class CategoryCreateTx extends Transaction {
     readonly db: DBClient,
     private readonly categoryRepo: CategoryRepository,
   ) {
-    super(dbClient);
+    super(db);
   }
 
   async createCategoryComplexible(

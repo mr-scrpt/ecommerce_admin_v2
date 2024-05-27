@@ -3,7 +3,7 @@ import {
   PropertyItemRepository,
   PropertyRepository,
 } from "@/entities/property/server";
-import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db/db";
+import { DBClient, Transaction, Tx } from "@/shared/lib/db/db";
 import { PropertyUpdateComplexible } from "../_domain/types";
 import { injectable } from "inversify";
 
@@ -14,7 +14,7 @@ export class PropertyUpdateTx extends Transaction {
     private readonly propertyRepo: PropertyRepository,
     private readonly propertyItemRepo: PropertyItemRepository,
   ) {
-    super(dbClient);
+    super(db);
   }
 
   async updatePropertyById(

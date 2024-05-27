@@ -1,32 +1,30 @@
-import { CategoryEntity } from "@/entities/category";
+import { Category } from "@/entities/category";
+import { slugGenerator } from "@/shared/lib/slugGenerator";
 import { injectable } from "inversify";
-import { CategoryUpdateComplexible } from "../_domain/types";
+import { CategoryUpdateTxDTO, CategoryUpdateTxPayload } from "../_domain/types";
 import { CategoryUpdateTx } from "../_tx/categoryUpdate.transaction";
 
 @injectable()
 export class CategoryUpdateService {
   constructor(private readonly categoryUpdateTx: CategoryUpdateTx) {}
 
-  async execute(props: CategoryUpdateComplexible): Promise<CategoryEntity> {
-    return await this.categoryUpdateTx.updateCategoryComplexible(props);
+  async execute(props: CategoryUpdateTxPayload): Promise<Category> {
+    const categoryUpdateDTO = this.build(props);
+    return await this.categoryUpdateTx.execute(categoryUpdateDTO);
   }
 
-  // async operation(props: CategoryUpdate): Promise<CategoryEntity> {
-  //   const operationsMap: OperationsMap<CategoryEntity> = {
-  //     categoryId: (categoryId: string) =>
-  //       this.categoryRemoveTx.removeCategoryById(categoryId),
-  //     categorySlug: (categorySlug: string) =>
-  //       this.categoryRemoveTx.removeCategoryBySlug(categorySlug),
-  //   };
-  //
-  //   for (const key of Object.keys(props)) {
-  //     const value = props[key as keyof CategoryUpdate];
-  //     if (value && operationsMap[key]) {
-  //       return await operationsMap[key](value);
-  //     }
-  //   }
-  //
-  //   // TODO: Error custom handling
-  //   throw new Error("Either 'categoryId' or 'categorySlug' must be provided.");
-  // }
+  private build(props: CategoryUpdateTxPayload): CategoryUpdateTxDTO {
+    const { id, name, board, propertyList } = props;
+    const slug = slugGenerator(name);
+
+    return {
+      categoryData: {
+        id,
+        name,
+        slug,
+        board,
+      },
+      propertyData: propertyList,
+    };
+  }
 }

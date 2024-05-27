@@ -1,7 +1,13 @@
-import { CategoryId, CategoryToUpdate } from "@/entities/category";
+import { CategoryUpdateDTO } from "@/entities/category";
 
-export type CategoryUpdateComplexible = {
-  categoryId: CategoryId;
-  categoryData: Partial<CategoryToUpdate>;
-  propertyListData: Array<{ id: string }>;
+export type CategoryUpdateTxPayload = {
+  id: string;
+  name: string;
+  board: Array<string>;
+  propertyList: Array<{ id: string }>;
+};
+
+export type CategoryUpdateTxDTO = {
+  categoryData: CategoryUpdateDTO;
+  propertyData: Array<{ id: string }>;
 };

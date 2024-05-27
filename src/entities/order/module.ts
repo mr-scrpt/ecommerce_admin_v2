@@ -1,4 +1,4 @@
-import { DBClient, dbClient } from "@/shared/lib/db/db";
+import { DBClient } from "@/shared/lib/db/db";
 import { Container, ContainerModule } from "inversify";
 import { GetOrderListUseCase } from "./_usecase/getOrderList.usecase";
 import { GetOrderOwnerUseCase } from "./_usecase/getOrderOwner.usecase";
@@ -10,7 +10,6 @@ import { OrderRowRepository } from "./_repository/orderRow.repo";
 export const orderContainer = new Container();
 
 export const OrderModule = new ContainerModule((bind) => {
-  bind(DBClient).toConstantValue(dbClient);
   bind(OrderRepository).toSelf();
   bind(OrderRowRepository).toSelf();
   bind(GetOrderListUseCase).toSelf();

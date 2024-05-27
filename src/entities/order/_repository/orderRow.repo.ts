@@ -1,4 +1,4 @@
-import { DBClient, Tx, dbClient } from "@/shared/lib/db/db";
+import { DBClient, Tx } from "@/shared/lib/db/db";
 import {
   OrderRowChangeQuantity,
   OrderRowEntity,

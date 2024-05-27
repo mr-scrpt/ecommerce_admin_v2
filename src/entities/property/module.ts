@@ -1,18 +1,22 @@
 import { Container, ContainerModule } from "inversify";
 import { PropertyRepository } from "./_repository/property.repo";
-import { GetPropertyUseCase } from "./_usecase/property/getProperty.usecase";
-import { GetPropertyListUseCase } from "./_usecase/property/getPropertyList.usecase";
-import { GetPropertyWithRelationUseCase } from "./_usecase/property/getPropertyWithRelation.usecase";
-import { GetPropertyWithRelationByCategoryUseCase } from "./_usecase/property/getPropertyWithRelationByCategory.usecase";
+import { PropertyGetService } from "./_service/propertyGet.service";
+import { PropertyController } from "./_controller/property.controller";
+import { Controller } from "@/kernel/lib/trpc/server";
+import { PropertyListGetService } from "./_service/propertyListGet.service";
+import { PropertyListWithRelationGetByService } from "./_service/propertyListGetWithRelationBy.service";
+import { PropertyGetWithRelationService } from "./_service/propertyWithRelationGet.service";
 
 export const propertyContainer = new Container();
 
 export const PropertyModule = new ContainerModule((bind) => {
   bind(PropertyRepository).toSelf();
-  bind(GetPropertyUseCase).toSelf();
-  bind(GetPropertyListUseCase).toSelf();
-  bind(GetPropertyWithRelationUseCase).toSelf();
-  bind(GetPropertyWithRelationByCategoryUseCase).toSelf();
+  bind(PropertyGetService).toSelf();
+  bind(PropertyGetWithRelationService).toSelf();
+  bind(PropertyListGetService).toSelf();
+  bind(PropertyListWithRelationGetByService).toSelf();
+
+  bind(Controller).to(PropertyController);
 });
 
 propertyContainer.load(PropertyModule);

@@ -1,6 +1,6 @@
 import { ProductEntity, ProductId } from "@/entities/product";
 import { ProductRepository } from "@/entities/product/server";
-import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db/db";
+import { DBClient, Transaction, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
 
 @injectable()
@@ -9,7 +9,7 @@ export class ProductRemoveTx extends Transaction {
     readonly db: DBClient,
     private readonly productRepo: ProductRepository,
   ) {
-    super(dbClient);
+    super(db);
   }
 
   async removeProductById(productId: ProductId): Promise<ProductEntity> {

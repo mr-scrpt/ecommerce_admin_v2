@@ -1,5 +1,5 @@
 import { ProductEntity } from "@/entities/product";
-import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db/db";
+import { DBClient, Transaction, Tx } from "@/shared/lib/db/db";
 import { ProductRepository } from "@/entities/product/server";
 import { ProductUpdateComplexible } from "../_domain/types";
 import { injectable } from "inversify";
@@ -10,7 +10,7 @@ export class ProductUpdateTx extends Transaction {
     readonly db: DBClient,
     private readonly productRepo: ProductRepository,
   ) {
-    super(dbClient);
+    super(db);
   }
 
   async updateProductComplexible(

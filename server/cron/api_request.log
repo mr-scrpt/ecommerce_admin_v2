@@ -1,3 +1,5 @@
 2024-05-03T09:28:29.298Z - Data fetched successfully at 03.05.2024, 12:28:29
 2024-05-03T09:30:05.527Z - Data fetched successfully at 03.05.2024, 12:30:05
 2024-05-03T09:37:10.518Z - Data fetched successfully at 03.05.2024, 12:37:10
+2024-05-27T07:07:55.748Z - Error fetching data at 5/27/2024, 10:07:55 AM: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+2024-05-27T09:36:59.371Z - Error fetching data at 5/27/2024, 12:36:59 PM: Unexpected token '<', "<!DOCTYPE "... is not valid JSON

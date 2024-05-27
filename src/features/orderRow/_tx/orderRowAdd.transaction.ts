@@ -1,7 +1,7 @@
 import { OrderEntity } from "@/entities/order";
 import { OrderRepository, OrderRowRepository } from "@/entities/order/server";
 import { ProductRepository } from "@/entities/product/server";
-import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db/db";
+import { DBClient, Transaction, Tx } from "@/shared/lib/db/db";
 import { OrderRowAddComplexible } from "../_domain/types";
 import { injectable } from "inversify";
 
@@ -13,7 +13,7 @@ export class OrderRowAddTx extends Transaction {
     private readonly orderRepo: OrderRepository,
     private readonly productRepo: ProductRepository,
   ) {
-    super(dbClient);
+    super(db);
   }
 
   async exec(data: OrderRowAddComplexible): Promise<OrderEntity> {

@@ -11,18 +11,21 @@ export class CartController extends Controller {
 
   public router = router({
     cart: {
-      getWithRelation: publicProcedure
-        .output(cartRelationSchema)
-        .query(async ({ _, ctx }) => {
-          const { session } = ctx;
-          const cartId = session?.user.cartId;
-          if (!cartId) {
-            throw new Error("Cart not found");
-          }
-          return this.getCartService.execute({
-            cartId,
-          });
-        }),
+      getWithRelation: publicProcedure.query(async ({ ctx }) => {
+        const { session } = ctx;
+        const cartId = session?.user.cartId;
+
+        // TODO: Add error handling
+        if (!cartId) {
+          throw new Error("Cart not found");
+        }
+
+        const result = await this.getCartService.execute({
+          cartId,
+        });
+
+        return cartRelationSchema.parse(result);
+      }),
     },
   });
 }

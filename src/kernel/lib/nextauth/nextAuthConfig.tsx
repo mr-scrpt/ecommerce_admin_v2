@@ -1,5 +1,4 @@
 import { configPrivate } from "@/shared/config/private.config";
-import { dbClient } from "@/shared/lib/db/db";
 import { COOKIE_NETWORK_NAME } from "@/shared/session/constant";
 import { getNetworkClientCookie } from "@/shared/session/coockieParser";
 import { PrismaAdapter } from "@auth/prisma-adapter";
@@ -12,6 +11,7 @@ import GithubProvider from "next-auth/providers/github";
 import { UserCreateServiceAbstract } from "./type";
 import { socketClient } from "@/shared/config/socket";
 import { WSEventEnum } from "@/shared/type/websokcetEvent.enum";
+import { dbClient } from "@/shared/lib/db/instans";
 
 const {
   GITHUB_SECRET,

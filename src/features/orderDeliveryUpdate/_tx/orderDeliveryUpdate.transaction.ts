@@ -1,4 +1,4 @@
-import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db/db";
+import { DBClient, Transaction, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
 import { OrderDeliveryUpdateComplexible } from "../_domain/types";
 import { DeliveryRepository } from "@/entities/delivery/server";
@@ -10,7 +10,7 @@ export class OrderDeliveryUpdateTx extends Transaction {
     readonly db: DBClient,
     private readonly deliveryRepo: DeliveryRepository,
   ) {
-    super(dbClient);
+    super(db);
   }
 
   async updateDelivery(

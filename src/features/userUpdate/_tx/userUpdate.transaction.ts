@@ -1,5 +1,5 @@
 import { UserRepository } from "@/entities/user/user.server";
-import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db/db";
+import { DBClient, Transaction, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
 import { UserUpdateComplexible } from "../_domain/types";
 import { UserEntity } from "@/entities/user/user";
@@ -10,7 +10,7 @@ export class UserUpdateTx extends Transaction {
     readonly db: DBClient,
     private readonly userRepo: UserRepository,
   ) {
-    super(dbClient);
+    super(db);
   }
 
   async updateUser(userToUpdate: UserUpdateComplexible): Promise<UserEntity> {

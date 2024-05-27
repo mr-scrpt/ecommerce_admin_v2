@@ -1,27 +1,21 @@
-import { injectable } from "inversify";
-import { CategoryRelationEntity } from "../_domain/types";
-import { CategoryRepository } from "../_repository/category.repo";
 import { OperationsMap } from "@/shared/type/operation.type";
-
-type CategoryGetWithRelation = {
-  categoryId?: string;
-  categorySlug?: string;
-};
+import { injectable } from "inversify";
+import {
+  CategoryGetPayload,
+  Category as CategoryRelation,
+} from "../_domain/types";
+import { CategoryRepository } from "../_repository/category.repo";
 
 @injectable()
-export class CategoryGetService {
+export class CategoryRelationGetService {
   constructor(private readonly categoryRepo: CategoryRepository) {}
 
-  async execute(
-    props: CategoryGetWithRelation,
-  ): Promise<CategoryRelationEntity> {
+  async execute(props: CategoryGetPayload): Promise<CategoryRelation> {
     return await this.operation(props);
   }
 
-  async operation(
-    props: CategoryGetWithRelation,
-  ): Promise<CategoryRelationEntity> {
-    const operationsMap: OperationsMap<CategoryRelationEntity> = {
+  async operation(props: CategoryGetPayload): Promise<CategoryRelation> {
+    const operationsMap: OperationsMap<CategoryRelation> = {
       categoryId: (categoryId: string) =>
         this.categoryRepo.getCategoryWithRelation(categoryId),
       categorySlug: (categorySlug: string) =>
@@ -29,7 +23,7 @@ export class CategoryGetService {
     };
 
     for (const key of Object.keys(props)) {
-      const value = props[key as keyof CategoryGetWithRelation];
+      const value = props[key as keyof CategoryGetPayload];
       if (value && operationsMap[key]) {
         return await operationsMap[key](value);
       }

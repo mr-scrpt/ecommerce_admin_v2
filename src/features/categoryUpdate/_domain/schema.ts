@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const categoryUpdateSchema = z.object({
+export const categoryUpdateTxSchema = z.object({
   id: z.string(),
   name: z.string(),
   board: z.array(z.string()),

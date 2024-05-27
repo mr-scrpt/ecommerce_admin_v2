@@ -1,21 +1,19 @@
 import { DBClient, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
+import { CategoryEntity, CategoryRelationEntity } from "../_domain/types";
 import {
-  CategoryAddProductList,
-  CategoryAddPropertyList,
-  CategoryEntity,
-  CategoryId,
-  CategoryRelationEntity,
-  CategoryToCreate,
-  CategoryToUpdate,
-} from "../_domain/types";
+  CategoryAddProductListDTO,
+  CategoryAddPropertyListDTO,
+  CategoryCreateDTO,
+  CategoryUpdateDTO,
+} from "../_domain/dto";
 
 @injectable()
 export class CategoryRepository {
   constructor(readonly db: DBClient) {}
 
   async getCategory(
-    categoryId: CategoryId,
+    categoryId: string,
     db: Tx = this.db,
   ): Promise<CategoryEntity> {
     const res = db.category.findUniqueOrThrow({
@@ -28,7 +26,7 @@ export class CategoryRepository {
   }
 
   async getCategoryWithRelation(
-    categoryId: CategoryId,
+    categoryId: string,
     db: Tx = this.db,
   ): Promise<CategoryRelationEntity> {
     const res = await db.category.findUniqueOrThrow({
@@ -71,7 +69,7 @@ export class CategoryRepository {
   }
 
   async getCategoryRelation(
-    categoryId: CategoryId,
+    categoryId: string,
     db: Tx = this.db,
   ): Promise<CategoryEntity> {
     return await db.category.findUniqueOrThrow({
@@ -90,7 +88,7 @@ export class CategoryRepository {
   }
 
   async createCategory(
-    category: CategoryToCreate,
+    category: CategoryCreateDTO,
     db: Tx = this.db,
   ): Promise<CategoryEntity> {
     return await db.category.create({
@@ -99,7 +97,7 @@ export class CategoryRepository {
   }
 
   async addCategoryPropertyList(
-    data: CategoryAddPropertyList,
+    data: CategoryAddPropertyListDTO,
     db: Tx = this.db,
   ): Promise<CategoryEntity> {
     const { categoryId, propertyListId } = data;
@@ -116,7 +114,7 @@ export class CategoryRepository {
   }
 
   async addCategoryProductList(
-    data: CategoryAddProductList,
+    data: CategoryAddProductListDTO,
     db: Tx = this.db,
   ): Promise<CategoryEntity> {
     const { categoryId, productListId } = data;
@@ -133,8 +131,8 @@ export class CategoryRepository {
   }
 
   async updateCategory(
-    targetId: CategoryId,
-    categoryData: Partial<CategoryToUpdate>,
+    targetId: string,
+    categoryData: Partial<CategoryUpdateDTO>,
     db: Tx = this.db,
   ): Promise<CategoryEntity> {
     return await db.category.update({
@@ -144,7 +142,7 @@ export class CategoryRepository {
   }
 
   async removeCategoryById(
-    categoryId: CategoryId,
+    categoryId: string,
     db: Tx = this.db,
   ): Promise<CategoryEntity> {
     return await db.category.delete({ where: { id: categoryId } });

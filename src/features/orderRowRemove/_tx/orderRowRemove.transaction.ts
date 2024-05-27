@@ -1,6 +1,6 @@
 import { OrderEntity } from "@/entities/order";
 import { OrderRepository, OrderRowRepository } from "@/entities/order/server";
-import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db/db";
+import { DBClient, Transaction, Tx } from "@/shared/lib/db/db";
 import { OrderRowRemoveComplexible } from "../_domain/types";
 import { injectable } from "inversify";
 
@@ -11,7 +11,7 @@ export class OrderRowRemoveTx extends Transaction {
     private readonly orderRowRepo: OrderRowRepository,
     private readonly orderRepo: OrderRepository,
   ) {
-    super(dbClient);
+    super(db);
   }
 
   async exec(data: OrderRowRemoveComplexible): Promise<OrderEntity> {

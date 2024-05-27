@@ -4,13 +4,13 @@
 // import { Category } from "@/entities/category";
 // import { slugGenerator } from "@/shared/lib/slugGenerator";
 // import { updateCategoryComplexibleUseCase } from "../_usecase/instans.usecase";
-// import { categoryUpdateSchema } from "../_domain/schema";
+// import { categoryUpdateTxSchema } from "../_domain/schema";
 // import { categorySchema } from "@/entities/category/server";
 // import { SessionContainer } from "@/shared/session/instans";
 //
 // const propsSchema = z.object({
 //   categoryId: z.string(),
-//   data: categoryUpdateSchema,
+//   data: categoryUpdateTxSchema,
 // });
 //
 // const resultSchema = z.object({

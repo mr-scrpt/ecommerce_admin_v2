@@ -1,14 +1,11 @@
-import { CategoryRepository } from "@/entities/category/server";
-import { Container, ContainerModule } from "inversify";
+import { Controller } from "@/kernel/lib/trpc/_controller";
+import { ContainerModule } from "inversify";
+import { CategoryUpdateController } from "./_controller/categoryUpdate.controller";
+import { CategoryUpdateService } from "./_service/categoryUpdate.service";
 import { CategoryUpdateTx } from "./_tx/categoryUpdate.transaction";
-import { UpdateCategoryComplexibleUseCase } from "./_usecase/categoryUpdateComplexible.usecase";
 
-export const categoryUpdateContainer = new Container();
-
-export const CategoryRemoveModule = new ContainerModule((bind) => {
+export const CategoryUpdateModule = new ContainerModule((bind) => {
   bind(CategoryUpdateTx).toSelf();
-  bind(CategoryRepository).toSelf();
-  bind(UpdateCategoryComplexibleUseCase).toSelf();
+  bind(CategoryUpdateService).toSelf();
+  bind(Controller).to(CategoryUpdateController);
 });
-
-categoryUpdateContainer.load(CategoryRemoveModule);

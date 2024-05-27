@@ -1,6 +1,6 @@
 import { CartEntity } from "@/entities/cart";
 import { CartRepository, CartRowRepository } from "@/entities/cart/server";
-import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db/db";
+import { DBClient, Transaction, Tx } from "@/shared/lib/db/db";
 import { CartRowChangeQuantityTxData } from "../_domain/types";
 import { injectable } from "inversify";
 
@@ -11,7 +11,7 @@ export class CartRowChangeQuantityTx extends Transaction {
     private readonly cartRepo: CartRepository,
     private readonly cartRowRepo: CartRowRepository,
   ) {
-    super(dbClient);
+    super(db);
   }
 
   async changeQuantityCartRowComplexible(

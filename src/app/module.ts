@@ -10,6 +10,8 @@ import { NextAuthModule } from "@/kernel/lib/nextauth/module";
 import { TrpcModule } from "@/kernel/lib/trpc/module";
 import { Container } from "inversify";
 import { DbModule } from "@/shared/lib/db/module";
+import { PropertyModule } from "@/entities/property/module";
+import { CategoryUpdateModule } from "@/features/categoryUpdate/module";
 
 export const loadModule = () => {
   const container = new Container();
@@ -22,7 +24,9 @@ export const loadModule = () => {
     ProfileModule,
     ProfileUpdateModule,
     CategoryModule,
+    CategoryUpdateModule,
     CategoryRemoveModule,
+    PropertyModule,
     TrpcModule,
     CartModule,
   );

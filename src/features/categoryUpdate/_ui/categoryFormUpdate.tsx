@@ -1,12 +1,5 @@
 "use client";
-import {
-  CategoryForm,
-  CategoryId,
-  categoryApi,
-  categoryFormSchema,
-  useInvalidateCategoryWithRelation,
-  // useCategoryWithRelationQuery,
-} from "@/entities/category";
+import { CategoryForm, categoryFormSchema } from "@/entities/category";
 import { usePropertyLikeSelectOptionList } from "@/entities/property";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { cn } from "@/shared/ui/utils";
@@ -18,7 +11,7 @@ import { useOptionListTransform } from "@/shared/lib/map";
 import { useCategoryWithRelationQuery } from "@/entities/category";
 
 interface CategoryFormProps extends HTMLAttributes<HTMLDivElement> {
-  categoryId: CategoryId;
+  categoryId: string;
   callbackUrl?: string;
   className?: string;
   onSuccess?: () => void;
@@ -61,11 +54,8 @@ export const CategoryFormUpdate: FC<CategoryFormProps> = (props) => {
 
   const handleSubmit = async (data: CategoryFormValues) => {
     await categoryUpdate({
-      categoryId: category.id,
-      data: {
-        ...data,
-        id: category.id,
-      },
+      ...data,
+      id: category.id,
     });
 
     onSuccess?.();

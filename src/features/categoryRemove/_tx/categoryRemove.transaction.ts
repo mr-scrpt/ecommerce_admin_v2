@@ -1,6 +1,6 @@
 import { CategoryEntity, CategoryId } from "@/entities/category";
 import { CategoryRepository } from "@/entities/category/server";
-import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db/db";
+import { DBClient, Transaction, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
 
 @injectable()
@@ -9,7 +9,7 @@ export class CategoryRemoveTx extends Transaction {
     readonly db: DBClient,
     private readonly categoryRepo: CategoryRepository,
   ) {
-    super(dbClient);
+    super(db);
   }
 
   async removeCategoryById(categoryId: CategoryId): Promise<CategoryEntity> {

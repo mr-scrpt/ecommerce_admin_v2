@@ -1,3 +1,3 @@
-export type OperationsMap<T> = {
-  [key: string]: (value: string) => Promise<T>;
+export type OperationsMap<T, K = string> = {
+  [key: string]: (value: K) => Promise<T>;
 };

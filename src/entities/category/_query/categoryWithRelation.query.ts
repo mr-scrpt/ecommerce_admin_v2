@@ -1,16 +1,16 @@
 "use client";
 import { categoryApi } from "../_api/category.api";
+import { CategoryRelation } from "../_domain/types";
 import { useListenCategoryUpdate } from "../_vm/event/useListenCategoryUpdate";
 
-type CategoryPayload = {
+type CategoryParams = {
   categoryId?: string;
   categorySlug?: string;
 };
 
-export const useCategoryWithRelationQuery = (params: CategoryPayload) => {
+export const useCategoryWithRelationQuery = (params: CategoryParams) => {
   const { data, isPending, isSuccess, isFetchedAfterMount } =
-    categoryApi.category.getWithRelation.useQuery(params);
-  console.log("output_log: data  =>>>", data);
+    categoryApi.category.getRelation.useQuery<CategoryRelation>(params);
 
   useListenCategoryUpdate();
 
@@ -24,6 +24,6 @@ export const useCategoryWithRelationQuery = (params: CategoryPayload) => {
 
 export const useInvalidateCategoryWithRelation = () => {
   const invalidateCategory =
-    categoryApi.useUtils().category.getWithRelation.invalidate;
+    categoryApi.useUtils().category.getRelation.invalidate;
   return (categoryId: string) => invalidateCategory({ categoryId });
 };

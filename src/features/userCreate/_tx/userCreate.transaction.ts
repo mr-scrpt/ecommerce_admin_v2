@@ -2,7 +2,7 @@ import { CartRepository } from "@/entities/cart/server";
 import { UserToCreate } from "@/entities/user/user.server";
 import { UserRepository } from "@/entities/user/user.server";
 import { UserEntity } from "@/kernel/domain/user.type";
-import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db/db";
+import { DBClient, Transaction, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
 
 @injectable()
@@ -12,7 +12,7 @@ export class UserCreateTx extends Transaction {
     private readonly userRepo: UserRepository,
     private readonly cartRepo: CartRepository,
   ) {
-    super(dbClient);
+    super(db);
   }
 
   async createUser(user: UserToCreate): Promise<UserEntity> {

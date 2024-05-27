@@ -1,44 +1,30 @@
 import { Controller, publicProcedure, router } from "@/kernel/lib/trpc/server";
 import { injectable } from "inversify";
-import { z } from "zod";
-import {
-  categoryRelationSchema,
-  categorySchema,
-} from "../_domain/category.schema";
+import { categoryRelationSchema } from "../_domain/category.schema";
+import { getByInputSchema, getListInputSchema } from "../_domain/input.schema";
+import { CategoryRelationGetService } from "../_service/categoryRelationGet.service";
 import { CategoryListGetService } from "../_service/categoryListGet.service";
-import { CategoryGetService } from "../_service/categoryGet.service";
-
-const categoryListSchema = z.array(categorySchema);
-
-const getCategorySchema = z
-  .object({
-    categoryId: z.string().optional(),
-    categorySlug: z.string().optional(),
-  })
-  .refine((data) => data.categoryId || data.categorySlug, {
-    message: "Either 'id' or 'slug' is required",
-  });
 
 @injectable()
 export class CategoryController extends Controller {
   constructor(
     private readonly getCategoryListService: CategoryListGetService,
-    private readonly getCategoryService: CategoryGetService,
+    private readonly getCategoryRelationService: CategoryRelationGetService,
   ) {
     super();
   }
 
   public router = router({
     category: {
-      getWithRelation: publicProcedure
-        .input(getCategorySchema)
+      getRelation: publicProcedure
+        .input(getByInputSchema)
         .query(async ({ input }) => {
-          const result = await this.getCategoryService.execute(input);
+          const result = await this.getCategoryRelationService.execute(input);
           return categoryRelationSchema.parse(result);
         }),
-      getList: publicProcedure.output(categoryListSchema).query(async () => {
+      getList: publicProcedure.output(getListInputSchema).query(async () => {
         const result = await this.getCategoryListService.execute();
-        return categoryListSchema.parse(result);
+        return getListInputSchema.parse(result);
       }),
     },
   });

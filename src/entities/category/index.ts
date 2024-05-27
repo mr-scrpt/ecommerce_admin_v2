@@ -15,10 +15,13 @@ export { useCategoryLikeSelectOptionList } from "./_vm/useCategoryLikeSelectOpti
 export { categoryApi } from "./_api/category.api";
 export type {
   Category,
-  CategoryAddProductList,
   CategoryEntity,
-  CategoryId,
   CategoryRelationEntity,
-  CategoryToCreate,
-  CategoryToUpdate,
 } from "./_domain/types";
+
+export type {
+  CategoryUpdateDTO,
+  CategoryCreateDTO,
+  CategoryAddProductListDTO,
+  CategoryAddPropertyListDTO,
+} from "./_domain/dto";

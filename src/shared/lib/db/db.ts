@@ -1,6 +1,9 @@
+import "reflect-metadata";
+
 import { PrismaClient } from "@prisma/client";
 import { injectable } from "inversify";
 
+@injectable()
 export class DBClient extends PrismaClient {
   constructor() {
     super({
@@ -26,8 +29,6 @@ export type Tx = Omit<
   DBClient,
   "$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends"
 >;
-
-export const dbClient = new DBClient();
 
 @injectable()
 export class Transaction extends BaseTransaction {

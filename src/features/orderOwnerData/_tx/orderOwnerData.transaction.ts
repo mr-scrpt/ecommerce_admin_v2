@@ -1,5 +1,5 @@
 import { OrderRepository } from "@/entities/order/server";
-import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db/db";
+import { DBClient, Transaction, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
 import { OrderOwnerDataEntity } from "../_domain/types";
 import { UserRepository } from "@/entities/user/user.server";
@@ -11,7 +11,7 @@ export class OrderOwnerDataTx extends Transaction {
     private readonly orderRepo: OrderRepository,
     private readonly userRepo: UserRepository,
   ) {
-    super(dbClient);
+    super(db);
   }
 
   async getOwnerWithOrderList(orderId: string): Promise<OrderOwnerDataEntity> {

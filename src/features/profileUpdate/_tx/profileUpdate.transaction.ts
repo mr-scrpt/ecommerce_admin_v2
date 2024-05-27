@@ -1,5 +1,5 @@
 import { ProfileRepository } from "@/entities/user/profile.server";
-import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db/db";
+import { DBClient, Transaction, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
 import { ProfileUpdateComplexible } from "../_domain/types";
 import { UserEntity } from "@/entities/user/user";
@@ -10,7 +10,7 @@ export class ProfileUpdateTx extends Transaction {
     readonly db: DBClient,
     private readonly profileRepo: ProfileRepository,
   ) {
-    super(dbClient);
+    super(db);
   }
 
   async updateProfile(

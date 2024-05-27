@@ -1,5 +1,5 @@
 import { StoreWithSettlementName } from "@/entities/store";
-import { DBClient, Transaction, Tx, dbClient } from "@/shared/lib/db/db";
+import { DBClient, Transaction, Tx } from "@/shared/lib/db/db";
 import { StoreRepository } from "@/entities/store/server";
 import { injectable } from "inversify";
 import { SettlementRepository } from "@/entities/settlement/_repository/settlement.repo";
@@ -11,7 +11,7 @@ export class StoreDataTx extends Transaction {
     private readonly storeRepo: StoreRepository,
     private readonly settlementRepo: SettlementRepository,
   ) {
-    super(dbClient);
+    super(db);
   }
 
   async getStoreWithSettlementNameList(): Promise<

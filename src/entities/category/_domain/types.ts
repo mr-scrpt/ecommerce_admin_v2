@@ -1,13 +1,10 @@
 import { PropertyDataTypeEnum } from "@/shared/type/propertyDataType.enum";
 
-export const baseQueryKey = "category";
-export type CategoryId = string;
-export type CategorySlug = string;
-
+// NOTE: Entity
 export type CategoryEntity = {
-  id: CategoryId;
+  id: string;
   name: string;
-  slug: CategorySlug;
+  slug: string;
   board: Array<string>;
   createdAt: Date;
 };
@@ -17,12 +14,11 @@ export type CategoryRelationEntity = CategoryEntity & {
   propertyList: Array<PropertyListItem>;
 };
 
-// Projetions
-
+// NOTE: Projetions
 export type Category = {
-  id: CategoryId;
+  id: string;
   name: string;
-  slug: CategorySlug;
+  slug: string;
   board: Array<string>;
   createdAt: Date;
 };
@@ -32,30 +28,14 @@ export type CategoryRelation = Category & {
   propertyList: Array<PropertyListItem>;
 };
 
-export type CategoryToCreate = {
-  name: string;
-  slug: CategorySlug;
-  board: Array<string>;
+// NOTE: Payload
+
+export type CategoryGetPayload = {
+  categoryId?: string;
+  categorySlug?: string;
 };
 
-export type CategoryToUpdate = {
-  id: CategoryId;
-  name: string;
-  slug: CategorySlug;
-  board: Array<string>;
-};
-
-export type CategoryAddProductList = {
-  categoryId: string;
-  productListId: Array<{ id: string }>;
-};
-
-export type CategoryAddPropertyList = {
-  categoryId: string;
-  propertyListId: Array<{ id: string }>;
-};
-
-// Side
+// NOTE: Side
 type ProductListItem = {
   id: string;
   name: string;
@@ -67,6 +47,5 @@ type ProductListItem = {
 type PropertyListItem = {
   id: string;
   name: string;
-  // datatype: string;
   datatype: PropertyDataTypeEnum;
 };

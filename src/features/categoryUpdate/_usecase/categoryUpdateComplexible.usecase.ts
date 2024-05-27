@@ -1,13 +1,13 @@
 import { CategoryEntity } from "@/entities/category";
 import { ForbiddenError } from "@/shared/lib/errors";
 import { SessionEntity } from "@/shared/lib/user";
-import { CategoryUpdateComplexible } from "../_domain/types";
+import { CategoryUpdateTxPayload } from "../_domain/types";
 import { CategoryUpdateTx } from "../_tx/categoryUpdate.transaction";
 import { createCategoryAbility } from "@/entities/category/server";
 import { injectable } from "inversify";
 
 type UpdateCategory = {
-  dataToUpdate: CategoryUpdateComplexible;
+  dataToUpdate: CategoryUpdateTxPayload;
   session: SessionEntity;
 };
 
@@ -24,6 +24,6 @@ export class UpdateCategoryComplexibleUseCase {
       throw new ForbiddenError();
     }
 
-    return await this.categoryUpdateTx.updateCategoryComplexible(dataToUpdate);
+    return await this.categoryUpdateTx.execute(dataToUpdate);
   }
 }
