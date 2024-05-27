@@ -5,17 +5,22 @@ import {
   CategoryAddProductListDTO,
   CategoryAddPropertyListDTO,
   CategoryCreateDTO,
+  CategoryRemoveBySlugDTO,
+  CategoryRemoveDTO,
   CategoryUpdateDTO,
-} from "../_domain/dto";
+  CategoryGetDto,
+  CategoryGetBySlugDto,
+} from "../_domain/category.dto";
 
 @injectable()
 export class CategoryRepository {
   constructor(readonly db: DBClient) {}
 
   async getCategory(
-    categoryId: string,
+    dto: CategoryGetDto,
     db: Tx = this.db,
   ): Promise<CategoryEntity> {
+    const { categoryId } = dto;
     const res = db.category.findUniqueOrThrow({
       where: {
         id: categoryId,
@@ -26,9 +31,10 @@ export class CategoryRepository {
   }
 
   async getCategoryWithRelation(
-    categoryId: string,
+    dto: CategoryGetDto,
     db: Tx = this.db,
   ): Promise<CategoryRelationEntity> {
+    const { categoryId } = dto;
     const res = await db.category.findUniqueOrThrow({
       where: {
         id: categoryId,
@@ -43,9 +49,10 @@ export class CategoryRepository {
   }
 
   async getCategoryBySlug(
-    slug: string,
+    dto: CategoryGetBySlugDto,
     db: Tx = this.db,
   ): Promise<CategoryEntity> {
+    const { slug } = dto;
     return db.category.findUniqueOrThrow({
       where: {
         slug,
@@ -54,9 +61,10 @@ export class CategoryRepository {
   }
 
   async getCategoryBySlugWithRelation(
-    slug: string,
+    dto: CategoryGetBySlugDto,
     db: Tx = this.db,
   ): Promise<CategoryRelationEntity> {
+    const { slug } = dto;
     return await db.category.findUniqueOrThrow({
       where: {
         slug,
@@ -88,19 +96,19 @@ export class CategoryRepository {
   }
 
   async createCategory(
-    category: CategoryCreateDTO,
+    dto: CategoryCreateDTO,
     db: Tx = this.db,
   ): Promise<CategoryEntity> {
     return await db.category.create({
-      data: category,
+      data: dto,
     });
   }
 
   async addCategoryPropertyList(
-    data: CategoryAddPropertyListDTO,
+    dto: CategoryAddPropertyListDTO,
     db: Tx = this.db,
   ): Promise<CategoryEntity> {
-    const { categoryId, propertyListId } = data;
+    const { categoryId, propertyListId } = dto;
     return await db.category.update({
       where: {
         id: categoryId,
@@ -114,10 +122,10 @@ export class CategoryRepository {
   }
 
   async addCategoryProductList(
-    data: CategoryAddProductListDTO,
+    dto: CategoryAddProductListDTO,
     db: Tx = this.db,
   ): Promise<CategoryEntity> {
-    const { categoryId, productListId } = data;
+    const { categoryId, productListId } = dto;
     return await db.category.update({
       where: {
         id: categoryId,
@@ -131,27 +139,29 @@ export class CategoryRepository {
   }
 
   async updateCategory(
-    targetId: string,
     categoryData: Partial<CategoryUpdateDTO>,
     db: Tx = this.db,
   ): Promise<CategoryEntity> {
+    const { categoryId, ...data } = categoryData;
     return await db.category.update({
-      where: { id: targetId },
-      data: categoryData,
+      where: { id: categoryId },
+      data,
     });
   }
 
   async removeCategoryById(
-    categoryId: string,
+    dto: CategoryRemoveDTO,
     db: Tx = this.db,
   ): Promise<CategoryEntity> {
+    const { categoryId } = dto;
     return await db.category.delete({ where: { id: categoryId } });
   }
 
   async removeCategoryBySlug(
-    slug: string,
+    dto: CategoryRemoveBySlugDTO,
     db: Tx = this.db,
   ): Promise<CategoryEntity> {
+    const { slug } = dto;
     return await db.category.delete({ where: { slug } });
   }
 }

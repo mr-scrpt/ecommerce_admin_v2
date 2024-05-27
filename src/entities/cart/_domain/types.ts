@@ -1,9 +1,6 @@
-export const baseQueryKey = "cart";
-export type CartId = string;
-export type CartSlug = string;
-
+// NOTE: Entity
 export type CartEntity = {
-  id: CartId;
+  id: string;
   userId: string;
   createdAt: Date;
 };
@@ -21,11 +18,14 @@ export type CartRelationEntity = CartEntity & {
 };
 
 // NOTE: Projetions
-
 export type Cart = {
-  id: CartId;
+  id: string;
   userId: string;
   createdAt: Date;
+};
+
+export type CartRelation = Cart & {
+  cartRowList: Array<CartRow>;
 };
 
 export type CartRow = {
@@ -34,8 +34,9 @@ export type CartRow = {
   createdAt: Date;
 };
 
-export type CartRelation = Cart & {
-  cartRowList: Array<CartRow>;
+// NOTE: Payload
+export type CartGetPayload = {
+  cartId: string;
 };
 
 export type CartToCreate = {
@@ -43,7 +44,7 @@ export type CartToCreate = {
 };
 
 export type CartToAddProduct = {
-  id: CartId;
+  id: string;
   productId: string;
 };
 
@@ -68,9 +69,3 @@ export type CartRowToRemoveProduct = {
   cartId: string;
   productId: string;
 };
-
-// Side
-// export type CartRow = {
-//   id: string;
-//   // name: string;
-// };

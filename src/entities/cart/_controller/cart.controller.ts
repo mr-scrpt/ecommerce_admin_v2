@@ -1,4 +1,9 @@
-import { Controller, publicProcedure, router } from "@/kernel/lib/trpc/server";
+import {
+  Controller,
+  authorizedProcedure,
+  publicProcedure,
+  router,
+} from "@/kernel/lib/trpc/server";
 import { injectable } from "inversify";
 import { cartRelationSchema } from "../_domain/cart.schema";
 import { CartGetService } from "../_service/cartGet.service";
@@ -11,14 +16,9 @@ export class CartController extends Controller {
 
   public router = router({
     cart: {
-      getWithRelation: publicProcedure.query(async ({ ctx }) => {
+      getWithRelation: authorizedProcedure.query(async ({ ctx }) => {
         const { session } = ctx;
-        const cartId = session?.user.cartId;
-
-        // TODO: Add error handling
-        if (!cartId) {
-          throw new Error("Cart not found");
-        }
+        const cartId = session.user.cartId;
 
         const result = await this.getCartService.execute({
           cartId,

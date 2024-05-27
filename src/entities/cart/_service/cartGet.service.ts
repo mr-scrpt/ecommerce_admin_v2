@@ -1,16 +1,12 @@
 import { injectable } from "inversify";
-import { CartRelationEntity } from "../_domain/types";
+import { CartGetPayload, CartRelation } from "../_domain/types";
 import { CartRepository } from "../server";
-
-type CartGetWithRelation = {
-  cartId: string;
-};
 
 @injectable()
 export class CartGetService {
   constructor(private readonly cartRepo: CartRepository) {}
 
-  async execute(props: CartGetWithRelation): Promise<CartRelationEntity> {
+  async execute(props: CartGetPayload): Promise<CartRelation> {
     return await this.cartRepo.getCartWithRelation(props.cartId);
   }
 }

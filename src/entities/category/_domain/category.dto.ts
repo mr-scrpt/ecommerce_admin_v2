@@ -1,4 +1,12 @@
 // NOTE: DTO
+export type CategoryGetDto = {
+  categoryId: string;
+};
+
+export type CategoryGetBySlugDto = {
+  slug: string;
+};
+
 export type CategoryCreateDTO = {
   name: string;
   slug: string;
@@ -6,10 +14,18 @@ export type CategoryCreateDTO = {
 };
 
 export type CategoryUpdateDTO = {
-  id: string;
+  categoryId: string;
   name: string;
   slug: string;
   board: Array<string>;
+};
+
+export type CategoryRemoveDTO = {
+  categoryId: string;
+};
+
+export type CategoryRemoveBySlugDTO = {
+  slug: string;
 };
 
 export type CategoryAddProductListDTO = {

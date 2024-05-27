@@ -17,9 +17,9 @@ export class CategoryRelationGetService {
   async operation(props: CategoryGetPayload): Promise<CategoryRelation> {
     const operationsMap: OperationsMap<CategoryRelation> = {
       categoryId: (categoryId: string) =>
-        this.categoryRepo.getCategoryWithRelation(categoryId),
+        this.categoryRepo.getCategoryWithRelation({ categoryId }),
       categorySlug: (categorySlug: string) =>
-        this.categoryRepo.getCategoryBySlugWithRelation(categorySlug),
+        this.categoryRepo.getCategoryBySlugWithRelation({ slug: categorySlug }),
     };
 
     for (const key of Object.keys(props)) {
