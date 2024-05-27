@@ -12,6 +12,7 @@ import { Container } from "inversify";
 import { DbModule } from "@/shared/lib/db/module";
 import { PropertyModule } from "@/entities/property/module";
 import { CategoryUpdateModule } from "@/features/categoryUpdate/module";
+import { CategoryCreateModule } from "@/features/categoryCreate/module";
 
 export const loadModule = () => {
   const container = new Container();
@@ -24,6 +25,7 @@ export const loadModule = () => {
     ProfileModule,
     ProfileUpdateModule,
     CategoryModule,
+    CategoryCreateModule,
     CategoryUpdateModule,
     CategoryRemoveModule,
     PropertyModule,

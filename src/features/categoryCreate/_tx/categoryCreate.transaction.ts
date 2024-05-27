@@ -1,7 +1,7 @@
 import { CategoryEntity } from "@/entities/category";
-import { DBClient, Tx, Transaction } from "@/shared/lib/db/db";
-import { CategoryCreateComplexible } from "../_domain/types";
 import { CategoryRepository } from "@/entities/category/server";
+import { CategoryUpdateTxDTO } from "@/features/categoryUpdate/_domain/types";
+import { DBClient, Transaction, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
 
 @injectable()
@@ -13,10 +13,8 @@ export class CategoryCreateTx extends Transaction {
     super(db);
   }
 
-  async createCategoryComplexible(
-    data: CategoryCreateComplexible,
-  ): Promise<CategoryEntity> {
-    const { categoryData, propertyListData } = data;
+  async execute(data: CategoryUpdateTxDTO): Promise<CategoryEntity> {
+    const { categoryData, propertyData } = data;
     const action = async (tx: Tx) => {
       const categoryCreated = await this.categoryRepo.createCategory(
         categoryData,
@@ -26,7 +24,7 @@ export class CategoryCreateTx extends Transaction {
       await this.categoryRepo.addCategoryPropertyList(
         {
           categoryId: categoryCreated.id,
-          propertyListId: propertyListData,
+          propertyListId: propertyData,
         },
         tx,
       );

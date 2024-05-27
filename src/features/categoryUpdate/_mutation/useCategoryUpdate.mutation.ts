@@ -1,3 +1,4 @@
+"use client";
 import { categoryUpdateApi } from "../_api/categoryUpdate.api";
 import { useEmitCategoryUpdate } from "../_vm/event/useEmitCategoryUpdate";
 

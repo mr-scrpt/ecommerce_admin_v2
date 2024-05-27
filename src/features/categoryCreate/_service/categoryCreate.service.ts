@@ -1,32 +1,29 @@
-import { CategoryEntity } from "@/entities/category";
+import { Category } from "@/entities/category";
 import { injectable } from "inversify";
-import { CategoryCreateComplexible } from "../_domain/types";
+import { CategoryCreateTxDTO, CategoryCreateTxPayload } from "../_domain/types";
 import { CategoryCreateTx } from "../_tx/categoryCreate.transaction";
+import { slugGenerator } from "@/shared/lib/slugGenerator";
 
 @injectable()
 export class CategoryCreateService {
   constructor(private readonly categoryCreateTx: CategoryCreateTx) {}
 
-  async execute(props: CategoryCreateComplexible): Promise<CategoryEntity> {
-    return await this.categoryCreateTx.createCategoryComplexible(props);
+  async execute(props: CategoryCreateTxPayload): Promise<Category> {
+    const categoryCreateDTO = this.build(props);
+    return await this.categoryCreateTx.execute(categoryCreateDTO);
   }
 
-  // async operation(props: CategoryCreate): Promise<CategoryEntity> {
-  //   const operationsMap: OperationsMap<CategoryEntity> = {
-  //     categoryId: (categoryId: string) =>
-  //       this.categoryRemoveTx.removeCategoryById(categoryId),
-  //     categorySlug: (categorySlug: string) =>
-  //       this.categoryRemoveTx.removeCategoryBySlug(categorySlug),
-  //   };
-  //
-  //   for (const key of Object.keys(props)) {
-  //     const value = props[key as keyof CategoryCreate];
-  //     if (value && operationsMap[key]) {
-  //       return await operationsMap[key](value);
-  //     }
-  //   }
-  //
-  //   // TODO: Error custom handling
-  //   throw new Error("Either 'categoryId' or 'categorySlug' must be provided.");
-  // }
+  private build(props: CategoryCreateTxPayload): CategoryCreateTxDTO {
+    const { name, board, propertyList } = props;
+    const slug = slugGenerator(name);
+
+    return {
+      categoryData: {
+        name,
+        slug,
+        board,
+      },
+      propertyData: propertyList,
+    };
+  }
 }

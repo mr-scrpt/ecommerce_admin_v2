@@ -1,6 +1,6 @@
 import { Controller, publicProcedure, router } from "@/kernel/lib/trpc/server";
 import { injectable } from "inversify";
-import { categoryUpdateTxSchema } from "../_domain/schema";
+import { updateInputSchema } from "../_domain/input.schema";
 import { CategoryUpdateService } from "../_service/categoryUpdate.service";
 import { categorySchema } from "@/entities/category/server";
 
@@ -13,7 +13,7 @@ export class CategoryUpdateController extends Controller {
   public router = router({
     categoryUpdate: {
       update: publicProcedure
-        .input(categoryUpdateTxSchema)
+        .input(updateInputSchema)
         .mutation(async ({ input }) => {
           const result = await this.updateCategoryService.execute(input);
           return categorySchema.parse(result);

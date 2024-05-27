@@ -1,6 +1,12 @@
-import { CategoryToCreate } from "@/entities/category";
+import { CategoryCreateDTO } from "@/entities/category";
 
-export type CategoryCreateComplexible = {
-  categoryData: CategoryToCreate;
-  propertyListData: Array<{ id: string }>;
+export type CategoryCreateTxPayload = {
+  name: string;
+  board: Array<string>;
+  propertyList: Array<{ id: string }>;
+};
+
+export type CategoryCreateTxDTO = {
+  categoryData: CategoryCreateDTO;
+  propertyData: Array<{ id: string }>;
 };
