@@ -12,6 +12,6 @@ export class ProfileGetService {
 
   async execute(props: ProfileGet): Promise<ProfileEntity> {
     const { id } = props;
-    return await this.profileRepo.getProfile(id);
+    return await this.profileRepo.getProfile({ profileId: id });
   }
 }

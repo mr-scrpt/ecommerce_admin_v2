@@ -20,6 +20,6 @@ export class GetCartWithRelationByUserIdUseCase {
       throw new AuthorizatoinError();
     }
 
-    return await this.cartRepo.getCartWithRelationByUserId(userId);
+    return await this.cartRepo.getCartWithRelationByUser(userId);
   }
 }

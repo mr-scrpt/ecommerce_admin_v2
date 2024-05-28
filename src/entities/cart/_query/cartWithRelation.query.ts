@@ -1,37 +1,34 @@
 "use client";
-import { queryOptions, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getCartWithRelationAction } from "../_action/getCartWithRelation.action";
-import { CartId, baseQueryKey } from "../_domain/types";
+import { cartApi } from "../_api/cart.api";
 import { useListenCartUpdate } from "../_vm/event/useListenCartUpdate";
 
-export const getCartWithRelationQuery = (cartId: CartId) =>
-  queryOptions({
-    queryKey: [baseQueryKey, "getCart", cartId],
-    queryFn: () => {
-      return getCartWithRelationAction();
-    },
-  });
+// export const getCartWithRelationQuery = (cartId: string) =>
+//   queryOptions({
+//     queryKey: [baseQueryKey, "getCart", cartId],
+//     queryFn: () => {
+//       return getCartWithRelationAction();
+//     },
+//   });
 
-export const useCartWithRelationQuery = (cartId: CartId) => {
-  const query = getCartWithRelationQuery(cartId);
+// TODO: need id to invalidate?
+export const useCartWithRelationQuery = () => {
+  // const query = getCartWithRelationQuery(cartId);
 
-  const { isPending, isSuccess, data, isFetchedAfterMount } = useQuery(query);
+  const { isPending, isSuccess, data, isFetchedAfterMount } =
+    cartApi.cart.getWithRelation.useQuery();
 
   useListenCartUpdate();
 
   return {
     isPending,
     isSuccess,
-    cart: data?.cart,
+    cart: data,
     isFetchedAfterMount,
   };
 };
 
 export const useInvalidateCartWithRelation = () => {
-  const queryClient = useQueryClient();
+  const invalidateCart = cartApi.useUtils().cart.getWithRelation.invalidate;
 
-  return (cartId: CartId) =>
-    queryClient.invalidateQueries({
-      queryKey: [baseQueryKey, "getCartWithRelation", cartId],
-    });
+  return () => invalidateCart();
 };

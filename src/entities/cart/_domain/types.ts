@@ -38,34 +38,3 @@ export type CartRow = {
 export type CartGetPayload = {
   cartId: string;
 };
-
-export type CartToCreate = {
-  userId: string;
-};
-
-export type CartToAddProduct = {
-  id: string;
-  productId: string;
-};
-
-// CartRow
-export type CartRowGetByProductId = {
-  cartId: string;
-  productId: string;
-};
-
-export type CartRowChangeQuantity = {
-  id: string;
-  quantity: number;
-};
-
-export type CartRowToAddProduct = {
-  cartId: string;
-  productId: string;
-  // quantity: number;
-};
-
-export type CartRowToRemoveProduct = {
-  cartId: string;
-  productId: string;
-};

@@ -10,8 +10,8 @@ import { CategoryRepository } from "../_repository/category.repo";
 export class CategoryRelationGetService {
   constructor(private readonly categoryRepo: CategoryRepository) {}
 
-  async execute(props: CategoryGetPayload): Promise<CategoryRelation> {
-    return await this.operation(props);
+  async execute(payload: CategoryGetPayload): Promise<CategoryRelation> {
+    return await this.operation(payload);
   }
 
   async operation(props: CategoryGetPayload): Promise<CategoryRelation> {

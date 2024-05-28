@@ -1,7 +1,8 @@
-import { CategoryEntity, CategoryId } from "@/entities/category";
+import { CategoryEntity } from "@/entities/category";
 import { CategoryRepository } from "@/entities/category/server";
 import { DBClient, Transaction, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
+import { CategoryRemoveTxDTO } from "../_domain/types";
 
 @injectable()
 export class CategoryRemoveTx extends Transaction {
@@ -12,17 +13,21 @@ export class CategoryRemoveTx extends Transaction {
     super(db);
   }
 
-  async removeCategoryById(categoryId: CategoryId): Promise<CategoryEntity> {
+  async remove(dto: CategoryRemoveTxDTO): Promise<CategoryEntity> {
+    const { categoryId } = dto;
     const action = async (tx: Tx) => {
-      return await this.categoryRepo.removeCategoryById(categoryId, tx);
+      return await this.categoryRepo.removeCategory({ categoryId }, tx);
     };
 
     return await this.start(action);
   }
 
-  async removeCategoryBySlug(categorySlug: string): Promise<CategoryEntity> {
+  async removeBySlug(categorySlug: string): Promise<CategoryEntity> {
     const action = async (tx: Tx) => {
-      return await this.categoryRepo.removeCategoryBySlug(categorySlug, tx);
+      return await this.categoryRepo.removeCategoryBySlug(
+        { slug: categorySlug },
+        tx,
+      );
     };
 
     return await this.start(action);

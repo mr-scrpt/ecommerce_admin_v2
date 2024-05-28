@@ -25,7 +25,7 @@ export class UserCreateTx extends Transaction {
         tx,
       );
       const userWithCart = await this.userRepo.getUserWithCart(
-        userCreated.id,
+        { userId: userCreated.id },
         tx,
       );
 

@@ -8,12 +8,8 @@ import {
   router,
 } from "@/kernel/lib/trpc/server";
 import { injectable } from "inversify";
-import { z } from "zod";
+import { removeInputSchema } from "../_domain/input.schema";
 import { CategoryRemoveService } from "../_service/categoryRemove.service";
-
-const removeCategorySchema = z.object({
-  categoryId: z.string(),
-});
 
 @injectable()
 export class CategoryRemoveController extends Controller {
@@ -27,7 +23,7 @@ export class CategoryRemoveController extends Controller {
         create: createCategoryAbility,
         check: (ability) => ability.canRemoveCategory(),
       })
-        .input(removeCategorySchema)
+        .input(removeInputSchema)
         .mutation(async ({ input }) => {
           const result = await this.removeCategoryService.execute(input);
 

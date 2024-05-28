@@ -3,10 +3,10 @@ import { CartGetPayload, CartRelation } from "../_domain/types";
 import { CartRepository } from "../server";
 
 @injectable()
-export class CartGetService {
+export class CartRelationGetService {
   constructor(private readonly cartRepo: CartRepository) {}
 
-  async execute(props: CartGetPayload): Promise<CartRelation> {
-    return await this.cartRepo.getCartWithRelation(props.cartId);
+  async execute(payload: CartGetPayload): Promise<CartRelation> {
+    return await this.cartRepo.getCartRelation(payload);
   }
 }

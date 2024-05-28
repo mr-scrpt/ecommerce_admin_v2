@@ -8,8 +8,8 @@ import {
   CategoryRemoveBySlugDTO,
   CategoryRemoveDTO,
   CategoryUpdateDTO,
-  CategoryGetDto,
-  CategoryGetBySlugDto,
+  CategoryGetDTO,
+  CategoryGetBySlugDTO,
 } from "../_domain/category.dto";
 
 @injectable()
@@ -17,7 +17,7 @@ export class CategoryRepository {
   constructor(readonly db: DBClient) {}
 
   async getCategory(
-    dto: CategoryGetDto,
+    dto: CategoryGetDTO,
     db: Tx = this.db,
   ): Promise<CategoryEntity> {
     const { categoryId } = dto;
@@ -31,7 +31,7 @@ export class CategoryRepository {
   }
 
   async getCategoryWithRelation(
-    dto: CategoryGetDto,
+    dto: CategoryGetDTO,
     db: Tx = this.db,
   ): Promise<CategoryRelationEntity> {
     const { categoryId } = dto;
@@ -49,7 +49,7 @@ export class CategoryRepository {
   }
 
   async getCategoryBySlug(
-    dto: CategoryGetBySlugDto,
+    dto: CategoryGetBySlugDTO,
     db: Tx = this.db,
   ): Promise<CategoryEntity> {
     const { slug } = dto;
@@ -61,7 +61,7 @@ export class CategoryRepository {
   }
 
   async getCategoryBySlugWithRelation(
-    dto: CategoryGetBySlugDto,
+    dto: CategoryGetBySlugDTO,
     db: Tx = this.db,
   ): Promise<CategoryRelationEntity> {
     const { slug } = dto;
@@ -149,7 +149,7 @@ export class CategoryRepository {
     });
   }
 
-  async removeCategoryById(
+  async removeCategory(
     dto: CategoryRemoveDTO,
     db: Tx = this.db,
   ): Promise<CategoryEntity> {

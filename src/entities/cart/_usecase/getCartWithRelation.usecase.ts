@@ -22,6 +22,6 @@ export class GetCartWithRelationUseCase {
       throw new AuthorizatoinError();
     }
 
-    return await this.cartRepo.getCartWithRelation(cartId);
+    return await this.cartRepo.getCartRelation(cartId);
   }
 }

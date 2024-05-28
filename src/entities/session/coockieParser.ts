@@ -1,7 +1,10 @@
+import { configPublic } from "@/shared/config/public.config";
 import { cookies } from "next/headers";
-import { COOKIE_NETWORK_NAME, clientNetworkData } from "./constant";
+import { clientNetworkData } from "./constant";
 import { clientNetworkDataSchema } from "./schema";
 import { ClientNetworkData } from "./types";
+
+const { COOKIE_NETWORK_NAME } = configPublic;
 
 export const getNetworkClientCookie = (): ClientNetworkData => {
   const c = cookies();

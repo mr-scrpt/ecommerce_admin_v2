@@ -13,15 +13,12 @@ export class CategoryUpdateTx extends Transaction {
     super(db);
   }
 
-  async execute(data: CategoryUpdateTxDTO): Promise<CategoryEntity> {
+  async update(dto: CategoryUpdateTxDTO): Promise<CategoryEntity> {
+    const { categoryData, propertyData } = dto;
+    const { categoryId } = categoryData;
+
     const action = async (tx: Tx) => {
-      const { categoryData, propertyData } = data;
-      const { id: categoryId } = categoryData;
-      const categoryUpdated = await this.categoryRepo.updateCategory(
-        categoryId,
-        categoryData,
-        tx,
-      );
+      await this.categoryRepo.updateCategory(categoryData, tx);
 
       await this.categoryRepo.addCategoryPropertyList(
         {
@@ -31,7 +28,7 @@ export class CategoryUpdateTx extends Transaction {
         tx,
       );
 
-      return await this.categoryRepo.getCategory(categoryUpdated.id, tx);
+      return await this.categoryRepo.getCategory({ categoryId }, tx);
     };
 
     return await this.start(action);

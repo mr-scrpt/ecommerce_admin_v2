@@ -8,9 +8,9 @@ import { slugGenerator } from "@/shared/lib/slugGenerator";
 export class CategoryCreateService {
   constructor(private readonly categoryCreateTx: CategoryCreateTx) {}
 
-  async execute(props: CategoryCreateTxPayload): Promise<Category> {
-    const categoryCreateDTO = this.build(props);
-    return await this.categoryCreateTx.execute(categoryCreateDTO);
+  async execute(payload: CategoryCreateTxPayload): Promise<Category> {
+    const categoryCreateDTO = this.build(payload);
+    return await this.categoryCreateTx.create(categoryCreateDTO);
   }
 
   private build(props: CategoryCreateTxPayload): CategoryCreateTxDTO {

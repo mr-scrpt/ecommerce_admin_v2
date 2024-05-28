@@ -8,9 +8,9 @@ import { CategoryUpdateTx } from "../_tx/categoryUpdate.transaction";
 export class CategoryUpdateService {
   constructor(private readonly categoryUpdateTx: CategoryUpdateTx) {}
 
-  async execute(props: CategoryUpdateTxPayload): Promise<Category> {
-    const categoryUpdateDTO = this.build(props);
-    return await this.categoryUpdateTx.execute(categoryUpdateDTO);
+  async execute(payload: CategoryUpdateTxPayload): Promise<Category> {
+    const categoryUpdateDTO = this.build(payload);
+    return await this.categoryUpdateTx.update(categoryUpdateDTO);
   }
 
   private build(props: CategoryUpdateTxPayload): CategoryUpdateTxDTO {
@@ -19,7 +19,7 @@ export class CategoryUpdateService {
 
     return {
       categoryData: {
-        id,
+        categoryId: id,
         name,
         slug,
         board,

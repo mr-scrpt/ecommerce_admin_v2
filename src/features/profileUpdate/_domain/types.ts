@@ -1,6 +1,7 @@
-import { ProfileToUpdate } from "@/entities/user/profile.server";
+import { Profile, ProfileUpdateDTO } from "@/entities/user/profile";
 
-export type ProfileUpdateComplexible = {
-  profileId: string;
-  profileData: ProfileToUpdate;
+export type ProfileUpdateTxPayload = Partial<Profile>;
+
+export type ProfileUpdateTxDTO = {
+  profileData: ProfileUpdateDTO;
 };

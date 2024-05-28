@@ -2,7 +2,7 @@ import { Role } from "@/kernel/domain/role.type";
 import type { UserEntity } from "@/kernel/domain/user.type";
 export { UserEntity };
 
-export const userBaseQueryKey = "user";
+// export const userBaseQueryKey = "user";
 
 export type UserWithCartEntity = UserEntity & {
   cart: UserCartRelation | null;
@@ -42,15 +42,11 @@ export type UserStrict = {
   name: string;
   image: string | null;
 };
-export type UserToCreate = {
-  email: string;
-  phone: string;
-  name?: string | null;
-  image?: string | null;
-  role: Role;
-};
 
-export type UserToUpdate = Partial<User>;
+// NOTE: Payload
+export type UserGetPayload = {
+  userId: string;
+};
 
 // NOTE: Side
 type UserCart = {

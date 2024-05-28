@@ -1,4 +1,4 @@
-import { UserToCreate } from "@/entities/user/_domain/user.types";
+import { UserCreateDTO } from "@/entities/user/_domain/user.types";
 import { UserCreateTx } from "../_tx/userCreate.transaction";
 import { injectable } from "inversify";
 import { UserEntity } from "@/entities/user/user";
@@ -9,11 +9,11 @@ import { ROLES } from "@/kernel/domain/role.type";
 export class CreateUserRegistrationUseCase {
   constructor(private readonly userCreateTx: UserCreateTx) {}
 
-  async exec(data: UserToCreate): Promise<UserEntity> {
+  async exec(data: UserCreateDTO): Promise<UserEntity> {
     const adminEmails = configPrivate.ADMIN_EMAILS?.split(",") ?? [];
     const role = adminEmails.includes(data.email) ? ROLES.ADMIN : ROLES.USER;
 
-    const user: UserToCreate = {
+    const user: UserCreateDTO = {
       ...data,
       role,
     };

@@ -24,4 +24,4 @@ export type {
   CategoryCreateDTO,
   CategoryAddProductListDTO,
   CategoryAddPropertyListDTO,
-} from "./_domain/dto";
+} from "./_domain/category.dto";

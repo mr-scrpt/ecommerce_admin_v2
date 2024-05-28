@@ -13,6 +13,7 @@ import { DbModule } from "@/shared/lib/db/module";
 import { PropertyModule } from "@/entities/property/module";
 import { CategoryUpdateModule } from "@/features/categoryUpdate/module";
 import { CategoryCreateModule } from "@/features/categoryCreate/module";
+import { SettlementModule } from "@/entities/settlement/module";
 
 export const loadModule = () => {
   const container = new Container();
@@ -20,17 +21,24 @@ export const loadModule = () => {
   container.load(
     DbModule,
     NextAuthModule,
+
     UserModule,
     UserCreateModule,
+
     ProfileModule,
     ProfileUpdateModule,
+
+    CartModule,
+
     CategoryModule,
     CategoryCreateModule,
     CategoryUpdateModule,
     CategoryRemoveModule,
+
     PropertyModule,
+
+    SettlementModule,
     TrpcModule,
-    CartModule,
   );
   return container;
 };

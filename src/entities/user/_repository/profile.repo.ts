@@ -1,16 +1,17 @@
 import { DBClient, Tx } from "@/shared/lib/db/db";
-import { UserId } from "@/shared/lib/user";
 import { injectable } from "inversify";
-import { Profile, ProfileEntity } from "../_domain/profile.types";
+import { ProfileGetDTO, ProfileUpdateDTO } from "../_domain/profile.dto";
+import { ProfileEntity } from "../_domain/profile.types";
 
 @injectable()
 export class ProfileRepository {
   constructor(readonly db: DBClient) {}
 
   async getProfile(
-    profileId: string,
+    dto: ProfileGetDTO,
     db: Tx = this.db,
   ): Promise<ProfileEntity> {
+    const { profileId } = dto;
     return db.user.findUniqueOrThrow({
       where: {
         id: profileId,
@@ -23,12 +24,14 @@ export class ProfileRepository {
   }
 
   async updateProfile(
-    targetId: UserId,
-    data: Partial<Profile>,
+    dto: ProfileUpdateDTO,
     db: Tx = this.db,
   ): Promise<ProfileEntity> {
+    const { id, ...data } = dto;
+
+    console.log("output_log: dto =>>>", dto);
     return await db.user.update({
-      where: { id: targetId },
+      where: { id },
       data,
     });
   }

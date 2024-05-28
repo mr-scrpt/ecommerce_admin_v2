@@ -19,7 +19,7 @@ export class CartRowChangeQuantityTx extends Transaction {
   ): Promise<CartEntity> {
     const { userId, productId, quantity } = data;
     const action = async (tx: Tx) => {
-      const cart = await this.cartRepo.getCartWithRelationByUserId(userId, tx);
+      const cart = await this.cartRepo.getCartWithRelationByUser(userId, tx);
 
       const cartRowExisting = await this.cartRowRepo.getCartRowByProductId({
         cartId: cart.id,
@@ -37,7 +37,7 @@ export class CartRowChangeQuantityTx extends Transaction {
         tx,
       );
 
-      return await this.cartRepo.getCartWithRelation(cart.id, tx);
+      return await this.cartRepo.getCartRelation(cart.id, tx);
     };
 
     return await this.start(action);

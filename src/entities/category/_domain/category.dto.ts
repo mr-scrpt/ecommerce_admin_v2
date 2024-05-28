@@ -1,12 +1,13 @@
-// NOTE: DTO
-export type CategoryGetDto = {
+// NOTE: Queries
+export type CategoryGetDTO = {
   categoryId: string;
 };
 
-export type CategoryGetBySlugDto = {
+export type CategoryGetBySlugDTO = {
   slug: string;
 };
 
+// NOTE: Mutations
 export type CategoryCreateDTO = {
   name: string;
   slug: string;

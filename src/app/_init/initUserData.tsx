@@ -1,14 +1,13 @@
 "use client";
 import { useAppSession } from "@/kernel/lib/nextauth";
-import {
-  COOKIE_NETWORK_MAX_AGE,
-  COOKIE_NETWORK_NAME,
-} from "@/shared/session/constant";
-import { ClientNetworkData } from "@/shared/session/types";
+import { ClientNetworkData } from "@/entities/session/types";
 import { getCookie, setCookie } from "cookies-next";
 import { FC, HTMLAttributes, useEffect } from "react";
+import { configPublic } from "@/shared/config/public.config";
 
 interface InitUserDataProps extends HTMLAttributes<HTMLDivElement> {}
+
+const { COOKIE_NETWORK_NAME, COOKIE_NETWORK_MAX_AGE } = configPublic;
 
 export const InitUserData: FC<InitUserDataProps> = (props) => {
   const { children } = props;

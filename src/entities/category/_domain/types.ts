@@ -29,7 +29,6 @@ export type CategoryRelation = Category & {
 };
 
 // NOTE: Payload
-
 export type CategoryGetPayload = {
   categoryId?: string;
   categorySlug?: string;

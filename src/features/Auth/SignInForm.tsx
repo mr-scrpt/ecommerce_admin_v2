@@ -8,11 +8,6 @@ import { EmailSignInForm } from "./_ui/EmailSignInForm";
 import { ProviderButton } from "./_ui/ProviderButton";
 import { TestEmailSignInForm } from "./_ui/TestEmailSignInForm";
 import { configPrivate } from "@/shared/config/private.config";
-// import { EmailSignInForm } from "./_ui/email-sign-in-form";
-// import { Divider } from "./_ui/divider";
-// import { ProviderButton } from "./_ui/provider-button";
-// import { privateConfig } from "@/shared/config/private";
-// import { TestEmailSignInForm } from "./_ui/test-email-sign-in-form";
 
 interface SignInFormProps extends HTMLAttributes<HTMLDivElement> {}
 

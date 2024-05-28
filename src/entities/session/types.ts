@@ -1,3 +1,5 @@
+import { Session } from "next-auth";
+
 export type ClientNetworkData = {
   ip: string;
   country: string;
@@ -5,4 +7,10 @@ export type ClientNetworkData = {
   country_code: string;
   city: string;
   timezone: string;
+};
+
+// NOTE: Payload
+export type SessionWithDataPayload = {
+  session: Session;
+  userId: string;
 };

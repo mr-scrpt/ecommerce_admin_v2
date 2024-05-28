@@ -1,16 +1,15 @@
 import {
   Controller,
   authorizedProcedure,
-  publicProcedure,
   router,
 } from "@/kernel/lib/trpc/server";
 import { injectable } from "inversify";
 import { cartRelationSchema } from "../_domain/cart.schema";
-import { CartGetService } from "../_service/cartGet.service";
+import { CartRelationGetService } from "../_service/cartGet.service";
 
 @injectable()
 export class CartController extends Controller {
-  constructor(private readonly getCartService: CartGetService) {
+  constructor(private readonly getCartService: CartRelationGetService) {
     super();
   }
 

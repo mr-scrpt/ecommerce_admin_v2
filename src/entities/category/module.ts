@@ -9,5 +9,6 @@ export const CategoryModule = new ContainerModule((bind) => {
   bind(CategoryRepository).toSelf();
   bind(CategoryRelationGetService).toSelf();
   bind(CategoryListGetService).toSelf();
+
   bind(Controller).to(CategoryController);
 });

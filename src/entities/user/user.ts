@@ -13,4 +13,9 @@ export { userSchema, userFormDefaultSchema } from "./_domain/user.schema";
 // export { useUserListSearchQuery } from "./_query/userListSearch.query";
 
 export type { UserPartial, User, UserEntity } from "./_domain/user.types";
+export type {
+  UserGetDTO,
+  UserCreateDTO,
+  UserRemoveDTO,
+} from "./_domain/user.dto";
 export type { UserFormDefaultValues } from "./_domain/user.schema";

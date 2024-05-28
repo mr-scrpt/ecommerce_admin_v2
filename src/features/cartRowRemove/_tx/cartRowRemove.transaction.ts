@@ -17,11 +17,7 @@ export class CartRowRemoveProductTx extends Transaction {
   ): Promise<CartEntity> {
     const { userId, productId } = data;
     const action = async (tx: Tx) => {
-      // console.log("output_log: 1) productId =>>>", productId);
-
-      const cart = await this.cartRepo.getCartWithRelationByUserId(userId, tx);
-
-      // console.log("output_log: 2) cart =>>>", cart);
+      const cart = await this.cartRepo.getCartWithRelationByUser(userId, tx);
 
       const cartRowExisting = await this.cartRowRepo.getCartRowByProductId({
         cartId: cart.id,
@@ -41,7 +37,7 @@ export class CartRowRemoveProductTx extends Transaction {
         tx,
       );
 
-      return await this.cartRepo.getCartWithRelation(cart.id, tx);
+      return await this.cartRepo.getCartRelation(cart.id, tx);
       // console.log("output_log:  3) cartRowExisting =>>>", cartRowExisting);
 
       // const operations: Operations = {
@@ -66,7 +62,7 @@ export class CartRowRemoveProductTx extends Transaction {
       // };
       // operations[String(!!cartRowExisting)]();
       //
-      return await this.cartRepo.getCartWithRelation(cart.id, tx);
+      return await this.cartRepo.getCartRelation(cart.id, tx);
     };
 
     return await this.start(action);

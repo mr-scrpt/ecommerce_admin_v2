@@ -44,8 +44,8 @@ export const ProfileFormUpdate: FC<ProfileFormProps> = (props) => {
 
   const handleSubmit = async (profileData: ProfileFromUpdateValues) => {
     await update({
-      profileId,
-      profileData,
+      id: profileId,
+      ...profileData,
     });
 
     onSuccess?.();

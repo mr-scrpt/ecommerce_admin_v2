@@ -3,16 +3,23 @@ import { injectable } from "inversify";
 import { UserEntity } from "../_domain/user.types";
 import {
   User,
-  UserToCreate,
   UserWithCartEntity,
   UserWithOrdersEntity,
 } from "../_domain/user.types";
+import {
+  UserCreateDTO,
+  UserGetDTO,
+  UserRemoveDTO,
+  UserSearchDTO,
+  UserUpdateDTO,
+} from "../_domain/user.dto";
 
 @injectable()
 export class UserRepository {
   constructor(readonly db: DBClient) {}
 
-  async getUser(userId: string, db: Tx = this.db): Promise<UserEntity> {
+  async getUser(dto: UserGetDTO, db: Tx = this.db): Promise<UserEntity> {
+    const { userId } = dto;
     const user = await db.user.findUniqueOrThrow({
       where: {
         id: userId,
@@ -22,9 +29,10 @@ export class UserRepository {
   }
 
   async getUserWithCart(
-    userId: string,
+    dto: UserGetDTO,
     db: Tx = this.db,
   ): Promise<UserWithCartEntity> {
+    const { userId } = dto;
     const user = await db.user.findUniqueOrThrow({
       where: {
         id: userId,
@@ -41,9 +49,11 @@ export class UserRepository {
   }
 
   async getUserWithOrderList(
-    userId: string,
+    dto: UserGetDTO,
+
     db: Tx = this.db,
   ): Promise<UserWithOrdersEntity> {
+    const { userId } = dto;
     const user = await db.user.findUniqueOrThrow({
       where: {
         id: userId,
@@ -59,7 +69,11 @@ export class UserRepository {
     return db.user.findMany();
   }
 
-  async getUserListSearch(q: string, db: Tx = this.db): Promise<UserEntity[]> {
+  async getUserListSearch(
+    dto: UserSearchDTO,
+    db: Tx = this.db,
+  ): Promise<UserEntity[]> {
+    const { q } = dto;
     return db.user.findMany({
       where: {
         OR: [
@@ -81,24 +95,25 @@ export class UserRepository {
     });
   }
 
-  async createUser(user: UserToCreate, db: Tx = this.db): Promise<UserEntity> {
+  async createUser(user: UserCreateDTO, db: Tx = this.db): Promise<UserEntity> {
     return await db.user.create({
       data: user,
     });
   }
 
-  async updateUser(
-    targetId: string,
-    userData: Partial<User>,
-    db: Tx = this.db,
-  ): Promise<UserEntity> {
+  async updateUser(dto: UserUpdateDTO, db: Tx = this.db): Promise<UserEntity> {
+    const { id, ...userData } = dto;
     return await db.user.update({
-      where: { id: targetId },
+      where: { id },
       data: userData,
     });
   }
 
-  async removeUserById(userId: string, db: Tx = this.db): Promise<UserEntity> {
+  async removeUserById(
+    dto: UserRemoveDTO,
+    db: Tx = this.db,
+  ): Promise<UserEntity> {
+    const { userId } = dto;
     return await db.user.delete({ where: { id: userId } });
   }
 }

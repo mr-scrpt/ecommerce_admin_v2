@@ -1,6 +1,6 @@
 import { configPrivate } from "@/shared/config/private.config";
-import { COOKIE_NETWORK_NAME } from "@/shared/session/constant";
-import { getNetworkClientCookie } from "@/shared/session/coockieParser";
+import { dbClient } from "@/shared/lib/db/instans";
+import { getNetworkClientCookie } from "@/entities/session/coockieParser";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { deleteCookie } from "cookies-next";
 import { injectable } from "inversify";
@@ -9,9 +9,7 @@ import { AuthOptions } from "next-auth";
 import EmailProvider from "next-auth/providers/email";
 import GithubProvider from "next-auth/providers/github";
 import { UserCreateServiceAbstract } from "./type";
-import { socketClient } from "@/shared/config/socket";
-import { WSEventEnum } from "@/shared/type/websokcetEvent.enum";
-import { dbClient } from "@/shared/lib/db/instans";
+import { configPublic } from "@/shared/config/public.config";
 
 const {
   GITHUB_SECRET,
@@ -25,6 +23,8 @@ const {
   TEST_EMAIL_TOKEN,
 } = configPrivate;
 
+const { COOKIE_NETWORK_NAME } = configPublic;
+
 const prismaAdapter = PrismaAdapter(dbClient);
 
 @injectable()
@@ -34,33 +34,8 @@ export class NextAuthConfig {
     adapter: {
       ...prismaAdapter,
       createUser: async (user) => {
+        console.log("output_log:  in nextAuthConfig.createUser=>>>", user);
         return await this.createUserService.execute(user);
-        //   const socket = socketClient("");
-        //   try {
-        //     const newUser = await this.createUserService.exec({
-        //       ...user,
-        //       name: user.name ?? "",
-        //       phone: user.phone ?? "",
-        //       image: user.image ?? "",
-        //     });
-        //
-        //     await new Promise<void>((resolve, reject) => {
-        //       socket.connect();
-        //       socket.emit(WSEventEnum.USER_CREATE, () => {
-        //         resolve();
-        //       });
-        //
-        //       socket.on("error", (error) => {
-        //         reject(error);
-        //       });
-        //     });
-        //
-        //     return newUser;
-        //   } catch (error) {
-        //     throw error;
-        //   } finally {
-        //     socket.disconnect();
-        //   }
       },
     } as AuthOptions["adapter"],
 

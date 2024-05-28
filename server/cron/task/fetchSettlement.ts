@@ -6,6 +6,7 @@ import {
 
 const API_URL = `${process.env.NEXT_PUBLIC_URL}${process.env.API_INIT_SETTLEMENT_URL}`;
 
+console.log("output_log:  =>>>", API_URL);
 export const cronScheduleSettlement = "0 14 * * *";
 
 export async function checkAndFetchData() {

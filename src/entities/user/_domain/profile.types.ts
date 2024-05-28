@@ -3,8 +3,7 @@ import { UserEntity } from "./user.types";
 
 export type ProfileEntity = UserEntity;
 
-// Projetions
-
+// NOTE: Projetions
 export type Profile = {
   id: string;
   email: string;
@@ -13,4 +12,5 @@ export type Profile = {
   image?: string | null;
 };
 
-export type ProfileToUpdate = Partial<Profile>;
+// NOTE: Payload
+export type ProfileUpdatePayload = Partial<Profile>;

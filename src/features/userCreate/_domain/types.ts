@@ -1,4 +1,4 @@
-import { UserToCreate } from "@/entities/user/_domain/user.types";
+import { UserCreateDTO } from "@/entities/user/_domain/user.types";
 
 export type UserCreate = {
   email: string;
@@ -6,4 +6,4 @@ export type UserCreate = {
   name: string;
 };
 
-export type UserCreateComplexible = UserToCreate;
+export type UserCreateComplexible = UserCreateDTO;
