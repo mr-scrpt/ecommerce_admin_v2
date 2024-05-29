@@ -1,4 +1,4 @@
-export const profileBaseQueryKey = "profile";
+// export const profileBaseQueryKey = "profile";
 import { UserEntity } from "./user.types";
 
 export type ProfileEntity = UserEntity;

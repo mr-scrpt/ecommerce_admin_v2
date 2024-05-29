@@ -16,7 +16,6 @@ export class CategoryCreateController extends Controller {
         .input(createInputSchema)
         .mutation(async ({ input }) => {
           const result = await this.createCategoryService.execute(input);
-          console.log("output_log:  resutl=>>>", result);
           return categorySchema.parse(result);
         }),
     },

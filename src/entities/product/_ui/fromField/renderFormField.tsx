@@ -1,4 +1,4 @@
-import { PropertyDataTypeEnum } from "@/shared/type/propertyDataType.enum";
+import { PropertyDataTypeEnum } from "@/kernel/domain/propertyDataType.enum";
 import { ProductFormSelect } from "./productFormSelect";
 import { ProductFormCheckbox } from "./productFormCheckbox";
 import { ProductFormMult } from "./productFormMult";

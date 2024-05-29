@@ -1,19 +1,22 @@
 import { DBClient, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
+import { DeliveryEntity } from "../_domain/delivery.types";
 import {
-  DeliveryEntity,
-  DeliveryToCreate,
-  DeliveryToUpdate,
-} from "../_domain/delivery.types";
+  DeliveryCreateDTO,
+  DeliveryGetByOrderDTO,
+  DeliveryGetDTO,
+  DeliveryUpdateDTO,
+} from "../_domain/delivery.dto";
 
 @injectable()
 export class DeliveryRepository {
   constructor(readonly db: DBClient) {}
 
   async getDelivery(
-    deliveryId: string,
+    dto: DeliveryGetDTO,
     db: Tx = this.db,
   ): Promise<DeliveryEntity> {
+    const { deliveryId } = dto;
     const result = await db.delivery.findUniqueOrThrow({
       where: {
         id: deliveryId,
@@ -23,12 +26,13 @@ export class DeliveryRepository {
   }
 
   async getDeliveryByOrderId(
-    deliveryId: string,
+    dto: DeliveryGetByOrderDTO,
     db: Tx = this.db,
   ): Promise<DeliveryEntity> {
+    const { orderId } = dto;
     const result = await db.delivery.findUniqueOrThrow({
       where: {
-        orderId: deliveryId,
+        orderId,
       },
     });
     return result;
@@ -40,19 +44,19 @@ export class DeliveryRepository {
   }
 
   async createDelivery(
-    data: DeliveryToCreate,
+    dto: DeliveryCreateDTO,
     db: Tx = this.db,
   ): Promise<DeliveryEntity> {
     return await db.delivery.create({
-      data,
+      data: dto,
     });
   }
 
   async updateDelivery(
-    deliveryId: string,
-    data: Partial<DeliveryToUpdate>,
+    dto: DeliveryUpdateDTO,
     db: Tx = this.db,
   ): Promise<DeliveryEntity> {
+    const { deliveryId, ...data } = dto;
     return await db.delivery.update({
       where: {
         id: deliveryId,

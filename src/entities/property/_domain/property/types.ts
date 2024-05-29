@@ -1,5 +1,5 @@
 import { MultiSelectOptionItem } from "@/shared/ui/multiSelect";
-import { PropertyDataTypeEnum } from "../../../../shared/type/propertyDataType.enum";
+import { PropertyDataTypeEnum } from "../../../../kernel/domain/property.enum";
 import { PropertyItem } from "../propertyItem/types";
 
 export const baseQueryKey = "property";

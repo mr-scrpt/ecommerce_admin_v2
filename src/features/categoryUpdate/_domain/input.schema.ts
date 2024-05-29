@@ -1,12 +1,7 @@
 import { z } from "zod";
+import { categoryPropertySchema, categoryUpdateSchema } from "./schema";
 
 export const updateInputSchema = z.object({
-  id: z.string(),
-  name: z.string(),
-  board: z.array(z.string()),
-  propertyList: z.array(
-    z.object({
-      id: z.string(),
-    }),
-  ),
+  categoryData: categoryUpdateSchema,
+  propertyData: z.array(categoryPropertySchema),
 });

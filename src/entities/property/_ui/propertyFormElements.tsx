@@ -30,7 +30,7 @@ import {
   useFormContext,
 } from "react-hook-form";
 import { PropertyRelation } from "../_domain/property/types";
-import { PropertyDataTypeEnum } from "@/shared/type/propertyDataType.enum";
+import { PropertyDataTypeEnum } from "@/kernel/domain/property.enum";
 import {
   PropertyFormValues,
   propertyFormSchema,

@@ -7,5 +7,6 @@ import { CategoryUpdateTx } from "./_tx/categoryUpdate.transaction";
 export const CategoryUpdateModule = new ContainerModule((bind) => {
   bind(CategoryUpdateTx).toSelf();
   bind(CategoryUpdateService).toSelf();
+
   bind(Controller).to(CategoryUpdateController);
 });

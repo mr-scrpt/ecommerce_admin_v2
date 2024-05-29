@@ -17,11 +17,13 @@ export type {
   Category,
   CategoryEntity,
   CategoryRelationEntity,
+  CategoryUpdatePayload,
+  CategoryCreatePayload,
 } from "./_domain/types";
 
 export type {
-  CategoryUpdateDTO,
+  CategoryBindProductListDTO,
+  CategoryBindPropertyListDTO,
   CategoryCreateDTO,
-  CategoryAddProductListDTO,
-  CategoryAddPropertyListDTO,
+  CategoryUpdateDTO,
 } from "./_domain/category.dto";

@@ -1,6 +1,8 @@
+import { CategoryBase } from "./types";
+
 // NOTE: Queries
 export type CategoryGetDTO = {
-  categoryId: string;
+  id: string;
 };
 
 export type CategoryGetBySlugDTO = {
@@ -8,33 +10,27 @@ export type CategoryGetBySlugDTO = {
 };
 
 // NOTE: Mutations
-export type CategoryCreateDTO = {
-  name: string;
-  slug: string;
-  board: Array<string>;
-};
+export type CategoryCreateDTO = CategoryBase;
 
-export type CategoryUpdateDTO = {
-  categoryId: string;
-  name: string;
-  slug: string;
-  board: Array<string>;
+export type CategoryUpdateDTO = Partial<CategoryBase> & {
+  id: string;
 };
 
 export type CategoryRemoveDTO = {
-  categoryId: string;
+  id: string;
 };
 
 export type CategoryRemoveBySlugDTO = {
   slug: string;
 };
 
-export type CategoryAddProductListDTO = {
-  categoryId: string;
+// NOTE: Bindings
+export type CategoryBindProductListDTO = {
+  id: string;
   productListId: Array<{ id: string }>;
 };
 
-export type CategoryAddPropertyListDTO = {
-  categoryId: string;
+export type CategoryBindPropertyListDTO = {
+  id: string;
   propertyListId: Array<{ id: string }>;
 };

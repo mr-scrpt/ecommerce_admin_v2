@@ -1,13 +1,14 @@
-import { CategoryUpdateDTO } from "@/entities/category";
+import { CategoryUpdateDTO, CategoryUpdatePayload } from "@/entities/category";
+import { Property } from "@/entities/property";
+
+type PropertyList = Array<Pick<Property, "id">>;
 
 export type CategoryUpdateTxPayload = {
-  id: string;
-  name: string;
-  board: Array<string>;
-  propertyList: Array<{ id: string }>;
+  categoryData: CategoryUpdatePayload;
+  propertyData: PropertyList;
 };
 
 export type CategoryUpdateTxDTO = {
   categoryData: CategoryUpdateDTO;
-  propertyData: Array<{ id: string }>;
+  propertyData: PropertyList;
 };

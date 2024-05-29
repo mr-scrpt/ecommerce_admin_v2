@@ -113,7 +113,7 @@ export const CategoryForm: FC<CategoryFormProps> = (props) => {
           name="board"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Avatar</FormLabel>
+              <FormLabel>Board</FormLabel>
               <FormControl>
                 <BoardField
                   value={field.value}

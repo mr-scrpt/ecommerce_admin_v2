@@ -4,8 +4,8 @@ import { CategoryRelation } from "../_domain/types";
 import { useListenCategoryUpdate } from "../_vm/event/useListenCategoryUpdate";
 
 type CategoryParams = {
-  categoryId?: string;
-  categorySlug?: string;
+  id?: string;
+  slug?: string;
 };
 
 export const useCategoryWithRelationQuery = (params: CategoryParams) => {

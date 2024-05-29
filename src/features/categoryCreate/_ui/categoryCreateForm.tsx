@@ -30,7 +30,11 @@ export const CategoryFormCreate: FC<CategoryCreateFormProps> = (props) => {
   const { toDataIdList } = useOptionListTransform();
 
   const handleSubmit = async (data: CategoryFormValues) => {
-    await categoryCreate(data);
+    const { propertyList, ...categoryData } = data;
+    await categoryCreate({
+      categoryData,
+      propertyData: propertyList,
+    });
 
     onSuccess?.();
 

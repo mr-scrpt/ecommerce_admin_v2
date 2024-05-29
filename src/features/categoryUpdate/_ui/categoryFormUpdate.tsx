@@ -26,7 +26,7 @@ export const CategoryFormUpdate: FC<CategoryFormProps> = (props) => {
     category,
     isPending: isPendingCategory,
     isFetchedAfterMount,
-  } = useCategoryWithRelationQuery({ categoryId });
+  } = useCategoryWithRelationQuery({ id: categoryId });
 
   const router = useRouter();
 
@@ -53,9 +53,13 @@ export const CategoryFormUpdate: FC<CategoryFormProps> = (props) => {
   }
 
   const handleSubmit = async (data: CategoryFormValues) => {
+    const { propertyList, ...categoryData } = data;
     await categoryUpdate({
-      ...data,
-      id: category.id,
+      categoryData: {
+        id: category.id,
+        ...categoryData,
+      },
+      propertyData: propertyList,
     });
 
     onSuccess?.();

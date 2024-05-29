@@ -13,17 +13,18 @@ export class CategoryCreateService {
     return await this.categoryCreateTx.create(categoryCreateDTO);
   }
 
-  private build(props: CategoryCreateTxPayload): CategoryCreateTxDTO {
-    const { name, board, propertyList } = props;
+  private build(payload: CategoryCreateTxPayload): CategoryCreateTxDTO {
+    const {
+      categoryData: { name },
+    } = payload;
     const slug = slugGenerator(name);
 
     return {
+      ...payload,
       categoryData: {
-        name,
+        ...payload.categoryData,
         slug,
-        board,
       },
-      propertyData: propertyList,
     };
   }
 }

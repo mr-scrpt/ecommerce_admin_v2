@@ -1,4 +1,4 @@
-import { PropertyDataTypeEnum } from "@/shared/type/propertyDataType.enum";
+import { PropertyDataTypeEnum } from "@/kernel/domain/property.enum";
 import { z } from "zod";
 import {
   propertyItemCreateSchema,

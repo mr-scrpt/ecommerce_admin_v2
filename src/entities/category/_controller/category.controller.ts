@@ -19,10 +19,11 @@ export class CategoryController extends Controller {
       getRelation: publicProcedure
         .input(getByInputSchema)
         .query(async ({ input }) => {
+          console.log("output_log: input =>>>", input);
           const result = await this.getCategoryRelationService.execute(input);
           return categoryRelationSchema.parse(result);
         }),
-      getList: publicProcedure.output(getListOutputSchema).query(async () => {
+      getList: publicProcedure.query(async () => {
         const result = await this.getCategoryListService.execute();
         return getListOutputSchema.parse(result);
       }),

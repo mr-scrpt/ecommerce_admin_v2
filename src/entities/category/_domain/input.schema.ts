@@ -3,10 +3,10 @@ import { categorySchema } from "./category.schema";
 
 export const getByInputSchema = z
   .object({
-    categoryId: z.string().optional(),
-    categorySlug: z.string().optional(),
+    id: z.string().optional(),
+    slug: z.string().optional(),
   })
-  .refine((data) => data.categoryId || data.categorySlug, {
+  .refine((data) => data.id || data.slug, {
     message: "Either 'id' or 'slug' is required",
   });
 

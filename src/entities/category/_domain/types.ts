@@ -1,11 +1,15 @@
-import { PropertyDataTypeEnum } from "@/shared/type/propertyDataType.enum";
+import { PropertyDataTypeEnum } from "@/kernel/domain/property.enum";
 
-// NOTE: Entity
-export type CategoryEntity = {
-  id: string;
+// NOTE: Base
+export type CategoryBase = {
   name: string;
   slug: string;
   board: Array<string>;
+};
+
+// NOTE: Entity
+export type CategoryEntity = CategoryBase & {
+  id: string;
   createdAt: Date;
 };
 
@@ -30,8 +34,14 @@ export type CategoryRelation = Category & {
 
 // NOTE: Payload
 export type CategoryGetPayload = {
-  categoryId?: string;
-  categorySlug?: string;
+  id?: string;
+  slug?: string;
+};
+
+export type CategoryCreatePayload = CategoryBase;
+
+export type CategoryUpdatePayload = Partial<CategoryBase> & {
+  id: string;
 };
 
 // NOTE: Side

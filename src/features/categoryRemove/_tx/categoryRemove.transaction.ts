@@ -16,7 +16,7 @@ export class CategoryRemoveTx extends Transaction {
   async remove(dto: CategoryRemoveTxDTO): Promise<CategoryEntity> {
     const { categoryId } = dto;
     const action = async (tx: Tx) => {
-      return await this.categoryRepo.removeCategory({ categoryId }, tx);
+      return await this.categoryRepo.removeCategory({ id: categoryId }, tx);
     };
 
     return await this.start(action);

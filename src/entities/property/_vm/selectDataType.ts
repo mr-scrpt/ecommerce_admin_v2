@@ -1,4 +1,4 @@
-import { PropertyDataTypeEnum } from "@/shared/type/propertyDataType.enum";
+import { PropertyDataTypeEnum } from "@/kernel/domain/property.enum";
 
 export const selectDataType = [
   { type: PropertyDataTypeEnum.SELECT, value: "Select" },
