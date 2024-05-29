@@ -1,4 +1,4 @@
-import { ClientNetworkData } from "./types";
+import { ClientNetworkData } from "./_domain/types";
 
 export const clientNetworkData: ClientNetworkData = {
   ip: "",

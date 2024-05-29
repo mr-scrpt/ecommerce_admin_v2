@@ -14,6 +14,7 @@ import { PropertyModule } from "@/entities/property/module";
 import { CategoryUpdateModule } from "@/features/categoryUpdate/module";
 import { CategoryCreateModule } from "@/features/categoryCreate/module";
 import { SettlementModule } from "@/entities/settlement/module";
+import { SessionCreateModule } from "@/features/sessionGet/module";
 
 export const loadModule = () => {
   const container = new Container();
@@ -21,6 +22,7 @@ export const loadModule = () => {
   container.load(
     DbModule,
     NextAuthModule,
+    SessionCreateModule,
 
     UserModule,
     UserCreateModule,

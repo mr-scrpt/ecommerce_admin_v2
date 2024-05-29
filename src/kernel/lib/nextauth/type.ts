@@ -1,8 +1,9 @@
 import { Role } from "@/kernel/domain/role.type";
 import { UserEntity } from "@/kernel/domain/user.type";
 import { injectable } from "inversify";
+import { Session } from "next-auth";
 
-type UserToCreate = {
+type UserCreatePayloadAbastract = {
   email: string;
   phone: string;
   name?: string | null;
@@ -10,7 +11,18 @@ type UserToCreate = {
   role: Role;
 };
 
+// NOTE: Payload
+type SessionWithDataPayloadAbastract = {
+  session: Session;
+  userId: string;
+};
+
 @injectable()
 export abstract class UserCreateServiceAbstract {
-  abstract execute(data: UserToCreate): Promise<UserEntity>;
+  abstract execute(payload: UserCreatePayloadAbastract): Promise<UserEntity>;
+}
+
+@injectable()
+export abstract class SessionGetRelationServiceAbstract {
+  abstract execute(payload: SessionWithDataPayloadAbastract): Promise<Session>;
 }

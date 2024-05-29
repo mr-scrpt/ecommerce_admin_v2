@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbo",
-    "start:infrastructure": "concurrently \"docker compose up\" \"pnpm server:cron\" \"pnpm server:ws\" \"pnpm studio\"",
+    "start:infrastructure": "concurrently \"docker compose up\" \"pnpm server:ws\" \"pnpm studio\"",
     "server:cron": "ts-node -r dotenv/config ./server/cron/cron.ts",
     "server:ws": "ts-node ./server/websocket.ts",
     "build": "next build",

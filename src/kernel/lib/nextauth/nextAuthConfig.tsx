@@ -1,6 +1,7 @@
-import { configPrivate } from "@/shared/config/private.config";
-import { dbClient } from "@/shared/lib/db/instans";
 import { getNetworkClientCookie } from "@/entities/session/coockieParser";
+import { configPrivate } from "@/shared/config/private.config";
+import { configPublic } from "@/shared/config/public.config";
+import { dbClient } from "@/shared/lib/db/instans";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { deleteCookie } from "cookies-next";
 import { injectable } from "inversify";
@@ -8,8 +9,10 @@ import { compact } from "lodash-es";
 import { AuthOptions } from "next-auth";
 import EmailProvider from "next-auth/providers/email";
 import GithubProvider from "next-auth/providers/github";
-import { UserCreateServiceAbstract } from "./type";
-import { configPublic } from "@/shared/config/public.config";
+import {
+  SessionGetRelationServiceAbstract,
+  UserCreateServiceAbstract,
+} from "./type";
 
 const {
   GITHUB_SECRET,
@@ -29,42 +32,25 @@ const prismaAdapter = PrismaAdapter(dbClient);
 
 @injectable()
 export class NextAuthConfig {
-  constructor(private readonly createUserService: UserCreateServiceAbstract) {}
+  constructor(
+    private readonly createUserService: UserCreateServiceAbstract,
+    private readonly getSessionRelationService: SessionGetRelationServiceAbstract,
+  ) {}
   options: AuthOptions = {
     adapter: {
       ...prismaAdapter,
       createUser: async (user) => {
-        console.log("output_log:  in nextAuthConfig.createUser=>>>", user);
         return await this.createUserService.execute(user);
       },
     } as AuthOptions["adapter"],
 
     callbacks: {
       session: async ({ session, user }) => {
-        const u = await dbClient.user.findUnique({
-          where: {
-            id: user.id,
-          },
-          include: {
-            cart: true,
-          },
-        });
-
-        const clientDataParsed = getNetworkClientCookie();
-
-        const sessionWithRelation = {
-          ...session,
-          user: {
-            ...session.user,
-            id: user.id,
-            cartId: u?.cart?.id ?? "",
-            role: user.role,
-          },
-          clientNetworkData: clientDataParsed ?? {
-            country_code: COUNTRY_DEFAULT,
-          },
-        };
-
+        const sessionWithRelation =
+          await this.getSessionRelationService.execute({
+            session,
+            userId: user.id,
+          });
         return sessionWithRelation;
       },
     },

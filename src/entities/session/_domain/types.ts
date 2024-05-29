@@ -1,4 +1,5 @@
 import { Session } from "next-auth";
+export type { Session as AppSession };
 
 export type ClientNetworkData = {
   ip: string;

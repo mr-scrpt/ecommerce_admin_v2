@@ -2,7 +2,7 @@ import { configPublic } from "@/shared/config/public.config";
 import { cookies } from "next/headers";
 import { clientNetworkData } from "./constant";
 import { clientNetworkDataSchema } from "./schema";
-import { ClientNetworkData } from "./types";
+import { ClientNetworkData } from "./_domain/types";
 
 const { COOKIE_NETWORK_NAME } = configPublic;
 
