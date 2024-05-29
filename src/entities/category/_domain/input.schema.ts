@@ -1,8 +1,6 @@
 import { z } from "zod";
 import { categorySchema } from "./category.schema";
 
-export const getListInputSchema = z.array(categorySchema);
-
 export const getByInputSchema = z
   .object({
     categoryId: z.string().optional(),
@@ -11,3 +9,5 @@ export const getByInputSchema = z
   .refine((data) => data.categoryId || data.categorySlug, {
     message: "Either 'id' or 'slug' is required",
   });
+
+export const getListOutputSchema = z.array(categorySchema);
