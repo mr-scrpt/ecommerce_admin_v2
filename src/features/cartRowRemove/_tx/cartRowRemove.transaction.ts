@@ -1,9 +1,11 @@
 import { CartEntity } from "@/entities/cart";
 import { CartRepository, CartRowRepository } from "@/entities/cart/server";
 import { DBClient, Transaction, Tx } from "@/shared/lib/db/db";
-import { CartRowRemoveProductTxData } from "../_domain/types";
+import { CartRowRemoveTxDTO } from "../_domain/types";
+import { injectable } from "inversify";
 
-export class CartRowRemoveProductTx extends Transaction {
+@injectable()
+export class CartRowRemoveTx extends Transaction {
   constructor(
     readonly db: DBClient,
     private readonly cartRepo: CartRepository,
@@ -12,12 +14,13 @@ export class CartRowRemoveProductTx extends Transaction {
     super(db);
   }
 
-  async removeCartRowProductComplexible(
-    data: CartRowRemoveProductTxData,
-  ): Promise<CartEntity> {
-    const { userId, productId } = data;
+  async remove(dto: CartRowRemoveTxDTO): Promise<CartEntity> {
+    const { cartData, cartRowData } = dto;
+    const { productId } = cartRowData;
+    const { cartId } = cartData;
+
     const action = async (tx: Tx) => {
-      const cart = await this.cartRepo.getCartWithRelationByUser(userId, tx);
+      const cart = await this.cartRepo.getCart({ id: cartId }, tx);
 
       const cartRowExisting = await this.cartRowRepo.getCartRowByProductId({
         cartId: cart.id,
@@ -25,7 +28,6 @@ export class CartRowRemoveProductTx extends Transaction {
       });
 
       if (!cartRowExisting) {
-        console.log("output_log: escalate error =>>>", cartRowExisting);
         throw new Error("Product not in cart");
       }
 
@@ -37,32 +39,7 @@ export class CartRowRemoveProductTx extends Transaction {
         tx,
       );
 
-      return await this.cartRepo.getCartRelation(cart.id, tx);
-      // console.log("output_log:  3) cartRowExisting =>>>", cartRowExisting);
-
-      // const operations: Operations = {
-      //   true: async () => {
-      //     await this.cartRowRepo.decreaseQuantity(
-      //       {
-      //         id: cartRowExisting!.id,
-      //         quantity,
-      //       },
-      //       tx,
-      //     );
-      //   },
-      //   false: async () => {
-      //     await this.cartRowRepo.removeCartRowProduct(
-      //       {
-      //         cartId: cart.id,
-      //         productId,
-      //       },
-      //       tx,
-      //     );
-      //   },
-      // };
-      // operations[String(!!cartRowExisting)]();
-      //
-      return await this.cartRepo.getCartRelation(cart.id, tx);
+      return await this.cartRepo.getCartRelation({ id: cartId }, tx);
     };
 
     return await this.start(action);

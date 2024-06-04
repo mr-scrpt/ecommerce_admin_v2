@@ -5,26 +5,26 @@ import {
   router,
 } from "@/kernel/lib/trpc/server";
 import { injectable } from "inversify";
-import { updateInputSchema } from "../_domain/input.schema";
-import { CartRowUpdateService } from "../_service/cartRowUpdate.service";
+import { removeInputSchema } from "../_domain/input.schema";
+import { CartRowRemoveService } from "../_service/cartRowRemove.service";
 
 @injectable()
-export class CartRowUpdateController extends Controller {
-  constructor(private readonly updateCartRowService: CartRowUpdateService) {
+export class CartRowRemoveController extends Controller {
+  constructor(private readonly removeCartRowService: CartRowRemoveService) {
     super();
   }
 
   public router = router({
-    cartRowUpdate: {
-      update: authorizedProcedure
-        .input(updateInputSchema)
+    cartRowRemove: {
+      remove: authorizedProcedure
+        .input(removeInputSchema)
         .mutation(async ({ input, ctx }) => {
           const { cartRowData } = input;
           const { session } = ctx;
 
           const cartId = session.user.cartId;
 
-          const result = await this.updateCartRowService.execute({
+          const result = await this.removeCartRowService.execute({
             cartData: {
               cartId,
             },

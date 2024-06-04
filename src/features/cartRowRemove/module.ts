@@ -1,13 +1,12 @@
-import { Container, ContainerModule } from "inversify";
-import { CartRowRemoveProductTx } from "./_tx/cartRowRemove.transaction";
-import { RemoveCartRowUseCase } from "./_usecase/cartRowRemove.usecase";
-
-export const cartRowRemoveContainer = new Container();
+import { ContainerModule } from "inversify";
+import { CartRowRemoveService } from "./_service/cartRowRemove.service";
+import { Controller } from "@/kernel/lib/trpc/server";
+import { CartRowRemoveController } from "./_controller/cartRowRemove.controller";
+import { CartRowRemoveTx } from "./_tx/cartRowRemove.transaction";
 
 export const CartRowRemoveModule = new ContainerModule((bind) => {
-  bind(CartRowRemoveProductTx).toSelf();
+  bind(CartRowRemoveTx).toSelf();
 
-  bind(RemoveCartRowUseCase).toSelf();
+  bind(CartRowRemoveService).toSelf();
+  bind(Controller).to(CartRowRemoveController);
 });
-
-cartRowRemoveContainer.load(CartRowRemoveModule);

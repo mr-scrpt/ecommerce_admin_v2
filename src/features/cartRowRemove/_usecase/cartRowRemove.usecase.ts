@@ -1,7 +1,7 @@
 import { CartEntity } from "@/entities/cart";
 import { ForbiddenError } from "@/shared/lib/errors";
 import { SessionEntity } from "@/shared/lib/user";
-import { CartRowRemoveProductTx } from "../_tx/cartRowRemove.transaction";
+import { CartRowRemoveTx } from "../_tx/cartRowRemove.transaction";
 import { CartRowRemoveProductComplexible } from "../_domain/types";
 import { createCartAbility } from "@/entities/cart/server";
 
@@ -12,7 +12,7 @@ type RemoveRowCart = {
 
 export class RemoveCartRowUseCase {
   constructor(
-    private readonly CartRowRemoveProductTx: CartRowRemoveProductTx,
+    private readonly CartRowRemoveProductTx: CartRowRemoveTx,
   ) {}
 
   async exec(data: RemoveRowCart): Promise<CartEntity> {

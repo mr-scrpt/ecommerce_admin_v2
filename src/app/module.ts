@@ -17,6 +17,7 @@ import { SettlementModule } from "@/entities/settlement/module";
 import { SessionCreateModule } from "@/features/sessionGet/module";
 import { CartRowAddModule } from "@/features/cartRowAdd/module";
 import { CartRowUpdateModule } from "@/features/cartRowUpdate/module";
+import { CartRowRemoveModule } from "@/features/cartRowRemove/module";
 
 export const loadModule = () => {
   const container = new Container();
@@ -34,6 +35,7 @@ export const loadModule = () => {
 
     CartModule,
     CartRowAddModule,
+    CartRowRemoveModule,
     CartRowUpdateModule,
 
     CategoryModule,

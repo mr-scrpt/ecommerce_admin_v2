@@ -2,7 +2,7 @@ import { CartRelationEntity } from "@/entities/cart/_domain/types";
 import { CartRepository, CartRowRepository } from "@/entities/cart/server";
 import { DBClient, Transaction, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
-import { CartRowUpdateTxPayload } from "../_domain/types";
+import { CartRowUpdateTxDTO, CartRowUpdateTxPayload } from "../_domain/types";
 
 @injectable()
 export class CartRowUpdateTx extends Transaction {
@@ -14,7 +14,7 @@ export class CartRowUpdateTx extends Transaction {
     super(db);
   }
 
-  async update(dto: CartRowUpdateTxPayload): Promise<CartRelationEntity> {
+  async update(dto: CartRowUpdateTxDTO): Promise<CartRelationEntity> {
     const { cartData, cartRowData } = dto;
     const { quantity, productId } = cartRowData;
     const { cartId } = cartData;
