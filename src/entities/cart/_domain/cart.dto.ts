@@ -1,6 +1,6 @@
-// NOTE: Querys
+// NOTE: Queries
 export type CartGetDTO = {
-  cartId: string;
+  id: string;
 };
 
 export type CartGetByUserDTO = {
@@ -9,11 +9,11 @@ export type CartGetByUserDTO = {
 
 // NOTE: Mutations
 export type CartCreateDTO = {
-  userId: string;
+  id: string;
 };
 
 export type CartRemoveDTO = {
-  cartId: string;
+  id: string;
 };
 
 export type CartRemoveByUserDTO = {

@@ -17,7 +17,7 @@ export class SessionGetRelationService
   async execute(payload: SessionWithDataPayload): Promise<Session> {
     const { session, userId } = payload;
     const user = await this.userRepo.getUserWithCart({
-      userId,
+      id: userId,
     });
 
     const clientDataParsed = getNetworkClientCookie();

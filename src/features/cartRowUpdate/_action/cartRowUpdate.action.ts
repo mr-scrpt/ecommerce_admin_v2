@@ -3,12 +3,12 @@
 import { Cart } from "@/entities/cart";
 import { cartRelationSchema } from "@/entities/cart/server";
 import { z } from "zod";
-import { addCartRowUseCase } from "../_usecase/instans.usecase";
-import { cartRowAddSchema } from "../_domain/schema";
+import { updateQuantityCartRowUseCase } from "../_usecase/instans.usecase";
+import { cartRowUpdateQuantitySchema } from "../_domain/schema";
 import { SessionContainer } from "@/shared/session/instans";
 
 const propsSchema = z.object({
-  data: cartRowAddSchema,
+  data: cartRowUpdateQuantitySchema,
 });
 
 const resultSchema = z.object({
@@ -17,15 +17,15 @@ const resultSchema = z.object({
 
 type ResultT = { cart: Cart };
 
-export const cartRowAddAction = async (
+export const cartRowUpdateQuantityAction = async (
   props: z.infer<typeof propsSchema>,
 ): Promise<ResultT> => {
   const { data } = propsSchema.parse(props);
 
   const session = await SessionContainer.getStrict();
 
-  const cart = await addCartRowUseCase.exec({
-    dataToAddProduct: data,
+  const cart = await updateQuantityCartRowUseCase.exec({
+    dataToUpdateCountProduct: data,
     session,
   });
 

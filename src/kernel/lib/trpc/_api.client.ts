@@ -1,6 +1,7 @@
 import {
   CreateTRPCClient,
   createTRPCClient,
+  createTRPCProxyClient,
   httpBatchLink,
 } from "@trpc/client";
 import { CreateTRPCReact, createTRPCReact } from "@trpc/react-query";
@@ -15,6 +16,15 @@ export const createApi = <T extends AnyRouter>() =>
   sharedApi as CreateTRPCReact<T, unknown>;
 
 export const sharedHttpApi = createTRPCClient<SharedRouter>({
+  links: [
+    httpBatchLink({
+      url: `${configPublic.PUBLIC_URL}/api/trpc`,
+      transformer: superjson,
+    }),
+  ],
+});
+
+export const serverApi = createTRPCProxyClient<SharedRouter>({
   links: [
     httpBatchLink({
       url: `${configPublic.PUBLIC_URL}/api/trpc`,

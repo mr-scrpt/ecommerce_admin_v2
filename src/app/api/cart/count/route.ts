@@ -1,5 +1,5 @@
 import { cartRelationSchema } from "@/entities/cart/server";
-import { cartRowChangeQuantityAction } from "@/features/cartRowChange/server";
+import { cartRowChangeQuantityAction } from "@/features/cartRowUpdate/server";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 

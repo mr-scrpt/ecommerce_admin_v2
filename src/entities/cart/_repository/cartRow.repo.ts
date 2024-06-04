@@ -76,7 +76,7 @@ export class CartRowRepository {
     dto: CartRowRemoveDTO,
     db: Tx = this.db,
   ): Promise<void> {
-    const { cartId } = dto;
+    const { id: cartId } = dto;
     await db.cartRow.deleteMany({
       where: {
         cartId,

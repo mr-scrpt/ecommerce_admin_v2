@@ -1,18 +1,11 @@
-import { UserId } from "@/shared/lib/user";
-import { queryOptions, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getUserAction } from "../_action/getUser.action";
-import { userBaseQueryKey } from "../_domain/user.types";
+"use client";
+import { userApi } from "../_api/user.api";
+import { User } from "../_domain/user.types";
 import { useListenUserUpdate } from "../_vm/event/useListenUserUpdate";
 
-export const getUserQuery = (userId: UserId) =>
-  queryOptions({
-    queryKey: [userBaseQueryKey, "getUser", userId],
-    queryFn: () => getUserAction({ userId }),
-  });
-
-export const useUserQuery = (userId: UserId) => {
-  const query = getUserQuery(userId);
-  const { isPending, isSuccess, isFetchedAfterMount, data } = useQuery(query);
+export const useUserQuery = (id: string) => {
+  const { isPending, isSuccess, isFetchedAfterMount, data } =
+    userApi.user.get.useQuery<User>({ id });
 
   useListenUserUpdate();
 
@@ -25,10 +18,7 @@ export const useUserQuery = (userId: UserId) => {
 };
 
 export const useInvalidateUser = () => {
-  const queryClient = useQueryClient();
+  const invalidateUser = userApi.useUtils().user.get.invalidate;
 
-  return (userId: UserId) =>
-    queryClient.invalidateQueries({
-      queryKey: [userBaseQueryKey, "getUser", userId],
-    });
+  return () => invalidateUser();
 };

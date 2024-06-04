@@ -3,7 +3,7 @@ import { User } from "./user.types";
 
 // NOTE: Queries
 export type UserGetDTO = {
-  userId: string;
+  id: string;
 };
 
 export type UserSearchDTO = {

@@ -1,7 +1,11 @@
-// NOTE: Entity
-export type CartEntity = {
-  id: string;
+// NOTE: Base
+export type CartBase = {
   userId: string;
+};
+
+// NOTE: Entity
+export type CartEntity = CartBase & {
+  id: string;
   createdAt: Date;
 };
 
@@ -30,11 +34,12 @@ export type CartRelation = Cart & {
 
 export type CartRow = {
   id: string;
+  productId: string;
   quantity: number;
   createdAt: Date;
 };
 
 // NOTE: Payload
 export type CartGetPayload = {
-  cartId: string;
+  id: string;
 };

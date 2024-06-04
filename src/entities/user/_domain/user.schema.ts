@@ -1,4 +1,4 @@
-import { Role } from "@/shared/lib/user";
+import { Role } from "@/kernel/domain/role.type";
 import { z } from "zod";
 
 // NOTE: Relations Schema
@@ -34,7 +34,7 @@ export const userBaseSchema = z.object({
   phone: z.string(),
   role: z.custom<Role>(),
   emailVerified: z.date().nullable(),
-  image: z.string().nullable(),
+  image: z.string().optional().nullable(),
   createdAt: z.date(),
 });
 

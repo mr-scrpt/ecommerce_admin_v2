@@ -19,7 +19,7 @@ export class UserRepository {
   constructor(readonly db: DBClient) {}
 
   async getUser(dto: UserGetDTO, db: Tx = this.db): Promise<UserEntity> {
-    const { userId } = dto;
+    const { id: userId } = dto;
     const user = await db.user.findUniqueOrThrow({
       where: {
         id: userId,
@@ -32,7 +32,7 @@ export class UserRepository {
     dto: UserGetDTO,
     db: Tx = this.db,
   ): Promise<UserWithCartEntity> {
-    const { userId } = dto;
+    const { id: userId } = dto;
     const user = await db.user.findUniqueOrThrow({
       where: {
         id: userId,
@@ -53,7 +53,7 @@ export class UserRepository {
 
     db: Tx = this.db,
   ): Promise<UserWithOrdersEntity> {
-    const { userId } = dto;
+    const { id: userId } = dto;
     const user = await db.user.findUniqueOrThrow({
       where: {
         id: userId,

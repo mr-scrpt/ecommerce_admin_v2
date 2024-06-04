@@ -6,19 +6,17 @@ import {
 
 const API_URL = `${process.env.NEXT_PUBLIC_URL}${process.env.API_INIT_SETTLEMENT_URL}`;
 
-console.log("output_log:  =>>>", API_URL);
 export const cronScheduleSettlement = "0 14 * * *";
 
 export async function checkAndFetchData() {
   const lastRequestDate = await readLastRequestDate();
   const currentDate = new Date().toISOString().slice(0, 10);
-  console.log("output_log:  =>>>", API_URL);
 
   if (!lastRequestDate || lastRequestDate !== currentDate) {
     try {
       console.log("Fetching settlement from API...");
       const response = await fetch(API_URL, {
-        method: "POST",
+        method: "GET",
         headers: {
           "Content-Type": "application/json",
         },

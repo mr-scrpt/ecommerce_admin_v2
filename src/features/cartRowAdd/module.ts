@@ -1,13 +1,12 @@
-import { Container, ContainerModule } from "inversify";
+import { Controller } from "@/kernel/lib/trpc/server";
+import { ContainerModule } from "inversify";
+import { CartRowAddController } from "./_controller/cartRowAdd.controller";
+import { CartRowAddService } from "./_service/cartRowAdd.service";
 import { CartRowAddTx } from "./_tx/cartRowAdd.transaction";
-import { AddCartRowUseCase } from "./_usecase/cartAdd.usecase";
 
-export const cartAddContainer = new Container();
-
-export const CartAddModule = new ContainerModule((bind) => {
+export const CartRowAddModule = new ContainerModule((bind) => {
   bind(CartRowAddTx).toSelf();
 
-  bind(AddCartRowUseCase).toSelf();
+  bind(CartRowAddService).toSelf();
+  bind(Controller).to(CartRowAddController);
 });
-
-cartAddContainer.load(CartAddModule);

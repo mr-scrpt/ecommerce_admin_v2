@@ -20,7 +20,7 @@ export class CartController extends Controller {
         const cartId = session.user.cartId;
 
         const result = await this.getCartService.execute({
-          cartId,
+          id: cartId,
         });
 
         return cartRelationSchema.parse(result);

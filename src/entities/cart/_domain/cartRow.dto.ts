@@ -5,9 +5,8 @@ export type CartRowGetByProductDTO = {
 };
 
 // NOTE: Mutations
-//
 export type CartRowRemoveDTO = {
-  cartId: string;
+  id: string;
 };
 export type CartRowChangeQuantityDTO = {
   id: string;

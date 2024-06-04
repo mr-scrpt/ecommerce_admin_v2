@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { cartRowSchema } from "./cartRow.schema";
 
 export const cartSchema = z.object({
   id: z.string(),
@@ -10,12 +11,5 @@ export const cartRelationSchema = z.object({
   userId: z.string(),
   createdAt: z.date(),
 
-  cartRowList: z.array(
-    z.object({
-      id: z.string(),
-      productId: z.string(),
-      quantity: z.number(),
-      createdAt: z.date(),
-    }),
-  ),
+  cartRowList: z.array(cartRowSchema),
 });

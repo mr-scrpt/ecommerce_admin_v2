@@ -16,21 +16,23 @@ const propertyListItemSchema = z.object({
   datatype: z.nativeEnum(PropertyDataTypeEnum),
 });
 
-// NOTE: Main
-export const categorySchema = z.object({
-  id: z.string(),
+// NOTE: Base
+export const categoryBaseSchema = z.object({
   name: z.string(),
   slug: z.string(),
   board: z.array(z.string()),
   createdAt: z.date(),
 });
 
+// NOTE: Main
+export const categorySchema = z.object({
+  id: z.string(),
+  ...categoryBaseSchema.shape,
+});
+
 export const categoryRelationSchema = z.object({
   id: z.string(),
-  name: z.string(),
-  slug: z.string(),
-  board: z.array(z.string()),
-  createdAt: z.date(),
+  ...categoryBaseSchema.shape,
 
   productList: z.array(productListItemSchema),
   propertyList: z.array(propertyListItemSchema),

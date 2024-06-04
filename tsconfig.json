@@ -24,6 +24,12 @@
       "@/*": ["./src/*"],
     },
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/entities/delivery/_usecase/instans.usecasets"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    // "src/entities/delivery/_usecase/instans.usecasets",
+  ],
   "exclude": ["node_modules", "server"],
 }

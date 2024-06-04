@@ -1,8 +1,9 @@
 import { CartEntity } from "@/entities/cart";
 import { CartRepository, CartRowRepository } from "@/entities/cart/server";
 import { DBClient, Transaction, Tx } from "@/shared/lib/db/db";
-import { CartRowAddTxData } from "../_domain/types";
 import { injectable } from "inversify";
+import { CartRowAddTxDTO } from "../_domain/types";
+import { CartRelationEntity } from "@/entities/cart/_domain/types";
 
 @injectable()
 export class CartRowAddTx extends Transaction {
@@ -14,12 +15,13 @@ export class CartRowAddTx extends Transaction {
     super(db);
   }
 
-  async addCartRowProductComplexible(
-    data: CartRowAddTxData,
-  ): Promise<CartEntity> {
-    const { userId, productId } = data;
+  async add(dto: CartRowAddTxDTO): Promise<CartRelationEntity> {
+    const { cartRowData: productData, cartData } = dto;
+    const { productId } = productData;
+    const { cartId } = cartData;
+
     const action = async (tx: Tx) => {
-      const cart = await this.cartRepo.getCartWithRelationByUser(userId, tx);
+      const cart = await this.cartRepo.getCartRelation({ id: cartId }, tx);
 
       const cartRowExisting = await this.cartRowRepo.getCartRowByProductId({
         cartId: cart.id,
@@ -29,6 +31,7 @@ export class CartRowAddTx extends Transaction {
       if (cartRowExisting) {
         throw new Error("Product already in cart");
       }
+
       await this.cartRowRepo.addCartRowProduct(
         {
           cartId: cart.id,
@@ -37,7 +40,7 @@ export class CartRowAddTx extends Transaction {
         tx,
       );
 
-      return await this.cartRepo.getCartRelation(cart.id, tx);
+      return await this.cartRepo.getCartRelation({ id: cartId }, tx);
     };
 
     return await this.start(action);

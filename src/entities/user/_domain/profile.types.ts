@@ -10,6 +10,7 @@ export type Profile = {
   phone: string;
   name: string;
   image?: string | null;
+  createdAt: Date;
 };
 
 // NOTE: Payload

@@ -1,8 +1,7 @@
 import { Role } from "@/kernel/domain/role.type";
 import type { UserEntity } from "@/kernel/domain/user.type";
-export { UserEntity };
 
-// export const userBaseQueryKey = "user";
+export { UserEntity };
 
 export type UserWithCartEntity = UserEntity & {
   cart: UserCartRelation | null;
@@ -17,22 +16,26 @@ export type UserWithOrdersEntity = UserEntity & {
 };
 
 export type UserPartial = {
-  email: string;
-  phone: string;
   name?: string | null;
+  phone: string;
+  email: string;
   image?: string | null;
   role: Role;
   emailVerified?: Date | null;
+  createdAt: Date;
 };
 
 // NOTE: Projetions
 
 export type User = {
   id: string;
+  name: string | null;
   email: string;
   phone: string;
-  name: string | null;
-  image: string | null;
+  image?: string | null;
+  role: Role;
+  emailVerified: Date | null;
+  createdAt: Date;
 };
 
 export type UserStrict = {
@@ -45,7 +48,7 @@ export type UserStrict = {
 
 // NOTE: Payload
 export type UserGetPayload = {
-  userId: string;
+  id: string;
 };
 
 // NOTE: Side

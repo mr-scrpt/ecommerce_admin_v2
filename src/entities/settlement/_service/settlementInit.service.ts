@@ -5,6 +5,7 @@ import { SettlementNovaPoshtaIndex } from "@/shared/lib/novaposhta/novaposhta.ty
 import { SettlementEntity } from "../_domain/settlement.type";
 
 const INIT_PAGE = 1;
+const INIT_DELAY = 250;
 
 @injectable()
 export class SettlementInitService {
@@ -33,7 +34,7 @@ export class SettlementInitService {
 
       console.log("output_log: parse novaposhta settlements: page =>>>", page);
       page++;
-      await this.delay(500);
+      await this.delay(INIT_DELAY);
     }
   }
 

@@ -5,7 +5,9 @@ const profileBaseSchema = z.object({
   email: z.string(),
   phone: z.string(),
   name: z.string(),
-  image: z.string(),
+  // image: z.string(),
+  image: z.string().optional().nullable(),
+  createdAt: z.date(),
 });
 
 export const profileSchema = z.object({

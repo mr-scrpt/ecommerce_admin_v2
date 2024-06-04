@@ -1,7 +1,7 @@
 import { CartEntity } from "@/entities/cart";
 import { ForbiddenError } from "@/shared/lib/errors";
 import { SessionEntity } from "@/shared/lib/user";
-import { CartRowChangeQuantityTx } from "../_tx/cartRowChangeQuantity.transaction";
+import { CartRowChangeQuantityTx } from "../_tx/cartRowUpdate.transaction";
 import { CartRowChangeQuantityComplexible } from "../_domain/types";
 import { createCartAbility } from "@/entities/cart/server";
 import { injectable } from "inversify";
