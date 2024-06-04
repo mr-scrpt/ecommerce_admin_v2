@@ -1,9 +1,8 @@
-import { CartEntity } from "@/entities/cart";
 import { CartRepository, CartRowRepository } from "@/entities/cart/server";
 import { DBClient, Transaction, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
 import { CartRowAddTxDTO } from "../_domain/types";
-import { CartRelationEntity } from "@/entities/cart/_domain/types";
+import { CartRelationEntity } from "@/entities/cart";
 
 @injectable()
 export class CartRowAddTx extends Transaction {
