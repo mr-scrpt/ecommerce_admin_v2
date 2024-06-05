@@ -16,12 +16,17 @@ export class CategoryCreateTx extends Transaction {
   async create(dto: CategoryCreateTxDTO): Promise<CategoryEntity> {
     const { categoryData, propertyData } = dto;
     const action = async (tx: Tx) => {
-      const { id } = await this.categoryRepo.createCategory(categoryData, tx);
+      const { id } = await this.categoryRepo.createCategory(
+        { data: categoryData },
+        tx,
+      );
 
       await this.categoryRepo.bindCategoryPropertyList(
         {
-          id,
-          propertyListId: propertyData,
+          selector: { id },
+          data: {
+            propertyListId: propertyData,
+          },
         },
         tx,
       );
