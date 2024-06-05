@@ -1,7 +1,12 @@
 export type CategoryRemoveTxPayload = {
-  categoryId: string;
+  selector: CategoryRemoveSelector;
 };
 
 export type CategoryRemoveTxDTO = {
-  categoryId: string;
+  selector: CategoryRemoveSelector;
+};
+
+// NOTE: Selector
+export type CategoryRemoveSelector = {
+  id: string;
 };

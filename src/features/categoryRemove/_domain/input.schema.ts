@@ -1,5 +1,6 @@
 import { z } from "zod";
+import { categorySelectorSchema } from "./schema";
 
 export const removeInputSchema = z.object({
-  categoryId: z.string(),
+  selector: categorySelectorSchema,
 });

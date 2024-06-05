@@ -1,4 +1,3 @@
-import { CategoryId } from "@/entities/category";
 import { useGetConfirmation } from "@/shared/lib/confirmation";
 import { useCategoryRemoveMutation } from "../_mutation/categoryRemove.mutation";
 
@@ -7,7 +6,7 @@ export const useCategoryRemoveConfirm = () => {
 
   const { categoryRemove, isPending, isSuccess } = useCategoryRemoveMutation();
 
-  const removeCategoryConfirm = async (categoryId: CategoryId) => {
+  const removeCategoryConfirm = async (categoryId: string) => {
     const confirmation = await getConfirmation({
       description:
         "Do you really want to remove a category? This action cannot be canceled",
@@ -15,7 +14,7 @@ export const useCategoryRemoveConfirm = () => {
 
     if (!confirmation) return;
 
-    await categoryRemove({ categoryId });
+    await categoryRemove({ selector: { id: categoryId } });
   };
 
   return { isPending, isSuccess, removeCategoryConfirm };

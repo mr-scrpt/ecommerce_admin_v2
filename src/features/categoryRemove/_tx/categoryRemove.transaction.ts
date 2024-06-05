@@ -14,22 +14,22 @@ export class CategoryRemoveTx extends Transaction {
   }
 
   async remove(dto: CategoryRemoveTxDTO): Promise<CategoryEntity> {
-    const { categoryId } = dto;
+    const { selector } = dto;
     const action = async (tx: Tx) => {
-      return await this.categoryRepo.removeCategory({ id: categoryId }, tx);
+      return await this.categoryRepo.removeCategory({ selector }, tx);
     };
 
     return await this.start(action);
   }
 
-  async removeBySlug(categorySlug: string): Promise<CategoryEntity> {
-    const action = async (tx: Tx) => {
-      return await this.categoryRepo.removeCategoryBySlug(
-        { slug: categorySlug },
-        tx,
-      );
-    };
-
-    return await this.start(action);
-  }
+  // async removeBySlug(categorySlug: string): Promise<CategoryEntity> {
+  //   const action = async (tx: Tx) => {
+  //     return await this.categoryRepo.removeCategoryBySlug(
+  //       { selector: { slug: categorySlug } },
+  //       tx,
+  //     );
+  //   };
+  //
+  //   return await this.start(action);
+  // }
 }
