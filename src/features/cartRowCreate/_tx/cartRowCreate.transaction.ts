@@ -21,10 +21,13 @@ export class CartRowCreateTx extends Transaction {
     const action = async (tx: Tx) => {
       const cart = await this.cartRepo.getCartRelation({ id: cartId }, tx);
 
-      const cartRowExisting = await this.cartRowRepo.getCartRowByProduct({
-        cartId: cart.id,
-        productId,
-      });
+      const cartRowExisting = await this.cartRowRepo.getCartRowByProduct(
+        {
+          cartId: cart.id,
+          productId,
+        },
+        tx,
+      );
 
       // TODO: Error handling
       if (cartRowExisting) {
