@@ -7,7 +7,7 @@ import { FC, HTMLAttributes } from "react";
 import { useCategoryTableList } from "../_vm/useCategoryTableList";
 import { useTableColumns } from "../_vm/useTabelColumns";
 import { Button } from "@/shared/ui/button";
-import { cartRowAddApi } from "@/features/cartRowAdd/server";
+import { cartRowAddApi } from "@/features/cartRowCreate/server";
 
 interface CategoryTableProps extends HTMLAttributes<HTMLDivElement> {}
 

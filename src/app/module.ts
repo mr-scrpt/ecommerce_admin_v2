@@ -15,7 +15,7 @@ import { CategoryUpdateModule } from "@/features/categoryUpdate/module";
 import { CategoryCreateModule } from "@/features/categoryCreate/module";
 import { SettlementModule } from "@/entities/settlement/module";
 import { SessionCreateModule } from "@/features/sessionGet/module";
-import { CartRowAddModule } from "@/features/cartRowAdd/module";
+import { CartRowAddModule } from "@/features/cartRowCreate/module";
 import { CartRowUpdateModule } from "@/features/cartRowUpdate/module";
 import { CartRowRemoveModule } from "@/features/cartRowRemove/module";
 

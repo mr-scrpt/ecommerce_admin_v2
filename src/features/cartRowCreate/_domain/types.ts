@@ -6,15 +6,16 @@ type CartData = {
 };
 
 type CartProduct = {
+  cartId: Cart["id"];
   productId: Product["id"];
 };
 
-export type CartRowAddTxPayload = {
-  cartData: CartData;
+export type CartRowCreateTxPayload = {
+  // cartData: CartData;
   cartRowData: CartProduct;
 };
 
-export type CartRowAddTxDTO = {
-  cartData: CartData;
+export type CartRowCreateTxDTO = {
+  // cartData: CartData;
   cartRowData: CartProduct;
 };

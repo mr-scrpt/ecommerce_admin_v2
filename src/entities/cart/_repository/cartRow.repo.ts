@@ -13,17 +13,17 @@ import {
 export class CartRowRepository {
   constructor(readonly db: DBClient) {}
 
-  async getCartRowId(
-    dto: CartRowGetDTO,
-    db: Tx = this.db,
-  ): Promise<CartRowEntity | null> {
-    const { id } = dto;
-    return db.cartRow.findUnique({
-      where: {
-        id,
-      },
-    });
-  }
+  // async getCartRowId(
+  //   dto: CartRowGetDTO,
+  //   db: Tx = this.db,
+  // ): Promise<CartRowEntity | null> {
+  //   const { id } = dto;
+  //   return db.cartRow.findUnique({
+  //     where: {
+  //       id,
+  //     },
+  //   });
+  // }
 
   async getCartRowByProduct(
     dto: CartRowGetByProductDTO,
