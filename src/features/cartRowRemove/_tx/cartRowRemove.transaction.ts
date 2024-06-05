@@ -22,7 +22,7 @@ export class CartRowRemoveTx extends Transaction {
     const action = async (tx: Tx) => {
       const cart = await this.cartRepo.getCart({ id: cartId }, tx);
 
-      const cartRowExisting = await this.cartRowRepo.getCartRowByProductId({
+      const cartRowExisting = await this.cartRowRepo.getCartRowId({
         cartId: cart.id,
         productId,
       });
@@ -31,7 +31,7 @@ export class CartRowRemoveTx extends Transaction {
         throw new Error("Product not in cart");
       }
 
-      await this.cartRowRepo.removeCartRowProduct(
+      await this.cartRowRepo.removeCartRow(
         {
           cartId: cart.id,
           productId,

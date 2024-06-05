@@ -1,14 +1,14 @@
 import { DBClient, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
 import {
-  CartAddProductDTO,
   CartCreateDTO,
   CartGetByUserDTO,
   CartGetDTO,
   CartRemoveByUserDTO,
   CartRemoveDTO,
 } from "../_domain/cart.dto";
-import { CartEntity, CartRelationEntity } from "../_domain/types";
+import { CartEntity, CartRelationEntity } from "../_domain/cart.types";
+import { CartRowCreateDTO } from "../_domain/cartRow.dto";
 
 @injectable()
 export class CartRepository {
@@ -39,10 +39,10 @@ export class CartRepository {
     dto: CartGetDTO,
     db: Tx = this.db,
   ): Promise<CartRelationEntity> {
-    const { id: cartId } = dto;
+    const { id } = dto;
     return db.cart.findUniqueOrThrow({
       where: {
-        id: cartId,
+        id,
       },
       include: {
         cartRowList: true,
@@ -50,56 +50,20 @@ export class CartRepository {
     });
   }
 
-  // async getCartWithRelationByUser(
-  //   dto: CartGetByUserDTO,
-  //   db: Tx = this.db,
-  // ): Promise<CartRelationEntity> {
-  //   const { userId } = dto;
-  //   const result = await db.cart.findUniqueOrThrow({
-  //     where: {
-  //       userId,
-  //     },
-  //     include: {
-  //       cartRowList: true,
-  //     },
-  //   });
-  //   return result;
-  // }
-
   async getCartList(db: Tx = this.db): Promise<CartEntity[]> {
     return db.cart.findMany();
   }
 
   async createCart(dto: CartCreateDTO, db: Tx = this.db): Promise<CartEntity> {
-    const { id } = dto;
-    return await db.cart.create({
-      data: {
-        userId: id,
-      },
-    });
+    const { data } = dto;
+
+    return await db.cart.create({ data });
   }
 
-  async addCartProduct(dto: CartAddProductDTO): Promise<CartEntity> {
-    const { id, productId } = dto;
-    return await this.db.cart.update({
-      where: {
-        id,
-      },
-      data: {
-        cartRowList: {
-          connect: {
-            id: productId,
-          },
-        },
-      },
-    });
-  }
-
-  async removeCartById(
-    dto: CartRemoveDTO,
-    db: Tx = this.db,
-  ): Promise<CartEntity> {
-    const { id: cartId } = dto;
+  async removeCart(dto: CartRemoveDTO, db: Tx = this.db): Promise<CartEntity> {
+    const {
+      selector: { id: cartId },
+    } = dto;
     return await db.cart.delete({ where: { id: cartId } });
   }
 
@@ -107,7 +71,9 @@ export class CartRepository {
     dto: CartRemoveByUserDTO,
     db: Tx = this.db,
   ): Promise<CartEntity> {
-    const { userId: userId } = dto;
+    const {
+      selector: { userId },
+    } = dto;
     return await db.cart.delete({ where: { userId } });
   }
 }

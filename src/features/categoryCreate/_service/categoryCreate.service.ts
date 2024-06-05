@@ -17,6 +17,7 @@ export class CategoryCreateService {
     const {
       categoryData: { name },
     } = payload;
+
     const slug = slugGenerator(name);
 
     return {

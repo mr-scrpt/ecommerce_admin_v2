@@ -1,3 +1,5 @@
+import { CartRow, CartRowEntity } from "./cartRow.types";
+
 // NOTE: Base
 export type CartBase = {
   userId: string;
@@ -6,14 +8,6 @@ export type CartBase = {
 // NOTE: Entity
 export type CartEntity = CartBase & {
   id: string;
-  createdAt: Date;
-};
-
-export type CartRowEntity = {
-  id: string;
-  cartId: string;
-  productId: string;
-  quantity: number;
   createdAt: Date;
 };
 
@@ -30,13 +24,6 @@ export type Cart = {
 
 export type CartRelation = Cart & {
   cartRowList: Array<CartRow>;
-};
-
-export type CartRow = {
-  id: string;
-  productId: string;
-  quantity: number;
-  createdAt: Date;
 };
 
 // NOTE: Selector

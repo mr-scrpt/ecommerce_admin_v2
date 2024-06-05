@@ -22,7 +22,7 @@ export class CartRowAddTx extends Transaction {
     const action = async (tx: Tx) => {
       const cart = await this.cartRepo.getCartRelation({ id: cartId }, tx);
 
-      const cartRowExisting = await this.cartRowRepo.getCartRowByProductId({
+      const cartRowExisting = await this.cartRowRepo.getCartRowId({
         cartId: cart.id,
         productId,
       });
@@ -31,7 +31,7 @@ export class CartRowAddTx extends Transaction {
         throw new Error("Product already in cart");
       }
 
-      await this.cartRowRepo.addCartRowProduct(
+      await this.cartRowRepo.createCartRow(
         {
           cartId: cart.id,
           productId,

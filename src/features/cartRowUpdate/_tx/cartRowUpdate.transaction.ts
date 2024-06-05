@@ -1,4 +1,4 @@
-import { CartRelationEntity } from "@/entities/cart/_domain/types";
+import { CartRelationEntity } from "@/entities/cart/_domain/cartRow.types";
 import { CartRepository, CartRowRepository } from "@/entities/cart/server";
 import { DBClient, Transaction, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
@@ -21,7 +21,7 @@ export class CartRowUpdateTx extends Transaction {
     const action = async (tx: Tx) => {
       const cart = await this.cartRepo.getCart({ id: cartId }, tx);
 
-      const cartRowExisting = await this.cartRowRepo.getCartRowByProductId({
+      const cartRowExisting = await this.cartRowRepo.getCartRowId({
         cartId: cart.id,
         productId,
       });
@@ -29,7 +29,7 @@ export class CartRowUpdateTx extends Transaction {
       if (!cartRowExisting) {
         throw new Error("Product not in cart");
       }
-      await this.cartRowRepo.changeCartRowProductQuantity(
+      await this.cartRowRepo.updateCartRow(
         {
           id: cartRowExisting!.id,
           quantity,

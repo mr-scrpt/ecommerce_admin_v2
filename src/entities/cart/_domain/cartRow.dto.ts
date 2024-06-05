@@ -1,24 +1,29 @@
+import { CartRowBase } from "./cartRow.types";
+
 // NOTE: Queries
+export type CartRowGetDTO = {
+  id: string;
+};
+
 export type CartRowGetByProductDTO = {
   cartId: string;
   productId: string;
 };
 
 // NOTE: Mutations
-export type CartRowRemoveDTO = {
-  id: string;
+export type CartRowCreateDTO = {
+  data: CartRowBase;
 };
+
 export type CartRowChangeQuantityDTO = {
-  id: string;
-  quantity: number;
+  selector: {
+    id: string;
+  };
+  data: Pick<CartRowBase, "quantity">;
 };
 
-export type CartRowAddProductDTO = {
-  cartId: string;
-  productId: string;
-};
-
-export type CartRowRemoveProductDTO = {
-  cartId: string;
-  productId: string;
+export type CartRowRemoveDTO = {
+  selector: {
+    id: string;
+  };
 };

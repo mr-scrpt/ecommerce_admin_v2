@@ -1,3 +1,5 @@
+import { CartBase } from "./cart.types";
+
 // NOTE: Queries
 export type CartGetDTO = {
   id: string;
@@ -9,18 +11,17 @@ export type CartGetByUserDTO = {
 
 // NOTE: Mutations
 export type CartCreateDTO = {
-  id: string;
+  data: CartBase;
 };
 
 export type CartRemoveDTO = {
-  id: string;
+  selector: {
+    id: string;
+  };
 };
 
 export type CartRemoveByUserDTO = {
-  userId: string;
-};
-
-export type CartAddProductDTO = {
-  id: string;
-  productId: string;
+  selector: {
+    userId: string;
+  };
 };

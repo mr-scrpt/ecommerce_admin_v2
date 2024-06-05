@@ -20,10 +20,12 @@ export class CategoryController extends Controller {
         .input(getByInputSchema)
         .query(async ({ input }) => {
           const result = await this.getCategoryRelationService.execute(input);
+
           return categoryRelationSchema.parse(result);
         }),
       getList: publicProcedure.query(async () => {
         const result = await this.getCategoryListService.execute();
+
         return getListOutputSchema.parse(result);
       }),
     },

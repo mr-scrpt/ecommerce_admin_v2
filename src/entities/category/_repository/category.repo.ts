@@ -99,7 +99,6 @@ export class CategoryRepository {
   ): Promise<CategoryEntity> {
     const { selector, data } = dto;
     const { id } = selector;
-    console.log("output_log: in repo =>>>", dto);
 
     return await db.category.update({
       where: { id },
@@ -111,22 +110,18 @@ export class CategoryRepository {
     dto: CategoryRemoveDTO,
     db: Tx = this.db,
   ): Promise<CategoryEntity> {
-    const {
-      selector: { id },
-    } = dto;
+    const { selector } = dto;
 
-    return await db.category.delete({ where: { id } });
+    return await db.category.delete({ where: { id: selector.id } });
   }
 
   async removeCategoryBySlug(
     dto: CategoryRemoveBySlugDTO,
     db: Tx = this.db,
   ): Promise<CategoryEntity> {
-    const {
-      selector: { slug },
-    } = dto;
+    const { selector } = dto;
 
-    return await db.category.delete({ where: { slug } });
+    return await db.category.delete({ where: { slug: selector.slug } });
   }
 
   async bindCategoryPropertyList(

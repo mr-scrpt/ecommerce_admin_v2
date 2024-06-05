@@ -7,7 +7,7 @@ export const useCartWithRelationQuery = () => {
   // const query = getCartWithRelationQuery(cartId);
 
   const { isPending, isSuccess, data, isFetchedAfterMount } =
-    cartApi.cart.getWithRelation.useQuery();
+    cartApi.cart.getRelation.useQuery();
 
   useListenCartUpdate();
 
@@ -20,7 +20,7 @@ export const useCartWithRelationQuery = () => {
 };
 
 export const useInvalidateCartWithRelation = () => {
-  const invalidateCart = cartApi.useUtils().cart.getWithRelation.invalidate;
+  const invalidateCart = cartApi.useUtils().cart.getRelation.invalidate;
 
   return () => invalidateCart();
 };

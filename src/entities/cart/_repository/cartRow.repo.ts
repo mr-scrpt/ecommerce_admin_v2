@@ -1,85 +1,75 @@
 import { DBClient, Tx } from "@/shared/lib/db/db";
-import { CartRowEntity } from "../_domain/types";
+import { CartRowEntity } from "../_domain/cartRow.types";
 import { injectable } from "inversify";
 import {
-  CartRowAddProductDTO,
   CartRowChangeQuantityDTO,
+  CartRowCreateDTO,
   CartRowGetByProductDTO,
+  CartRowGetDTO,
   CartRowRemoveDTO,
-  CartRowRemoveProductDTO,
 } from "../_domain/cartRow.dto";
 
 @injectable()
 export class CartRowRepository {
   constructor(readonly db: DBClient) {}
 
-  async getCartRowByProductId(
+  async getCartRowId(
+    dto: CartRowGetDTO,
+    db: Tx = this.db,
+  ): Promise<CartRowEntity | null> {
+    const { id } = dto;
+    return db.cartRow.findUnique({
+      where: {
+        id,
+      },
+    });
+  }
+
+  async getCartRowByProduct(
     dto: CartRowGetByProductDTO,
     db: Tx = this.db,
   ): Promise<CartRowEntity | null> {
     const { cartId, productId } = dto;
     return db.cartRow.findUnique({
       where: {
-        cartId_productId: {
-          cartId,
-          productId,
-        },
+        cartId_productId: { cartId, productId },
       },
     });
   }
 
-  async changeCartRowProductQuantity(
+  async updateCartRow(
     dto: CartRowChangeQuantityDTO,
     db: Tx = this.db,
   ): Promise<CartRowEntity> {
-    const { id, quantity } = dto;
+    const { selector, data } = dto;
+    const { id } = selector;
     return await db.cartRow.update({
       where: {
         id,
       },
-      data: {
-        quantity,
-      },
+      data,
     });
   }
 
-  async addCartRowProduct(
-    dto: CartRowAddProductDTO,
+  async createCartRow(
+    dto: CartRowCreateDTO,
     db: Tx = this.db,
   ): Promise<CartRowEntity> {
-    const { cartId, productId } = dto;
+    const { data } = dto;
     return await db.cartRow.create({
-      data: {
-        cartId,
-        productId,
-        quantity: 1,
-      },
+      data,
     });
   }
 
-  async removeCartRowProduct(
-    data: CartRowRemoveProductDTO,
-    db: Tx = this.db,
-  ): Promise<CartRowEntity> {
-    const { cartId, productId } = data;
-    return await db.cartRow.delete({
-      where: {
-        cartId_productId: {
-          cartId,
-          productId,
-        },
-      },
-    });
-  }
-
-  async removeCartRowAll(
+  async removeCartRow(
     dto: CartRowRemoveDTO,
     db: Tx = this.db,
-  ): Promise<void> {
-    const { id: cartId } = dto;
-    await db.cartRow.deleteMany({
+  ): Promise<CartRowEntity> {
+    const { selector } = dto;
+
+    return await db.cartRow.delete({
       where: {
-        cartId,
+        id: selector.id,
       },
     });
   }

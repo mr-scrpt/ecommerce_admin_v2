@@ -6,4 +6,4 @@ export type {
   CartRelation,
   CartRelationEntity,
   CartRow,
-} from "./_domain/types";
+} from "./_domain/cartRow.types";
