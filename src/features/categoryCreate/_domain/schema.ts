@@ -6,5 +6,5 @@ export const categoryCreateSchema = z.object({
 });
 
 export const categoryPropertySchema = z.object({
-  id: z.string(),
+  propertyId: z.string(),
 });

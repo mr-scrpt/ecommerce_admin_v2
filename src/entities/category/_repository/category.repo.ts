@@ -1,16 +1,16 @@
 import { DBClient, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
-import { CategoryEntity, CategoryRelationEntity } from "../_domain/types";
 import {
   CategoryBindProductListDTO,
   CategoryBindPropertyListDTO,
   CategoryCreateDTO,
+  CategoryGetBySlugDTO,
+  CategoryGetDTO,
   CategoryRemoveBySlugDTO,
   CategoryRemoveDTO,
   CategoryUpdateDTO,
-  CategoryGetDTO,
-  CategoryGetBySlugDTO,
 } from "../_domain/category.dto";
+import { CategoryEntity, CategoryRelationEntity } from "../_domain/types";
 
 @injectable()
 export class CategoryRepository {
@@ -21,6 +21,7 @@ export class CategoryRepository {
     db: Tx = this.db,
   ): Promise<CategoryEntity> {
     const { id } = dto;
+
     const res = db.category.findUniqueOrThrow({
       where: {
         id,
@@ -35,6 +36,7 @@ export class CategoryRepository {
     db: Tx = this.db,
   ): Promise<CategoryRelationEntity> {
     const { id } = dto;
+
     return await db.category.findUniqueOrThrow({
       where: {
         id,
@@ -51,6 +53,7 @@ export class CategoryRepository {
     db: Tx = this.db,
   ): Promise<CategoryEntity> {
     const { slug } = dto;
+
     return db.category.findUniqueOrThrow({
       where: {
         slug,
@@ -63,6 +66,7 @@ export class CategoryRepository {
     db: Tx = this.db,
   ): Promise<CategoryRelationEntity> {
     const { slug } = dto;
+
     return await db.category.findUniqueOrThrow({
       where: {
         slug,
@@ -82,16 +86,21 @@ export class CategoryRepository {
     dto: CategoryCreateDTO,
     db: Tx = this.db,
   ): Promise<CategoryEntity> {
+    const { data } = dto;
+
     return await db.category.create({
-      data: dto,
+      data,
     });
   }
 
   async updateCategory(
-    categoryData: Partial<CategoryUpdateDTO>,
+    dto: CategoryUpdateDTO,
     db: Tx = this.db,
   ): Promise<CategoryEntity> {
-    const { id, ...data } = categoryData;
+    const { selector, data } = dto;
+    const { id } = selector;
+    console.log("output_log: in repo =>>>", dto);
+
     return await db.category.update({
       where: { id },
       data,
@@ -102,15 +111,21 @@ export class CategoryRepository {
     dto: CategoryRemoveDTO,
     db: Tx = this.db,
   ): Promise<CategoryEntity> {
-    const { id: categoryId } = dto;
-    return await db.category.delete({ where: { id: categoryId } });
+    const {
+      selector: { id },
+    } = dto;
+
+    return await db.category.delete({ where: { id } });
   }
 
   async removeCategoryBySlug(
     dto: CategoryRemoveBySlugDTO,
     db: Tx = this.db,
   ): Promise<CategoryEntity> {
-    const { slug } = dto;
+    const {
+      selector: { slug },
+    } = dto;
+
     return await db.category.delete({ where: { slug } });
   }
 
@@ -118,14 +133,17 @@ export class CategoryRepository {
     dto: CategoryBindPropertyListDTO,
     db: Tx = this.db,
   ): Promise<CategoryEntity> {
-    const { id: categoryId, propertyListId } = dto;
+    const { selector, data } = dto;
+    const { id } = selector;
+    const { propertyListId } = data;
+
     return await db.category.update({
       where: {
-        id: categoryId,
+        id,
       },
       data: {
         propertyList: {
-          set: propertyListId,
+          set: propertyListId.map(({ propertyId }) => ({ id: propertyId })),
         },
       },
     });
@@ -135,14 +153,17 @@ export class CategoryRepository {
     dto: CategoryBindProductListDTO,
     db: Tx = this.db,
   ): Promise<CategoryEntity> {
-    const { id: categoryId, productListId } = dto;
+    const { selector, data } = dto;
+    const { id } = selector;
+    const { productListId } = data;
+
     return await db.category.update({
       where: {
-        id: categoryId,
+        id,
       },
       data: {
         productList: {
-          connect: productListId,
+          connect: productListId.map(({ productId }) => ({ id: productId })),
         },
       },
     });

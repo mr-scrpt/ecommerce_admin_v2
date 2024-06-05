@@ -19,7 +19,7 @@ export class CartRowAddController extends Controller {
       add: authorizedProcedure
         .input(addInputSchema)
         .mutation(async ({ input, ctx }) => {
-          const { cartRowData } = input;
+          const { selector: cartRowData } = input;
           const { session } = ctx;
           const cartId = session.user.cartId;
           const result = await this.addCartRowService.execute({

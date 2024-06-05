@@ -55,11 +55,9 @@ export const CategoryFormUpdate: FC<CategoryFormProps> = (props) => {
   const handleSubmit = async (data: CategoryFormValues) => {
     const { propertyList, ...categoryData } = data;
     await categoryUpdate({
-      categoryData: {
-        id: category.id,
-        ...categoryData,
-      },
-      propertyData: propertyList,
+      selector: { id: categoryId },
+      categoryData,
+      propertyData: propertyList.map(({ id }) => ({ propertyId: id })),
     });
 
     onSuccess?.();

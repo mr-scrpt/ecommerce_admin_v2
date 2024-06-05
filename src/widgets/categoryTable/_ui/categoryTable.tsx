@@ -40,7 +40,7 @@ export const CategoryTable: FC<CategoryTableProps> = (props) => {
       <Button
         onClick={() =>
           mutateAsync({
-            cartRowData: {
+            selector: {
               productId: "prod_2",
             },
           })

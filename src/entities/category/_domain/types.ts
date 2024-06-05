@@ -32,16 +32,10 @@ export type CategoryRelation = Category & {
   propertyList: Array<PropertyListItem>;
 };
 
-// NOTE: Payload
-export type CategoryGetPayload = {
+// NOTE: Selector
+export type CategoryGetSelector = {
   id?: string;
   slug?: string;
-};
-
-export type CategoryCreatePayload = CategoryBase;
-
-export type CategoryUpdatePayload = Partial<CategoryBase> & {
-  id: string;
 };
 
 // NOTE: Side

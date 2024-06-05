@@ -10,27 +10,44 @@ export type CategoryGetBySlugDTO = {
 };
 
 // NOTE: Mutations
-export type CategoryCreateDTO = CategoryBase;
+export type CategoryCreateDTO = {
+  data: CategoryBase;
+};
 
-export type CategoryUpdateDTO = Partial<CategoryBase> & {
-  id: string;
+export type CategoryUpdateDTO = {
+  selector: {
+    id: string;
+  };
+  data: Partial<CategoryBase>;
 };
 
 export type CategoryRemoveDTO = {
-  id: string;
+  selector: {
+    id: string;
+  };
 };
 
 export type CategoryRemoveBySlugDTO = {
-  slug: string;
+  selector: {
+    slug: string;
+  };
 };
 
 // NOTE: Bindings
 export type CategoryBindProductListDTO = {
-  id: string;
-  productListId: Array<{ id: string }>;
+  selector: {
+    id: string;
+  };
+  data: {
+    productListId: Array<{ productId: string }>;
+  };
 };
 
 export type CategoryBindPropertyListDTO = {
-  id: string;
-  propertyListId: Array<{ id: string }>;
+  selector: {
+    id: string;
+  };
+  data: {
+    propertyListId: Array<{ propertyId: string }>;
+  };
 };

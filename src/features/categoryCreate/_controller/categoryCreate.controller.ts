@@ -15,7 +15,6 @@ export class CategoryCreateController extends Controller {
       create: publicProcedure
         .input(createInputSchema)
         .mutation(async ({ input }) => {
-          console.log("output_log: category input =>>>", input);
           const result = await this.createCategoryService.execute(input);
           return categorySchema.parse(result);
         }),

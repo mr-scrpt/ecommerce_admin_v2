@@ -16,10 +16,9 @@ export { useCategoryLikeSelectOptionList } from "./_vm/useCategoryLikeSelectOpti
 export { categoryApi } from "./_api/category.api";
 export type {
   Category,
+  CategoryBase,
   CategoryEntity,
   CategoryRelationEntity,
-  CategoryUpdatePayload,
-  CategoryCreatePayload,
 } from "./_domain/types";
 
 export type {

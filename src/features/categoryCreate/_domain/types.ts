@@ -1,14 +1,17 @@
-import { CategoryCreateDTO, CategoryCreatePayload } from "@/entities/category";
+import { CategoryBase, CategoryCreateDTO } from "@/entities/category";
 import { Property } from "@/entities/property";
 
-type PropertyList = Array<Pick<Property, "id">>;
+type PropertyList = Array<{ propertyId: Property["id"] }>;
 
 export type CategoryCreateTxPayload = {
-  categoryData: Omit<CategoryCreatePayload, "slug">;
+  categoryData: CategoryCreatePayload;
   propertyData: PropertyList;
 };
 
 export type CategoryCreateTxDTO = {
   categoryData: CategoryCreateDTO;
-  propertyData: Array<{ id: string }>;
+  propertyData: PropertyList;
 };
+
+// NOTE: Payload
+export type CategoryCreatePayload = Omit<CategoryBase, "slug">;

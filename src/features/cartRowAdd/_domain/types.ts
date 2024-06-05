@@ -4,6 +4,7 @@ import { Product } from "@/entities/product";
 type CartData = {
   cartId: Cart["id"];
 };
+
 type CartProduct = {
   productId: Product["id"];
 };

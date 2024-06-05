@@ -39,7 +39,7 @@ export type CartRow = {
   createdAt: Date;
 };
 
-// NOTE: Payload
-export type CartGetPayload = {
+// NOTE: Selector
+export type CartGetSelector = {
   id: string;
 };

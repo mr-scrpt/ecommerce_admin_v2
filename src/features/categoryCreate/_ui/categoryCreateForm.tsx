@@ -33,7 +33,9 @@ export const CategoryFormCreate: FC<CategoryCreateFormProps> = (props) => {
     const { propertyList, ...categoryData } = data;
     await categoryCreate({
       categoryData,
-      propertyData: propertyList,
+      propertyData: propertyList.map(({ id }) => ({
+        propertyId: id,
+      })),
     });
 
     onSuccess?.();
