@@ -6,15 +6,16 @@ type CartData = {
 };
 
 type CartRowData = {
+  cartId: Cart["id"];
   productId: Product["id"];
 };
 
 export type CartRowRemoveTxPayload = {
-  cartData: CartData;
+  // cartData: CartData;
   cartRowData: CartRowData;
 };
 
 export type CartRowRemoveTxDTO = {
-  cartData: CartData;
+  // cartData: CartData;
   cartRowData: CartRowData;
 };

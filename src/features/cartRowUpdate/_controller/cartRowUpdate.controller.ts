@@ -25,10 +25,10 @@ export class CartRowUpdateController extends Controller {
           const cartId = session.user.cartId;
 
           const result = await this.updateCartRowService.execute({
-            cartData: {
+            cartRowData: {
+              ...cartRowData,
               cartId,
             },
-            cartRowData,
           });
 
           return cartRelationSchema.parse(result);

@@ -25,10 +25,10 @@ export class CartRowRemoveController extends Controller {
           const cartId = session.user.cartId;
 
           const result = await this.removeCartRowService.execute({
-            cartData: {
+            cartRowData: {
+              ...cartRowData,
               cartId,
             },
-            cartRowData,
           });
 
           return cartRelationSchema.parse(result);

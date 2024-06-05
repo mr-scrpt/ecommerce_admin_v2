@@ -19,11 +19,9 @@ export class CartRowCreateTx extends Transaction {
     const { productId, cartId } = cartRowData;
 
     const action = async (tx: Tx) => {
-      const cart = await this.cartRepo.getCartRelation({ id: cartId }, tx);
-
       const cartRowExisting = await this.cartRowRepo.getCartRowByProduct(
         {
-          cartId: cart.id,
+          cartId,
           productId,
         },
         tx,
@@ -37,7 +35,7 @@ export class CartRowCreateTx extends Transaction {
       await this.cartRowRepo.createCartRow(
         {
           data: {
-            cartId: cart.id,
+            cartId,
             productId,
             quantity: 1,
           },

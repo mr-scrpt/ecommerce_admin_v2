@@ -8,8 +8,6 @@ export class CartRowRemoveService {
   constructor(private readonly cartRowRemoveTx: CartRowRemoveTx) {}
 
   async execute(payload: CartRowRemoveTxPayload): Promise<CartRelation> {
-    const { cartRowData } = payload;
-
     return await this.cartRowRemoveTx.remove(payload);
   }
 }

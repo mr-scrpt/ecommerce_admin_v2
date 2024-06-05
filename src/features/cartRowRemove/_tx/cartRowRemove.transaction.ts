@@ -15,15 +15,14 @@ export class CartRowRemoveTx extends Transaction {
   }
 
   async remove(dto: CartRowRemoveTxDTO): Promise<CartRelationEntity> {
-    const { cartData, cartRowData } = dto;
-    const { productId } = cartRowData;
-    const { cartId } = cartData;
+    const { cartRowData } = dto;
+    const { productId, cartId } = cartRowData;
 
     const action = async (tx: Tx) => {
-      const cart = await this.cartRepo.getCart({ id: cartId }, tx);
+      // const cart = await this.cartRepo.getCart({ id: cartId }, tx);
 
-      const cartRowExisting = await this.cartRowRepo.getCartRowId({
-        cartId: cart.id,
+      const cartRowExisting = await this.cartRowRepo.getCartRowByProduct({
+        cartId,
         productId,
       });
 
@@ -33,8 +32,9 @@ export class CartRowRemoveTx extends Transaction {
 
       await this.cartRowRepo.removeCartRow(
         {
-          cartId: cart.id,
-          productId,
+          selector: {
+            id: cartRowExisting.id,
+          },
         },
         tx,
       );
