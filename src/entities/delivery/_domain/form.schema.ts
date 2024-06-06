@@ -1,9 +1,8 @@
+import { DeliveryTypeEnum } from "@/kernel/domain/delivery.type";
 import { z } from "zod";
-import { DeliveryTypeEnum } from "./delivery.types";
 
 // NOTE: FORM
 // NOTE: Main information
-
 export const deliveryFormDefaultSchema = z.object({
   orderId: z.string(),
   deliveryType: z.custom<DeliveryTypeEnum>(),

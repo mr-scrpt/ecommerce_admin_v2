@@ -22,6 +22,6 @@ export class GetDeliveryByOrderIdUseCase {
       throw new AuthorizatoinError();
     }
 
-    return await this.deliveryRepo.getDeliveryByOrderId(orderId);
+    return await this.deliveryRepo.getDeliveryOrder(orderId);
   }
 }

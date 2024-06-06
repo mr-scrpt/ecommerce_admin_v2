@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+// NOTE: FORM
+// NOTE: Main information
 export const categoryFormSchema = z.object({
   name: z
     .string()

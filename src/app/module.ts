@@ -18,6 +18,8 @@ import { SessionCreateModule } from "@/features/sessionGet/module";
 import { CartRowAddModule } from "@/features/cartRowCreate/module";
 import { CartRowUpdateModule } from "@/features/cartRowUpdate/module";
 import { CartRowRemoveModule } from "@/features/cartRowRemove/module";
+import { DeliveryModule } from "@/entities/delivery/module";
+import { HttpClientModule } from "@/shared/api/module";
 
 export const loadModule = () => {
   const container = new Container();
@@ -26,6 +28,7 @@ export const loadModule = () => {
     DbModule,
     NextAuthModule,
     SessionCreateModule,
+    HttpClientModule,
 
     UserModule,
     UserCreateModule,
@@ -42,6 +45,8 @@ export const loadModule = () => {
     CategoryCreateModule,
     CategoryUpdateModule,
     CategoryRemoveModule,
+
+    DeliveryModule,
 
     PropertyModule,
 

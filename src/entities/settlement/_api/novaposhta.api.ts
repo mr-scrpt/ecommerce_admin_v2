@@ -1,11 +1,11 @@
+import { HttpClient } from "@/shared/api/httpClient";
 import { configPrivate } from "@/shared/config/private.config";
-import { ApiClient } from "@/shared/lib/httpClient";
 import {
   NovaPoshtaResponse,
   SettlementNovaPoshta,
 } from "@/shared/lib/novaposhta/novaposhta.type";
 
-import { inject, injectable } from "inversify";
+import { injectable } from "inversify";
 
 // export const API_NOVA_POSHTA_KEY = "apiKey";
 
@@ -20,7 +20,7 @@ export const calledMethod = {
 const { API_NOVA_POSHTA_KEY } = configPrivate;
 @injectable()
 export class NovaPoshtaApi {
-  constructor(readonly client: ApiClient) {}
+  constructor(readonly client: HttpClient) {}
 
   async getSettlementListSearch(q: string): Promise<SettlementNovaPoshta[]> {
     const result = await this.client.post<

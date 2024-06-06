@@ -1,4 +1,3 @@
-import { ApiClient } from "@/shared/lib/httpClient";
 import { ContainerModule } from "inversify";
 import { NovaPoshtaApi } from "./_api/novaposhta.api";
 import { NovaPoshtaRepository } from "./_repository/novaposhta.repo";
@@ -8,7 +7,6 @@ import { Controller } from "@/kernel/lib/trpc/server";
 import { SettlementController } from "./_controller/settlement.controller";
 
 export const SettlementModule = new ContainerModule((bind) => {
-  bind(ApiClient).toSelf();
   bind(NovaPoshtaApi).toSelf();
 
   bind(SettlementRepository).toSelf();

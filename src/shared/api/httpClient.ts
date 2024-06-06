@@ -1,15 +1,15 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
-import { injectable } from "inversify";
-import { configPrivate } from "../config/private.config";
+import { inject, injectable } from "inversify";
 
-const { API_NOVA_POSHTA_URL } = configPrivate;
+export const BASE_URL = Symbol("baseUrl");
+
 @injectable()
-export class ApiClient {
+export class HttpClient {
   private axiosInstance: AxiosInstance;
 
-  constructor() {
+  constructor(@inject(BASE_URL) private readonly baseUrl: string) {
     this.axiosInstance = axios.create({
-      baseURL: API_NOVA_POSHTA_URL,
+      baseURL: this.baseUrl,
     });
   }
 

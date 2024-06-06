@@ -1,7 +1,7 @@
 import { Controller, publicProcedure, router } from "@/kernel/lib/trpc/server";
 import { injectable } from "inversify";
 import { categoryRelationSchema } from "../_domain/category.schema";
-import { getByInputSchema, getListOutputSchema } from "../_domain/input.schema";
+import { getInputSchema, getListOutputSchema } from "../_domain/input.schema";
 import { CategoryRelationGetService } from "../_service/categoryRelationGet.service";
 import { CategoryListGetService } from "../_service/categoryListGet.service";
 
@@ -17,7 +17,7 @@ export class CategoryController extends Controller {
   public router = router({
     category: {
       getRelation: publicProcedure
-        .input(getByInputSchema)
+        .input(getInputSchema)
         .query(async ({ input }) => {
           const result = await this.getCategoryRelationService.execute(input);
 

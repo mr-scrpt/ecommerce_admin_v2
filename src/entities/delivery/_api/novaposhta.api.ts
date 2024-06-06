@@ -1,5 +1,5 @@
+import { HttpClient } from "@/shared/api/httpClient";
 import { configPrivate } from "@/shared/config/private.config";
-import { ApiClient } from "@/shared/lib/httpClient";
 import {
   NovaPoshtaResponse,
   PostOfficeNovaPoshta,
@@ -19,7 +19,7 @@ export const calledMethod = {
 @injectable()
 export class NovaPoshtaApi {
   constructor(
-    readonly client: ApiClient,
+    readonly client: HttpClient,
     @inject(API_NOVA_POSHTA_KEY) private readonly apiKey: string,
   ) {}
 

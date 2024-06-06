@@ -23,17 +23,11 @@ export type Delivery = DeliveryBase & {
   id: string;
 };
 
-// NOTE: Payload
-export type DeliveryGetPayload = {
-  deliveryId: string;
+// NOTE: Selector
+export type DeliveryGetSelector = {
+  id: string;
 };
-// export type DeliveryToCreate = Delivery;
-// export type DeliveryToUpdate = Delivery & {
-//   id: string;
-// };
 
-// NOTE: Side
-// export type DeliveryProduct = DeliveryRow & {
-//   priceDelivery: number;
-//   quantity: number;
-// };
+export type DeliveryGetOrderSelector = {
+  orderId: string;
+};

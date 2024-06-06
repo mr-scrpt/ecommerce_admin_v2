@@ -2,7 +2,7 @@ import { DeliveryBase } from "./delivery.types";
 
 // NOTE: Queries
 export type DeliveryGetDTO = {
-  deliveryId: string;
+  id: string;
 };
 
 export type DeliveryGetByOrderDTO = {
@@ -11,23 +11,30 @@ export type DeliveryGetByOrderDTO = {
 
 // NOTE: Mutations
 export type DeliveryCreateDTO = DeliveryBase;
-export type DeliveryUpdateDTO = Partial<DeliveryBase> & {
-  deliveryId: string;
-};
-export type DeliveryRemoveDTO = {
-  deliveryId: string;
+
+export type DeliveryUpdateDTO = {
+  selector: {
+    id: string;
+  };
+  data: Partial<DeliveryBase>;
 };
 
-export type DeliveryRemoveBySlugDTO = {
-  slug: string;
-};
-
-export type DeliveryAddProductListDTO = {
-  deliveryId: string;
-  productListId: Array<{ id: string }>;
-};
-
-export type DeliveryAddPropertyListDTO = {
-  deliveryId: string;
-  propertyListId: Array<{ id: string }>;
-};
+// export type DeliveryRemoveDTO = {
+//   selector: {
+//     id: string;
+//   };
+// };
+//
+// export type DeliveryAddProductListDTO = {
+//   selector: {
+//     id: string;
+//   };
+//   data: {
+//     productListId: Array<{ id: string }>;
+//   };
+// };
+//
+// export type DeliveryAddPropertyListDTO = {
+//   id: string;
+//   propertyListId: Array<{ id: string }>;
+// };

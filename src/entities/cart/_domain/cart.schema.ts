@@ -6,6 +6,7 @@ export const cartBaseSchema = z.object({
   userId: z.string(),
 });
 
+// NOTE: Main
 export const cartSchema = z.object({
   id: z.string(),
   ...cartBaseSchema.shape,

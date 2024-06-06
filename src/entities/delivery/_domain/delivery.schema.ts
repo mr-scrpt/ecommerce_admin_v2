@@ -1,8 +1,7 @@
+import { DeliveryTypeEnum } from "@/kernel/domain/delivery.type";
 import { z } from "zod";
-import { DeliveryTypeEnum } from "./delivery.types";
 
 // NOTE: Base Schema
-
 const deliveryBaseSchema = z.object({
   orderId: z.string(),
   deliveryType: z.custom<DeliveryTypeEnum>(),
@@ -17,6 +16,7 @@ const deliveryBaseSchema = z.object({
   pickupPoint: z.string().nullable(),
 });
 
+// NOTE: Main
 export const deliverySchema = z.object({
   id: z.string(),
   ...deliveryBaseSchema.shape,

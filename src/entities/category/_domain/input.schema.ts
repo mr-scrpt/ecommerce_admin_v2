@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { categorySchema } from "./category.schema";
 
-export const getByInputSchema = z
+export const getInputSchema = z
   .object({
     id: z.string().optional(),
     slug: z.string().optional(),

@@ -1,30 +1,33 @@
-import { Container, ContainerModule } from "inversify";
-import { DeliveryRepository } from "./_repository/delivery.repo";
-import { GetDeliveryUseCase } from "./_usecase/getDelivery.usecase";
-import { GetDeliveryListUseCase } from "./_usecase/getDeliveryList.usecase";
-import { GetDeliveryByOrderIdUseCase } from "./_usecase/getDeliveryOrderId.usecase";
-import { GetPostOfficeListToSelectUseCase } from "./_usecase/getPostOfficeListToSelect.usecase";
-import { NovaPoshtaRepository } from "./_repository/novaposhta.repo";
-import { API_NOVA_POSHTA_KEY, NovaPoshtaApi } from "./_api/novaposhta.api";
-import { API_BASE_URL, ApiClient } from "@/shared/lib/httpClient";
+import { Controller } from "@/kernel/lib/trpc/server";
+import { BASE_URL } from "@/shared/api/httpClient";
 import { configPrivate } from "@/shared/config/private.config";
-
-export const deliveryContainer = new Container();
+import { ContainerModule } from "inversify";
+import { API_NOVA_POSHTA_KEY, NovaPoshtaApi } from "./_api/novaposhta.api";
+import { DeliveryController } from "./_controller/delivery.controller";
+import { DeliveryRepository } from "./_repository/delivery.repo";
+import { NovaPoshtaRepository } from "./_repository/novaposhta.repo";
+import { DeliveryGetService } from "./_service/deliveryGet.service";
+import { DeliveryListGetService } from "./_service/deliveryListGet.service";
+import { DeliveryGetOrderService } from "./_service/deliveryGetOrder.service";
 
 export const DeliveryModule = new ContainerModule((bind) => {
-  bind(API_BASE_URL).toConstantValue(configPrivate.API_NOVA_POSHTA_URL);
+  bind(BASE_URL).toConstantValue(configPrivate.API_NOVA_POSHTA_URL);
   bind(API_NOVA_POSHTA_KEY).toConstantValue(configPrivate.API_NOVA_POSHTA_KEY);
 
-  bind(ApiClient).toSelf();
+  // bind(ApiClient).toSelf();
   bind(NovaPoshtaApi).toSelf();
 
   bind(DeliveryRepository).toSelf();
   bind(NovaPoshtaRepository).toSelf();
 
-  bind(GetDeliveryListUseCase).toSelf();
-  bind(GetDeliveryUseCase).toSelf();
-  bind(GetDeliveryByOrderIdUseCase).toSelf();
-  bind(GetPostOfficeListToSelectUseCase).toSelf();
-});
+  bind(DeliveryGetService).toSelf();
+  bind(DeliveryGetOrderService).toSelf();
+  bind(DeliveryListGetService).toSelf();
 
-deliveryContainer.load(DeliveryModule);
+  bind(Controller).to(DeliveryController);
+
+  // bind(GetDeliveryListUseCase).toSelf();
+  // bind(GetDeliveryUseCase).toSelf();
+  // bind(GetDeliveryByOrderIdUseCase).toSelf();
+  // bind(GetPostOfficeListToSelectUseCase).toSelf();
+});
