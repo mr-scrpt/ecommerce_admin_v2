@@ -19,16 +19,15 @@ export class CartRowUpdateController extends Controller {
       update: authorizedProcedure
         .input(updateInputSchema)
         .mutation(async ({ input, ctx }) => {
-          const { cartRowData } = input;
+          const { selector, cartRowData } = input;
+          const { productId } = selector;
           const { session } = ctx;
 
           const cartId = session.user.cartId;
 
           const result = await this.updateCartRowService.execute({
-            cartRowData: {
-              ...cartRowData,
-              cartId,
-            },
+            selector: { cartId, productId },
+            cartRowData,
           });
 
           return cartRelationSchema.parse(result);

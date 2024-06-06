@@ -1,21 +1,22 @@
 import { Cart, CartRow } from "@/entities/cart";
 import { Product } from "@/entities/product";
 
-// type CartData = {
-// };
-
 type CartRowData = {
-  cartId: Cart["id"];
-  productId: Product["id"];
   quantity: CartRow["quantity"];
 };
 
 export type CartRowUpdateTxPayload = {
-  // cartData: CartData;
+  selector: CartRowUpdateSelector;
   cartRowData: CartRowData;
 };
 
 export type CartRowUpdateTxDTO = {
-  // cartData: CartData;
+  selector: CartRowUpdateSelector;
   cartRowData: CartRowData;
+};
+
+// NOTE: Selector
+export type CartRowUpdateSelector = {
+  cartId: Cart["id"];
+  productId: Product["id"];
 };

@@ -15,8 +15,9 @@ export class CartRowUpdateTx extends Transaction {
   }
 
   async update(dto: CartRowUpdateTxDTO): Promise<CartRelationEntity> {
-    const { cartRowData } = dto;
-    const { quantity, productId, cartId } = cartRowData;
+    const { cartRowData, selector } = dto;
+    const { quantity } = cartRowData;
+    const { cartId, productId } = selector;
     const action = async (tx: Tx) => {
       const cartRowExisting = await this.cartRowRepo.getCartRowByProduct({
         cartId,

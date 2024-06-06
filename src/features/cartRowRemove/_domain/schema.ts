@@ -1,5 +1,5 @@
 import { z } from "zod";
 
-export const cartRowRemoveSchema = z.object({
+export const cartRowSelectorSchema = z.object({
   productId: z.string(),
 });

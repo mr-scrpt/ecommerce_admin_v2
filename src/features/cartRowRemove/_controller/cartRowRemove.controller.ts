@@ -19,16 +19,14 @@ export class CartRowRemoveController extends Controller {
       remove: authorizedProcedure
         .input(removeInputSchema)
         .mutation(async ({ input, ctx }) => {
-          const { cartRowData } = input;
+          const { selector } = input;
+          const { productId } = selector;
           const { session } = ctx;
 
           const cartId = session.user.cartId;
 
           const result = await this.removeCartRowService.execute({
-            cartRowData: {
-              ...cartRowData,
-              cartId,
-            },
+            selector: { cartId, productId },
           });
 
           return cartRelationSchema.parse(result);

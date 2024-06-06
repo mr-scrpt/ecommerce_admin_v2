@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { cartRowRemoveSchema } from "./schema";
+import { cartRowSelectorSchema } from "./schema";
 
 export const removeInputSchema = z.object({
-  cartRowData: cartRowRemoveSchema,
+  selector: cartRowSelectorSchema,
 });
