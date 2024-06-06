@@ -28,6 +28,6 @@ export type DeliveryGetSelector = {
   id: string;
 };
 
-export type DeliveryGetOrderSelector = {
+export type DeliveryGetByOrderSelector = {
   orderId: string;
 };

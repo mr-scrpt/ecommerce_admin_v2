@@ -1,5 +1,4 @@
-export const baseQueryKey = "postOffice";
-
+// NOTE: Base
 type PostOfficeBase = {
   siteKey: string;
   description: string;
@@ -88,19 +87,24 @@ type PostOfficeBase = {
   beaconCode: string;
 };
 
+// NOTE: Entity
 export type PostOfficeEntity = PostOfficeBase & {
   id: string;
   createdAt: Date;
 };
 
 // NOTE: Projetions
-
-export type Settlement = PostOfficeBase;
-
-// NOTE: Actions
-export type PostOfficeToCreate = PostOfficeBase;
-export type PostOfficeToUpdate = Settlement & {
+export type PostOffice = PostOfficeBase & {
   id: string;
+};
+
+// NOTE: Selector
+export type PostOfficeGetSelector = {
+  id: string;
+};
+
+export type PostOfficeGetBySettlementSelector = {
+  settlementId: string;
 };
 
 // NOTE: UI

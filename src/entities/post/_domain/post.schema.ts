@@ -26,7 +26,7 @@ const postOfficeBaseSchema = z.object({
   postFinance: z.string(),
   bicycleParking: z.string(),
   paymentAccess: z.string(),
-  postTerminal: z.string(),
+  pOSTerminal: z.string(),
   internationalShipping: z.string(),
   selfServiceWorkplacesCount: z.string(),
   totalMaxWeightAllowed: z.string(),
@@ -90,10 +90,32 @@ const postOfficeBaseSchema = z.object({
   beaconCode: z.string(),
 });
 
-export const postOfficeSchema = z.object({
-  id: z.string(),
-  ...postOfficeBaseSchema.shape,
+export const postOfficeShortSchema = postOfficeBaseSchema.pick({
+  siteKey: true,
+  description: true,
+  descriptionRu: true,
+  shortAddress: true,
+  shortAddressRu: true,
+  phone: true,
+  typeOfWarehouse: true,
+  ref: true,
+  number: true,
+  cityRef: true,
+  cityDescription: true,
+  cityDescriptionRu: true,
+  settlementRef: true,
+  settlementDescription: true,
+  settlementAreaDescription: true,
+  settlementRegionsDescription: true,
+  settlementTypeDescription: true,
+  settlementTypeDescriptionRu: true,
+  longitude: true,
+  latitude: true,
+  postFinance: true,
 });
+
+// NOTE: Main
+export const postOfficeSchema = postOfficeShortSchema;
 
 // NOTE: UI
 export const postOfficeToSelectSchema = z.object({

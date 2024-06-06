@@ -20,6 +20,8 @@ import { CartRowUpdateModule } from "@/features/cartRowUpdate/module";
 import { CartRowRemoveModule } from "@/features/cartRowRemove/module";
 import { DeliveryModule } from "@/entities/delivery/module";
 import { HttpClientModule } from "@/shared/api/module";
+import { NovaPoshtaModule } from "@/kernel/lib/novaposhta/module";
+import { PostModule } from "@/entities/post/module";
 
 export const loadModule = () => {
   const container = new Container();
@@ -29,6 +31,7 @@ export const loadModule = () => {
     NextAuthModule,
     SessionCreateModule,
     HttpClientModule,
+    NovaPoshtaModule,
 
     UserModule,
     UserCreateModule,
@@ -47,6 +50,7 @@ export const loadModule = () => {
     CategoryRemoveModule,
 
     DeliveryModule,
+    PostModule,
 
     PropertyModule,
 

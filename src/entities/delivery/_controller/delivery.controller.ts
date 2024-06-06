@@ -4,13 +4,13 @@ import { getInputSchema, getByOrderInputSchema } from "../_domain/input.schema";
 import { deliverySchema } from "../server";
 import { DeliveryGetService } from "../_service/deliveryGet.service";
 import { DeliveryListGetService } from "../_service/deliveryListGet.service";
-import { DeliveryGetOrderService } from "../_service/deliveryGetOrder.service";
+import { DeliveryGetByOrderService } from "../_service/deliveryGetByOrder.service";
 
 @injectable()
 export class DeliveryController extends Controller {
   constructor(
     private readonly getDeliveryService: DeliveryGetService,
-    private readonly getDeliveryOrderService: DeliveryGetOrderService,
+    private readonly getDeliveryByOrderService: DeliveryGetByOrderService,
     private readonly getDeliveryListService: DeliveryListGetService,
   ) {
     super();
@@ -22,10 +22,10 @@ export class DeliveryController extends Controller {
         const result = await this.getDeliveryService.execute(input);
         return deliverySchema.parse(result);
       }),
-      getOrder: publicProcedure
+      getByOrder: publicProcedure
         .input(getByOrderInputSchema)
         .query(async ({ input }) => {
-          const result = await this.getDeliveryOrderService.execute(input);
+          const result = await this.getDeliveryByOrderService.execute(input);
           return deliverySchema.parse(result);
         }),
       getList: publicProcedure.query(async () => {

@@ -1,7 +1,7 @@
 "use server";
 import { z } from "zod";
-import { postOfficeToSelectSchema } from "../_domain/postOffice.schema";
-import { PostOfficeToSelect } from "../_domain/postOffice.type";
+import { postOfficeToSelectSchema } from "../_domain/post.schema";
+import { PostOfficeToSelect } from "../_domain/post.type";
 import { getPostOfficeListToSelectUseCase } from "../_usecase/instans.usecase";
 import { SessionContainer } from "@/shared/session/instans";
 

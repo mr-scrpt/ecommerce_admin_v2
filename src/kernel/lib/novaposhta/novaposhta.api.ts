@@ -1,32 +1,53 @@
 import { HttpClient } from "@/shared/api/httpClient";
 import { configPrivate } from "@/shared/config/private.config";
+import { inject, injectable } from "inversify";
 import {
   NovaPoshtaResponse,
+  PostOfficeNovaPoshta,
   SettlementNovaPoshta,
-} from "@/shared/lib/novaposhta/novaposhta.type";
+} from "./novaposhta.type";
 
-import { injectable } from "inversify";
-
-// export const API_NOVA_POSHTA_KEY = "apiKey";
+export const API_NOVA_POSHTA_KEY = Symbol("apiKey");
 
 export const modelName = {
   address: "Address",
 };
 
 export const calledMethod = {
+  getPostOffice: "getWarehouses",
   getSettlements: "getSettlements",
 };
 
-const { API_NOVA_POSHTA_KEY } = configPrivate;
 @injectable()
 export class NovaPoshtaApi {
-  constructor(readonly client: HttpClient) {}
+  constructor(
+    readonly client: HttpClient,
+    @inject(API_NOVA_POSHTA_KEY) private readonly apiKey: string,
+  ) {}
+
+  async getPostOfficeListBySettlement(
+    s: string,
+  ): Promise<PostOfficeNovaPoshta[]> {
+    const result = await this.client.post<
+      NovaPoshtaResponse<PostOfficeNovaPoshta[]>
+    >(configPrivate.API_NOVA_POSHTA_URL, {
+      apiKey: this.apiKey,
+      modelName: modelName.address,
+      calledMethod: calledMethod.getPostOffice,
+      methodProperties: {
+        SettlementRef: s,
+      },
+    });
+    console.log("output_log: origin =>>>", result.data.data);
+
+    return result.data.data;
+  }
 
   async getSettlementListSearch(q: string): Promise<SettlementNovaPoshta[]> {
     const result = await this.client.post<
       NovaPoshtaResponse<SettlementNovaPoshta[]>
     >(configPrivate.API_NOVA_POSHTA_URL, {
-      apiKey: API_NOVA_POSHTA_KEY,
+      apiKey: this.apiKey,
       modelName: modelName.address,
       calledMethod: calledMethod.getSettlements,
       methodProperties: {
@@ -41,7 +62,7 @@ export class NovaPoshtaApi {
     const result = await this.client.post<
       NovaPoshtaResponse<SettlementNovaPoshta[]>
     >(configPrivate.API_NOVA_POSHTA_URL, {
-      apiKey: API_NOVA_POSHTA_KEY,
+      apiKey: this.apiKey,
       modelName: modelName.address,
       calledMethod: calledMethod.getSettlements,
       methodProperties: {

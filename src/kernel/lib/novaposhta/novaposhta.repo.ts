@@ -1,10 +1,16 @@
 import { injectable } from "inversify";
-import { NovaPoshtaApi } from "../_api/novaposhta.api";
-import { SettlementNovaPoshta } from "@/shared/lib/novaposhta/novaposhta.type";
+import { NovaPoshtaApi } from "./novaposhta.api";
+import { PostOfficeNovaPoshta, SettlementNovaPoshta } from "./novaposhta.type";
 
 @injectable()
 export class NovaPoshtaRepository {
   constructor(readonly np: NovaPoshtaApi) {}
+
+  async getPostOfficeListBySettlement(
+    s: string,
+  ): Promise<Array<PostOfficeNovaPoshta>> {
+    return await this.np.getPostOfficeListBySettlement(s);
+  }
 
   async getSettlementListSearch(
     q: string,

@@ -1,12 +1,12 @@
 import { AuthorizatoinError } from "@/shared/lib/errors";
-import { PostOfficeNovaPoshtaIndex } from "@/shared/lib/novaposhta/novaposhta.type";
+import { PostOfficeNovaPoshtaIndex } from "@/kernel/lib/novaposhta/novaposhta.type";
 import { SessionEntity } from "@/shared/lib/user";
 import { injectable } from "inversify";
 import { createDeliveryAbility } from "../_domain/delivery.ability";
 import {
   PostOfficeEntity,
   PostOfficeToSelect,
-} from "../_domain/postOffice.type";
+} from "../_domain/post.type";
 import { NovaPoshtaRepository } from "../_repository/novaposhta.repo";
 import { SEARCH_MIN_LENGTH } from "@/shared/config/constant";
 

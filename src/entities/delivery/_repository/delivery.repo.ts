@@ -25,7 +25,7 @@ export class DeliveryRepository {
     return result;
   }
 
-  async getDeliveryOrder(
+  async getDeliveryByOrder(
     dto: DeliveryGetByOrderDTO,
     db: Tx = this.db,
   ): Promise<DeliveryEntity> {
