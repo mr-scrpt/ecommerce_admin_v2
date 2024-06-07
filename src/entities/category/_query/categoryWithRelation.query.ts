@@ -25,5 +25,5 @@ export const useCategoryWithRelationQuery = (params: CategoryParams) => {
 export const useInvalidateCategoryWithRelation = () => {
   const invalidateCategory =
     categoryApi.useUtils().category.getRelation.invalidate;
-  return (categoryId: string) => invalidateCategory({ categoryId });
+  return (params: CategoryParams) => invalidateCategory(params);
 };

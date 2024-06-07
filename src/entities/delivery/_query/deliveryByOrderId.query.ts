@@ -1,18 +1,11 @@
 "use client";
-import { queryOptions, useQuery, useQueryClient } from "@tanstack/react-query";
-import { baseQueryKey } from "../_domain/delivery.types";
+import { deliveryApi } from "../_api/delivery.api";
+import { Delivery } from "../_domain/delivery.types";
 import { useListenDeliveryUpdate } from "../_vm/event/useListenDeliveryUpdate";
-import { getDeliveryByOrderIdAction } from "../_action/getDeliveryByOrderId.action";
-
-export const getDeliveryByOrderIdQuery = (orderId: string) =>
-  queryOptions({
-    queryKey: [baseQueryKey, "getDelivery", orderId],
-    queryFn: () => getDeliveryByOrderIdAction({ orderId: orderId }),
-  });
 
 export const useDeliveryByOrderIdQuery = (orderId: string) => {
-  const query = getDeliveryByOrderIdQuery(orderId);
-  const { isPending, isSuccess, isFetchedAfterMount, data } = useQuery(query);
+  const { isPending, isSuccess, isFetchedAfterMount, data } =
+    deliveryApi.delivery.getByOrder.useQuery<Delivery>({ orderId });
 
   useListenDeliveryUpdate();
 
@@ -20,15 +13,12 @@ export const useDeliveryByOrderIdQuery = (orderId: string) => {
     isPending,
     isSuccess,
     isFetchedAfterMount,
-    delivery: data?.delivery,
+    delivery: data,
   };
 };
 
 export const useInvalidateOrderIdDelivery = () => {
-  const queryClient = useQueryClient();
-
-  return (orderId: string) =>
-    queryClient.invalidateQueries({
-      queryKey: [baseQueryKey, "getDelivery", orderId],
-    });
+  const invalidateDelivery =
+    deliveryApi.useUtils().delivery.getByOrder.invalidate;
+  return (orderId: string) => invalidateDelivery({ orderId });
 };

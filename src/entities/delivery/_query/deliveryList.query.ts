@@ -1,18 +1,11 @@
 "use client";
-import { queryOptions, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getDeliveryListAction } from "../_action/getDeliveryList.action";
-import { baseQueryKey } from "../_domain/delivery.types";
+import { deliveryApi } from "../_api/delivery.api";
+import { Delivery } from "../_domain/delivery.types";
 import { useListenDeliveryListUpdate } from "../_vm/event/useListenDeliveryListUpdate";
 
-export const getDeliveryListQuery = () =>
-  queryOptions({
-    queryKey: [baseQueryKey, "getDeliveryList"],
-    queryFn: () => getDeliveryListAction(),
-  });
-
 export const useDeliveryListQuery = () => {
-  const query = getDeliveryListQuery();
-  const { isPending, isSuccess, isFetchedAfterMount, data } = useQuery(query);
+  const { isPending, isSuccess, isFetchedAfterMount, data } =
+    deliveryApi.delivery.getList.useQuery<Array<Delivery>>();
 
   useListenDeliveryListUpdate();
 
@@ -20,15 +13,11 @@ export const useDeliveryListQuery = () => {
     isPending,
     isSuccess,
     isFetchedAfterMount,
-    deliveryList: data ? data.deliveryList : [],
+    deliveryList: data ? data : [],
   };
 };
 
 export const useInvalidateDeliveryList = () => {
-  const queryClient = useQueryClient();
-
-  return () =>
-    queryClient.invalidateQueries({
-      queryKey: [baseQueryKey, "getDeliveryList"],
-    });
+  const invalidateDelivery = deliveryApi.useUtils().delivery.getList.invalidate;
+  return () => invalidateDelivery();
 };
