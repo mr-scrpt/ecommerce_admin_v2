@@ -46,6 +46,10 @@ export type OrderGetSelector = {
   id: string;
 };
 
+export type OrderGetByOwnerSelector = {
+  ownerId: string;
+};
+
 // NOTE: Side
 export type OrderProduct = OrderRow & {
   priceOrder: number;

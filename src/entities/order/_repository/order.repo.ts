@@ -1,7 +1,7 @@
 import { DBClient, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
 import { OrderEntity, OrderRelationEntity } from "../_domain/order.types";
-import { OrderGetDTO } from "../_domain/order.dto";
+import { OrderGetByOwnerDTO, OrderGetDTO } from "../_domain/order.dto";
 import { SORTING_ORDER_DEFAULT } from "@/shared/config/constant";
 
 @injectable()
@@ -34,19 +34,24 @@ export class OrderRepository {
     return result;
   }
 
-  async getOrderOwner(orderId: OrderId, db: Tx = this.db): Promise<string> {
-    const result = await db.order.findUniqueOrThrow({
-      where: {
-        id: orderId,
-      },
-    });
-    return result.userId;
-  }
+  // async getOrderOwner(
+  //   dto: OrderGetByOwnerDTO,
+  //   db: Tx = this.db,
+  // ): Promise<OrderEntity> {
+  //   const { ownerId } = dto;
+  //   const result = await db.order.findUniqueOrThrow({
+  //     where: {
+  //       userId: ownerId,
+  //     },
+  //   });
+  //   return result;
+  // }
 
-  async getOrderOwnerList(
-    ownerId: string,
+  async getOrderListByOwner(
+    dto: OrderGetByOwnerDTO,
     db: Tx = this.db,
   ): Promise<OrderEntity[]> {
+    const { ownerId } = dto;
     const orderList = await db.order.findMany({
       where: {
         userId: ownerId,

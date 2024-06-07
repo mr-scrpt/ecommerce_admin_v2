@@ -3,6 +3,7 @@ import { injectable } from "inversify";
 import {
   getInputSchema,
   getByOrderInputSchema,
+  getListOutputSchema,
 } from "../_domain/validator.schema";
 import { deliverySchema } from "../server";
 import { DeliveryGetService } from "../_service/deliveryGet.service";
@@ -33,7 +34,7 @@ export class DeliveryController extends Controller {
         }),
       getList: publicProcedure.query(async () => {
         const result = await this.getDeliveryListService.execute();
-        return deliverySchema.array().parse(result);
+        return getListOutputSchema.parse(result);
       }),
     },
   });

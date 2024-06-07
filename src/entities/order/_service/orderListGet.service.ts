@@ -1,12 +1,12 @@
 import { injectable } from "inversify";
-import { Delivery } from "../_domain/delivery.types";
-import { DeliveryRepository } from "../_repository/delivery.repo";
+import { Order } from "../_domain/order.types";
+import { OrderRepository } from "../_repository/order.repo";
 
 @injectable()
-export class DeliveryListGetService {
-  constructor(private readonly deliveryRepo: DeliveryRepository) {}
+export class OrderListGetService {
+  constructor(private readonly orderRepo: OrderRepository) {}
 
-  async execute(): Promise<Array<Delivery>> {
-    return await this.deliveryRepo.getDeliveryList();
+  async execute(): Promise<Array<Order>> {
+    return await this.orderRepo.getOrderList();
   }
 }

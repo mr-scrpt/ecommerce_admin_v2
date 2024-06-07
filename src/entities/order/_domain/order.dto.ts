@@ -3,9 +3,9 @@ export type OrderGetDTO = {
   id: string;
 };
 
-// export type OrderGetByOrderDTO = {
-//   orderId: string;
-// };
+export type OrderGetByOwnerDTO = {
+  ownerId: string;
+};
 
 // NOTE: Mutations
 // export type OrderCreateDTO = OrderBase;
