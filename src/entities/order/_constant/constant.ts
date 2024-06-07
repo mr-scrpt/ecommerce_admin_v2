@@ -1,0 +1,1 @@
+export const ORDER_PRICE_TOTAL_DEFAULT = 0;

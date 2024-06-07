@@ -1,21 +1,14 @@
-import { Cart } from "@/entities/cart";
-import { Product } from "@/entities/product";
+import { CartRow } from "@/entities/cart";
+import { CartRowCreateDTO } from "@/entities/cart/_domain/cartRow.dto";
 
-type CartData = {
-  cartId: Cart["id"];
-};
+type CartRowPayload = Pick<CartRow, "cartId" | "productId">;
 
-type CartProduct = {
-  cartId: Cart["id"];
-  productId: Product["id"];
-};
+// type CartRowDTO = Pick<CartRow, "cartId" | "productId" | "quantity">;
 
 export type CartRowCreateTxPayload = {
-  // cartData: CartData;
-  cartRowData: CartProduct;
+  cartRowData: CartRowPayload;
 };
 
 export type CartRowCreateTxDTO = {
-  // cartData: CartData;
-  cartRowData: CartProduct;
+  cartRowData: CartRowCreateDTO["data"];
 };

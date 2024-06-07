@@ -1,7 +1,11 @@
 import { DBClient, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
 import { OrderEntity, OrderRelationEntity } from "../_domain/order.types";
-import { OrderGetByOwnerDTO, OrderGetDTO } from "../_domain/order.dto";
+import {
+  OrderCreateEmptyDTO,
+  OrderGetByOwnerDTO,
+  OrderGetDTO,
+} from "../_domain/order.dto";
 import { SORTING_ORDER_DEFAULT } from "@/shared/config/constant";
 
 @injectable()
@@ -65,11 +69,12 @@ export class OrderRepository {
     return orderList;
   }
 
-  async createOrder(
-    data: OrderToCreate,
+  async createOrderEmpty(
+    dto: OrderCreateEmptyDTO,
     db: Tx = this.db,
   ): Promise<OrderEntity> {
-    console.log("output_log: order =>>>", data);
+    const { data } = dto;
+
     return await db.order.create({
       data,
     });

@@ -34,11 +34,7 @@ export class CartRowCreateTx extends Transaction {
 
       await this.cartRowRepo.createCartRow(
         {
-          data: {
-            cartId,
-            productId,
-            quantity: 1,
-          },
+          data: cartRowData,
         },
         tx,
       );

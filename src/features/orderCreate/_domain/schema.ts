@@ -1,13 +1,19 @@
-import { OrderPaymentStatusEnum, OrderStatusEnum } from "@/entities/order";
+import {
+  OrderPaymentStatusEnum,
+  OrderStatusEnum,
+} from "@/kernel/domain/order.type";
 import { z } from "zod";
 
-export const orderRowAddSchema = z.object({
-  productId: z.string(),
-  quantity: z.number(),
+export const orderCreateSchema = z.object({
+  orderStatus: z.custom<OrderStatusEnum>(),
+  orderPayment: z.custom<OrderPaymentStatusEnum>(),
 });
 
-export const orderCreateSchema = z.object({
-  orderRowData: z.array(orderRowAddSchema),
-  orderStatus: z.custom<OrderStatusEnum>(),
-  paymentStatus: z.custom<OrderPaymentStatusEnum>(),
+export const orderEmptyCreateSchema = z.object({
+  userId: z.string(),
+});
+
+export const orderRowCreateSchema = z.object({
+  productId: z.string(),
+  quantity: z.number(),
 });

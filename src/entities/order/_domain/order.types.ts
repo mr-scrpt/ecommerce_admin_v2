@@ -5,7 +5,7 @@ import {
 import { OrderRow, OrderRowEntity } from "./orderRow.types";
 
 // NOTE: Base
-type OrderBase = {
+export type OrderBase = {
   orderNo: number;
   userId: string;
   orderStatus: OrderStatusEnum;

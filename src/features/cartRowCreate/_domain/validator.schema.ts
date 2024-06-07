@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { categoryCreateSchema } from "./schema";
+import { cartRowCreateSchema } from "./schema";
 
 export const createInputSchema = z.object({
-  cartRowData: categoryCreateSchema,
+  cartRowData: cartRowCreateSchema,
 });

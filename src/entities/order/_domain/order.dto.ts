@@ -1,3 +1,5 @@
+import { OrderBase } from "./order.types";
+
 // NOTE: Queries
 export type OrderGetDTO = {
   id: string;
@@ -8,8 +10,14 @@ export type OrderGetByOwnerDTO = {
 };
 
 // NOTE: Mutations
-// export type OrderCreateDTO = OrderBase;
-//
+type OrderCreateEmpty = Pick<
+  OrderBase,
+  "userId" | "priceTotal" | "paymentStatus" | "orderStatus"
+>;
+export type OrderCreateEmptyDTO = {
+  data: OrderCreateEmpty;
+};
+
 // export type OrderUpdateDTO = {
 //   selector: {
 //     id: string;

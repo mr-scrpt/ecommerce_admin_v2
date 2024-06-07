@@ -1,0 +1,1 @@
+export const CART_PRODUCT_QUANTITY_DEFAULT = 1;

@@ -1,9 +1,12 @@
 export { useCartWithRelationQuery } from "./_query/cartWithRelation.query";
 
+export type { CartRow } from "./_domain/cartRow.types";
+
 export type {
   Cart,
   CartEntity,
   CartRelation,
   CartRelationEntity,
-  CartRow,
-} from "./_domain/cartRow.types";
+} from "./_domain/cart.types";
+
+export { CART_PRODUCT_QUANTITY_DEFAULT } from "./_constant/constant";

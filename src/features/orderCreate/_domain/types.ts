@@ -1,12 +1,12 @@
-// import {
-//   OrderPaymentStatusEnum,
-//   OrderRowToCreatePayload,
-//   OrderStatusEnum,
-// } from "@/entities/order";
+import { OrderBase } from "@/entities/order";
+import { OrderCreateEmptyDTO } from "@/entities/order/_domain/order.dto";
 
-export type OrderCreateComplexible = {
-  userId: string;
-  // orderStatus: OrderStatusEnum;
-  // paymentStatus: OrderPaymentStatusEnum;
-  // orderRowData: Array<OrderRowToCreatePayload>;
+type OrderCreateEmptyPayload = Pick<OrderBase, "userId">;
+
+export type OrderCreateEmptyTxPayload = {
+  orderData: OrderCreateEmptyPayload;
+};
+
+export type OrderEmptyCreateTxDTO = {
+  orderData: OrderCreateEmptyDTO["data"];
 };

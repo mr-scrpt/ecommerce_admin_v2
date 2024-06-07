@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const categoryCreateSchema = z.object({
+export const cartRowCreateSchema = z.object({
   // cartId: z.string(),
   productId: z.string(),
 });

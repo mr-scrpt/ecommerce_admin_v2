@@ -1,4 +1,4 @@
-import { CartRowBase } from "./cartRow.types";
+import { CartRow, CartRowBase } from "./cartRow.types";
 
 // NOTE: Queries
 export type CartRowGetDTO = {
@@ -11,8 +11,10 @@ export type CartRowGetByProductDTO = {
 };
 
 // NOTE: Mutations
+type CartRowCreate = Pick<CartRow, "cartId" | "productId" | "quantity">;
 export type CartRowCreateDTO = {
-  data: CartRowBase;
+  // data: CartRowBase;
+  data: CartRowCreate;
 };
 
 export type CartRowChangeQuantityDTO = {

@@ -14,6 +14,7 @@ export type CartRowEntity = CartRowBase & {
 // NOTE: Projetions
 export type CartRow = {
   id: string;
+  cartId: string;
   productId: string;
   quantity: number;
   createdAt: Date;

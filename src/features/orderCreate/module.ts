@@ -1,15 +1,12 @@
-import { OrderRepository } from "@/entities/order/server";
-import { Container, ContainerModule } from "inversify";
+import { Controller } from "@/kernel/lib/trpc/_controller";
+import { ContainerModule } from "inversify";
+import { OrderCreateController } from "./_controller/orderCreate.controller";
+import { OrderEmptyCreateService } from "./_service/orderCreateEmpty.service";
 import { OrderCreateTx } from "./_tx/orderCreate.transaction";
-import { CreateOrderComplexibleUseCase } from "./_usecase/orderCreateCopmlexible.usecase";
-
-export const orderCreateContainer = new Container();
 
 export const OrderCreateModule = new ContainerModule((bind) => {
   bind(OrderCreateTx).toSelf();
-  bind(OrderRepository).toSelf();
 
-  bind(CreateOrderComplexibleUseCase).toSelf();
+  bind(OrderEmptyCreateService).toSelf();
+  bind(Controller).to(OrderCreateController);
 });
-
-orderCreateContainer.load(OrderCreateModule);

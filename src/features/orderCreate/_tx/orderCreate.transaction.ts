@@ -1,13 +1,8 @@
-import {
-  OrderEntity,
-  OrderPaymentStatusEnum,
-  OrderStatusEnum,
-} from "@/entities/order";
-import { OrderRepository, OrderRowRepository } from "@/entities/order/server";
-import { ProductRepository } from "@/entities/product/server";
+import { OrderEntity } from "@/entities/order";
+import { OrderRepository } from "@/entities/order/server";
 import { DBClient, Transaction, Tx } from "@/shared/lib/db/db";
-import { OrderCreateComplexible } from "../_domain/types";
 import { injectable } from "inversify";
+import { OrderEmptyCreateTxDTO } from "../_domain/types";
 
 @injectable()
 export class OrderCreateTx extends Transaction {
@@ -18,21 +13,15 @@ export class OrderCreateTx extends Transaction {
     super(db);
   }
 
-  async exec(data: OrderCreateComplexible): Promise<OrderEntity> {
+  async createEmpty(dto: OrderEmptyCreateTxDTO): Promise<OrderEntity> {
+    const { orderData } = dto;
     const action = async (tx: Tx) => {
-      const { userId } = data;
-
-      const { id } = await this.orderRepo.createOrder(
-        {
-          userId,
-          orderStatus: OrderStatusEnum.TEMP,
-          paymentStatus: OrderPaymentStatusEnum.TEMP,
-          priceTotal: 0,
-        },
+      const { id } = await this.orderRepo.createOrderEmpty(
+        { data: orderData },
         tx,
       );
 
-      return await this.orderRepo.getOrder(id, tx);
+      return await this.orderRepo.getOrder({ id }, tx);
     };
 
     return await this.start(action);
