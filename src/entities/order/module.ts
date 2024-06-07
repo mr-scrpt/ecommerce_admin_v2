@@ -1,21 +1,18 @@
-import { DBClient } from "@/shared/lib/db/db";
 import { Container, ContainerModule } from "inversify";
-import { GetOrderListUseCase } from "./_usecase/getOrderList.usecase";
-import { GetOrderOwnerUseCase } from "./_usecase/getOrderOwner.usecase";
-import { GetOrderStatusGroupUseCase } from "./_usecase/getOrderStatusGroup.usecase";
-import { GetOrderWithRelationUseCase } from "./_usecase/getOrderWithRelation.usecase";
 import { OrderRepository } from "./_repository/order.repo";
 import { OrderRowRepository } from "./_repository/orderRow.repo";
+import { OrderGetService } from "./_service/orderGet.service";
+import { OrderController } from "./_controller/order.controller";
+import { Controller } from "@/kernel/lib/trpc/_controller";
 
 export const orderContainer = new Container();
 
 export const OrderModule = new ContainerModule((bind) => {
   bind(OrderRepository).toSelf();
   bind(OrderRowRepository).toSelf();
-  bind(GetOrderListUseCase).toSelf();
-  bind(GetOrderOwnerUseCase).toSelf();
-  bind(GetOrderStatusGroupUseCase).toSelf();
-  bind(GetOrderWithRelationUseCase).toSelf();
+  bind(OrderGetService).toSelf();
+
+  bind(Controller).to(OrderController);
 });
 
 orderContainer.load(OrderModule);

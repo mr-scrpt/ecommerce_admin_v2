@@ -1,23 +1,10 @@
 import {
-  Order as OrderDBType,
-  ORDER_PAYMENT_STATUS as OrderPaymentStatusEnum,
-  ORDER_STATUS as OrderStatusEnum,
-} from "@prisma/client";
+  OrderPaymentStatusEnum,
+  OrderStatusEnum,
+} from "@/kernel/domain/order.type";
 import { OrderRow, OrderRowEntity } from "./orderRow.types";
 
-export const baseQueryKey = "order";
-
-export type OrderId = string;
-export type OrderSlug = string;
-
-export { OrderStatusEnum, OrderPaymentStatusEnum };
-
-export const orderToEnumMap = (order: OrderDBType): Order => ({
-  ...order,
-  orderStatus: order.orderStatus as OrderStatusEnum,
-  paymentStatus: order.paymentStatus as OrderPaymentStatusEnum,
-});
-
+// NOTE: Base
 type OrderBase = {
   orderNo: number;
   userId: string;
@@ -26,8 +13,9 @@ type OrderBase = {
   priceTotal: number;
 };
 
+// NOTE: Entity
 export type OrderEntity = OrderBase & {
-  id: OrderId;
+  id: string;
   createdAt: Date;
 };
 
@@ -42,7 +30,7 @@ export type OrderStatusGroup = {
 };
 
 export type Order = OrderStatusGroup & {
-  id: OrderId;
+  id: string;
   orderNo: number;
   userId: string;
   createdAt: Date;
@@ -53,14 +41,9 @@ export type OrderRelation = Order & {
   orderRowList: Array<OrderRow>;
 };
 
-// NOTE: Actions
-export type OrderToCreate = OrderStatusGroup & {
-  userId: string;
-  priceTotal: number;
-};
-
-export type OrderToUpdateStatus = OrderStatusGroup & {
-  id: OrderId;
+// NOTE: Selector
+export type OrderGetSelector = {
+  id: string;
 };
 
 // NOTE: Side

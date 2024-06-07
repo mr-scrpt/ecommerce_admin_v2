@@ -1,13 +1,17 @@
 import { z } from "zod";
-import { OrderPaymentStatusEnum, OrderStatusEnum } from "./order.types";
 import { orderRowSchema } from "./orderRow.schema";
+import {
+  OrderPaymentStatusEnum,
+  OrderStatusEnum,
+} from "@/kernel/domain/order.type";
 
-// NOTE: Base Schema
+// NOTE: Group
 export const orderStatusGroupSchema = z.object({
   orderStatus: z.custom<OrderStatusEnum>(),
   paymentStatus: z.custom<OrderPaymentStatusEnum>(),
 });
 
+// NOTE: Base Schema
 const orderBaseSchema = z.object({
   orderNo: z.number(),
   userId: z.string(),
@@ -16,6 +20,7 @@ const orderBaseSchema = z.object({
   ...orderStatusGroupSchema.shape,
 });
 
+// NOTE: Main
 export const orderSchema = z.object({
   id: z.string(),
   ...orderBaseSchema.shape,
@@ -28,8 +33,8 @@ export const orderRelationSchema = z.object({
   orderRowList: orderRowSchema.array(),
 });
 
-export const orderUpdateStausSchema = z.object({
-  id: z.string(),
-  orderStatus: z.custom<OrderStatusEnum>(),
-  paymentStatus: z.custom<OrderPaymentStatusEnum>(),
-});
+// export const orderUpdateStausSchema = z.object({
+//   id: z.string(),
+//   orderStatus: z.custom<OrderStatusEnum>(),
+//   paymentStatus: z.custom<OrderPaymentStatusEnum>(),
+// });

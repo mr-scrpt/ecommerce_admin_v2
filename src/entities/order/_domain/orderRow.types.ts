@@ -1,13 +1,5 @@
-import {
-  ORDER_PAYMENT_STATUS as OrderPaymentStatusEnum,
-  ORDER_STATUS as OrderStatusEnum,
-} from "@prisma/client";
-export const baseQueryKey = "order";
-export type OrderId = string;
-export type OrderSlug = string;
-export { OrderPaymentStatusEnum, OrderStatusEnum };
-
-type OrderRowBase = {
+// NOTE: Base
+export type OrderRowBase = {
   orderId: string;
 
   productId: string;
@@ -19,6 +11,7 @@ type OrderRowBase = {
   price: number;
 };
 
+// NOTE: Entity
 export type OrderRowEntity = OrderRowBase & {
   id: string;
   createdAt: Date;
@@ -42,34 +35,34 @@ export type OrderRow = OrderRowBaseProjection & {
   createdAt: Date;
 };
 
-// NOTE: Actions
-export type OrderRowToCreatePayload = {
-  productId: string;
-  quantity: number;
-};
-
-export type OrderRowToAddPayload = {
-  orderId: string;
-  productId: string;
-  quantity: number;
-};
-
-export type OrderRowToUpdateQuantityPayload = {
-  productId: string;
-  quantity: number;
-  orderRowId: string;
-};
-
-export type OrderRowToRemovePayload = {
-  orderRowId: string;
-};
-
-// NOTE: DB
-export type OrderRowToAdd = OrderRowBaseProjection & {};
-export type OrderRowChangeQuantity = {
-  quantity: number;
-  orderRowId: string;
-};
+// // NOTE: Actions
+// export type OrderRowToCreatePayload = {
+//   productId: string;
+//   quantity: number;
+// };
+//
+// export type OrderRowToAddPayload = {
+//   orderId: string;
+//   productId: string;
+//   quantity: number;
+// };
+//
+// export type OrderRowToUpdateQuantityPayload = {
+//   productId: string;
+//   quantity: number;
+//   orderRowId: string;
+// };
+//
+// export type OrderRowToRemovePayload = {
+//   orderRowId: string;
+// };
+//
+// // NOTE: DB
+// export type OrderRowToAdd = OrderRowBaseProjection & {};
+// export type OrderRowChangeQuantity = {
+//   quantity: number;
+//   orderRowId: string;
+// };
 
 // NOTE: Side
 export type OrderProduct = OrderRow & {

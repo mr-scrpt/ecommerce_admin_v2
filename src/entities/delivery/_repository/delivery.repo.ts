@@ -16,11 +16,8 @@ export class DeliveryRepository {
     dto: DeliveryGetDTO,
     db: Tx = this.db,
   ): Promise<DeliveryEntity> {
-    const { id: deliveryId } = dto;
     const result = await db.delivery.findUniqueOrThrow({
-      where: {
-        id: deliveryId,
-      },
+      where: dto,
     });
     return result;
   }

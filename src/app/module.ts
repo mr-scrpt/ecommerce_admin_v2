@@ -22,6 +22,7 @@ import { DeliveryModule } from "@/entities/delivery/module";
 import { HttpClientModule } from "@/shared/api/module";
 import { NovaPoshtaModule } from "@/kernel/lib/novaposhta/module";
 import { PostModule } from "@/entities/post/module";
+import { OrderModule } from "@/entities/order/module";
 
 export const loadModule = () => {
   const container = new Container();
@@ -43,6 +44,8 @@ export const loadModule = () => {
     CartRowAddModule,
     CartRowRemoveModule,
     CartRowUpdateModule,
+
+    OrderModule,
 
     CategoryModule,
     CategoryCreateModule,

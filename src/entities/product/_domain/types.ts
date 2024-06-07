@@ -1,4 +1,4 @@
-import { PropertyDataTypeEnum } from "@/kernel/domain/property.enum";
+import { PropertyDataTypeEnum } from "@/kernel/domain/property.type";
 import { MultiSelectOptionItem } from "@/shared/ui/multiSelect";
 
 export const baseQueryKey = "product";

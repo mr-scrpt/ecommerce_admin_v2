@@ -1,4 +1,4 @@
-import { PropertyDataTypeEnum } from "../../src/kernel/domain/property.enum";
+import { PropertyDataTypeEnum } from "../../src/kernel/domain/property.type";
 
 export const propertyListSeed = [
   {

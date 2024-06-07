@@ -1,38 +1,30 @@
 import { DBClient, Tx } from "@/shared/lib/db/db";
-import {
-  OrderEntity,
-  OrderId,
-  OrderRelationEntity,
-  OrderToCreate,
-  OrderToUpdateStatus,
-} from "../_domain/order.types";
 import { injectable } from "inversify";
+import { OrderEntity, OrderRelationEntity } from "../_domain/order.types";
+import { OrderGetDTO } from "../_domain/order.dto";
+import { SORTING_ORDER_DEFAULT } from "@/shared/config/constant";
 
 @injectable()
 export class OrderRepository {
   constructor(readonly db: DBClient) {}
 
-  async getOrder(orderId: OrderId, db: Tx = this.db): Promise<OrderEntity> {
+  async getOrder(dto: OrderGetDTO, db: Tx = this.db): Promise<OrderEntity> {
     const result = await db.order.findUniqueOrThrow({
-      where: {
-        id: orderId,
-      },
+      where: dto,
     });
     return result;
   }
 
   async getOrderWithRelation(
-    orderId: OrderId,
+    dto: OrderGetDTO,
     db: Tx = this.db,
   ): Promise<OrderRelationEntity> {
     const result = await db.order.findUniqueOrThrow({
-      where: {
-        id: orderId,
-      },
+      where: dto,
       include: {
         orderRowList: {
           orderBy: {
-            productName: "asc", // или 'desc' для сортировки по убыванию
+            productName: SORTING_ORDER_DEFAULT,
           },
         },
       },

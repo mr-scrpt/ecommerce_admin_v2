@@ -7,7 +7,7 @@ import { useOptionListTransform } from "@/shared/lib/map";
 import { useEffect, useState } from "react";
 import { PropertyToSelect } from "../_domain/property/types";
 import { usePropertyWithRelationByCategoryQuery } from "../_query/property/propertyListWithRelationByCategory.query";
-import { PropertyDataTypeEnum } from "@/kernel/domain/property.enum";
+import { PropertyDataTypeEnum } from "@/kernel/domain/property.type";
 
 export const usePropertyListByCategoryIdList = (
   categoryIdListActive: Array<{ value: string; label: string }>,
