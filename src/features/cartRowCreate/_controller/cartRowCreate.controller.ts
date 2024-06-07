@@ -5,7 +5,7 @@ import {
   router,
 } from "@/kernel/lib/trpc/server";
 import { injectable } from "inversify";
-import { createInputSchema } from "../_domain/input.schema";
+import { createInputSchema } from "../_domain/validator.schema";
 import { CartRowCreateService } from "../_service/cartRowCreate.service";
 
 @injectable()

@@ -1,6 +1,6 @@
 import { Controller, publicProcedure, router } from "@/kernel/lib/trpc/server";
 import { injectable } from "inversify";
-import { createInputSchema } from "../_domain/input.schema";
+import { createInputSchema } from "../_domain/validator.schema";
 import { categorySchema } from "@/entities/category/server";
 import { CategoryCreateService } from "../_service/categoryCreate.service";
 

@@ -1,6 +1,6 @@
 import { Controller, publicProcedure, router } from "@/kernel/lib/trpc/server";
 import { injectable } from "inversify";
-import { updateInputSchema } from "../_domain/input.schema";
+import { updateInputSchema } from "../_domain/validator.schema";
 import { profileUpdateSchema } from "../_domain/schema";
 import { ProfileUpdateService } from "../_service/profileUpdate.service";
 

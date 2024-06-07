@@ -2,7 +2,7 @@ import { Controller, publicProcedure, router } from "@/kernel/lib/trpc/server";
 import { injectable } from "inversify";
 import { CategoryUpdateService } from "../_service/categoryUpdate.service";
 import { categorySchema } from "@/entities/category/server";
-import { updateInputSchema } from "../_domain/input.schema";
+import { updateInputSchema } from "../_domain/validator.schema";
 
 @injectable()
 export class CategoryUpdateController extends Controller {

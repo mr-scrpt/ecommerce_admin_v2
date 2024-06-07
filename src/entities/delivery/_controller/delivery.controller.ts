@@ -1,6 +1,9 @@
 import { Controller, publicProcedure, router } from "@/kernel/lib/trpc/server";
 import { injectable } from "inversify";
-import { getInputSchema, getByOrderInputSchema } from "../_domain/input.schema";
+import {
+  getInputSchema,
+  getByOrderInputSchema,
+} from "../_domain/validator.schema";
 import { deliverySchema } from "../server";
 import { DeliveryGetService } from "../_service/deliveryGet.service";
 import { DeliveryListGetService } from "../_service/deliveryListGet.service";

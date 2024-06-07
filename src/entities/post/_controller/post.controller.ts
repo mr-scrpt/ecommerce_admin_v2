@@ -3,7 +3,7 @@ import { injectable } from "inversify";
 import {
   getBySettlementInputSchema,
   getListOutputSchema,
-} from "../_domain/input.schema";
+} from "../_domain/validator.schema";
 import { PostOfficeListGetService } from "../_service/postOfficeListGet.service";
 
 @injectable()

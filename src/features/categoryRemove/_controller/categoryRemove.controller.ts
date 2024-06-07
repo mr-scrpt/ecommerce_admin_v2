@@ -8,7 +8,7 @@ import {
   router,
 } from "@/kernel/lib/trpc/server";
 import { injectable } from "inversify";
-import { removeInputSchema } from "../_domain/input.schema";
+import { removeInputSchema } from "../_domain/validator.schema";
 import { CategoryRemoveService } from "../_service/categoryRemove.service";
 
 @injectable()
