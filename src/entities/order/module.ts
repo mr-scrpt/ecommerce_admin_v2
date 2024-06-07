@@ -4,6 +4,7 @@ import { OrderRowRepository } from "./_repository/orderRow.repo";
 import { OrderGetService } from "./_service/orderGet.service";
 import { OrderController } from "./_controller/order.controller";
 import { Controller } from "@/kernel/lib/trpc/_controller";
+import { OrderRelationGetService } from "./_service/orderRelationGet.service";
 
 export const orderContainer = new Container();
 
@@ -11,6 +12,7 @@ export const OrderModule = new ContainerModule((bind) => {
   bind(OrderRepository).toSelf();
   bind(OrderRowRepository).toSelf();
   bind(OrderGetService).toSelf();
+  bind(OrderRelationGetService).toSelf();
 
   bind(Controller).to(OrderController);
 });

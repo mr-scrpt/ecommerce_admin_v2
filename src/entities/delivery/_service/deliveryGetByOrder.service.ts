@@ -9,7 +9,7 @@ import { DeliveryRepository } from "../_repository/delivery.repo";
 export class DeliveryGetByOrderService {
   constructor(private readonly deliveryRepo: DeliveryRepository) {}
 
-  async execute(payload: DeliveryGetByOrderSelector): Promise<Delivery> {
-    return await this.deliveryRepo.getDeliveryByOrder(payload);
+  async execute(selector: DeliveryGetByOrderSelector): Promise<Delivery> {
+    return await this.deliveryRepo.getDeliveryByOrder(selector);
   }
 }

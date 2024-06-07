@@ -6,7 +6,7 @@ import { CartGetSelector, CartRelation } from "../_domain/cart.types";
 export class CartRelationGetService {
   constructor(private readonly cartRepo: CartRepository) {}
 
-  async execute(payload: CartGetSelector): Promise<CartRelation> {
-    return await this.cartRepo.getCartRelation(payload);
+  async execute(selector: CartGetSelector): Promise<CartRelation> {
+    return await this.cartRepo.getCartRelation(selector);
   }
 }

@@ -6,7 +6,7 @@ import { DeliveryRepository } from "../_repository/delivery.repo";
 export class DeliveryGetService {
   constructor(private readonly deliveryRepo: DeliveryRepository) {}
 
-  async execute(payload: DeliveryGetSelector): Promise<Delivery> {
-    return await this.deliveryRepo.getDelivery(payload);
+  async execute(selector: DeliveryGetSelector): Promise<Delivery> {
+    return await this.deliveryRepo.getDelivery(selector);
   }
 }
