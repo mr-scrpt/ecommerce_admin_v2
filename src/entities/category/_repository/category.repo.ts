@@ -11,10 +11,11 @@ import {
   CategoryUpdateDTO,
 } from "../_domain/category.dto";
 import { CategoryEntity, CategoryRelationEntity } from "../_domain/types";
+import { ICategoryRepository } from "../_domain/repository.type";
 
 @injectable()
-export class CategoryRepository {
-  constructor(readonly db: DBClient) {}
+export class CategoryRepository implements ICategoryRepository {
+  constructor(private readonly db: DBClient) {}
 
   async getCategory(
     dto: CategoryGetDTO,

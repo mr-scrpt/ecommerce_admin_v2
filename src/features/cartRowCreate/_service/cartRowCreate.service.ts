@@ -1,8 +1,7 @@
 import { CART_PRODUCT_QUANTITY_DEFAULT, CartRelation } from "@/entities/cart";
 import { injectable } from "inversify";
-import { CartRowCreateTxDTO, CartRowCreateTxPayload } from "../_domain/types";
-import { CartRowCreateTx } from "../_tx/cartRowCreate.transaction";
 import { ICartRowCreateTx } from "../_domain/transaction.type";
+import { CartRowCreateTxDTO, CartRowCreateTxPayload } from "../_domain/types";
 
 @injectable()
 export class CartRowCreateService {

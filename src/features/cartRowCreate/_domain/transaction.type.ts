@@ -1,11 +1,6 @@
-import { DBClient, Transaction } from "@/shared/lib/db/db";
-import { CartRowCreateTxDTO } from "./types";
 import { CartRelationEntity } from "@/entities/cart";
+import { CartRowCreateTxDTO } from "./types";
 
-export abstract class ICartRowCreateTx extends Transaction {
-  constructor(readonly db: DBClient) {
-    super(db);
-  }
-
+export abstract class ICartRowCreateTx {
   abstract create(dto: CartRowCreateTxDTO): Promise<CartRelationEntity>;
 }

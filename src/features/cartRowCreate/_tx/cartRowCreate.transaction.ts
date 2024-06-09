@@ -9,8 +9,8 @@ import { ICartRowCreateTx } from "../_domain/transaction.type";
 export class CartRowCreateTx extends Transaction implements ICartRowCreateTx {
   constructor(
     readonly db: DBClient,
-    readonly cartRepo: ICartRepository,
-    readonly cartRowRepo: ICartRowRepository,
+    private readonly cartRepo: ICartRepository,
+    private readonly cartRowRepo: ICartRowRepository,
   ) {
     super(db);
   }

@@ -36,12 +36,12 @@ type SessionWithDataPayloadAbastract = {
   userId: string;
 };
 
-@injectable()
+// @injectable()
 export abstract class IUserCreateService {
   abstract execute(payload: UserCreateTxPayload): Promise<UserEntity>;
 }
 
-@injectable()
+// @injectable()
 export abstract class ISessionGetRelationService {
   abstract execute(payload: SessionWithDataPayloadAbastract): Promise<Session>;
 }

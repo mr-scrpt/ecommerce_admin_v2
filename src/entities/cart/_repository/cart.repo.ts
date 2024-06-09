@@ -12,7 +12,7 @@ import { ICartRepository } from "../_domain/repository.type";
 
 @injectable()
 export class CartRepository implements ICartRepository {
-  constructor(readonly db: DBClient) {}
+  constructor(private readonly db: DBClient) {}
 
   async getCart(dto: CartGetDTO, db: Tx = this.db): Promise<CartEntity> {
     const { id } = dto;

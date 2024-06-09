@@ -1,4 +1,5 @@
-import { DBClient, Tx } from "@/shared/lib/db/db";
+import { Tx } from "@/shared/lib/db/db";
+import { injectable } from "inversify";
 import {
   CartCreateDTO,
   CartGetByUserDTO,
@@ -7,7 +8,6 @@ import {
   CartRemoveDTO,
 } from "./cart.dto";
 import { CartEntity, CartRelationEntity } from "./cart.types";
-import { injectable } from "inversify";
 import {
   CartRowChangeQuantityDTO,
   CartRowCreateDTO,
@@ -18,8 +18,6 @@ import { CartRowEntity } from "./cartRow.types";
 
 @injectable()
 export abstract class ICartRepository {
-  constructor(readonly db: DBClient) {}
-
   abstract getCart(dto: CartGetDTO, db?: Tx): Promise<CartEntity>;
 
   abstract getCartByUser(dto: CartGetByUserDTO, db?: Tx): Promise<CartEntity>;
@@ -43,8 +41,6 @@ export abstract class ICartRepository {
 
 @injectable()
 export abstract class ICartRowRepository {
-  constructor(readonly db: DBClient) {}
-
   abstract getCartRowByProduct(
     dto: CartRowGetByProductDTO,
     db?: Tx,

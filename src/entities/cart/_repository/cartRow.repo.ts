@@ -10,7 +10,7 @@ import { CartRowEntity } from "../_domain/cartRow.types";
 
 @injectable()
 export class CartRowRepository {
-  constructor(readonly db: DBClient) {}
+  constructor(private readonly db: DBClient) {}
 
   async getCartRowByProduct(
     dto: CartRowGetByProductDTO,

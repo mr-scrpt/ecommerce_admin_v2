@@ -1,11 +1,11 @@
 import { OperationsMap } from "@/shared/type/operation.type";
 import { injectable } from "inversify";
+import { ICategoryRepository } from "../_domain/repository.type";
 import { CategoryGetSelector, CategoryRelation } from "../_domain/types";
-import { CategoryRepository } from "../_repository/category.repo";
 
 @injectable()
 export class CategoryRelationGetService {
-  constructor(private readonly categoryRepo: CategoryRepository) {}
+  constructor(private readonly categoryRepo: ICategoryRepository) {}
 
   async execute(selector: CategoryGetSelector): Promise<CategoryRelation> {
     return await this.operation(selector);

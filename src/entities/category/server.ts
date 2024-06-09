@@ -1,4 +1,4 @@
-export { CategoryRepository } from "./_repository/category.repo";
+export { ICategoryRepository } from "./_domain/repository.type";
 export { createCategoryAbility } from "./_domain/category.ability";
 export { categorySchema } from "./_domain/category.schema";
 
