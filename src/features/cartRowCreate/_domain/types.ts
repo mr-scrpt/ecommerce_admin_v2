@@ -1,12 +1,11 @@
-import { CartRow } from "@/entities/cart";
-import { CartRowCreateDTO } from "@/entities/cart/_domain/cartRow.dto";
+import { CartRow, CartRowCreateDTO } from "@/entities/cart";
+import { Session } from "next-auth";
 
-type CartRowPayload = Pick<CartRow, "cartId" | "productId">;
-
-// type CartRowDTO = Pick<CartRow, "cartId" | "productId" | "quantity">;
+type CartRowPayload = Pick<CartRow, "productId">;
 
 export type CartRowCreateTxPayload = {
   cartRowData: CartRowPayload;
+  sessionData: Session;
 };
 
 export type CartRowCreateTxDTO = {

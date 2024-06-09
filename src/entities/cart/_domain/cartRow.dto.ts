@@ -13,7 +13,6 @@ export type CartRowGetByProductDTO = {
 // NOTE: Mutations
 type CartRowCreate = Pick<CartRow, "cartId" | "productId" | "quantity">;
 export type CartRowCreateDTO = {
-  // data: CartRowBase;
   data: CartRowCreate;
 };
 

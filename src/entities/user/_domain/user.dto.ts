@@ -12,11 +12,13 @@ export type UserSearchDTO = {
 
 // NOTE: Mutations
 export type UserCreateDTO = {
-  email: string;
-  phone: string;
-  name?: string | null;
-  image?: string | null;
-  role: Role;
+  data: {
+    email: string;
+    phone: string;
+    name?: string | null;
+    image?: string | null;
+    role: Role;
+  };
 };
 
 export type UserUpdateDTO = Partial<User>;

@@ -1,29 +1,16 @@
 import { DBClient, Tx } from "@/shared/lib/db/db";
-import { CartRowEntity } from "../_domain/cartRow.types";
 import { injectable } from "inversify";
 import {
   CartRowChangeQuantityDTO,
   CartRowCreateDTO,
   CartRowGetByProductDTO,
-  CartRowGetDTO,
   CartRowRemoveDTO,
 } from "../_domain/cartRow.dto";
+import { CartRowEntity } from "../_domain/cartRow.types";
 
 @injectable()
 export class CartRowRepository {
   constructor(readonly db: DBClient) {}
-
-  // async getCartRowId(
-  //   dto: CartRowGetDTO,
-  //   db: Tx = this.db,
-  // ): Promise<CartRowEntity | null> {
-  //   const { id } = dto;
-  //   return db.cartRow.findUnique({
-  //     where: {
-  //       id,
-  //     },
-  //   });
-  // }
 
   async getCartRowByProduct(
     dto: CartRowGetByProductDTO,

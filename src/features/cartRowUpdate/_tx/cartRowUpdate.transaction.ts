@@ -1,15 +1,16 @@
-import { CartRepository, CartRowRepository } from "@/entities/cart/server";
 import { DBClient, Transaction, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
 import { CartRowUpdateTxDTO } from "../_domain/types";
 import { CartRelationEntity } from "@/entities/cart";
+import { ICartRepository, ICartRowRepository } from "@/entities/cart/server";
+import { ICartRowUpdateTx } from "../_domain/transaction.type";
 
 @injectable()
-export class CartRowUpdateTx extends Transaction {
+export class CartRowUpdateTx extends Transaction implements ICartRowUpdateTx {
   constructor(
     readonly db: DBClient,
-    private readonly cartRepo: CartRepository,
-    private readonly cartRowRepo: CartRowRepository,
+    private readonly cartRepo: ICartRepository,
+    private readonly cartRowRepo: ICartRowRepository,
   ) {
     super(db);
   }

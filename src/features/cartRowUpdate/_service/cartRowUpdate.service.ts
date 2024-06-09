@@ -1,11 +1,11 @@
 import { CartRelation } from "@/entities/cart";
 import { injectable } from "inversify";
-import { CartRowUpdateTx } from "../_tx/cartRowUpdate.transaction";
+import { ICartRowUpdateTx } from "../_domain/transaction.type";
 import { CartRowUpdateTxPayload } from "../_domain/types";
 
 @injectable()
 export class CartRowUpdateService {
-  constructor(private readonly cartRowUpdateTx: CartRowUpdateTx) {}
+  constructor(private readonly cartRowUpdateTx: ICartRowUpdateTx) {}
 
   async execute(payload: CartRowUpdateTxPayload): Promise<CartRelation> {
     const { cartRowData } = payload;

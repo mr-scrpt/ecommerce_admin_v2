@@ -1,7 +1,7 @@
 import { SessionWithDataPayload } from "@/entities/session";
 import { getNetworkClientCookie } from "@/entities/session/coockieParser";
-import { UserRepository } from "@/entities/user/user.server";
-import { SessionGetRelationServiceAbstract } from "@/kernel/lib/nextauth/type";
+import { IUserRepository } from "@/entities/user/user.server";
+import { ISessionGetRelationService } from "@/kernel/lib/nextauth/type";
 import { configPrivate } from "@/shared/config/private.config";
 import { injectable } from "inversify";
 import { Session } from "next-auth";
@@ -9,10 +9,8 @@ import { Session } from "next-auth";
 const { COUNTRY_DEFAULT } = configPrivate;
 
 @injectable()
-export class SessionGetRelationService
-  implements SessionGetRelationServiceAbstract
-{
-  constructor(private readonly userRepo: UserRepository) {}
+export class SessionGetRelationService implements ISessionGetRelationService {
+  constructor(private readonly userRepo: IUserRepository) {}
 
   async execute(payload: SessionWithDataPayload): Promise<Session> {
     const { session, userId } = payload;

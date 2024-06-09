@@ -8,10 +8,10 @@ import {
   CartRemoveDTO,
 } from "../_domain/cart.dto";
 import { CartEntity, CartRelationEntity } from "../_domain/cart.types";
-import { CartRowCreateDTO } from "../_domain/cartRow.dto";
+import { ICartRepository } from "../_domain/repository.type";
 
 @injectable()
-export class CartRepository {
+export class CartRepository implements ICartRepository {
   constructor(readonly db: DBClient) {}
 
   async getCart(dto: CartGetDTO, db: Tx = this.db): Promise<CartEntity> {

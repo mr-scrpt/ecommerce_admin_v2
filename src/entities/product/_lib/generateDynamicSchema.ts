@@ -1,7 +1,7 @@
-import { PropertyDataTypeEnum } from "@/kernel/domain/propertyDataType.enum";
 import { ProductPropertyToSelect } from "../_domain/types";
 import { z } from "zod";
 import { productFormSchema } from "../_domain/product.schema";
+import { PropertyDataTypeEnum } from "@/kernel/domain/property.type";
 
 // const dynamicOptionSchema: Record<string, z.ZodType<any, any>> = {};
 

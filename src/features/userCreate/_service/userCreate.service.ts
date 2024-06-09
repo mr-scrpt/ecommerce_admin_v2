@@ -1,27 +1,37 @@
-import { UserCreateDTO } from "@/entities/user/user";
+import { UserEntity } from "@/entities/user/user";
 import { ROLES } from "@/kernel/domain/role.type";
+import { IUserCreateService } from "@/kernel/lib/nextauth/type";
 import { configPrivate } from "@/shared/config/private.config";
 import { injectable } from "inversify";
-import { UserCreateTx } from "../_tx/userCreate.transaction";
-import { UserCreateServiceAbstract } from "@/kernel/lib/nextauth/type";
-import { UserEntity } from "@/entities/user/user";
+import { merge } from "lodash";
+import { IUserCreateTx } from "../_domain/transaction.type";
+import { UserCreateTxDTO, UserCreateTxPayload } from "./../_domain/types";
+
+const CHAR_SPLIT = ",";
 
 @injectable()
-export class UserCreateService implements UserCreateServiceAbstract {
-  constructor(private readonly userCreateTx: UserCreateTx) {}
+export class UserCreateService implements IUserCreateService {
+  constructor(private readonly userCreateTx: IUserCreateTx) {}
 
-  async execute(props: UserCreateDTO): Promise<UserEntity> {
-    const adminEmails = configPrivate.ADMIN_EMAILS?.split(",") ?? [];
-    const role = adminEmails.includes(props.email) ? ROLES.ADMIN : ROLES.USER;
+  async execute(payload: UserCreateTxPayload): Promise<UserEntity> {
+    const userCreateDTO = this.build(payload);
+    return await this.userCreateTx.createUser(userCreateDTO);
+  }
 
-    const user: UserCreateDTO = {
-      ...props,
-      name: props.name ?? "",
-      phone: props.phone ?? "",
-      image: props.image ?? "",
-      role,
-    };
+  private build(payload: UserCreateTxPayload): UserCreateTxDTO {
+    const { userData } = payload;
+    const { email, phone, name, image } = userData;
 
-    return await this.userCreateTx.createUser(user);
+    const adminEmails = configPrivate.ADMIN_EMAILS?.split(CHAR_SPLIT) ?? [];
+    const role = adminEmails.includes(email) ? ROLES.ADMIN : ROLES.USER;
+
+    return merge({}, payload, {
+      userData: {
+        name: name ?? "",
+        phone: phone ?? "",
+        image: image ?? "",
+        role,
+      },
+    });
   }
 }

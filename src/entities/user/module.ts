@@ -8,9 +8,11 @@ import { UserRelationGetService } from "./_service/userRelationGet.service";
 import { UserGetService } from "./_service/userGet.service";
 import { UserController } from "./_controller/user.controller";
 import { UserListGetService } from "./_service/userListGet.service";
+import { IUserRepository } from "./user.server";
 
 export const UserModule = new ContainerModule((bind) => {
-  bind(UserRepository).toSelf();
+  bind(IUserRepository).to(UserRepository);
+
   bind(UserRelationGetService).toSelf();
   bind(UserListGetService).toSelf();
   bind(UserGetService).toSelf();

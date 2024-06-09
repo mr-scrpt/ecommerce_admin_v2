@@ -1,4 +1,3 @@
-import { getNetworkClientCookie } from "@/entities/session/coockieParser";
 import { configPrivate } from "@/shared/config/private.config";
 import { configPublic } from "@/shared/config/public.config";
 import { dbClient } from "@/shared/lib/db/instans";
@@ -9,14 +8,10 @@ import { compact } from "lodash-es";
 import { AuthOptions } from "next-auth";
 import EmailProvider from "next-auth/providers/email";
 import GithubProvider from "next-auth/providers/github";
-import {
-  SessionGetRelationServiceAbstract,
-  UserCreateServiceAbstract,
-} from "./type";
+import { ISessionGetRelationService, IUserCreateService } from "./type";
 
 const {
   GITHUB_SECRET,
-  COUNTRY_DEFAULT,
   GITHUB_ID,
   EMAIL_SERVER_HOST,
   EMAIL_SERVER_PORT,
@@ -33,14 +28,14 @@ const prismaAdapter = PrismaAdapter(dbClient);
 @injectable()
 export class NextAuthConfig {
   constructor(
-    private readonly createUserService: UserCreateServiceAbstract,
-    private readonly getSessionRelationService: SessionGetRelationServiceAbstract,
+    private readonly createUserService: IUserCreateService,
+    private readonly getSessionRelationService: ISessionGetRelationService,
   ) {}
   options: AuthOptions = {
     adapter: {
       ...prismaAdapter,
       createUser: async (user) => {
-        return await this.createUserService.execute(user);
+        return await this.createUserService.execute({ userData: user });
       },
     } as AuthOptions["adapter"],
 

@@ -2,11 +2,11 @@ import { CART_PRODUCT_QUANTITY_DEFAULT, CartRelation } from "@/entities/cart";
 import { injectable } from "inversify";
 import { CartRowCreateTxDTO, CartRowCreateTxPayload } from "../_domain/types";
 import { CartRowCreateTx } from "../_tx/cartRowCreate.transaction";
-import { merge } from "lodash";
+import { ICartRowCreateTx } from "../_domain/transaction.type";
 
 @injectable()
 export class CartRowCreateService {
-  constructor(private readonly cartRowUpdateTx: CartRowCreateTx) {}
+  constructor(private readonly cartRowUpdateTx: ICartRowCreateTx) {}
 
   async execute(payload: CartRowCreateTxPayload): Promise<CartRelation> {
     const cartRowCreateDTO = this.build(payload);
@@ -14,11 +14,14 @@ export class CartRowCreateService {
   }
 
   private build(payload: CartRowCreateTxPayload): CartRowCreateTxDTO {
-    return merge({}, payload, {
+    const { cartRowData, sessionData } = payload;
+    const { user } = sessionData;
+    return {
       cartRowData: {
-        ...payload.cartRowData,
+        ...cartRowData,
+        cartId: user.cartId,
         quantity: CART_PRODUCT_QUANTITY_DEFAULT,
       },
-    });
+    };
   }
 }

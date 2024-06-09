@@ -20,14 +20,11 @@ export class CartRowCreateController extends Controller {
         .input(createInputSchema)
         .mutation(async ({ input, ctx }) => {
           const { cartRowData } = input;
-          const { session } = ctx;
+          const { session: sessionData } = ctx;
 
-          const cartId = session.user.cartId;
           const result = await this.createCartRowService.execute({
-            cartRowData: {
-              ...cartRowData,
-              cartId,
-            },
+            cartRowData,
+            sessionData,
           });
 
           return cartRelationSchema.parse(result);

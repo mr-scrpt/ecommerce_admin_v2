@@ -3,12 +3,31 @@ import { UserEntity } from "@/kernel/domain/user.type";
 import { injectable } from "inversify";
 import { Session } from "next-auth";
 
-type UserCreatePayloadAbastract = {
+// NOTE: Payload
+export type UserCreatePayload = {
   email: string;
   phone: string;
   name?: string | null;
   image?: string | null;
-  role: Role;
+  // role: Role;
+};
+
+export type UserCreateTxPayload = {
+  userData: UserCreatePayload;
+};
+
+export type UserCreateDTO = {
+  data: {
+    email: string;
+    phone: string;
+    name?: string | null;
+    image?: string | null;
+    role: Role;
+  };
+};
+
+export type UserCreateTxDTO = {
+  userData: UserCreateDTO["data"];
 };
 
 // NOTE: Payload
@@ -18,11 +37,11 @@ type SessionWithDataPayloadAbastract = {
 };
 
 @injectable()
-export abstract class UserCreateServiceAbstract {
-  abstract execute(payload: UserCreatePayloadAbastract): Promise<UserEntity>;
+export abstract class IUserCreateService {
+  abstract execute(payload: UserCreateTxPayload): Promise<UserEntity>;
 }
 
 @injectable()
-export abstract class SessionGetRelationServiceAbstract {
+export abstract class ISessionGetRelationService {
   abstract execute(payload: SessionWithDataPayloadAbastract): Promise<Session>;
 }

@@ -4,10 +4,11 @@ import { CartRepository } from "./_repository/cart.repo";
 import { CartRowRepository } from "./_repository/cartRow.repo";
 import { CartRelationGetService } from "./_service/cartGet.service";
 import { Controller } from "@/kernel/lib/trpc/server";
+import { ICartRepository, ICartRowRepository } from "./_domain/repository.type";
 
 export const CartModule = new ContainerModule((bind) => {
-  bind(CartRepository).toSelf();
-  bind(CartRowRepository).toSelf();
+  bind(ICartRepository).to(CartRepository);
+  bind(ICartRowRepository).to(CartRowRepository);
   bind(CartRelationGetService).toSelf();
 
   bind(Controller).to(CartController);

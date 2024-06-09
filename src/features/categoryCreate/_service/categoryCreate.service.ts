@@ -3,6 +3,7 @@ import { injectable } from "inversify";
 import { CategoryCreateTxDTO, CategoryCreateTxPayload } from "../_domain/types";
 import { CategoryCreateTx } from "../_tx/categoryCreate.transaction";
 import { slugGenerator } from "@/shared/lib/slugGenerator";
+import { merge } from "lodash";
 
 @injectable()
 export class CategoryCreateService {
@@ -20,12 +21,11 @@ export class CategoryCreateService {
 
     const slug = slugGenerator(name);
 
-    return {
-      ...payload,
+    return merge({}, payload, {
       categoryData: {
         ...payload.categoryData,
         slug,
       },
-    };
+    });
   }
 }

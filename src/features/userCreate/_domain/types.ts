@@ -1,9 +1,4 @@
-import { UserCreateDTO } from "@/entities/user/_domain/user.types";
-
-export type UserCreate = {
-  email: string;
-  phone: string;
-  name: string;
-};
-
-export type UserCreateComplexible = UserCreateDTO;
+export type {
+  UserCreateTxPayload,
+  UserCreateTxDTO,
+} from "@/kernel/lib/nextauth/type";

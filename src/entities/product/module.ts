@@ -7,16 +7,12 @@ import { GetProductListByIdUseCase } from "./_usecase/getProductListById.usecase
 import { GetProductListSearchUseCase } from "./_usecase/getProductListSearch.usecase";
 import { GetProductWithRelationUseCase } from "./_usecase/getProductWithRelation.usecase";
 
-export const productContainer = new Container();
-
 export const ProductModule = new ContainerModule((bind) => {
   bind(ProductRepository).toSelf();
-  bind(GetProductUseCase).toSelf();
-  bind(GetproductBySlugUseCase).toSelf();
-  bind(GetProductListUseCase).toSelf();
-  bind(GetProductListByIdUseCase).toSelf();
-  bind(GetProductListSearchUseCase).toSelf();
-  bind(GetProductWithRelationUseCase).toSelf();
+  // bind(GetProductUseCase).toSelf();
+  // bind(GetproductBySlugUseCase).toSelf();
+  // bind(GetProductListUseCase).toSelf();
+  // bind(GetProductListByIdUseCase).toSelf();
+  // bind(GetProductListSearchUseCase).toSelf();
+  // bind(GetProductWithRelationUseCase).toSelf();
 });
-
-productContainer.load(ProductModule);

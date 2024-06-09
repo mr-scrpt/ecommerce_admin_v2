@@ -1,14 +1,14 @@
-import { UserRepository } from "@/entities/user/user.server";
 import { DBClient, Transaction, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
 import { UserUpdateComplexible } from "../_domain/types";
 import { UserEntity } from "@/entities/user/user";
+import { IUserRepository } from "@/entities/user/user.server";
 
 @injectable()
 export class UserUpdateTx extends Transaction {
   constructor(
     readonly db: DBClient,
-    private readonly userRepo: UserRepository,
+    private readonly userRepo: IUserRepository,
   ) {
     super(db);
   }

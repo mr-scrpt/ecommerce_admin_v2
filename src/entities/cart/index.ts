@@ -2,6 +2,8 @@ export { useCartWithRelationQuery } from "./_query/cartWithRelation.query";
 
 export type { CartRow } from "./_domain/cartRow.types";
 
+export type { CartRowCreateDTO } from "./_domain/cartRow.dto";
+
 export type {
   Cart,
   CartEntity,

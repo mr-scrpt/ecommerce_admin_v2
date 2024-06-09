@@ -1,23 +1,19 @@
 import { userSchema } from "@/entities/user/user";
-import { ROLES } from "@/kernel/domain/role.type";
-import { UserCreateServiceAbstract } from "@/kernel/lib/nextauth/type";
+import { IUserCreateService } from "@/kernel/lib/nextauth/type";
 import { Controller, publicProcedure, router } from "@/kernel/lib/trpc/server";
 import { injectable } from "inversify";
-import { userCreateSchema } from "../_domain/schema";
+import { createInputSchema } from "../_domain/validator.schema";
 
 @injectable()
 export class UserCreateController extends Controller {
-  constructor(private readonly userCreateService: UserCreateServiceAbstract) {
+  constructor(private readonly userCreateService: IUserCreateService) {
     super();
   }
 
   public router = router({
     userCreate: {
-      create: publicProcedure.input(userCreateSchema).mutation(({ input }) => {
-        const user = this.userCreateService.execute({
-          ...input,
-          role: ROLES.USER,
-        });
+      create: publicProcedure.input(createInputSchema).mutation(({ input }) => {
+        const user = this.userCreateService.execute(input);
 
         return userSchema.parse(user);
       }),

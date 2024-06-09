@@ -1,11 +1,5 @@
 import { DBClient, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
-import { UserEntity } from "../_domain/user.types";
-import {
-  User,
-  UserWithCartEntity,
-  UserWithOrdersEntity,
-} from "../_domain/user.types";
 import {
   UserCreateDTO,
   UserGetDTO,
@@ -13,9 +7,15 @@ import {
   UserSearchDTO,
   UserUpdateDTO,
 } from "../_domain/user.dto";
+import {
+  UserEntity,
+  UserWithCartEntity,
+  UserWithOrdersEntity,
+} from "../_domain/user.types";
+import { IUserRepository } from "../_domain/repository.type";
 
 @injectable()
-export class UserRepository {
+export class UserRepository implements IUserRepository {
   constructor(readonly db: DBClient) {}
 
   async getUser(dto: UserGetDTO, db: Tx = this.db): Promise<UserEntity> {
@@ -96,8 +96,9 @@ export class UserRepository {
   }
 
   async createUser(user: UserCreateDTO, db: Tx = this.db): Promise<UserEntity> {
+    const { data } = user;
     return await db.user.create({
-      data: user,
+      data,
     });
   }
 

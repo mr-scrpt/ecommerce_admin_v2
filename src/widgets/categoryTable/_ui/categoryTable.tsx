@@ -6,13 +6,10 @@ import { TableData } from "@/shared/ui/tableData/ui/tableData";
 import { FC, HTMLAttributes } from "react";
 import { useCategoryTableList } from "../_vm/useCategoryTableList";
 import { useTableColumns } from "../_vm/useTabelColumns";
-import { Button } from "@/shared/ui/button";
-import { cartRowAddApi } from "@/features/cartRowCreate/server";
 
 interface CategoryTableProps extends HTMLAttributes<HTMLDivElement> {}
 
 export const CategoryTable: FC<CategoryTableProps> = (props) => {
-  const { mutateAsync } = cartRowAddApi.cartRowAdd.add.useMutation();
   const {
     categoryList,
     isPending: isPendingCategoryList,
@@ -37,17 +34,6 @@ export const CategoryTable: FC<CategoryTableProps> = (props) => {
 
   return (
     <>
-      <Button
-        onClick={() =>
-          mutateAsync({
-            selector: {
-              productId: "prod_2",
-            },
-          })
-        }
-      >
-        Fetch
-      </Button>
       <TableData
         columns={categoryColumns}
         data={categoryList}
