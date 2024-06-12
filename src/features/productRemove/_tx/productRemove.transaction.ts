@@ -1,20 +1,21 @@
-import { ProductEntity, ProductId } from "@/entities/product";
-import { ProductRepository } from "@/entities/product/server";
+import { ProductEntity } from "@/entities/product";
 import { DBClient, Transaction, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
+import { ProductRemoveTxDTO } from "../_domain/types";
+import { IProductRepository } from "@/entities/product/server";
 
 @injectable()
 export class ProductRemoveTx extends Transaction {
   constructor(
     readonly db: DBClient,
-    private readonly productRepo: ProductRepository,
+    private readonly productRepo: IProductRepository,
   ) {
     super(db);
   }
 
-  async removeProductById(productId: ProductId): Promise<ProductEntity> {
+  async remove(dto: ProductRemoveTxDTO): Promise<ProductEntity> {
     const action = async (tx: Tx) => {
-      return await this.productRepo.remove(productId, tx);
+      return await this.productRepo.remove(dto, tx);
     };
 
     return await this.start(action);

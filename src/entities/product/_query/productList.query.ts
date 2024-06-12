@@ -1,12 +1,12 @@
 "use client";
 import { productApi } from "../_api/product.api";
-import { useListenProductUpdate } from "../_vm/event/useListenProductUpdate";
+import { useListenProductListUpdate } from "../_vm/event/useListenProductListUpdate";
 
 export const useProductListQuery = () => {
   const { isPending, isSuccess, data, isFetchedAfterMount } =
     productApi.product.getList.useQuery();
 
-  useListenProductUpdate();
+  useListenProductListUpdate();
 
   return {
     isPending,
@@ -16,8 +16,9 @@ export const useProductListQuery = () => {
   };
 };
 
-export const useInvalidateProduct = () => {
-  const invalidateProduct = productApi.useUtils().product.getList.invalidate;
+export const useInvalidateProductList = () => {
+  const invalidateProductList =
+    productApi.useUtils().product.getList.invalidate;
 
-  return () => invalidateProduct();
+  return () => invalidateProductList();
 };

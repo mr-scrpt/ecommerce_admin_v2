@@ -15,22 +15,10 @@ export class CategoryRemoveTx extends Transaction implements ICategoryRemoveTx {
   }
 
   async remove(dto: CategoryRemoveTxDTO): Promise<CategoryEntity> {
-    const { selector } = dto;
     const action = async (tx: Tx) => {
-      return await this.categoryRepo.remove({ selector }, tx);
+      return await this.categoryRepo.remove(dto, tx);
     };
 
     return await this.start(action);
   }
-
-  // async removeBySlug(categorySlug: string): Promise<CategoryEntity> {
-  //   const action = async (tx: Tx) => {
-  //     return await this.categoryRepo.removeCategoryBySlug(
-  //       { selector: { slug: categorySlug } },
-  //       tx,
-  //     );
-  //   };
-  //
-  //   return await this.start(action);
-  // }
 }

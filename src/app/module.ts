@@ -27,6 +27,7 @@ import { OrderCreateModule } from "@/features/orderCreate/module";
 import { OrderDeliveryUpdateModule } from "@/features/deliveryUpdate/module";
 import { ProductModule } from "@/entities/product/module";
 import { ProductCreateModule } from "@/features/productCreate/module";
+import { ProductRemoveModule } from "@/features/productRemove/module";
 
 export const loadModule = () => {
   const container = new Container();
@@ -60,6 +61,7 @@ export const loadModule = () => {
 
     ProductModule,
     ProductCreateModule,
+    ProductRemoveModule,
 
     DeliveryModule,
     PostModule,
