@@ -5,10 +5,7 @@ import { z } from "zod";
 const deliveryBaseSchema = z.object({
   orderId: z.string(),
   deliveryType: z.custom<DeliveryTypeEnum>(),
-  // area: z.string(),
-  // araeCode: z.string(),
   settlement: z.string(),
-  // cityCode: z.string(),
   street: z.string().nullable(),
   house: z.string().nullable(),
   apartment: z.string().nullable(),

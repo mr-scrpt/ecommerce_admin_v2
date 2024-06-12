@@ -1,7 +1,7 @@
 import { DBClient, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
 import {
-  CartRowChangeQuantityDTO,
+  CartRowUpdateDTO,
   CartRowCreateDTO,
   CartRowGetByProductDTO,
   CartRowRemoveDTO,
@@ -25,7 +25,7 @@ export class CartRowRepository {
   }
 
   async updateCartRow(
-    dto: CartRowChangeQuantityDTO,
+    dto: CartRowUpdateDTO,
     db: Tx = this.db,
   ): Promise<CartRowEntity> {
     const { selector, data } = dto;

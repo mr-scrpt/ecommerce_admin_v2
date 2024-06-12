@@ -1,5 +1,5 @@
 import { OrderBase } from "@/entities/order";
-import { OrderCreateEmptyDTO } from "@/entities/order/_domain/order.dto";
+import { OrderCreateEmptyDTO } from "@/entities/order";
 
 type OrderCreateEmptyPayload = Pick<OrderBase, "userId">;
 

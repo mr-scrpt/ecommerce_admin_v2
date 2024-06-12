@@ -1,8 +1,17 @@
 import { userSchema } from "@/entities/user/user";
 import { IUserCreateService } from "@/kernel/lib/nextauth/type";
-import { Controller, publicProcedure, router } from "@/kernel/lib/trpc/server";
+import {
+  Controller,
+  checkAbilityProcedure,
+  publicProcedure,
+  router,
+} from "@/kernel/lib/trpc/server";
 import { injectable } from "inversify";
-import { createInputSchema } from "../_domain/validator.schema";
+import {
+  createInputSchema,
+  registrationInputSchema,
+} from "../_domain/validator.schema";
+import { createUserAbility } from "@/entities/user/user.server";
 
 @injectable()
 export class UserCreateController extends Controller {
@@ -12,11 +21,23 @@ export class UserCreateController extends Controller {
 
   public router = router({
     userCreate: {
-      create: publicProcedure.input(createInputSchema).mutation(({ input }) => {
-        const user = this.userCreateService.execute(input);
+      registration: publicProcedure
+        .input(registrationInputSchema)
+        .mutation(async ({ input }) => {
+          const user = await this.userCreateService.execute(input);
 
-        return userSchema.parse(user);
-      }),
+          return userSchema.parse(user);
+        }),
+      create: checkAbilityProcedure({
+        create: createUserAbility,
+        check: (ability) => ability.canCreateUser(),
+      })
+        .input(createInputSchema)
+        .mutation(async ({ input }) => {
+          const user = await this.userCreateService.execute(input);
+
+          return userSchema.parse(user);
+        }),
     },
   });
 }

@@ -19,8 +19,8 @@ export class OrderRowAddTx extends Transaction {
   async exec(data: OrderRowAddComplexible): Promise<OrderEntity> {
     const action = async (tx: Tx) => {
       const { productId, orderId, quantity } = data;
-      const product = await this.productRepo.getProduct(productId, tx);
-      await this.orderRowRepo.createOrderRow(
+      const product = await this.productRepo.get(productId, tx);
+      await this.orderRowRepo.create(
         {
           orderId,
 

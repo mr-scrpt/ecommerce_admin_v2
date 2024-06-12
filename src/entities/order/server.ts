@@ -1,4 +1,4 @@
-export { OrderRepository } from "./_repository/order.repo";
+export { IOrderRepository } from "./_domain/repository.type";
 export { OrderRowRepository } from "./_repository/orderRow.repo";
 
 export { orderRelationSchema } from "./_domain/order.schema";

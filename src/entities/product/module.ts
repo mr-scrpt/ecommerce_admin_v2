@@ -1,18 +1,18 @@
-import { Container, ContainerModule } from "inversify";
+import { Controller } from "@/kernel/lib/trpc/_controller";
+import { ContainerModule } from "inversify";
+import { ProductController } from "./_controller/product.controller";
+import { IProductRepository } from "./_domain/repository.type";
 import { ProductRepository } from "./_repository/product.repo";
-import { GetProductUseCase } from "./_usecase/getProduct.usecase";
-import { GetproductBySlugUseCase } from "./_usecase/getProductBySlug.usecase";
-import { GetProductListUseCase } from "./_usecase/getProductList.usecase";
-import { GetProductListByIdUseCase } from "./_usecase/getProductListById.usecase";
-import { GetProductListSearchUseCase } from "./_usecase/getProductListSearch.usecase";
-import { GetProductWithRelationUseCase } from "./_usecase/getProductWithRelation.usecase";
+import { ProductGetService } from "./_service/productGet.service";
+import { ProductRelationGetService } from "./_service/productRelationGet.service";
+import { ProductListGetService } from "./_service/productListGet.service";
 
 export const ProductModule = new ContainerModule((bind) => {
-  bind(ProductRepository).toSelf();
-  // bind(GetProductUseCase).toSelf();
-  // bind(GetproductBySlugUseCase).toSelf();
-  // bind(GetProductListUseCase).toSelf();
-  // bind(GetProductListByIdUseCase).toSelf();
-  // bind(GetProductListSearchUseCase).toSelf();
-  // bind(GetProductWithRelationUseCase).toSelf();
+  bind(IProductRepository).to(ProductRepository);
+
+  bind(ProductGetService).toSelf();
+  bind(ProductRelationGetService).toSelf();
+  bind(ProductListGetService).toSelf();
+
+  bind(Controller).to(ProductController);
 });

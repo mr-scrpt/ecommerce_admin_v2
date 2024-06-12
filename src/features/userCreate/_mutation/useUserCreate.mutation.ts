@@ -11,7 +11,7 @@ export const useUserCreateMutation = () => {
       },
     });
   return {
-    createUser: mutateAsync,
+    userCreate: mutateAsync,
     isPending,
   };
 };

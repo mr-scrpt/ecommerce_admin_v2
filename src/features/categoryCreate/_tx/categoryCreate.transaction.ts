@@ -17,12 +17,12 @@ export class CategoryCreateTx extends Transaction implements ICategoryCreateTx {
   async create(dto: CategoryCreateTxDTO): Promise<CategoryEntity> {
     const { categoryData, propertyData } = dto;
     const action = async (tx: Tx) => {
-      const { id } = await this.categoryRepo.createCategory(
+      const { id } = await this.categoryRepo.create(
         { data: categoryData },
         tx,
       );
 
-      await this.categoryRepo.bindCategoryPropertyList(
+      await this.categoryRepo.bindToPropertyList(
         {
           selector: { id },
           data: {
@@ -32,7 +32,7 @@ export class CategoryCreateTx extends Transaction implements ICategoryCreateTx {
         tx,
       );
 
-      return await this.categoryRepo.getCategory({ id }, tx);
+      return await this.categoryRepo.get({ id }, tx);
     };
 
     return await this.start(action);

@@ -20,8 +20,6 @@ export class PostController extends Controller {
         .input(getBySettlementInputSchema)
         .query(async ({ input }) => {
           const result = await this.getPostOfficeListService.execute(input);
-          console.log("output_log: schema =>>>", getListOutputSchema);
-          console.log("output_log: result =>>>", result);
           return getListOutputSchema.parse(result);
         }),
     },

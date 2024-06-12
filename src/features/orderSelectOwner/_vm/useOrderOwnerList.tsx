@@ -1,6 +1,6 @@
 import { useUserListSearchQuery } from "@/entities/user/user";
 
-export const useOrderUserListToSelect = () => {
+export const useOrderUserListToSelectModel = () => {
   const {
     data: userData,
     isPending: isUserPending,

@@ -18,7 +18,7 @@ export class CategoryUpdateTx extends Transaction implements ICategoryUpdateTx {
     const { selector, categoryData, propertyData } = dto;
 
     const action = async (tx: Tx) => {
-      await this.categoryRepo.updateCategory(
+      await this.categoryRepo.update(
         {
           selector,
           data: categoryData,
@@ -26,7 +26,7 @@ export class CategoryUpdateTx extends Transaction implements ICategoryUpdateTx {
         tx,
       );
 
-      await this.categoryRepo.bindCategoryPropertyList(
+      await this.categoryRepo.bindToPropertyList(
         {
           selector,
           data: {
@@ -36,7 +36,7 @@ export class CategoryUpdateTx extends Transaction implements ICategoryUpdateTx {
         tx,
       );
 
-      return await this.categoryRepo.getCategory({ id: selector.id }, tx);
+      return await this.categoryRepo.get({ id: selector.id }, tx);
     };
 
     return await this.start(action);

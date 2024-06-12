@@ -24,7 +24,7 @@ export class UserCreateTx extends Transaction implements IUserCreateTx {
         tx,
       );
 
-      await this.cartRepo.createCart(
+      await this.cartRepo.create(
         {
           data: {
             userId: userCreated.id,

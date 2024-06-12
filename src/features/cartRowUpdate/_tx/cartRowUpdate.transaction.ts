@@ -19,6 +19,7 @@ export class CartRowUpdateTx extends Transaction implements ICartRowUpdateTx {
     const { cartRowData, selector } = dto;
     const { quantity } = cartRowData;
     const { cartId, productId } = selector;
+
     const action = async (tx: Tx) => {
       const cartRowExisting = await this.cartRowRepo.getCartRowByProduct({
         cartId,
@@ -40,7 +41,7 @@ export class CartRowUpdateTx extends Transaction implements ICartRowUpdateTx {
         tx,
       );
 
-      return await this.cartRepo.getCartRelation({ id: cartId }, tx);
+      return await this.cartRepo.getRelation({ id: cartId }, tx);
     };
 
     return await this.start(action);

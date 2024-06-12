@@ -1,18 +1,18 @@
-import { CategoryBase } from "@/entities/category";
+import { CategoryBase, CategoryUpdateDTO } from "@/entities/category";
 import { Property } from "@/entities/property";
 
+type CategoryUpdatePayload = Partial<CategoryBase>;
 type PropertyList = Array<{ propertyId: Property["id"] }>;
-type CategoryUpdate = Partial<CategoryBase>;
 
 export type CategoryUpdateTxPayload = {
   selector: CategoryUpdateSelector;
-  categoryData: CategoryUpdate;
+  categoryData: CategoryUpdatePayload;
   propertyData: PropertyList;
 };
 
 export type CategoryUpdateTxDTO = {
   selector: CategoryUpdateSelector;
-  categoryData: CategoryUpdate;
+  categoryData: CategoryUpdateDTO["data"];
   propertyData: PropertyList;
 };
 

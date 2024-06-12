@@ -1,23 +1,13 @@
 "use client";
-import { queryOptions, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
+import { userApi } from "../_api/user.api";
+import { User } from "../_domain/user.types";
 import { useListenUserListUpdate } from "../_vm/event/useListenUserListUpdate";
-import { userBaseQueryKey } from "../_domain/user.types";
-import { getUserStrictListSearchAction } from "../_action/getUserListSearch.action";
-
-export const getUserListSearchQuery = (q: string) =>
-  queryOptions({
-    queryKey: [userBaseQueryKey, "getUserListSearch", q],
-    queryFn: () => {
-      return getUserStrictListSearchAction({ q });
-    },
-    // staleTime: 1000,
-  });
 
 export const useUserListSearchQuery = () => {
   const [q, setQ] = useState<string>("");
 
-  const invalidate = useInvalidateUserList(q);
+  const invalidate = useInvalidateUserListSearch(q);
 
   useEffect(() => {
     if (q) {
@@ -25,9 +15,10 @@ export const useUserListSearchQuery = () => {
     }
   }, [q]);
 
-  const query = getUserListSearchQuery(q);
+  // const query = getUserListSearchQuery(q);
 
-  const { isPending, isFetchedAfterMount, isSuccess, data } = useQuery(query);
+  const { isPending, isFetchedAfterMount, isSuccess, data } =
+    userApi.user.search.useQuery<Array<User>>({ q });
 
   useListenUserListUpdate();
 
@@ -37,15 +28,11 @@ export const useUserListSearchQuery = () => {
     isPending,
     isSuccess,
     isFetchedAfterMount,
-    data: data ? data.userList : [],
+    data: data ?? [],
   };
 };
 
-export const useInvalidateUserList = (q: string) => {
-  const queryClient = useQueryClient();
-
-  return () =>
-    queryClient.invalidateQueries({
-      queryKey: [userBaseQueryKey, "getUserListSearch", q],
-    });
+export const useInvalidateUserListSearch = (q: string) => {
+  const invalidateUserSearch = userApi.useUtils().user.search.invalidate;
+  return () => invalidateUserSearch({ q });
 };

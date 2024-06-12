@@ -3,7 +3,7 @@ import {
   useDeliveryByOrderIdQuery,
   useInitSettlementQuery,
 } from "@/entities/delivery";
-import { DeliveryFormUpdate } from "@/features/orderDeliveryUpdate";
+import { DeliveryFormUpdate } from "@/features/deliveryUpdate";
 import { OrderOwnerData } from "@/features/orderOwnerData";
 import { OrderRowAdd } from "@/features/orderRow";
 import { OrderRowListUpdate } from "@/features/orderRowList";

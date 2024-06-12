@@ -1,4 +1,5 @@
-import { ROLES, SessionEntity } from "@/shared/lib/user";
+import { ROLES } from "@/kernel/domain/role.type";
+import { SessionEntity } from "@/kernel/domain/session.type";
 
 export const createStoreAbility = (session: SessionEntity) => ({
   canGetStore: () => true,

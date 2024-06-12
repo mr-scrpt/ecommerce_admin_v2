@@ -1,14 +1,14 @@
-import { ProductRepository } from "@/entities/product/server";
-import { Container, ContainerModule } from "inversify";
+import { Controller } from "@/kernel/lib/trpc/_controller";
+import { ContainerModule } from "inversify";
+import { ProductCreateController } from "./_controller/productCreate.controller";
+import { IProductCreateTx } from "./_domain/transaction.type";
+import { ProductCreateService } from "./_service/productCreate.service";
 import { ProductCreateTx } from "./_tx/productCreate.transaction";
-import { CreateProductComplexibleUseCase } from "./_usecase/productCreateComplexible.usecase";
-
-export const productCreateContainer = new Container();
 
 export const ProductCreateModule = new ContainerModule((bind) => {
-  bind(ProductRepository).toSelf();
-  bind(ProductCreateTx).toSelf();
-  bind(CreateProductComplexibleUseCase).toSelf();
-});
+  bind(IProductCreateTx).to(ProductCreateTx);
 
-productCreateContainer.load(ProductCreateModule);
+  bind(ProductCreateService).toSelf();
+
+  bind(Controller).to(ProductCreateController);
+});

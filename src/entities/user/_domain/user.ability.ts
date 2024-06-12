@@ -2,7 +2,7 @@ import { ROLES } from "@/kernel/domain/role.type";
 import { SessionEntity } from "@/kernel/domain/session.type";
 
 export const createUserAbility = (session: SessionEntity) => ({
-  canCreateUser: () => true,
+  canCreateUser: () => session.user.role === ROLES.ADMIN,
   canGetUser: () => session.user.role === ROLES.ADMIN,
 
   canRemoveUser: (userId: string) =>

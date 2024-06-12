@@ -7,6 +7,6 @@ export class CartRelationGetService {
   constructor(private readonly cartRepo: ICartRepository) {}
 
   async execute(selector: CartGetSelector): Promise<CartRelation> {
-    return await this.cartRepo.getCartRelation(selector);
+    return await this.cartRepo.getRelation(selector);
   }
 }

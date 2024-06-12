@@ -24,6 +24,9 @@ import { NovaPoshtaModule } from "@/kernel/lib/novaposhta/module";
 import { PostModule } from "@/entities/post/module";
 import { OrderModule } from "@/entities/order/module";
 import { OrderCreateModule } from "@/features/orderCreate/module";
+import { OrderDeliveryUpdateModule } from "@/features/deliveryUpdate/module";
+import { ProductModule } from "@/entities/product/module";
+import { ProductCreateModule } from "@/features/productCreate/module";
 
 export const loadModule = () => {
   const container = new Container();
@@ -48,11 +51,15 @@ export const loadModule = () => {
 
     OrderModule,
     OrderCreateModule,
+    OrderDeliveryUpdateModule,
 
     CategoryModule,
     CategoryCreateModule,
     CategoryUpdateModule,
     CategoryRemoveModule,
+
+    ProductModule,
+    ProductCreateModule,
 
     DeliveryModule,
     PostModule,

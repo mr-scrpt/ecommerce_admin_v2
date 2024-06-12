@@ -24,6 +24,6 @@ export class CreateProductComplexibleUseCase {
       throw new ForbiddenError();
     }
 
-    return await this.productCreateTx.createProductComplexible(dataToCreate);
+    return await this.productCreateTx.create(dataToCreate);
   }
 }

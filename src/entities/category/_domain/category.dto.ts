@@ -34,7 +34,7 @@ export type CategoryRemoveBySlugDTO = {
 };
 
 // NOTE: Bindings
-export type CategoryBindProductListDTO = {
+export type CategoryBindToProductListDTO = {
   selector: {
     id: string;
   };
@@ -43,7 +43,7 @@ export type CategoryBindProductListDTO = {
   };
 };
 
-export type CategoryBindPropertyListDTO = {
+export type CategoryBindToPropertyListDTO = {
   selector: {
     id: string;
   };

@@ -1,12 +1,12 @@
 import { injectable } from "inversify";
 import { Delivery, DeliveryGetSelector } from "../_domain/delivery.types";
-import { DeliveryRepository } from "../_repository/delivery.repo";
+import { IDeliveryRepository } from "../_domain/repository.type";
 
 @injectable()
 export class DeliveryGetService {
-  constructor(private readonly deliveryRepo: DeliveryRepository) {}
+  constructor(private readonly deliveryRepo: IDeliveryRepository) {}
 
   async execute(selector: DeliveryGetSelector): Promise<Delivery> {
-    return await this.deliveryRepo.getDelivery(selector);
+    return await this.deliveryRepo.get(selector);
   }
 }

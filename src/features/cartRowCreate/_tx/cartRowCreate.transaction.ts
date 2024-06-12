@@ -40,7 +40,7 @@ export class CartRowCreateTx extends Transaction implements ICartRowCreateTx {
         tx,
       );
 
-      return await this.cartRepo.getCartRelation({ id: cartId }, tx);
+      return await this.cartRepo.getRelation({ id: cartId }, tx);
     };
 
     return await this.start(action);

@@ -1,6 +1,5 @@
 import { Role } from "@/kernel/domain/role.type";
 import { UserEntity } from "@/kernel/domain/user.type";
-import { injectable } from "inversify";
 import { Session } from "next-auth";
 
 // NOTE: Payload

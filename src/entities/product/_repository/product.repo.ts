@@ -1,37 +1,41 @@
 import { DBClient, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
 import {
-  ProductAddCategoryList,
-  ProductAddPropertyList,
-  ProductEntity,
-  ProductId,
-  ProductRelationEntity,
-  ProductToCreate,
-  ProductToUpdate,
-} from "../_domain/types";
+  ProductBindCategoryListListDTO,
+  ProductBindPropertyListDTO,
+  ProductCreateDTO,
+  ProductGetByIdListDTO,
+  ProductGetBySlugDTO,
+  ProductGetDTO,
+  ProductRemoveDTO,
+  ProductSearchDTO,
+  ProductTotalPriceGetDTO,
+  ProductUpdateDTO,
+} from "../_domain/product.dto";
+import { ProductEntity, ProductRelationEntity } from "../_domain/types";
+import { IProductRepository } from "../_domain/repository.type";
 
 @injectable()
-export class ProductRepository {
+export class ProductRepository implements IProductRepository {
   constructor(readonly db: DBClient) {}
 
-  async getProduct(
-    productId: ProductId,
-    db: Tx = this.db,
-  ): Promise<ProductEntity> {
+  async get(dto: ProductGetDTO, db: Tx = this.db): Promise<ProductEntity> {
+    const { id } = dto;
     return db.product.findUniqueOrThrow({
       where: {
-        id: productId,
+        id,
       },
     });
   }
 
-  async getProductWithRelation(
-    productId: ProductId,
+  async getWithRelation(
+    dto: ProductGetDTO,
     db: Tx = this.db,
   ): Promise<ProductRelationEntity> {
+    const { id } = dto;
     return db.product.findUniqueOrThrow({
       where: {
-        id: productId,
+        id,
       },
       include: {
         categoryList: true,
@@ -40,10 +44,11 @@ export class ProductRepository {
     });
   }
 
-  async getProductBySlug(
-    slug: string,
+  async getBySlug(
+    dto: ProductGetBySlugDTO,
     db: Tx = this.db,
   ): Promise<ProductEntity> {
+    const { slug } = dto;
     return db.product.findUniqueOrThrow({
       where: {
         slug,
@@ -51,26 +56,29 @@ export class ProductRepository {
     });
   }
 
-  async getProductList(db: Tx = this.db): Promise<ProductEntity[]> {
+  async getList(db: Tx = this.db): Promise<ProductEntity[]> {
     return db.product.findMany();
   }
-  async getProductListById(
-    productListId: Array<ProductId>,
+
+  async getListByListId(
+    dto: ProductGetByIdListDTO,
     db: Tx = this.db,
   ): Promise<ProductEntity[]> {
+    const { idList } = dto;
     return db.product.findMany({
       where: {
         id: {
-          in: productListId,
+          in: idList,
         },
       },
     });
   }
 
-  async getProductListSearch(
-    q: string,
+  async getListSearch(
+    dto: ProductSearchDTO,
     db: Tx = this.db,
   ): Promise<ProductEntity[]> {
+    const { q } = dto;
     const productList = await db.product.findMany({
       where: {
         OR: [
@@ -93,12 +101,13 @@ export class ProductRepository {
   }
 
   async getTotalPrice(
-    productIdList: Array<ProductId>,
+    dto: ProductTotalPriceGetDTO,
     db: Tx = this.db,
   ): Promise<number> {
+    const { idList } = dto;
     const totalPrice = await db.product.aggregate({
       where: {
-        id: { in: productIdList },
+        id: { in: idList },
       },
       _sum: {
         price: true,
@@ -107,64 +116,81 @@ export class ProductRepository {
     return totalPrice._sum.price || 0;
   }
 
-  async createProduct(
-    product: ProductToCreate,
+  async create(
+    dto: ProductCreateDTO,
     db: Tx = this.db,
   ): Promise<ProductEntity> {
+    const { data } = dto;
     return await db.product.create({
-      data: product,
+      data,
     });
   }
 
-  async addCategoryList(
-    data: ProductAddCategoryList,
+  async update(
+    dto: ProductUpdateDTO,
     db: Tx = this.db,
   ): Promise<ProductEntity> {
-    const { productId, categoryListId } = data;
+    const { selector, data } = dto;
+    const { id } = selector;
+    return await db.product.update({
+      where: { id },
+      data,
+    });
+  }
+
+  async remove(
+    dto: ProductRemoveDTO,
+    db: Tx = this.db,
+  ): Promise<ProductEntity> {
+    const {
+      selector: { id },
+    } = dto;
+
+    return await db.product.delete({ where: { id } });
+  }
+
+  async bindToCategoryList(
+    dto: ProductBindCategoryListListDTO,
+    db: Tx = this.db,
+  ): Promise<ProductEntity> {
+    const { selector, data } = dto;
+    const { id } = selector;
+    const { categoryListId } = data;
+
     return await db.product.update({
       where: {
-        id: productId,
+        id,
       },
       data: {
         categoryList: {
-          set: categoryListId,
+          set: categoryListId.map(({ categoryId }) => ({ id: categoryId })),
         },
       },
     });
   }
 
-  addPropertyList(
-    data: ProductAddPropertyList,
+  bindToPropertyList(
+    dto: ProductBindPropertyListDTO,
     db: Tx = this.db,
   ): Promise<ProductEntity> {
-    const { productId, propertyListId } = data;
+    const { selector, data } = dto;
+    const { id } = selector;
+    const { propertyItemListId: propertyListId } = data;
+
+    // const res = propertyListId.map(({ propertyId }) => ({ id: propertyId }));
+    // console.log("output_log: res id =>>>", res);
+
     return db.product.update({
       where: {
-        id: productId,
+        id,
       },
       data: {
         propertyItemListSelected: {
-          set: [...propertyListId],
+          set: propertyListId.map(({ propertyItemId }) => ({
+            id: propertyItemId,
+          })),
         },
       },
     });
-  }
-
-  async updateProduct(
-    targetId: ProductId,
-    product: Partial<ProductToUpdate>,
-    db: Tx = this.db,
-  ): Promise<ProductEntity> {
-    return await db.product.update({
-      where: { id: targetId },
-      data: product,
-    });
-  }
-
-  async removeProductById(
-    productId: ProductId,
-    db: Tx = this.db,
-  ): Promise<ProductEntity> {
-    return await db.product.delete({ where: { id: productId } });
   }
 }

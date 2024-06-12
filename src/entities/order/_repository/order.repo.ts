@@ -7,19 +7,20 @@ import {
   OrderGetDTO,
 } from "../_domain/order.dto";
 import { SORTING_ORDER_DEFAULT } from "@/shared/config/constant";
+import { IOrderRepository } from "../_domain/repository.type";
 
 @injectable()
-export class OrderRepository {
+export class OrderRepository implements IOrderRepository {
   constructor(readonly db: DBClient) {}
 
-  async getOrder(dto: OrderGetDTO, db: Tx = this.db): Promise<OrderEntity> {
+  async get(dto: OrderGetDTO, db: Tx = this.db): Promise<OrderEntity> {
     const result = await db.order.findUniqueOrThrow({
       where: dto,
     });
     return result;
   }
 
-  async getOrderWithRelation(
+  async getWithRelation(
     dto: OrderGetDTO,
     db: Tx = this.db,
   ): Promise<OrderRelationEntity> {
@@ -31,9 +32,14 @@ export class OrderRepository {
             productName: SORTING_ORDER_DEFAULT,
           },
         },
+        delivery: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
-    result.orderRowList;
+    // result.orderRowList;
 
     return result;
   }
@@ -51,7 +57,7 @@ export class OrderRepository {
   //   return result;
   // }
 
-  async getOrderListByOwner(
+  async getListByOwner(
     dto: OrderGetByOwnerDTO,
     db: Tx = this.db,
   ): Promise<OrderEntity[]> {
@@ -64,12 +70,12 @@ export class OrderRepository {
     return orderList;
   }
 
-  async getOrderList(db: Tx = this.db): Promise<OrderEntity[]> {
+  async getList(db: Tx = this.db): Promise<OrderEntity[]> {
     const orderList = await db.order.findMany();
     return orderList;
   }
 
-  async createOrderEmpty(
+  async createEmpty(
     dto: OrderCreateEmptyDTO,
     db: Tx = this.db,
   ): Promise<OrderEntity> {
@@ -80,7 +86,7 @@ export class OrderRepository {
     });
   }
 
-  async updateOrderStatus(
+  async updateStatus(
     orderId: OrderId,
     data: Partial<OrderToUpdateStatus>,
     db: Tx = this.db,

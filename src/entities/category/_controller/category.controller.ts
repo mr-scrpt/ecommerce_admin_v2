@@ -1,7 +1,10 @@
 import { Controller, publicProcedure, router } from "@/kernel/lib/trpc/server";
 import { injectable } from "inversify";
 import { categoryRelationSchema } from "../_domain/category.schema";
-import { getInputSchema, getListOutputSchema } from "../_domain/validator.schema";
+import {
+  getInputSchema,
+  getListOutputSchema,
+} from "../_domain/validator.schema";
 import { CategoryRelationGetService } from "../_service/categoryRelationGet.service";
 import { CategoryListGetService } from "../_service/categoryListGet.service";
 

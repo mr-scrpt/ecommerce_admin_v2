@@ -14,7 +14,7 @@ export class ProductRemoveTx extends Transaction {
 
   async removeProductById(productId: ProductId): Promise<ProductEntity> {
     const action = async (tx: Tx) => {
-      return await this.productRepo.removeProductById(productId, tx);
+      return await this.productRepo.remove(productId, tx);
     };
 
     return await this.start(action);

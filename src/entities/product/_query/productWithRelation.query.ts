@@ -1,37 +1,28 @@
-// "use client";
-// import { queryOptions, useQuery } from "@tanstack/react-query";
-// import { getProductWithRelationAction } from "../_action/getProductWithRelation.action";
-// import { ProductId, baseQueryKey } from "../_domain/types";
-// import { useListenProductUpdate } from "../_vm/event/useListenProductUpdate";
-//
-// export const getProductWithRelationQuery = (productId: ProductId) =>
-//   queryOptions({
-//     queryKey: [baseQueryKey, "getProduct", productId],
-//     queryFn: () => {
-//       return getProductWithRelationAction({ productId });
-//     },
-//   });
-//
-// export const useProductWithRelationQuery = (productId: ProductId) => {
-//   const query = getProductWithRelationQuery(productId);
-//
-//   const { isPending, isSuccess, data, isFetchedAfterMount } = useQuery(query);
-//
-//   useListenProductUpdate();
-//
-//   return {
-//     isPending,
-//     isSuccess,
-//     product: data?.product,
-//     isFetchedAfterMount,
-//   };
-// };
-//
-// // export const useInvalidateProductWithRelation = () => {
-// //   const queryClient = useQueryClient();
-// //
-// //   return (productId: ProductId) =>
-// //     queryClient.invalidateQueries({
-// //       queryKey: [baseQueryKey, "getProductWithRelation", productId],
-// //     });
-// // };
+"use client";
+import { productApi } from "../_api/product.api";
+import { useListenProductUpdate } from "../_vm/event/useListenProductUpdate";
+
+type QueryParams = {
+  id: string;
+};
+
+export const useProductWithRelationQuery = (query: QueryParams) => {
+  const { isPending, isSuccess, data, isFetchedAfterMount } =
+    productApi.product.getRelation.useQuery(query);
+
+  useListenProductUpdate();
+
+  return {
+    isPending,
+    isSuccess,
+    isFetchedAfterMount,
+    product: data,
+  };
+};
+
+export const useInvalidateProductWithRelation = () => {
+  const invalidateProduct =
+    productApi.useUtils().product.getRelation.invalidate;
+
+  return (query: QueryParams) => invalidateProduct(query);
+};

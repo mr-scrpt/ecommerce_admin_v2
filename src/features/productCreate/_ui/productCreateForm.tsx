@@ -37,10 +37,16 @@ export const ProductFormCreate: FC<ProductCreateFormProps> = (props) => {
 
   const router = useRouter();
 
+  // TODO: What is the type?
   const handleSubmit = async (data: ProductFromFrom) => {
-    data.inStock;
+    const { categoryList, propertyItemListSelected, ...productData } = data;
+
     await productCreate({
-      data,
+      productData,
+      propertyItemData: propertyItemListSelected.map(({ id }) => ({
+        propertyItemId: id,
+      })),
+      categoryData: categoryList.map(({ id }) => ({ categoryId: id })),
     });
 
     onSuccess?.();

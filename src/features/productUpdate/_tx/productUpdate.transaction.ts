@@ -23,7 +23,7 @@ export class ProductUpdateTx extends Transaction {
         propertyItemListSelected,
         categoryListId,
       } = data;
-      const productUpdated = await this.productRepo.updateProduct(
+      const productUpdated = await this.productRepo.update(
         productId,
         productData,
         tx,
@@ -31,8 +31,8 @@ export class ProductUpdateTx extends Transaction {
 
       console.log("output_log: updateProduct =>>>", productUpdated);
 
-      await this.productRepo.addCategoryList({ productId, categoryListId }, tx);
-      await this.productRepo.addPropertyList(
+      await this.productRepo.bindToCategoryList({ productId, categoryListId }, tx);
+      await this.productRepo.bindToPropertyList(
         {
           productId,
           propertyListId: propertyItemListSelected,
@@ -40,7 +40,7 @@ export class ProductUpdateTx extends Transaction {
         tx,
       );
 
-      return await this.productRepo.getProduct(productUpdated.id, tx);
+      return await this.productRepo.get(productUpdated.id, tx);
     };
 
     return await this.start(action);

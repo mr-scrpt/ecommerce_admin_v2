@@ -1,54 +1,54 @@
 import { ProductEntity } from "@/entities/product";
+import { IProductRepository } from "@/entities/product/server";
 import { DBClient, Transaction, Tx } from "@/shared/lib/db/db";
-import { ProductCreateComplexible } from "../_domain/types";
-import { ProductRepository } from "@/entities/product/server";
 import { injectable } from "inversify";
+import { ProductCreateTxDTO } from "../_domain/types";
+import { IProductCreateTx } from "../_domain/transaction.type";
 
 @injectable()
-export class ProductCreateTx extends Transaction {
+export class ProductCreateTx extends Transaction implements IProductCreateTx {
   constructor(
     readonly db: DBClient,
-    private readonly productRepo: ProductRepository,
+    private readonly productRepo: IProductRepository,
   ) {
     super(db);
   }
 
-  async createProductComplexible(
-    data: ProductCreateComplexible,
-  ): Promise<ProductEntity> {
-    const { productData, categoryListData, propertyItemListSelected } = data;
+  async create(dto: ProductCreateTxDTO): Promise<ProductEntity> {
+    const { productData, categoryData, propertyItemData: propertyData } = dto;
     const action = async (tx: Tx) => {
-      const productCreated = await this.productRepo.createProduct(
+      const { id } = await this.productRepo.create(
         {
-          name: productData.name,
-          article: productData.article,
-          inStock: productData.inStock,
-          price: productData.price,
-          description: productData.description,
-          about: productData.about,
-          slug: productData.slug,
-          img: productData.img,
+          data: productData,
         },
         tx,
       );
 
-      await this.productRepo.addCategoryList(
+      await this.productRepo.bindToCategoryList(
         {
-          productId: productCreated.id,
-          categoryListId: categoryListData,
+          selector: {
+            id,
+          },
+          data: {
+            categoryListId: categoryData,
+          },
         },
         tx,
       );
 
-      await this.productRepo.addPropertyList(
+      await this.productRepo.bindToPropertyList(
         {
-          productId: productCreated.id,
-          propertyListId: propertyItemListSelected,
+          selector: {
+            id,
+          },
+          data: {
+            propertyItemListId: propertyData,
+          },
         },
         tx,
       );
 
-      return await this.productRepo.getProduct(productCreated.id, tx);
+      return await this.productRepo.get({ id }, tx);
     };
 
     return await this.start(action);

@@ -17,7 +17,7 @@ export class CategoryRemoveTx extends Transaction implements ICategoryRemoveTx {
   async remove(dto: CategoryRemoveTxDTO): Promise<CategoryEntity> {
     const { selector } = dto;
     const action = async (tx: Tx) => {
-      return await this.categoryRepo.removeCategory({ selector }, tx);
+      return await this.categoryRepo.remove({ selector }, tx);
     };
 
     return await this.start(action);

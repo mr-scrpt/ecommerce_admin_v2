@@ -22,6 +22,6 @@ export class GetProductWithRelationUseCase {
       throw new AuthorizatoinError();
     }
 
-    return await this.productRepo.getProductWithRelation(productId);
+    return await this.productRepo.getWithRelation(productId);
   }
 }

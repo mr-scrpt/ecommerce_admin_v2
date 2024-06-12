@@ -1,20 +1,20 @@
 import { PropertyDataTypeEnum } from "@/kernel/domain/property.type";
 import { MultiSelectOptionItem } from "@/shared/ui/multiSelect";
 
-export const baseQueryKey = "product";
-export type ProductId = string;
-export type ProductSlug = string;
-
-export type ProductEntity = {
-  id: ProductId;
+// NOTE: Base
+export type ProductBase = {
   name: string;
   article: string;
   description: string;
   about: string;
   inStock: number;
-  slug: ProductSlug;
+  slug: string;
   img: Array<string>;
   price: number;
+};
+
+export type ProductEntity = ProductBase & {
+  id: string;
   createdAt: Date;
 };
 
@@ -23,17 +23,16 @@ export type ProductRelationEntity = ProductEntity & {
   propertyItemListSelected: Array<ProductPropertyItem>;
 };
 
-// Projetions
-
+//NOTE: Projetions
 export type Product = {
-  id: ProductId;
+  id: string;
   name: string;
   article: string;
   price: number;
   inStock: number;
   description: string;
   about: string;
-  slug: ProductSlug;
+  slug: string;
   img: Array<string>;
 };
 
@@ -42,49 +41,46 @@ export type ProductRelation = Product & {
   propertyItemListSelected: Array<ProductPropertyItem>;
 };
 
-export type ProductToCreate = {
-  name: string;
-  article: string;
-  price: number;
-  description: string;
-  about: string;
-  inStock: number;
-  slug: ProductSlug;
-  img: Array<string>;
+// NOTE: Selector
+export type ProductGetSelector = {
+  id: string;
 };
 
-export type ProductToUpdate = {
-  name: string;
-  article: string;
-  price: number;
-  description: string;
-  about: string;
-  inStock: number;
-  slug: ProductSlug;
-  img: Array<string>;
-};
+// export type ProductGetBySelector = {
+//   id: string;
+// };
 
-export type ProductAddCategoryList = {
-  productId: string;
-  categoryListId: Array<{ id: string }>;
-};
-
-export type ProductAddPropertyList = {
-  productId: string;
-  propertyListId: Array<{ id: string }>;
-};
-
-export type ProductFromFrom = {
-  name: string;
-  article: string;
-  price: number;
-  description: string;
-  about: string;
-  inStock: number;
-  img: Array<string>;
-  categoryList: Array<{ id: string }>;
-  propertyItemListSelected: Array<{ id: string }>;
-};
+// export type ProductToCreate = {
+//   name: string;
+//   article: string;
+//   price: number;
+//   description: string;
+//   about: string;
+//   inStock: number;
+//   slug: ProductSlug;
+//   img: Array<string>;
+// };
+//
+// export type ProductToUpdate = {
+//   name: string;
+//   article: string;
+//   price: number;
+//   description: string;
+//   about: string;
+//   inStock: number;
+//   slug: ProductSlug;
+//   img: Array<string>;
+// };
+//
+// export type ProductAddCategoryList = {
+//   productId: string;
+//   categoryListId: Array<{ id: string }>;
+// };
+//
+// export type ProductAddPropertyList = {
+//   productId: string;
+//   propertyListId: Array<{ id: string }>;
+// };
 
 // export type ProductToUpdate = ProductFromFrom & {
 //   id: ProductId;
@@ -109,6 +105,18 @@ export type ProductPropertyObjectList = {
 };
 
 // NOTE: UI
+export type ProductFromFrom = {
+  name: string;
+  article: string;
+  price: number;
+  description: string;
+  about: string;
+  inStock: number;
+  img: Array<string>;
+  categoryList: Array<{ id: string }>;
+  propertyItemListSelected: Array<{ id: string }>;
+};
+
 export type ProductPropertyToSelect = {
   id: string;
   name: string;

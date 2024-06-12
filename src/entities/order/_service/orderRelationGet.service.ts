@@ -1,12 +1,12 @@
 import { injectable } from "inversify";
-import { Order, OrderGetSelector } from "../_domain/order.types";
-import { OrderRepository } from "../_repository/order.repo";
+import { Order, OrderGetSelector, OrderRelation } from "../_domain/order.types";
+import { IOrderRepository } from "../_domain/repository.type";
 
 @injectable()
 export class OrderRelationGetService {
-  constructor(private readonly orderRepo: OrderRepository) {}
+  constructor(private readonly orderRepo: IOrderRepository) {}
 
-  async execute(selector: OrderGetSelector): Promise<Order> {
-    return await this.orderRepo.getOrderWithRelation(selector);
+  async execute(selector: OrderGetSelector): Promise<OrderRelation> {
+    return await this.orderRepo.getWithRelation(selector);
   }
 }

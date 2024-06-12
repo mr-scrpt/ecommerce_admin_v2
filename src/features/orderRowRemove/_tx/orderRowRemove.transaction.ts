@@ -22,7 +22,7 @@ export class OrderRowRemoveTx extends Transaction {
         tx,
       );
 
-      const orderRowList = await this.orderRowRepo.getOrerRowList(orderId, tx);
+      const orderRowList = await this.orderRowRepo.getList(orderId, tx);
 
       const totalPrice = orderRowList.reduce(
         (acc, row) => acc + row.price * row.quantity,

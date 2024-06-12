@@ -5,6 +5,11 @@ import {
   OrderStatusEnum,
 } from "@/kernel/domain/order.type";
 
+// NOTE: Side
+const orderDeliverySchema = z.object({
+  id: z.string(),
+});
+
 // NOTE: Group
 export const orderStatusGroupSchema = z.object({
   orderStatus: z.custom<OrderStatusEnum>(),
@@ -31,6 +36,7 @@ export const orderRelationSchema = z.object({
   ...orderBaseSchema.shape,
 
   orderRowList: orderRowSchema.array(),
+  delivery: orderDeliverySchema,
 });
 
 // export const orderUpdateStausSchema = z.object({

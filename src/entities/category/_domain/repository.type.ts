@@ -1,7 +1,7 @@
 import { Tx } from "@/shared/lib/db/db";
 import {
-  CategoryBindProductListDTO,
-  CategoryBindPropertyListDTO,
+  CategoryBindToProductListDTO,
+  CategoryBindToPropertyListDTO,
   CategoryCreateDTO,
   CategoryGetBySlugDTO,
   CategoryGetDTO,
@@ -12,52 +12,52 @@ import {
 import { CategoryEntity, CategoryRelationEntity } from "../_domain/types";
 
 export abstract class ICategoryRepository {
-  abstract getCategory(dto: CategoryGetDTO, db?: Tx): Promise<CategoryEntity>;
+  abstract get(dto: CategoryGetDTO, db?: Tx): Promise<CategoryEntity>;
 
-  abstract getCategoryRelation(
+  abstract getWithRelation(
     dto: CategoryGetDTO,
     db?: Tx,
   ): Promise<CategoryRelationEntity>;
 
-  abstract getCategoryBySlug(
+  abstract getBySlug(
     dto: CategoryGetBySlugDTO,
     db?: Tx,
   ): Promise<CategoryEntity>;
 
-  abstract getCategoryBySlugRelation(
+  abstract getBySlugRelation(
     dto: CategoryGetBySlugDTO,
     db?: Tx,
   ): Promise<CategoryRelationEntity>;
 
-  abstract getCategoryList(db?: Tx): Promise<CategoryEntity[]>;
+  abstract getList(db?: Tx): Promise<CategoryEntity[]>;
 
-  abstract createCategory(
+  abstract create(
     dto: CategoryCreateDTO,
     db?: Tx,
   ): Promise<CategoryEntity>;
 
-  abstract updateCategory(
+  abstract update(
     dto: CategoryUpdateDTO,
     db?: Tx,
   ): Promise<CategoryEntity>;
 
-  abstract removeCategory(
+  abstract remove(
     dto: CategoryRemoveDTO,
     db?: Tx,
   ): Promise<CategoryEntity>;
 
-  abstract removeCategoryBySlug(
+  abstract removeBySlug(
     dto: CategoryRemoveBySlugDTO,
     db?: Tx,
   ): Promise<CategoryEntity>;
 
-  abstract bindCategoryPropertyList(
-    dto: CategoryBindPropertyListDTO,
+  abstract bindToPropertyList(
+    dto: CategoryBindToPropertyListDTO,
     db?: Tx,
   ): Promise<CategoryEntity>;
 
-  abstract bindCategoryProductList(
-    dto: CategoryBindProductListDTO,
+  abstract bindToProductList(
+    dto: CategoryBindToProductListDTO,
     db?: Tx,
   ): Promise<CategoryEntity>;
 }

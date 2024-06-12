@@ -3,14 +3,14 @@ import { categoryApi } from "../_api/category.api";
 import { CategoryRelation } from "../_domain/types";
 import { useListenCategoryUpdate } from "../_vm/event/useListenCategoryUpdate";
 
-type CategoryParams = {
+type QueryParams = {
   id?: string;
   slug?: string;
 };
 
-export const useCategoryWithRelationQuery = (params: CategoryParams) => {
+export const useCategoryWithRelationQuery = (query: QueryParams) => {
   const { data, isPending, isSuccess, isFetchedAfterMount } =
-    categoryApi.category.getRelation.useQuery<CategoryRelation>(params);
+    categoryApi.category.getRelation.useQuery<CategoryRelation>(query);
 
   useListenCategoryUpdate();
 
@@ -25,5 +25,5 @@ export const useCategoryWithRelationQuery = (params: CategoryParams) => {
 export const useInvalidateCategoryWithRelation = () => {
   const invalidateCategory =
     categoryApi.useUtils().category.getRelation.invalidate;
-  return (params: CategoryParams) => invalidateCategory(params);
+  return (params: QueryParams) => invalidateCategory(params);
 };

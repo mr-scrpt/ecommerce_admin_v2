@@ -11,7 +11,7 @@ import {
 import { cn } from "@/shared/ui/utils";
 import { FC, HTMLAttributes } from "react";
 import { useForm } from "react-hook-form";
-import { useOrderUserListToSelect } from "../_vm/useOrderOwnerList";
+import { useOrderUserListToSelectModel } from "../_vm/useOrderOwnerList";
 import { OrderSelectOwnerFormValues } from "@/entities/order";
 
 interface OrderFormProps extends HTMLAttributes<HTMLDivElement> {
@@ -23,7 +23,7 @@ export const OrderSelectOwner: FC<OrderFormProps> = (props) => {
   const { className, onSelectOwner } = props;
 
   const { toSearch, searchValue, isPending, userList } =
-    useOrderUserListToSelect();
+    useOrderUserListToSelectModel();
 
   // const handleSubmit = async (data: OrderSelectOwnerValues) => {
   //   const { ownerId } = data;

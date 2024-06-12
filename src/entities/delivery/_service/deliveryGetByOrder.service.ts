@@ -3,13 +3,13 @@ import {
   Delivery,
   DeliveryGetByOrderSelector,
 } from "../_domain/delivery.types";
-import { DeliveryRepository } from "../_repository/delivery.repo";
+import { IDeliveryRepository } from "../_domain/repository.type";
 
 @injectable()
 export class DeliveryGetByOrderService {
-  constructor(private readonly deliveryRepo: DeliveryRepository) {}
+  constructor(private readonly deliveryRepo: IDeliveryRepository) {}
 
   async execute(selector: DeliveryGetByOrderSelector): Promise<Delivery> {
-    return await this.deliveryRepo.getDeliveryByOrder(selector);
+    return await this.deliveryRepo.getByOrder(selector);
   }
 }

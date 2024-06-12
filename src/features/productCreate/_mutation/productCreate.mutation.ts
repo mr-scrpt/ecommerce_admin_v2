@@ -1,18 +1,14 @@
-import { useMutation } from "@tanstack/react-query";
-import { productCreateAction } from "../_action/productCreate.action";
+import { productCreateApi } from "../_api/productCreate.api";
 import { useEmitProductCreate } from "../_vm/event/useEmitProductCreate";
-
-const baseKey = "productCreateMutation";
 
 export const useProductCreateMutation = () => {
   const { productCreateEvent } = useEmitProductCreate();
-  const { isPending, isSuccess, mutateAsync } = useMutation({
-    mutationKey: [baseKey],
-    mutationFn: productCreateAction,
-    onSuccess: async () => {
-      productCreateEvent();
-    },
-  });
+  const { isPending, isSuccess, mutateAsync } =
+    productCreateApi.productCreate.create.useMutation({
+      onSuccess: async () => {
+        productCreateEvent();
+      },
+    });
   return {
     productCreate: mutateAsync,
     isPending,

@@ -1,26 +1,22 @@
 import { DBClient, Tx } from "@/shared/lib/db/db";
-import {
-  OrderRowChangeQuantity,
-  OrderRowEntity,
-  OrderRowToAdd,
-} from "../_domain/orderRow.types";
+import { OrderRowEntity } from "../_domain/orderRow.types";
 import { injectable } from "inversify";
+import { IOrderRowRepository } from "../_domain/repository.type";
 
 @injectable()
-export class OrderRowRepository {
+export class OrderRowRepository implements IOrderRowRepository {
   constructor(readonly db: DBClient) {}
 
-  async getOrerRowList(
-    orderId: string,
-    db: Tx = this.db,
-  ): Promise<OrderRowEntity[]> {
+  async get(id: string, db: Tx = this.db): Promise<OrderRowEntity> {
+    const result = await db.orderRow.findUniqueOrThrow({ where: { id } });
+    return result;
+  }
+
+  async getList(orderId: string, db: Tx = this.db): Promise<OrderRowEntity[]> {
     const result = await db.orderRow.findMany({ where: { orderId } });
     return result;
   }
-  async createOrderRow(
-    data: OrderRowToAdd,
-    db: Tx = this.db,
-  ): Promise<OrderRowEntity> {
+  async create(data: OrderRowToAdd, db: Tx = this.db): Promise<OrderRowEntity> {
     const result = await db.orderRow.create({ data });
     return result;
   }
@@ -30,7 +26,7 @@ export class OrderRowRepository {
     return result;
   }
 
-  async updateQuantityRow(
+  async updateQuantity(
     data: OrderRowChangeQuantity,
     db: Tx = this.db,
   ): Promise<OrderRowEntity> {
@@ -38,11 +34,6 @@ export class OrderRowRepository {
       where: { id: data.orderRowId },
       data: { quantity: data.quantity },
     });
-    return result;
-  }
-
-  async getOrderRow(id: string, db: Tx = this.db): Promise<OrderRowEntity> {
-    const result = await db.orderRow.findUniqueOrThrow({ where: { id } });
     return result;
   }
 }

@@ -16,7 +16,7 @@ export type CartRowCreateDTO = {
   data: CartRowCreate;
 };
 
-export type CartRowChangeQuantityDTO = {
+export type CartRowUpdateDTO = {
   selector: {
     id: string;
   };

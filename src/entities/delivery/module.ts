@@ -5,9 +5,10 @@ import { DeliveryRepository } from "./_repository/delivery.repo";
 import { DeliveryGetService } from "./_service/deliveryGet.service";
 import { DeliveryGetByOrderService } from "./_service/deliveryGetByOrder.service";
 import { DeliveryListGetService } from "./_service/deliveryListGet.service";
+import { IDeliveryRepository } from "./_domain/repository.type";
 
 export const DeliveryModule = new ContainerModule((bind) => {
-  bind(DeliveryRepository).toSelf();
+  bind(IDeliveryRepository).to(DeliveryRepository);
 
   bind(DeliveryGetService).toSelf();
   bind(DeliveryGetByOrderService).toSelf();

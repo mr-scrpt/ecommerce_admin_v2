@@ -14,7 +14,7 @@ import { ICartRepository } from "../_domain/repository.type";
 export class CartRepository implements ICartRepository {
   constructor(private readonly db: DBClient) {}
 
-  async getCart(dto: CartGetDTO, db: Tx = this.db): Promise<CartEntity> {
+  async get(dto: CartGetDTO, db: Tx = this.db): Promise<CartEntity> {
     const { id } = dto;
     return db.cart.findUniqueOrThrow({
       where: {
@@ -23,7 +23,7 @@ export class CartRepository implements ICartRepository {
     });
   }
 
-  async getCartByUser(
+  async getByUser(
     dto: CartGetByUserDTO,
     db: Tx = this.db,
   ): Promise<CartEntity> {
@@ -35,7 +35,7 @@ export class CartRepository implements ICartRepository {
     });
   }
 
-  async getCartRelation(
+  async getRelation(
     dto: CartGetDTO,
     db: Tx = this.db,
   ): Promise<CartRelationEntity> {
@@ -50,24 +50,24 @@ export class CartRepository implements ICartRepository {
     });
   }
 
-  async getCartList(db: Tx = this.db): Promise<CartEntity[]> {
+  async getList(db: Tx = this.db): Promise<CartEntity[]> {
     return db.cart.findMany();
   }
 
-  async createCart(dto: CartCreateDTO, db: Tx = this.db): Promise<CartEntity> {
+  async create(dto: CartCreateDTO, db: Tx = this.db): Promise<CartEntity> {
     const { data } = dto;
 
     return await db.cart.create({ data });
   }
 
-  async removeCart(dto: CartRemoveDTO, db: Tx = this.db): Promise<CartEntity> {
+  async remove(dto: CartRemoveDTO, db: Tx = this.db): Promise<CartEntity> {
     const {
       selector: { id: cartId },
     } = dto;
     return await db.cart.delete({ where: { id: cartId } });
   }
 
-  async removeCartByUserId(
+  async removeByUserId(
     dto: CartRemoveByUserDTO,
     db: Tx = this.db,
   ): Promise<CartEntity> {

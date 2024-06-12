@@ -21,6 +21,6 @@ export class GetProductListUseCase {
       throw new AuthorizatoinError();
     }
 
-    return await this.productRepo.getProductList();
+    return await this.productRepo.getList();
   }
 }

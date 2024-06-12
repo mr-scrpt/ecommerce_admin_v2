@@ -9,7 +9,7 @@ import {
 } from "./cart.dto";
 import { CartEntity, CartRelationEntity } from "./cart.types";
 import {
-  CartRowChangeQuantityDTO,
+  CartRowUpdateDTO,
   CartRowCreateDTO,
   CartRowGetByProductDTO,
   CartRowRemoveDTO,
@@ -18,22 +18,22 @@ import { CartRowEntity } from "./cartRow.types";
 
 @injectable()
 export abstract class ICartRepository {
-  abstract getCart(dto: CartGetDTO, db?: Tx): Promise<CartEntity>;
+  abstract get(dto: CartGetDTO, db?: Tx): Promise<CartEntity>;
 
-  abstract getCartByUser(dto: CartGetByUserDTO, db?: Tx): Promise<CartEntity>;
+  abstract getByUser(dto: CartGetByUserDTO, db?: Tx): Promise<CartEntity>;
 
-  abstract getCartRelation(
+  abstract getRelation(
     dto: CartGetDTO,
     db?: Tx,
   ): Promise<CartRelationEntity>;
 
-  abstract getCartList(db?: Tx): Promise<CartEntity[]>;
+  abstract getList(db?: Tx): Promise<CartEntity[]>;
 
-  abstract createCart(dto: CartCreateDTO, db?: Tx): Promise<CartEntity>;
+  abstract create(dto: CartCreateDTO, db?: Tx): Promise<CartEntity>;
 
-  abstract removeCart(dto: CartRemoveDTO, db?: Tx): Promise<CartEntity>;
+  abstract remove(dto: CartRemoveDTO, db?: Tx): Promise<CartEntity>;
 
-  abstract removeCartByUserId(
+  abstract removeByUserId(
     dto: CartRemoveByUserDTO,
     db?: Tx,
   ): Promise<CartEntity>;
@@ -47,7 +47,7 @@ export abstract class ICartRowRepository {
   ): Promise<CartRowEntity | null>;
 
   abstract updateCartRow(
-    dto: CartRowChangeQuantityDTO,
+    dto: CartRowUpdateDTO,
     db?: Tx,
   ): Promise<CartRowEntity>;
 

@@ -19,13 +19,13 @@ export class OrderRowUpdateQuantityTx extends Transaction {
   async exec(data: OrderRowUpdateQuantityComplexible): Promise<OrderRowEntity> {
     const action = async (tx: Tx) => {
       const { productId, orderRowId, quantity } = data;
-      const product = await this.productRepo.getProduct(productId, tx);
+      const product = await this.productRepo.get(productId, tx);
 
       if (product.inStock < quantity) {
         throw new Error("Not enough products in stock");
       }
 
-      await this.orderRowRepo.updateQuantityRow(
+      await this.orderRowRepo.updateQuantity(
         {
           orderRowId,
           quantity,
@@ -33,7 +33,7 @@ export class OrderRowUpdateQuantityTx extends Transaction {
         tx,
       );
 
-      const orderRow = await this.orderRowRepo.getOrderRow(orderRowId, tx);
+      const orderRow = await this.orderRowRepo.get(orderRowId, tx);
       const { orderId } = orderRow;
 
       const order = await this.orderRepo.getOrder(orderId, tx);

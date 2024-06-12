@@ -27,6 +27,6 @@ export class GetProductListSearchUseCase {
       return [];
     }
 
-    return await this.productRepo.getProductListSearch(q);
+    return await this.productRepo.getListSearch(q);
   }
 }

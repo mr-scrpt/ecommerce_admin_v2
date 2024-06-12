@@ -4,16 +4,16 @@ import {
   OrderCreateEmptyTxPayload,
   OrderEmptyCreateTxDTO,
 } from "../_domain/types";
-import { OrderCreateTx } from "../_tx/orderCreate.transaction";
 import {
   OrderPaymentStatusEnum,
   OrderStatusEnum,
 } from "@/kernel/domain/order.type";
 import { merge } from "lodash";
+import { IOrderCreateTx } from "../_domain/transaction.type";
 
 @injectable()
 export class OrderEmptyCreateService {
-  constructor(private readonly orderCreateTx: OrderCreateTx) {}
+  constructor(private readonly orderCreateTx: IOrderCreateTx) {}
 
   async execute(payload: OrderCreateEmptyTxPayload): Promise<Order> {
     const orderCreateDTO = this.build(payload);

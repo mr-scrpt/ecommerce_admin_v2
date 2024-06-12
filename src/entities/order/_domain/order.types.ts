@@ -21,6 +21,7 @@ export type OrderEntity = OrderBase & {
 
 export type OrderRelationEntity = OrderEntity & {
   orderRowList: Array<OrderRowEntity>;
+  delivery: OrderDelivery | null;
 };
 
 // NOTE: Projetions
@@ -39,6 +40,7 @@ export type Order = OrderStatusGroup & {
 
 export type OrderRelation = Order & {
   orderRowList: Array<OrderRow>;
+  delivery: OrderDelivery;
 };
 
 // NOTE: Selector
@@ -54,6 +56,10 @@ export type OrderGetByOwnerSelector = {
 export type OrderProduct = OrderRow & {
   priceOrder: number;
   quantity: number;
+};
+
+export type OrderDelivery = {
+  id: string;
 };
 
 // NOTE: UI

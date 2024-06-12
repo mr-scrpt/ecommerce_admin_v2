@@ -51,6 +51,10 @@ export type UserGetPayload = {
   id: string;
 };
 
+export type UserSearchPayload = {
+  q: string;
+};
+
 // NOTE: Side
 type UserCart = {
   id: string;

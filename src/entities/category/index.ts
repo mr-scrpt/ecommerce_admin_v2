@@ -22,8 +22,8 @@ export type {
 } from "./_domain/types";
 
 export type {
-  CategoryBindProductListDTO,
-  CategoryBindPropertyListDTO,
+  CategoryBindToProductListDTO as CategoryBindProductListDTO,
+  CategoryBindToPropertyListDTO as CategoryBindPropertyListDTO,
   CategoryCreateDTO,
   CategoryUpdateDTO,
 } from "./_domain/category.dto";

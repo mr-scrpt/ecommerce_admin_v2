@@ -22,6 +22,6 @@ export class GetproductBySlugUseCase {
       throw new AuthorizatoinError();
     }
 
-    return await this.productRepo.getProductBySlug(productSlug);
+    return await this.productRepo.getBySlug(productSlug);
   }
 }

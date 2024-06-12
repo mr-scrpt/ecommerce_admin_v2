@@ -7,6 +7,6 @@ export class CategoryListGetService {
   constructor(private readonly categoryRepo: ICategoryRepository) {}
 
   async execute(): Promise<Category[]> {
-    return await this.categoryRepo.getCategoryList();
+    return await this.categoryRepo.getList();
   }
 }
