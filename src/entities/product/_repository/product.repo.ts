@@ -20,11 +20,8 @@ export class ProductRepository implements IProductRepository {
   constructor(readonly db: DBClient) {}
 
   async get(dto: ProductGetDTO, db: Tx = this.db): Promise<ProductEntity> {
-    const { id } = dto;
     return db.product.findUniqueOrThrow({
-      where: {
-        id,
-      },
+      where: dto,
     });
   }
 
@@ -32,11 +29,8 @@ export class ProductRepository implements IProductRepository {
     dto: ProductGetDTO,
     db: Tx = this.db,
   ): Promise<ProductRelationEntity> {
-    const { id } = dto;
     return db.product.findUniqueOrThrow({
-      where: {
-        id,
-      },
+      where: dto,
       include: {
         categoryList: true,
         propertyItemListSelected: true,
@@ -48,11 +42,8 @@ export class ProductRepository implements IProductRepository {
     dto: ProductGetBySlugDTO,
     db: Tx = this.db,
   ): Promise<ProductEntity> {
-    const { slug } = dto;
     return db.product.findUniqueOrThrow({
-      where: {
-        slug,
-      },
+      where: dto,
     });
   }
 
@@ -68,7 +59,7 @@ export class ProductRepository implements IProductRepository {
     return db.product.findMany({
       where: {
         id: {
-          in: idList,
+          in: idList.map(({ id }) => id),
         },
       },
     });
@@ -131,9 +122,8 @@ export class ProductRepository implements IProductRepository {
     db: Tx = this.db,
   ): Promise<ProductEntity> {
     const { selector, data } = dto;
-    const { id } = selector;
     return await db.product.update({
-      where: { id },
+      where: selector,
       data,
     });
   }
@@ -142,11 +132,9 @@ export class ProductRepository implements IProductRepository {
     dto: ProductRemoveDTO,
     db: Tx = this.db,
   ): Promise<ProductEntity> {
-    const {
-      selector: { id },
-    } = dto;
+    const { selector } = dto;
 
-    return await db.product.delete({ where: { id } });
+    return await db.product.delete({ where: selector });
   }
 
   async bindToCategoryList(
@@ -154,13 +142,10 @@ export class ProductRepository implements IProductRepository {
     db: Tx = this.db,
   ): Promise<ProductEntity> {
     const { selector, data } = dto;
-    const { id } = selector;
     const { categoryListId } = data;
 
     return await db.product.update({
-      where: {
-        id,
-      },
+      where: selector,
       data: {
         categoryList: {
           set: categoryListId.map(({ categoryId }) => ({ id: categoryId })),
@@ -174,16 +159,13 @@ export class ProductRepository implements IProductRepository {
     db: Tx = this.db,
   ): Promise<ProductEntity> {
     const { selector, data } = dto;
-    const { id } = selector;
     const { propertyItemListId: propertyListId } = data;
 
     // const res = propertyListId.map(({ propertyId }) => ({ id: propertyId }));
     // console.log("output_log: res id =>>>", res);
 
     return db.product.update({
-      where: {
-        id,
-      },
+      where: selector,
       data: {
         propertyItemListSelected: {
           set: propertyListId.map(({ propertyItemId }) => ({

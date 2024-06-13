@@ -1,50 +1,32 @@
-// "use client";
-// import { queryOptions, useQuery, useQueryClient } from "@tanstack/react-query";
-// import { getPropertyWithRelationByCategoryAction } from "../../_action/property/getPropertyWithRelationByCategory.action";
-// import { baseQueryKey } from "../../_domain/property/types";
-// import { useListenPropertyUpdate } from "../../_vm/event/useListenPropertyUpdate";
-//
-// export const getPropertyWithRelationByCategoryQuery = (
-//   categoryIdList: Array<string>,
-// ) =>
-//   queryOptions({
-//     queryKey: [
-//       baseQueryKey,
-//       "getPropertyWithRelationByCategory",
-//       categoryIdList,
-//     ],
-//     queryFn: () =>
-//       getPropertyWithRelationByCategoryAction({
-//         categoryIdList: categoryIdList,
-//       }),
-//   });
-//
-// export const usePropertyWithRelationByCategoryQuery = (
-//   categoryIdList: Array<string>,
-// ) => {
-//   const query = getPropertyWithRelationByCategoryQuery(categoryIdList);
-//
-//   const { isPending, isSuccess, data, isFetchedAfterMount } = useQuery(query);
-//
-//   useListenPropertyUpdate();
-//
-//   return {
-//     isPending,
-//     isSuccess,
-//     propertyList: data?.propertyList ?? [],
-//     isFetchedAfterMount,
-//   };
-// };
-//
-// export const useInvalidatePropertyWithRelationByCategory = () => {
-//   const queryClient = useQueryClient();
-//
-//   return (categoryIdList: Array<string>) =>
-//     queryClient.invalidateQueries({
-//       queryKey: [
-//         baseQueryKey,
-//         "getPropertyWithRelationByCategory",
-//         categoryIdList,
-//       ],
-//     });
-// };
+"use client";
+import { PropertyRelation } from "../..";
+import { propertyApi } from "../../_api/property.api";
+import { useListenPropertyUpdate } from "../../_vm/event/useListenPropertyUpdate";
+
+type QueryParams = {
+  categoryIdList: Array<{ categoryId: string }>;
+};
+
+export const usePropertyWithRelationByCategoryQuery = (query: QueryParams) => {
+  const { isPending, isSuccess, data, isFetchedAfterMount } =
+    propertyApi.property.getListWithRelationByCategoryList.useQuery<
+      Array<PropertyRelation>
+    >(query);
+
+  useListenPropertyUpdate();
+
+  return {
+    isPending,
+    isSuccess,
+    propertyList: data ?? [],
+    isFetchedAfterMount,
+  };
+};
+
+export const useInvalidatePropertyWithRelationByCategory = () => {
+  const invalidateProperty =
+    propertyApi.useUtils().property.getListWithRelationByCategoryList
+      .invalidate;
+
+  return (query: QueryParams) => invalidateProperty(query);
+};

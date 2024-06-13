@@ -6,7 +6,7 @@ export type ProductGetDTO = {
 };
 
 export type ProductGetByIdListDTO = {
-  idList: Array<string>;
+  idList: Array<{ id: string }>;
 };
 
 export type ProductGetBySlugDTO = {
@@ -18,7 +18,7 @@ export type ProductSearchDTO = {
 };
 
 export type ProductTotalPriceGetDTO = {
-  idList: Array<string>;
+  idList: Array<{ id: string }>;
 };
 
 // NOTE: Mutations

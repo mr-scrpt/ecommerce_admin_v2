@@ -2,13 +2,15 @@ import { MultiSelectOptionItem } from "@/shared/ui/multiSelect";
 import { PropertyDataTypeEnum } from "../../../../kernel/domain/property.type";
 import { PropertyItem } from "../propertyItem/types";
 
-export const baseQueryKey = "property";
-export type PropertyId = string;
-
-export type PropertyEntity = {
-  id: PropertyId;
+// NOTE: Base
+export type PropertyBase = {
   name: string;
   datatype: PropertyDataTypeEnum;
+};
+
+// NOTE: Entity
+export type PropertyEntity = PropertyBase & {
+  id: string;
   createdAt: Date;
 };
 
@@ -17,10 +19,9 @@ export type PropertyRelationEntity = PropertyEntity & {
   propertyItemList: Array<PropertyItem>;
 };
 
-// Projetions
-
+// NOTE: Projetions
 export type Property = {
-  id: PropertyId;
+  id: string;
   name: string;
   datatype: PropertyDataTypeEnum;
   createdAt: Date;
@@ -31,17 +32,25 @@ export type PropertyRelation = Property & {
   propertyItemList: Array<PropertyItem>;
 };
 
-export type PropertyToCreate = {
-  name: string;
-  datatype: PropertyDataTypeEnum;
-  // isFilter: boolean;
+// NOTE: Selector
+export type PropertyGetSelector = {
+  id: string;
 };
 
-export type PropertyToUpdate = {
-  id: PropertyId;
-  name: string;
-  datatype: PropertyDataTypeEnum;
+export type PropertyListGetByCategoryListSelector = {
+  categoryIdList: Array<{ categoryId: string }>;
 };
+
+// export type PropertyToCreate = {
+//   name: string;
+//   datatype: PropertyDataTypeEnum;
+// };
+//
+// export type PropertyToUpdate = {
+//   id: string;
+//   name: string;
+//   datatype: PropertyDataTypeEnum;
+// };
 
 //Side
 export type PropertyCategory = {

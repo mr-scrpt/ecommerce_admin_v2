@@ -1,89 +1,87 @@
 import { DBClient, Tx } from "@/shared/lib/db/db";
-import { PropertyId } from "../_domain/property/types";
-import {
-  PropertyItemCombineCreate,
-  PropertyItemCombineUpdateOrCreate,
-  PropertyItemEntity,
-  PropertyItemId,
-  PropertyItemToUpdate,
-} from "../_domain/propertyItem/types";
 import { injectable } from "inversify";
+import {
+  PropertyItemCreateDTO,
+  PropertyItemGetDTO,
+  PropertyItemListGetByProperyDTO,
+  PropertyItemRemoveByPropertyDTO,
+  PropertyItemRemoveDTO,
+  PropertyItemUpdateDTO,
+} from "../_domain/propertyItem/propertyItem.dto";
+import { PropertyItemEntity } from "../_domain/propertyItem/types";
+import { IPropertyItemRepository } from "../_domain/propertyItem/repository.type";
 
 @injectable()
-export class PropertyItemRepository {
+export class PropertyItemRepository implements IPropertyItemRepository {
   constructor(readonly db: DBClient) {}
 
-  async getPropertyItem(
-    propertyItemId: PropertyItemId,
+  async get(
+    dto: PropertyItemGetDTO,
     db: Tx = this.db,
   ): Promise<PropertyItemEntity> {
     return db.propertyItem.findUniqueOrThrow({
-      where: {
-        id: propertyItemId,
-      },
+      where: dto,
     });
   }
 
-  async getPropertyItemList(
-    propertyId: PropertyId,
+  async getListByProperty(
+    dto: PropertyItemListGetByProperyDTO,
     db: Tx = this.db,
   ): Promise<PropertyItemEntity[]> {
     return db.propertyItem.findMany({
-      where: {
-        propertyId,
-      },
+      where: dto,
     });
   }
 
-  async createPropertyItem(
-    data: PropertyItemCombineCreate,
+  async create(
+    dto: PropertyItemCreateDTO,
     db: Tx = this.db,
   ): Promise<PropertyItemEntity> {
-    const { propertyId, ...propertyItem } = data;
+    const { data } = dto;
     return await db.propertyItem.create({
-      data: { ...propertyItem, propertyId },
+      data,
     });
   }
 
-  async updatePropertyItem(
-    propertyItemId: PropertyItemId,
-    propertyItemData: Partial<PropertyItemToUpdate>,
+  async update(
+    dto: PropertyItemUpdateDTO,
     db: Tx = this.db,
   ): Promise<PropertyItemEntity> {
+    const { selector, data } = dto;
     return await db.propertyItem.update({
-      where: { id: propertyItemId },
-      data: propertyItemData,
+      where: selector,
+      data,
     });
   }
 
-  async updateOrCreatePropertyItem(
-    data: PropertyItemCombineUpdateOrCreate,
+  // async updateOrCreate(
+  //   data: PropertyItemCombineUpdateOrCreate,
+  //   db: Tx = this.db,
+  // ): Promise<PropertyItemEntity> {
+  //   const { id, ...propertyItem } = data;
+  //   return await db.propertyItem.upsert({
+  //     where: { id: id ?? "" },
+  //
+  //     create: { ...propertyItem },
+  //     update: { ...propertyItem },
+  //   });
+  // }
+
+  async remove(
+    dto: PropertyItemRemoveDTO,
     db: Tx = this.db,
   ): Promise<PropertyItemEntity> {
-    const { id, ...propertyItem } = data;
-    return await db.propertyItem.upsert({
-      where: { id: id ?? "" },
-
-      create: { ...propertyItem },
-      update: { ...propertyItem },
-    });
+    const { selector } = dto;
+    return await db.propertyItem.delete({ where: selector });
   }
 
-  async removePropertyItem(
-    propertyItemId: PropertyItemId,
-    db: Tx = this.db,
-  ): Promise<PropertyItemEntity> {
-    return await db.propertyItem.delete({ where: { id: propertyItemId } });
-  }
-
-  async removePropertyRelation(
-    propertyId: PropertyId,
+  async removeByProperty(
+    dto: PropertyItemRemoveByPropertyDTO,
     db: Tx = this.db,
   ): Promise<void> {
+    const { selector } = dto;
     await db.propertyItem.deleteMany({
-      where: {
-        propertyId,
-      },
+      where: selector,
     });
   }
 }

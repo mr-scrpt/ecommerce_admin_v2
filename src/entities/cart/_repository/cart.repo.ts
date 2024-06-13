@@ -15,11 +15,8 @@ export class CartRepository implements ICartRepository {
   constructor(private readonly db: DBClient) {}
 
   async get(dto: CartGetDTO, db: Tx = this.db): Promise<CartEntity> {
-    const { id } = dto;
     return db.cart.findUniqueOrThrow({
-      where: {
-        id,
-      },
+      where: dto,
     });
   }
 
@@ -27,11 +24,8 @@ export class CartRepository implements ICartRepository {
     dto: CartGetByUserDTO,
     db: Tx = this.db,
   ): Promise<CartEntity> {
-    const { userId: id } = dto;
     return db.cart.findUniqueOrThrow({
-      where: {
-        userId: id,
-      },
+      where: dto,
     });
   }
 
@@ -39,11 +33,8 @@ export class CartRepository implements ICartRepository {
     dto: CartGetDTO,
     db: Tx = this.db,
   ): Promise<CartRelationEntity> {
-    const { id } = dto;
     return db.cart.findUniqueOrThrow({
-      where: {
-        id,
-      },
+      where: dto,
       include: {
         cartRowList: true,
       },
@@ -61,19 +52,15 @@ export class CartRepository implements ICartRepository {
   }
 
   async remove(dto: CartRemoveDTO, db: Tx = this.db): Promise<CartEntity> {
-    const {
-      selector: { id: cartId },
-    } = dto;
-    return await db.cart.delete({ where: { id: cartId } });
+    const { selector } = dto;
+    return await db.cart.delete({ where: selector });
   }
 
   async removeByUserId(
     dto: CartRemoveByUserDTO,
     db: Tx = this.db,
   ): Promise<CartEntity> {
-    const {
-      selector: { userId },
-    } = dto;
-    return await db.cart.delete({ where: { userId } });
+    const { selector } = dto;
+    return await db.cart.delete({ where: selector });
   }
 }

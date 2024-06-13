@@ -23,7 +23,7 @@ export class PropertyCreateTx extends Transaction {
     const action = async (tx: Tx) => {
       const { propertyItemListData, propertyData } = data;
 
-      const propertyCreated = await this.propertyRepo.createProperty(
+      const propertyCreated = await this.propertyRepo.create(
         propertyData,
         tx,
       );
@@ -31,14 +31,14 @@ export class PropertyCreateTx extends Transaction {
       const propertyItemListCreated = [];
 
       for await (const item of propertyItemListData) {
-        const itemCreated = await this.propertyItemRepo.createPropertyItem(
+        const itemCreated = await this.propertyItemRepo.create(
           { ...item, propertyId: propertyCreated.id },
           tx,
         );
         propertyItemListCreated.push(itemCreated);
       }
 
-      return await this.propertyRepo.getProperty(propertyCreated.id, tx);
+      return await this.propertyRepo.get(propertyCreated.id, tx);
     };
 
     return await this.start(action);

@@ -22,16 +22,16 @@ export class PropertyUpdateTx extends Transaction {
   ): Promise<PropertyEntity> {
     const { propertyId, propertyData, propertyItemListData } = data;
     const action = async (tx: Tx) => {
-      await this.propertyRepo.updateProperty(propertyId, propertyData, tx);
+      await this.propertyRepo.update(propertyId, propertyData, tx);
 
-      const propertyListOld = await this.propertyItemRepo.getPropertyItemList(
+      const propertyListOld = await this.propertyItemRepo.getListByProperty(
         propertyId,
         tx,
       );
 
       await Promise.all(
         propertyItemListData.map(async (itemData) => {
-          await this.propertyItemRepo.updateOrCreatePropertyItem(
+          await this.propertyItemRepo.updateOrCreate(
             { ...itemData, propertyId }, // Добавляем propertyId в данные перед вызовом функции
             tx,
           );
@@ -45,11 +45,11 @@ export class PropertyUpdateTx extends Transaction {
 
       await Promise.all(
         itemsToDelete.map(async (item) => {
-          await this.propertyItemRepo.removePropertyItem(item.id, tx);
+          await this.propertyItemRepo.remove(item.id, tx);
         }),
       );
 
-      return await this.propertyRepo.getProperty(propertyId, tx);
+      return await this.propertyRepo.get(propertyId, tx);
     };
 
     return await this.start(action);

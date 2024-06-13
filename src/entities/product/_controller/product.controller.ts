@@ -6,11 +6,13 @@ import {
 } from "../_domain/product.schema";
 import {
   getInputSchema,
+  getListByIdListInputSchema,
   getListOutputSchema,
 } from "../_domain/validator.schema";
 import { ProductGetService } from "../_service/productGet.service";
 import { ProductRelationGetService } from "../_service/productRelationGet.service";
 import { ProductListGetService } from "../_service/productListGet.service";
+import { ProductListGetByIdListService } from "../_service/productListGetByIdList.service";
 
 @injectable()
 export class ProductController extends Controller {
@@ -18,6 +20,7 @@ export class ProductController extends Controller {
     private readonly getProductService: ProductGetService,
     private readonly getProductRelationService: ProductRelationGetService,
     private readonly getProductListService: ProductListGetService,
+    private readonly getProductListByIdListService: ProductListGetByIdListService,
   ) {
     super();
   }
@@ -41,6 +44,14 @@ export class ProductController extends Controller {
 
         return getListOutputSchema.parse(result);
       }),
+      getListByIdList: publicProcedure
+        .input(getListByIdListInputSchema)
+        .query(async ({ input }) => {
+          const result =
+            await this.getProductListByIdListService.execute(input);
+
+          return getListOutputSchema.parse(result);
+        }),
       // search: publicProcedure.input(getInputSchema).query(async ({ input }) => {
       //   const result = await this.getProductListService.execute(input);
       //

@@ -18,17 +18,16 @@ export { usePropertyListWithDataActive } from "./_vm/usePropertyListWithDataActi
 export type {
   Property,
   PropertyEntity,
-  PropertyId,
   PropertyRelation,
   PropertyRelationEntity,
-  PropertyToSelect,
-  PropertyToCreate,
-  PropertyToUpdate,
+  // PropertyToSelect,
+  // PropertyToCreate,
+  // PropertyToUpdate,
 } from "./_domain/property/types";
 
 export type {
   PropertyItem,
   PropertyItemRelation,
-  PropertyItemToCreate,
-  PropertyItemToUpdate,
+  // PropertyItemToCreate,
+  // PropertyItemToUpdate,
 } from "./_domain/propertyItem/types";

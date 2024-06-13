@@ -4,8 +4,6 @@ import { useListenCartUpdate } from "../_vm/event/useListenCartUpdate";
 
 // TODO: need id to invalidate?
 export const useCartWithRelationQuery = () => {
-  // const query = getCartWithRelationQuery(cartId);
-
   const { isPending, isSuccess, data, isFetchedAfterMount } =
     cartApi.cart.getRelation.useQuery();
 

@@ -2,11 +2,13 @@
 import { postApi } from "../_api/post.api";
 import { PostOffice } from "../_domain/post.type";
 
-export const usePostOfficeListQuery = (settlementId: string) => {
+type QueryParams = {
+  settlementId: string;
+};
+
+export const usePostOfficeListBySettlementQuery = (query: QueryParams) => {
   const { isPending, isSuccess, isFetchedAfterMount, data } =
-    postApi.post.getOfficeListBySettlement.useQuery<Array<PostOffice>>({
-      settlementId,
-    });
+    postApi.post.getOfficeListBySettlement.useQuery<Array<PostOffice>>(query);
 
   return {
     isPending,
@@ -16,9 +18,9 @@ export const usePostOfficeListQuery = (settlementId: string) => {
   };
 };
 
-export const useInvalidatePostOfficeListToSelect = () => {
+export const useInvalidatePostOfficeListBySettlement = () => {
   const invalidatePostOfficeList =
     postApi.useUtils().post.getOfficeListBySettlement.invalidate;
 
-  return (settlementId: string) => invalidatePostOfficeList({ settlementId });
+  return (query: QueryParams) => invalidatePostOfficeList(query);
 };

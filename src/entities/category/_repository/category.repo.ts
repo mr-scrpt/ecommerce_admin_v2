@@ -18,12 +18,8 @@ export class CategoryRepository implements ICategoryRepository {
   constructor(private readonly db: DBClient) {}
 
   async get(dto: CategoryGetDTO, db: Tx = this.db): Promise<CategoryEntity> {
-    const { id } = dto;
-
     const res = db.category.findUniqueOrThrow({
-      where: {
-        id,
-      },
+      where: dto,
     });
 
     return res;
@@ -33,12 +29,8 @@ export class CategoryRepository implements ICategoryRepository {
     dto: CategoryGetDTO,
     db: Tx = this.db,
   ): Promise<CategoryRelationEntity> {
-    const { id } = dto;
-
     return await db.category.findUniqueOrThrow({
-      where: {
-        id,
-      },
+      where: dto,
       include: {
         propertyList: true,
         productList: true,
@@ -50,12 +42,8 @@ export class CategoryRepository implements ICategoryRepository {
     dto: CategoryGetBySlugDTO,
     db: Tx = this.db,
   ): Promise<CategoryEntity> {
-    const { slug } = dto;
-
     return db.category.findUniqueOrThrow({
-      where: {
-        slug,
-      },
+      where: dto,
     });
   }
 
@@ -63,12 +51,8 @@ export class CategoryRepository implements ICategoryRepository {
     dto: CategoryGetBySlugDTO,
     db: Tx = this.db,
   ): Promise<CategoryRelationEntity> {
-    const { slug } = dto;
-
     return await db.category.findUniqueOrThrow({
-      where: {
-        slug,
-      },
+      where: dto,
       include: {
         propertyList: true,
         productList: true,
@@ -95,11 +79,10 @@ export class CategoryRepository implements ICategoryRepository {
     dto: CategoryUpdateDTO,
     db: Tx = this.db,
   ): Promise<CategoryEntity> {
-    const { selector, data } = dto;
-    const { id } = selector;
+    const { data, selector } = dto;
 
     return await db.category.update({
-      where: { id },
+      where: selector,
       data,
     });
   }
@@ -110,7 +93,7 @@ export class CategoryRepository implements ICategoryRepository {
   ): Promise<CategoryEntity> {
     const { selector } = dto;
 
-    return await db.category.delete({ where: { id: selector.id } });
+    return await db.category.delete({ where: selector });
   }
 
   async removeBySlug(
@@ -119,7 +102,7 @@ export class CategoryRepository implements ICategoryRepository {
   ): Promise<CategoryEntity> {
     const { selector } = dto;
 
-    return await db.category.delete({ where: { slug: selector.slug } });
+    return await db.category.delete({ where: selector });
   }
 
   async bindToPropertyList(
@@ -127,13 +110,10 @@ export class CategoryRepository implements ICategoryRepository {
     db: Tx = this.db,
   ): Promise<CategoryEntity> {
     const { selector, data } = dto;
-    const { id } = selector;
     const { propertyListId } = data;
 
     return await db.category.update({
-      where: {
-        id,
-      },
+      where: selector,
       data: {
         propertyList: {
           set: propertyListId.map(({ propertyId }) => ({ id: propertyId })),
@@ -147,13 +127,10 @@ export class CategoryRepository implements ICategoryRepository {
     db: Tx = this.db,
   ): Promise<CategoryEntity> {
     const { selector, data } = dto;
-    const { id } = selector;
     const { productListId } = data;
 
     return await db.category.update({
-      where: {
-        id,
-      },
+      where: selector,
       data: {
         productList: {
           connect: productListId.map(({ productId }) => ({ id: productId })),

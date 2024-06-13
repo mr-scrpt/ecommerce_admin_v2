@@ -12,6 +12,7 @@ export class PostRepository {
     dto: PostOfficeGetBySettlementDTO,
   ): Promise<Array<PostOfficeEntity>> {
     const { settlementId } = dto;
+
     const postOfficeList =
       await this.novaposhta.getPostOfficeListBySettlement(settlementId);
     const postOfficeListConverted: Array<PostOfficeEntity> = [];

@@ -1,11 +1,15 @@
 "use client";
 import { convertPostToLowerCase } from "../_domain/post.convertor";
 import { PostOfficeEntity, PostOfficeToSelect } from "../_domain/post.type";
-import { usePostOfficeListQuery } from "../_query/usePostOfficeList.query";
+import { usePostOfficeListBySettlementQuery } from "../_query/usePostOfficeListBySettlement.query";
 
-export const usePostOfficeListToSelectModel = (settlementId: string) => {
+type QueryParams = {
+  settlementId: string;
+};
+
+export const usePostOfficeListToSelectModel = (query: QueryParams) => {
   const { isPending, isSuccess, isFetchedAfterMount, postOfficeList } =
-    usePostOfficeListQuery(settlementId);
+    usePostOfficeListBySettlementQuery(query);
 
   const convertedPostOfficeList: Array<PostOfficeEntity> = [];
 

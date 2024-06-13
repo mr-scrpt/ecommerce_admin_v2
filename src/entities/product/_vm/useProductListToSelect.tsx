@@ -3,9 +3,9 @@ import { useProductListQuery } from "../_query/productList.query";
 // interface useProductListToSelectProps {}
 
 export const useProductListToSelect = () => {
-  const { data, isPending } = useProductListQuery();
+  const { product, isPending } = useProductListQuery();
 
-  const productList = data?.map((item) => ({
+  const productList = product?.map((item) => ({
     label: item.name,
     value: item.id,
   }));

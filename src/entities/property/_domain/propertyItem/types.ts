@@ -1,50 +1,65 @@
-import { PropertyId } from "../property/types";
-
-// export const baseQueryKey = "property";
-export type PropertyItemId = string;
-
-export type PropertyItemEntity = {
-  id: PropertyId;
+// NOTE: Base
+export type PropertyItemBase = {
   name: string;
   value: string;
+};
+
+// NOTE: Entity
+export type PropertyItemEntity = PropertyItemBase & {
+  id: string;
   createdAt: Date;
 };
 
-// Projetions
-
+// NOTE: Projetions
 export type PropertyItem = {
-  id: PropertyItemId;
+  id: string;
   name: string;
   value: string;
 };
 
 export type PropertyItemRelation = {
-  id: PropertyItemId;
+  id: string;
+  propertyId: string;
   name: string;
   value: string;
+  productList: Array<PropertyProduct>;
 };
 
-export type PropertyItemCombineCreate = {
-  propertyId: PropertyId;
-  name: string;
-  value: string;
+// NOTE: Selector
+export type PropertyItemGetSelector = {
+  id: string;
 };
 
-export type PropertyItemCombineUpdateOrCreate = {
-  propertyId: PropertyId;
-  id?: PropertyItemId;
-  name: string;
-  value: string;
+// NOTE: Side
+type PropertyProduct = {
+  id: string;
+  // name: string;
+  // slug: string;
+  // img: string[];
+  // createdAt: Date;
 };
 
-export type PropertyItemToCreate = {
-  name: string;
-  value: string;
-};
-
-export type PropertyItemToUpdate = {
-  // propertyId: PropertyId;
-  id?: PropertyItemId;
-  name: string;
-  value: string;
-};
+// export type PropertyItemCombineCreate = {
+//   propertyId: string;
+//   name: string;
+//   value: string;
+// };
+//
+// export type PropertyItemCombineUpdateOrCreate = {
+//   propertyId: string;
+//   id?: string;
+//   name: string;
+//   value: string;
+// };
+//
+// export type PropertyItemToCreate = {
+//   name: string;
+//   value: string;
+// };
+//
+// export type PropertyItemToUpdate = {
+//   // propertyId: PropertyId;
+//   id?: string;
+//   name: string;
+//   value: string;
+// };

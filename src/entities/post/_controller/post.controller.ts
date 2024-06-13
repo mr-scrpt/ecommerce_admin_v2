@@ -4,7 +4,7 @@ import {
   getBySettlementInputSchema,
   getListOutputSchema,
 } from "../_domain/validator.schema";
-import { PostOfficeListGetService } from "../_service/postOfficeListGet.service";
+import { PostOfficeListGetService } from "../_service/postOfficeListGetBySettlement.service";
 
 @injectable()
 export class PostController extends Controller {

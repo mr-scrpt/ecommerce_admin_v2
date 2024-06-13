@@ -18,9 +18,9 @@ export class PropertyRemoveTx extends Transaction {
 
   async removePropertyById(propertyId: PropertyId): Promise<PropertyEntity> {
     const action = async (tx: Tx) => {
-      await this.propertyItemRepo.removePropertyRelation(propertyId, tx);
+      await this.propertyItemRepo.removeByProperty(propertyId, tx);
 
-      return await this.propertyRepo.removePropertyById(propertyId, tx);
+      return await this.propertyRepo.remove(propertyId, tx);
     };
 
     return await this.start(action);

@@ -1,38 +1,36 @@
 import { DBClient, Tx } from "@/shared/lib/db/db";
-import {
-  Property,
-  PropertyEntity,
-  PropertyId,
-  PropertyRelationEntity,
-  PropertyToCreate,
-} from "../_domain/property/types";
 import { injectable } from "inversify";
+import {
+  PropertyCreateDTO,
+  PropertyGetByCategoryIdListDTO,
+  PropertyGetDTO,
+  PropertyRemoveDTO,
+  PropertyUpdateDTO,
+} from "../_domain/property/property.dto";
+import { IPropertyRepository } from "../_domain/property/repository.type";
+import {
+  PropertyEntity,
+  PropertyRelationEntity,
+} from "../_domain/property/types";
 
 @injectable()
-export class PropertyRepository {
+export class PropertyRepository implements IPropertyRepository {
   constructor(readonly db: DBClient) {}
 
-  async getProperty(
-    propertyId: PropertyId,
-    db: Tx = this.db,
-  ): Promise<PropertyEntity> {
+  async get(dto: PropertyGetDTO, db: Tx = this.db): Promise<PropertyEntity> {
     const property = await db.property.findUniqueOrThrow({
-      where: {
-        id: propertyId,
-      },
+      where: dto,
     });
 
     return property;
   }
 
-  async getPropertyWithRelation(
-    propertyId: PropertyId,
+  async getWithRelation(
+    dto: PropertyGetDTO,
     db: Tx = this.db,
   ): Promise<PropertyRelationEntity> {
     const property = await db.property.findUniqueOrThrow({
-      where: {
-        id: propertyId,
-      },
+      where: dto,
       include: {
         categoryList: true,
         propertyItemList: true,
@@ -46,16 +44,17 @@ export class PropertyRepository {
     return property;
   }
 
-  async getPropertyWithRelationByCategory(
-    categoryIdList: Array<string>,
+  async getWithRelationByCategoryIdList(
+    dto: PropertyGetByCategoryIdListDTO,
     db: Tx = this.db,
   ): Promise<PropertyRelationEntity[]> {
+    const { categoryIdList } = dto;
     const propertyList = await db.property.findMany({
       where: {
         categoryList: {
           some: {
             id: {
-              in: categoryIdList,
+              in: categoryIdList.map(({ categoryId: id }) => id),
             },
           },
         },
@@ -73,7 +72,7 @@ export class PropertyRepository {
     return propertyList;
   }
 
-  async getPropertyList(db: Tx = this.db): Promise<PropertyEntity[]> {
+  async getList(db: Tx = this.db): Promise<PropertyEntity[]> {
     const propertyList = await db.property.findMany();
 
     // return propertyList.map((property) => ({
@@ -83,16 +82,14 @@ export class PropertyRepository {
     return propertyList;
   }
 
-  async createProperty(
-    propertyData: PropertyToCreate,
+  async create(
+    dto: PropertyCreateDTO,
     db: Tx = this.db,
   ): Promise<PropertyEntity> {
-    console.log("output_log: propertyData =>>>", propertyData);
+    const { data } = dto;
+
     const propertyCreated = await db.property.create({
-      data: {
-        ...propertyData,
-        // datatype: mapEnumToPrismaDatatype(propertyData.datatype),
-      },
+      data,
     });
     // return {
     //   ...propertyCreated,
@@ -101,22 +98,19 @@ export class PropertyRepository {
     return propertyCreated;
   }
 
-  async updateProperty(
-    targetId: PropertyId,
-    propertyData: Partial<Property>,
+  async update(
+    dto: PropertyUpdateDTO,
     db: Tx = this.db,
   ): Promise<PropertyEntity> {
+    const { selector, data } = dto;
     // const prismaDatatype =
     //   propertyData.datatype !== undefined
     //     ? mapEnumToPrismaDatatype(propertyData.datatype)
     //     : undefined;
 
     const propertyUpdated = await db.property.update({
-      where: { id: targetId },
-      data: {
-        ...propertyData,
-        // datatype: prismaDatatype ?? undefined,
-      },
+      where: selector,
+      data,
     });
 
     // return {
@@ -126,12 +120,13 @@ export class PropertyRepository {
     return propertyUpdated;
   }
 
-  async removePropertyById(
-    propertyId: PropertyId,
+  async remove(
+    dto: PropertyRemoveDTO,
     db: Tx = this.db,
   ): Promise<PropertyEntity> {
+    const { selector } = dto;
     const deletedProperty = await db.property.delete({
-      where: { id: propertyId },
+      where: selector,
     });
     // return {
     //   ...deletedProperty,

@@ -1,24 +1,21 @@
 import { Controller, publicProcedure, router } from "@/kernel/lib/trpc/server";
 import { injectable } from "inversify";
 import { z } from "zod";
+import {
+  propertyRelationSchema,
+  propertySchema,
+} from "../_domain/property/property.schema";
+import {
+  getByCategoryListInputSchema,
+  getInputSchema,
+  getListOutputSchema,
+} from "../_domain/property/validator.schema";
 import { PropertyGetService } from "../_service/propertyGet.service";
-import { propertySchema } from "../_domain/property/property.schema";
 import { PropertyListGetService } from "../_service/propertyListGet.service";
+import { PropertyListGetWithRelationByCategoryListService } from "../_service/propertyListGetWithRelationByCategory.service";
 import { PropertyGetWithRelationService } from "../_service/propertyWithRelationGet.service";
-import { PropertyListWithRelationGetByService } from "../_service/propertyListGetWithRelationBy.service";
 
 const propertyListSchema = z.array(propertySchema);
-const getProperty = z.object({
-  propertyId: z.string(),
-});
-
-const getPropertyListBySchema = z
-  .object({
-    categoryIdList: z.array(z.string()).optional(),
-  })
-  .refine((data) => data.categoryIdList, {
-    message: "Either 'categoryIdList' or '...' is required",
-  });
 
 @injectable()
 export class PropertyController extends Controller {
@@ -26,33 +23,33 @@ export class PropertyController extends Controller {
     private readonly getPropertyService: PropertyGetService,
     private readonly getPropertyWithRelationService: PropertyGetWithRelationService,
     private readonly getPropertyList: PropertyListGetService,
-    private readonly getPropertyListWithRelationBy: PropertyListWithRelationGetByService,
+    private readonly getPropertyListWithRelationByCategoryList: PropertyListGetWithRelationByCategoryListService,
   ) {
     super();
   }
 
   public router = router({
     property: {
-      get: publicProcedure.input(getProperty).query(async ({ input }) => {
+      get: publicProcedure.input(getInputSchema).query(async ({ input }) => {
         const result = await this.getPropertyService.execute(input);
         return propertySchema.parse(result);
       }),
       getWithRelation: publicProcedure
-        .input(getProperty)
+        .input(getInputSchema)
         .query(async ({ input }) => {
           const result =
             await this.getPropertyWithRelationService.execute(input);
-          return propertySchema.parse(result);
+          return propertyRelationSchema.parse(result);
         }),
       getList: publicProcedure.query(async () => {
         const result = await this.getPropertyList.execute();
-        return propertyListSchema.parse(result);
+        return getListOutputSchema.parse(result);
       }),
-      getListBy: publicProcedure
-        .input(getPropertyListBySchema)
+      getListWithRelationByCategoryList: publicProcedure
+        .input(getByCategoryListInputSchema)
         .query(async ({ input }) => {
           const result =
-            await this.getPropertyListWithRelationBy.execute(input);
+            await this.getPropertyListWithRelationByCategoryList.execute(input);
           return propertyListSchema.parse(result);
         }),
     },

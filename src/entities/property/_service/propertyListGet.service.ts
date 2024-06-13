@@ -1,12 +1,12 @@
 import { injectable } from "inversify";
-import { PropertyRepository } from "../server";
-import { PropertyEntity } from "../_domain/property/types";
+import { IPropertyRepository } from "../_domain/property/repository.type";
+import { Property } from "../_domain/property/types";
 
 @injectable()
 export class PropertyListGetService {
-  constructor(private readonly propertyRepo: PropertyRepository) {}
+  constructor(private readonly propertyRepo: IPropertyRepository) {}
 
-  async execute(): Promise<Array<PropertyEntity>> {
-    return await this.propertyRepo.getPropertyList();
+  async execute(): Promise<Array<Property>> {
+    return await this.propertyRepo.getList();
   }
 }

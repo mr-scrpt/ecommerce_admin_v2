@@ -24,11 +24,8 @@ export class DeliveryRepository implements IDeliveryRepository {
     dto: DeliveryGetByOrderDTO,
     db: Tx = this.db,
   ): Promise<DeliveryEntity> {
-    const { orderId } = dto;
     const result = await db.delivery.findUniqueOrThrow({
-      where: {
-        orderId,
-      },
+      where: dto,
     });
     return result;
   }
@@ -52,12 +49,9 @@ export class DeliveryRepository implements IDeliveryRepository {
     db: Tx = this.db,
   ): Promise<DeliveryEntity> {
     const { selector, data } = dto;
-    const { id } = selector;
 
     return await db.delivery.update({
-      where: {
-        id,
-      },
+      where: selector,
       data,
     });
   }

@@ -22,7 +22,9 @@ export const usePropertyListByCategoryIdList = (
   }, [categoryIdListActive, setCategoryIdList]);
 
   const { isPending, isSuccess, propertyList, isFetchedAfterMount } =
-    usePropertyWithRelationByCategoryQuery(categoryIdList);
+    usePropertyWithRelationByCategoryQuery({
+      categoryIdList: categoryIdList.map((id) => ({ categoryId: id })),
+    });
 
   const propertyListCompleted: Array<PropertyToSelect> = propertyList.map(
     (property) => ({

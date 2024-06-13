@@ -6,6 +6,7 @@ import { ProductRepository } from "./_repository/product.repo";
 import { ProductGetService } from "./_service/productGet.service";
 import { ProductRelationGetService } from "./_service/productRelationGet.service";
 import { ProductListGetService } from "./_service/productListGet.service";
+import { ProductListGetByIdListService } from "./_service/productListGetByIdList.service";
 
 export const ProductModule = new ContainerModule((bind) => {
   bind(IProductRepository).to(ProductRepository);
@@ -13,6 +14,7 @@ export const ProductModule = new ContainerModule((bind) => {
   bind(ProductGetService).toSelf();
   bind(ProductRelationGetService).toSelf();
   bind(ProductListGetService).toSelf();
+  bind(ProductListGetByIdListService).toSelf();
 
   bind(Controller).to(ProductController);
 });

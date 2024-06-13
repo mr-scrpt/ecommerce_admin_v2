@@ -3,9 +3,12 @@ import { deliveryApi } from "../_api/delivery.api";
 import { Delivery } from "../_domain/delivery.types";
 import { useListenDeliveryUpdate } from "../_vm/event/useListenDeliveryUpdate";
 
-export const useDeliveryByOrderIdQuery = (orderId: string) => {
+type QueryParams = {
+  orderId: string;
+};
+export const useDeliveryByOrderIdQuery = (query: QueryParams) => {
   const { isPending, isSuccess, isFetchedAfterMount, data } =
-    deliveryApi.delivery.getByOrder.useQuery<Delivery>({ orderId });
+    deliveryApi.delivery.getByOrder.useQuery<Delivery>(query);
 
   useListenDeliveryUpdate();
 
@@ -20,5 +23,5 @@ export const useDeliveryByOrderIdQuery = (orderId: string) => {
 export const useInvalidateOrderIdDelivery = () => {
   const invalidateDelivery =
     deliveryApi.useUtils().delivery.getByOrder.invalidate;
-  return (orderId: string) => invalidateDelivery({ orderId });
+  return (query: QueryParams) => invalidateDelivery(query);
 };
