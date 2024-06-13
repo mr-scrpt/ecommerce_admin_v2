@@ -2,7 +2,7 @@ import { PropertyDataTypeEnum } from "@/kernel/domain/property.type";
 import { z } from "zod";
 
 // NOTE: Side
-const productListItemSchema = z.object({
+const productItemSchema = z.object({
   id: z.string(),
   name: z.string(),
   slug: z.string(),
@@ -34,6 +34,6 @@ export const categoryRelationSchema = z.object({
   id: z.string(),
   ...categoryBaseSchema.shape,
 
-  productList: z.array(productListItemSchema),
+  productList: z.array(productItemSchema),
   propertyList: z.array(propertyListItemSchema),
 });

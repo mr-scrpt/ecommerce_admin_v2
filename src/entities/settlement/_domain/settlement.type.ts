@@ -1,5 +1,4 @@
-export const baseQueryKey = "settlement";
-type SettlementBase = {
+export type SettlementBase = {
   ref: string;
   settlementType: string;
   latitude: string;
@@ -44,11 +43,17 @@ export type SettlementEntity = SettlementBase & {
 
 export type Settlement = SettlementBase;
 
-// NOTE: Actions
-export type SettlementToCreate = Settlement;
-export type SettlementToUpdate = Settlement & {
-  id: string;
+// NOTE: Selector
+
+export type SettlementSearchSelector = {
+  q: string;
 };
+
+// // NOTE: Actions
+// export type SettlementToCreate = Settlement;
+// export type SettlementToUpdate = Settlement & {
+//   id: string;
+// };
 
 // NOTE: UI
 export type SettleToSelect = {

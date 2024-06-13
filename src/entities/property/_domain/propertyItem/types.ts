@@ -15,6 +15,7 @@ export type PropertyItem = {
   id: string;
   name: string;
   value: string;
+  createdAt: Date;
 };
 
 export type PropertyItemRelation = {

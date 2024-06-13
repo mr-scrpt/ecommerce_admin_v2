@@ -1,6 +1,6 @@
 "use client";
 import { useAppSession } from "@/kernel/lib/nextauth";
-import { ClientNetworkData } from "@/entities/session/_domain/types";
+import { ClientNetworkData } from "@/kernel/session/_domain/types";
 import { getCookie, setCookie } from "cookies-next";
 import { FC, HTMLAttributes, useEffect } from "react";
 import { configPublic } from "@/shared/config/public.config";

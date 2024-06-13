@@ -10,3 +10,4 @@ export const getByCategoryListInputSchema = z.object({
 });
 
 export const getListOutputSchema = z.array(propertySchema);
+export const getListRelationOutputSchema = z.array(propertySchema);

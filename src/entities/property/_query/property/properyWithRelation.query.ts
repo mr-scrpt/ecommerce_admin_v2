@@ -1,4 +1,5 @@
 "use client";
+import { PropertyRelation } from "../..";
 import { propertyApi } from "../../_api/property.api";
 import { useListenPropertyUpdate } from "../../_vm/event/useListenPropertyUpdate";
 
@@ -8,7 +9,7 @@ type QueryParams = {
 
 export const usePropertyWithRelationQuery = (query: QueryParams) => {
   const { isPending, isSuccess, data, isFetchedAfterMount } =
-    propertyApi.property.getWithRelation.useQuery(query);
+    propertyApi.property.getWithRelation.useQuery<PropertyRelation>(query);
 
   useListenPropertyUpdate();
 

@@ -1,10 +1,11 @@
 "use client";
+import { Property } from "../..";
 import { propertyApi } from "../../_api/property.api";
 import { useListenPropertyListUpdate } from "../../_vm/event/useListenPropertyListUpdate";
 
 export const usePropertyListQuery = () => {
   const { isPending, isSuccess, isFetchedAfterMount, data } =
-    propertyApi.property.getList.useQuery();
+    propertyApi.property.getList.useQuery<Array<Property>>();
 
   useListenPropertyListUpdate();
 

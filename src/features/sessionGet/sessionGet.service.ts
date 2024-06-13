@@ -1,5 +1,5 @@
-import { SessionWithDataPayload } from "@/entities/session";
-import { getNetworkClientCookie } from "@/entities/session/coockieParser";
+import { SessionWithDataPayload } from "@/kernel/session";
+import { getNetworkClientCookie } from "@/kernel/session/coockieParser";
 import { IUserRepository } from "@/entities/user/user.server";
 import { ISessionGetRelationService } from "@/kernel/lib/nextauth/type";
 import { configPrivate } from "@/shared/config/private.config";

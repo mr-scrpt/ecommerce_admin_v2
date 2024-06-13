@@ -1,7 +1,6 @@
 import { z } from "zod";
 
 // NOTE: Base Schema
-
 const settlementBaseSchema = z.object({
   ref: z.string(),
   settlementType: z.string(),
@@ -38,6 +37,7 @@ const settlementBaseSchema = z.object({
   warehouse: z.string(),
 });
 
+// NOTE: Main
 export const settlementSchema = z.object({
   id: z.string(),
   ...settlementBaseSchema.shape,

@@ -30,10 +30,7 @@ export abstract class IProductRepository {
     db?: Tx,
   ): Promise<ProductEntity[]>;
 
-  abstract getListSearch(
-    dto: ProductSearchDTO,
-    db?: Tx,
-  ): Promise<ProductEntity[]>;
+  abstract searchList(dto: ProductSearchDTO, db?: Tx): Promise<ProductEntity[]>;
 
   abstract getTotalPrice(
     dto: ProductTotalPriceGetDTO,

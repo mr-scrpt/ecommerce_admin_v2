@@ -1,9 +1,10 @@
 import { injectable } from "inversify";
 import { NovaPoshtaApi } from "./novaposhta.api";
 import { PostOfficeNovaPoshta, SettlementNovaPoshta } from "./novaposhta.type";
+import { INovaPoshtaRepository } from "./repository.type";
 
 @injectable()
-export class NovaPoshtaRepository {
+export class NovaPoshtaRepository implements INovaPoshtaRepository {
   constructor(readonly np: NovaPoshtaApi) {}
 
   async getPostOfficeListBySettlement(

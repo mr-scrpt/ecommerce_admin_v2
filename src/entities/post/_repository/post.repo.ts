@@ -1,12 +1,12 @@
-import { NovaPoshtaRepository } from "@/kernel/lib/novaposhta/novaposhta.repo";
 import { injectable } from "inversify";
 import { PostOfficeGetBySettlementDTO } from "../_domain/post.dto";
 import { PostOfficeEntity } from "../_domain/post.type";
 import { PostOfficeNovaPoshtaIndex } from "@/kernel/lib/novaposhta/novaposhta.type";
+import { INovaPoshtaRepository } from "@/kernel/lib/novaposhta/repository.type";
 
 @injectable()
 export class PostRepository {
-  constructor(readonly novaposhta: NovaPoshtaRepository) {}
+  constructor(readonly novaposhta: INovaPoshtaRepository) {}
 
   async getPostOfficeListBySettlement(
     dto: PostOfficeGetBySettlementDTO,

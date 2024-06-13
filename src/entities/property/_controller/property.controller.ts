@@ -1,6 +1,5 @@
 import { Controller, publicProcedure, router } from "@/kernel/lib/trpc/server";
 import { injectable } from "inversify";
-import { z } from "zod";
 import {
   propertyRelationSchema,
   propertySchema,
@@ -9,13 +8,12 @@ import {
   getByCategoryListInputSchema,
   getInputSchema,
   getListOutputSchema,
+  getListRelationOutputSchema,
 } from "../_domain/property/validator.schema";
 import { PropertyGetService } from "../_service/propertyGet.service";
 import { PropertyListGetService } from "../_service/propertyListGet.service";
 import { PropertyListGetWithRelationByCategoryListService } from "../_service/propertyListGetWithRelationByCategory.service";
 import { PropertyGetWithRelationService } from "../_service/propertyWithRelationGet.service";
-
-const propertyListSchema = z.array(propertySchema);
 
 @injectable()
 export class PropertyController extends Controller {
@@ -50,7 +48,7 @@ export class PropertyController extends Controller {
         .query(async ({ input }) => {
           const result =
             await this.getPropertyListWithRelationByCategoryList.execute(input);
-          return propertyListSchema.parse(result);
+          return getListRelationOutputSchema.parse(result);
         }),
     },
   });

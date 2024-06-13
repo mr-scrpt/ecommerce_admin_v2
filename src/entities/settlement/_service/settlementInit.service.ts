@@ -1,8 +1,8 @@
-import { injectable } from "inversify";
-import { SettlementRepository } from "../_repository/settlement.repo";
 import { SettlementNovaPoshtaIndex } from "@/kernel/lib/novaposhta/novaposhta.type";
+import { INovaPoshtaRepository } from "@/kernel/lib/novaposhta/repository.type";
+import { injectable } from "inversify";
+import { ISettlementRepository } from "../_domain/repository.type";
 import { SettlementEntity } from "../_domain/settlement.type";
-import { NovaPoshtaRepository } from "@/kernel/lib/novaposhta/novaposhta.repo";
 
 const INIT_PAGE = 1;
 const INIT_DELAY = 250;
@@ -10,8 +10,8 @@ const INIT_DELAY = 250;
 @injectable()
 export class SettlementInitService {
   constructor(
-    private readonly np: NovaPoshtaRepository,
-    private readonly settlementRepo: SettlementRepository,
+    private readonly np: INovaPoshtaRepository,
+    private readonly settlementRepo: ISettlementRepository,
   ) {}
 
   async execute(): Promise<void> {
@@ -25,9 +25,9 @@ export class SettlementInitService {
       const result = await this.np.getSettlementList(page);
 
       for await (const settlement of result) {
-        await this.settlementRepo.createSettlement(
-          this.convertToLowerCase(settlement),
-        );
+        await this.settlementRepo.create({
+          data: this.convertToLowerCase(settlement),
+        });
       }
 
       if (!result.length) break;
