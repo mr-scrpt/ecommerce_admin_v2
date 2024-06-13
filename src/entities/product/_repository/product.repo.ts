@@ -98,7 +98,7 @@ export class ProductRepository implements IProductRepository {
     const { idList } = dto;
     const totalPrice = await db.product.aggregate({
       where: {
-        id: { in: idList },
+        id: { in: idList.map(({ id }) => id) },
       },
       _sum: {
         price: true,
