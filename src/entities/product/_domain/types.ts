@@ -46,6 +46,10 @@ export type ProductGetSelector = {
   id: string;
 };
 
+export type ProductSearchSelector = {
+  q: string;
+};
+
 export type ProductGetByIdListSelector = {
   idList: Array<{ id: string }>;
 };

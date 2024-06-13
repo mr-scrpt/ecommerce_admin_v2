@@ -29,10 +29,7 @@ export abstract class IUserRepository {
 
   abstract getUserList(db?: Tx): Promise<UserEntity[]>;
 
-  abstract getUserListSearch(
-    dto: UserSearchDTO,
-    db?: Tx,
-  ): Promise<UserEntity[]>;
+  abstract searchUserList(dto: UserSearchDTO, db?: Tx): Promise<UserEntity[]>;
 
   abstract createUser(user: UserCreateDTO, db?: Tx): Promise<UserEntity>;
 

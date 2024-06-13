@@ -8,11 +8,13 @@ import {
   getInputSchema,
   getListByIdListInputSchema,
   getListOutputSchema,
+  searchInputSchema,
 } from "../_domain/validator.schema";
 import { ProductGetService } from "../_service/productGet.service";
 import { ProductRelationGetService } from "../_service/productRelationGet.service";
 import { ProductListGetService } from "../_service/productListGet.service";
 import { ProductListGetByIdListService } from "../_service/productListGetByIdList.service";
+import { ProductListSearchService } from "../_service/productListSearch.service";
 
 @injectable()
 export class ProductController extends Controller {
@@ -21,6 +23,7 @@ export class ProductController extends Controller {
     private readonly getProductRelationService: ProductRelationGetService,
     private readonly getProductListService: ProductListGetService,
     private readonly getProductListByIdListService: ProductListGetByIdListService,
+    private readonly searchProductListService: ProductListSearchService,
   ) {
     super();
   }
@@ -52,11 +55,13 @@ export class ProductController extends Controller {
 
           return getListOutputSchema.parse(result);
         }),
-      // search: publicProcedure.input(getInputSchema).query(async ({ input }) => {
-      //   const result = await this.getProductListService.execute(input);
-      //
-      //   return getListOutputSchema.parse(result);
-      // }),
+      search: publicProcedure
+        .input(searchInputSchema)
+        .query(async ({ input }) => {
+          const result = await this.searchProductListService.execute(input);
+
+          return getListOutputSchema.parse(result);
+        }),
     },
   });
 }

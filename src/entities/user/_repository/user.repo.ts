@@ -69,7 +69,7 @@ export class UserRepository implements IUserRepository {
     return db.user.findMany();
   }
 
-  async getUserListSearch(
+  async searchUserList(
     dto: UserSearchDTO,
     db: Tx = this.db,
   ): Promise<UserEntity[]> {

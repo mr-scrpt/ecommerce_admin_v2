@@ -65,7 +65,7 @@ export class ProductRepository implements IProductRepository {
     });
   }
 
-  async getListSearch(
+  async searchList(
     dto: ProductSearchDTO,
     db: Tx = this.db,
   ): Promise<ProductEntity[]> {

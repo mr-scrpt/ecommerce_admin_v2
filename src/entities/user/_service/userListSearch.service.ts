@@ -6,11 +6,11 @@ import { IUserRepository } from "../_domain/repository.type";
 export class UserListSearchService {
   constructor(private readonly userRepo: IUserRepository) {}
 
-  async execute(payload: UserSearchPayload): Promise<Array<UserEntity>> {
-    const { q } = payload;
+  async execute(selector: UserSearchPayload): Promise<Array<UserEntity>> {
+    const { q } = selector;
     if (!q) {
       return [];
     }
-    return await this.userRepo.getUserListSearch(payload);
+    return await this.userRepo.searchUserList(selector);
   }
 }
