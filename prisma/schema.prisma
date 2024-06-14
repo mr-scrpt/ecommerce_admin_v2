@@ -129,7 +129,7 @@ model CartRow {
 
 model Order {
   id        String   @id @default(uuid())
-  orderNo   Int	     @default(autoincrement())
+  orderNo   String   @unique
 
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String

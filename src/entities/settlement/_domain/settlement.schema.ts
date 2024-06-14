@@ -35,6 +35,8 @@ const settlementBaseSchema = z.object({
   radiusExpressPickUp: z.string(),
   radiusDrop: z.string(),
   warehouse: z.string(),
+
+  createdAt: z.date(),
 });
 
 // NOTE: Main

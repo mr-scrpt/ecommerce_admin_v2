@@ -1,3 +1,4 @@
+import { orderBaseSchema, orderRowBaseSchema } from "@/entities/order/server";
 import {
   OrderPaymentStatusEnum,
   OrderStatusEnum,
@@ -9,11 +10,11 @@ export const orderCreateSchema = z.object({
   orderPayment: z.custom<OrderPaymentStatusEnum>(),
 });
 
-export const orderEmptyCreateSchema = z.object({
-  userId: z.string(),
+export const orderEmptyCreateSchema = orderBaseSchema.pick({
+  userId: true,
 });
 
-export const orderRowCreateSchema = z.object({
-  productId: z.string(),
-  quantity: z.number(),
+export const orderRowCreateSchema = orderRowBaseSchema.pick({
+  productId: true,
+  quantity: true,
 });

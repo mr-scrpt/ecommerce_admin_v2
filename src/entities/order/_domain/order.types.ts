@@ -6,7 +6,7 @@ import { OrderRow, OrderRowEntity } from "./orderRow.types";
 
 // NOTE: Base
 export type OrderBase = {
-  orderNo: number;
+  orderNo: string;
   userId: string;
   orderStatus: OrderStatusEnum;
   paymentStatus: OrderPaymentStatusEnum;
@@ -32,7 +32,7 @@ export type OrderStatusGroup = {
 
 export type Order = OrderStatusGroup & {
   id: string;
-  orderNo: number;
+  orderNo: string;
   userId: string;
   createdAt: Date;
   priceTotal: number;

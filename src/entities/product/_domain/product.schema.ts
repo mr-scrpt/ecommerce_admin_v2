@@ -11,17 +11,17 @@ export const productBaseSchema = z.object({
   about: z.string(),
 
   img: z.array(z.string()),
+
+  createdAt: z.date(),
 });
 
 export const productSchema = z.object({
   id: z.string(),
-  createdAt: z.date(),
   ...productBaseSchema.shape,
 });
 
 export const productRelationSchema = z.object({
   id: z.string(),
-  createdAt: z.date(),
   ...productBaseSchema.shape,
 
   categoryList: z.array(

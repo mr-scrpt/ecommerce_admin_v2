@@ -1,13 +1,18 @@
+import { userBaseSchema } from "@/entities/user/user.server";
 import { z } from "zod";
 
-export const userRegistrationSchema = z.object({
-  name: z.string().nullable(),
-  email: z.string(),
-  phone: z.string(),
+export const userRegistrationSchema = userBaseSchema.pick({
+  name: true,
+  email: true,
+  phone: true,
 });
 
-export const userCreateSchema = z.object({
-  name: z.string(),
-  email: z.string(),
-  phone: z.string(),
-});
+export const userCreateSchema = userBaseSchema
+  .pick({
+    name: true,
+    email: true,
+    phone: true,
+  })
+  .extend({
+    name: z.string(),
+  });

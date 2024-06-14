@@ -17,12 +17,12 @@ export const orderStatusGroupSchema = z.object({
 });
 
 // NOTE: Base Schema
-const orderBaseSchema = z.object({
-  orderNo: z.number(),
+export const orderBaseSchema = z.object({
+  orderNo: z.string(),
   userId: z.string(),
   priceTotal: z.number(),
-  createdAt: z.date(),
   ...orderStatusGroupSchema.shape,
+  createdAt: z.date(),
 });
 
 // NOTE: Main

@@ -10,10 +10,14 @@ import {
 } from "@/kernel/domain/order.type";
 import { merge } from "lodash";
 import { IOrderCreateTx } from "../_domain/transaction.type";
+import { IOrderGenerateNumberService } from "@/entities/order/server";
 
 @injectable()
 export class OrderEmptyCreateService {
-  constructor(private readonly orderCreateTx: IOrderCreateTx) {}
+  constructor(
+    private readonly orderCreateTx: IOrderCreateTx,
+    private readonly orderGenerateNumber: IOrderGenerateNumberService,
+  ) {}
 
   async execute(payload: OrderCreateEmptyTxPayload): Promise<Order> {
     const orderCreateDTO = this.build(payload);
@@ -21,6 +25,7 @@ export class OrderEmptyCreateService {
   }
 
   private build(payload: OrderCreateEmptyTxPayload): OrderEmptyCreateTxDTO {
+    const orderNo = this.orderGenerateNumber.execute();
     return merge({}, payload, {
       orderData: {
         ...payload.orderData,
@@ -28,6 +33,7 @@ export class OrderEmptyCreateService {
         paymentStatus: OrderPaymentStatusEnum.TEMP,
 
         priceTotal: ORDER_PRICE_TOTAL_DEFAULT,
+        orderNo,
       },
     });
   }

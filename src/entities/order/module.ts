@@ -8,9 +8,12 @@ import { OrderRelationGetService } from "./_service/orderRelationGet.service";
 import { OrderListGetByOwnerService } from "./_service/orderListGetByOwner.service";
 import { OrderListGetService } from "./_service/orderListGet.service";
 import { IOrderRepository } from "./_domain/repository.type";
+import { OrderGenerateNumberService } from "./_service/generateOrderNumber";
+import { IOrderGenerateNumberService } from "./_domain/service.type";
 
 export const OrderModule = new ContainerModule((bind) => {
   bind(IOrderRepository).to(OrderRepository);
+  bind(IOrderGenerateNumberService).to(OrderGenerateNumberService);
 
   bind(OrderRowRepository).toSelf();
   bind(OrderGetService).toSelf();

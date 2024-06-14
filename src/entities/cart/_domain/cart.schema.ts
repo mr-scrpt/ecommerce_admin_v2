@@ -4,6 +4,7 @@ import { cartRowSchema } from "./cartRow.schema";
 // NOTE: Base
 export const cartBaseSchema = z.object({
   userId: z.string(),
+  createdAt: z.date(),
 });
 
 // NOTE: Main

@@ -2,7 +2,7 @@ import { DeliveryTypeEnum } from "@/kernel/domain/delivery.type";
 import { z } from "zod";
 
 // NOTE: Base Schema
-const deliveryBaseSchema = z.object({
+export const deliveryBaseSchema = z.object({
   orderId: z.string(),
   deliveryType: z.custom<DeliveryTypeEnum>(),
   settlement: z.string(),
@@ -11,6 +11,7 @@ const deliveryBaseSchema = z.object({
   apartment: z.string().nullable(),
   postOffice: z.string().nullable(),
   pickupPoint: z.string().nullable(),
+  createdAt: z.date(),
 });
 
 // NOTE: Main

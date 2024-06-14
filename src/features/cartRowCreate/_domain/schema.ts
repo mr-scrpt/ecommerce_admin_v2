@@ -1,6 +1,3 @@
-import { z } from "zod";
+import { cartRowBaseSchema } from "@/entities/cart/server";
 
-export const cartRowCreateSchema = z.object({
-  // cartId: z.string(),
-  productId: z.string(),
-});
+export const cartRowCreateSchema = cartRowBaseSchema.pick({ productId: true });

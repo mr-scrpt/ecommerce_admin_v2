@@ -7,6 +7,6 @@ export class DeliveryListGetService {
   constructor(private readonly deliveryRepo: IDeliveryRepository) {}
 
   async execute(): Promise<Array<Delivery>> {
-    return await this.deliveryRepo.getDeliveryList();
+    return await this.deliveryRepo.getList();
   }
 }
