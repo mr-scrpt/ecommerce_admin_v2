@@ -1,14 +1,13 @@
-import {
-  PropertyItemRepository,
-  PropertyRepository,
-} from "@/entities/property";
+import { Controller } from "@/kernel/lib/trpc/_controller";
 import { ContainerModule } from "inversify";
+import { PropertyRemoveController } from "./_controller/propertyRemove.controller";
+import { IPropertyRemoveTx } from "./_domain/transaction.type";
+import { PropertyRemoveService } from "./_service/propertyRemove.service";
 import { PropertyRemoveTx } from "./_tx/propertyRemove.transaction";
-import { RemovePropertyComplexibleUseCase } from "./_useCase/propertyRemoveComplexible.usecase";
 
 export const PropertyRemoveModule = new ContainerModule((bind) => {
-  bind(PropertyRepository).toSelf();
-  bind(PropertyItemRepository).toSelf();
-  bind(PropertyRemoveTx).toSelf();
-  bind(RemovePropertyComplexibleUseCase).toSelf();
+  bind(IPropertyRemoveTx).to(PropertyRemoveTx);
+
+  bind(PropertyRemoveService).toSelf();
+  bind(Controller).to(PropertyRemoveController);
 });

@@ -1,26 +1,28 @@
-import { PropertyEntity, PropertyId } from "@/entities/property";
-import {
-  PropertyItemRepository,
-  PropertyRepository,
-} from "@/entities/property/server";
+import { PropertyEntity } from "@/entities/property";
 import { DBClient, Transaction, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
+import { IPropertyRemoveTx } from "../_domain/transaction.type";
+import {
+  IPropertyItemRepository,
+  IPropertyRepository,
+} from "@/entities/property/server";
+import { PropertyRemoveTxDTO } from "../_domain/types";
 
 @injectable()
-export class PropertyRemoveTx extends Transaction {
+export class PropertyRemoveTx extends Transaction implements IPropertyRemoveTx {
   constructor(
     readonly db: DBClient,
-    private readonly propertyRepo: PropertyRepository,
-    private readonly propertyItemRepo: PropertyItemRepository,
+    private readonly propertyRepo: IPropertyRepository,
+    private readonly propertyItemRepo: IPropertyItemRepository,
   ) {
     super(db);
   }
 
-  async removePropertyById(propertyId: PropertyId): Promise<PropertyEntity> {
+  async remove(dto: PropertyRemoveTxDTO): Promise<PropertyEntity> {
     const action = async (tx: Tx) => {
-      await this.propertyItemRepo.removeByProperty(propertyId, tx);
+      await this.propertyItemRepo.removeByProperty(dto, tx);
 
-      return await this.propertyRepo.remove(propertyId, tx);
+      return await this.propertyRepo.remove(dto, tx);
     };
 
     return await this.start(action);

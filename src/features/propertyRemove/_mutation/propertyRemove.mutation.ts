@@ -1,18 +1,14 @@
-import { useMutation } from "@tanstack/react-query";
 import { useEmitPropertyRemove } from "..";
-import { removePropertyComplexibleAction } from "../_action/propertyRemoveComplexible.action";
-
-const baseKey = "propertyRemoveMutation";
+import { propertyRemoveApi } from "../_api/propertyRemove.api";
 
 export const usePropertyRemoveMutation = () => {
   const { propertyRemoveEvent } = useEmitPropertyRemove();
-  const { isPending, isSuccess, mutateAsync } = useMutation({
-    mutationKey: [baseKey, "complexible"],
-    mutationFn: removePropertyComplexibleAction,
-    onSuccess: async ({ property }) => {
-      propertyRemoveEvent(property.id);
-    },
-  });
+  const { isPending, isSuccess, mutateAsync } =
+    propertyRemoveApi.propertyRemove.remove.useMutation({
+      onSuccess: async ({ id }) => {
+        propertyRemoveEvent(id);
+      },
+    });
   return {
     propertyRemove: mutateAsync,
     isPending,

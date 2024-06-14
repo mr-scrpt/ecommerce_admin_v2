@@ -8,5 +8,6 @@ import { ICategoryRemoveTx } from "./_domain/transaction.type";
 export const CategoryRemoveModule = new ContainerModule((bind) => {
   bind(ICategoryRemoveTx).to(CategoryRemoveTx);
   bind(CategoryRemoveService).toSelf();
+
   bind(Controller).to(CategoryRemoveController);
 });
