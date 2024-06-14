@@ -1,4 +1,10 @@
-export { PropertyRepository } from "./_repository/property.repo";
+export { IPropertyRepository } from "./_domain/property/repository.type";
+export { IPropertyItemRepository } from "./_domain/propertyItem/repository.type";
 export { createPropertyAbility } from "./_domain/property/property.ability";
-export { PropertyItemRepository } from "./_repository/propertyItem.repo";
-export { propertyBaseSchema } from "./_domain/property/property.schema";
+
+export {
+  propertyBaseSchema,
+  propertySchema,
+} from "./_domain/property/property.schema";
+
+export { propertyItemBaseSchema } from "./_domain/propertyItem/propertyItem.schema";

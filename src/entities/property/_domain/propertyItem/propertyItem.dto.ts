@@ -30,6 +30,10 @@ export type PropertyItemCreateDTO = {
   data: PropertyItemBase & { propertyId: string };
 };
 
+// export type PropertyItemWithPropertyIdCreateDTO = {
+//   data: PropertyItemBase & { propertyId: string };
+// };
+
 export type PropertyItemUpdateDTO = {
   selector: {
     id: string;

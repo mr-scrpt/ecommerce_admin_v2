@@ -1,17 +1,12 @@
-import { ProductCreateDTO } from "@/entities/product";
+import { ProductBase, ProductCreateDTO } from "@/entities/product";
 import { Property } from "@/entities/property";
 
-// export type ProductCreateComplexible = {
-//   productData: ProductToCreate;
-//   categoryListData: Array<{ id: string }>;
-//   propertyItemListSelected: Array<{ id: string }>;
-// };
-
-type PropertyItemList = Array<{ propertyItemId: Property["id"] }>;
+type ProductCreatePayload = Omit<ProductBase, "slug">;
 type CategoryList = Array<{ categoryId: string }>;
+type PropertyItemList = Array<{ propertyItemId: Property["id"] }>;
 
 export type ProductCreateTxPayload = {
-  productData: Omit<ProductCreateDTO["data"], "slug">;
+  productData: ProductCreatePayload;
   categoryData: CategoryList;
   propertyItemData: PropertyItemList;
 };

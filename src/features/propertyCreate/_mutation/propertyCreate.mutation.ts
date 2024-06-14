@@ -1,18 +1,15 @@
 import { useMutation } from "@tanstack/react-query";
-import { propertyCreateAction } from "../_action/propertyCreate.action";
 import { useEmitPropertyCreate } from "../_vm/event/useEmitPropertyCreate";
-
-const baseKey = "propertyCreateMutation";
+import { propertyCreateApi } from "../_api/propertyCreate.api";
 
 export const usePropertyCreateMutation = () => {
   const { propertyCreateEvent } = useEmitPropertyCreate();
-  const { isPending, isSuccess, mutateAsync } = useMutation({
-    mutationKey: [baseKey],
-    mutationFn: propertyCreateAction,
-    onSuccess: async () => {
-      propertyCreateEvent();
-    },
-  });
+  const { isPending, isSuccess, mutateAsync } =
+    propertyCreateApi.propertyCreate.create.useMutation({
+      onSuccess: async () => {
+        propertyCreateEvent();
+      },
+    });
   return {
     propertyCreate: mutateAsync,
     isPending,

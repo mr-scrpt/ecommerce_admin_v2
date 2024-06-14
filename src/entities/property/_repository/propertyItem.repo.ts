@@ -1,7 +1,7 @@
 import { DBClient, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
 import {
-  PropertyItemCreateDTO,
+  PropertyItemWithPropertyIdCreateDTO,
   PropertyItemGetDTO,
   PropertyItemListGetByProperyDTO,
   PropertyItemRemoveByPropertyDTO,
@@ -34,7 +34,7 @@ export class PropertyItemRepository implements IPropertyItemRepository {
   }
 
   async create(
-    dto: PropertyItemCreateDTO,
+    dto: PropertyItemWithPropertyIdCreateDTO,
     db: Tx = this.db,
   ): Promise<PropertyItemEntity> {
     const { data } = dto;

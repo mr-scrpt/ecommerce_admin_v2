@@ -28,6 +28,7 @@ import { OrderDeliveryUpdateModule } from "@/features/deliveryUpdate/module";
 import { ProductModule } from "@/entities/product/module";
 import { ProductCreateModule } from "@/features/productCreate/module";
 import { ProductRemoveModule } from "@/features/productRemove/module";
+import { PropertyCreateModule } from "@/features/propertyCreate/module";
 
 export const loadModule = () => {
   const container = new Container();
@@ -67,6 +68,7 @@ export const loadModule = () => {
     PostModule,
 
     PropertyModule,
+    PropertyCreateModule,
 
     SettlementModule,
     TrpcModule,

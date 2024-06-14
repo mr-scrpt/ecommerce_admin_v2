@@ -1,6 +1,6 @@
-import { ProductEntity } from "@/entities/product";
-import { ProductCreateTxDTO } from "./types";
+import { PropertyCreateTxDTO } from "./types";
+import { PropertyEntity } from "@/entities/property";
 
-export abstract class IProductCreateTx {
-  abstract create(dto: ProductCreateTxDTO): Promise<ProductEntity>;
+export abstract class IPropertyCreateTx {
+  abstract create(dto: PropertyCreateTxDTO): Promise<PropertyEntity>;
 }

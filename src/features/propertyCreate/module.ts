@@ -1,18 +1,13 @@
-import {
-  PropertyItemRepository,
-  PropertyRepository,
-} from "@/entities/property";
-import { Container, ContainerModule } from "inversify";
+import { ContainerModule } from "inversify";
+import { IPropertyCreateTx } from "./_domain/transaction.type";
 import { PropertyCreateTx } from "./_tx/propertyCreate.transaction";
-import { CreatePropertyComplexibleUseCase } from "./_useCase/propertyCreateComplexible.usecase";
-
-export const propertyCreateContainer = new Container();
+import { PropertyCreateService } from "./_service/productCreate.service";
+import { PropertyCreateController } from "./_controller/propertyCreate.controller";
+import { Controller } from "@/kernel/lib/trpc/server";
 
 export const PropertyCreateModule = new ContainerModule((bind) => {
-  bind(PropertyRepository).toSelf();
-  bind(PropertyItemRepository).toSelf();
-  bind(PropertyCreateTx).toSelf();
-  bind(CreatePropertyComplexibleUseCase).toSelf();
-});
+  bind(IPropertyCreateTx).to(PropertyCreateTx);
 
-propertyCreateContainer.load(PropertyCreateModule);
+  bind(PropertyCreateService).toSelf();
+  bind(Controller).to(PropertyCreateController);
+});

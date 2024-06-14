@@ -1,12 +1,8 @@
-export {
-  propertyCreateSchema,
-  propertySchema,
-  propertyUpdateSchema,
-} from "./_domain/property/property.schema";
 export { propertyFormSchema } from "./_domain/property/form.schema";
 
-// export { usePropertyListQuery } from "./_query/property/propertyList.query";
-// export { usePropertyWithRelationQuery } from "./_query/property/properyWithRelation.query";
+export type { PropertyCreateDTO } from "./_domain/property/property.dto";
+export type { PropertyItemCreateDTO } from "./_domain/propertyItem/propertyItem.dto";
+
 export { PropertyRepository } from "./_repository/property.repo";
 export { PropertyItemRepository } from "./_repository/propertyItem.repo";
 export { PropertyFormElements } from "./_ui/propertyFormElements";
@@ -17,17 +13,14 @@ export { usePropertyListWithDataActive } from "./_vm/usePropertyListWithDataActi
 
 export type {
   Property,
+  PropertyBase,
   PropertyEntity,
   PropertyRelation,
   PropertyRelationEntity,
-  // PropertyToSelect,
-  // PropertyToCreate,
-  // PropertyToUpdate,
 } from "./_domain/property/types";
 
 export type {
   PropertyItem,
+  PropertyItemBase,
   PropertyItemRelation,
-  // PropertyItemToCreate,
-  // PropertyItemToUpdate,
 } from "./_domain/propertyItem/types";

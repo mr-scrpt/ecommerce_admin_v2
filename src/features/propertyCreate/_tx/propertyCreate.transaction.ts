@@ -1,44 +1,40 @@
 import { PropertyEntity } from "@/entities/property";
 import {
-  PropertyItemRepository,
-  PropertyRepository,
+  IPropertyItemRepository,
+  IPropertyRepository,
 } from "@/entities/property/server";
 import { DBClient, Transaction, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
-import { PropertyCreateComplexible } from "../_domain/types";
+import { PropertyCreateTxDTO } from "../_domain/types";
+import { IPropertyCreateTx } from "../_domain/transaction.type";
 
 @injectable()
-export class PropertyCreateTx extends Transaction {
+export class PropertyCreateTx extends Transaction implements IPropertyCreateTx {
   constructor(
     readonly db: DBClient,
-    private readonly propertyRepo: PropertyRepository,
-    private readonly propertyItemRepo: PropertyItemRepository,
+    private readonly propertyRepo: IPropertyRepository,
+    private readonly propertyItemRepo: IPropertyItemRepository,
   ) {
     super(db);
   }
 
-  async createPropertyComplexible(
-    data: PropertyCreateComplexible,
-  ): Promise<PropertyEntity> {
+  async create(dto: PropertyCreateTxDTO): Promise<PropertyEntity> {
     const action = async (tx: Tx) => {
-      const { propertyItemListData, propertyData } = data;
+      const { propertyItemData, propertyData } = dto;
 
-      const propertyCreated = await this.propertyRepo.create(
-        propertyData,
-        tx,
-      );
+      const { id } = await this.propertyRepo.create({ data: propertyData }, tx);
 
       const propertyItemListCreated = [];
 
-      for await (const item of propertyItemListData) {
+      for await (const item of propertyItemData) {
         const itemCreated = await this.propertyItemRepo.create(
-          { ...item, propertyId: propertyCreated.id },
+          { data: { ...item, propertyId: id } },
           tx,
         );
         propertyItemListCreated.push(itemCreated);
       }
 
-      return await this.propertyRepo.get(propertyCreated.id, tx);
+      return await this.propertyRepo.get({ id }, tx);
     };
 
     return await this.start(action);

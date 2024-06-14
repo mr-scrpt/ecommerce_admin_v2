@@ -8,6 +8,7 @@ export { ProductList } from "./_ui/list/productList";
 export { ProductFormLayout } from "./_ui/productFormLayout";
 
 export type {
+  ProductBase,
   Product,
   ProductEntity,
   ProductPropertyItem,

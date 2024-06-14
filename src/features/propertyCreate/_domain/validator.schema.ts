@@ -1,12 +1,7 @@
 import { z } from "zod";
-import {
-  productCategorySchema,
-  productCreateSchema,
-  productPropertyItemSchema,
-} from "./schema";
+import { propertyCreateSchema, propertyItemCreateSchema } from "./schema";
 
 export const createInputSchema = z.object({
-  productData: productCreateSchema,
-  categoryData: z.array(productCategorySchema),
-  propertyItemData: z.array(productPropertyItemSchema),
+  propertyData: propertyCreateSchema,
+  propertyItemData: z.array(propertyItemCreateSchema),
 });

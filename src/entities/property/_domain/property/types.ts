@@ -1,6 +1,6 @@
 import { MultiSelectOptionItem } from "@/shared/ui/multiSelect";
-import { PropertyDataTypeEnum } from "../../../../kernel/domain/property.type";
 import { PropertyItem } from "../propertyItem/types";
+import { PropertyDataTypeEnum } from "@/kernel/domain/property.type";
 
 // NOTE: Base
 export type PropertyBase = {

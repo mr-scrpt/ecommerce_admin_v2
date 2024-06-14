@@ -1,6 +1,11 @@
+import { propertyItemBaseSchema } from "@/entities/property/server";
 import { propertyBaseSchema } from "@/entities/property/server";
 
 export const propertyCreateSchema = propertyBaseSchema.omit({
+  createdAt: true,
+});
+
+export const propertyItemCreateSchema = propertyItemBaseSchema.omit({
   createdAt: true,
 });
 
