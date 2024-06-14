@@ -1,7 +1,7 @@
 import { selectFile, validateImgSizeMedium } from "@/shared/lib/file";
 import { useMutation } from "@tanstack/react-query";
-import { uploadImgListAction } from "../_action/uploadImgList";
 import { PRODUCT_LIST_FILE_KEY } from "../_constant/formData.contstant";
+import { uploadImgListAction } from "../_action/uploadImgList.action";
 
 interface UseUploadImgListProps {
   onError?: (type?: "big-size") => void;
