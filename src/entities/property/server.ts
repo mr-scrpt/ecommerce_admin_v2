@@ -7,4 +7,8 @@ export {
   propertySchema,
 } from "./_domain/property/property.schema";
 
-export { propertyItemBaseSchema } from "./_domain/propertyItem/propertyItem.schema";
+export {
+  propertyItemBaseSchema,
+  propertyItemCreateSchema,
+  propertyItemUpdateSchema,
+} from "./_domain/propertyItem/propertyItem.schema";

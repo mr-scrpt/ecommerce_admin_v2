@@ -1,5 +1,3 @@
-import { ProductToUpdate } from "@/entities/product";
-
 export type ProductUpdateComplexible = {
   productId: string;
   productData: Partial<ProductToUpdate>;

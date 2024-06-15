@@ -55,15 +55,16 @@ export class PropertyItemRepository implements IPropertyItemRepository {
   }
 
   // async updateOrCreate(
-  //   data: PropertyItemCombineUpdateOrCreate,
+  //   dto: PropertyItemUpdateOrCreateDTO,
   //   db: Tx = this.db,
   // ): Promise<PropertyItemEntity> {
-  //   const { id, ...propertyItem } = data;
+  //   const { selector, data } = dto;
+  //   const { id } = selector;
   //   return await db.propertyItem.upsert({
   //     where: { id: id ?? "" },
   //
-  //     create: { ...propertyItem },
-  //     update: { ...propertyItem },
+  //     update: data,
+  //     create: data,
   //   });
   // }
 

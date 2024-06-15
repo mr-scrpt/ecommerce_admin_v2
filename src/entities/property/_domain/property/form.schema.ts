@@ -1,6 +1,7 @@
 import { PropertyDataTypeEnum } from "@/kernel/domain/property.type";
 import { z } from "zod";
 import { propertyItemUpdateSchema } from "../propertyItem/propertyItem.schema";
+// import { propertyItemUpdateSchema } from "../propertyItem/propertyItem.schema";
 
 export const propertyFormSchema = z.object({
   name: z

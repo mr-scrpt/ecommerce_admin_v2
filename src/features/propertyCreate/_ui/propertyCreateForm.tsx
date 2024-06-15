@@ -23,9 +23,13 @@ export const PropertyFormCreate: FC<PropertyCreateFormProps> = (props) => {
     usePropertyCreateMutation();
 
   const handleSubmit = async (data: PropertyFormValues) => {
-    console.log("output_log: form data =>>>", data);
+    const { name, datatype, propertyItemList } = data;
     await propertyCreate({
-      data,
+      propertyData: {
+        name,
+        datatype,
+      },
+      propertyItemData: propertyItemList,
     });
 
     onSuccess?.();

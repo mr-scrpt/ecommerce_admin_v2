@@ -1,6 +1,5 @@
-import { useMutation } from "@tanstack/react-query";
-import { useEmitPropertyCreate } from "../_vm/event/useEmitPropertyCreate";
 import { propertyCreateApi } from "../_api/propertyCreate.api";
+import { useEmitPropertyCreate } from "../_vm/event/useEmitPropertyCreate";
 
 export const usePropertyCreateMutation = () => {
   const { propertyCreateEvent } = useEmitPropertyCreate();

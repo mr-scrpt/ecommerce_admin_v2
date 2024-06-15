@@ -1,18 +1,13 @@
-import {
-  PropertyItemRepository,
-  PropertyRepository,
-} from "@/entities/property";
-import { Container, ContainerModule } from "inversify";
+import { Controller } from "@/kernel/lib/trpc/_controller";
+import { ContainerModule } from "inversify";
+import { PropertyUpdateController } from "./_controller/propertyUpdate.controller";
+import { IPropertyUpdateTx } from "./_domain/transaction.type";
+import { PropertyUpdateService } from "./_service/propertyUpdate.service";
 import { PropertyUpdateTx } from "./_tx/propertyUpdate.transaction";
-import { UpdatePropertyComplexibleUseCase } from "./_useCase/propertyUpdateComplexible.usecase";
-
-export const propertyUpdateContainer = new Container();
 
 export const PropertyUpdateModule = new ContainerModule((bind) => {
-  bind(PropertyRepository).toSelf();
-  bind(PropertyItemRepository).toSelf();
-  bind(PropertyUpdateTx).toSelf();
-  bind(UpdatePropertyComplexibleUseCase).toSelf();
-});
+  bind(IPropertyUpdateTx).to(PropertyUpdateTx);
 
-propertyUpdateContainer.load(PropertyUpdateModule);
+  bind(PropertyUpdateService).toSelf();
+  bind(Controller).to(PropertyUpdateController);
+});

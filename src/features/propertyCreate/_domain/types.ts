@@ -5,7 +5,7 @@ import {
   PropertyItemCreateDTO,
 } from "@/entities/property";
 
-type PropertyCreatePayload = Omit<PropertyBase, "id">;
+type PropertyCreatePayload = PropertyBase;
 type PropertyItemCreatePayload = Omit<PropertyItemBase, "propertyId">;
 
 export type PropertyCreateTxPayload = {
@@ -14,6 +14,6 @@ export type PropertyCreateTxPayload = {
 };
 
 export type PropertyCreateTxDTO = {
-  propertyData: Omit<PropertyCreateDTO["data"], "propertyId">;
+  propertyData: Omit<PropertyCreateDTO["data"], "id">;
   propertyItemData: Array<Omit<PropertyItemCreateDTO["data"], "propertyId">>;
 };

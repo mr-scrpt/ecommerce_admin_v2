@@ -1,5 +1,6 @@
 import { z } from "zod";
-import { propertyCreateSchema, propertyItemCreateSchema } from "./schema";
+import { propertyCreateSchema } from "./schema";
+import { propertyItemCreateSchema } from "@/entities/property/server";
 
 export const createInputSchema = z.object({
   propertyData: propertyCreateSchema,

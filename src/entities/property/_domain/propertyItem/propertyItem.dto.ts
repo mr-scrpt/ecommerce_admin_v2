@@ -41,6 +41,13 @@ export type PropertyItemUpdateDTO = {
   data: Partial<PropertyItemBase & { propertyId: string }>;
 };
 
+export type PropertyItemUpdateOrCreateDTO = {
+  selector: {
+    id: string;
+  };
+  data: Partial<PropertyItemBase & { propertyId: string }>;
+};
+
 export type PropertyItemRemoveDTO = {
   selector: {
     id: string;

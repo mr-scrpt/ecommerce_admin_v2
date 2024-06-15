@@ -5,9 +5,10 @@ import {
   PropertyItemListGetByProperyDTO,
   PropertyItemRemoveByPropertyDTO,
   PropertyItemRemoveDTO,
-  PropertyItemUpdateDTO,
+  PropertyItemUpdateOrCreateDTO,
 } from "./propertyItem.dto";
 import { PropertyItemEntity } from "./types";
+import { PropertyItemUpdateDTO } from "../../_domain/propertyItem/propertyItem.dto";
 
 export abstract class IPropertyItemRepository {
   abstract get(dto: PropertyItemGetDTO, db?: Tx): Promise<PropertyItemEntity>;
@@ -26,6 +27,11 @@ export abstract class IPropertyItemRepository {
     dto: PropertyItemUpdateDTO,
     db?: Tx,
   ): Promise<PropertyItemEntity>;
+
+  // abstract updateOrCreate(
+  //   dto: PropertyItemUpdateOrCreateDTO,
+  //   db?: Tx,
+  // ): Promise<PropertyItemEntity>;
 
   abstract remove(
     dto: PropertyItemRemoveDTO,

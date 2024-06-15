@@ -1,7 +1,6 @@
 "use client";
 import {
   PropertyFromLayout,
-  PropertyId,
   propertyFormSchema,
   usePropertyWithRelationQuery,
 } from "@/entities/property";
@@ -13,7 +12,7 @@ import { z } from "zod";
 import { usePropertyUpdateMutation } from "../_mutation/usePropertyUpdate.mutation";
 
 interface PropertyFormProps extends HTMLAttributes<HTMLDivElement> {
-  propertyId: PropertyId;
+  propertyId: string;
   callbackUrl?: string;
   className?: string;
   onSuccess?: () => void;
@@ -28,7 +27,7 @@ export const PropertyFormUpdate: FC<PropertyFormProps> = (props) => {
     isPending: isPendingProperty,
     property,
     isFetchedAfterMount,
-  } = usePropertyWithRelationQuery(propertyId);
+  } = usePropertyWithRelationQuery({ id: propertyId });
 
   const router = useRouter();
 
@@ -47,13 +46,14 @@ export const PropertyFormUpdate: FC<PropertyFormProps> = (props) => {
   }
 
   const handleSubmit = async (data: PropertyFormValues) => {
-    console.log("output_log: send =>>>", data);
+    const { name, datatype, propertyItemList } = data;
     await propertyUpdate({
-      propertyId: property.id,
-      data: {
-        ...data,
-        id: property.id,
+      selector: { id: property.id },
+      propertyData: {
+        name,
+        datatype,
       },
+      propertyItemListData: propertyItemList,
     });
 
     onSuccess?.();
