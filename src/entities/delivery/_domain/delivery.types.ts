@@ -21,6 +21,7 @@ export type DeliveryEntity = DeliveryBase & {
 // NOTE: Projetions
 export type Delivery = DeliveryBase & {
   id: string;
+  createdAt: Date;
 };
 
 // NOTE: Selector

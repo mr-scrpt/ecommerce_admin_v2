@@ -4,7 +4,7 @@ import { MultiSelectOptionItem } from "@/shared/ui/multiSelect";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui/tabs";
 import { FC, HTMLAttributes, useEffect, useState } from "react";
 import {
-  ProductFromFrom,
+  ProductFromForm,
   ProductPropertyObjectList,
   ProductPropertyToSelect,
   ProductRelation,
@@ -13,7 +13,7 @@ import { ProductForm } from "./productForm";
 
 interface ProductFormLayoutProps extends HTMLAttributes<HTMLFormElement> {
   product?: ProductRelation;
-  handleSubmit?: (data: ProductFromFrom) => void;
+  handleSubmit?: (data: ProductFromForm) => void;
   isPending: boolean;
   submitText: string;
   categorySelectOptionList: Array<MultiSelectOptionItem>;

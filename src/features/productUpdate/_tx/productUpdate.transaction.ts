@@ -1,46 +1,60 @@
 import { ProductEntity } from "@/entities/product";
 import { DBClient, Transaction, Tx } from "@/shared/lib/db/db";
-import { ProductRepository } from "@/entities/product/server";
-import { ProductUpdateComplexible } from "../_domain/types";
 import { injectable } from "inversify";
+import { IProductUpdateTx } from "../_domain/transaction.type";
+import { IProductRepository } from "@/entities/product/server";
+import { ProductUpdateTxDTO } from "../_domain/types";
 
 @injectable()
-export class ProductUpdateTx extends Transaction {
+export class ProductUpdateTx extends Transaction implements IProductUpdateTx {
   constructor(
     readonly db: DBClient,
-    private readonly productRepo: ProductRepository,
+    private readonly productRepo: IProductRepository,
   ) {
     super(db);
   }
 
-  async updateProductComplexible(
-    data: ProductUpdateComplexible,
-  ): Promise<ProductEntity> {
+  async update(dto: ProductUpdateTxDTO): Promise<ProductEntity> {
+    const { selector, productData, categoryData, propertyItemData } = dto;
     const action = async (tx: Tx) => {
-      const {
-        productId,
-        productData,
-        propertyItemListSelected,
-        categoryListId,
-      } = data;
+      // const {
+      //   productId,
+      //   productData,
+      //   propertyItemListSelected,
+      //   categoryListId,
+      // } = dto;
       const productUpdated = await this.productRepo.update(
-        productId,
-        productData,
+        { selector, data: productData },
         tx,
       );
 
       console.log("output_log: updateProduct =>>>", productUpdated);
 
-      await this.productRepo.bindToCategoryList({ productId, categoryListId }, tx);
-      await this.productRepo.bindToPropertyList(
+      await this.productRepo.bindToCategoryList(
         {
-          productId,
-          propertyListId: propertyItemListSelected,
+          selector,
+          data: {
+            categoryListId: categoryData,
+          },
+        },
+        // { productId, categoryListId },
+        tx,
+      );
+      await this.productRepo.bindToPropertyList(
+        // {
+        //   productId,
+        //   propertyListId: propertyItemListSelected,
+        // },
+        {
+          selector,
+          data: {
+            propertyItemListId: propertyItemData,
+          },
         },
         tx,
       );
 
-      return await this.productRepo.get(productUpdated.id, tx);
+      return await this.productRepo.get(selector, tx);
     };
 
     return await this.start(action);

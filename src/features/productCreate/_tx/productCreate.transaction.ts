@@ -15,7 +15,7 @@ export class ProductCreateTx extends Transaction implements IProductCreateTx {
   }
 
   async create(dto: ProductCreateTxDTO): Promise<ProductEntity> {
-    const { productData, categoryData, propertyItemData: propertyData } = dto;
+    const { productData, categoryData, propertyItemData } = dto;
     const action = async (tx: Tx) => {
       const { id } = await this.productRepo.create(
         {
@@ -42,7 +42,7 @@ export class ProductCreateTx extends Transaction implements IProductCreateTx {
             id,
           },
           data: {
-            propertyItemListId: propertyData,
+            propertyItemListId: propertyItemData,
           },
         },
         tx,

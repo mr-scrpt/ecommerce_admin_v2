@@ -18,7 +18,7 @@ import { FormProvider, useForm, useFormContext } from "react-hook-form";
 import { z } from "zod";
 import { ProductFormValues } from "../_domain/product.schema";
 import {
-  ProductFromFrom,
+  ProductFromForm,
   ProductPropertyObjectList,
   ProductPropertyToSelect,
   ProductRelation,
@@ -30,7 +30,7 @@ import { ImgField as ImgFieldComponent } from "./imgField";
 
 interface ProductFormProps extends HTMLAttributes<HTMLFormElement> {
   product?: ProductRelation;
-  handleSubmit?: (data: ProductFromFrom) => void;
+  handleSubmit?: (data: ProductFromForm) => void;
   propertySelectOptionList: Array<ProductPropertyToSelect>;
   propertySelectObjectActive?: ProductPropertyObjectList;
 }
@@ -142,8 +142,9 @@ ProductForm.CategoryListField = function CategoryListField({
   const form = useFormContext<ProductFormValues>();
 
   const handleSelectCat = useCallback((value: MultiSelectOptionItem[]) => {
+    // console.log("output_log:  =>>>", value);
     form.setValue("categoryList", handleCategorySelectOption(value));
-    // handleCategorySelectOption(value);
+    handleCategorySelectOption(value);
   }, []);
 
   return (

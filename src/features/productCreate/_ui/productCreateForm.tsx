@@ -1,6 +1,6 @@
 "use client";
 import { ProductFormLayout } from "@/entities/product";
-import { ProductFromFrom } from "@/entities/product/_domain/types";
+import { ProductFromForm } from "@/entities/product/_domain/types";
 import { usePropertyListByCategoryIdList } from "@/entities/property";
 import { useOptionListTransform } from "@/shared/lib/map";
 import { MultiSelectOptionItem } from "@/shared/ui/multiSelect";
@@ -34,11 +34,12 @@ export const ProductFormCreate: FC<ProductCreateFormProps> = (props) => {
     setCategoryIdList,
     isPending: isPendingPropertyList,
   } = usePropertyListByCategoryIdList(categoryOptionListActive, []);
+  // console.log("output_log: propertyList =>>>", propertyList);
 
   const router = useRouter();
 
   // TODO: What is the type?
-  const handleSubmit = async (data: ProductFromFrom) => {
+  const handleSubmit = async (data: ProductFromForm) => {
     const { categoryList, propertyItemListSelected, ...productData } = data;
 
     await productCreate({
@@ -60,6 +61,7 @@ export const ProductFormCreate: FC<ProductCreateFormProps> = (props) => {
   const handleSelectedProperty = useCallback(
     (propertyListSelected: Array<MultiSelectOptionItem>) => {
       const categoryIdList = toDataIdList(propertyListSelected);
+      setCategoryOptionListSelected(toOptionList([]));
       setCategoryOptionListSelected(toOptionList(categoryIdList));
       setCategoryIdList(categoryIdList.map((item) => item.id));
       return categoryIdList;

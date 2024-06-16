@@ -2,38 +2,61 @@ import { DBClient, Tx } from "@/shared/lib/db/db";
 import { OrderRowEntity } from "../_domain/orderRow.types";
 import { injectable } from "inversify";
 import { IOrderRowRepository } from "../_domain/repository.type";
+import {
+  OrderRowCreateDTO,
+  OrderRowGetDTO,
+  OrderRowListGetByOrderDTO,
+  OrderRowRemoveDTO,
+  OrderRowUpdateDTO,
+} from "../_domain/orderRow.dto";
 
 @injectable()
 export class OrderRowRepository implements IOrderRowRepository {
   constructor(readonly db: DBClient) {}
 
-  async get(id: string, db: Tx = this.db): Promise<OrderRowEntity> {
-    const result = await db.orderRow.findUniqueOrThrow({ where: { id } });
+  async get(dto: OrderRowGetDTO, db: Tx = this.db): Promise<OrderRowEntity> {
+    const result = await db.orderRow.findUniqueOrThrow({ where: dto });
     return result;
   }
 
-  async getList(orderId: string, db: Tx = this.db): Promise<OrderRowEntity[]> {
-    const result = await db.orderRow.findMany({ where: { orderId } });
+  async getListByOrder(
+    dto: OrderRowListGetByOrderDTO,
+    db: Tx = this.db,
+  ): Promise<OrderRowEntity[]> {
+    const result = await db.orderRow.findMany({ where: dto });
     return result;
   }
-  async create(data: OrderRowToAdd, db: Tx = this.db): Promise<OrderRowEntity> {
+
+  async create(
+    dto: OrderRowCreateDTO,
+    db: Tx = this.db,
+  ): Promise<OrderRowEntity> {
+    const { data } = dto;
+
     const result = await db.orderRow.create({ data });
     return result;
   }
 
-  async removeOrderRow(id: string, db: Tx = this.db): Promise<OrderRowEntity> {
-    const result = await db.orderRow.delete({ where: { id } });
+  async update(
+    dto: OrderRowUpdateDTO,
+    db: Tx = this.db,
+  ): Promise<OrderRowEntity> {
+    const { data, selector } = dto;
+
+    const result = await db.orderRow.update({
+      where: selector,
+      data,
+    });
     return result;
   }
 
-  async updateQuantity(
-    data: OrderRowChangeQuantity,
+  async remove(
+    dto: OrderRowRemoveDTO,
     db: Tx = this.db,
   ): Promise<OrderRowEntity> {
-    const result = await db.orderRow.update({
-      where: { id: data.orderRowId },
-      data: { quantity: data.quantity },
-    });
+    const { selector } = dto;
+
+    const result = await db.orderRow.delete({ where: selector });
     return result;
   }
 }

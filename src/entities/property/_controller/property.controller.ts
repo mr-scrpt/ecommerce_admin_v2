@@ -37,6 +37,7 @@ export class PropertyController extends Controller {
         .query(async ({ input }) => {
           const result =
             await this.getPropertyWithRelationService.execute(input);
+
           return propertyRelationSchema.parse(result);
         }),
       getList: publicProcedure.query(async () => {

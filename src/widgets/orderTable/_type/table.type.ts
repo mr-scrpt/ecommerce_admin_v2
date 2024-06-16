@@ -1,6 +1,6 @@
 export type OrderColumnType = {
   id: string;
-  orderNo: number;
+  orderNo: string;
   name: string | null | undefined;
   // slug: string;
   createdAt: string;
@@ -8,7 +8,7 @@ export type OrderColumnType = {
 
 export interface IOrderTableItem {
   id: string;
-  orderNo: number;
+  orderNo: string;
   name: string;
   // slug: string;
   createdAt: string;

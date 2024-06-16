@@ -1,7 +1,7 @@
 import { useGetConfirmation } from "@/shared/lib/confirmation";
 import { useOrderRowRowMutation } from "../_mutation/useOrderRowRemove.mutation";
 
-export const useOrderRemoveConfirm = () => {
+export const useOrderRowRemoveConfirm = () => {
   const getConfirmation = useGetConfirmation();
 
   const { orderRowRemove, isPending, isSuccess } = useOrderRowRowMutation();

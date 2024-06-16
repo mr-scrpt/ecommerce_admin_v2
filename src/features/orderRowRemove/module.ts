@@ -1,15 +1,13 @@
-import { OrderRepository, OrderRowRepository } from "@/entities/order/server";
-import { Container, ContainerModule } from "inversify";
+import { Controller } from "@/kernel/lib/trpc/_controller";
+import { ContainerModule } from "inversify";
+import { OrderRowRemoveController } from "./_controller/orderRowRemove.controller";
+import { IOrderRowRemoveTx } from "./_domain/transaction.type";
+import { OrderRowRemoveService } from "./_service/orderRemove.service";
 import { OrderRowRemoveTx } from "./_tx/orderRowRemove.transaction";
-import { RemoveOrderRowComplexibleUseCase } from "./_usecase/orderRemoveRowComplexible.usecase";
-
-export const orderRowRemoveContainer = new Container();
 
 export const OrderRowRemoveModule = new ContainerModule((bind) => {
-  bind(OrderRowRepository).toSelf();
-  bind(OrderRepository).toSelf();
-  bind(OrderRowRemoveTx).toSelf();
-  bind(RemoveOrderRowComplexibleUseCase).toSelf();
-});
+  bind(IOrderRowRemoveTx).to(OrderRowRemoveTx);
+  bind(OrderRowRemoveService).toSelf();
 
-orderRowRemoveContainer.load(OrderRowRemoveModule);
+  bind(Controller).to(OrderRowRemoveController);
+});

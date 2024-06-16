@@ -3,9 +3,17 @@ import {
   OrderCreateEmptyDTO,
   OrderGetByOwnerDTO,
   OrderGetDTO,
+  OrderUpdateDTO,
 } from "./order.dto";
 import { OrderEntity, OrderRelationEntity } from "./order.types";
 import { OrderRowEntity } from "./orderRow.types";
+import {
+  OrderRowCreateDTO,
+  OrderRowGetDTO,
+  OrderRowListGetByOrderDTO,
+  OrderRowRemoveDTO,
+  OrderRowUpdateDTO,
+} from "./orderRow.dto";
 
 export abstract class IOrderRepository {
   abstract get(dto: OrderGetDTO, db?: Tx): Promise<OrderEntity>;
@@ -30,24 +38,20 @@ export abstract class IOrderRepository {
     db?: Tx,
   ): Promise<OrderEntity>;
 
-  abstract updateTotalPrice(
-    orderId: number, // Replace OrderId with number if OrderId is a type alias for number
-    totalPrice: number,
-    db?: Tx,
-  ): Promise<OrderEntity>;
+  abstract update(dto: OrderUpdateDTO, db?: Tx): Promise<OrderEntity>;
 }
 
 export abstract class IOrderRowRepository {
-  abstract getOrderRowList(orderId: string, db?: Tx): Promise<OrderRowEntity[]>;
+  abstract get(dto: OrderRowGetDTO, db?: Tx): Promise<OrderRowEntity>;
 
-  abstract create(data: OrderRowToAdd, db?: Tx): Promise<OrderRowEntity>;
-
-  abstract removeOrderRow(id: string, db?: Tx): Promise<OrderRowEntity>;
-
-  abstract updateQuantity(
-    data: OrderRowChangeQuantity,
+  abstract getListByOrder(
+    dto: OrderRowListGetByOrderDTO,
     db?: Tx,
-  ): Promise<OrderRowEntity>;
+  ): Promise<OrderRowEntity[]>;
 
-  abstract get(id: string, db?: Tx): Promise<OrderRowEntity>;
+  abstract create(dto: OrderRowCreateDTO, db?: Tx): Promise<OrderRowEntity>;
+
+  abstract update(dto: OrderRowUpdateDTO, db?: Tx): Promise<OrderRowEntity>;
+
+  abstract remove(dto: OrderRowRemoveDTO, db?: Tx): Promise<OrderRowEntity>;
 }

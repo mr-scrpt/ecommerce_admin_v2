@@ -18,9 +18,9 @@ export type OrderCreateEmptyDTO = {
   data: OrderCreateEmpty;
 };
 
-// export type OrderUpdateDTO = {
-//   selector: {
-//     id: string;
-//   };
-//   data: Partial<OrderBase>;
-// };
+export type OrderUpdateDTO = {
+  selector: {
+    id: string;
+  };
+  data: Partial<OrderBase>;
+};

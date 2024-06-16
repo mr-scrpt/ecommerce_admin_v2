@@ -1,37 +1,41 @@
 import { OrderEntity } from "@/entities/order";
-import { OrderRepository, OrderRowRepository } from "@/entities/order/server";
+import { IOrderRepository, IOrderRowRepository } from "@/entities/order/server";
 import { DBClient, Transaction, Tx } from "@/shared/lib/db/db";
-import { OrderRowRemoveComplexible } from "../_domain/types";
 import { injectable } from "inversify";
+import { IOrderRowRemoveTx } from "../_domain/transaction.type";
+import { OrderRowRemoveTxDTO } from "../_domain/types";
 
 @injectable()
-export class OrderRowRemoveTx extends Transaction {
+export class OrderRowRemoveTx extends Transaction implements IOrderRowRemoveTx {
   constructor(
     readonly db: DBClient,
-    private readonly orderRowRepo: OrderRowRepository,
-    private readonly orderRepo: OrderRepository,
+    private readonly orderRowRepo: IOrderRowRepository,
+    private readonly orderRepo: IOrderRepository,
   ) {
     super(db);
   }
 
-  async exec(data: OrderRowRemoveComplexible): Promise<OrderEntity> {
+  async remove(dto: OrderRowRemoveTxDTO): Promise<OrderEntity> {
     const action = async (tx: Tx) => {
-      const { orderRowId } = data;
-      const { orderId } = await this.orderRowRepo.removeOrderRow(
-        orderRowId,
+      const { selector } = dto;
+      const { orderId } = await this.orderRowRepo.remove({ selector }, tx);
+
+      const orderRowList = await this.orderRowRepo.getListByOrder(
+        { orderId },
         tx,
       );
 
-      const orderRowList = await this.orderRowRepo.getList(orderId, tx);
-
-      const totalPrice = orderRowList.reduce(
+      const priceTotal = orderRowList.reduce(
         (acc, row) => acc + row.price * row.quantity,
         0,
       );
 
-      const order = await this.orderRepo.getOrder(orderId, tx);
+      const order = await this.orderRepo.get({ id: orderId }, tx);
 
-      await this.orderRepo.updateTotalPrice(orderId, totalPrice, tx);
+      await this.orderRepo.update(
+        { selector: { id: orderId }, data: { priceTotal } },
+        tx,
+      );
 
       return order;
     };

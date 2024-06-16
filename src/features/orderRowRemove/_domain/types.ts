@@ -1,3 +1,12 @@
-import { OrderRowToRemovePayload } from "@/entities/order";
+export type OrderRowRemoveTxPayload = {
+  selector: OrderRowRemoveSelector;
+};
 
-export type OrderRowRemoveComplexible = OrderRowToRemovePayload;
+export type OrderRowRemoveTxDTO = {
+  selector: OrderRowRemoveSelector;
+};
+
+// NOTE: Selector
+export type OrderRowRemoveSelector = {
+  id: string;
+};

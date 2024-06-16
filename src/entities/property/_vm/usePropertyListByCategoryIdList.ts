@@ -27,12 +27,14 @@ export const usePropertyListByCategoryIdList = (
     });
 
   const propertyListCompleted: Array<PropertyToSelect> = propertyList.map(
-    (property) => ({
-      id: property.id,
-      name: property.name,
-      datatype: property.datatype,
-      propertyList: toOptionList(property.propertyItemList),
-    }),
+    (property) => {
+      return {
+        id: property.id,
+        name: property.name,
+        datatype: property.datatype,
+        propertyList: toOptionList(property.propertyItemList),
+      };
+    },
   );
 
   const propertyObjectActive =

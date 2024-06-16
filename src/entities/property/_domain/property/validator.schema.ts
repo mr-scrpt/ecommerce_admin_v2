@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { propertySchema } from "./property.schema";
+import { propertyRelationSchema, propertySchema } from "./property.schema";
 
 export const getInputSchema = z.object({
   id: z.string(),
@@ -10,4 +10,4 @@ export const getByCategoryListInputSchema = z.object({
 });
 
 export const getListOutputSchema = z.array(propertySchema);
-export const getListRelationOutputSchema = z.array(propertySchema);
+export const getListRelationOutputSchema = z.array(propertyRelationSchema);

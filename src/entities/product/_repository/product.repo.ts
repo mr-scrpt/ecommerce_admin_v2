@@ -159,7 +159,7 @@ export class ProductRepository implements IProductRepository {
     db: Tx = this.db,
   ): Promise<ProductEntity> {
     const { selector, data } = dto;
-    const { propertyItemListId: propertyListId } = data;
+    const { propertyItemListId } = data;
 
     // const res = propertyListId.map(({ propertyId }) => ({ id: propertyId }));
     // console.log("output_log: res id =>>>", res);
@@ -168,7 +168,7 @@ export class ProductRepository implements IProductRepository {
       where: selector,
       data: {
         propertyItemListSelected: {
-          set: propertyListId.map(({ propertyItemId }) => ({
+          set: propertyItemListId.map(({ propertyItemId }) => ({
             id: propertyItemId,
           })),
         },

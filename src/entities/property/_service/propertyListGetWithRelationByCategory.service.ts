@@ -1,8 +1,8 @@
 import { injectable } from "inversify";
 import { IPropertyRepository } from "../_domain/property/repository.type";
 import {
-  Property,
   PropertyListGetByCategoryListSelector,
+  PropertyRelation,
 } from "../_domain/property/types";
 
 @injectable()
@@ -11,7 +11,7 @@ export class PropertyListGetWithRelationByCategoryListService {
 
   async execute(
     selector: PropertyListGetByCategoryListSelector,
-  ): Promise<Array<Property>> {
+  ): Promise<Array<PropertyRelation>> {
     return await this.propertyRepo.getWithRelationByCategoryIdList(selector);
   }
 }

@@ -5,6 +5,7 @@ import {
   OrderCreateEmptyDTO,
   OrderGetByOwnerDTO,
   OrderGetDTO,
+  OrderUpdateDTO,
 } from "../_domain/order.dto";
 import { SORTING_ORDER_DEFAULT } from "@/shared/config/constant";
 import { IOrderRepository } from "../_domain/repository.type";
@@ -99,18 +100,26 @@ export class OrderRepository implements IOrderRepository {
     });
   }
 
-  async updateTotalPrice(
-    orderId: OrderId,
-    totalPrice: number,
-    db: Tx = this.db,
-  ): Promise<OrderEntity> {
+  // async updateTotalPrice(
+  //   orderId: OrderId,
+  //   totalPrice: number,
+  //   db: Tx = this.db,
+  // ): Promise<OrderEntity> {
+  //   return await db.order.update({
+  //     where: {
+  //       id: orderId,
+  //     },
+  //     data: {
+  //       priceTotal: totalPrice,
+  //     },
+  //   });
+  // }
+  //
+  async update(dto: OrderUpdateDTO, db: Tx = this.db): Promise<OrderEntity> {
+    const { selector, data } = dto;
     return await db.order.update({
-      where: {
-        id: orderId,
-      },
-      data: {
-        priceTotal: totalPrice,
-      },
+      where: selector,
+      data,
     });
   }
 }

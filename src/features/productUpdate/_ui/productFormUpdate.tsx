@@ -1,10 +1,9 @@
 "use client";
 import {
   ProductFormLayout,
-  ProductId,
   useProductWithRelationQuery,
 } from "@/entities/product";
-import { ProductFromFrom } from "@/entities/product/_domain/types";
+import { ProductFromForm } from "@/entities/product/_domain/types";
 import { usePropertyListByCategoryIdList } from "@/entities/property";
 import { useOptionListTransform } from "@/shared/lib/map";
 import { Spinner } from "@/shared/ui/icons/spinner";
@@ -16,7 +15,7 @@ import { useProductUpdateMutation } from "../_mutation/useProductUpdate.mutation
 import { useCategoryDataToForm } from "../_vm/useCategoryDataToForm";
 
 interface ProductFormProps extends HTMLAttributes<HTMLDivElement> {
-  productId: ProductId;
+  productId: string;
   callbackUrl?: string;
   className?: string;
   onSuccess?: () => void;
@@ -29,7 +28,7 @@ export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
     isPending: isPendingProduct,
     product,
     isFetchedAfterMount,
-  } = useProductWithRelationQuery(productId);
+  } = useProductWithRelationQuery({ id: productId });
 
   const { toDataIdList, toOptionList } = useOptionListTransform();
 
@@ -86,13 +85,15 @@ export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
     return <div>Failed to load product, you may not have permissions</div>;
   }
 
-  const handleSubmit = async (data: ProductFromFrom) => {
+  const handleSubmit = async (data: ProductFromForm) => {
+    const { categoryList, propertyItemListSelected, ...productData } = data;
     await productUpdate({
-      productId: product.id,
-      data: {
-        ...data,
-        id: product.id,
-      },
+      selector: { id: productId },
+      productData,
+      propertyItemData: propertyItemListSelected.map(({ id }) => ({
+        propertyItemId: id,
+      })),
+      categoryData: categoryList.map(({ id }) => ({ categoryId: id })),
     });
 
     onSuccess?.();

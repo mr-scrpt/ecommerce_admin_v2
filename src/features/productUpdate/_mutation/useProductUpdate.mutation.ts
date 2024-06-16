@@ -1,20 +1,15 @@
-import { useMutation } from "@tanstack/react-query";
 import { useEmitProductUpdate } from "..";
-import { updateProductAction } from "../_action/productUpdate.action";
-
-const baseKey = "productUpdateMutation";
+import { productUpdateApi } from "../_api/productUpdate.api";
 
 export const useProductUpdateMutation = () => {
   const { productUpdateEvent } = useEmitProductUpdate();
 
-  const { mutateAsync, isPending } = useMutation({
-    mutationKey: [baseKey],
-    mutationFn: updateProductAction,
-
-    onSuccess: async ({ product }) => {
-      productUpdateEvent(product.id);
-    },
-  });
+  const { mutateAsync, isPending } =
+    productUpdateApi.productUpdate.update.useMutation({
+      onSuccess: async ({ id }) => {
+        productUpdateEvent(id);
+      },
+    });
   return {
     productUpdate: mutateAsync,
     isPending,

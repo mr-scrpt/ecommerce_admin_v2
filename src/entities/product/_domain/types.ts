@@ -113,7 +113,7 @@ export type ProductPropertyObjectList = {
 };
 
 // NOTE: UI
-export type ProductFromFrom = {
+export type ProductFromForm = {
   name: string;
   article: string;
   price: number;
