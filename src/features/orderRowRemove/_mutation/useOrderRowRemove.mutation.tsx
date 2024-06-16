@@ -1,19 +1,15 @@
-import { useMutation } from "@tanstack/react-query";
-import { removeOrderRowAction } from "../_action/orderRemoveRow.action";
+import { orderRowRemoveApi } from "../_api/orderRowRemove.api";
 import { useEmitOrderRowRemove } from "../_vm/event/useEmitOrderRowRemove";
-
-const baseKey = "orderRemoveRowMutation";
 
 export const useOrderRowRowMutation = () => {
   const { orderRowRemoveEvent } = useEmitOrderRowRemove();
 
-  const { isPending, isSuccess, mutateAsync } = useMutation({
-    mutationKey: [baseKey],
-    mutationFn: removeOrderRowAction,
-    onSuccess: async ({ order }) => {
-      orderRowRemoveEvent(order.id);
-    },
-  });
+  const { isPending, isSuccess, mutateAsync } =
+    orderRowRemoveApi.orderRowRemove.remove.useMutation({
+      onSuccess: async ({ id }) => {
+        orderRowRemoveEvent(id);
+      },
+    });
   return {
     orderRowRemove: mutateAsync,
     isPending,

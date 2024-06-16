@@ -14,7 +14,7 @@ export const useOrderRowRemoveConfirm = () => {
 
     if (!confirmation) return;
 
-    await orderRowRemove({ orderRowId });
+    await orderRowRemove({ selector: { id: orderRowId } });
   };
 
   return { isPending, isSuccess, removeOrderConfirm };
