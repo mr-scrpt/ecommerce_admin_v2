@@ -19,7 +19,7 @@ export class UserCreateTx extends Transaction implements IUserCreateTx {
   async createUser(dto: UserCreateTxDTO): Promise<UserEntity> {
     const { userData } = dto;
     const action = async (tx: Tx) => {
-      const userCreated = await this.userRepo.createUser(
+      const userCreated = await this.userRepo.create(
         { data: userData },
         tx,
       );
@@ -32,7 +32,7 @@ export class UserCreateTx extends Transaction implements IUserCreateTx {
         },
         tx,
       );
-      const userWithCart = await this.userRepo.getUserWithCart(
+      const userWithCart = await this.userRepo.getWithCart(
         { id: userCreated.id },
         tx,
       );

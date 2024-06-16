@@ -33,6 +33,8 @@ import { PropertyRemoveModule } from "@/features/propertyRemove/module";
 import { PropertyUpdateModule } from "@/features/propertyUpdate/module";
 import { ProductUpdateModule } from "@/features/productUpdate/module";
 import { OrderRowRemoveModule } from "@/features/orderRowRemove/module";
+import { OrderRowUpdateModule } from "@/features/orderRowUpdate/module";
+import { ConsumerDataModule } from "@/features/consumerData/module";
 
 export const loadModule = () => {
   const container = new Container();
@@ -46,6 +48,7 @@ export const loadModule = () => {
 
     UserModule,
     UserCreateModule,
+    ConsumerDataModule,
 
     ProfileModule,
     ProfileUpdateModule,
@@ -59,6 +62,7 @@ export const loadModule = () => {
     OrderCreateModule,
     OrderDeliveryUpdateModule,
     OrderRowRemoveModule,
+    OrderRowUpdateModule,
 
     CategoryModule,
     CategoryCreateModule,

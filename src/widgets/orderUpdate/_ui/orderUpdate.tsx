@@ -1,7 +1,7 @@
 "use client";
 import {
   useDeliveryByOrderIdQuery,
-  useInitSettlementQuery,
+  // useInitSettlementQuery,
 } from "@/entities/delivery";
 import { DeliveryFormUpdate } from "@/features/deliveryUpdate";
 import { OrderOwnerData } from "@/features/orderOwnerData";
@@ -24,7 +24,7 @@ export const OrderUpdate: FC<OrderUpdateProps> = (props) => {
   const { orderRowUpdateQuantity } = useOrderRowUpdateQuantityMutation();
   const { removeOrderConfirm, isPending, isSuccess } = useOrderRemoveConfirm();
 
-  const { delivery } = useDeliveryByOrderIdQuery(orderId);
+  const { delivery } = useDeliveryByOrderIdQuery({ orderId });
 
   return (
     <div className="flex w-full flex-col gap-4">

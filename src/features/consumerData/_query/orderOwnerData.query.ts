@@ -1,5 +1,5 @@
 "use client";
-import { getOrderOwnerDataAction } from "@/features/orderOwnerData/_action/getOrderOwnerData.action";
+import { getOrderOwnerDataAction } from "@/features/consumerData/_action/getOrderOwnerData.action";
 import { queryOptions, useQuery, useQueryClient } from "@tanstack/react-query";
 import { baseQueryKey } from "../_domain/types";
 import { useListenOrderOwnerUpdate } from "../_vm/event/useListenOrderOwnerUpdate";

@@ -1,4 +1,4 @@
-import { useUserListSearchQuery } from "@/entities/user/user";
+import { User, useUserListSearchQuery } from "@/entities/user/user";
 
 export const useOrderUserListToSelectModel = () => {
   const {
@@ -11,12 +11,20 @@ export const useOrderUserListToSelectModel = () => {
   // const { order, isPending: isOrderPending } =
   //   useOrderWithRelationQuery(orderId);
 
-  const userList = userData?.map((item) => ({
-    value: item.id,
-    name: item.name,
-    phone: item.phone,
-    label: item.name,
-  }));
+  // const userList = userData?.map((item) => ({
+  //   value: item.id,
+  //   name: item.name,
+  //   phone: item.phone,
+  //   label: item.name,
+  // }));
+  const userList = userData
+    .filter((item): item is typeof item & { name: string } => !!item.name)
+    .map((item) => ({
+      value: item.id,
+      name: item.name,
+      phone: item.phone,
+      label: item.name,
+    }));
 
   return {
     toSearch,

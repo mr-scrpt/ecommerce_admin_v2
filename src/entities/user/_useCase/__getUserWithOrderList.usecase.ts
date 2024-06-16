@@ -22,6 +22,6 @@ export class GetUserWithOrderListUseCase {
       throw new AuthorizatoinError();
     }
 
-    return await this.userRepo.getUserWithOrderList(userId);
+    return await this.userRepo.getWithOrderList(userId);
   }
 }

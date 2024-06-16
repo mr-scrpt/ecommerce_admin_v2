@@ -30,12 +30,12 @@ export class OrderRowRemoveTx extends Transaction implements IOrderRowRemoveTx {
         0,
       );
 
-      const order = await this.orderRepo.get({ id: orderId }, tx);
-
       await this.orderRepo.update(
         { selector: { id: orderId }, data: { priceTotal } },
         tx,
       );
+
+      const order = await this.orderRepo.get({ id: orderId }, tx);
 
       return order;
     };

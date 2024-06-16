@@ -7,6 +7,6 @@ export class UserListGetService {
   constructor(private readonly userRepo: IUserRepository) {}
 
   async execute(): Promise<Array<UserEntity>> {
-    return await this.userRepo.getUserList();
+    return await this.userRepo.getList();
   }
 }

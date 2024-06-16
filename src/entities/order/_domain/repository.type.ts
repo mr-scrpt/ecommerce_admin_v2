@@ -1,7 +1,7 @@
 import { Tx } from "@/shared/lib/db/db";
 import {
   OrderCreateEmptyDTO,
-  OrderGetByOwnerDTO,
+  OrderGetByConsumerDTO,
   OrderGetDTO,
   OrderUpdateDTO,
 } from "./order.dto";
@@ -23,8 +23,8 @@ export abstract class IOrderRepository {
     db?: Tx,
   ): Promise<OrderRelationEntity>;
 
-  abstract getListByOwner(
-    dto: OrderGetByOwnerDTO,
+  abstract getListByConsumer(
+    dto: OrderGetByConsumerDTO,
     db?: Tx,
   ): Promise<OrderEntity[]>;
 

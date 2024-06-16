@@ -5,7 +5,7 @@ import { OrderPaymentStatusEnum, OrderStatusEnum } from "./order.types";
 // NOTE: Main information
 
 export const orderFormDefaultSchema = z.object({
-  orderNo: z.number(),
+  orderNo: z.string(),
   orderStatus: z.custom<OrderStatusEnum>(),
   paymentStatus: z.custom<OrderPaymentStatusEnum>(),
 });

@@ -3,7 +3,7 @@ import { injectable } from "inversify";
 import { OrderEntity, OrderRelationEntity } from "../_domain/order.types";
 import {
   OrderCreateEmptyDTO,
-  OrderGetByOwnerDTO,
+  OrderGetByConsumerDTO,
   OrderGetDTO,
   OrderUpdateDTO,
 } from "../_domain/order.dto";
@@ -58,11 +58,11 @@ export class OrderRepository implements IOrderRepository {
   //   return result;
   // }
 
-  async getListByOwner(
-    dto: OrderGetByOwnerDTO,
+  async getListByConsumer(
+    dto: OrderGetByConsumerDTO,
     db: Tx = this.db,
   ): Promise<OrderEntity[]> {
-    const { ownerId } = dto;
+    const { consumerId: ownerId } = dto;
     const orderList = await db.order.findMany({
       where: {
         userId: ownerId,

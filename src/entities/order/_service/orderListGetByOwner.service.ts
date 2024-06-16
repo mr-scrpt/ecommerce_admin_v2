@@ -7,6 +7,6 @@ export class OrderListGetByOwnerService {
   constructor(private readonly orderRepo: IOrderRepository) {}
 
   async execute(selector: OrderGetByOwnerSelector): Promise<Array<Order>> {
-    return await this.orderRepo.getListByOwner(selector);
+    return await this.orderRepo.getListByConsumer(selector);
   }
 }

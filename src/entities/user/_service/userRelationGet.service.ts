@@ -8,6 +8,6 @@ export class UserRelationGetService {
   constructor(private readonly userRepo: IUserRepository) {}
 
   async execute(payload: UserGetPayload): Promise<ProfileEntity> {
-    return await this.userRepo.getUserWithCart(payload);
+    return await this.userRepo.getWithCart(payload);
   }
 }

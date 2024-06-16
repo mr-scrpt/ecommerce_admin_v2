@@ -18,7 +18,7 @@ import { IUserRepository } from "../_domain/repository.type";
 export class UserRepository implements IUserRepository {
   constructor(readonly db: DBClient) {}
 
-  async getUser(dto: UserGetDTO, db: Tx = this.db): Promise<UserEntity> {
+  async get(dto: UserGetDTO, db: Tx = this.db): Promise<UserEntity> {
     const { id: userId } = dto;
     const user = await db.user.findUniqueOrThrow({
       where: {
@@ -28,7 +28,7 @@ export class UserRepository implements IUserRepository {
     return user;
   }
 
-  async getUserWithCart(
+  async getWithCart(
     dto: UserGetDTO,
     db: Tx = this.db,
   ): Promise<UserWithCartEntity> {
@@ -48,28 +48,28 @@ export class UserRepository implements IUserRepository {
     return user;
   }
 
-  async getUserWithOrderList(
-    dto: UserGetDTO,
+  // async getWithOrderList(
+  //   dto: UserGetDTO,
+  //
+  //   db: Tx = this.db,
+  // ): Promise<UserWithOrdersEntity> {
+  //   const { id: userId } = dto;
+  //   const user = await db.user.findUniqueOrThrow({
+  //     where: {
+  //       id: userId,
+  //     },
+  //     include: {
+  //       orderList: true,
+  //     },
+  //   });
+  //   return user;
+  // }
 
-    db: Tx = this.db,
-  ): Promise<UserWithOrdersEntity> {
-    const { id: userId } = dto;
-    const user = await db.user.findUniqueOrThrow({
-      where: {
-        id: userId,
-      },
-      include: {
-        orderList: true,
-      },
-    });
-    return user;
-  }
-
-  async getUserList(db: Tx = this.db): Promise<UserEntity[]> {
+  async getList(db: Tx = this.db): Promise<UserEntity[]> {
     return db.user.findMany();
   }
 
-  async searchUserList(
+  async searchList(
     dto: UserSearchDTO,
     db: Tx = this.db,
   ): Promise<UserEntity[]> {
@@ -95,14 +95,14 @@ export class UserRepository implements IUserRepository {
     });
   }
 
-  async createUser(user: UserCreateDTO, db: Tx = this.db): Promise<UserEntity> {
+  async create(user: UserCreateDTO, db: Tx = this.db): Promise<UserEntity> {
     const { data } = user;
     return await db.user.create({
       data,
     });
   }
 
-  async updateUser(dto: UserUpdateDTO, db: Tx = this.db): Promise<UserEntity> {
+  async update(dto: UserUpdateDTO, db: Tx = this.db): Promise<UserEntity> {
     const { id, ...userData } = dto;
     return await db.user.update({
       where: { id },
@@ -110,10 +110,7 @@ export class UserRepository implements IUserRepository {
     });
   }
 
-  async removeUserById(
-    dto: UserRemoveDTO,
-    db: Tx = this.db,
-  ): Promise<UserEntity> {
+  async remove(dto: UserRemoveDTO, db: Tx = this.db): Promise<UserEntity> {
     const { userId } = dto;
     return await db.user.delete({ where: { id: userId } });
   }

@@ -20,7 +20,7 @@ export const userRelationCartSchema = z.object({
 
 export const userRelationOrderSchema = z.object({
   id: z.string(),
-  orderNo: z.number(),
+  orderNo: z.string(),
   userId: z.string(),
   createdAt: z.date(),
   orderStatus: z.string(),

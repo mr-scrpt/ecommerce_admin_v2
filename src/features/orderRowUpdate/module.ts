@@ -1,17 +1,14 @@
-import { OrderRepository, OrderRowRepository } from "@/entities/order/server";
-import { Container, ContainerModule } from "inversify";
-import { OrderRowUpdateQuantityTx } from "./_tx/orderRowUpdateQuantity.transaction";
-import { ProductRepository } from "@/entities/product/server";
-import { UpdateOrderRowQuantityComplexibleUseCase } from "./_usecase/orderRowUpdateQuantityComplexible.usecase";
-
-export const orderRowUpdateContainer = new Container();
+import { Controller } from "@/kernel/lib/trpc/_controller";
+import { ContainerModule } from "inversify";
+import { OrderRowUpdateController } from "./_controller/orderRowUpdate.controller";
+import { IOrderRowUpdateTx } from "./_domain/transaction.type";
+import { OrderRowUpdateService } from "./_service/orderUpdate.service";
+import { OrderRowUpdateTx } from "./_tx/orderRowUpdate.transaction";
 
 export const OrderRowUpdateModule = new ContainerModule((bind) => {
-  bind(OrderRowRepository).toSelf();
-  bind(OrderRepository).toSelf();
-  bind(OrderRowUpdateQuantityTx).toSelf();
-  bind(ProductRepository).toSelf();
-  bind(UpdateOrderRowQuantityComplexibleUseCase).toSelf();
-});
+  bind(IOrderRowUpdateTx).to(OrderRowUpdateTx);
 
-orderRowUpdateContainer.load(OrderRowUpdateModule);
+  bind(OrderRowUpdateService).toSelf();
+
+  bind(Controller).to(OrderRowUpdateController);
+});

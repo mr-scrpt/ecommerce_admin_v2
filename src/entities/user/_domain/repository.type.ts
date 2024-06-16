@@ -6,34 +6,27 @@ import {
   UserSearchDTO,
   UserUpdateDTO,
 } from "../_domain/user.dto";
-import {
-  UserEntity,
-  UserWithCartEntity,
-  UserWithOrdersEntity,
-} from "../_domain/user.types";
+import { UserEntity, UserWithCartEntity } from "../_domain/user.types";
 
 export abstract class IUserRepository {
   constructor(readonly db: DBClient) {}
 
-  abstract getUser(dto: UserGetDTO, db?: Tx): Promise<UserEntity>;
+  abstract get(dto: UserGetDTO, db?: Tx): Promise<UserEntity>;
 
-  abstract getUserWithCart(
-    dto: UserGetDTO,
-    db?: Tx,
-  ): Promise<UserWithCartEntity>;
+  abstract getWithCart(dto: UserGetDTO, db?: Tx): Promise<UserWithCartEntity>;
 
-  abstract getUserWithOrderList(
-    dto: UserGetDTO,
-    db?: Tx,
-  ): Promise<UserWithOrdersEntity>;
+  // abstract getWithOrderList(
+  //   dto: UserGetDTO,
+  //   db?: Tx,
+  // ): Promise<UserWithOrdersEntity>;
 
-  abstract getUserList(db?: Tx): Promise<UserEntity[]>;
+  abstract getList(db?: Tx): Promise<UserEntity[]>;
 
-  abstract searchUserList(dto: UserSearchDTO, db?: Tx): Promise<UserEntity[]>;
+  abstract searchList(dto: UserSearchDTO, db?: Tx): Promise<UserEntity[]>;
 
-  abstract createUser(user: UserCreateDTO, db?: Tx): Promise<UserEntity>;
+  abstract create(user: UserCreateDTO, db?: Tx): Promise<UserEntity>;
 
-  abstract updateUser(dto: UserUpdateDTO, db?: Tx): Promise<UserEntity>;
+  abstract update(dto: UserUpdateDTO, db?: Tx): Promise<UserEntity>;
 
-  abstract removeUserById(dto: UserRemoveDTO, db?: Tx): Promise<UserEntity>;
+  abstract remove(dto: UserRemoveDTO, db?: Tx): Promise<UserEntity>;
 }

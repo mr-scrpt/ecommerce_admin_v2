@@ -5,8 +5,8 @@ export type OrderGetDTO = {
   id: string;
 };
 
-export type OrderGetByOwnerDTO = {
-  ownerId: string;
+export type OrderGetByConsumerDTO = {
+  consumerId: string;
 };
 
 // NOTE: Mutations

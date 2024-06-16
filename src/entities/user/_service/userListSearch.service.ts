@@ -11,6 +11,6 @@ export class UserListSearchService {
     if (!q) {
       return [];
     }
-    return await this.userRepo.searchUserList(selector);
+    return await this.userRepo.searchList(selector);
   }
 }

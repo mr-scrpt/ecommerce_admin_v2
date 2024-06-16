@@ -16,7 +16,7 @@ export class UserUpdateTx extends Transaction {
   async updateUser(userToUpdate: UserUpdateComplexible): Promise<UserEntity> {
     const { userId, userData } = userToUpdate;
     const action = async (tx: Tx) => {
-      return await this.userRepo.updateUser(userId, userData, tx);
+      return await this.userRepo.update(userId, userData, tx);
     };
 
     return await this.start(action);

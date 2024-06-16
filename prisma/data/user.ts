@@ -8,6 +8,7 @@ export const userListSeed = [
     phone: "+380993282451",
     // testPassword: "1234",
     role: $Enums.ROLE.ADMIN,
+    emailVerified: new Date(),
   },
 
   {
@@ -16,6 +17,7 @@ export const userListSeed = [
     phone: "+46701234567",
     // testPassword: "1234",
     role: $Enums.ROLE.USER,
+    emailVerified: new Date(),
   },
 
   {

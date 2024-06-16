@@ -14,7 +14,7 @@ export class SessionGetRelationService implements ISessionGetRelationService {
 
   async execute(payload: SessionWithDataPayload): Promise<Session> {
     const { session, userId } = payload;
-    const user = await this.userRepo.getUserWithCart({
+    const user = await this.userRepo.getWithCart({
       id: userId,
     });
 

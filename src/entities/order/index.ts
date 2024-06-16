@@ -13,8 +13,13 @@ export {
   useOrderListQuery,
   useInvalidateOrderList,
 } from "./_query/orderList.query";
+export {
+  useOrderWithRelationQuery,
+  useInvalidateOrderWithRelation,
+} from "./_query/orderWithRelation.query";
 
 export type { OrderCreateEmptyDTO } from "./_domain/order.dto";
+export type { OrderRowUpdateDTO } from "./_domain/orderRow.dto";
 export type {
   Order,
   OrderBase,
@@ -24,6 +29,10 @@ export type {
   OrderUI,
 } from "./_domain/order.types";
 
-export type { OrderRow, OrderRowEntity } from "./_domain/orderRow.types";
+export type {
+  OrderRowBase,
+  OrderRow,
+  OrderRowEntity,
+} from "./_domain/orderRow.types";
 
 export type { OrderSelectOwnerFormValues } from "./_domain/form.schema";
