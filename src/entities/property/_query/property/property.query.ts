@@ -1,6 +1,6 @@
 "use client";
 import { propertyApi } from "../../_api/property.api";
-import { Property } from "../../_domain/property/types";
+import { Property } from "../../_domain/property/property.types";
 import { useListenPropertyUpdate } from "../../_vm/event/useListenPropertyUpdate";
 
 type QueryParams = {

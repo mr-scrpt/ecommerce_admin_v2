@@ -3,7 +3,7 @@ import { Button } from "@/shared/ui/button";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { ClientSafeProvider } from "next-auth/react";
 import { FC, HTMLAttributes } from "react";
-import { useOAuthSignIn } from "../_vm/useOauthSignIn";
+import { useOAuthSignInModel } from "../_vm/useOauthSignIn.model";
 import { providerIcons } from "./providerIconList";
 
 interface ProviderButtonProps extends HTMLAttributes<HTMLDivElement> {
@@ -13,7 +13,7 @@ interface ProviderButtonProps extends HTMLAttributes<HTMLDivElement> {
 export const ProviderButton: FC<ProviderButtonProps> = (props) => {
   const { provider } = props;
 
-  const oauthSignIn = useOAuthSignIn({ provider });
+  const oauthSignIn = useOAuthSignInModel({ provider });
 
   const getIcon = (provider: ClientSafeProvider) => {
     return providerIcons[provider.id] || null;

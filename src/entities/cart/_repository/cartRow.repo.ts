@@ -42,9 +42,12 @@ export class CartRowRepository {
     dto: CartRowCreateDTO,
     db: Tx = this.db,
   ): Promise<CartRowEntity> {
-    const { data } = dto;
+    const { data, target } = dto;
     return await db.cartRow.create({
-      data,
+      data: {
+        ...data,
+        cartId: target.cartId,
+      },
     });
   }
 

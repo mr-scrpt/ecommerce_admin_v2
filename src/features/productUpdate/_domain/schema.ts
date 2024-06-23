@@ -1,4 +1,4 @@
-import { productBaseSchema } from "@/entities/product/server";
+import { productBaseSchema } from "@/kernel/domain/product/product.schema";
 import { z } from "zod";
 
 export const productSelectorSchema = z.object({

@@ -1,12 +1,12 @@
 "use client";
 import { CategoryForm, categoryFormSchema } from "@/entities/category";
-import { usePropertyLikeSelectOptionList } from "@/entities/property";
 import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes } from "react";
 import { z } from "zod";
 import { useCategoryCreateMutation } from "../_mutation/categoryCreate.mutation";
 import { useOptionListTransform } from "@/shared/lib/map";
+import { usePropertyLikeSelectOptionListModel } from "@/entities/property";
 
 interface CategoryCreateFormProps extends HTMLAttributes<HTMLDivElement> {
   callbackUrl?: string;
@@ -25,7 +25,7 @@ export const CategoryFormCreate: FC<CategoryCreateFormProps> = (props) => {
     useCategoryCreateMutation();
 
   const { propertySelectOptionList, isPending: isPendingOptionList } =
-    usePropertyLikeSelectOptionList();
+    usePropertyLikeSelectOptionListModel();
 
   const { toDataIdList } = useOptionListTransform();
 

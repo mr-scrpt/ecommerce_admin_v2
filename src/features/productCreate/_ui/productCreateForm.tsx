@@ -1,14 +1,14 @@
 "use client";
 import { ProductFormLayout } from "@/entities/product";
-import { ProductFromForm } from "@/entities/product/_domain/types";
-import { usePropertyListByCategoryIdList } from "@/entities/property";
+import { ProductFromForm } from "@/entities/product/_domain/product.types";
 import { useOptionListTransform } from "@/shared/lib/map";
 import { MultiSelectOptionItem } from "@/shared/ui/multiSelect";
 import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes, useCallback } from "react";
 import { useProductCreateMutation } from "../_mutation/productCreate.mutation";
-import { useCategoryDataToForm } from "../_vm/useCategoryDataToForm";
+import { useCategoryDataToFormModel } from "../_vm/useCategoryDataToFormModel";
+import { usePropertyListByCategoryIdListModel } from "@/entities/property";
 
 interface ProductCreateFormProps extends HTMLAttributes<HTMLDivElement> {
   callbackUrl?: string;
@@ -24,7 +24,7 @@ export const ProductFormCreate: FC<ProductCreateFormProps> = (props) => {
     categoryOptionListActive,
     isPendingCategoryOptionList,
     setCategoryOptionListSelected,
-  } = useCategoryDataToForm();
+  } = useCategoryDataToFormModel();
 
   const { productCreate, isPending: isPendingCreate } =
     useProductCreateMutation();
@@ -33,7 +33,7 @@ export const ProductFormCreate: FC<ProductCreateFormProps> = (props) => {
     propertyList,
     setCategoryIdList,
     isPending: isPendingPropertyList,
-  } = usePropertyListByCategoryIdList(categoryOptionListActive, []);
+  } = usePropertyListByCategoryIdListModel(categoryOptionListActive, []);
   // console.log("output_log: propertyList =>>>", propertyList);
 
   const router = useRouter();

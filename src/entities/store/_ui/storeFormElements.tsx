@@ -22,7 +22,7 @@ import {
   StoreFormDefaultValues,
   storeFormDefaultSchema,
 } from "../_domain/form.schema";
-import { Store } from "../_domain/types";
+import { Store } from "@/kernel/domain/store/store.type";
 
 interface StoreFormElementsProps extends HTMLAttributes<HTMLFormElement> {
   store: Store;
@@ -47,7 +47,7 @@ type StoreFormElementsType = FC<StoreFormElementsProps> & {
 
 const getDefaultValues = (store: Store) => ({
   name: store.name ?? "",
-  settlement: store.settlement ?? "",
+  settlement: store.settlementRef ?? "",
   address: store.address ?? "",
 });
 

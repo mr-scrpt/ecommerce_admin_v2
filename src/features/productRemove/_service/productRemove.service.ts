@@ -1,7 +1,7 @@
-import { Product } from "@/entities/product";
 import { injectable } from "inversify";
 import { IProductRemoveTx } from "../_domain/transaction.type";
 import { ProductRemoveTxPayload } from "../_domain/types";
+import { Product } from "@/kernel/domain/product/product.type";
 
 @injectable()
 export class ProductRemoveService {

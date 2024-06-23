@@ -1,5 +1,5 @@
 import { Role } from "@/kernel/domain/role.type";
-import { User } from "./user.types";
+import { User } from "@/kernel/domain/user/user.type";
 
 // NOTE: Queries
 export type UserGetDTO = {
@@ -21,8 +21,15 @@ export type UserCreateDTO = {
   };
 };
 
-export type UserUpdateDTO = Partial<User>;
+export type UserUpdateDTO = {
+  selector: {
+    id: string;
+  };
+  data: Partial<User>;
+};
 
 export type UserRemoveDTO = {
-  userId: string;
+  selector: {
+    id: string;
+  };
 };

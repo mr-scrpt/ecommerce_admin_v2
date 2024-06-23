@@ -1,33 +1,24 @@
-import { PropertyDataTypeEnum } from "@/kernel/domain/property.type";
+import { categorySchema } from "@/kernel/domain/category/category.schema";
+import {
+  propertyBaseSchema,
+  propertySchema,
+} from "@/kernel/domain/property/property.schema";
+import { propertyItemSchema } from "@/kernel/domain/property/propertyItem.schema";
 import { z } from "zod";
-import { propertyItemSchema } from "../propertyItem/propertyItem.schema";
 
 // NOTE: Side
-const propertyCategoryItemSchema = z.object({
-  id: z.string(),
-  name: z.string(),
-});
-
-// NOTE: Base
-export const propertyBaseSchema = z.object({
-  name: z.string(),
-  datatype: z.nativeEnum(PropertyDataTypeEnum),
-  createdAt: z.date(),
-});
-
-// NOTE: Main
-export const propertySchema = z.object({
-  id: z.string(),
-  ...propertyBaseSchema.shape,
-});
+// const propertyCategoryItemSchema = z.object({
+//   id: z.string(),
+//   name: z.string(),
+// });
 
 export const propertyRelationSchema = z.object({
-  id: z.string(),
-  ...propertyBaseSchema.shape,
+  ...propertySchema.shape,
 
   propertyItemList: z.array(propertyItemSchema),
 
-  categoryList: z.array(propertyCategoryItemSchema),
+  categoryList: z.array(categorySchema),
+  // categoryList: z.array(propertyCategoryItemSchema),
 });
 
 // export const propertyCreateSchema = z.object({

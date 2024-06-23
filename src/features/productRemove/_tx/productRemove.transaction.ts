@@ -1,8 +1,8 @@
-import { ProductEntity } from "@/entities/product";
 import { DBClient, Transaction, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
 import { ProductRemoveTxDTO } from "../_domain/types";
 import { IProductRepository } from "@/entities/product/server";
+import { ProductEntity } from "@/kernel/domain/product/product.type";
 
 @injectable()
 export class ProductRemoveTx extends Transaction {

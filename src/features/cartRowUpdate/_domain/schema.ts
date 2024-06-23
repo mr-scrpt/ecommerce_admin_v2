@@ -1,4 +1,4 @@
-import { cartRowBaseSchema } from "@/entities/cart/server";
+import { cartRowBaseSchema } from "@/kernel/domain/cart/cartRow.schema";
 import { z } from "zod";
 
 export const cartRowSelectorSchema = z.object({

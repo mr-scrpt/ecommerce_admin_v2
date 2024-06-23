@@ -8,7 +8,7 @@ import {
   ProductPropertyObjectList,
   ProductPropertyToSelect,
   ProductRelation,
-} from "../_domain/types";
+} from "../_domain/product.types";
 import { ProductForm } from "./productForm";
 
 interface ProductFormLayoutProps extends HTMLAttributes<HTMLFormElement> {

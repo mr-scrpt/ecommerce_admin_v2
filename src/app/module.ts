@@ -35,6 +35,10 @@ import { ProductUpdateModule } from "@/features/productUpdate/module";
 import { OrderRowRemoveModule } from "@/features/orderRowRemove/module";
 import { OrderRowUpdateModule } from "@/features/orderRowUpdate/module";
 import { ConsumerDataModule } from "@/features/consumerData/module";
+import { UserUpdateModule } from "@/features/userUpdate/module";
+import { OrderRowCreateModule } from "@/features/orderRowCreate/module";
+import { StoreModule } from "@/entities/store/module";
+import { OrderUpdateModule } from "@/features/orderUpdate/module";
 
 export const loadModule = () => {
   const container = new Container();
@@ -48,6 +52,7 @@ export const loadModule = () => {
 
     UserModule,
     UserCreateModule,
+    UserUpdateModule,
     ConsumerDataModule,
 
     ProfileModule,
@@ -60,7 +65,9 @@ export const loadModule = () => {
 
     OrderModule,
     OrderCreateModule,
+    OrderUpdateModule,
     OrderDeliveryUpdateModule,
+    OrderRowCreateModule,
     OrderRowRemoveModule,
     OrderRowUpdateModule,
 
@@ -81,6 +88,8 @@ export const loadModule = () => {
     PropertyCreateModule,
     PropertyUpdateModule,
     PropertyRemoveModule,
+
+    StoreModule,
 
     SettlementModule,
     TrpcModule,

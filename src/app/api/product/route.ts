@@ -1,4 +1,5 @@
-import { getProductListAction, productSchema } from "@/entities/product/server";
+import { getProductListAction } from "@/entities/product/server";
+import { productSchema } from "@/kernel/domain/product/product.schema";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 

@@ -1,3 +1,3 @@
 export { usePropertyRemoveMutation } from "./_mutation/propertyRemove.mutation";
-export { usePropertyRemoveConfirm } from "./_vm/usePropertyRemoveConfirm";
+export { usePropertyRemoveConfirmModel as usePropertyRemoveConfirm } from "./_vm/usePropertyRemoveConfirm.model";
 export { useEmitPropertyRemove } from "./_vm/event/useEmitPropertyRemove";

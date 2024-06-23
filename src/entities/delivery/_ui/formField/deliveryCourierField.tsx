@@ -1,8 +1,8 @@
 import { FormControl, FormItem, FormLabel } from "@/shared/ui/form";
 import { RadioGroupItem } from "@/shared/ui/radio-group";
 import { FC, HTMLAttributes } from "react";
-import { DeliveryTypeEnum } from "../../_domain/delivery.types";
 import { PostType } from "../../_vm/selectDeliveryType";
+import { DeliveryTypeEnum } from "@/kernel/domain/delivery/delivery.type";
 
 interface DeliveryCourierProps extends HTMLAttributes<HTMLDivElement> {
   delivery: PostType;

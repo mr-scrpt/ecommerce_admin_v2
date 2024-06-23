@@ -12,6 +12,12 @@ export class PostOfficeListGetService {
   async execute(
     selector: PostOfficeGetBySettlementSelector,
   ): Promise<Array<PostOffice>> {
+    const { settlementId } = selector;
+
+    if (!settlementId || settlementId === "") {
+      return [];
+    }
+
     return await this.postRepo.getPostOfficeListBySettlement(selector);
   }
 }

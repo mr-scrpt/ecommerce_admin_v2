@@ -1,11 +1,12 @@
+import { IUserRepository } from "@/entities/user/user.server";
 import { DBClient, Transaction, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
-import { UserUpdateComplexible } from "../_domain/types";
-import { UserEntity } from "@/entities/user/user";
-import { IUserRepository } from "@/entities/user/user.server";
+import { UserUpdateTxDTO } from "../_domain/types";
+import { IUserUpdateTx } from "../_domain/transaction.type";
+import { UserEntity } from "@/kernel/domain/user/user.type";
 
 @injectable()
-export class UserUpdateTx extends Transaction {
+export class UserUpdateTx extends Transaction implements IUserUpdateTx {
   constructor(
     readonly db: DBClient,
     private readonly userRepo: IUserRepository,
@@ -13,10 +14,10 @@ export class UserUpdateTx extends Transaction {
     super(db);
   }
 
-  async updateUser(userToUpdate: UserUpdateComplexible): Promise<UserEntity> {
-    const { userId, userData } = userToUpdate;
+  async update(dto: UserUpdateTxDTO): Promise<UserEntity> {
+    const { selector, userData } = dto;
     const action = async (tx: Tx) => {
-      return await this.userRepo.update(userId, userData, tx);
+      return await this.userRepo.update({ selector, data: userData }, tx);
     };
 
     return await this.start(action);

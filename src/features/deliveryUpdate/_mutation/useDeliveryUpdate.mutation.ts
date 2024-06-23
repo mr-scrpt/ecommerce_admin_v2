@@ -1,28 +1,17 @@
-import { useMutation } from "@tanstack/react-query";
-import { Delivery } from "@/entities/delivery";
-import { useEmitDeliveryUpdate } from "../_vm/event/useEmitDeliveryUpdate";
 import { deliveryUpdateApi } from "../_api/orderDeliveryUpdate.api";
+import { useEmitDeliveryUpdate } from "../_vm/event/useEmitDeliveryUpdate";
 
-// const baseKey = "orderDeliveryUpdateMutation";
+export const useDeliveryUpdateMutation = () => {
+  const { deliveryUpdateEvent } = useEmitDeliveryUpdate();
 
-// interface IOrderDeliveryUpdateMutation {
-//   onSuccess: (delivery: Delivery) => void;
-// }
-
-export const useDeliveryUpdateMutation = () =>
-  // props: IOrderDeliveryUpdateMutation,
-  {
-    // const { onSuccess } = props;
-    const { deliveryUpdateEvent } = useEmitDeliveryUpdate();
-
-    const { mutateAsync, isPending } =
-      deliveryUpdateApi.deliveryUpdate.update.useMutation({
-        onSuccess: async ({ id }) => {
-          deliveryUpdateEvent(id);
-        },
-      });
-    return {
-      mutateAsync,
-      isPending,
-    };
+  const { mutateAsync, isPending } =
+    deliveryUpdateApi.deliveryUpdate.update.useMutation({
+      onSuccess: async (delivery) => {
+        deliveryUpdateEvent(delivery);
+      },
+    });
+  return {
+    mutateAsync,
+    isPending,
   };
+};

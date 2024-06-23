@@ -9,6 +9,7 @@ import { OrderEntity, OrderRelationEntity } from "./order.types";
 import { OrderRowEntity } from "./orderRow.types";
 import {
   OrderRowCreateDTO,
+  OrderRowGetByOrderProductDTO,
   OrderRowGetDTO,
   OrderRowListGetByOrderDTO,
   OrderRowRemoveDTO,
@@ -32,17 +33,22 @@ export abstract class IOrderRepository {
 
   abstract createEmpty(dto: OrderCreateEmptyDTO, db?: Tx): Promise<OrderEntity>;
 
-  abstract updateStatus(
-    orderId: number, // Replace OrderId with number if OrderId is a type alias for number
-    data: Partial<{ status: string }>, // Replace OrderToUpdateStatus with { status: string } if it's a type alias
-    db?: Tx,
-  ): Promise<OrderEntity>;
+  // abstract updateStatus(
+  //   orderId: number, // Replace OrderId with number if OrderId is a type alias for number
+  //   data: Partial<{ status: string }>, // Replace OrderToUpdateStatus with { status: string } if it's a type alias
+  //   db?: Tx,
+  // ): Promise<OrderEntity>;
 
   abstract update(dto: OrderUpdateDTO, db?: Tx): Promise<OrderEntity>;
 }
 
 export abstract class IOrderRowRepository {
   abstract get(dto: OrderRowGetDTO, db?: Tx): Promise<OrderRowEntity>;
+
+  abstract getByOrderProduct(
+    dto: OrderRowGetByOrderProductDTO,
+    db?: Tx,
+  ): Promise<OrderRowEntity | null>;
 
   abstract getListByOrder(
     dto: OrderRowListGetByOrderDTO,

@@ -1,4 +1,4 @@
-import { PropertyEntity } from "@/entities/property";
+import { PropertyEntity } from "@/kernel/domain/property/property.type";
 import { PropertyRemoveTxDTO } from "./types";
 
 export abstract class IPropertyRemoveTx {

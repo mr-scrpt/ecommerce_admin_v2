@@ -1,5 +1,7 @@
-import { Cart, CartRow, CartRowUpdateDTO } from "@/entities/cart";
-import { Product } from "@/entities/product";
+import { CartRowUpdateDTO } from "@/entities/cart";
+import { Cart } from "@/kernel/domain/cart/cart.type";
+import { CartRow } from "@/kernel/domain/cart/cartRow.type";
+import { Product } from "@/kernel/domain/product/product.type";
 
 type CartRowPayload = Pick<CartRow, "quantity">;
 

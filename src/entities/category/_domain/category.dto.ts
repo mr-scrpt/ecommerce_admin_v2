@@ -1,4 +1,4 @@
-import { CategoryBase } from "./types";
+import { CategoryBase } from "@/kernel/domain/category/category.type";
 
 // NOTE: Queries
 export type CategoryGetDTO = {
@@ -35,7 +35,7 @@ export type CategoryRemoveBySlugDTO = {
 
 // NOTE: Bindings
 export type CategoryBindToProductListDTO = {
-  selector: {
+  target: {
     id: string;
   };
   data: {
@@ -44,7 +44,7 @@ export type CategoryBindToProductListDTO = {
 };
 
 export type CategoryBindToPropertyListDTO = {
-  selector: {
+  target: {
     id: string;
   };
   data: {

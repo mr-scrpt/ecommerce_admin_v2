@@ -1,5 +1,5 @@
+import { productSchema } from "@/kernel/domain/product/product.schema";
 import { z } from "zod";
-import { productSchema } from "./product.schema";
 
 export const getInputSchema = z.object({
   id: z.string(),

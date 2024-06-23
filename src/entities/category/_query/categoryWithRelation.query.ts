@@ -1,6 +1,6 @@
 "use client";
 import { categoryApi } from "../_api/category.api";
-import { CategoryRelation } from "../_domain/types";
+import { CategoryRelation } from "../_domain/category.types";
 import { useListenCategoryUpdate } from "../_vm/event/useListenCategoryUpdate";
 
 type QueryParams = {

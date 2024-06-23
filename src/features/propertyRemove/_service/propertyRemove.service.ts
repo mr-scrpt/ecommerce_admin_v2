@@ -1,7 +1,7 @@
-import { Property } from "@/entities/property";
 import { injectable } from "inversify";
 import { IPropertyRemoveTx } from "../_domain/transaction.type";
 import { PropertyRemoveTxDTO } from "../_domain/types";
+import { Property } from "@/kernel/domain/property/property.type";
 
 @injectable()
 export class PropertyRemoveService {

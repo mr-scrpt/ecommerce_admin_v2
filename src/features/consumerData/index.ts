@@ -1,1 +1,1 @@
-export { OrderOwnerData } from "./_ui/orderOwnerData";
+export { ConsumerData } from "./_ui/consumerData";

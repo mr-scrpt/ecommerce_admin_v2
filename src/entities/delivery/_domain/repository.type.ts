@@ -1,5 +1,6 @@
 import { Tx } from "@/shared/lib/db/db";
 import {
+  DeliveryBindToOrderDTO,
   DeliveryCreateDTO,
   DeliveryGetByOrderDTO,
   DeliveryGetDTO,
@@ -20,4 +21,9 @@ export abstract class IDeliveryRepository {
   abstract create(dto: DeliveryCreateDTO, db?: Tx): Promise<DeliveryEntity>;
 
   abstract update(dto: DeliveryUpdateDTO, db?: Tx): Promise<DeliveryEntity>;
+
+  abstract bindToOrder(
+    dto: DeliveryBindToOrderDTO,
+    db?: Tx,
+  ): Promise<DeliveryEntity>;
 }

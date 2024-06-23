@@ -6,7 +6,7 @@ import {
   SettlementGetByRefDTO,
   SettlementSearchDTO,
 } from "../_domain/settlement.dto";
-import { SettlementEntity } from "../_domain/settlement.type";
+import { SettlementEntity } from "@/kernel/domain/settlement/settlement.type";
 
 @injectable()
 export class SettlementRepository implements ISettlementRepository {

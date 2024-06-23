@@ -1,5 +1,5 @@
+import { settlementSchema } from "@/kernel/domain/settlement/settlement.schema";
 import { z } from "zod";
-import { settlementSchema } from "./settlement.schema";
 
 // export const getInputSchema = z.object({
 //   id: z.string(),

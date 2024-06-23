@@ -1,9 +1,9 @@
-import { Category } from "@/entities/category";
 import { injectable } from "inversify";
 import { ICategoryUpdateTx } from "../_domain/transaction.type";
 import { CategoryUpdateTxPayload } from "../_domain/types";
 import { slugGenerator } from "@/shared/lib/slugGenerator";
 import { merge } from "lodash";
+import { Category } from "@/kernel/domain/category/category.type";
 
 @injectable()
 export class CategoryUpdateService {

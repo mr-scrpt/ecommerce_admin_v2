@@ -8,7 +8,7 @@ import {
   FormLabel,
 } from "@/shared/ui/form";
 import { useForm } from "react-hook-form";
-import { useEmailSignIn } from "../_vm/useEmailSignIn";
+import { useEmailSignInModel } from "../_vm/useEmailSignIn.model";
 import { Button } from "@/shared/ui/button";
 import { Input } from "@/shared/ui/input";
 import { Spinner } from "@/shared/ui/icons/spinner";
@@ -22,7 +22,7 @@ export const EmailSignInForm: FC<EmailSignInFormProps> = (props) => {
     },
   });
 
-  const emailSignIn = useEmailSignIn();
+  const emailSignIn = useEmailSignInModel();
   return (
     <Form {...form}>
       <form

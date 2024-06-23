@@ -1,7 +1,7 @@
 import { SelectItem } from "@/shared/ui/select";
 import { VirtualItem } from "@tanstack/react-virtual";
 import { FC, HTMLAttributes } from "react";
-import { PostOfficeToSelect } from "../../_domain/postOffice.type";
+import { PostOfficeToSelect } from "../../_vm/selectDeliveryType";
 
 interface ComboboxVirtualItemProps<T> extends HTMLAttributes<HTMLDivElement> {
   virtualData: VirtualItem;

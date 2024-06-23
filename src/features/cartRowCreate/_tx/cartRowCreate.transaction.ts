@@ -16,8 +16,9 @@ export class CartRowCreateTx extends Transaction implements ICartRowCreateTx {
   }
 
   async create(dto: CartRowCreateTxDTO): Promise<CartRelationEntity> {
-    const { cartRowData } = dto;
-    const { productId, cartId } = cartRowData;
+    const { cartRowData, target } = dto;
+    const { productId } = cartRowData;
+    const { cartId } = target;
 
     const action = async (tx: Tx) => {
       const cartRowExisting = await this.cartRowRepo.getCartRowByProduct(
@@ -35,6 +36,7 @@ export class CartRowCreateTx extends Transaction implements ICartRowCreateTx {
 
       await this.cartRowRepo.createCartRow(
         {
+          target,
           data: cartRowData,
         },
         tx,

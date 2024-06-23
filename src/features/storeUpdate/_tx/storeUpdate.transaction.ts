@@ -18,7 +18,7 @@ export class StoreUpdateTx extends Transaction {
   ): Promise<StoreEntity> {
     const action = async (tx: Tx) => {
       const { storeId, storeData } = data;
-      const storeUpdated = await this.storeRepo.updateStore(
+      const storeUpdated = await this.storeRepo.update(
         storeId,
         storeData,
         tx,
@@ -32,7 +32,7 @@ export class StoreUpdateTx extends Transaction {
       //   tx,
       // );
 
-      return await this.storeRepo.getStore(storeUpdated.id, tx);
+      return await this.storeRepo.get(storeUpdated.id, tx);
     };
 
     return await this.start(action);

@@ -1,4 +1,4 @@
-import { deliveryBaseSchema } from "@/entities/delivery/server";
+import { deliveryBaseSchema } from "@/kernel/domain/delivery/delivery.schema";
 import { z } from "zod";
 
 export const deliverySelectorSchema = z.object({

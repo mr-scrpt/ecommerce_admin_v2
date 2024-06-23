@@ -2,8 +2,8 @@ import { ProductFormSelect } from "./productFormSelect";
 import { ProductFormCheckbox } from "./productFormCheckbox";
 import { ProductFormMult } from "./productFormMult";
 import { ProductFormRadio } from "./productFormRadio";
-import { ProductPropertyToSelect } from "../../_domain/types";
-import { PropertyDataTypeEnum } from "@/kernel/domain/property.type";
+import { ProductPropertyToSelect } from "../../_domain/product.types";
+import { PropertyDataTypeEnum } from "@/kernel/domain/property/property.type";
 
 const propertyTypeToComponentMap = {
   [PropertyDataTypeEnum.SELECT]: ProductFormSelect,

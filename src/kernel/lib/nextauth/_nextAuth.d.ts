@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
 import { SessionEntity } from "@/kernel/domain/session.type";
-import { UserEntity } from "@/kernel/domain/user.type";
+import { UserEntity } from "@/kernel/domain/user/user.type";
 import { ClientNetworkData } from "../../session/_domain/types";
 
 declare module "next-auth" {

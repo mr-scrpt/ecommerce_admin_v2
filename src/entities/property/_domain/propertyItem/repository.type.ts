@@ -7,7 +7,7 @@ import {
   PropertyItemRemoveDTO,
   PropertyItemUpdateOrCreateDTO,
 } from "./propertyItem.dto";
-import { PropertyItemEntity } from "./types";
+import { PropertyItemEntity } from "./propertyItem.types";
 import { PropertyItemUpdateDTO } from "../../_domain/propertyItem/propertyItem.dto";
 
 export abstract class IPropertyItemRepository {

@@ -1,9 +1,9 @@
-import { CategoryEntity } from "@/entities/category";
 import { DBClient, Transaction, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
 import { CategoryUpdateTxDTO } from "../_domain/types";
 import { ICategoryRepository } from "@/entities/category/server";
 import { ICategoryUpdateTx } from "../_domain/transaction.type";
+import { CategoryEntity } from "@/kernel/domain/category/category.type";
 
 @injectable()
 export class CategoryUpdateTx extends Transaction implements ICategoryUpdateTx {
@@ -28,7 +28,7 @@ export class CategoryUpdateTx extends Transaction implements ICategoryUpdateTx {
 
       await this.categoryRepo.bindToPropertyList(
         {
-          selector,
+          target: selector,
           data: {
             propertyListId: propertyData,
           },

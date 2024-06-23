@@ -1,18 +1,10 @@
 "use client";
-import { queryOptions, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getStoreAction } from "../_action/getStore.action";
-import { baseQueryKey } from "../_domain/types";
+import { storeApi } from "../_api/store.api";
 import { useListenStoreUpdate } from "../_vm/event/useListenStoreUpdate";
 
-export const getStoreQuery = (storeId: string) =>
-  queryOptions({
-    queryKey: [baseQueryKey, "getStore", storeId],
-    queryFn: () => getStoreAction({ storeId }),
-  });
-
-export const useStoreQuery = (storeId: string) => {
-  const query = getStoreQuery(storeId);
-  const { isPending, isSuccess, isFetchedAfterMount, data } = useQuery(query);
+export const useStoreQuery = (id: string) => {
+  const { isPending, isSuccess, isFetchedAfterMount, data } =
+    storeApi.store.get.useQuery({ id });
 
   useListenStoreUpdate();
 
@@ -20,16 +12,11 @@ export const useStoreQuery = (storeId: string) => {
     isPending,
     isSuccess,
     isFetchedAfterMount,
-    store: data?.store,
+    store: data,
   };
 };
 
 export const useInvalidateStore = () => {
-  const queryClient = useQueryClient();
-  console.log("output_log: invalidateQueries Store =>>>");
-
-  return (storeId: string) =>
-    queryClient.invalidateQueries({
-      queryKey: [baseQueryKey, "getStore", storeId],
-    });
+  const invalidation = storeApi.useUtils().store.get.invalidate;
+  return (id: string) => invalidation({ id });
 };

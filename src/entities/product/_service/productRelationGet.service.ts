@@ -1,6 +1,6 @@
 import { injectable } from "inversify";
 import { IProductRepository } from "../_domain/repository.type";
-import { ProductGetSelector, ProductRelation } from "../_domain/types";
+import { ProductGetSelector, ProductRelation } from "../_domain/product.types";
 
 @injectable()
 export class ProductRelationGetService {

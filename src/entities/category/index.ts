@@ -11,19 +11,14 @@ export {
 
 export { CategoryForm } from "./_ui/categoryForm";
 
-export { useCategoryLikeSelectOptionList } from "./_vm/useCategoryLikeSelectOptionList";
+export { useCategoryListToSelectModel } from "./_vm/useCategoryLikeSelectOptionList.modle";
 
 export { categoryApi } from "./_api/category.api";
-export type {
-  Category,
-  CategoryBase,
-  CategoryEntity,
-  CategoryRelationEntity,
-} from "./_domain/types";
+export type { CategoryRelationEntity } from "./_domain/category.types";
 
 export type {
-  CategoryBindToProductListDTO as CategoryBindProductListDTO,
-  CategoryBindToPropertyListDTO as CategoryBindPropertyListDTO,
+  CategoryBindToProductListDTO,
+  CategoryBindToPropertyListDTO,
   CategoryCreateDTO,
   CategoryUpdateDTO,
 } from "./_domain/category.dto";

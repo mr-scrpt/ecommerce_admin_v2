@@ -1,30 +1,8 @@
-import { CartRow, CartRowEntity } from "./cartRow.types";
+import { CartComposite } from "@/kernel/domain/cart/cart.type";
 
-// NOTE: Base
-export type CartBase = {
-  userId: string;
-};
-
-// NOTE: Entity
-export type CartEntity = CartBase & {
-  id: string;
-  createdAt: Date;
-};
-
-export type CartRelationEntity = CartEntity & {
-  cartRowList: Array<CartRowEntity>;
-};
-
-// NOTE: Projetions
-export type Cart = {
-  id: string;
-  userId: string;
-  createdAt: Date;
-};
-
-export type CartRelation = Cart & {
-  cartRowList: Array<CartRow>;
-};
+// NOTE: Relations
+export type CartRelationEntity = CartComposite;
+export type CartRelation = CartComposite;
 
 // NOTE: Selector
 export type CartGetSelector = {

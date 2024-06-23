@@ -1,6 +1,6 @@
 import { injectable } from "inversify";
 import { IPropertyRepository } from "../_domain/property/repository.type";
-import { Property } from "../_domain/property/types";
+import { Property } from "../_domain/property/property.types";
 
 @injectable()
 export class PropertyListGetService {

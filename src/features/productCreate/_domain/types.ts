@@ -1,5 +1,6 @@
-import { ProductBase, ProductCreateDTO } from "@/entities/product";
-import { Property } from "@/entities/property";
+import { ProductCreateDTO } from "@/entities/product";
+import { ProductBase } from "@/kernel/domain/product/product.type";
+import { Property } from "@/kernel/domain/property/property.type";
 
 type ProductCreatePayload = Omit<ProductBase, "slug">;
 type CategoryList = Array<{ categoryId: string }>;

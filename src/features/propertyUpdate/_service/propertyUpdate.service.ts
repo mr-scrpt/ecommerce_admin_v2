@@ -1,4 +1,3 @@
-import { Property } from "@/entities/property";
 import { injectable } from "inversify";
 import { IPropertyUpdateTx } from "../_domain/transaction.type";
 import {
@@ -8,6 +7,7 @@ import {
   PropertyUpdateTxPayload,
 } from "../_domain/types";
 import { merge, omit } from "lodash";
+import { Property } from "@/kernel/domain/property/property.type";
 
 type PropertyItemList = PropertyUpdateTxPayload["propertyItemListData"];
 @injectable()

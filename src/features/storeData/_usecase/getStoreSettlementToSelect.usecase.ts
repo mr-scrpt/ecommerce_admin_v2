@@ -33,7 +33,7 @@ export class GetStoreSettlementToSelectUseCase {
   async mapToSelect(data: Array<StoreEntity>): Promise<Array<StoreToSelect>> {
     return data.map((store) => {
       return {
-        value: store.settlement,
+        value: store.settlementRef,
         label: store.name,
       };
     });

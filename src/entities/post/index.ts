@@ -1,1 +1,1 @@
-export { usePostOfficeListToSelectModel } from "./_vm/getPostOfficeListToSelect.query";
+export { usePostOfficeListToSelectModel } from "./_vm/getPostOfficeListToSelect.model.query";

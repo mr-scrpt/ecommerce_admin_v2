@@ -45,7 +45,7 @@ export const StoreFormUpdate: FC<StoreFormProps> = (props) => {
 
   useEffect(() => {
     if (store) {
-      toSearch(store.settlement);
+      toSearch(store.settlementRef);
     }
   }, [store]);
 

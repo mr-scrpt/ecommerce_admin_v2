@@ -1,4 +1,4 @@
-import { orderRowBaseSchema } from "@/entities/order/server";
+import { orderRowBaseSchema } from "@/kernel/domain/order/orderRow.schema";
 import { z } from "zod";
 
 export const orderRowSelectorSchema = z.object({

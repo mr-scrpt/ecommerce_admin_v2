@@ -1,13 +1,10 @@
 "use server";
 import { z } from "zod";
 
-import {
-  Property,
-  propertySchema,
-  propertyUpdateSchema,
-} from "@/entities/property";
+import { propertySchema, propertyUpdateSchema } from "@/entities/property";
 import { updatePropertyComplexibleUseCase } from "../_useCase/instans.usecase";
 import { SessionContainer } from "@/shared/session/instans";
+import { Property } from "@/kernel/domain/property/property.type";
 
 const propsSchema = z.object({
   propertyId: z.string(),

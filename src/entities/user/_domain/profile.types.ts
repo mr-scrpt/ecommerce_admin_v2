@@ -1,5 +1,6 @@
 // export const profileBaseQueryKey = "profile";
-import { UserEntity } from "./user.types";
+
+import { UserEntity } from "@/kernel/domain/user/user.type";
 
 export type ProfileEntity = UserEntity;
 

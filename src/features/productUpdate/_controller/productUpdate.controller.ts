@@ -1,8 +1,8 @@
 import { Controller, publicProcedure, router } from "@/kernel/lib/trpc/server";
 import { injectable } from "inversify";
-import { productSchema } from "@/entities/product/server";
 import { ProductUpdateService } from "../_service/productUpdate.service";
 import { updateInputSchema } from "../_domain/validator.schema";
+import { productSchema } from "@/kernel/domain/product/product.schema";
 
 @injectable()
 export class ProductUpdateController extends Controller {

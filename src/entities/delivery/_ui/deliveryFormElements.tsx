@@ -20,27 +20,14 @@ import {
   deliveryFormDefaultSchema,
 } from "../_domain/form.schema";
 import { DeliveryTypeRadio } from "./formField/deliveryTypeRadio";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/shared/ui/select";
-import { PostOfficeToSelect } from "../_domain/postOffice.type";
-import {
-  SettleToSelect,
-  SettlementSelect,
-} from "@/shared/ui/select/settlementSelect";
-import { PostOfficeSelect } from "./formField/__postOfficeSelect";
-import { SelectVirtual } from "@/shared/ui/select/selectVirtual";
-import { ListChildComponentProps } from "react-window";
-import { PostOfficeSelectItem } from "./formField/postOfficeSelectItem";
-import { ComboboxVirtualItem } from "@/shared/ui/combobox/comboboxVirtualItem";
-import { ComboboxVirtualSettlementItem } from "./formField/comboboxVirtualSettlementItem";
-import { ComboboxVirtual } from "@/shared/ui/combobox/comboboxVirtual";
-import { SelectVirtualItem } from "@/shared/ui/select/selectVirtualItem";
+// import { PostOfficeToSelect } from "../_domain/postOffice.type";
 import { StoreToSelect } from "@/entities/store";
+import { ComboboxVirtual } from "@/shared/ui/combobox/comboboxVirtual";
+import { SelectVirtual } from "@/shared/ui/select/selectVirtual";
+import { SettleToSelect } from "@/shared/ui/select/settlementSelect";
+import { PostOfficeToSelect } from "../_vm/selectDeliveryType";
+import { ComboboxVirtualSettlementItem } from "./formField/comboboxVirtualSettlementItem";
+import { PostOfficeSelectItem } from "./formField/postOfficeSelectItem";
 import { StoreSelectItem } from "./formField/storeSelectItem";
 
 interface DeliveryFormElementsProps extends HTMLAttributes<HTMLFormElement> {
@@ -97,6 +84,7 @@ export const DeliveryFormElements: DeliveryFormElementsType = (props) => {
   });
 
   useEffect(() => {
+    console.log("output_log:  =>>> default value", delivery);
     form.reset(getDefaultValues(delivery));
   }, [delivery, form]);
 
@@ -127,7 +115,7 @@ DeliveryFormElements.FieldDeliveryType = function FieldDeliveryType(props) {
 
 DeliveryFormElements.FieldSettlement = function FieldSettlement(props) {
   const { settlementListToSelect, toSearch, handleSelect } = props;
-  const { control } = useFormContext<DeliveryFormDefaultValues>();
+  const { control, setValue } = useFormContext<DeliveryFormDefaultValues>();
 
   return (
     <ComboboxVirtual
@@ -148,25 +136,12 @@ DeliveryFormElements.FieldPostOffice = function FieldPostOffice(props) {
   const { postOfficeListToSelect } = props;
   const { control } = useFormContext<DeliveryFormDefaultValues>();
 
-  // return (
-  //   <ComboboxVirtual
-  //     control={control}
-  //     className="w-full"
-  //     name="postOffice"
-  //     itemList={postOfficeListToSelect}
-  //     toSearch={() => {}}
-  //     placeholder="Select settlement"
-  //     handleSelect={() => {}}
-  //     maxHeight="300px"
-  //     renderItem={PostOfficeSelectItem}
-  //   />
-  // );
-
   return (
     <SelectVirtual
       itemList={postOfficeListToSelect}
       control={control}
       name="postOffice"
+      title="Post office select"
       renderItem={PostOfficeSelectItem}
     />
   );
@@ -175,35 +150,16 @@ DeliveryFormElements.FieldPostOffice = function FieldPostOffice(props) {
 DeliveryFormElements.FieldPickupPoint = function FieldPickupPoint(props) {
   const { storeListToSelect } = props;
   const { control } = useFormContext<DeliveryFormDefaultValues>();
-  console.log(
-    "output_log: in field store list to select =>>>",
-    storeListToSelect,
-  );
-  // return <div>1</div>;
 
   return (
     <SelectVirtual
       itemList={storeListToSelect}
       control={control}
-      name="postOffice"
+      name="pickupOffice"
+      title="Pickup point select"
       renderItem={StoreSelectItem}
     />
   );
-  // return (
-  //   <FormField
-  //     control={control}
-  //     name="pickupPoint"
-  //     render={({ field }) => (
-  //       <FormItem>
-  //         <FormLabel>Pickup point</FormLabel>
-  //         <FormControl>
-  //           <Input placeholder="" {...field} />
-  //         </FormControl>
-  //         <FormMessage />
-  //       </FormItem>
-  //     )}
-  //   />
-  // );
 };
 
 DeliveryFormElements.FieldStreet = function FieldStreet() {

@@ -1,8 +1,9 @@
-import { Consumer, ConsumerGetByOrderSelector } from "@/entities/consumer";
-import { UserEntity } from "@/entities/user/user";
+import { ConsumerGetByOrderSelector } from "@/entities/consumer";
 import { injectable } from "inversify";
 import { IConsumerDataGetByOrderTx } from "../_domain/transaction.type";
 import { ConsumerData, ConsumerDataEntity } from "../_domain/types";
+import { Consumer } from "@/kernel/domain/consumer/consumer.type";
+import { UserEntity } from "@/kernel/domain/user/user.type";
 
 @injectable()
 export class ConsumerDataGetByOrderService {
@@ -18,8 +19,17 @@ export class ConsumerDataGetByOrderService {
   }
 
   mapUserEntityToConsumer(user: UserEntity): Consumer {
-    const { id, name, phone, email, role, emailVerified, image, createdAt } =
-      user;
+    const {
+      id,
+      name,
+      phone,
+      email,
+      role,
+      emailVerified,
+      image,
+      createdAt,
+      updatedAt,
+    } = user;
 
     if (!name || !phone || !email || !emailVerified) {
       throw new Error("Consumer invalid data");
@@ -34,6 +44,7 @@ export class ConsumerDataGetByOrderService {
       emailVerified,
       image,
       createdAt,
+      updatedAt,
     };
   }
 

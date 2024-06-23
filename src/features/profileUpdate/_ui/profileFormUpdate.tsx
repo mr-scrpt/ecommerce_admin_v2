@@ -4,7 +4,7 @@ import { Spinner } from "@/shared/ui/icons/spinner";
 import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes } from "react";
-import { useProfileUpdate } from "../_vm/useProfileUpdate";
+import { useProfileUpdateModel } from "../_vm/useProfileUpdate.model";
 import { ProfileFormElements } from "@/entities/user/profile";
 import {
   ProfileFromUpdateValues,
@@ -29,7 +29,7 @@ export const ProfileFormUpdate: FC<ProfileFormProps> = (props) => {
 
   const router = useRouter();
 
-  const { update, isPending: isPendingUpdate } = useProfileUpdate();
+  const { update, isPending: isPendingUpdate } = useProfileUpdateModel();
 
   const isPendingComplexible =
     isPendingProfile || isPendingUpdate || !isFetchedAfterMount;

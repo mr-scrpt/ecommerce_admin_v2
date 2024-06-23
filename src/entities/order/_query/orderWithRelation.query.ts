@@ -1,10 +1,11 @@
 "use client";
 import { orderApi } from "../_api/order.api";
+import { OrderRelation } from "../_domain/order.types";
 import { useListenOrderUpdate } from "../_vm/event/useListenOrderUpdate";
 
 export const useOrderWithRelationQuery = (id: string) => {
   const { isPending, isSuccess, data, isFetchedAfterMount } =
-    orderApi.order.getRelation.useQuery({ id });
+    orderApi.order.getRelation.useQuery<OrderRelation>({ id });
 
   useListenOrderUpdate();
 

@@ -1,37 +1,11 @@
+import { productSchema } from "@/kernel/domain/product/product.schema";
+import { propertySchema } from "@/kernel/domain/property/property.schema";
+import { propertyItemSchema } from "@/kernel/domain/property/propertyItem.schema";
 import { z } from "zod";
 
-// NOTE: Base
-export const propertyItemBaseSchema = z.object({
-  name: z.string(),
-  value: z.string(),
-  createdAt: z.date(),
+// NOTE: Relations
+export const propertyItemRelationSchema = z.object({
+  ...propertyItemSchema.shape,
+  propertyId: propertySchema.shape.id,
+  productList: z.array(productSchema),
 });
-
-// NOTE: Main
-export const propertyItemSchema = z.object({
-  id: z.string(),
-  ...propertyItemBaseSchema.shape,
-});
-
-// export const propertyItemCreateSchema = z.object({
-//   name: z.string(),
-//   value: z.string(),
-// });
-
-export const propertyItemCreateSchema = propertyItemBaseSchema.omit({
-  createdAt: true,
-});
-
-// export const propertyItemUpdateSchema = z.object({
-//   id: z.string().optional(),
-//   name: z.string(),
-//   value: z.string(),
-// });
-
-export const propertyItemUpdateSchema = propertyItemBaseSchema
-  .omit({
-    createdAt: true,
-  })
-  .extend({
-    id: z.string().optional(),
-  });

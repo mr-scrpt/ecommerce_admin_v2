@@ -38,7 +38,6 @@ export class NovaPoshtaApi {
         SettlementRef: s,
       },
     });
-    console.log("output_log: origin =>>>", result.data.data);
 
     return result.data.data;
   }

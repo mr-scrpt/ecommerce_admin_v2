@@ -1,10 +1,10 @@
-import { ProductEntity } from "@/entities/product";
 import { createProductAbility } from "@/entities/product/server";
 import { ForbiddenError } from "@/shared/lib/errors";
 import { SessionEntity } from "@/shared/lib/user";
 import { ProductUpdateComplexible } from "../_domain/types";
 import { ProductUpdateTx } from "../_tx/productUpdate.transaction";
 import { injectable } from "inversify";
+import { ProductEntity } from "@/kernel/domain/product/product.type";
 
 type UpdateProduct = {
   dataToUpdate: ProductUpdateComplexible;

@@ -1,13 +1,13 @@
-import { userFormDefaultSchema, userSchema } from "@/entities/user/user";
+import { userBaseSchema } from "@/entities/user/user.server";
 import { z } from "zod";
 
-export const userUpdateSchema = z.object({
-  ...userSchema.shape,
-  name: z.string(),
+export const userUpdateSchema = userBaseSchema.pick({
+  name: true,
+  email: true,
+  phone: true,
+  image: true,
 });
 
-export const userUpdateFormSchema = z.object({
-  ...userFormDefaultSchema.shape,
+export const userSelectorSchema = z.object({
+  id: z.string(),
 });
-
-export type UserUpdateFormValues = z.infer<typeof userUpdateFormSchema>;

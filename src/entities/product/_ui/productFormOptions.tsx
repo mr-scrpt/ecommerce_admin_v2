@@ -1,4 +1,4 @@
-import { PropertyDataTypeEnum } from "@/kernel/domain/property.type";
+import { PropertyDataTypeEnum } from "@/kernel/domain/property/property.type";
 import { Button } from "@/shared/ui/button";
 import {
   Form,
@@ -19,7 +19,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, HTMLAttributes } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { ProductPropertyToSelect } from "../_domain/types";
+import { ProductPropertyToSelect } from "../_domain/product.types";
 
 interface ProductFormOptionsProps extends HTMLAttributes<HTMLDivElement> {
   optionSelectOptionList: Array<ProductPropertyToSelect>;

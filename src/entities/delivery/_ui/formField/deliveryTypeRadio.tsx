@@ -8,14 +8,18 @@ import {
 import { RadioGroup } from "@/shared/ui/radio-group";
 import { FC, HTMLAttributes } from "react";
 import { useFormContext } from "react-hook-form";
-import { DeliveryTypeEnum } from "../../_domain/delivery.types";
+// import { DeliveryTypeEnum } from "../../_domain/delivery.types";
 import { DeliveryFormDefaultValues } from "../../_domain/form.schema";
-import { PostOfficeToSelect } from "../../_domain/postOffice.type";
-import { selectDeliveryType } from "../../_vm/selectDeliveryType";
+// import { PostOfficeToSelect } from "../../_domain/postOffice.type";
+import {
+  PostOfficeToSelect,
+  selectDeliveryType,
+} from "../../_vm/selectDeliveryType";
 import { DeliveryCourierField } from "./deliveryCourierField";
 import { DeliveryPickupField } from "./deliveryPickupField";
 import { DeliveryPostSelect } from "./deliveryPostSelect";
 import { StoreToSelect } from "@/entities/store";
+import { DeliveryTypeEnum } from "@/kernel/domain/delivery/delivery.type";
 
 interface DeliveryTypeRadioProps extends HTMLAttributes<HTMLDivElement> {
   postOfficeListToSelect: PostOfficeToSelect[];

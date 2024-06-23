@@ -1,4 +1,4 @@
-import { CategoryEntity } from "@/entities/category";
+import { CategoryEntity } from "@/kernel/domain/category/category.type";
 import { CategoryRemoveTxDTO } from "./types";
 
 export abstract class ICategoryRemoveTx {

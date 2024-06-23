@@ -1,5 +1,5 @@
 import { injectable } from "inversify";
-import { Product, ProductGetSelector } from "../_domain/types";
+import { Product, ProductGetSelector } from "../_domain/product.types";
 import { IProductRepository } from "../_domain/repository.type";
 
 @injectable()

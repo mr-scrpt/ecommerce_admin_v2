@@ -11,7 +11,8 @@ import {
   ProductTotalPriceGetDTO,
   ProductUpdateDTO,
 } from "../_domain/product.dto";
-import { ProductEntity, ProductRelationEntity } from "../_domain/types";
+import { ProductRelationEntity } from "./product.types";
+import { ProductEntity } from "@/kernel/domain/product/product.type";
 
 export abstract class IProductRepository {
   abstract get(dto: ProductGetDTO, db?: Tx): Promise<ProductEntity>;

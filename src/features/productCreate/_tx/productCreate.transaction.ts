@@ -1,9 +1,9 @@
-import { ProductEntity } from "@/entities/product";
 import { IProductRepository } from "@/entities/product/server";
 import { DBClient, Transaction, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
 import { ProductCreateTxDTO } from "../_domain/types";
 import { IProductCreateTx } from "../_domain/transaction.type";
+import { ProductEntity } from "@/kernel/domain/product/product.type";
 
 @injectable()
 export class ProductCreateTx extends Transaction implements IProductCreateTx {

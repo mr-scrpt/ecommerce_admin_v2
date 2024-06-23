@@ -10,7 +10,7 @@ import {
   CategoryRemoveDTO,
   CategoryUpdateDTO,
 } from "../_domain/category.dto";
-import { CategoryEntity, CategoryRelationEntity } from "../_domain/types";
+import { CategoryEntity, CategoryRelationEntity } from "../_domain/category.types";
 import { ICategoryRepository } from "../_domain/repository.type";
 
 @injectable()
@@ -109,11 +109,11 @@ export class CategoryRepository implements ICategoryRepository {
     dto: CategoryBindToPropertyListDTO,
     db: Tx = this.db,
   ): Promise<CategoryEntity> {
-    const { selector, data } = dto;
+    const { target, data } = dto;
     const { propertyListId } = data;
 
     return await db.category.update({
-      where: selector,
+      where: target,
       data: {
         propertyList: {
           set: propertyListId.map(({ propertyId }) => ({ id: propertyId })),
@@ -126,11 +126,11 @@ export class CategoryRepository implements ICategoryRepository {
     dto: CategoryBindToProductListDTO,
     db: Tx = this.db,
   ): Promise<CategoryEntity> {
-    const { selector, data } = dto;
+    const { target, data } = dto;
     const { productListId } = data;
 
     return await db.category.update({
-      where: selector,
+      where: target,
       data: {
         productList: {
           connect: productListId.map(({ productId }) => ({ id: productId })),

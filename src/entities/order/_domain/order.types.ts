@@ -1,46 +1,21 @@
+import { Delivery } from "@/kernel/domain/delivery/delivery.type";
 import {
+  Order,
+  OrderComposite,
+  OrderCompositeEntity,
   OrderPaymentStatusEnum,
   OrderStatusEnum,
-} from "@/kernel/domain/order.type";
-import { OrderRow, OrderRowEntity } from "./orderRow.types";
+} from "@/kernel/domain/order/order.type";
+import { OrderRow } from "@/kernel/domain/order/orderRow.type";
 
-// NOTE: Base
-export type OrderBase = {
-  orderNo: string;
-  userId: string;
-  orderStatus: OrderStatusEnum;
-  paymentStatus: OrderPaymentStatusEnum;
-  priceTotal: number;
+// NOTE: Relations
+export type OrderRelationEntity = OrderCompositeEntity & {
+  delivery: Delivery | null;
 };
 
-// NOTE: Entity
-export type OrderEntity = OrderBase & {
-  id: string;
-  createdAt: Date;
-};
-
-export type OrderRelationEntity = OrderEntity & {
-  orderRowList: Array<OrderRowEntity>;
-  delivery: OrderDelivery | null;
-};
-
-// NOTE: Projetions
-export type OrderStatusGroup = {
-  orderStatus: OrderStatusEnum;
-  paymentStatus: OrderPaymentStatusEnum;
-};
-
-export type Order = OrderStatusGroup & {
-  id: string;
-  orderNo: string;
-  userId: string;
-  createdAt: Date;
-  priceTotal: number;
-};
-
-export type OrderRelation = Order & {
+export type OrderRelation = OrderComposite & {
   orderRowList: Array<OrderRow>;
-  delivery: OrderDelivery;
+  delivery: Delivery;
 };
 
 // NOTE: Selector
@@ -53,16 +28,21 @@ export type OrderGetByOwnerSelector = {
 };
 
 // NOTE: Side
-export type OrderProduct = OrderRow & {
-  priceOrder: number;
-  quantity: number;
-};
-
-export type OrderDelivery = {
-  id: string;
-};
+// export type OrderProduct = OrderRow & {
+//   priceOrder: number;
+//   quantity: number;
+// };
+//
+// export type OrderDelivery = {
+//   id: string;
+// };
 
 // NOTE: UI
 export type OrderUI = Omit<Order, "createdAt"> & {
   createdAt: string;
+};
+
+export type OrderStatusGroup = {
+  orderStatus: OrderStatusEnum;
+  paymentStatus: OrderPaymentStatusEnum;
 };

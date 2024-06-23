@@ -1,4 +1,4 @@
-import { Role } from "@/shared/lib/user";
+import { Role } from "@/kernel/domain/role.type";
 import { z } from "zod";
 
 // NOTE: FORM

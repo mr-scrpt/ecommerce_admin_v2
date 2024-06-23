@@ -1,5 +1,5 @@
+import { PostOfficeEntity } from "@/kernel/domain/post/post.type";
 import { PostOfficeNovaPoshtaIndex } from "@/kernel/lib/novaposhta/novaposhta.type";
-import { PostOfficeEntity } from "./post.type";
 
 export const convertPostToLowerCase = (
   settlementData: Partial<PostOfficeNovaPoshtaIndex>,

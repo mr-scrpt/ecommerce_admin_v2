@@ -1,4 +1,4 @@
-import { SettlementBase } from "./settlement.type";
+import { SettlementBase } from "@/kernel/domain/settlement/settlement.type";
 
 // NOTE: Queries
 export type SettlementGetDTO = {

@@ -1,5 +1,6 @@
 import { DBClient, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
+import { IUserRepository } from "../_domain/repository.type";
 import {
   UserCreateDTO,
   UserGetDTO,
@@ -7,12 +8,8 @@ import {
   UserSearchDTO,
   UserUpdateDTO,
 } from "../_domain/user.dto";
-import {
-  UserEntity,
-  UserWithCartEntity,
-  UserWithOrdersEntity,
-} from "../_domain/user.types";
-import { IUserRepository } from "../_domain/repository.type";
+import { UserWithCartEntity } from "../_domain/user.types";
+import { UserEntity } from "@/kernel/domain/user/user.type";
 
 @injectable()
 export class UserRepository implements IUserRepository {
@@ -103,15 +100,15 @@ export class UserRepository implements IUserRepository {
   }
 
   async update(dto: UserUpdateDTO, db: Tx = this.db): Promise<UserEntity> {
-    const { id, ...userData } = dto;
+    const { selector, data } = dto;
     return await db.user.update({
-      where: { id },
-      data: userData,
+      where: selector,
+      data,
     });
   }
 
   async remove(dto: UserRemoveDTO, db: Tx = this.db): Promise<UserEntity> {
-    const { userId } = dto;
-    return await db.user.delete({ where: { id: userId } });
+    const { selector } = dto;
+    return await db.user.delete({ where: selector });
   }
 }

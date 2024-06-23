@@ -1,4 +1,4 @@
-import { UserEntity } from "@/kernel/domain/user.type";
+import { UserEntity } from "@/kernel/domain/user/user.type";
 import { DBClient, Transaction } from "@/shared/lib/db/db";
 import { UserCreateTxDTO } from "../_domain/types";
 

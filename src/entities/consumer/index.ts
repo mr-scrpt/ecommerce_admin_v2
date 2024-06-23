@@ -1,5 +1,4 @@
 export type {
-  Consumer,
   ConsumerGetByOrderSelector,
   ConsumerGetSelector,
-} from "./_domain/type";
+} from "./_domain/consumer.type";

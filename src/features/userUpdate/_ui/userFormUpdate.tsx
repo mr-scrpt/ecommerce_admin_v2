@@ -4,7 +4,7 @@ import { Spinner } from "@/shared/ui/icons/spinner";
 import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes } from "react";
-import { useUserUpdate } from "../_vm/useUserUpdate";
+import { useUserUpdateModel } from "../_vm/useUserUpdate.model";
 import { UserUpdateFormValues, userUpdateFormSchema } from "../_domain/schema";
 
 interface UserFormProps extends HTMLAttributes<HTMLDivElement> {
@@ -25,7 +25,7 @@ export const UserFormUpdate: FC<UserFormProps> = (props) => {
 
   const router = useRouter();
 
-  const { userUpdate, isPending: isPendingUpdate } = useUserUpdate();
+  const { userUpdate, isPending: isPendingUpdate } = useUserUpdateModel();
 
   const isPendingComplexible =
     isPendingUpdate || isPendingUser || !isFetchedAfterMount;

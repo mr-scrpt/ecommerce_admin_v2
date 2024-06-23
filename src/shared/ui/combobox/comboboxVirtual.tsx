@@ -13,7 +13,13 @@ import { cn } from "@/shared/ui/utils";
 import { CaretSortIcon } from "@radix-ui/react-icons";
 import { VirtualItem, useVirtualizer } from "@tanstack/react-virtual";
 import _ from "lodash";
-import { HTMLAttributes, useEffect, useRef, useState } from "react";
+import {
+  HTMLAttributes,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { UseFormReturn } from "react-hook-form";
 
 interface CommandItem {
@@ -150,6 +156,7 @@ export const ComboboxVirtual = <T extends CommandItem>(
 
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState(searchValue);
+
   const debouncedToSearch = _.debounce((search) => toSearch?.(search), 1000);
 
   useEffect(() => {
@@ -157,6 +164,20 @@ export const ComboboxVirtual = <T extends CommandItem>(
       debouncedToSearch(search);
     }
   }, [debouncedToSearch, minChars, search, searchValue]);
+
+  // useEffect(() => {
+  //   console.log("output_log:  =>>> rerender %%%%%%%%%");
+  // }, []);
+  const handleSelectOption = useCallback(
+    (value: string, field: any) => {
+      // console.log("output_log: select value =>>>", value);
+      // console.log("output_log: field.value =>>>", field.value);
+      field.onChange(value);
+      handleSelect?.(value);
+      setOpen(false);
+    },
+    [handleSelect],
+  );
 
   return (
     <FormField
@@ -177,6 +198,8 @@ export const ComboboxVirtual = <T extends CommandItem>(
                 >
                   {field.value
                     ? (itemList.find((item) => {
+                        // if (item.value === field.value) {
+                        // }
                         return item.value === field.value;
                       })?.label ||
                         placeholder) ??
@@ -194,11 +217,14 @@ export const ComboboxVirtual = <T extends CommandItem>(
                 placeholder="Search settlements..."
                 selectedOption={field.value}
                 setSearch={setSearch}
-                onSelectOption={(value) => {
-                  field.onChange(value);
-                  handleSelect?.(value);
-                  setOpen(false);
-                }}
+                onSelectOption={(value) => handleSelectOption(value, field)}
+                // onSelectOption={(value) => {
+                //   console.log("output_log: select value =>>>", value);
+                //   console.log("output_log: field.value =>>>", field.value);
+                //   field.onChange(value);
+                //   handleSelect?.(value);
+                //   setOpen(false);
+                // }}
                 renderItem={(props) => renderItem(props)}
               />
             </PopoverContent>

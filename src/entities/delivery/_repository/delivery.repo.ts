@@ -2,6 +2,7 @@ import { DBClient, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
 import { DeliveryEntity } from "../_domain/delivery.types";
 import {
+  DeliveryBindToOrderDTO,
   DeliveryCreateDTO,
   DeliveryGetByOrderDTO,
   DeliveryGetDTO,
@@ -39,8 +40,9 @@ export class DeliveryRepository implements IDeliveryRepository {
     dto: DeliveryCreateDTO,
     db: Tx = this.db,
   ): Promise<DeliveryEntity> {
+    const { data } = dto;
     return await db.delivery.create({
-      data: dto,
+      data,
     });
   }
 
@@ -49,10 +51,31 @@ export class DeliveryRepository implements IDeliveryRepository {
     db: Tx = this.db,
   ): Promise<DeliveryEntity> {
     const { selector, data } = dto;
+    console.log("output_log:  =>>>", data, selector);
 
     return await db.delivery.update({
       where: selector,
       data,
+    });
+  }
+
+  async bindToOrder(
+    dto: DeliveryBindToOrderDTO,
+    db: Tx = this.db,
+  ): Promise<DeliveryEntity> {
+    const { selector, target } = dto;
+
+    const { orderId } = target;
+
+    return await db.delivery.update({
+      where: selector,
+      data: {
+        order: {
+          connect: {
+            id: orderId,
+          },
+        },
+      },
     });
   }
 }

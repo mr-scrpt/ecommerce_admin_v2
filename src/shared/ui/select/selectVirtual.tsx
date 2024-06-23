@@ -63,12 +63,6 @@ const VirtualizedContent = <T extends ListItem>({
     overscan: 5,
   });
 
-  // useEffect(() => {
-  //   console.log("output_log: in virtualizedContent =>>>");
-  //   if (!isOpen) return;
-  //   virtualizer.measure();
-  // }, [virtualizer, isOpen]);
-
   const virtualOptions = virtualizer.getVirtualItems();
 
   const curruntItem = optionList.find((item) => item.value === fieldValue);
@@ -116,24 +110,12 @@ const VirtualizedContent = <T extends ListItem>({
   );
 };
 
-// const Wrapper: FC<HTMLAttributes<HTMLDivElement>> = ({ children, ref }) => {
-//   return (
-//     <div
-//       ref={parentRef}
-//       style={{
-//         height: maxHeight,
-//         width: "100%",
-//         overflow: "auto",
-//       }}
-//     ></div>
-//   );
-// };
-
 export const SelectVirtual = <T extends ListItem>({
   control,
   itemList,
   renderItem,
   name,
+  title,
 }: SelectVirtualProps<T>) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
@@ -141,10 +123,11 @@ export const SelectVirtual = <T extends ListItem>({
       control={control}
       name={name}
       render={({ field }) => {
-        console.log("output_log: field  value =>>>", field.value);
+        console.log("output_log: field =>>>", field);
+
         return (
           <FormItem>
-            <FormLabel>{name}</FormLabel>
+            <FormLabel>{title}</FormLabel>
             <Select
               onValueChange={field.onChange}
               defaultValue={field.value}
@@ -155,8 +138,8 @@ export const SelectVirtual = <T extends ListItem>({
               <FormControl>
                 <SelectTrigger>
                   <SelectValue
-                    placeholder={`Select ${name}`}
-                    defaultValue={field.value}
+                    placeholder={`-- Make choice --`}
+                    // defaultValue={field.value}
                   />
                 </SelectTrigger>
               </FormControl>

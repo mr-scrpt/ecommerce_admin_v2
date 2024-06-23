@@ -2,7 +2,7 @@ import { orderBaseSchema, orderRowBaseSchema } from "@/entities/order/server";
 import {
   OrderPaymentStatusEnum,
   OrderStatusEnum,
-} from "@/kernel/domain/order.type";
+} from "@/kernel/domain/order/order.type";
 import { z } from "zod";
 
 export const orderCreateSchema = z.object({

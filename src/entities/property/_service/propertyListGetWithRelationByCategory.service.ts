@@ -3,7 +3,7 @@ import { IPropertyRepository } from "../_domain/property/repository.type";
 import {
   PropertyListGetByCategoryListSelector,
   PropertyRelation,
-} from "../_domain/property/types";
+} from "../_domain/property/property.types";
 
 @injectable()
 export class PropertyListGetWithRelationByCategoryListService {

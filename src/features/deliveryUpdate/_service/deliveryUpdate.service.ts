@@ -1,7 +1,7 @@
 import { injectable } from "inversify";
 import { IDeliveryUpdateTx } from "../_domain/transaction.type";
 import { DeliveryUpdateTxPayload } from "../_domain/types";
-import { Delivery } from "@/entities/delivery";
+import { Delivery } from "@/kernel/domain/delivery/delivery.type";
 
 @injectable()
 export class DeliveryUpdateService {

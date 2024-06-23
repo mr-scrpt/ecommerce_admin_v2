@@ -1,5 +1,5 @@
-import { PropertyDataTypeEnum } from "@/kernel/domain/property.type";
-
+import { PropertyDataTypeEnum } from "@/kernel/domain/property/property.type";
+// TODO: Move this type? <<<<
 export const selectDataType = [
   { type: PropertyDataTypeEnum.SELECT, value: "Select" },
   { type: PropertyDataTypeEnum.MULT, value: "Multi select" },

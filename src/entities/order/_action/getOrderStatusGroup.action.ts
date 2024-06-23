@@ -1,7 +1,6 @@
 "use server";
 import { z } from "zod";
 import { orderStatusGroupSchema } from "../_domain/order.schema";
-import { OrderStatusGroup } from "../_domain/order.types";
 import { getOrderStatusGroupUseCase } from "../_usecase/instans.usecase";
 import { SessionContainer } from "@/shared/session/instans";
 

@@ -9,7 +9,7 @@ import {
   CategoryRemoveDTO,
   CategoryUpdateDTO,
 } from "../_domain/category.dto";
-import { CategoryEntity, CategoryRelationEntity } from "../_domain/types";
+import { CategoryEntity, CategoryRelationEntity } from "./category.types";
 
 export abstract class ICategoryRepository {
   abstract get(dto: CategoryGetDTO, db?: Tx): Promise<CategoryEntity>;

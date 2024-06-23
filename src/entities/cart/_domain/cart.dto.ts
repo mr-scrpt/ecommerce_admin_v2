@@ -1,4 +1,4 @@
-import { CartBase } from "./cart.types";
+import { CartBase } from "@/kernel/domain/cart/cart.type";
 
 // NOTE: Queries
 export type CartGetDTO = {

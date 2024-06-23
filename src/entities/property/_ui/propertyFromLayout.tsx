@@ -1,6 +1,6 @@
 import { Separator } from "@/shared/ui/separator";
 import { FC, HTMLAttributes } from "react";
-import { PropertyRelation } from "../_domain/property/types";
+import { PropertyRelation } from "../_domain/property/property.types";
 import { PropertyFormElements } from "./propertyFormElements";
 import { PropertyFormValues } from "../_domain/property/form.schema";
 

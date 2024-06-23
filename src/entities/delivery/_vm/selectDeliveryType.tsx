@@ -1,9 +1,17 @@
 // "use client";
 import { StoreToSelect } from "@/entities/store";
-import { DeliveryTypeEnum } from "../_domain/delivery.types";
-import { PostOfficeToSelect } from "../_domain/postOffice.type";
+// import { DeliveryTypeEnum } from "../_domain/delivery.types";
+// import { PostOfficeToSelect } from "../_domain/postOffice.type";
 import { DeliveryFormElements } from "../_ui/deliveryFormElements";
+import { DeliveryTypeEnum } from "@/kernel/domain/delivery/delivery.type";
 
+// TODO: Move this type <<<<
+// TODO: Move this component
+export type PostOfficeToSelect = {
+  value: string;
+  type: string;
+  label: string;
+};
 // enum DeliveryTypeEnum {
 //   PICKUP = 'PICKUP',
 //   POST = 'POST',
@@ -65,12 +73,14 @@ export const selectDeliveryType: SelectDeliveryType = {
     value: "Pickup",
     type: DeliveryTypeEnum.PICKUP,
     formElement: [
-      ({ storeListToSelect }: { storeListToSelect: StoreToSelect[] }) => (
-        <DeliveryFormElements.FieldPickupPoint
-          key="pickupPoint"
-          storeListToSelect={storeListToSelect}
-        />
-      ),
+      ({ storeListToSelect }: { storeListToSelect: StoreToSelect[] }) => {
+        return (
+          <DeliveryFormElements.FieldPickupPoint
+            key="pickupPoint"
+            storeListToSelect={storeListToSelect}
+          />
+        );
+      },
     ],
   },
   [DeliveryTypeEnum.POST]: {
@@ -101,7 +111,6 @@ export const selectDeliveryType: SelectDeliveryType = {
   },
 };
 
-// Теперь вы можете получить типы для каждого ключа
 export type PickupType =
   (typeof selectDeliveryType)[typeof DeliveryTypeEnum.PICKUP];
 export type PostType =

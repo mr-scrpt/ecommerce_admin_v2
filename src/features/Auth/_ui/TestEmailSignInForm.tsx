@@ -11,7 +11,7 @@ import { Spinner } from "@/shared/ui/icons/spinner";
 import { Input } from "@/shared/ui/input";
 import { FC, HTMLAttributes } from "react";
 import { useForm } from "react-hook-form";
-import { useTestEmailSignIn } from "../_vm/useTestEmailSignIn";
+import { useTestEmailSignInModel } from "../_vm/useTestEmailSignIn.model";
 import { generateTestLink } from "../_lib/generateTestAuthLink";
 
 interface TestEmailSignInFormProps extends HTMLAttributes<HTMLDivElement> {
@@ -26,7 +26,7 @@ export const TestEmailSignInForm: FC<TestEmailSignInFormProps> = (props) => {
     },
   });
 
-  const { isPending, isSuccess, signIn, callbackUrl } = useTestEmailSignIn();
+  const { isPending, isSuccess, signIn, callbackUrl } = useTestEmailSignInModel();
   const link = generateTestLink({
     callbackUrl: callbackUrl ?? "",
     token: testToken,

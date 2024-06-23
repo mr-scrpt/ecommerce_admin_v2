@@ -1,5 +1,5 @@
-import { Cart } from "@/entities/cart";
-import { Product } from "@/entities/product";
+import { Cart } from "@/kernel/domain/cart/cart.type";
+import { Product } from "@/kernel/domain/product/product.type";
 
 export type CartRowRemoveTxPayload = {
   selector: CartRowRemoveSelector;

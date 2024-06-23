@@ -1,9 +1,9 @@
-import { Category } from "@/entities/category";
 import { slugGenerator } from "@/shared/lib/slugGenerator";
 import { injectable } from "inversify";
 import { merge } from "lodash";
 import { ICategoryCreateTx } from "../_domain/transaction.type";
 import { CategoryCreateTxDTO, CategoryCreateTxPayload } from "../_domain/types";
+import { Category } from "@/kernel/domain/category/category.type";
 
 @injectable()
 export class CategoryCreateService {

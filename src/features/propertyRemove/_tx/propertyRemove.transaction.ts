@@ -1,4 +1,3 @@
-import { PropertyEntity } from "@/entities/property";
 import { DBClient, Transaction, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
 import { IPropertyRemoveTx } from "../_domain/transaction.type";
@@ -7,6 +6,7 @@ import {
   IPropertyRepository,
 } from "@/entities/property/server";
 import { PropertyRemoveTxDTO } from "../_domain/types";
+import { PropertyEntity } from "@/kernel/domain/property/property.type";
 
 @injectable()
 export class PropertyRemoveTx extends Transaction implements IPropertyRemoveTx {

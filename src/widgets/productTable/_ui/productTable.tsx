@@ -5,7 +5,7 @@ import { TableData } from "@/shared/ui/tableData/ui/tableData";
 import { FC, HTMLAttributes } from "react";
 import { useProductTableList } from "../_vm/useProductTableList";
 import { useTableColumns } from "../_vm/useTabelColumns";
-import { useProductRemoveConfirm } from "@/features/productRemove";
+import { useProductRemoveConfirmModel } from "@/features/productRemove";
 
 interface ProductTableProps extends HTMLAttributes<HTMLDivElement> {}
 
@@ -19,7 +19,7 @@ export const ProductTable: FC<ProductTableProps> = (props) => {
   const {
     removeProductConfirm: onDeleteClick,
     isPending: isPendingRemoveProduct,
-  } = useProductRemoveConfirm();
+  } = useProductRemoveConfirmModel();
 
   const isPendingComplexible =
     isPendingProductList || isPendingRemoveProduct || !isFetchedAfterMount;

@@ -1,4 +1,4 @@
-import { DeliveryBase } from "./delivery.types";
+import { DeliveryBase } from "@/kernel/domain/delivery/delivery.type";
 
 // NOTE: Queries
 export type DeliveryGetDTO = {
@@ -10,7 +10,7 @@ export type DeliveryGetByOrderDTO = {
 };
 
 // NOTE: Mutations
-export type DeliveryCreateDTO = DeliveryBase;
+export type DeliveryCreateDTO = { data: DeliveryBase };
 
 export type DeliveryUpdateDTO = {
   selector: {
@@ -19,6 +19,15 @@ export type DeliveryUpdateDTO = {
   data: Partial<DeliveryBase>;
 };
 
+// NOTE: Bindings
+export type DeliveryBindToOrderDTO = {
+  selector: {
+    id: string;
+  };
+  target: {
+    orderId: string;
+  };
+};
 // export type DeliveryRemoveDTO = {
 //   selector: {
 //     id: string;

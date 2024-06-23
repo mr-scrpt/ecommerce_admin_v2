@@ -1,13 +1,11 @@
+import { cartSchema } from "@/kernel/domain/cart/cart.schema";
+import { cartRowSchema } from "@/kernel/domain/cart/cartRow.schema";
+import { productSchema } from "@/kernel/domain/product/product.schema";
 import { z } from "zod";
 
-// NOTE: Base
-export const cartRowBaseSchema = z.object({
-  productId: z.string(),
-  quantity: z.number(),
-  createdAt: z.date(),
-});
-
-export const cartRowSchema = z.object({
-  id: z.string(),
-  ...cartRowBaseSchema.shape,
+// NOTE: Relations
+export const cartRowRelationSchema = z.object({
+  ...cartRowSchema.shape,
+  cartId: cartSchema.shape.id,
+  productId: productSchema.shape.id,
 });

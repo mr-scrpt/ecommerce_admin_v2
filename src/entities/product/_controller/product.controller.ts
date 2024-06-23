@@ -1,9 +1,6 @@
 import { Controller, publicProcedure, router } from "@/kernel/lib/trpc/server";
 import { injectable } from "inversify";
-import {
-  productRelationSchema,
-  productSchema,
-} from "../_domain/product.schema";
+import { productRelationSchema } from "../_domain/product.schema";
 import {
   getInputSchema,
   getListByIdListInputSchema,
@@ -15,6 +12,7 @@ import { ProductRelationGetService } from "../_service/productRelationGet.servic
 import { ProductListGetService } from "../_service/productListGet.service";
 import { ProductListGetByIdListService } from "../_service/productListGetByIdList.service";
 import { ProductListSearchService } from "../_service/productListSearch.service";
+import { productSchema } from "@/kernel/domain/product/product.schema";
 
 @injectable()
 export class ProductController extends Controller {

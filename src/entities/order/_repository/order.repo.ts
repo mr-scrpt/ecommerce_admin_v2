@@ -87,18 +87,18 @@ export class OrderRepository implements IOrderRepository {
     });
   }
 
-  async updateStatus(
-    orderId: OrderId,
-    data: Partial<OrderToUpdateStatus>,
-    db: Tx = this.db,
-  ): Promise<OrderEntity> {
-    return await db.order.update({
-      where: {
-        id: orderId,
-      },
-      data,
-    });
-  }
+  // async updateStatus(
+  //   dto: OrderUpdateDTO,
+  //   data: Partial<OrderToUpdateStatus>,
+  //   db: Tx = this.db,
+  // ): Promise<OrderEntity> {
+  //   return await db.order.update({
+  //     where: {
+  //       id: orderId,
+  //     },
+  //     data,
+  //   });
+  // }
 
   // async updateTotalPrice(
   //   orderId: OrderId,

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbo",
+    "start:dev": "next dev --turbo",
     "start:infra": "concurrently \"docker compose up\" \"pnpm server:ws\" \"pnpm studio\"",
     "server:cron": "ts-node -r dotenv/config ./server/cron/cron.ts",
     "server:ws": "ts-node ./server/websocket.ts",

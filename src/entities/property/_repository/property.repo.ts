@@ -11,7 +11,7 @@ import { IPropertyRepository } from "../_domain/property/repository.type";
 import {
   PropertyEntity,
   PropertyRelationEntity,
-} from "../_domain/property/types";
+} from "../_domain/property/property.types";
 
 @injectable()
 export class PropertyRepository implements IPropertyRepository {

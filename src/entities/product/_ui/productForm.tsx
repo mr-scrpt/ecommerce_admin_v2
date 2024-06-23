@@ -16,17 +16,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, HTMLAttributes, useCallback, useEffect } from "react";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
 import { z } from "zod";
-import { ProductFormValues } from "../_domain/product.schema";
 import {
   ProductFromForm,
   ProductPropertyObjectList,
   ProductPropertyToSelect,
   ProductRelation,
-} from "../_domain/types";
+} from "../_domain/product.types";
 import { generateProductFormSchema } from "../_lib/generateDynamicSchema";
 import { propertyToFlatList } from "../_lib/propertyToFlatList";
 import { renderFormField } from "./fromField/renderFormField";
 import { ImgField as ImgFieldComponent } from "./imgField";
+import { ProductFormValues } from "../_domain/form.schema";
 
 interface ProductFormProps extends HTMLAttributes<HTMLFormElement> {
   product?: ProductRelation;
@@ -68,7 +68,6 @@ const getDefaultValues = (
   categoryList: product?.categoryList ?? [],
   propertyList: propertyList ?? {},
 });
-import { DevTool } from "@hookform/devtools";
 
 export const ProductForm: ProductFormType = (props) => {
   const {

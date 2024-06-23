@@ -6,7 +6,7 @@ import { FC, HTMLAttributes } from "react";
 import { useTableColumns } from "../_vm/useTabelColumns";
 import { useUserTableList } from "../_vm/useUserTableList";
 import { useUserUpdateModal } from "../_vm/useUserUpdateModal";
-import { useUserRemoveConfirm } from "@/features/userRemove";
+import { useUserRemoveConfirmModel } from "@/features/userRemove";
 
 interface UserTableProps extends HTMLAttributes<HTMLDivElement> {}
 
@@ -18,7 +18,7 @@ export const UserTable: FC<UserTableProps> = (props) => {
   } = useUserTableList();
 
   const { removeUserConfirm: onDeleteClick, isPending: isPendingRemoveUser } =
-    useUserRemoveConfirm();
+    useUserRemoveConfirmModel();
 
   const { openUpdateModal: onUpdateClick } = useUserUpdateModal();
 

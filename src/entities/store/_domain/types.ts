@@ -1,49 +1,25 @@
-export const baseQueryKey = "store";
+import {
+  Settlement,
+  SettlementEntity,
+} from "@/kernel/domain/settlement/settlement.type";
+import { Store, StoreEntity } from "@/kernel/domain/store/store.type";
 
-type StoreBase = {
-  name: string;
-  settlement: string;
-  address: string;
+// NOTE: Relations
+export type StoreRelation = Store & {
+  settlement: Settlement;
 };
 
-export type StoreEntity = StoreBase & {
+export type StoreRelationEntity = StoreEntity & {
+  settlement: SettlementEntity;
+};
+
+// NOTE: Selector
+export type StoreGetSelector = {
   id: string;
-  createdAt: Date;
 };
 
-// export type StoreRelationEntity = StoreEntity & {
-//   settlementName: string;
-// };
-
-// NOTE: Projetions
-
-export type Store = StoreBase & {
-  id: string;
-  createdAt: Date;
-};
-
-export type StoreWithSettlementName = StoreBase & {
-  id: string;
-  settlementName: string;
-  createdAt: Date;
-};
-
-// export type StoreRelation = Store & {
-//   settlementName: string;
-// };
-
-// NOTE: Actions
-export type StoreToCreate = {
-  name: string;
-  settlement: string;
-  address: string;
-};
-
-export type StoreToUpdate = {
-  id: string;
-  name: string;
-  settlement: string;
-  address: string;
+export type StoreGetBySettlementRefSelector = {
+  settlementRef: string;
 };
 
 // NOTE: UI

@@ -1,6 +1,6 @@
 "use client";
 
-import { useStoreRemoveConfirm } from "@/features/storeRemove";
+import { useStoreRemoveConfirmModel } from "@/features/storeRemove";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { TableData } from "@/shared/ui/tableData/ui/tableData";
 import { FC, HTMLAttributes } from "react";
@@ -17,7 +17,7 @@ export const StoreTable: FC<StoreTableProps> = (props) => {
   } = useStoreTableList();
 
   const { removeStoreConfirm: onDeleteClick, isPending: isPendingRemoveStore } =
-    useStoreRemoveConfirm();
+    useStoreRemoveConfirmModel();
 
   const isPendingComplexible =
     isPendingStoreList || isPendingRemoveStore || !isFetchedAfterMount;

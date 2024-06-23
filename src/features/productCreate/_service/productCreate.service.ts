@@ -1,9 +1,9 @@
-import { Product } from "@/entities/product";
 import { slugGenerator } from "@/shared/lib/slugGenerator";
 import { injectable } from "inversify";
 import { merge } from "lodash";
 import { IProductCreateTx } from "../_domain/transaction.type";
 import { ProductCreateTxDTO, ProductCreateTxPayload } from "../_domain/types";
+import { Product } from "@/kernel/domain/product/product.type";
 
 @injectable()
 export class ProductCreateService {

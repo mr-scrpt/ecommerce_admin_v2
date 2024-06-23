@@ -1,4 +1,4 @@
-import { ProductBase } from "./types";
+import { ProductBase } from "@/kernel/domain/product/product.type";
 
 // NOTE: Queries
 export type ProductGetDTO = {

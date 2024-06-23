@@ -1,9 +1,6 @@
-import {
-  PropertyBase,
-  PropertyUpdateDTO,
-  PropertyItemBase,
-  PropertyItemCreateDTO,
-} from "@/entities/property";
+import { PropertyUpdateDTO, PropertyItemCreateDTO } from "@/entities/property";
+import { PropertyBase } from "@/kernel/domain/property/property.type";
+import { PropertyItemBase } from "@/kernel/domain/property/propertyItem.type";
 
 type PropertyUpdatePayload = Partial<PropertyBase>;
 

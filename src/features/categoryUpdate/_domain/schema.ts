@@ -1,4 +1,4 @@
-import { categoryBaseSchema } from "@/entities/category/server";
+import { categoryBaseSchema } from "@/kernel/domain/category/category.schema";
 import { z } from "zod";
 
 export const categorySelectorSchema = z.object({

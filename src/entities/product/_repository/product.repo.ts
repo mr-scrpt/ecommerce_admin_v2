@@ -12,7 +12,7 @@ import {
   ProductTotalPriceGetDTO,
   ProductUpdateDTO,
 } from "../_domain/product.dto";
-import { ProductEntity, ProductRelationEntity } from "../_domain/types";
+import { ProductEntity, ProductRelationEntity } from "../_domain/product.types";
 import { IProductRepository } from "../_domain/repository.type";
 
 @injectable()

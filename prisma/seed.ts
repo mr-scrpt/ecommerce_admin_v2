@@ -84,6 +84,7 @@ async function main() {
   }
 
   for await (const storeRow of storeListSeed) {
+    console.log("output_log: store row =>>>", storeRow);
     await prisma.store.create({ data: storeRow });
     console.log("store created", storeRow);
   }

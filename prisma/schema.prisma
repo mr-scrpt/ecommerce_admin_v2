@@ -74,6 +74,7 @@ model Product {
 
   categoryList   Category[]   @relation("ProductToCategory")
   propertyItemListSelected PropertyItem[] @relation("PropertyItemToProduct")
+  cartRowList  CartRow[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -97,6 +98,7 @@ model User {
   sessions      Session[]
 
   createdAt     DateTime  @default(now())
+  updatedAt DateTime @updatedAt
 
 }
 
@@ -117,6 +119,7 @@ model CartRow {
   cart	    Cart     @relation(fields: [cartId], references: [id], onDelete: Cascade)
   cartId    String
 
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId String
 
   quantity  Int
@@ -154,8 +157,8 @@ model Order {
 
 model OrderRow {
   id        String   @id @default(uuid())
-  orderId   String
   order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  orderId   String
 
   productId String
   productName  String
@@ -168,6 +171,8 @@ model OrderRow {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@unique([orderId,productId])
 }
 
 
@@ -180,6 +185,8 @@ model Receiver {
   phone     String
   orderList  Order[]
 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   @@unique([userId, name, lastName, phone])
 }
 
@@ -235,15 +242,20 @@ model Settlement {
   radiusExpressPickUp              String
   radiusDrop                       String
   warehouse                        String
+
   createdAt                        DateTime @default(now())
   updatedAt                        DateTime @updatedAt
+
+  store Store[]
 }
 
 model Store {
   id        String   @id @default(uuid())
   name      String
-  settlement String
+  settlement    Settlement @relation(fields: [settlementRef], references: [ref], onDelete: Cascade)
+  settlementRef String
   address      String
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

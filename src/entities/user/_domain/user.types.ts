@@ -1,8 +1,8 @@
-import { Role } from "@/kernel/domain/role.type";
-import type { UserEntity } from "@/kernel/domain/user.type";
+import { Cart } from "@/kernel/domain/cart/cart.type";
+import { CartRow } from "@/kernel/domain/cart/cartRow.type";
+import { UserEntity } from "@/kernel/domain/user/user.type";
 
-export { UserEntity };
-
+// NOTE: Relation
 export type UserWithCartEntity = UserEntity & {
   cart: UserCartRelation | null;
 };
@@ -15,37 +15,6 @@ export type UserWithOrdersEntity = UserEntity & {
   orderList: Array<UserOrderRelaion>;
 };
 
-export type UserPartial = {
-  name?: string | null;
-  phone: string;
-  email: string;
-  image?: string | null;
-  role: Role;
-  emailVerified?: Date | null;
-  createdAt: Date;
-};
-
-// NOTE: Projetions
-
-export type User = {
-  id: string;
-  name: string | null;
-  email: string;
-  phone: string;
-  image?: string | null;
-  role: Role;
-  emailVerified: Date | null;
-  createdAt: Date;
-};
-
-export type UserStrict = {
-  id: string;
-  email: string;
-  phone: string;
-  name: string;
-  image: string | null;
-};
-
 // NOTE: Payload
 export type UserGetPayload = {
   id: string;
@@ -56,23 +25,24 @@ export type UserSearchPayload = {
 };
 
 // NOTE: Side
-type UserCart = {
-  id: string;
-  userId: string;
-  createdAt: Date;
+// type UserCart = {
+//   id: string;
+//   userId: string;
+//   createdAt: Date;
+// };
+
+type UserCartRelation = Cart & {
+  // cartRowList: Array<UserCartRowEntity>;
+  cartRowList: Array<CartRow>;
 };
 
-type UserCartRelation = UserCart & {
-  cartRowList: Array<UserCartRowEntity>;
-};
-
-type UserCartRowEntity = {
-  id: string;
-  cartId: string;
-  productId: string;
-  quantity: number;
-  createdAt: Date;
-};
+// type UserCartRowEntity = {
+//   id: string;
+//   cartId: string;
+//   productId: string;
+//   quantity: number;
+//   createdAt: Date;
+// };
 
 type UserOrderRelaion = {
   id: string;
@@ -89,5 +59,4 @@ export type UserToSelect = {
   name: string;
   phone: string;
   label: string;
-  // disabled: boolean;
 };

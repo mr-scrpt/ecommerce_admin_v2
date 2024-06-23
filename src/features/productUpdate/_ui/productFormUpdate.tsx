@@ -3,8 +3,7 @@ import {
   ProductFormLayout,
   useProductWithRelationQuery,
 } from "@/entities/product";
-import { ProductFromForm } from "@/entities/product/_domain/types";
-import { usePropertyListByCategoryIdList } from "@/entities/property";
+import { ProductFromForm } from "@/entities/product/_domain/product.types";
 import { useOptionListTransform } from "@/shared/lib/map";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { MultiSelectOptionItem } from "@/shared/ui/multiSelect";
@@ -12,7 +11,8 @@ import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes, memo, useCallback } from "react";
 import { useProductUpdateMutation } from "../_mutation/useProductUpdate.mutation";
-import { useCategoryDataToForm } from "../_vm/useCategoryDataToForm";
+import { useCategoryDataToFormModel } from "../_vm/useCategoryDataToForm.model";
+import { usePropertyListByCategoryIdListModel } from "@/entities/property";
 
 interface ProductFormProps extends HTMLAttributes<HTMLDivElement> {
   productId: string;
@@ -38,14 +38,14 @@ export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
     isPendingCategoryOptionList,
     setCategoryOptionListSelected,
     productWithActiveCategory,
-  } = useCategoryDataToForm(product);
+  } = useCategoryDataToFormModel(product);
 
   const {
     propertyList,
     propertyObjectActive,
     setCategoryIdList,
     isPending: isPendingPropertyList,
-  } = usePropertyListByCategoryIdList(
+  } = usePropertyListByCategoryIdListModel(
     categoryOptionListActive,
     product?.propertyItemListSelected || [],
   );

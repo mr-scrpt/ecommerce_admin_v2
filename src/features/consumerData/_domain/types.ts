@@ -1,6 +1,6 @@
-import { Consumer, ConsumerGetByOrderSelector } from "@/entities/consumer";
 import { Order, OrderEntity, OrderUI } from "@/entities/order";
-import { User, UserEntity } from "@/entities/user/user";
+import { Consumer } from "@/kernel/domain/consumer/consumer.type";
+import { UserEntity } from "@/kernel/domain/user/user.type";
 
 // export type OrderOwnerDataEntity = {
 //   owner: UserEntity;
@@ -33,4 +33,9 @@ export type ConsumerDataEntity = {
 export type ConsumerData = {
   consumerData: Consumer;
   orderListData: Array<Order>;
+};
+
+export type ConsumerDataUI = {
+  consumerData?: Consumer;
+  orderListData?: Array<OrderUI>;
 };

@@ -6,7 +6,8 @@ import {
   UserSearchDTO,
   UserUpdateDTO,
 } from "../_domain/user.dto";
-import { UserEntity, UserWithCartEntity } from "../_domain/user.types";
+import { UserWithCartEntity } from "../_domain/user.types";
+import { UserEntity } from "@/kernel/domain/user/user.type";
 
 export abstract class IUserRepository {
   constructor(readonly db: DBClient) {}

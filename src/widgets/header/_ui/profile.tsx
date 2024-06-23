@@ -1,6 +1,6 @@
 "use client";
 import { SignInButton } from "@/features/Auth/SignInButton";
-import { UseSignOut } from "@/features/Auth/_vm/useSignOut";
+import { UseSignOutModel } from "@/features/Auth/_vm/useSignOut.model";
 import { useAppSession } from "@/kernel/lib/nextauth";
 import { Button } from "@/shared/ui/button";
 import {
@@ -22,7 +22,7 @@ interface ProfileProps extends HTMLAttributes<HTMLDivElement> {}
 
 export const Profile: FC<ProfileProps> = (props) => {
   const { data, status } = useAppSession();
-  const { signOut, isPending: isLoadingSignOut } = UseSignOut();
+  const { signOut, isPending: isLoadingSignOut } = UseSignOutModel();
 
   if (status === "loading") {
     return <Skeleton className="h-8 w-8 rounded-full" />;

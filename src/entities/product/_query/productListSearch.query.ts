@@ -1,18 +1,10 @@
 "use client";
-import { useEffect, useState } from "react";
-import { useListenProductListUpdate } from "../_vm/event/useListenProductListUpdate";
+import { useCallback, useState } from "react";
 import { productApi } from "../_api/product.api";
+import { useListenProductListUpdate } from "../_vm/event/useListenProductListUpdate";
 
 export const useProductListSearchQuery = () => {
   const [q, setQ] = useState<string>("");
-
-  const invalidate = useInvalidateProductList(q);
-
-  useEffect(() => {
-    if (q) {
-      invalidate();
-    }
-  }, [invalidate, q]);
 
   const { isPending, isFetchedAfterMount, isSuccess, data } =
     productApi.product.search.useQuery({ q });
@@ -20,7 +12,7 @@ export const useProductListSearchQuery = () => {
   useListenProductListUpdate();
 
   return {
-    toSearch: (q: string) => setQ(q),
+    toSearch: useCallback((q: string) => setQ(q), []),
     searchValue: q,
     isPending,
     isSuccess,
@@ -29,7 +21,7 @@ export const useProductListSearchQuery = () => {
   };
 };
 
-export const useInvalidateProductList = (q: string) => {
+export const useInvalidateProductListSearchQuery = (q: string) => {
   const queryClient = productApi.useUtils().product.search.invalidate;
 
   return () => queryClient({ q });

@@ -11,7 +11,7 @@ import {
 import { cn } from "@/shared/ui/utils";
 import { FC, HTMLAttributes } from "react";
 import { useForm } from "react-hook-form";
-import { useOrderUserListToSelectModel } from "../_vm/useOrderOwnerList";
+import { useOrderUserListToSelectModel } from "../_vm/useOrderOwnerList.model";
 import { OrderSelectOwnerFormValues } from "@/entities/order";
 
 interface OrderFormProps extends HTMLAttributes<HTMLDivElement> {

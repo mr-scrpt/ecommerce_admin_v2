@@ -6,7 +6,7 @@ import {
   PropertyRemoveDTO,
   PropertyUpdateDTO,
 } from "./property.dto";
-import { PropertyEntity, PropertyRelationEntity } from "./types";
+import { PropertyEntity, PropertyRelationEntity } from "./property.types";
 
 export abstract class IPropertyRepository {
   abstract get(dto: PropertyGetDTO, db?: Tx): Promise<PropertyEntity>;

@@ -14,24 +14,17 @@ export { PropertyItemRepository } from "./_repository/propertyItem.repo";
 export { PropertyFormElements } from "./_ui/propertyFormElements";
 export { PropertyFromLayout } from "./_ui/propertyFromLayout";
 
-export { usePropertyLikeSelectOptionList } from "./_vm/usePropertyLikeSelectOptionList";
-export { usePropertyListByCategoryIdList } from "./_vm/usePropertyListByCategoryIdList";
-export { usePropertyListWithDataActive } from "./_vm/usePropertyListWithDataActive";
+export { usePropertyLikeSelectOptionListModel } from "./_vm/usePropertyLikeSelectOptionList.model";
+export { usePropertyListByCategoryIdListModel } from "./_vm/usePropertyListByCategoryIdList.model";
+export { usePropertyListWithDataActiveModel } from "./_vm/usePropertyListWithDataActive.model.";
 
 export { usePropertyListQuery } from "./_query/property/propertyList.query";
 export { usePropertyWithRelationByCategoryQuery } from "./_query/property/propertyListWithRelationByCategory.query";
 export { usePropertyWithRelationQuery } from "./_query/property/properyWithRelation.query";
 
 export type {
-  Property,
-  PropertyBase,
-  PropertyEntity,
   PropertyRelation,
   PropertyRelationEntity,
-} from "./_domain/property/types";
+} from "./_domain/property/property.types";
 
-export type {
-  PropertyItem,
-  PropertyItemBase,
-  PropertyItemRelation,
-} from "./_domain/propertyItem/types";
+export type { PropertyItemRelation } from "./_domain/propertyItem/propertyItem.types";

@@ -1,9 +1,13 @@
-import { OrderBase } from "./order.types";
-import { OrderRowBase } from "./orderRow.types";
+import { OrderRowBase } from "@/kernel/domain/order/orderRow.type";
 
 // NOTE: Queries
 export type OrderRowGetDTO = {
   id: string;
+};
+
+export type OrderRowGetByOrderProductDTO = {
+  orderId: string;
+  productId: string;
 };
 
 export type OrderRowListGetByOrderDTO = {
@@ -15,9 +19,20 @@ export type OrderRowListGetByOrderDTO = {
 // };
 
 // NOTE: Mutations
-
+type OrderRowCreate = Pick<
+  OrderRowBase,
+  | "productId"
+  | "quantity"
+  | "productImg"
+  | "productName"
+  | "productArticle"
+  | "price"
+>;
 export type OrderRowCreateDTO = {
-  data: OrderRowBase;
+  target: {
+    orderId: string;
+  };
+  data: OrderRowCreate;
 };
 
 export type OrderRowUpdateDTO = {

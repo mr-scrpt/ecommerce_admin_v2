@@ -1,4 +1,4 @@
-import { storeBaseSchema } from "@/entities/store/server";
+// import { storeBaseSchema } from "@/entities/store/server";
 import { z } from "zod";
 
 export const storeUpdateSchema = z.object({

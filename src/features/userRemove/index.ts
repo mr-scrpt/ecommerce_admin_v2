@@ -1,3 +1,3 @@
 export { useUserRemoveMutation } from "./_mutation/removeUser.mutation";
-export { useUserRemoveConfirm } from "./_vm/useUserRemoveConfirm";
+export { useUserRemoveConfirmModel } from "./_vm/useUserRemoveConfirm.model";
 export { useEmitUserRemove } from "./_vm/event/useEmitUserRemove";

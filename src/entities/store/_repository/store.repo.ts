@@ -1,58 +1,85 @@
 import { DBClient, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
-import { StoreEntity, StoreToCreate, StoreToUpdate } from "../_domain/types";
+import {
+  StoreCreateDTO,
+  StoreGetBySettlementRefDTO,
+  StoreGetDTO,
+  StoreRemoveDTO,
+  StoreUpdateDTO,
+} from "../_domain/store.dto";
+import { IStoreRepository } from "../_domain/repository.type";
+import { StoreEntity } from "@/kernel/domain/store/store.type";
+import { StoreRelationEntity } from "../_domain/types";
 
 @injectable()
-export class StoreRepository {
+export class StoreRepository implements IStoreRepository {
   constructor(readonly db: DBClient) {}
 
-  async getStore(storeId: string, db: Tx = this.db): Promise<StoreEntity> {
+  async get(dto: StoreGetDTO, db: Tx = this.db): Promise<StoreEntity> {
     return db.store.findUniqueOrThrow({
-      where: {
-        id: storeId,
-      },
+      where: dto,
     });
   }
 
-  async getStoreList(db: Tx = this.db): Promise<StoreEntity[]> {
+  async getListBySettlementRef(
+    dto: StoreGetBySettlementRefDTO,
+    db: Tx = this.db,
+  ): Promise<Array<StoreEntity>> {
+    return db.store.findMany({
+      where: dto,
+    });
+  }
+  async getListBySettlementRefWithRelation(
+    dto: StoreGetBySettlementRefDTO,
+    db: Tx = this.db,
+  ): Promise<Array<StoreRelationEntity>> {
+    const res = await db.store.findMany({
+      where: dto,
+      include: {
+        settlement: true,
+      },
+    });
+    return res;
+  }
+
+  async getList(db: Tx = this.db): Promise<StoreEntity[]> {
     return db.store.findMany();
   }
 
-  async getStoreListBySettlement(
-    settlement: string,
-    db: Tx = this.db,
-  ): Promise<StoreEntity[]> {
-    return this.db.store.findMany({
-      where: {
-        settlement,
+  async getListWithRelation(db: Tx = this.db): Promise<StoreEntity[]> {
+    return db.store.findMany({
+      include: {
+        settlement: true,
       },
     });
   }
 
-  async createStore(
-    store: StoreToCreate,
+  async getListBySettlement(
+    dto: StoreGetBySettlementRefDTO,
     db: Tx = this.db,
-  ): Promise<StoreEntity> {
+  ): Promise<StoreEntity[]> {
+    return db.store.findMany({
+      where: dto,
+    });
+  }
+
+  async create(dto: StoreCreateDTO, db: Tx = this.db): Promise<StoreEntity> {
+    const { data } = dto;
     return await db.store.create({
-      data: store,
+      data,
     });
   }
 
-  async updateStore(
-    targetId: string,
-    storeData: Partial<StoreToUpdate>,
-    db: Tx = this.db,
-  ): Promise<StoreEntity> {
+  async update(dto: StoreUpdateDTO, db: Tx = this.db): Promise<StoreEntity> {
+    const { data, selector } = dto;
     return await db.store.update({
-      where: { id: targetId },
-      data: storeData,
+      where: selector,
+      data,
     });
   }
 
-  async removeStoreById(
-    storeId: string,
-    db: Tx = this.db,
-  ): Promise<StoreEntity> {
-    return await db.store.delete({ where: { id: storeId } });
+  async remove(dto: StoreRemoveDTO, db: Tx = this.db): Promise<StoreEntity> {
+    const { selector } = dto;
+    return await db.store.delete({ where: selector });
   }
 }

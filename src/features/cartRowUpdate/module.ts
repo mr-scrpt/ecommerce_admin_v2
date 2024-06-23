@@ -9,5 +9,6 @@ export const CartRowUpdateModule = new ContainerModule((bind) => {
   bind(ICartRowUpdateTx).to(CartRowUpdateTx);
 
   bind(CartRowUpdateService).toSelf();
+
   bind(Controller).to(CartRowUpdateController);
 });

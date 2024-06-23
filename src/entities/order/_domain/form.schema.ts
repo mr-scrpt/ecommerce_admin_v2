@@ -1,5 +1,8 @@
+import {
+  OrderPaymentStatusEnum,
+  OrderStatusEnum,
+} from "@/kernel/domain/order/order.type";
 import { z } from "zod";
-import { OrderPaymentStatusEnum, OrderStatusEnum } from "./order.types";
 
 // NOTE: FORM
 // NOTE: Main information

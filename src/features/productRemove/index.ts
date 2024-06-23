@@ -1,3 +1,3 @@
 export { useProductRemoveMutation } from "./_mutation/productRemove.mutation";
-export { useProductRemoveConfirm } from "./_vm/useProductRemoveConfirm";
+export { useProductRemoveConfirmModel } from "./_vm/useProductRemoveConfirmModel";
 export { useEmitProductRemove } from "./_vm/event/useEmitProductRemove";

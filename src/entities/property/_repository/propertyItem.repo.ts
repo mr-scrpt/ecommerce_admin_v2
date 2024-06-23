@@ -8,7 +8,7 @@ import {
   PropertyItemRemoveDTO,
   PropertyItemUpdateDTO,
 } from "../_domain/propertyItem/propertyItem.dto";
-import { PropertyItemEntity } from "../_domain/propertyItem/types";
+import { PropertyItemEntity } from "../_domain/propertyItem/propertyItem.types";
 import { IPropertyItemRepository } from "../_domain/propertyItem/repository.type";
 
 @injectable()

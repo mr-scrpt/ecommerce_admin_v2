@@ -1,9 +1,9 @@
-import { CategoryEntity } from "@/entities/category";
 import { ICategoryRepository } from "@/entities/category/server";
 import { DBClient, Transaction, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
 import { CategoryCreateTxDTO } from "../_domain/types";
 import { ICategoryCreateTx } from "../_domain/transaction.type";
+import { CategoryEntity } from "@/kernel/domain/category/category.type";
 
 @injectable()
 export class CategoryCreateTx extends Transaction implements ICategoryCreateTx {
@@ -17,14 +17,11 @@ export class CategoryCreateTx extends Transaction implements ICategoryCreateTx {
   async create(dto: CategoryCreateTxDTO): Promise<CategoryEntity> {
     const { categoryData, propertyData } = dto;
     const action = async (tx: Tx) => {
-      const { id } = await this.categoryRepo.create(
-        { data: categoryData },
-        tx,
-      );
+      const { id } = await this.categoryRepo.create({ data: categoryData }, tx);
 
       await this.categoryRepo.bindToPropertyList(
         {
-          selector: { id },
+          target: { id },
           data: {
             propertyListId: propertyData,
           },

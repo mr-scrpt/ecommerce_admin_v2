@@ -16,7 +16,7 @@ import { CaretSortIcon } from "@radix-ui/react-icons";
 import _ from "lodash";
 import { FC, HTMLAttributes, useEffect, useState } from "react";
 import { ControllerRenderProps, UseFormReturn } from "react-hook-form";
-import { ProductToSelectGroup } from "../../_domain/types";
+import { ProductToSelectGroup } from "../../_domain/product.types";
 import { SEARCH_MIN_LENGTH } from "@/shared/config/constant";
 
 interface ProductSelectProps extends HTMLAttributes<HTMLDivElement> {

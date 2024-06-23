@@ -1,1 +1,2 @@
-export { useOrderRemoveConfirm } from "./_vm/useOrderRowRemoveConfirm";
+export { useOrderRowRemoveConfirmModel } from "./_vm/useOrderRowRemoveConfirm.model";
+export { OrderRemoveButton } from "./_ui/orderRemoveButton";

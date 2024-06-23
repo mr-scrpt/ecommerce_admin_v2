@@ -5,10 +5,10 @@ import {
   getByOrderInputSchema,
   getListOutputSchema,
 } from "../_domain/validator.schema";
-import { deliverySchema } from "../server";
 import { DeliveryGetService } from "../_service/deliveryGet.service";
 import { DeliveryListGetService } from "../_service/deliveryListGet.service";
 import { DeliveryGetByOrderService } from "../_service/deliveryGetByOrder.service";
+import { deliverySchema } from "@/kernel/domain/delivery/delivery.schema";
 
 @injectable()
 export class DeliveryController extends Controller {

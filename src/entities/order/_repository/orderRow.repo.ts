@@ -4,6 +4,7 @@ import { injectable } from "inversify";
 import { IOrderRowRepository } from "../_domain/repository.type";
 import {
   OrderRowCreateDTO,
+  OrderRowGetByOrderProductDTO,
   OrderRowGetDTO,
   OrderRowListGetByOrderDTO,
   OrderRowRemoveDTO,
@@ -19,6 +20,19 @@ export class OrderRowRepository implements IOrderRowRepository {
     return result;
   }
 
+  async getByOrderProduct(
+    dto: OrderRowGetByOrderProductDTO,
+    db: Tx = this.db,
+  ): Promise<OrderRowEntity | null> {
+    const { orderId, productId } = dto;
+
+    const result = await db.orderRow.findUnique({
+      where: { orderId_productId: { orderId, productId } },
+    });
+
+    return result;
+  }
+
   async getListByOrder(
     dto: OrderRowListGetByOrderDTO,
     db: Tx = this.db,
@@ -31,9 +45,14 @@ export class OrderRowRepository implements IOrderRowRepository {
     dto: OrderRowCreateDTO,
     db: Tx = this.db,
   ): Promise<OrderRowEntity> {
-    const { data } = dto;
+    const { data, target } = dto;
 
-    const result = await db.orderRow.create({ data });
+    const result = await db.orderRow.create({
+      data: {
+        ...data,
+        orderId: target.orderId,
+      },
+    });
     return result;
   }
 

@@ -1,4 +1,4 @@
-import { DeliveryTypeEnum } from "@/kernel/domain/delivery.type";
+import { DeliveryTypeEnum } from "@/kernel/domain/delivery/delivery.type";
 import { z } from "zod";
 
 // NOTE: FORM

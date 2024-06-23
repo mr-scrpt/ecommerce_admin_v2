@@ -3,8 +3,6 @@ import { useListenStoreListUpdate } from "@/entities/store";
 import { queryOptions, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getStoreSettlementToSelectAction } from "../_action/getStoreSettlementToSelect.action";
 
-const baseQueryKey = "storeData";
-
 export const getStoreSettlementToSelectQuery = (settlement: string) =>
   queryOptions({
     queryKey: [baseQueryKey, "getStoreSettlementToSelect", settlement],

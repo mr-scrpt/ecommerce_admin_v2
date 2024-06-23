@@ -1,7 +1,7 @@
 import { OperationsMap } from "@/shared/type/operation.type";
 import { injectable } from "inversify";
 import { ICategoryRepository } from "../_domain/repository.type";
-import { CategoryGetSelector, CategoryRelation } from "../_domain/types";
+import { CategoryGetSelector, CategoryRelation } from "../_domain/category.types";
 
 @injectable()
 export class CategoryRelationGetService {

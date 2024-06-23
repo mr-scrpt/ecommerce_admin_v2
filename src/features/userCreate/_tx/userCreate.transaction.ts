@@ -1,5 +1,5 @@
 import { IUserRepository } from "@/entities/user/user.server";
-import { UserEntity } from "@/kernel/domain/user.type";
+import { UserEntity } from "@/kernel/domain/user/user.type";
 import { DBClient, Transaction, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
 import { UserCreateTxDTO } from "../_domain/types";

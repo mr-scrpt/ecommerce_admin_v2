@@ -14,7 +14,7 @@ export class StoreRemoveTx extends Transaction {
 
   async removeStoreById(categoryId: string): Promise<StoreEntity> {
     const action = async (tx: Tx) => {
-      return await this.categoryRepo.removeStoreById(categoryId, tx);
+      return await this.categoryRepo.remove(categoryId, tx);
     };
 
     return await this.start(action);

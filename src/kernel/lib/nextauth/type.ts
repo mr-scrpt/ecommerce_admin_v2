@@ -1,5 +1,5 @@
 import { Role } from "@/kernel/domain/role.type";
-import { UserEntity } from "@/kernel/domain/user.type";
+import { UserEntity } from "@/kernel/domain/user/user.type";
 import { Session } from "next-auth";
 
 // NOTE: Payload

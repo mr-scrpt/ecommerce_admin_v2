@@ -1,7 +1,7 @@
 import { Button } from "@/shared/ui/button";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { FC } from "react";
-import { useUploadAvatar } from "../_vm/useUploadAvatar";
+import { useUploadAvatarModel } from "../_vm/useUploadAvatar.model";
 import { ProfileAvatar } from "@/shared/ui/profileAvatar";
 
 interface AvatarFieldProps {
@@ -12,7 +12,7 @@ interface AvatarFieldProps {
 
 export const AvatarField: FC<AvatarFieldProps> = (props) => {
   const { onChange, avatarName, avatarUrl } = props;
-  const { openFileDialog, isPending } = useUploadAvatar({
+  const { openFileDialog, isPending } = useUploadAvatarModel({
     onSuccess: onChange,
   });
 

@@ -1,4 +1,4 @@
-import { PropertyItemBase } from "./types";
+import { PropertyItemBase } from "./propertyItem.types";
 
 // NOTE: Queries
 export type PropertyItemGetDTO = {

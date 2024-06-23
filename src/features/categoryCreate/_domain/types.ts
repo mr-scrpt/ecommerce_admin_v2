@@ -1,7 +1,8 @@
-import { CategoryBase, CategoryCreateDTO } from "@/entities/category";
-import { Property } from "@/entities/property";
+import { CategoryCreateDTO } from "@/entities/category";
+import { Category } from "@/kernel/domain/category/category.type";
+import { Property } from "@/kernel/domain/property/property.type";
 
-type CategoryCreatePayload = CategoryBase;
+type CategoryCreatePayload = Category;
 type PropertyList = Array<{ propertyId: Property["id"] }>;
 
 export type CategoryCreateTxPayload = {

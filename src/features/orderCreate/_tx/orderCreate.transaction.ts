@@ -3,21 +3,35 @@ import { DBClient, Transaction, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
 import { OrderEmptyCreateTxDTO } from "../_domain/types";
 import { IOrderRepository } from "@/entities/order/server";
+import { IDeliveryRepository } from "@/entities/delivery/server";
 
 @injectable()
 export class OrderCreateTx extends Transaction {
   constructor(
     readonly db: DBClient,
     private readonly orderRepo: IOrderRepository,
+    private readonly deliveryRepo: IDeliveryRepository,
   ) {
     super(db);
   }
 
   async createEmpty(dto: OrderEmptyCreateTxDTO): Promise<OrderEntity> {
-    const { orderData } = dto;
+    const { orderData, deliveryData } = dto;
     const action = async (tx: Tx) => {
-      const { id } = await this.orderRepo.createEmpty(
-        { data: orderData },
+      const { id } = await this.orderRepo.createEmpty({ data: orderData }, tx);
+
+      const delivery = await this.deliveryRepo.create(
+        {
+          data: {
+            ...deliveryData,
+            orderId: id,
+          },
+        },
+        tx,
+      );
+
+      this.deliveryRepo.bindToOrder(
+        { selector: { id: delivery.id }, target: { orderId: id } },
         tx,
       );
 

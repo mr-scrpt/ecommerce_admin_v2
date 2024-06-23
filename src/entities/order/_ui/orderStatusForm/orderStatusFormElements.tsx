@@ -20,15 +20,15 @@ import { cn } from "@/shared/ui/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, HTMLAttributes, useEffect } from "react";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
-import {
-  OrderStatusGroup,
-  OrderStatusEnum,
-  OrderPaymentStatusEnum,
-} from "../../_domain/order.types";
+import { OrderStatusGroup } from "../../_domain/order.types";
 import {
   OrderStatusFormValues,
   orderStatusFormSchema,
 } from "../../_domain/form.schema";
+import {
+  OrderPaymentStatusEnum,
+  OrderStatusEnum,
+} from "@/kernel/domain/order/order.type";
 
 interface OrderFormProps extends HTMLAttributes<HTMLFormElement> {
   orderStatus: OrderStatusGroup;

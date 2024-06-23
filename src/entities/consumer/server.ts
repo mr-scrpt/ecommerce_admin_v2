@@ -1,1 +1,1 @@
-export { consumerSchema } from "./_domain/schema";
+export { consumerRelationSchema } from "./_domain/consumer.schema";

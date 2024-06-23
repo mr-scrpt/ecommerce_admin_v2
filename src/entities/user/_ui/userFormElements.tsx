@@ -22,9 +22,9 @@ import {
   UserFormDefaultValues,
   userFormDefaultSchema,
 } from "../_domain/user.schema";
-import { UserPartial } from "../user";
 import { AvatarField } from "./avatarField";
 import { ROLES } from "@/kernel/domain/role.type";
+import { UserPartial } from "@/kernel/domain/user/user.type";
 
 interface UserFormElementsProps extends HTMLAttributes<HTMLFormElement> {
   user?: UserPartial;

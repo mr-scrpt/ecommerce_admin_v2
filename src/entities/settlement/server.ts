@@ -1,1 +1,1 @@
-export { initSettlementListAction } from "./_action/initSettlementList";
+export { ISettlementRepository } from "./_domain/repository.type";

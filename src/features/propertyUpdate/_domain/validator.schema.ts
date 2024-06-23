@@ -1,6 +1,9 @@
 import { z } from "zod";
-import { propertyUpdateSchema, propertySelectorSchema } from "./schema";
-import { propertyItemUpdateSchema } from "@/entities/property/server";
+import {
+  propertyUpdateSchema,
+  propertySelectorSchema,
+  propertyItemUpdateSchema,
+} from "./schema";
 
 export const updateInputSchema = z.object({
   selector: propertySelectorSchema,
