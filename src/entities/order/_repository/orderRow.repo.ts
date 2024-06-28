@@ -1,7 +1,6 @@
 import { DBClient, Tx } from "@/shared/lib/db/db";
-import { OrderRowEntity } from "../_domain/orderRow.types";
 import { injectable } from "inversify";
-import { IOrderRowRepository } from "../_domain/repository.type";
+import { IOrderRowRepository } from "@/kernel/domain/order/repository.type";
 import {
   OrderRowCreateDTO,
   OrderRowGetByOrderProductDTO,
@@ -9,7 +8,8 @@ import {
   OrderRowListGetByOrderDTO,
   OrderRowRemoveDTO,
   OrderRowUpdateDTO,
-} from "../_domain/orderRow.dto";
+} from "@/kernel/domain/order/orderRow.dto";
+import { OrderRowEntity } from "@/kernel/domain/order/orderRow.type";
 
 @injectable()
 export class OrderRowRepository implements IOrderRowRepository {

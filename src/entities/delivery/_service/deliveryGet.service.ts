@@ -1,6 +1,7 @@
 import { injectable } from "inversify";
-import { Delivery, DeliveryGetSelector } from "../_domain/delivery.types";
-import { IDeliveryRepository } from "../_domain/repository.type";
+import { DeliveryGetSelector } from "../_domain/delivery.types";
+import { IDeliveryRepository } from "@/kernel/domain/delivery/repository.type";
+import { Delivery } from "@/kernel/domain/delivery/delivery.type";
 
 @injectable()
 export class DeliveryGetService {

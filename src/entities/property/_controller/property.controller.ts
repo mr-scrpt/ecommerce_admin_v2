@@ -1,9 +1,6 @@
 import { Controller, publicProcedure, router } from "@/kernel/lib/trpc/server";
 import { injectable } from "inversify";
-import {
-  propertyRelationSchema,
-  propertySchema,
-} from "../_domain/property/property.schema";
+import { propertyRelationSchema } from "../_domain/property/property.schema";
 import {
   getByCategoryListInputSchema,
   getInputSchema,
@@ -14,6 +11,7 @@ import { PropertyGetService } from "../_service/propertyGet.service";
 import { PropertyListGetService } from "../_service/propertyListGet.service";
 import { PropertyListGetWithRelationByCategoryListService } from "../_service/propertyListGetWithRelationByCategory.service";
 import { PropertyGetWithRelationService } from "../_service/propertyWithRelationGet.service";
+import { propertySchema } from "@/kernel/domain/property/property.schema";
 
 @injectable()
 export class PropertyController extends Controller {

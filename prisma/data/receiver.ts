@@ -1,11 +1,11 @@
 export const receiverListSeed = [
   {
     id: "receiver_id_1",
-    userId: "admin_fdsfsddfew789879",
+    userId: "admin_id_1",
     orderList: {
       connect: [
         {
-          id: "orderId_d58Johoj_ORDER_AdminUser",
+          id: "order_id_1",
         },
       ],
     },

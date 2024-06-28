@@ -7,12 +7,11 @@ export const propertySelectorSchema = z.object({
 });
 
 export const propertyUpdateSchema = propertyBaseSchema;
-export const propertyItemUpdateSchema = propertyItemBaseSchema;
-
-// export const propertyItemUpdateSchema = propertyItemBaseSchema
-//   .omit({
-//     createdAt: true,
-//   })
-//   .extend({
-//     id: z.string().optional(),
-//   });
+export const propertyItemUpdateSchema = propertyItemBaseSchema
+  .pick({
+    name: true,
+    value: true,
+  })
+  .extend({
+    id: z.string().optional(),
+  });

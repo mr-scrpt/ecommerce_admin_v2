@@ -1,4 +1,4 @@
-import { OrderUpdateDTO } from "@/entities/order/_domain/order.dto";
+import { OrderUpdateDTO } from "@/kernel/domain/order/order.dto";
 import {
   OrderPaymentStatusEnum,
   OrderStatusEnum,

@@ -1,6 +1,6 @@
 import { injectable } from "inversify";
-import { ICategoryRepository } from "../_domain/repository.type";
-import { Category } from "../_domain/category.types";
+import { Category } from "@/kernel/domain/category/category.type";
+import { ICategoryRepository } from "@/kernel/domain/category/repository.type";
 
 @injectable()
 export class CategoryListGetService {

@@ -3,9 +3,11 @@ import { ContainerModule } from "inversify";
 import { PostController } from "./_controller/post.controller";
 import { PostRepository } from "./_repository/post.repo";
 import { PostOfficeListGetService } from "./_service/postOfficeListGetBySettlement.service";
+import { IPostRepository } from "@/kernel/domain/post/repository.type";
 
 export const PostModule = new ContainerModule((bind) => {
-  bind(PostRepository).toSelf();
+  bind(IPostRepository).to(PostRepository);
+
   bind(PostOfficeListGetService).toSelf();
 
   bind(Controller).to(PostController);

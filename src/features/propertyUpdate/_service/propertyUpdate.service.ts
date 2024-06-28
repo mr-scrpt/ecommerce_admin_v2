@@ -15,7 +15,9 @@ export class PropertyUpdateService {
   constructor(private readonly propertyUpdateTx: IPropertyUpdateTx) {}
 
   async execute(payload: PropertyUpdateTxPayload): Promise<Property> {
+    console.log("output_log: payload =>>>", payload);
     const propertyUpdateDTO = this.build(payload);
+    console.log("output_log: propertyUpdateDTO =>>>", propertyUpdateDTO);
     return await this.propertyUpdateTx.update(propertyUpdateDTO);
   }
 

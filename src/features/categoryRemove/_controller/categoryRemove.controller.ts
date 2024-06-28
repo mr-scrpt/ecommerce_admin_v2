@@ -1,7 +1,4 @@
-import {
-  categorySchema,
-  createCategoryAbility,
-} from "@/entities/category/server";
+import { createCategoryAbility } from "@/entities/category/server";
 import {
   Controller,
   checkAbilityProcedure,
@@ -10,6 +7,7 @@ import {
 import { injectable } from "inversify";
 import { removeInputSchema } from "../_domain/validator.schema";
 import { CategoryRemoveService } from "../_service/categoryRemove.service";
+import { categorySchema } from "@/kernel/domain/category/category.schema";
 
 @injectable()
 export class CategoryRemoveController extends Controller {

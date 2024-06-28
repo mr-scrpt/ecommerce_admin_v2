@@ -1,6 +1,6 @@
 "use client";
+import { User } from "@/kernel/domain/user/user.type";
 import { userApi } from "../_api/user.api";
-import { User } from "../_domain/user.types";
 import { useListenUserListUpdate } from "../_vm/event/useListenUserListUpdate";
 
 export const useUserListQuery = () => {
@@ -13,7 +13,7 @@ export const useUserListQuery = () => {
     isPending,
     isSuccess,
     isFetchedAfterMount,
-    data: data ? data : [],
+    userList: data ? data : [],
   };
 };
 

@@ -1,11 +1,14 @@
 export const cartRelationsSeed = [
   {
-    id: "cartId_oehsjkjiew78hes_Cart_AdminUser",
+    id: "cart_id_1",
   },
   {
-    id: "cartId_11ojkjiew7898hoy_Cart_User",
+    id: "cart_id_2",
   },
   {
-    id: "cartId_789jkjiewdddhd55Cart_User2",
+    id: "cart_id_3",
+  },
+  {
+    id: "cart_id_4",
   },
 ];

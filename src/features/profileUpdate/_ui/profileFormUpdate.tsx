@@ -1,15 +1,15 @@
 "use client";
-import { useProfileQuery } from "@/entities/user/_query/profile.query";
+import { useProfileQuery } from "@/entities/profile";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes } from "react";
 import { useProfileUpdateModel } from "../_vm/useProfileUpdate.model";
-import { ProfileFormElements } from "@/entities/user/profile";
+import { ProfileFormElements } from "@/entities/profile";
 import {
   ProfileFromUpdateValues,
   profileFormUpdateSchema,
-} from "../_domain/schema";
+} from "../_domain/form.schema";
 
 interface ProfileFormProps extends HTMLAttributes<HTMLDivElement> {
   profileId: string;
@@ -44,8 +44,10 @@ export const ProfileFormUpdate: FC<ProfileFormProps> = (props) => {
 
   const handleSubmit = async (profileData: ProfileFromUpdateValues) => {
     await update({
-      id: profileId,
-      ...profileData,
+      selector: { id: profileId },
+      profileData,
+      // id: profileId,
+      // ...profileData,
     });
 
     onSuccess?.();

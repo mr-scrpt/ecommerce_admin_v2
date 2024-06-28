@@ -1,12 +1,12 @@
-import {
-  IPropertyItemRepository,
-  IPropertyRepository,
-} from "@/entities/property/server";
 import { DBClient, Transaction, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
 import { IPropertyUpdateTx } from "../_domain/transaction.type";
 import { PropertyUpdateTxDTO } from "../_domain/types";
 import { PropertyEntity } from "@/kernel/domain/property/property.type";
+import {
+  IPropertyItemRepository,
+  IPropertyRepository,
+} from "@/kernel/domain/property/repository.type";
 
 @injectable()
 export class PropertyUpdateTx extends Transaction implements IPropertyUpdateTx {

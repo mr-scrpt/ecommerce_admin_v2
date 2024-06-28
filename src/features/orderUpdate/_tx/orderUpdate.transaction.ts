@@ -1,9 +1,9 @@
-import { OrderEntity } from "@/entities/order";
-import { IOrderRepository } from "@/entities/order/server";
 import { DBClient, Transaction, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
 import { IOrderStatusUpdateTx } from "../_domain/transaction.type";
 import { OrderStatusUpdateTxDTO } from "../_domain/types";
+import { IOrderRepository } from "@/kernel/domain/order/repository.type";
+import { OrderEntity } from "@/kernel/domain/order/order.type";
 
 @injectable()
 export class OrderStatusUpdateTx

@@ -2,6 +2,8 @@ import { z } from "zod";
 
 // NOTE: Base
 export const cartRowBaseSchema = z.object({
+  cartId: z.string(),
+  productId: z.string(),
   quantity: z.number(),
 });
 

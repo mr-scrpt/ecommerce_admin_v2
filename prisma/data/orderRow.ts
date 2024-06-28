@@ -1,8 +1,8 @@
 export const orderRowListSeed = [
   // NOTE: First order
   {
-    id: "orderRowId_d58Johoj_ORDER_ROW_AdminUser",
-    orderId: "orderId_d58Johoj_ORDER_AdminUser",
+    id: "orderRow_id_1",
+    orderId: "order_id_1",
 
     productId: "prod_1",
     productName: "First Product",
@@ -14,8 +14,8 @@ export const orderRowListSeed = [
     price: 200,
   },
   {
-    id: "orderRowId_fdjki8_ORDER_ROW_2_AdminUser",
-    orderId: "orderId_d58Johoj_ORDER_AdminUser",
+    id: "orderRow_id_2",
+    orderId: "order_id_1",
 
     productId: "prod_2",
     productName: "Second product",
@@ -29,8 +29,8 @@ export const orderRowListSeed = [
   // NOTE: Second order
 
   {
-    id: "orderRowId_EEWddsfso557_ORDER_ROW_AdminUser",
-    orderId: "orderId_2158FFFF8_ORDER_2_AdminUser",
+    id: "orderRow_id_3",
+    orderId: "order_id_2",
 
     productId: "prod_1",
     productName: "Second product",
@@ -44,8 +44,8 @@ export const orderRowListSeed = [
   // NOTE: Third order
 
   {
-    id: "orderRowId_9546dioui54fs78_ORDER_ROW_User",
-    orderId: "orderId_FEohd84667_ORDER_User",
+    id: "orderRow_id_4",
+    orderId: "order_id_3",
 
     productId: "prod_1",
     productName: "Third product",
@@ -59,15 +59,29 @@ export const orderRowListSeed = [
   },
   // NOTE: Fourth order
   {
-    id: "orderRowId_6568jkjkjiw_ORDER_ROW_User2",
-    orderId: "orderId_didonhfff557642fd_ORDER_User2",
+    id: "orderRow_id_5",
+    orderId: "order_id_4",
     productId: "prod_4",
-    productName: "First Product",
-    productArticle: "n584FFF",
+    productName: "Fourth product",
+    productArticle: "n614RRR",
     productImg:
       "https://images.examples.com/wp-content/uploads/2018/04/Outdoor-Advertising-Billboard-Design-Example.jpg?width=600",
 
     quantity: 3,
-    price: 300,
+    price: 15000,
+  },
+
+  // NOTE: Sixth order
+  {
+    id: "orderRow_id_6",
+    orderId: "order_id_4",
+    productId: "prod_5",
+    productName: "Fifth product",
+    productArticle: "n624SSS",
+    productImg:
+      "https://images.examples.com/wp-content/uploads/2018/04/Outdoor-Advertising-Billboard-Design-Example.jpg?width=600",
+
+    quantity: 3,
+    price: 18000,
   },
 ];

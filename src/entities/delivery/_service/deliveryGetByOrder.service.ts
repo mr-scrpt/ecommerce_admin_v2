@@ -1,9 +1,7 @@
 import { injectable } from "inversify";
-import {
-  Delivery,
-  DeliveryGetByOrderSelector,
-} from "../_domain/delivery.types";
-import { IDeliveryRepository } from "../_domain/repository.type";
+import { DeliveryGetByOrderSelector } from "../_domain/delivery.types";
+import { IDeliveryRepository } from "@/kernel/domain/delivery/repository.type";
+import { Delivery } from "@/kernel/domain/delivery/delivery.type";
 
 @injectable()
 export class DeliveryGetByOrderService {

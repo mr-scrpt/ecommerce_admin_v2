@@ -2,17 +2,21 @@ import {
   Category,
   CategoryEntity,
 } from "@/kernel/domain/category/category.type";
-import { PropertyDataTypeEnum } from "@/kernel/domain/property/property.type";
+import { Product, ProductEntity } from "@/kernel/domain/product/product.type";
+import {
+  Property,
+  PropertyEntity,
+} from "@/kernel/domain/property/property.type";
 
 // NOTE: Relations
 export type CategoryRelation = Category & {
-  productList: Array<CategoryProductListItem>;
-  propertyList: Array<CategoryPropertyListItem>;
+  productList: Array<Product>;
+  propertyList: Array<Property>;
 };
 
 export type CategoryRelationEntity = CategoryEntity & {
-  productList: Array<CategoryProductListItem>;
-  propertyList: Array<CategoryPropertyListItem>;
+  productList: Array<ProductEntity>;
+  propertyList: Array<PropertyEntity>;
 };
 
 // NOTE: Selector
@@ -22,16 +26,16 @@ export type CategoryGetSelector = {
 };
 
 // NOTE: Side
-type CategoryProductListItem = {
-  id: string;
-  name: string;
-  slug: string;
-  img: string[];
-  createdAt: Date;
-};
-
-type CategoryPropertyListItem = {
-  id: string;
-  name: string;
-  datatype: PropertyDataTypeEnum;
-};
+// type CategoryProductListItem = {
+//   id: string;
+//   name: string;
+//   slug: string;
+//   img: string[];
+//   createdAt: Date;
+// };
+//
+// type CategoryPropertyListItem = {
+//   id: string;
+//   name: string;
+//   datatype: PropertyDataTypeEnum;
+// };

@@ -2,7 +2,7 @@ import { AuthorizatoinError } from "@/shared/lib/errors";
 import { createUserAbility } from "../_domain/user.ability";
 import { UserWithOrdersEntity } from "../_domain/user.types";
 import { injectable } from "inversify";
-import { IUserRepository } from "../user.server";
+import { IUserRepository } from "../server";
 import { SessionEntity } from "@/kernel/domain/session.type";
 
 type GetUserWithOrderList = {

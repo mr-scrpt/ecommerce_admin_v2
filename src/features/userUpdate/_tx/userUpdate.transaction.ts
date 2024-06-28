@@ -1,9 +1,9 @@
-import { IUserRepository } from "@/entities/user/user.server";
 import { DBClient, Transaction, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
 import { UserUpdateTxDTO } from "../_domain/types";
 import { IUserUpdateTx } from "../_domain/transaction.type";
 import { UserEntity } from "@/kernel/domain/user/user.type";
+import { IUserRepository } from "@/kernel/domain/user/repository.type";
 
 @injectable()
 export class UserUpdateTx extends Transaction implements IUserUpdateTx {

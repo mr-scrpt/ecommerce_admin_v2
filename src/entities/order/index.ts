@@ -1,5 +1,3 @@
-export { orderSchema } from "./_domain/order.schema";
-
 export {
   orderFormDefaultSchema,
   orderStatusFormSchema,
@@ -19,25 +17,4 @@ export {
   useInvalidateOrderWithRelation,
 } from "./_query/orderWithRelation.query";
 
-export type { OrderCreateEmptyDTO } from "./_domain/order.dto";
-export type {
-  OrderRowUpdateDTO,
-  OrderRowCreateDTO,
-  OrderRowRemoveDTO,
-} from "./_domain/orderRow.dto";
-export type {
-  Order,
-  OrderBase,
-  OrderEntity,
-  OrderProduct,
-  OrderRelation,
-  OrderUI,
-} from "./_domain/order.types";
-
-export type {
-  OrderRowBase,
-  OrderRow,
-  OrderRowEntity,
-} from "./_domain/orderRow.types";
-
-export type { OrderSelectOwnerFormValues } from "./_domain/form.schema";
+export type { OrderRelation } from "./_domain/order.types";

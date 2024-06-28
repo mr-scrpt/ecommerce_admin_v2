@@ -1,6 +1,6 @@
 "use client";
+import { User } from "@/kernel/domain/user/user.type";
 import { userApi } from "../_api/user.api";
-import { User } from "../_domain/user.types";
 import { useListenUserUpdate } from "../_vm/event/useListenUserUpdate";
 
 export const useUserQuery = (id: string) => {
@@ -13,12 +13,12 @@ export const useUserQuery = (id: string) => {
     isPending,
     isSuccess,
     isFetchedAfterMount,
-    data,
+    user: data,
   };
 };
 
 export const useInvalidateUser = () => {
   const invalidateUser = userApi.useUtils().user.get.invalidate;
 
-  return () => invalidateUser();
+  return (id: string) => invalidateUser({ id });
 };

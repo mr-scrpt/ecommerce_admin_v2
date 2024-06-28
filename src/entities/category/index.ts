@@ -15,10 +15,3 @@ export { useCategoryListToSelectModel } from "./_vm/useCategoryLikeSelectOptionL
 
 export { categoryApi } from "./_api/category.api";
 export type { CategoryRelationEntity } from "./_domain/category.types";
-
-export type {
-  CategoryBindToProductListDTO,
-  CategoryBindToPropertyListDTO,
-  CategoryCreateDTO,
-  CategoryUpdateDTO,
-} from "./_domain/category.dto";

@@ -1,5 +1,5 @@
 import { injectable } from "inversify";
-import { IPropertyRepository } from "../_domain/property/repository.type";
+import { IPropertyRepository } from "../../../kernel/domain/property/repository.type";
 import {
   PropertyListGetByCategoryListSelector,
   PropertyRelation,

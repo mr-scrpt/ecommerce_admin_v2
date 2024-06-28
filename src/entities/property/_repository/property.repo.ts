@@ -6,12 +6,10 @@ import {
   PropertyGetDTO,
   PropertyRemoveDTO,
   PropertyUpdateDTO,
-} from "../_domain/property/property.dto";
-import { IPropertyRepository } from "../_domain/property/repository.type";
-import {
-  PropertyEntity,
-  PropertyRelationEntity,
-} from "../_domain/property/property.types";
+} from "@/kernel/domain/property/property.dto";
+import { IPropertyRepository } from "@/kernel/domain/property/repository.type";
+import { PropertyRelationEntity } from "../_domain/property/property.types";
+import { PropertyEntity } from "@/kernel/domain/property/property.type";
 
 @injectable()
 export class PropertyRepository implements IPropertyRepository {
@@ -25,17 +23,14 @@ export class PropertyRepository implements IPropertyRepository {
     return property;
   }
 
-  async getWithRelation(
-    dto: PropertyGetDTO,
-    db: Tx = this.db,
-  ): Promise<PropertyRelationEntity> {
-    const property = await db.property.findUniqueOrThrow({
+  async getWithRelation<T>(dto: PropertyGetDTO, db: Tx = this.db): Promise<T> {
+    const property = (await db.property.findUniqueOrThrow({
       where: dto,
       include: {
         categoryList: true,
         propertyItemList: true,
       },
-    });
+    })) as unknown as T;
 
     // return {
     //   ...property,
@@ -44,12 +39,12 @@ export class PropertyRepository implements IPropertyRepository {
     return property;
   }
 
-  async getWithRelationByCategoryIdList(
+  async getWithRelationByCategoryIdList<T>(
     dto: PropertyGetByCategoryIdListDTO,
     db: Tx = this.db,
-  ): Promise<PropertyRelationEntity[]> {
+  ): Promise<T[]> {
     const { categoryIdList } = dto;
-    const propertyList = await db.property.findMany({
+    const propertyList = (await db.property.findMany({
       where: {
         categoryList: {
           some: {
@@ -63,7 +58,7 @@ export class PropertyRepository implements IPropertyRepository {
         categoryList: true,
         propertyItemList: true,
       },
-    });
+    })) as unknown as T[];
 
     // return propertyList.map((property) => ({
     //   ...property,

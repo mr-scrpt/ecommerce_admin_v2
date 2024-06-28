@@ -1,10 +1,11 @@
 import { SessionWithDataPayload } from "@/kernel/session";
 import { getNetworkClientCookie } from "@/kernel/session/coockieParser";
-import { IUserRepository } from "@/entities/user/user.server";
 import { ISessionGetRelationService } from "@/kernel/lib/nextauth/type";
 import { configPrivate } from "@/shared/config/private.config";
 import { injectable } from "inversify";
 import { Session } from "next-auth";
+import { IUserRepository } from "@/kernel/domain/user/repository.type";
+import { UserWithCartEntity } from "@/entities/user/_domain/user.types";
 
 const { COUNTRY_DEFAULT } = configPrivate;
 
@@ -14,7 +15,7 @@ export class SessionGetRelationService implements ISessionGetRelationService {
 
   async execute(payload: SessionWithDataPayload): Promise<Session> {
     const { session, userId } = payload;
-    const user = await this.userRepo.getWithCart({
+    const user = await this.userRepo.getWithCart<UserWithCartEntity>({
       id: userId,
     });
 

@@ -2,29 +2,40 @@ import { $Enums } from "@prisma/client";
 
 export const userListSeed = [
   {
-    id: "admin_fdsfsddfew789879",
-    name: "ADMIN",
+    id: "admin_id_1",
+    name: "Admnin User Name",
     email: "admin@gmail.com",
     phone: "+380993282451",
-    // testPassword: "1234",
     role: $Enums.ROLE.ADMIN,
     emailVerified: new Date(),
   },
 
   {
-    id: "user_fdseojeioui54645678",
-    email: "user@gmail.com",
+    id: "manager_id_2",
+    name: "Manager User Name",
+    email: "manager@gmail.com",
     phone: "+46701234567",
-    // testPassword: "1234",
-    role: $Enums.ROLE.USER,
+    role: $Enums.ROLE.MANAGER,
     emailVerified: new Date(),
   },
-
   {
-    id: "user_2_fdfoer56468dfsdf",
-    email: "user2@gmail.com",
+    id: "consumer_id_3",
+    name: "Consumer User Name",
+    email: "consumer@gmail.com",
     phone: "+4915112345678",
-    // testPassword: "1234",
-    role: $Enums.ROLE.USER,
+    role: $Enums.ROLE.CONSUMER,
+  },
+  {
+    id: "consumer_id_4",
+    email: "consumer_without_name@gmail.com",
+    phone: "+4915112345678",
+    role: $Enums.ROLE.CONSUMER,
+  },
+  {
+    id: "consumer_id_5",
+    name: "Long Name Consumer User Name",
+    email: "long_name@gmail.com",
+    phone: "+3809987889987",
+    role: $Enums.ROLE.CONSUMER,
   },
 ];

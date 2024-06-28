@@ -1,4 +1,4 @@
-import { userBaseSchema } from "@/entities/user/user.server";
+import { userBaseSchema } from "@/kernel/domain/user/user.schema";
 import { z } from "zod";
 
 export const userUpdateSchema = userBaseSchema.pick({

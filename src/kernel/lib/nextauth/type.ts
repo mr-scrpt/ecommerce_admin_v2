@@ -1,4 +1,4 @@
-import { Role } from "@/kernel/domain/role.type";
+import { RoleEnum } from "@/kernel/domain/role.type";
 import { UserEntity } from "@/kernel/domain/user/user.type";
 import { Session } from "next-auth";
 
@@ -21,7 +21,7 @@ export type UserCreateDTO = {
     phone: string;
     name?: string | null;
     image?: string | null;
-    role: Role;
+    role: RoleEnum;
   };
 };
 

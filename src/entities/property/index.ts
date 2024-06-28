@@ -1,14 +1,5 @@
 export { propertyFormSchema } from "./_domain/property/form.schema";
 
-export type {
-  PropertyCreateDTO,
-  PropertyUpdateDTO,
-} from "./_domain/property/property.dto";
-export type {
-  PropertyItemCreateDTO,
-  PropertyItemUpdateDTO,
-} from "./_domain/propertyItem/propertyItem.dto";
-
 export { PropertyRepository } from "./_repository/property.repo";
 export { PropertyItemRepository } from "./_repository/propertyItem.repo";
 export { PropertyFormElements } from "./_ui/propertyFormElements";

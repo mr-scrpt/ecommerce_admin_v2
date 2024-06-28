@@ -10,7 +10,7 @@ import { OrderListGetService } from "./_service/orderListGet.service";
 import {
   IOrderRepository,
   IOrderRowRepository,
-} from "./_domain/repository.type";
+} from "@/kernel/domain/order/repository.type";
 import { OrderGenerateNumberService } from "./_service/generateOrderNumber";
 import { IOrderGenerateNumberService } from "./_domain/service.type";
 

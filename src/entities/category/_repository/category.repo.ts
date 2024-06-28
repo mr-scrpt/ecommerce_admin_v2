@@ -1,5 +1,3 @@
-import { DBClient, Tx } from "@/shared/lib/db/db";
-import { injectable } from "inversify";
 import {
   CategoryBindToProductListDTO,
   CategoryBindToPropertyListDTO,
@@ -9,9 +7,11 @@ import {
   CategoryRemoveBySlugDTO,
   CategoryRemoveDTO,
   CategoryUpdateDTO,
-} from "../_domain/category.dto";
-import { CategoryEntity, CategoryRelationEntity } from "../_domain/category.types";
-import { ICategoryRepository } from "../_domain/repository.type";
+} from "@/kernel/domain/category/category.dto";
+import { CategoryEntity } from "@/kernel/domain/category/category.type";
+import { ICategoryRepository } from "@/kernel/domain/category/repository.type";
+import { DBClient, Tx } from "@/shared/lib/db/db";
+import { injectable } from "inversify";
 
 @injectable()
 export class CategoryRepository implements ICategoryRepository {
@@ -25,17 +25,14 @@ export class CategoryRepository implements ICategoryRepository {
     return res;
   }
 
-  async getWithRelation(
-    dto: CategoryGetDTO,
-    db: Tx = this.db,
-  ): Promise<CategoryRelationEntity> {
-    return await db.category.findUniqueOrThrow({
+  async getWithRelation<T>(dto: CategoryGetDTO, db: Tx = this.db): Promise<T> {
+    return (await db.category.findUniqueOrThrow({
       where: dto,
       include: {
         propertyList: true,
         productList: true,
       },
-    });
+    })) as unknown as T;
   }
 
   async getBySlug(
@@ -47,17 +44,17 @@ export class CategoryRepository implements ICategoryRepository {
     });
   }
 
-  async getBySlugRelation(
+  async getBySlugRelation<T>(
     dto: CategoryGetBySlugDTO,
     db: Tx = this.db,
-  ): Promise<CategoryRelationEntity> {
-    return await db.category.findUniqueOrThrow({
+  ): Promise<T> {
+    return (await db.category.findUniqueOrThrow({
       where: dto,
       include: {
         propertyList: true,
         productList: true,
       },
-    });
+    })) as unknown as T;
   }
 
   async getList(db: Tx = this.db): Promise<CategoryEntity[]> {

@@ -1,5 +1,6 @@
 import { z } from "zod";
-import { propertyRelationSchema, propertySchema } from "./property.schema";
+import { propertyRelationSchema } from "./property.schema";
+import { propertySchema } from "@/kernel/domain/property/property.schema";
 
 export const getInputSchema = z.object({
   id: z.string(),

@@ -1,20 +1,21 @@
-import { StoreEntity } from "@/entities/store";
-import { StoreRepository } from "@/entities/store/server";
+import { IStoreRepository } from "@/kernel/domain/store/repository.type";
+import { StoreEntity } from "@/kernel/domain/store/store.type";
 import { DBClient, Transaction, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
+import { StoreRemoveTxDTO } from "../_domain/types";
 
 @injectable()
 export class StoreRemoveTx extends Transaction {
   constructor(
     readonly db: DBClient,
-    private readonly categoryRepo: StoreRepository,
+    private readonly storeRepo: IStoreRepository,
   ) {
     super(db);
   }
 
-  async removeStoreById(categoryId: string): Promise<StoreEntity> {
+  async remove(dto: StoreRemoveTxDTO): Promise<StoreEntity> {
     const action = async (tx: Tx) => {
-      return await this.categoryRepo.remove(categoryId, tx);
+      return await this.storeRepo.remove(dto, tx);
     };
 
     return await this.start(action);

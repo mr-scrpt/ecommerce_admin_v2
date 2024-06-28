@@ -1,14 +1,12 @@
-import { Container, ContainerModule } from "inversify";
-import { StoreRepository } from "@/entities/store/server";
+import { Controller } from "@/kernel/lib/trpc/server";
+import { ContainerModule } from "inversify";
+import { IStoreRemoveTx } from "./_domain/transaction.type";
+import { StoreRemoveService } from "./_service/storeRemove.service";
 import { StoreRemoveTx } from "./_tx/storeRemove.transaction";
-import { RemoveStoreComplexibleUseCase } from "./_useCase/storeRemoveComplexible.usecase";
-
-export const storeRemoveContainer = new Container();
+import { StoreRemoveController } from "./_controller/storeRemove.controller";
 
 export const StoreRemoveModule = new ContainerModule((bind) => {
-  bind(StoreRemoveTx).toSelf();
-  bind(StoreRepository).toSelf();
-  bind(RemoveStoreComplexibleUseCase).toSelf();
+  bind(IStoreRemoveTx).to(StoreRemoveTx);
+  bind(StoreRemoveService).toSelf();
+  bind(Controller).to(StoreRemoveController);
 });
-
-storeRemoveContainer.load(StoreRemoveModule);

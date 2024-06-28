@@ -1,5 +1,10 @@
-import { orderSchema } from "@/entities/order";
-import { Controller, publicProcedure, router } from "@/kernel/lib/trpc/server";
+import { createOrderAbility } from "@/entities/order/server";
+import { orderSchema } from "@/kernel/domain/order/order.schema";
+import {
+  Controller,
+  checkAbilityProcedure,
+  router,
+} from "@/kernel/lib/trpc/server";
 import { injectable } from "inversify";
 import { createInputSchema } from "../_domain/validator.schema";
 import { OrderRowCreateService } from "../_service/orderRowCreate.service";
@@ -12,7 +17,10 @@ export class OrderRowCreateController extends Controller {
 
   public router = router({
     orderRowCreate: {
-      create: publicProcedure
+      create: checkAbilityProcedure({
+        create: createOrderAbility,
+        check: (ability) => ability.canAddToOrder(),
+      })
         .input(createInputSchema)
         .mutation(async ({ input }) => {
           const result = await this.createOrederRowService.execute(input);
@@ -21,3 +29,17 @@ export class OrderRowCreateController extends Controller {
     },
   });
 }
+
+// public router = router({
+//   orderRowCreate: {
+//     create: checkAbilityProcedure({
+//       create: createOrderAbility,
+//       check: (ability) => ability.canAddToOrder(),
+//     })
+//       .input(createInputSchema)
+//       .mutation(async ({ input }) => {
+//         const result = await this.createOrederRowService.execute(input);
+//         return orderSchema.parse(result);
+//       }),
+//   },
+// });

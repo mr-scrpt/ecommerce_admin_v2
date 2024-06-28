@@ -1,6 +1,6 @@
 "use server";
 
-import { User, userSchema } from "@/entities/user/user";
+import { userSchema } from "@/entities/user";
 import { z } from "zod";
 import { userUpdateSchema } from "../_domain/schema";
 import { updateUserUseCase } from "../_useCase/instans.usecase";

@@ -1,14 +1,13 @@
-import { ProfileEntity } from "@/entities/user/profile";
+import { ProfileEntity } from "@/kernel/domain/profile/profile.type";
 import { injectable } from "inversify";
+import { IProfileUpdateTx } from "../_domain/transaction.type";
 import { ProfileUpdateTxPayload } from "../_domain/types";
-import { ProfileUpdateTx } from "../_tx/profileUpdate.transaction";
 
 @injectable()
 export class ProfileUpdateService {
-  constructor(private readonly profileUpdateTx: ProfileUpdateTx) {}
+  constructor(private readonly profileUpdateTx: IProfileUpdateTx) {}
 
   async execute(payload: ProfileUpdateTxPayload): Promise<ProfileEntity> {
-    console.log("output_log: payload =>>>", payload);
-    return await this.profileUpdateTx.updateProfile({ profileData: payload });
+    return await this.profileUpdateTx.update(payload);
   }
 }

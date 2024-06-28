@@ -1,16 +1,13 @@
-import {
-  profileFormDefaultSchema,
-  profileSchema,
-} from "@/entities/user/profile";
+import { profileBaseSchema } from "@/kernel/domain/profile/profile.schema";
 import { z } from "zod";
 
-export const profileUpdateSchema = z.object({
-  ...profileSchema.shape,
-  name: z.string(),
+export const profileUpdateSchema = profileBaseSchema.pick({
+  name: true,
+  email: true,
+  phone: true,
+  image: true,
 });
 
-export const profileFormUpdateSchema = z.object({
-  ...profileFormDefaultSchema.shape,
+export const profileSelectorSchema = z.object({
+  id: z.string(),
 });
-
-export type ProfileFromUpdateValues = z.infer<typeof profileFormUpdateSchema>;

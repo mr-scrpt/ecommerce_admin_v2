@@ -1,5 +1,6 @@
-import { PropertyCreateDTO, PropertyItemCreateDTO } from "@/entities/property";
+import { PropertyCreateDTO } from "@/kernel/domain/property/property.dto";
 import { PropertyBase } from "@/kernel/domain/property/property.type";
+import { PropertyItemCreateDTO } from "@/kernel/domain/property/propertyItem.dto";
 import { PropertyItemBase } from "@/kernel/domain/property/propertyItem.type";
 
 type PropertyCreatePayload = PropertyBase;

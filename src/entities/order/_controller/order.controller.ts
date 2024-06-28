@@ -5,11 +5,12 @@ import {
   getInputSchema,
   getListOutputSchema,
 } from "../_domain/validator.schema";
-import { orderRelationSchema, orderSchema } from "../_domain/order.schema";
+import { orderRelationSchema } from "../_domain/order.schema";
 import { OrderGetService } from "../_service/orderGet.service";
 import { OrderRelationGetService } from "../_service/orderRelationGet.service";
 import { OrderListGetService } from "../_service/orderListGet.service";
 import { OrderListGetByOwnerService } from "../_service/orderListGetByOwner.service";
+import { orderSchema } from "@/kernel/domain/order/order.schema";
 
 @injectable()
 export class OrderController extends Controller {
@@ -43,6 +44,7 @@ export class OrderController extends Controller {
       //   }),
       getList: publicProcedure.query(async () => {
         const result = await this.getOrderListService.execute();
+        console.log("output_log:  =>>>", result);
         return getListOutputSchema.parse(result);
       }),
 

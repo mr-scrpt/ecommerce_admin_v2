@@ -1,7 +1,7 @@
 "use client";
-import { Profile } from "@/entities/user/profile";
 import { useAppSession } from "@/kernel/lib/nextauth";
 import { useProfileUpdateMutation } from "../_mutation/useProfileUpdate.mutation";
+import { Profile } from "@/kernel/domain/profile/profile.type";
 
 export const useProfileUpdateModel = () => {
   const { update: updateSession } = useAppSession();

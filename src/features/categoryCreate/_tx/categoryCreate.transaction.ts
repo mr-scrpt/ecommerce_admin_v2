@@ -1,9 +1,9 @@
-import { ICategoryRepository } from "@/entities/category/server";
 import { DBClient, Transaction, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
 import { CategoryCreateTxDTO } from "../_domain/types";
 import { ICategoryCreateTx } from "../_domain/transaction.type";
 import { CategoryEntity } from "@/kernel/domain/category/category.type";
+import { ICategoryRepository } from "@/kernel/domain/category/repository.type";
 
 @injectable()
 export class CategoryCreateTx extends Transaction implements ICategoryCreateTx {

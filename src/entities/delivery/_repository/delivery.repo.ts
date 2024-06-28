@@ -1,14 +1,14 @@
 import { DBClient, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
-import { DeliveryEntity } from "../_domain/delivery.types";
 import {
   DeliveryBindToOrderDTO,
   DeliveryCreateDTO,
   DeliveryGetByOrderDTO,
   DeliveryGetDTO,
   DeliveryUpdateDTO,
-} from "../_domain/delivery.dto";
-import { IDeliveryRepository } from "../_domain/repository.type";
+} from "@/kernel/domain/delivery/delivery.dto";
+import { IDeliveryRepository } from "@/kernel/domain/delivery/repository.type";
+import { DeliveryEntity } from "@/kernel/domain/delivery/delivery.type";
 
 @injectable()
 export class DeliveryRepository implements IDeliveryRepository {

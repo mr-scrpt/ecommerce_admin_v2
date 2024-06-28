@@ -1,9 +1,9 @@
 import { DBClient, Transaction, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
 import { CategoryRemoveTxDTO } from "../_domain/types";
-import { ICategoryRepository } from "@/entities/category/server";
 import { ICategoryRemoveTx } from "../_domain/transaction.type";
 import { CategoryEntity } from "@/kernel/domain/category/category.type";
+import { ICategoryRepository } from "@/kernel/domain/category/repository.type";
 
 @injectable()
 export class CategoryRemoveTx extends Transaction implements ICategoryRemoveTx {

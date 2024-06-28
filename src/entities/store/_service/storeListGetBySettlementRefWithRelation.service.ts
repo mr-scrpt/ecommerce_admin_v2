@@ -1,6 +1,6 @@
 import { injectable } from "inversify";
-import { IStoreRepository } from "../_domain/repository.type";
-import { StoreGetBySettlementRefDTO } from "../_domain/store.dto";
+import { IStoreRepository } from "../../../kernel/domain/store/repository.type";
+import { StoreGetBySettlementRefDTO } from "../../../kernel/domain/store/store.dto";
 import { StoreRelation } from "../_domain/types";
 
 @injectable()

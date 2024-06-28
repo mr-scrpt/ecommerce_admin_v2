@@ -1,8 +1,8 @@
 import { Controller, publicProcedure, router } from "@/kernel/lib/trpc/server";
 import { injectable } from "inversify";
 import { updateInputSchema } from "../_domain/validator.schema";
-import { profileUpdateSchema } from "../_domain/schema";
 import { ProfileUpdateService } from "../_service/profileUpdate.service";
+import { profileSchema } from "@/kernel/domain/profile/profile.schema";
 
 @injectable()
 export class ProfileUpdateController extends Controller {
@@ -16,7 +16,7 @@ export class ProfileUpdateController extends Controller {
         .input(updateInputSchema)
         .mutation(async ({ input }) => {
           const result = await this.updateProfileService.execute(input);
-          return profileUpdateSchema.parse(result);
+          return profileSchema.parse(result);
         }),
     },
   });

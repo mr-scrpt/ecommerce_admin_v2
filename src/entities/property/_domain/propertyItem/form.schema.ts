@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 export const propertyItemFormSchema = z.object({
+  id: z.string().optional(),
   name: z
     .string()
     .min(1, { message: "Property must not be shorter than 1 characters." })

@@ -78,6 +78,10 @@ export const ProductForm: ProductFormType = (props) => {
     propertySelectOptionList,
     propertySelectObjectActive,
   } = props;
+  console.log(
+    "output_log: propertySelectObjectActive =>>>",
+    propertySelectObjectActive,
+  );
 
   const productFormSchema = generateProductFormSchema(propertySelectOptionList);
 
@@ -207,6 +211,7 @@ ProductForm.PropertyField = function PropertyField({
   type ProductFormValuesCombined = z.infer<typeof productFormSchema>;
 
   const { control, setValue } = useFormContext<ProductFormValuesCombined>();
+  console.log("output_log: option =>>>", option);
 
   return renderFormField({
     option,

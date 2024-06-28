@@ -1,20 +1,18 @@
 "use client";
-import { CategoryForm, categoryFormSchema } from "@/entities/category";
+import { CategoryForm } from "@/entities/category";
+import { usePropertyLikeSelectOptionListModel } from "@/entities/property";
+import { useOptionListTransform } from "@/shared/lib/map";
 import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes } from "react";
-import { z } from "zod";
+import { CategoryCreateFormValues } from "../_domain/form.schema";
 import { useCategoryCreateMutation } from "../_mutation/categoryCreate.mutation";
-import { useOptionListTransform } from "@/shared/lib/map";
-import { usePropertyLikeSelectOptionListModel } from "@/entities/property";
 
 interface CategoryCreateFormProps extends HTMLAttributes<HTMLDivElement> {
   callbackUrl?: string;
   className?: string;
   onSuccess?: () => void;
 }
-
-type CategoryFormValues = z.infer<typeof categoryFormSchema>;
 
 export const CategoryFormCreate: FC<CategoryCreateFormProps> = (props) => {
   const { callbackUrl, className, onSuccess } = props;
@@ -29,7 +27,7 @@ export const CategoryFormCreate: FC<CategoryCreateFormProps> = (props) => {
 
   const { toDataIdList } = useOptionListTransform();
 
-  const handleSubmit = async (data: CategoryFormValues) => {
+  const handleSubmit = async (data: CategoryCreateFormValues) => {
     const { propertyList, ...categoryData } = data;
     await categoryCreate({
       categoryData,

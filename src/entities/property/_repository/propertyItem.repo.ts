@@ -7,9 +7,9 @@ import {
   PropertyItemRemoveByPropertyDTO,
   PropertyItemRemoveDTO,
   PropertyItemUpdateDTO,
-} from "../_domain/propertyItem/propertyItem.dto";
-import { PropertyItemEntity } from "../_domain/propertyItem/propertyItem.types";
-import { IPropertyItemRepository } from "../_domain/propertyItem/repository.type";
+} from "@/kernel/domain/property/propertyItem.dto";
+import { PropertyItemEntity } from "@/kernel/domain/property/propertyItem.type";
+import { IPropertyItemRepository } from "@/kernel/domain/property/repository.type";
 
 @injectable()
 export class PropertyItemRepository implements IPropertyItemRepository {
@@ -19,9 +19,11 @@ export class PropertyItemRepository implements IPropertyItemRepository {
     dto: PropertyItemGetDTO,
     db: Tx = this.db,
   ): Promise<PropertyItemEntity> {
-    return db.propertyItem.findUniqueOrThrow({
+    const propertyItem = await db.propertyItem.findUniqueOrThrow({
       where: dto,
     });
+
+    return propertyItem;
   }
 
   async getListByProperty(

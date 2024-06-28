@@ -4,7 +4,7 @@ import { DeliveryTypeEnum } from "./delivery.type";
 // NOTE: Base Schema
 export const deliveryBaseSchema = z.object({
   orderId: z.string(),
-  deliveryType: z.custom<DeliveryTypeEnum>(),
+  deliveryType: z.nativeEnum(DeliveryTypeEnum),
   settlement: z.string(),
   street: z.string().nullable(),
   house: z.string().nullable(),

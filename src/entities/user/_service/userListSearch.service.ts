@@ -1,12 +1,13 @@
 import { injectable } from "inversify";
-import { UserEntity, UserSearchPayload } from "../_domain/user.types";
-import { IUserRepository } from "../_domain/repository.type";
+import { UserSearchSelector } from "../_domain/user.types";
+import { UserEntity } from "@/kernel/domain/user/user.type";
+import { IUserRepository } from "@/kernel/domain/user/repository.type";
 
 @injectable()
 export class UserListSearchService {
   constructor(private readonly userRepo: IUserRepository) {}
 
-  async execute(selector: UserSearchPayload): Promise<Array<UserEntity>> {
+  async execute(selector: UserSearchSelector): Promise<Array<UserEntity>> {
     const { q } = selector;
     if (!q) {
       return [];

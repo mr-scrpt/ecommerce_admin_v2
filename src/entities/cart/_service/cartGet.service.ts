@@ -1,6 +1,6 @@
 import { injectable } from "inversify";
 import { CartGetSelector, CartRelation } from "../_domain/cart.types";
-import { ICartRepository } from "../_domain/repository.type";
+import { ICartRepository } from "@/kernel/domain/cart/repository.type";
 
 @injectable()
 export class CartRelationGetService {

@@ -2,8 +2,11 @@ import { CartRelationEntity } from "@/entities/cart";
 import { DBClient, Transaction, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
 import { CartRowCreateTxDTO } from "../_domain/types";
-import { ICartRepository, ICartRowRepository } from "@/entities/cart/server";
 import { ICartRowCreateTx } from "../_domain/transaction.type";
+import {
+  ICartRepository,
+  ICartRowRepository,
+} from "@/kernel/domain/cart/repository.type";
 
 @injectable()
 export class CartRowCreateTx extends Transaction implements ICartRowCreateTx {
@@ -20,7 +23,7 @@ export class CartRowCreateTx extends Transaction implements ICartRowCreateTx {
     const { productId } = cartRowData;
     const { cartId } = target;
 
-    const action = async (tx: Tx) => {
+    const action = async (tx: Tx): Promise<CartRelationEntity> => {
       const cartRowExisting = await this.cartRowRepo.getCartRowByProduct(
         {
           cartId,

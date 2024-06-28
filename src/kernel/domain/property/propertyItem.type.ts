@@ -1,5 +1,6 @@
 // NOTE: Base
 export type PropertyItemBase = {
+  propertyId: string;
   name: string;
   value: string;
 };

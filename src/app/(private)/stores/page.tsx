@@ -6,11 +6,11 @@ import { FC, HTMLAttributes } from "react";
 
 interface PageProps extends HTMLAttributes<HTMLDivElement> {}
 
-const PageCategories: FC<PageProps> = (props) => {
+const PageStores: FC<PageProps> = (props) => {
   return (
     <main className="flex min-h-screen flex-col gap-4 p-8">
       <TitlePage
-        title="Categories"
+        title="Store"
         description="Manage your store list"
         // action={<ToStoreCreateButton route={RoutePathEnum.STORE_CREATE} />}
       />
@@ -18,4 +18,4 @@ const PageCategories: FC<PageProps> = (props) => {
     </main>
   );
 };
-export default PageCategories;
+export default PageStores;

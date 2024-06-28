@@ -7,7 +7,7 @@ import {
 import { injectable } from "inversify";
 import { removeInputSchema } from "../_domain/validator.schema";
 import { OrderRowRemoveService } from "../_service/orderRemove.service";
-import { orderSchema } from "@/entities/order";
+import { orderSchema } from "@/kernel/domain/order/order.schema";
 
 @injectable()
 export class OrderRowRemoveController extends Controller {

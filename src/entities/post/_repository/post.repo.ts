@@ -1,12 +1,13 @@
 import { injectable } from "inversify";
-import { PostOfficeGetBySettlementDTO } from "../_domain/post.dto";
 import { PostOfficeNovaPoshtaIndex } from "@/kernel/lib/novaposhta/novaposhta.type";
 import { INovaPoshtaRepository } from "@/kernel/lib/novaposhta/repository.type";
 import { PostOfficeEntity } from "@/kernel/domain/post/post.type";
+import { IPostRepository } from "@/kernel/domain/post/repository.type";
+import { PostOfficeGetBySettlementDTO } from "@/kernel/domain/post/post.dto";
 
 // TODO: Maybe move convert to service?
 @injectable()
-export class PostRepository {
+export class PostRepository implements IPostRepository {
   constructor(readonly novaposhta: INovaPoshtaRepository) {}
 
   async getPostOfficeListBySettlement(

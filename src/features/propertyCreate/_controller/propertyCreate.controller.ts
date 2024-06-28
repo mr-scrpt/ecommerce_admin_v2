@@ -1,8 +1,8 @@
+import { propertyRelationSchema } from "@/entities/property/_domain/property/property.schema";
 import { Controller, publicProcedure, router } from "@/kernel/lib/trpc/server";
 import { injectable } from "inversify";
 import { createInputSchema } from "../_domain/validator.schema";
 import { PropertyCreateService } from "../_service/propertyCreate.service";
-import { propertySchema } from "@/kernel/domain/property/property.schema";
 
 @injectable()
 export class PropertyCreateController extends Controller {
@@ -16,7 +16,7 @@ export class PropertyCreateController extends Controller {
         .input(createInputSchema)
         .mutation(async ({ input }) => {
           const result = await this.createPropertyService.execute(input);
-          return propertySchema.parse(result);
+          return propertyRelationSchema.parse(result);
         }),
     },
   });

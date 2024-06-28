@@ -1,9 +1,12 @@
-import { OrderEntity } from "@/entities/order";
-import { IOrderRepository, IOrderRowRepository } from "@/entities/order/server";
 import { DBClient, Transaction, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
 import { IOrderRowRemoveTx } from "../_domain/transaction.type";
 import { OrderRowRemoveTxDTO } from "../_domain/types";
+import {
+  IOrderRepository,
+  IOrderRowRepository,
+} from "@/kernel/domain/order/repository.type";
+import { OrderEntity } from "@/kernel/domain/order/order.type";
 
 @injectable()
 export class OrderRowRemoveTx extends Transaction implements IOrderRowRemoveTx {

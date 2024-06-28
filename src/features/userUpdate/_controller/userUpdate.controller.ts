@@ -1,5 +1,4 @@
-import { userSchema } from "@/entities/user/user";
-import { createUserAbility } from "@/entities/user/user.server";
+import { createUserAbility } from "@/entities/user/server";
 import {
   Controller,
   checkAbilityProcedure,
@@ -8,6 +7,7 @@ import {
 import { injectable } from "inversify";
 import { updateInputSchema } from "../_domain/validator.schema";
 import { UserUpdateService } from "../_service/userUpdate.service";
+import { userSchema } from "@/kernel/domain/user/user.schema";
 
 @injectable()
 export class UserUpdateController extends Controller {

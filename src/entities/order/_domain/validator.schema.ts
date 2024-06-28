@@ -1,5 +1,5 @@
+import { orderSchema } from "@/kernel/domain/order/order.schema";
 import { z } from "zod";
-import { orderSchema } from "..";
 
 export const getInputSchema = z.object({
   id: z.string(),

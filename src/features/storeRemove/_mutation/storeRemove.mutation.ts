@@ -1,18 +1,14 @@
-import { useMutation } from "@tanstack/react-query";
-import { removeStoreComplexibleAction } from "../_action/storeRemoveComplexible.action";
+import { storeRemoveApi } from "../_api/storeRemove.api";
 import { useEmitStoreRemove } from "../_vm/event/useEmitStoreRemove";
-
-const baseKey = "storeRemoveMutation";
 
 export const useStoreRemoveMutation = () => {
   const { storeRemoveEvent } = useEmitStoreRemove();
-  const { isPending, isSuccess, mutateAsync } = useMutation({
-    mutationKey: [baseKey, "complexible"],
-    mutationFn: removeStoreComplexibleAction,
-    onSuccess: ({ store }) => {
-      storeRemoveEvent(store.id);
-    },
-  });
+  const { isPending, isSuccess, mutateAsync } =
+    storeRemoveApi.storeRemove.remove.useMutation({
+      onSuccess: ({ id }) => {
+        storeRemoveEvent(id);
+      },
+    });
   return {
     storeRemove: mutateAsync,
     isPending,

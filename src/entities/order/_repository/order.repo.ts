@@ -1,14 +1,14 @@
-import { DBClient, Tx } from "@/shared/lib/db/db";
-import { injectable } from "inversify";
-import { OrderEntity, OrderRelationEntity } from "../_domain/order.types";
 import {
   OrderCreateEmptyDTO,
   OrderGetByConsumerDTO,
   OrderGetDTO,
   OrderUpdateDTO,
-} from "../_domain/order.dto";
+} from "@/kernel/domain/order/order.dto";
+import { OrderEntity } from "@/kernel/domain/order/order.type";
+import { IOrderRepository } from "@/kernel/domain/order/repository.type";
 import { SORTING_ORDER_DEFAULT } from "@/shared/config/constant";
-import { IOrderRepository } from "../_domain/repository.type";
+import { DBClient, Tx } from "@/shared/lib/db/db";
+import { injectable } from "inversify";
 
 @injectable()
 export class OrderRepository implements IOrderRepository {
@@ -21,10 +21,7 @@ export class OrderRepository implements IOrderRepository {
     return result;
   }
 
-  async getWithRelation(
-    dto: OrderGetDTO,
-    db: Tx = this.db,
-  ): Promise<OrderRelationEntity> {
+  async getWithRelation<T>(dto: OrderGetDTO, db: Tx = this.db): Promise<T> {
     const result = await db.order.findUniqueOrThrow({
       where: dto,
       include: {
@@ -40,23 +37,9 @@ export class OrderRepository implements IOrderRepository {
         },
       },
     });
-    // result.orderRowList;
 
-    return result;
+    return result as T;
   }
-
-  // async getOrderOwner(
-  //   dto: OrderGetByOwnerDTO,
-  //   db: Tx = this.db,
-  // ): Promise<OrderEntity> {
-  //   const { ownerId } = dto;
-  //   const result = await db.order.findUniqueOrThrow({
-  //     where: {
-  //       userId: ownerId,
-  //     },
-  //   });
-  //   return result;
-  // }
 
   async getListByConsumer(
     dto: OrderGetByConsumerDTO,

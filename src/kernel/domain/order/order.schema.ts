@@ -6,8 +6,10 @@ export const orderBaseSchema = z.object({
   orderNo: z.string(),
   userId: z.string(),
   priceTotal: z.number(),
-  orderStatus: z.custom<OrderStatusEnum>(),
-  paymentStatus: z.custom<OrderPaymentStatusEnum>(),
+  // orderStatus: z.custom<OrderStatusEnum>(),
+  // paymentStatus: z.custom<OrderPaymentStatusEnum>(),
+  orderStatus: z.nativeEnum(OrderStatusEnum),
+  paymentStatus: z.nativeEnum(OrderPaymentStatusEnum),
 });
 
 // NOTE: Projections

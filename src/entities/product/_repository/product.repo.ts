@@ -11,9 +11,10 @@ import {
   ProductSearchDTO,
   ProductTotalPriceGetDTO,
   ProductUpdateDTO,
-} from "../_domain/product.dto";
-import { ProductEntity, ProductRelationEntity } from "../_domain/product.types";
-import { IProductRepository } from "../_domain/repository.type";
+} from "@/kernel/domain/product/product.dto";
+import { ProductRelationEntity } from "../_domain/product.types";
+import { IProductRepository } from "@/kernel/domain/product/repository.type";
+import { ProductEntity } from "@/kernel/domain/product/product.type";
 
 @injectable()
 export class ProductRepository implements IProductRepository {
@@ -25,17 +26,14 @@ export class ProductRepository implements IProductRepository {
     });
   }
 
-  async getWithRelation(
-    dto: ProductGetDTO,
-    db: Tx = this.db,
-  ): Promise<ProductRelationEntity> {
+  async getWithRelation<T>(dto: ProductGetDTO, db: Tx = this.db): Promise<T> {
     return db.product.findUniqueOrThrow({
       where: dto,
       include: {
         categoryList: true,
         propertyItemListSelected: true,
       },
-    });
+    }) as unknown as T;
   }
 
   async getBySlug(

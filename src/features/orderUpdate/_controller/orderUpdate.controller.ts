@@ -6,8 +6,8 @@ import {
 } from "@/kernel/lib/trpc/server";
 import { injectable } from "inversify";
 import { OrderStatusUpdateService } from "../_service/orderStatusUpdate.service";
-import { orderSchema } from "@/entities/order";
 import { updateInputSchema } from "../_domain/validator.schema";
+import { orderSchema } from "@/kernel/domain/order/order.schema";
 
 @injectable()
 export class OrderUpdateController extends Controller {
@@ -23,10 +23,11 @@ export class OrderUpdateController extends Controller {
       })
         .input(updateInputSchema)
         .mutation(async ({ input }) => {
-          input.orderStatusData;
+          console.log("output_log:  =>>>", input);
+
           const result = await this.updateOrderService.execute(input);
 
-          return orderSchema.parse(result);
+          return orderSchema.safeParse(result);
         }),
     },
   });

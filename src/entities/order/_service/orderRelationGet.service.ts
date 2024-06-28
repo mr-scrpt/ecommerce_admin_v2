@@ -1,6 +1,6 @@
 import { injectable } from "inversify";
-import { Order, OrderGetSelector, OrderRelation } from "../_domain/order.types";
-import { IOrderRepository } from "../_domain/repository.type";
+import { IOrderRepository } from "../../../kernel/domain/order/repository.type";
+import { OrderGetSelector, OrderRelation } from "../_domain/order.types";
 
 @injectable()
 export class OrderRelationGetService {

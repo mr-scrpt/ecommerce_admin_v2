@@ -1,7 +1,7 @@
 import { SettlementNovaPoshtaIndex } from "@/kernel/lib/novaposhta/novaposhta.type";
 import { INovaPoshtaRepository } from "@/kernel/lib/novaposhta/repository.type";
 import { injectable } from "inversify";
-import { ISettlementRepository } from "../_domain/repository.type";
+import { ISettlementRepository } from "../../../kernel/domain/settlement/repository.type";
 import { SettlementEntity } from "@/kernel/domain/settlement/settlement.type";
 
 const INIT_PAGE = 1;

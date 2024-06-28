@@ -1,5 +1,5 @@
+import { deliverySchema } from "@/kernel/domain/delivery/delivery.schema";
 import { z } from "zod";
-import { deliverySchema } from "./delivery.schema";
 
 export const getInputSchema = z.object({
   id: z.string(),

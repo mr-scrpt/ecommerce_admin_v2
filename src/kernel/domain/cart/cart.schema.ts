@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { cartRowSchema } from "./cartRow.schema";
 
 // NOTE: Base
 export const cartBaseSchema = z.object({
@@ -11,4 +12,10 @@ export const cartSchema = z.object({
   ...cartBaseSchema.shape,
   createdAt: z.date(),
   updatedAt: z.date(),
+});
+
+// NOTE: Composite
+export const cartCompositeSchema = z.object({
+  ...cartSchema.shape,
+  cartRowList: z.array(cartRowSchema),
 });

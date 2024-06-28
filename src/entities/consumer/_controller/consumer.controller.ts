@@ -1,0 +1,55 @@
+import { Controller, publicProcedure, router } from "@/kernel/lib/trpc/server";
+import { injectable } from "inversify";
+import { consumerRelationSchema } from "../_domain/consumer.schema";
+import {
+  getByOrderInputSchema,
+  getInputSchema,
+  getListOutputSchema,
+  searchInputSchema,
+  searchOutputSchema,
+} from "../_domain/validator.schema";
+import { ConsumerListService } from "../_service/consumerList.service";
+import { ConsumerListSearchService } from "../_service/consumerListSearch.service";
+import { ConsumerRelationGetByOrderService } from "../_service/consumerRelationGetByOrder.service";
+import { consumerSchema } from "@/kernel/domain/consumer/consumer.schema";
+import { ConsumerGetService } from "../_service/consumerGet.service";
+
+@injectable()
+export class ConsumerController extends Controller {
+  constructor(
+    private readonly getConsumerService: ConsumerGetService,
+    private readonly getConsumerRelationByOrderService: ConsumerRelationGetByOrderService,
+    private readonly getConsumerListService: ConsumerListService,
+    private readonly searchConsumerListService: ConsumerListSearchService,
+  ) {
+    super();
+  }
+
+  public router = router({
+    consumer: {
+      get: publicProcedure.input(getInputSchema).query(async ({ input }) => {
+        const result = await this.getConsumerService.execute(input);
+        return consumerSchema.parse(result);
+      }),
+      getList: publicProcedure.query(async () => {
+        console.log("output_log:  =>>> before");
+        const result = await this.getConsumerListService.execute();
+        console.log("output_log:  =>>>", result);
+        return getListOutputSchema.parse(result);
+      }),
+      getRelationByOrder: publicProcedure
+        .input(getByOrderInputSchema)
+        .query(async ({ input }) => {
+          const result =
+            await this.getConsumerRelationByOrderService.execute(input);
+          return consumerRelationSchema.parse(result);
+        }),
+      search: publicProcedure
+        .input(searchInputSchema)
+        .query(async ({ input }) => {
+          const result = await this.searchConsumerListService.execute(input);
+          return searchOutputSchema.parse(result);
+        }),
+    },
+  });
+}

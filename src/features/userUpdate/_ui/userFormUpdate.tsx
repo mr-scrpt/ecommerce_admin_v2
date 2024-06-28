@@ -1,11 +1,13 @@
-import { useUserQuery } from "@/entities/user/user";
-import { UserFormElements } from "@/entities/user/user";
+import { UserFormElements, useUserQuery } from "@/entities/user";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes } from "react";
 import { useUserUpdateModel } from "../_vm/useUserUpdate.model";
-import { UserUpdateFormValues, userUpdateFormSchema } from "../_domain/schema";
+import {
+  UserUpdateFormValues,
+  userUpdateFormSchema,
+} from "../_domain/form.schema";
 
 interface UserFormProps extends HTMLAttributes<HTMLDivElement> {
   userId: string;
@@ -20,7 +22,7 @@ export const UserFormUpdate: FC<UserFormProps> = (props) => {
   const {
     isPending: isPendingUser,
     isFetchedAfterMount,
-    data,
+    user,
   } = useUserQuery(userId);
 
   const router = useRouter();
@@ -34,14 +36,15 @@ export const UserFormUpdate: FC<UserFormProps> = (props) => {
     return <Spinner aria-label="Loading profile..." />;
   }
 
-  if (!data) {
+  if (!user) {
     return <div>Failed to load user, you may not have permissions</div>;
   }
 
-  const handleSubmit = async (data: UserUpdateFormValues) => {
+  const handleSubmit = async (userData: UserUpdateFormValues) => {
+    // const {} = data.
     await userUpdate({
-      userId,
-      data,
+      selector: { id: userId },
+      userData,
     });
 
     onSuccess?.();
@@ -55,7 +58,7 @@ export const UserFormUpdate: FC<UserFormProps> = (props) => {
     <div className={cn(className, "w-full")}>
       <UserFormElements
         handleSubmit={handleSubmit}
-        user={data.user}
+        user={user}
         schema={userUpdateFormSchema}
       >
         <UserFormElements.FieldRole />

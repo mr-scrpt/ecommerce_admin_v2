@@ -1,4 +1,4 @@
-import { userFormDefaultSchema } from "@/entities/user/user";
+import { userFormDefaultSchema } from "@/entities/user";
 import { z } from "zod";
 
 export const userUpdateFormSchema = z.object({

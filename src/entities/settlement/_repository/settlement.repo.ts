@@ -1,11 +1,11 @@
 import { DBClient, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
-import { ISettlementRepository } from "../_domain/repository.type";
+import { ISettlementRepository } from "@/kernel/domain/settlement/repository.type";
 import {
   SettlementCreateDTO,
   SettlementGetByRefDTO,
   SettlementSearchDTO,
-} from "../_domain/settlement.dto";
+} from "@/kernel/domain/settlement/settlement.dto";
 import { SettlementEntity } from "@/kernel/domain/settlement/settlement.type";
 
 @injectable()

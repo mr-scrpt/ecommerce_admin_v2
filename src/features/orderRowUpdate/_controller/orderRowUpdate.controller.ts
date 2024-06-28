@@ -1,13 +1,13 @@
 import { createOrderAbility } from "@/entities/order/server";
+import { orderSchema } from "@/kernel/domain/order/order.schema";
 import {
   Controller,
   checkAbilityProcedure,
   router,
 } from "@/kernel/lib/trpc/server";
 import { injectable } from "inversify";
-import { OrderRowUpdateService } from "../_service/orderRowUpdate.service";
-import { orderSchema } from "@/entities/order";
 import { updateInputSchema } from "../_domain/validator.schema";
+import { OrderRowUpdateService } from "../_service/orderRowUpdate.service";
 
 @injectable()
 export class OrderRowUpdateController extends Controller {

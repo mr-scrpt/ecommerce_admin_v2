@@ -75,6 +75,7 @@ export const PropertyFormElements: PropertyFormType = (props) => {
     children,
     className,
   } = props;
+  // console.log("output_log: property =>>>", property);
 
   const isPendingAppearance = useAppearanceDelay(isPending);
 
@@ -92,6 +93,7 @@ export const PropertyFormElements: PropertyFormType = (props) => {
   }, [property, form, isPendingAppearance, submitText]);
 
   const handleSubmit = form.handleSubmit(async (data) => {
+    console.log("output_log: submit =>>>", data);
     onSubmit?.(data);
   });
 

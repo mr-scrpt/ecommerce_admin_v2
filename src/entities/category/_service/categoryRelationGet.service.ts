@@ -1,7 +1,10 @@
 import { OperationsMap } from "@/shared/type/operation.type";
 import { injectable } from "inversify";
-import { ICategoryRepository } from "../_domain/repository.type";
-import { CategoryGetSelector, CategoryRelation } from "../_domain/category.types";
+import {
+  CategoryGetSelector,
+  CategoryRelation,
+} from "../_domain/category.types";
+import { ICategoryRepository } from "@/kernel/domain/category/repository.type";
 
 @injectable()
 export class CategoryRelationGetService {
@@ -14,8 +17,7 @@ export class CategoryRelationGetService {
   async operation(props: CategoryGetSelector): Promise<CategoryRelation> {
     const operationsMap: OperationsMap<CategoryRelation> = {
       id: (id: string) => this.categoryRepo.getWithRelation({ id }),
-      slug: (slug: string) =>
-        this.categoryRepo.getBySlugRelation({ slug }),
+      slug: (slug: string) => this.categoryRepo.getBySlugRelation({ slug }),
     };
 
     for (const key of Object.keys(props)) {

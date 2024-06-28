@@ -1,7 +1,19 @@
-import { Profile, ProfileUpdateDTO } from "@/entities/user/profile";
+import { ProfileUpdateDTO } from "@/kernel/domain/profile/profile.dto";
+import { ProfileBase } from "@/kernel/domain/profile/profile.type";
 
-export type ProfileUpdateTxPayload = Partial<Profile>;
+type ProfileUpdatePayload = Partial<ProfileBase>;
+
+export type ProfileUpdateTxPayload = {
+  selector: ProfileUpdateSelector;
+  profileData: ProfileUpdatePayload;
+};
 
 export type ProfileUpdateTxDTO = {
-  profileData: ProfileUpdateDTO;
+  selector: ProfileUpdateSelector;
+  profileData: ProfileUpdateDTO["data"];
+};
+
+// NOTE: Selector
+export type ProfileUpdateSelector = {
+  id: string;
 };

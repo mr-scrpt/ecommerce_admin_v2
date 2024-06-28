@@ -1,9 +1,9 @@
 import { DBClient, Transaction, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
 import { IProductUpdateTx } from "../_domain/transaction.type";
-import { IProductRepository } from "@/entities/product/server";
 import { ProductUpdateTxDTO } from "../_domain/types";
 import { ProductEntity } from "@/kernel/domain/product/product.type";
+import { IProductRepository } from "@/kernel/domain/product/repository.type";
 
 @injectable()
 export class ProductUpdateTx extends Transaction implements IProductUpdateTx {
@@ -16,19 +16,9 @@ export class ProductUpdateTx extends Transaction implements IProductUpdateTx {
 
   async update(dto: ProductUpdateTxDTO): Promise<ProductEntity> {
     const { selector, productData, categoryData, propertyItemData } = dto;
-    const action = async (tx: Tx) => {
-      // const {
-      //   productId,
-      //   productData,
-      //   propertyItemListSelected,
-      //   categoryListId,
-      // } = dto;
-      const productUpdated = await this.productRepo.update(
-        { selector, data: productData },
-        tx,
-      );
 
-      console.log("output_log: updateProduct =>>>", productUpdated);
+    const action = async (tx: Tx) => {
+      await this.productRepo.update({ selector, data: productData }, tx);
 
       await this.productRepo.bindToCategoryList(
         {
@@ -37,14 +27,10 @@ export class ProductUpdateTx extends Transaction implements IProductUpdateTx {
             categoryListId: categoryData,
           },
         },
-        // { productId, categoryListId },
         tx,
       );
+
       await this.productRepo.bindToPropertyList(
-        // {
-        //   productId,
-        //   propertyListId: propertyItemListSelected,
-        // },
         {
           selector,
           data: {

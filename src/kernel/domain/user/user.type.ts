@@ -24,7 +24,9 @@ export type User = UserBase & {
   updatedAt: Date;
 };
 
-// NOTE: Projetions
+export type UserStrictEntity = UserEntity & {
+  name: string;
+};
 
 export type UserPartial = {
   name?: string | null;

@@ -1,6 +1,6 @@
 "use client";
+import { Delivery } from "@/kernel/domain/delivery/delivery.type";
 import { deliveryApi } from "../_api/delivery.api";
-import { Delivery } from "../_domain/delivery.types";
 import { useListenDeliveryListUpdate } from "../_vm/event/useListenDeliveryListUpdate";
 
 export const useDeliveryListQuery = () => {

@@ -7,7 +7,7 @@ import { Category } from "@/kernel/domain/category/category.type";
 export class CategoryRemoveService {
   constructor(private readonly categoryRemoveTx: ICategoryRemoveTx) {}
 
-  async execute(payload: CategoryRemoveTxPayload): Promise<Category> {
-    return this.categoryRemoveTx.remove(payload);
+  async execute(selector: CategoryRemoveTxPayload): Promise<Category> {
+    return this.categoryRemoveTx.remove(selector);
   }
 }

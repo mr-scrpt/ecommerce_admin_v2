@@ -1,8 +1,8 @@
 import { injectable } from "inversify";
-import { ISettlementRepository } from "../_domain/repository.type";
 import { SettlementSearchSelector } from "../_domain/settlement.type";
 import { Settlement } from "@/kernel/domain/settlement/settlement.type";
 import { SEARCH_MIN_LENGTH } from "@/shared/config/constant";
+import { ISettlementRepository } from "@/kernel/domain/settlement/repository.type";
 
 @injectable()
 export class SettlementListSearchService {

@@ -16,8 +16,8 @@ import { CaretSortIcon } from "@radix-ui/react-icons";
 import _ from "lodash";
 import { FC, HTMLAttributes, useEffect, useState } from "react";
 import { ControllerRenderProps, UseFormReturn } from "react-hook-form";
-import { UserToSelect } from "../_domain/user.types";
 import { SEARCH_MIN_LENGTH } from "@/shared/config/constant";
+import { UserToSelect } from "../_domain/ui.type";
 
 interface UserSelectProps extends HTMLAttributes<HTMLDivElement> {
   control: UseFormReturn<any>["control"];

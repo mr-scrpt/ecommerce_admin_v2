@@ -7,6 +7,7 @@ export const consumerBaseSchema = z.object({
   name: z.string(),
   image: z.string().nullable().optional(),
 });
+
 // NOTE: Projections
 export const consumerSchema = z.object({
   id: z.string(),

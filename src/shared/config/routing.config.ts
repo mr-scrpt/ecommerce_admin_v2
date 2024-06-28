@@ -1,4 +1,4 @@
-import { ROLE } from "@prisma/client";
+import { RoleEnum } from "@/kernel/domain/role.type";
 
 export enum RoutePathEnum {
   HOME = "/",
@@ -19,7 +19,8 @@ export enum RoutePathEnum {
   STORE_UPDATE = "/stores/update",
   STORE_CREATE = "/stores/create",
 
-  USERS = "/users",
+  CONSUMERS = "/consumers",
+  STAFF = "/staff",
   SETTINGS = "/settings",
 
   ORDERS = "/orders",
@@ -41,11 +42,10 @@ enum RouteNameEnum {
   STORES = "Stores",
 
   SETTINGS = "Settings",
-  USERS = "Users",
+  CONSUMERS = "Consumers",
+  STAFF = "Staff",
   ORDERS = "Orders",
-  // SIZES = "Sizes",
-  // COLORS = "Colors",
-  // PROPERTIES = "properties",
+
   SIGN_IN = "Sign in",
   NEW_USER = "New user",
   VERIFY_REQUEST = "Verify request",
@@ -73,9 +73,14 @@ export const ROUTING_MAIN_MENU_DATA = [
     label: RouteNameEnum.ORDERS,
   },
   {
-    href: `${RoutePathEnum.USERS}`,
-    label: RouteNameEnum.USERS,
-    role: [ROLE.ADMIN],
+    href: `${RoutePathEnum.CONSUMERS}`,
+    label: RouteNameEnum.CONSUMERS,
+    role: [RoleEnum.ADMIN],
+  },
+  {
+    href: `${RoutePathEnum.STAFF}`,
+    label: RouteNameEnum.STAFF,
+    role: [RoleEnum.ADMIN],
   },
   {
     href: `${RoutePathEnum.STORES}`,

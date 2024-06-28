@@ -1,6 +1,6 @@
 import { injectable } from "inversify";
-import { UserEntity } from "../_domain/user.types";
-import { IUserRepository } from "../_domain/repository.type";
+import { UserEntity } from "@/kernel/domain/user/user.type";
+import { IUserRepository } from "@/kernel/domain/user/repository.type";
 
 @injectable()
 export class UserListGetService {

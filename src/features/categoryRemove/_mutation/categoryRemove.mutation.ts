@@ -1,12 +1,11 @@
+import { Category } from "@/kernel/domain/category/category.type";
 import { categoryRemoveApi } from "../_api/categoryRemove.api";
 import { useEmitCategoryRemove } from "../_vm/event/useEmitCategoryRemove";
-
-// const baseKey = "categoryRemoveMutation";
 
 export const useCategoryRemoveMutation = () => {
   const { categoryRemoveEvent } = useEmitCategoryRemove();
   const { isPending, isSuccess, mutateAsync } =
-    categoryRemoveApi.categoryRemove.remove.useMutation({
+    categoryRemoveApi.categoryRemove.remove.useMutation<Category>({
       onSuccess: ({ id }) => {
         categoryRemoveEvent(id);
       },

@@ -4,6 +4,7 @@ import { z } from "zod";
 export const propertyItemBaseSchema = z.object({
   name: z.string(),
   value: z.string(),
+  propertyId: z.string(),
 });
 
 // NOTE: Projections

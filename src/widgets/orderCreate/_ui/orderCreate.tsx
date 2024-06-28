@@ -1,7 +1,14 @@
 "use client";
+import { ConsumerSelect } from "@/entities/consumer";
+import {
+  ConsumerFormCreate,
+  useConsumerCreateMutation,
+} from "@/features/consumerCreate";
 import { useOrderCreateMutation } from "@/features/orderCreate/_mutation/useCreate.mutation";
-import { OrderSelectOwner } from "@/features/orderSelectOwner";
-import { UserFormCreate, useUserCreateMutation } from "@/features/userCreate";
+// import {
+//   UserFormCreate,
+//   useUserCreateMutation,
+// } from "@/features/consumerCreate";
 import { RoutePathEnum } from "@/shared/config/routing.config";
 import { Button } from "@/shared/ui/button";
 import { useRouter } from "next/navigation";
@@ -15,7 +22,8 @@ export const OrderCreate: FC<OrderUpdateProps> = (props) => {
   const { callbackUrl } = props;
   const [userId, setUserId] = useState("");
 
-  const { userCreate } = useUserCreateMutation();
+  const { consumerCreate, isPending: isConsumerPending } =
+    useConsumerCreateMutation();
   const { orderCreate, isSuccess } = useOrderCreateMutation();
 
   const router = useRouter();
@@ -29,8 +37,12 @@ export const OrderCreate: FC<OrderUpdateProps> = (props) => {
 
   return (
     <div className="flex w-full flex-col gap-4">
-      <UserFormCreate onUserCreate={userCreate} isPending={false} />
-      <OrderSelectOwner onSelectOwner={setUserId} />
+      {/* <UserFormCreate onUserCreate={consumerCreate} isPending={false} /> */}
+      <ConsumerFormCreate
+        onConsumerCreate={consumerCreate}
+        isPending={isConsumerPending}
+      />
+      <ConsumerSelect onSelectOwner={setUserId} />
       <Button onClick={() => handleCreate(userId)}>Create Order</Button>
     </div>
   );

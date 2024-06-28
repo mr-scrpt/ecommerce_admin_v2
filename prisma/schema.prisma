@@ -12,7 +12,8 @@ datasource db {
 
 enum ROLE {
   ADMIN
-  USER
+  MANAGER
+  CONSUMER
 }
 
 enum DATATYPE {
@@ -86,7 +87,7 @@ model User {
   name          String?
   email         String    @unique
   phone         String
-  role          ROLE      @default(USER)
+  role          ROLE      @default(CONSUMER)
   emailVerified DateTime?
   image         String?
 
@@ -262,7 +263,7 @@ model Store {
 
 model Property {
   id       String   @id @default(uuid())
-  name     String
+  name     String   @unique
   datatype DATATYPE
 
   propertyItemList PropertyItem[] @relation("PropertyItemToProperty")

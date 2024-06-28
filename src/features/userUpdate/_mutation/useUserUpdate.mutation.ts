@@ -2,6 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { updateUserAction } from "../_action/userUpdate.action";
 import { useEmitUserUpdate } from "../_vm/event/useEmitUserUpdate";
 import { User } from "@/kernel/domain/user/user.type";
+import { userUpdateApi } from "../_api/userUpdate.api";
 
 const baseKey = "userUpdateMutation";
 
@@ -13,14 +14,14 @@ export const useUserUpdateMutation = (props: IUserUpdateMutation) => {
   const { onSuccess } = props;
   const { userUpdateEvent } = useEmitUserUpdate();
 
-  const { mutateAsync, isPending } = useMutation({
-    mutationKey: [baseKey],
-    mutationFn: updateUserAction,
-    onSuccess: async ({ user }) => {
-      onSuccess(user);
-      userUpdateEvent(user.id);
-    },
-  });
+  const { mutateAsync, isPending } =
+    userUpdateApi.userUpdate.update.useMutation({
+      // mutationKey: [baseKey],
+      onSuccess: async (user) => {
+        onSuccess(user);
+        userUpdateEvent(user.id);
+      },
+    });
   return {
     mutateAsync,
     isPending,

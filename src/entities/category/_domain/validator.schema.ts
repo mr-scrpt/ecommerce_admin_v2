@@ -1,5 +1,5 @@
+import { categorySchema } from "@/kernel/domain/category/category.schema";
 import { z } from "zod";
-import { categorySchema } from "./category.schema";
 
 export const getInputSchema = z
   .object({

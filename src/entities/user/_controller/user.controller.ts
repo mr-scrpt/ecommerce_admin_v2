@@ -1,11 +1,16 @@
 import { Controller, publicProcedure, router } from "@/kernel/lib/trpc/server";
 import { injectable } from "inversify";
 import { z } from "zod";
-import { userSchema } from "../user";
 import { UserGetService } from "../_service/userGet.service";
 import { UserListGetService } from "../_service/userListGet.service";
-import { getInputSchema, searchInputSchema } from "../_domain/validator.schema";
+import {
+  getInputSchema,
+  getListOutputSchema,
+  searchInputSchema,
+  searchOutputSchema,
+} from "../_domain/validator.schema";
 import { UserListSearchService } from "../_service/userListSearch.service";
+import { userSchema } from "@/kernel/domain/user/user.schema";
 
 @injectable()
 export class UserController extends Controller {
@@ -25,13 +30,13 @@ export class UserController extends Controller {
       }),
       getList: publicProcedure.query(async () => {
         const result = await this.getUserListService.execute();
-        return userSchema.array().parse(result);
+        return getListOutputSchema.parse(result);
       }),
       search: publicProcedure
         .input(searchInputSchema)
         .query(async ({ input }) => {
           const result = await this.searchUserListService.execute(input);
-          return userSchema.array().parse(result);
+          return searchOutputSchema.parse(result);
         }),
     },
   });

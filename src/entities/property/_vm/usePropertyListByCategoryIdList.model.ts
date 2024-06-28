@@ -1,17 +1,15 @@
 "use client";
-import {
-  ProductPropertyItem,
-  ProductPropertyObjectList,
-} from "@/entities/product";
+import { ProductPropertyObjectList } from "@/entities/product";
 import { useOptionListTransform } from "@/shared/lib/map";
 import { useEffect, useState } from "react";
 import { PropertyToSelect } from "../_domain/property/property.types";
 import { usePropertyWithRelationByCategoryQuery } from "../_query/property/propertyListWithRelationByCategory.query";
 import { PropertyDataTypeEnum } from "@/kernel/domain/property/property.type";
+import { PropertyItem } from "@/kernel/domain/property/propertyItem.type";
 
 export const usePropertyListByCategoryIdListModel = (
   categoryIdListActive: Array<{ value: string; label: string }>,
-  productPropertyIdListActive: Array<ProductPropertyItem>,
+  productPropertyIdListActive: Array<PropertyItem>,
 ) => {
   const [categoryIdList, setCategoryIdList] = useState<string[]>([]);
   const { toOptionList } = useOptionListTransform();

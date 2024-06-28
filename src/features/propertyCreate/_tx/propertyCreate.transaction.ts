@@ -1,12 +1,12 @@
-import {
-  IPropertyItemRepository,
-  IPropertyRepository,
-} from "@/entities/property/server";
 import { DBClient, Transaction, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
 import { PropertyCreateTxDTO } from "../_domain/types";
 import { IPropertyCreateTx } from "../_domain/transaction.type";
-import { PropertyEntity } from "@/kernel/domain/property/property.type";
+import { PropertyRelationEntity } from "@/entities/property";
+import {
+  IPropertyItemRepository,
+  IPropertyRepository,
+} from "@/kernel/domain/property/repository.type";
 
 @injectable()
 export class PropertyCreateTx extends Transaction implements IPropertyCreateTx {
@@ -18,8 +18,8 @@ export class PropertyCreateTx extends Transaction implements IPropertyCreateTx {
     super(db);
   }
 
-  async create(dto: PropertyCreateTxDTO): Promise<PropertyEntity> {
-    const action = async (tx: Tx) => {
+  async create(dto: PropertyCreateTxDTO): Promise<PropertyRelationEntity> {
+    const action = async (tx: Tx): Promise<PropertyRelationEntity> => {
       const { propertyItemData, propertyData } = dto;
 
       const { id } = await this.propertyRepo.create({ data: propertyData }, tx);
@@ -34,7 +34,7 @@ export class PropertyCreateTx extends Transaction implements IPropertyCreateTx {
         propertyItemListCreated.push(itemCreated);
       }
 
-      return await this.propertyRepo.get({ id }, tx);
+      return await this.propertyRepo.getWithRelation({ id }, tx);
     };
 
     return await this.start(action);

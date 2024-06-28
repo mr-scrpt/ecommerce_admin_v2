@@ -23,8 +23,8 @@ export type OrderGetSelector = {
   id: string;
 };
 
-export type OrderGetByOwnerSelector = {
-  ownerId: string;
+export type OrderGetByConsumerSelector = {
+  consumerId: string;
 };
 
 // NOTE: Side
@@ -38,10 +38,6 @@ export type OrderGetByOwnerSelector = {
 // };
 
 // NOTE: UI
-export type OrderUI = Omit<Order, "createdAt"> & {
-  createdAt: string;
-};
-
 export type OrderStatusGroup = {
   orderStatus: OrderStatusEnum;
   paymentStatus: OrderPaymentStatusEnum;

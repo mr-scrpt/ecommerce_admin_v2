@@ -34,6 +34,7 @@ export const checkAbilityProcedure = <Ability>({
   create: (session: SessionEntity) => Ability;
 }) =>
   authorizedProcedure.use(({ ctx, next }) => {
+    console.log("output_log: ctx =>>>", ctx);
     const ability = create(ctx.session);
 
     if (check && !check(ability)) {

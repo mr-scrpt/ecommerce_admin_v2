@@ -9,7 +9,7 @@ import { CartRelationGetService } from "../_service/cartGet.service";
 
 @injectable()
 export class CartController extends Controller {
-  constructor(private readonly getCartRelationService: CartRelationGetService) {
+  constructor(private readonly getCartService: CartRelationGetService) {
     super();
   }
 
@@ -19,7 +19,7 @@ export class CartController extends Controller {
         const { session } = ctx;
         const cartId = session.user.cartId;
 
-        const result = await this.getCartRelationService.execute({
+        const result = await this.getCartService.execute({
           id: cartId,
         });
 

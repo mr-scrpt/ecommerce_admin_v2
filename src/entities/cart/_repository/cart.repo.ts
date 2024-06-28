@@ -6,9 +6,9 @@ import {
   CartGetDTO,
   CartRemoveByUserDTO,
   CartRemoveDTO,
-} from "../_domain/cart.dto";
-import { CartEntity, CartRelationEntity } from "../_domain/cart.types";
-import { ICartRepository } from "../_domain/repository.type";
+} from "@/kernel/domain/cart/cart.dto";
+import { ICartRepository } from "@/kernel/domain/cart/repository.type";
+import { CartEntity } from "@/kernel/domain/cart/cart.type";
 
 @injectable()
 export class CartRepository implements ICartRepository {
@@ -29,16 +29,13 @@ export class CartRepository implements ICartRepository {
     });
   }
 
-  async getRelation(
-    dto: CartGetDTO,
-    db: Tx = this.db,
-  ): Promise<CartRelationEntity> {
+  async getRelation<T>(dto: CartGetDTO, db: Tx = this.db): Promise<T> {
     return db.cart.findUniqueOrThrow({
       where: dto,
       include: {
         cartRowList: true,
       },
-    });
+    }) as T;
   }
 
   async getList(db: Tx = this.db): Promise<CartEntity[]> {

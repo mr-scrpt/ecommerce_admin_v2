@@ -5,7 +5,7 @@ import {
   CartRowCreateDTO,
   CartRowGetByProductDTO,
   CartRowRemoveDTO,
-} from "../_domain/cartRow.dto";
+} from "../../../kernel/domain/cart/cartRow.dto";
 import { CartRowEntity } from "../_domain/cartRow.types";
 
 @injectable()

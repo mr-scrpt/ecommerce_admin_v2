@@ -30,12 +30,15 @@ export type OrderCompositeEntity = OrderEntity & {
 // NOTE: Projetions
 export type Order = OrderBase & {
   id: string;
-  orderNo: string;
-  userId: string;
   createdAt: Date;
-  priceTotal: number;
+  updatedAt: Date;
 };
 
 export type OrderComposite = Order & {
   orderRowList: Array<OrderRow>;
+};
+
+// NOTE: UI
+export type OrderUI = Omit<Order, "createdAt"> & {
+  createdAt: string;
 };

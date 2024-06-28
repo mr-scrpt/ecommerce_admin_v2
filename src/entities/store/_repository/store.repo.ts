@@ -6,8 +6,8 @@ import {
   StoreGetDTO,
   StoreRemoveDTO,
   StoreUpdateDTO,
-} from "../_domain/store.dto";
-import { IStoreRepository } from "../_domain/repository.type";
+} from "../../../kernel/domain/store/store.dto";
+import { IStoreRepository } from "../../../kernel/domain/store/repository.type";
 import { StoreEntity } from "@/kernel/domain/store/store.type";
 import { StoreRelationEntity } from "../_domain/types";
 
@@ -46,12 +46,12 @@ export class StoreRepository implements IStoreRepository {
     return db.store.findMany();
   }
 
-  async getListWithRelation(db: Tx = this.db): Promise<StoreEntity[]> {
+  async getListWithRelation<T>(db: Tx = this.db): Promise<Array<T>> {
     return db.store.findMany({
       include: {
         settlement: true,
       },
-    });
+    }) as unknown as Array<T>;
   }
 
   async getListBySettlement(
