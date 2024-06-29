@@ -46,6 +46,7 @@ import { UserCreateModule } from "@/features/userCreate/module";
 import { ConsumerRemoveModule } from "@/features/consumerRemove/module";
 import { ConsumerUpdateModule } from "@/features/consumerUpdate/module";
 import { StoreRemoveModule } from "@/features/storeRemove/module";
+import { StoreCreateModule } from "@/features/storeCreate/module";
 
 export const loadModule = () => {
   const container = new Container();
@@ -103,6 +104,7 @@ export const loadModule = () => {
     PropertyRemoveModule,
 
     StoreModule,
+    StoreCreateModule,
     StoreRemoveModule,
 
     SettlementModule,

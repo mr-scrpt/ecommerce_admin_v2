@@ -197,7 +197,8 @@ model Delivery {
   order       Order    @relation(fields: [orderId], references: [id])
   orderId     String   @unique
   deliveryType DELIVERY_TYPE
-  settlement        String
+  settlement    Settlement @relation(fields: [settlementRef], references: [ref], onDelete: Cascade)
+  settlementRef String
   street      String?
   house       String?
   apartment   String?
@@ -247,7 +248,8 @@ model Settlement {
   createdAt                        DateTime @default(now())
   updatedAt                        DateTime @updatedAt
 
-  store Store[]
+  storeList Store[]
+  deliveryList Delivery[]
 }
 
 model Store {

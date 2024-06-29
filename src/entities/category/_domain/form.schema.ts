@@ -2,7 +2,7 @@ import { z } from "zod";
 
 // NOTE: FORM
 // NOTE: Main information
-export const categoryFormSchema = z.object({
+export const categoryFormDefaultSchema = z.object({
   name: z
     .string()
     .min(3)
@@ -18,4 +18,4 @@ export const categoryFormSchema = z.object({
   ),
 });
 
-export type CategoryFormValues = z.infer<typeof categoryFormSchema>;
+export type CategoryFormValues = z.infer<typeof categoryFormDefaultSchema>;

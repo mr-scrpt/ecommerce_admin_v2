@@ -17,7 +17,7 @@ import { FC, HTMLAttributes, useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { CategoryRelation } from "../_domain/category.types";
 import { BoardField } from "./boardField";
-import { CategoryFormValues, categoryFormSchema } from "../_domain/form.schema";
+import { CategoryFormValues, categoryFormDefaultSchema } from "../_domain/form.schema";
 
 interface CategoryFormProps extends HTMLAttributes<HTMLFormElement> {
   category?: CategoryRelation;
@@ -49,7 +49,7 @@ export const CategoryForm: FC<CategoryFormProps> = (props) => {
   } = props;
 
   const form = useForm<CategoryFormValues>({
-    resolver: zodResolver(categoryFormSchema),
+    resolver: zodResolver(categoryFormDefaultSchema),
     defaultValues: getDefaultValues(category),
   });
 

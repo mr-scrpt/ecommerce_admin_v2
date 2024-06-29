@@ -18,6 +18,7 @@ interface CommandVirtualSettlementItem<T>
   isSelected: boolean;
 }
 
+// TODO: Select settlement entities
 export const ComboboxVirtualSettlementItem: FC<
   CommandVirtualSettlementItem<SettleToSelect>
 > = (props) => {

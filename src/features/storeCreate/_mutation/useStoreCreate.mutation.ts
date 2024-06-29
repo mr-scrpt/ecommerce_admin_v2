@@ -1,21 +1,18 @@
-import { useMutation } from "@tanstack/react-query";
-import { updateStoreAction } from "../_action/storeCreate.action";
-import { useEmitStoreUpdate } from "../_vm/event/useEmitStoreUpdate";
+"use client";
+import { storeCreateApi } from "../_api/storeCreate.api";
+import { useEmitStoreCreate } from "../_vm/event/useEmitStoreCreate";
 
-const baseKey = "storeUpdateMutation";
-
-export const useStoreUpdateMutation = () => {
-  const { storeUpdateEvent } = useEmitStoreUpdate();
-
-  const { mutateAsync, isPending } = useMutation({
-    mutationKey: [baseKey],
-    mutationFn: updateStoreAction,
-    onSuccess: async ({ store }) => {
-      storeUpdateEvent(store.id);
-    },
-  });
+export const useStoreCreateMutation = () => {
+  const { storeCreateEvent } = useEmitStoreCreate();
+  const { isPending, isSuccess, mutateAsync } =
+    storeCreateApi.storeCreate.create.useMutation({
+      onSuccess: async () => {
+        storeCreateEvent();
+      },
+    });
   return {
-    storeUpdate: mutateAsync,
+    storeCreate: mutateAsync,
     isPending,
+    isSuccess,
   };
 };

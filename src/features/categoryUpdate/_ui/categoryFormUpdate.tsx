@@ -1,5 +1,5 @@
 "use client";
-import { CategoryForm, categoryFormSchema } from "@/entities/category";
+import { CategoryForm, categoryFormDefaultSchema } from "@/entities/category";
 import { usePropertyLikeSelectOptionListModel } from "@/entities/property";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { cn } from "@/shared/ui/utils";
@@ -17,7 +17,7 @@ interface CategoryFormProps extends HTMLAttributes<HTMLDivElement> {
   onSuccess?: () => void;
 }
 
-type CategoryFormValues = z.infer<typeof categoryFormSchema>;
+type CategoryFormValues = z.infer<typeof categoryFormDefaultSchema>;
 
 export const CategoryFormUpdate: FC<CategoryFormProps> = (props) => {
   const { categoryId, callbackUrl, className, onSuccess } = props;

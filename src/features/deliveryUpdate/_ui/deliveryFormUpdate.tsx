@@ -41,14 +41,14 @@ export const DeliveryFormUpdate: FC<OrderDeliveryFormProps> = (props) => {
     useDeliveryUpdateModel();
 
   const { toSearch, settlementListToSelect } = useSettlemetListToSelect(
-    delivery?.settlement,
+    delivery?.settlementRef,
   );
 
   const [selectedSettlement, setSelectedSettlement] = useState<string>("");
 
   useEffect(() => {
-    if (delivery?.settlement) {
-      setSelectedSettlement(delivery?.settlement);
+    if (delivery?.settlementRef) {
+      setSelectedSettlement(delivery?.settlementRef);
     }
   }, [delivery]);
 
@@ -99,11 +99,11 @@ export const DeliveryFormUpdate: FC<OrderDeliveryFormProps> = (props) => {
         delivery={delivery}
         schema={deliveryUpdateFormSchema}
       >
-        <DeliveryFormElements.FieldSettlement
-          settlementListToSelect={settlementListToSelect}
-          toSearch={toSearch}
-          handleSelect={setSelectedSettlement}
-        />
+        {/* <DeliveryFormElements.FieldSettlement */}
+        {/*   settlementListToSelect={settlementListToSelect} */}
+        {/*   toSearch={toSearch} */}
+        {/*   handleSelect={setSelectedSettlement} */}
+        {/* /> */}
         <DeliveryFormElements.FieldDeliveryType
           postOfficeListToSelect={postOfficeListToSelect}
           storeListToSelect={storeListToSelect}

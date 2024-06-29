@@ -1,34 +1,24 @@
-import { StoreEntity } from "@/entities/store";
 import { DBClient, Transaction, Tx } from "@/shared/lib/db/db";
-import { StoreCreateComplexible } from "../_domain/types";
-import { StoreRepository } from "@/entities/store/server";
 import { injectable } from "inversify";
+import { StoreCreateTxDTO } from "../_domain/types";
+import { IStoreRepository } from "@/kernel/domain/store/repository.type";
+import { StoreEntity } from "@/kernel/domain/store/store.type";
 
 @injectable()
 export class StoreCreateTx extends Transaction {
   constructor(
     readonly db: DBClient,
-    private readonly storeRepo: StoreRepository,
+    private readonly storeRepo: IStoreRepository,
   ) {
     super(db);
   }
 
-  async createStoreComplexible(
-    data: StoreCreateComplexible,
-  ): Promise<StoreEntity> {
+  async create(dto: StoreCreateTxDTO): Promise<StoreEntity> {
     const action = async (tx: Tx) => {
-      const { storeId, storeData } = data;
-      const storeCreated = await this.storeRepo.create(storeId, storeData, tx);
+      const { storeData } = dto;
+      const { id } = await this.storeRepo.create({ data: storeData }, tx);
 
-      // await this.storeRepo.addStorePropertyList(
-      //   {
-      //     storeId,
-      //     propertyListId: propertyListData,
-      //   },
-      //   tx,
-      // );
-
-      return await this.storeRepo.get(storeCreated.id, tx);
+      return await this.storeRepo.get({ id }, tx);
     };
 
     return await this.start(action);

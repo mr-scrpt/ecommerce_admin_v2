@@ -7,7 +7,7 @@ import { PropertyFormValues } from "../_domain/property/form.schema";
 interface PropertyFromLayoutProps
   extends Omit<HTMLAttributes<HTMLFormElement>, "property"> {
   property?: PropertyRelation;
-  handleSubmit?: (data: PropertyFormValues) => void;
+  handleSubmit: (data: PropertyFormValues) => void;
   isPending: boolean;
   submitText: string;
 }

@@ -1,4 +1,4 @@
-import { SettleToSelect } from "..";
+import { SettleToSelect } from "../_domain/ui.type";
 import { useSettlementListSearchToSelectQuery } from "../_query/getSettlementListSearch.query";
 
 export const useSettlemetListToSelect = (settlementDefault: string = "") => {

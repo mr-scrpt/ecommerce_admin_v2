@@ -1,4 +1,4 @@
-// import { ToStoreCreateButton } from "@/features/storeCreate";
+import { ToStoreCreateButton } from "@/features/storeCreate";
 import { RoutePathEnum } from "@/shared/config/routing.config";
 import { TitlePage } from "@/shared/ui/titlePage";
 import { StoreTable } from "@/widgets/storeTable";
@@ -12,7 +12,7 @@ const PageStores: FC<PageProps> = (props) => {
       <TitlePage
         title="Store"
         description="Manage your store list"
-        // action={<ToStoreCreateButton route={RoutePathEnum.STORE_CREATE} />}
+        action={<ToStoreCreateButton route={RoutePathEnum.STORE_CREATE} />}
       />
       <StoreTable />
     </main>

@@ -1,4 +1,4 @@
-export { categoryFormSchema } from "./_domain/form.schema";
+export { categoryFormDefaultSchema } from "./_domain/form.schema";
 
 export {
   useCategoryListQuery,

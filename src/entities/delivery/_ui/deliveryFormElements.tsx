@@ -14,7 +14,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, HTMLAttributes, useEffect } from "react";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
 import { ZodTypeAny } from "zod";
-import { Delivery } from "../_domain/delivery.types";
 import {
   DeliveryFormDefaultValues,
   deliveryFormDefaultSchema,
@@ -29,6 +28,7 @@ import { PostOfficeToSelect } from "../_vm/selectDeliveryType";
 import { ComboboxVirtualSettlementItem } from "./formField/comboboxVirtualSettlementItem";
 import { PostOfficeSelectItem } from "./formField/postOfficeSelectItem";
 import { StoreSelectItem } from "./formField/storeSelectItem";
+import { Delivery } from "@/kernel/domain/delivery/delivery.type";
 
 interface DeliveryFormElementsProps extends HTMLAttributes<HTMLFormElement> {
   delivery: Delivery;
@@ -48,11 +48,11 @@ type DeliveryFormElementsType = FC<DeliveryFormElementsProps> & {
     storeListToSelect: StoreToSelect[];
   }>;
 
-  FieldSettlement: FC<{
-    settlementListToSelect: SettleToSelect[];
-    toSearch: (q: string) => void;
-    handleSelect?: (value: string) => void;
-  }>;
+  // FieldSettlement: FC<{
+  //   settlementListToSelect: SettleToSelect[];
+  //   toSearch: (q: string) => void;
+  //   handleSelect?: (value: string) => void;
+  // }>;
   FieldStreet: FC<{}>;
   FieldHouse: FC<{}>;
   FieldApartment: FC<{}>;
@@ -84,7 +84,6 @@ export const DeliveryFormElements: DeliveryFormElementsType = (props) => {
   });
 
   useEffect(() => {
-    console.log("output_log:  =>>> default value", delivery);
     form.reset(getDefaultValues(delivery));
   }, [delivery, form]);
 
@@ -103,31 +102,31 @@ export const DeliveryFormElements: DeliveryFormElementsType = (props) => {
   );
 };
 
+// DeliveryFormElements.FieldSettlement = function FieldSettlement(props) {
+//   const { settlementListToSelect, toSearch, handleSelect } = props;
+//   const { control, setValue } = useFormContext<DeliveryFormDefaultValues>();
+//
+//   return (
+//     <ComboboxVirtual
+//       control={control}
+//       className="w-full"
+//       name="settlement"
+//       itemList={settlementListToSelect}
+//       toSearch={toSearch}
+//       placeholder="Select settlement"
+//       handleSelect={handleSelect}
+//       maxHeight="300px"
+//       renderItem={ComboboxVirtualSettlementItem}
+//     />
+//   );
+// };
+
 DeliveryFormElements.FieldDeliveryType = function FieldDeliveryType(props) {
   const { postOfficeListToSelect, storeListToSelect } = props;
   return (
     <DeliveryTypeRadio
       postOfficeListToSelect={postOfficeListToSelect}
       storeListToSelect={storeListToSelect}
-    />
-  );
-};
-
-DeliveryFormElements.FieldSettlement = function FieldSettlement(props) {
-  const { settlementListToSelect, toSearch, handleSelect } = props;
-  const { control, setValue } = useFormContext<DeliveryFormDefaultValues>();
-
-  return (
-    <ComboboxVirtual
-      control={control}
-      className="w-full"
-      name="settlement"
-      itemList={settlementListToSelect}
-      toSearch={toSearch}
-      placeholder="Select settlement"
-      handleSelect={handleSelect}
-      maxHeight="300px"
-      renderItem={ComboboxVirtualSettlementItem}
     />
   );
 };

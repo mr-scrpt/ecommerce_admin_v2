@@ -1,14 +1,14 @@
-import { Container, ContainerModule } from "inversify";
-import { StoreRepository } from "@/entities/store/server";
-import { StoreUpdateTx } from "./_tx/storeUpdate.transaction";
-import { UpdateStoreComplexibleUseCase } from "./_usecase/storeUpdateComplexible.usecase";
+import { ContainerModule } from "inversify";
+import { IStoreCreateTx } from "./_domain/transaction.type";
+import { StoreCreateTx } from "./_tx/storeCreate.transaction";
+import { Controller } from "@/kernel/lib/trpc/_controller";
+import { StoreCreateController } from "./_controller/storeCreate.controller";
+import { StoreCreateService } from "./_service/storeCreate.service";
 
-export const storeUpdateContainer = new Container();
+export const StoreCreateModule = new ContainerModule((bind) => {
+  bind(IStoreCreateTx).to(StoreCreateTx);
 
-export const StoreUpdateModule = new ContainerModule((bind) => {
-  bind(StoreUpdateTx).toSelf();
-  bind(StoreRepository).toSelf();
-  bind(UpdateStoreComplexibleUseCase).toSelf();
+  bind(StoreCreateService).toSelf();
+
+  bind(Controller).to(StoreCreateController);
 });
-
-storeUpdateContainer.load(StoreUpdateModule);

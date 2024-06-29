@@ -1,4 +1,4 @@
-import { CategoryCreateDTO } from "@/entities/category";
+import { CategoryCreateDTO } from "@/kernel/domain/category/category.dto";
 import { CategoryBase } from "@/kernel/domain/category/category.type";
 import { Property } from "@/kernel/domain/property/property.type";
 

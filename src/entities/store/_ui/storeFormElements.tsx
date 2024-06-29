@@ -25,13 +25,14 @@ import {
 import { Store } from "@/kernel/domain/store/store.type";
 
 interface StoreFormElementsProps extends HTMLAttributes<HTMLFormElement> {
-  store: Store;
+  store?: Store;
   handleSubmit: (data: StoreFormDefaultValues) => void;
   schema?: ZodTypeAny;
 }
 
 type StoreFormElementsType = FC<StoreFormElementsProps> & {
   FieldName: FC<{}>;
+  // TODO: Select settlement entities
   FieldSettlement: FC<{
     settlementListToSelect: SettleToSelect[];
     toSearch: (q: string) => void;
@@ -45,10 +46,10 @@ type StoreFormElementsType = FC<StoreFormElementsProps> & {
   }>;
 };
 
-const getDefaultValues = (store: Store) => ({
-  name: store.name ?? "",
-  settlement: store.settlementRef ?? "",
-  address: store.address ?? "",
+const getDefaultValues = (store?: Store) => ({
+  name: store?.name ?? "",
+  settlement: store?.settlementRef ?? "",
+  address: store?.address ?? "",
 });
 
 export const StoreFormElements: StoreFormElementsType = (props) => {
@@ -101,7 +102,7 @@ StoreFormElements.FieldSettlement = function FieldSettlement(props) {
   return (
     <FormField
       control={control}
-      name="settlement"
+      name="settlementRef"
       render={({ field }) => (
         <SettlementSelect
           control={control}

@@ -1,11 +1,13 @@
 import { DELIVERY_TYPE as DeliveryTypeEnum } from "@prisma/client";
+import { Settlement } from "../settlement/settlement.type";
 export { DeliveryTypeEnum };
 
 // NOTE: Base
 export type DeliveryBase = {
   orderId: string;
   deliveryType: DeliveryTypeEnum;
-  settlement: string;
+  // settlement: string;
+  settlementRef: string;
   street: string | null;
   house: string | null;
   apartment: string | null;
