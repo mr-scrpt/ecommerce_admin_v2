@@ -1,0 +1,42 @@
+export const addressListSeed = [
+  {
+    id: "address_id_1",
+    userId: "admin_id_1",
+    settlementRef: "e71f8842-4b33-11e4-ab6d-005056801329",
+    street: "Biblika",
+    house: "1-B",
+    apartment: "5",
+  },
+  {
+    id: "address_id_2",
+    userId: "manager_id_2",
+    settlementRef: "e71f8842-4b33-11e4-ab6d-005056801329",
+    street: "Mira",
+    house: "6",
+    apartment: "4",
+  },
+  {
+    id: "address_id_3",
+    userId: "manager_id_2",
+    settlementRef: "e71c2a15-4b33-11e4-ab6d-005056801329",
+    street: "Filatova",
+    house: "1",
+    apartment: "2",
+  },
+  {
+    id: "address_id_4",
+    userId: "admin_id_1",
+    settlementRef: "e71f8842-4b33-11e4-ab6d-005056801329",
+    street: "Shevchenka",
+    house: "1",
+    apartment: "2",
+  },
+  {
+    id: "address_id_5",
+    userId: "consumer_id_3",
+    settlementRef: "0e8cc768-4b3a-11e4-ab6d-005056801329",
+    street: "Volinska",
+    house: "1",
+    apartment: "2",
+  },
+];

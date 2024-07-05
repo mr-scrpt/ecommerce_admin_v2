@@ -123,8 +123,6 @@ export const SelectVirtual = <T extends ListItem>({
       control={control}
       name={name}
       render={({ field }) => {
-        console.log("output_log: field =>>>", field);
-
         return (
           <FormItem>
             <FormLabel>{title}</FormLabel>

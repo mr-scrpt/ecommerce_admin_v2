@@ -17,6 +17,9 @@ export const InitUserData: FC<InitUserDataProps> = (props) => {
   const requestData = async () => {
     const data = await fetch("https://ipapi.co/json/");
     const dataJson: ClientNetworkData = await data.json();
+    if (!dataJson) {
+      return;
+    }
     setCookie(COOKIE_NETWORK_NAME, JSON.stringify(dataJson), {
       maxAge: COOKIE_NETWORK_MAX_AGE,
     });

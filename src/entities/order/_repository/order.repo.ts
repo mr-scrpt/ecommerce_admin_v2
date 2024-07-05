@@ -30,11 +30,12 @@ export class OrderRepository implements IOrderRepository {
             productName: SORTING_ORDER_DEFAULT,
           },
         },
-        delivery: {
-          select: {
-            id: true,
-          },
-        },
+        delivery: true,
+        // delivery: {
+        //   select: {
+        //     id: true,
+        //   },
+        // },
       },
     });
 

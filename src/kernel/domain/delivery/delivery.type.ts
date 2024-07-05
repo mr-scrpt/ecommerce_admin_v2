@@ -12,7 +12,7 @@ export type DeliveryBase = {
   house: string | null;
   apartment: string | null;
   postOffice: string | null;
-  pickupPoint: string | null;
+  store: string | null;
 };
 
 // NOTE: Entity

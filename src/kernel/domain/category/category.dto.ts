@@ -1,4 +1,4 @@
-import { CategoryBase } from "@/kernel/domain/category/category.type";
+import { CategoryBase } from "./category.type";
 
 // NOTE: Queries
 export type CategoryGetDTO = {

@@ -6,7 +6,7 @@ export const deliveryListSeed = [
     orderId: "order_id_1",
     deliveryType: DELIVERY_TYPE.PICKUP,
     settlementRef: "0e8cc768-4b3a-11e4-ab6d-005056801329",
-    pickupPoint: "pickupPoint_1",
+    storeRef: "store_1",
   },
 
   {
@@ -21,9 +21,6 @@ export const deliveryListSeed = [
     orderId: "order_id_3",
     deliveryType: DELIVERY_TYPE.COURIER,
     settlementRef: "0ddbfc76-4b3a-11e4-ab6d-005056801329",
-    street: "Shevchenka",
-    house: "1",
-    apartment: "2",
   },
   {
     id: "delivery_id_4",

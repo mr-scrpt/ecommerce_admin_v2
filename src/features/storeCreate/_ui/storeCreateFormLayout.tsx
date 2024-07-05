@@ -42,6 +42,9 @@ export const StoreCreateFormLayout: FC<StoreCreateFormLayoutProps> = (
         toSearch={toSearch}
         // handleSelect={setSelectedSettlement}
       />
+      <StoreFormElements.FieldStoreList
+      // settlementRef={"e71f8842-4b33-11e4-ab6d-005056801329"}
+      />
       <StoreFormElements.FieldAddress />
       <StoreFormElements.SubmitButton
         isPending={isPending}

@@ -94,6 +94,7 @@ model User {
   cart     Cart?
   orderList   Order[]
   receiverList  Receiver[]
+  addressList  Address[]
 
   accounts      Account[]
   sessions      Session[]
@@ -194,16 +195,42 @@ model Receiver {
 
 model Delivery {
   id          String   @id @default(uuid())
+
   order       Order    @relation(fields: [orderId], references: [id])
   orderId     String   @unique
+
   deliveryType DELIVERY_TYPE
+
   settlement    Settlement @relation(fields: [settlementRef], references: [ref], onDelete: Cascade)
   settlementRef String
-  street      String?
-  house       String?
-  apartment   String?
+
   postOffice  String?
-  pickupPoint String?
+
+  store Store? @relation(fields: [storeRef], references: [id], onDelete: Cascade)
+  storeRef String?
+
+  address Address? @relation(fields: [addressId], references: [id], onDelete: Cascade)
+  addressId String?
+
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Address {
+  id        String   @id @default(uuid())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+
+  settlement Settlement @relation(fields: [settlementRef], references: [ref], onDelete: Cascade)
+  settlementRef String
+
+  street      String
+  house       String
+  apartment   String?
+
+  deliveryList  Delivery[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -250,14 +277,22 @@ model Settlement {
 
   storeList Store[]
   deliveryList Delivery[]
+  addressList  Address[]
+
+
 }
 
 model Store {
   id        String   @id @default(uuid())
   name      String
+
   settlement    Settlement @relation(fields: [settlementRef], references: [ref], onDelete: Cascade)
   settlementRef String
+
   address      String
+
+  deliveryList Delivery[]
+
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

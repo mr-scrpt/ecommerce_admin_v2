@@ -1,6 +1,7 @@
-import { SettlementSelectForm } from "@/entities/settlement";
 import { DeliveryFormUpdate } from "@/features/deliveryUpdate";
-import { FC, HTMLAttributes } from "react";
+import { OrderSettlementSelect } from "@/features/orderUpdate";
+import { OrderDeliveryUpdate } from "@/features/orderUpdate/_ui/orderDeliveryUpdate";
+import { FC, HTMLAttributes, useState } from "react";
 
 interface OrderDeliveryItemProps extends HTMLAttributes<HTMLDivElement> {
   orderId: string;
@@ -8,10 +9,16 @@ interface OrderDeliveryItemProps extends HTMLAttributes<HTMLDivElement> {
 
 export const OrderDeliveryItem: FC<OrderDeliveryItemProps> = (props) => {
   const { orderId } = props;
+  const [settlementRef, setSettlementRef] = useState<string>("");
+  console.log("output_log: settlementRef =>>>", settlementRef);
   return (
     <>
-      <SettlementSelectForm />
-      <DeliveryFormUpdate orderId={orderId} />
+      {/* <OrderSettlementSelect */}
+      {/*   orderId={orderId} */}
+      {/*   onSettlementSelect={setSettlementRef} */}
+      {/* /> */}
+      {/* TODO: Move to OrderDeliveryUpdate*/}
+      <OrderDeliveryUpdate orderId={orderId} settlementRef={settlementRef} />
     </>
   );
 };

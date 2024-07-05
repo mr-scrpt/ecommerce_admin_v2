@@ -4,10 +4,6 @@ import { convertPostToLowerCase } from "../_domain/post.convertor";
 import { PostOfficeToSelect } from "../_domain/post.type";
 import { usePostOfficeListBySettlementQuery } from "../_query/usePostOfficeListBySettlement.query";
 
-// type QueryParams = {
-//   settlementId: string;
-// };
-
 export const usePostOfficeListToSelectModel = (settlementId: string) => {
   const { isPending, isSuccess, isFetchedAfterMount, postOfficeList } =
     usePostOfficeListBySettlementQuery(settlementId);
@@ -19,8 +15,6 @@ export const usePostOfficeListToSelectModel = (settlementId: string) => {
   }
 
   const result = mapToSelect(convertedPostOfficeList);
-
-  console.log("output_log:  result =>>>", result);
 
   return {
     isPending,

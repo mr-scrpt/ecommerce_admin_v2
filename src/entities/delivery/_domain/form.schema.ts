@@ -4,14 +4,14 @@ import { z } from "zod";
 // NOTE: FORM
 // NOTE: Main information
 export const deliveryFormDefaultSchema = z.object({
-  orderId: z.string(),
-  deliveryType: z.nativeEnum(DeliveryTypeEnum),
-  settlement: z.string(),
+  // orderId: z.string(),
+  // deliveryType: z.nativeEnum(DeliveryTypeEnum),
+  // settlementRef: z.string(),
   street: z.string(),
   house: z.string(),
   apartment: z.string(),
-  postOffice: z.string(),
-  pickupPoint: z.string(),
+  // postOffice: z.string(),
+  // pickupPoint: z.string(),
 });
 
 export type DeliveryFormDefaultValues = z.infer<

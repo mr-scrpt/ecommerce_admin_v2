@@ -15,6 +15,7 @@ import { receiverListSeed } from "./data/receiver";
 import { deliveryListSeed } from "./data/delivery";
 import { settlementListSeed } from "./data/settlement";
 import { storeListSeed } from "./data/store";
+import { addressListSeed } from "./data/address";
 
 const prisma = new PrismaClient();
 
@@ -73,6 +74,17 @@ async function main() {
     console.log("settlementRow created", settlementRow);
   }
 
+  for await (const address of addressListSeed) {
+    await prisma.address.create({ data: address });
+    console.log("receiver created", address);
+  }
+
+  for await (const storeRow of storeListSeed) {
+    console.log("output_log: store row =>>>", storeRow);
+    await prisma.store.create({ data: storeRow });
+    console.log("store created", storeRow);
+  }
+
   for await (const delivery of deliveryListSeed) {
     await prisma.delivery.create({ data: delivery });
     console.log("receiver created", delivery);
@@ -83,13 +95,13 @@ async function main() {
     console.log("orderRow created", orderRow);
   }
 
-  for await (const storeRow of storeListSeed) {
-    console.log("output_log: store row =>>>", storeRow);
-    await prisma.store.create({ data: storeRow });
-    console.log("store created", storeRow);
-  }
-
   // Relation
+  //
+  // for await (const user of userRelationListSeed) {
+  //   await prisma.user.update({ where: { id: user.id }, data: user });
+  //   console.log("user created relation", user);
+  // }
+
   for await (const category of categoryRelationsSeed) {
     await prisma.category.update({
       where: { id: category.id },

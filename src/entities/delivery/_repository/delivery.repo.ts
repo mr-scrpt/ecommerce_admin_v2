@@ -51,7 +51,6 @@ export class DeliveryRepository implements IDeliveryRepository {
     db: Tx = this.db,
   ): Promise<DeliveryEntity> {
     const { selector, data } = dto;
-    console.log("output_log:  =>>>", data, selector);
 
     return await db.delivery.update({
       where: selector,

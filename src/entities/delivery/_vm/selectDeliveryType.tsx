@@ -2,8 +2,9 @@
 import { StoreToSelect } from "@/entities/store";
 // import { DeliveryTypeEnum } from "../_domain/delivery.types";
 // import { PostOfficeToSelect } from "../_domain/postOffice.type";
-import { DeliveryFormElements } from "../_ui/deliveryFormElements";
+import { DeliveryFormElements } from "../_ui/form/elements/deliveryFormElements";
 import { DeliveryTypeEnum } from "@/kernel/domain/delivery/delivery.type";
+import { ReactNode } from "react";
 
 // TODO: Move this type <<<<
 // TODO: Move this component
@@ -22,7 +23,7 @@ export type PostOfficeToSelect = {
 //     type: DeliveryTypeEnum.PICKUP,
 //     value: "Pickup",
 //     formElement: [
-//       () => <DeliveryFormElements.FieldPickupPoint key="pickupPoint" />,
+//       () => <DeliveryFormElements.FieldPickupPoint key="store" />,
 //     ],
 //   },
 //   {
@@ -73,11 +74,18 @@ export const selectDeliveryType: SelectDeliveryType = {
     value: "Pickup",
     type: DeliveryTypeEnum.PICKUP,
     formElement: [
-      ({ storeListToSelect }: { storeListToSelect: StoreToSelect[] }) => {
+      ({
+        storeListToSelect,
+        PickupSlot,
+      }: {
+        storeListToSelect: StoreToSelect[];
+        PickupSlot: ReactNode;
+      }) => {
         return (
-          <DeliveryFormElements.FieldPickupPoint
-            key="pickupPoint"
+          <DeliveryFormElements.FieldStoreSelect
+            key="store"
             storeListToSelect={storeListToSelect}
+            PickUpSlot={PickupSlot}
           />
         );
       },

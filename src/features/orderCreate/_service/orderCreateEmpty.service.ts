@@ -39,12 +39,12 @@ export class OrderEmptyCreateService {
       },
       deliveryData: {
         deliveryType: DeliveryTypeEnum.POST,
-        settlement: "",
+        settlementRef: "",
         street: null,
         house: null,
         apartment: null,
         postOffice: null,
-        pickupPoint: null,
+        store: null,
       },
     });
 

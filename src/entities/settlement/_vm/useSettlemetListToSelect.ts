@@ -1,3 +1,4 @@
+import { inputDebounce } from "@/shared/lib/debounce";
 import { SettleToSelect } from "../_domain/ui.type";
 import { useSettlementListSearchToSelectQuery } from "../_query/getSettlementListSearch.query";
 
@@ -14,8 +15,10 @@ export const useSettlemetListToSelect = (settlementDefault: string = "") => {
     }),
   );
 
+  const debouncedToSearch = inputDebounce((search) => toSearch?.(search));
+
   return {
-    toSearch,
+    toSearch: debouncedToSearch,
     settlementListToSelect,
     isPending,
     isSuccess,

@@ -1,7 +1,7 @@
 import { FormControl, FormItem, FormLabel } from "@/shared/ui/form";
 import { RadioGroupItem } from "@/shared/ui/radio-group";
 import { FC, HTMLAttributes } from "react";
-import { PostOfficeToSelect, PostType } from "../../_vm/selectDeliveryType";
+import { PostOfficeToSelect, PostType } from "../../../_vm/selectDeliveryType";
 import { DeliveryTypeEnum } from "@/kernel/domain/delivery/delivery.type";
 
 interface DeliveryPostSelectProps extends HTMLAttributes<HTMLDivElement> {

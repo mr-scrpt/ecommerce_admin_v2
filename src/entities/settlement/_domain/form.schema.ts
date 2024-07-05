@@ -10,7 +10,8 @@ export const settlementItemFormSchema = z.object({
 });
 
 export const settlementFormSchema = z.object({
-  settlementList: z.array(settlementItemFormSchema),
+  // settlementList: z.array(settlementItemFormSchema),
+  settlementRef: z.string(),
 });
 
 export type SettlementFormValues = z.infer<typeof settlementFormSchema>;

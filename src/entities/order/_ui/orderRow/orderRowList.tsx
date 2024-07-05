@@ -1,14 +1,14 @@
 "use client";
 import { cn } from "@/shared/ui/utils";
-import { FC, HTMLAttributes } from "react";
-import { OrderRow } from "../..";
+import { ComponentType, FC, HTMLAttributes } from "react";
 import { useOrderWithRelationQuery } from "../../_query/orderWithRelation.query";
 import { OrderRowItem } from "./orderRowItem";
+import { OrderRow } from "@/kernel/domain/order/orderRow.type";
 
 interface OrderRowListProps extends HTMLAttributes<HTMLDivElement> {
   orderId: string;
-  SlotFirst?: React.ComponentType<{ orderRow: OrderRow }>;
-  SlotSecond?: React.ComponentType<{ orderRow: OrderRow }>;
+  SlotFirst?: ComponentType<{ orderRow: OrderRow }>;
+  SlotSecond?: ComponentType<{ orderRow: OrderRow }>;
 }
 
 export const OrderRowList: FC<OrderRowListProps> = (props) => {

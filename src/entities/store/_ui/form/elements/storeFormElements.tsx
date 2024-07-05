@@ -1,4 +1,5 @@
 "use client";
+import { Store } from "@/kernel/domain/store/store.type";
 import { Button } from "@/shared/ui/button";
 import {
   FormControl,
@@ -21,8 +22,8 @@ import { ZodTypeAny } from "zod";
 import {
   StoreFormDefaultValues,
   storeFormDefaultSchema,
-} from "../_domain/form.schema";
-import { Store } from "@/kernel/domain/store/store.type";
+} from "../../../_domain/form.schema";
+import { StoreSelectElement } from "./storeSelectElement";
 
 interface StoreFormElementsProps extends HTMLAttributes<HTMLFormElement> {
   store?: Store;
@@ -31,14 +32,15 @@ interface StoreFormElementsProps extends HTMLAttributes<HTMLFormElement> {
 }
 
 type StoreFormElementsType = FC<StoreFormElementsProps> & {
-  FieldName: FC<{}>;
   // TODO: Select settlement entities
   FieldSettlement: FC<{
     settlementListToSelect: SettleToSelect[];
     toSearch: (q: string) => void;
     handleSelect?: (value: string) => void;
   }>;
-  FieldAddress: FC<{}>;
+  FieldStoreList: FC;
+  FieldName: FC;
+  FieldAddress: FC;
   SubmitButton: FC<{
     isPending: boolean;
     submitText: string;
@@ -50,6 +52,7 @@ const getDefaultValues = (store?: Store) => ({
   name: store?.name ?? "",
   settlement: store?.settlementRef ?? "",
   address: store?.address ?? "",
+  id: store?.id ?? "",
 });
 
 export const StoreFormElements: StoreFormElementsType = (props) => {
@@ -65,8 +68,11 @@ export const StoreFormElements: StoreFormElementsType = (props) => {
   }, [store, form]);
 
   const handleSubmit = form.handleSubmit(async (data) => {
-    onSubmit(data);
+    console.log("output_log: data =>>>", data);
+    // onSubmit(data);
   });
+
+  console.log("output_log: from state  =>>>", form.formState.errors);
 
   return (
     <FormProvider {...form}>
@@ -74,6 +80,53 @@ export const StoreFormElements: StoreFormElementsType = (props) => {
         {children}
       </form>
     </FormProvider>
+  );
+};
+
+StoreFormElements.FieldSettlement = function FieldSettlement(props) {
+  const { settlementListToSelect, toSearch, handleSelect } = props;
+  const { control } = useFormContext<StoreFormDefaultValues>();
+  // TODO: Do like FieldStoreList - get list in field?
+  return (
+    <FormField
+      control={control}
+      name="settlementRef"
+      render={({ field }) => (
+        <SettlementSelect
+          control={control}
+          className="w-full"
+          name="settlement"
+          citiesList={settlementListToSelect}
+          isPending={false}
+          toSearch={toSearch}
+          handleSelect={handleSelect}
+          field={field}
+        />
+      )}
+    />
+  );
+};
+
+StoreFormElements.FieldStoreList = function StoreList() {
+  const { control } = useFormContext<StoreFormDefaultValues>();
+  // TODO: Like example get ref from field
+  const { settlementRef } = control._formValues;
+  // TODO: Fields name change "id", "settlement"?
+  return (
+    <FormField
+      control={control}
+      name="id"
+      render={({ field }) => (
+        <FormItem>
+          <FormLabel>Store list</FormLabel>
+          <StoreSelectElement
+            onSelectStore={field.onChange}
+            settlementRef={settlementRef}
+            storeInit={field.value}
+          />
+        </FormItem>
+      )}
+    />
   );
 };
 
@@ -91,29 +144,6 @@ StoreFormElements.FieldName = function FieldName() {
           </FormControl>
           <FormMessage />
         </FormItem>
-      )}
-    />
-  );
-};
-
-StoreFormElements.FieldSettlement = function FieldSettlement(props) {
-  const { settlementListToSelect, toSearch, handleSelect } = props;
-  const { control } = useFormContext<StoreFormDefaultValues>();
-  return (
-    <FormField
-      control={control}
-      name="settlementRef"
-      render={({ field }) => (
-        <SettlementSelect
-          control={control}
-          className="w-full"
-          name="settlement"
-          citiesList={settlementListToSelect}
-          isPending={false}
-          toSearch={toSearch}
-          handleSelect={handleSelect}
-          field={field}
-        />
       )}
     />
   );

@@ -11,7 +11,7 @@ export const deliveryBaseSchema = z.object({
   house: z.string().nullable(),
   apartment: z.string().nullable(),
   postOffice: z.string().nullable(),
-  pickupPoint: z.string().nullable(),
+  store: z.string().nullable(),
 });
 
 // NOTE: Projections

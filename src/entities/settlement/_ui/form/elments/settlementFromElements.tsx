@@ -1,20 +1,19 @@
 import { Settlement } from "@/kernel/domain/settlement/settlement.type";
+import { Button } from "@/shared/ui/button";
+import { Form, FormField, FormItem, FormLabel } from "@/shared/ui/form";
+import { Spinner } from "@/shared/ui/icons/spinner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, HTMLAttributes } from "react";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
-import { SettleToSelect } from "../_domain/ui.type";
 import {
   SettlementFormValues,
   settlementFormSchema,
-} from "../_domain/form.schema";
-import { Button } from "@/shared/ui/button";
-import { Spinner } from "@/shared/ui/icons/spinner";
-import { Form, FormField, FormItem, FormLabel } from "@/shared/ui/form";
-import { SettlementSelect } from "./settlementSelect";
+} from "../../../_domain/form.schema";
+import { SettlementSelectElement } from "./settlementSelectElement";
 
 interface SettlementFromElementsProps extends HTMLAttributes<HTMLFormElement> {
-  settlementList: Array<SettleToSelect>;
-  handleSubmit: (data: SettlementFormValues) => void;
+  settlementInit: Settlement["ref"];
+  handleSubmit?: (data: SettlementFormValues) => void;
 }
 
 interface SubmitButtonProps {
@@ -22,21 +21,25 @@ interface SubmitButtonProps {
   submitText: string;
 }
 
+interface SettlementListProps extends HTMLAttributes<HTMLFormElement> {
+  onSelectSettlement: (settlement: Settlement["ref"]) => void;
+}
+
 type SettlementFormType = FC<SettlementFromElementsProps> & {
-  SubmitButton: FC<SubmitButtonProps>;
-  SettlementList: FC;
+  ButtonSubmit: FC<SubmitButtonProps>;
+  FieldSettlementSelect: FC<SettlementListProps>;
 };
 
-const getDefaultValues = (settlementList: Array<SettleToSelect>) => ({
-  settlementList,
+const getDefaultValues = (settlementRef: Settlement["ref"]) => ({
+  settlementRef,
 });
 
 export const SettlementFromElements: SettlementFormType = (props) => {
-  const { settlementList, handleSubmit: onSubmit, children } = props;
+  const { settlementInit, handleSubmit: onSubmit, children } = props;
 
   const form = useForm<SettlementFormValues>({
     resolver: zodResolver(settlementFormSchema),
-    defaultValues: getDefaultValues(settlementList),
+    defaultValues: getDefaultValues(settlementInit),
   });
 
   const handleSubmit = form.handleSubmit(async (data) => {
@@ -54,23 +57,33 @@ export const SettlementFromElements: SettlementFormType = (props) => {
   );
 };
 
-SettlementFromElements.SettlementList = function SettlementList() {
+SettlementFromElements.FieldSettlementSelect = function FieldSettlementSelect(
+  props,
+) {
+  // const { onSelectSettlement } = props;
+
   const form = useFormContext<SettlementFormValues>();
   return (
     <FormField
       control={form.control}
-      name="settlementList"
-      render={({ field }) => (
-        <FormItem className="flex flex-col">
-          <FormLabel>Select settlement</FormLabel>
-          <SettlementSelect />
-        </FormItem>
-      )}
+      name="settlementRef"
+      render={({ field }) => {
+        return (
+          <FormItem className="flex flex-col">
+            <FormLabel>Select settlement</FormLabel>
+            <SettlementSelectElement
+              settlementActive={field.value}
+              onSelectSettlement={field.onChange}
+              // onSelectSettlement={onSelectSettlement}
+            />
+          </FormItem>
+        );
+      }}
     />
   );
 };
 
-SettlementFromElements.SubmitButton = function SubmitButton({
+SettlementFromElements.ButtonSubmit = function ButtonSubmit({
   isPending,
   submitText,
 }: {

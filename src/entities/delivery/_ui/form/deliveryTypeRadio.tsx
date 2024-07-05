@@ -11,19 +11,21 @@ import { useFormContext } from "react-hook-form";
 // import { DeliveryTypeEnum } from "../../_domain/delivery.types";
 import { DeliveryFormDefaultValues } from "../../_domain/form.schema";
 // import { PostOfficeToSelect } from "../../_domain/postOffice.type";
+import { StoreToSelect } from "@/entities/store";
+import { DeliveryTypeEnum } from "@/kernel/domain/delivery/delivery.type";
 import {
   PostOfficeToSelect,
   selectDeliveryType,
 } from "../../_vm/selectDeliveryType";
-import { DeliveryCourierField } from "./deliveryCourierField";
-import { DeliveryPickupField } from "./deliveryPickupField";
-import { DeliveryPostSelect } from "./deliveryPostSelect";
-import { StoreToSelect } from "@/entities/store";
-import { DeliveryTypeEnum } from "@/kernel/domain/delivery/delivery.type";
+import { DeliveryCourierField } from "./fields/deliveryCourierField";
+import { DeliveryStoreField } from "./fields/deliveryPickupField";
+import { DeliveryPostSelect } from "./fields/deliveryPostField";
+import { StoreSelectProps } from "@/kernel/domain/store/ui.type";
 
 interface DeliveryTypeRadioProps extends HTMLAttributes<HTMLDivElement> {
   postOfficeListToSelect: PostOfficeToSelect[];
   storeListToSelect: StoreToSelect[];
+  StoreSelectComponent?: FC<StoreSelectProps>;
 }
 
 export const DeliveryTypeRadio: FC<DeliveryTypeRadioProps> = (props) => {
@@ -61,7 +63,7 @@ export const DeliveryTypeRadio: FC<DeliveryTypeRadioProps> = (props) => {
                   }
                   if (key === DeliveryTypeEnum.PICKUP) {
                     return (
-                      <DeliveryPickupField
+                      <DeliveryStoreField
                         delivery={row}
                         key={key}
                         selected={field.value === DeliveryTypeEnum.PICKUP}
