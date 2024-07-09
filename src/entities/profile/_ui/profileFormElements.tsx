@@ -13,7 +13,7 @@ import { Spinner } from "@/shared/ui/icons/spinner";
 import { Input } from "@/shared/ui/input";
 import { PhoneInput } from "@/shared/ui/phoneInput";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FC, HTMLAttributes, useEffect } from "react";
+import { FC, FormHTMLAttributes, HTMLAttributes, useEffect } from "react";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
 import { Country } from "react-phone-number-input";
 import { ZodTypeAny } from "zod";
@@ -24,7 +24,7 @@ import {
   profileFormDefaultSchema,
 } from "../_domain/form.schema";
 
-interface ProfileFormElementsProps extends HTMLAttributes<HTMLFormElement> {
+interface ProfileFormElementsProps extends FormHTMLAttributes<HTMLFormElement> {
   profile: Profile;
   handleSubmit: (data: ProfileFormDefaultValues) => void;
   schema?: ZodTypeAny;

@@ -5,7 +5,7 @@ import { z } from "zod";
 // NOTE: Main information
 export const deliveryFormDefaultSchema = z.object({
   // orderId: z.string(),
-  // deliveryType: z.nativeEnum(DeliveryTypeEnum),
+  deliveryType: z.nativeEnum(DeliveryTypeEnum),
   // settlementRef: z.string(),
   street: z.string(),
   house: z.string(),

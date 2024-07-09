@@ -68,7 +68,7 @@ export const ConsumerFormElements: ConsumerFormElementsType = (props) => {
   return (
     <FormProvider {...form}>
       <Form {...form}>
-        <form onSubmit={handleSubmit} className="space-y-8">
+        <form handleSubmit={handleSubmit} className="space-y-8">
           {children}
         </form>
       </Form>

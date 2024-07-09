@@ -25,7 +25,7 @@ export class NovaPoshtaApi {
     @inject(API_NOVA_POSHTA_KEY) private readonly apiKey: string,
   ) {}
 
-  async getPostOfficeListBySettlement(
+  async getPostOfficeListBySettlementRef(
     s: string,
   ): Promise<PostOfficeNovaPoshta[]> {
     const result = await this.client.post<

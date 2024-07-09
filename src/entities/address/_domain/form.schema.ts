@@ -10,4 +10,4 @@ export const addressFormDefaultSchema = z.object({
   apartment: z.string(),
 });
 
-export type AddressFormValues = z.infer<typeof addressFormDefaultSchema>;
+export type AddressFormDefaultValues = z.infer<typeof addressFormDefaultSchema>;

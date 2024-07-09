@@ -1,7 +1,10 @@
 import { DeliveryFormElements } from "@/entities/delivery";
 import { SettlementSelectElement } from "@/entities/settlement";
 import { StoreSelectElement } from "@/entities/store";
-import { Delivery } from "@/kernel/domain/delivery/delivery.type";
+import {
+  Delivery,
+  DeliveryTypeEnum,
+} from "@/kernel/domain/delivery/delivery.type";
 import { Form, FormField, FormItem, FormLabel } from "@/shared/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, HTMLAttributes } from "react";
@@ -10,7 +13,10 @@ import { ZodTypeAny } from "zod";
 import {
   DeliveryUpdateFormValues,
   deliveryUpdateFormSchema,
-} from "../../_domain/form.schema";
+} from "../../../_domain/form.schema";
+import { AddressHouseElement, AddressStreetElement } from "@/entities/address";
+import { PostSelectElement } from "@/entities/post/_ui/form/elements/postSelectElement";
+import { DeliveryTypeField } from "../fields/deliveryTypeField";
 
 export interface DeliveryFormElementsProps
   extends HTMLAttributes<HTMLFormElement> {
@@ -20,9 +26,13 @@ export interface DeliveryFormElementsProps
 }
 
 export interface DeliveryFormElementsFields {
-  FieldStoreSelect: FC;
+  FieldDeliveryType: FC;
   FieldSettlementSelect: FC;
-  FieldCourier: FC;
+  FieldPostSelect: FC;
+  FieldStoreSelect: FC;
+  FieldStreet: FC;
+  FieldHouse: FC;
+  FieldApartment: FC;
   SubmitButton: FC<DeliverySubmitFieldProps>;
 }
 
@@ -31,6 +41,7 @@ interface IDeliveryFormElements
     DeliveryFormElementsFields {}
 
 const getDefaultValues = (delivery: Delivery) => ({
+  deliveryType: delivery.deliveryType ?? DeliveryTypeEnum.POST,
   settlementRef: delivery.settlementRef ?? "",
   street: delivery.street ?? "",
   house: delivery.house ?? "",
@@ -51,7 +62,7 @@ export const DeliveryUpdateFormElements: IDeliveryFormElements = (props) => {
     onSubmit?.(data);
   });
 
-  console.log("output_log:  =>>>", form.formState);
+  console.log("output_log: form values =>>>", form.getValues());
 
   return (
     <FormProvider {...form}>
@@ -64,6 +75,9 @@ export const DeliveryUpdateFormElements: IDeliveryFormElements = (props) => {
   );
 };
 
+DeliveryUpdateFormElements.FieldDeliveryType = function FieldDeliveryType() {
+  return <DeliveryTypeField />;
+};
 DeliveryUpdateFormElements.FieldSettlementSelect =
   function FieldSettlementSelect() {
     const { control } = useFormContext<DeliveryUpdateFormValues>();
@@ -83,6 +97,27 @@ DeliveryUpdateFormElements.FieldSettlementSelect =
       />
     );
   };
+
+DeliveryUpdateFormElements.FieldPostSelect = function FieldPostSelect() {
+  const { control } = useFormContext<DeliveryUpdateFormValues>();
+  const { settlementRef } = control._formValues;
+  return (
+    <FormField
+      control={control}
+      name="postOffice"
+      render={({ field }) => (
+        <FormItem className="flex flex-col">
+          <FormLabel>Select post</FormLabel>
+          <PostSelectElement
+            onSelectPost={field.onChange}
+            settlementRef={settlementRef}
+            postInit={field.value}
+          />
+        </FormItem>
+      )}
+    />
+  );
+};
 
 DeliveryUpdateFormElements.FieldStoreSelect = function FieldStoreSelect() {
   const { control } = useFormContext<DeliveryUpdateFormValues>();
@@ -105,16 +140,53 @@ DeliveryUpdateFormElements.FieldStoreSelect = function FieldStoreSelect() {
   );
 };
 
-DeliveryUpdateFormElements.FieldCourier = function FieldCourier() {
-  // return (
-  //   <DeliveryFormElements delivery={delivery} onChange={console.log}>
-  //     <DeliveryFormElements.FieldStreet />
-  //     <DeliveryFormElements.FieldHouse />
-  //     <DeliveryFormElements.FieldApartment />
-  //   </DeliveryFormElements>
-  // );
+DeliveryUpdateFormElements.FieldStreet = function FieldStreet() {
+  const { control } = useFormContext<DeliveryUpdateFormValues>();
+  return (
+    <FormField
+      control={control}
+      name="street"
+      render={({ field }) => (
+        <FormItem className="flex flex-col">
+          <FormLabel>Enter street</FormLabel>
+          <AddressStreetElement onChange={field.onChange} />
+        </FormItem>
+      )}
+    />
+  );
 };
 
+DeliveryUpdateFormElements.FieldHouse = function FieldHouse() {
+  const { control } = useFormContext<DeliveryUpdateFormValues>();
+  return (
+    <FormField
+      control={control}
+      name="house"
+      render={({ field }) => (
+        <FormItem className="flex flex-col">
+          <FormLabel>Enter house</FormLabel>
+          <AddressHouseElement onChange={field.onChange} />
+        </FormItem>
+      )}
+    />
+  );
+};
+
+DeliveryUpdateFormElements.FieldApartment = function FieldApartment() {
+  const { control } = useFormContext<DeliveryUpdateFormValues>();
+  return (
+    <FormField
+      control={control}
+      name="apartment"
+      render={({ field }) => (
+        <FormItem className="flex flex-col">
+          <FormLabel>Select apartment</FormLabel>
+          <AddressStreetElement onChange={field.onChange} />
+        </FormItem>
+      )}
+    />
+  );
+};
 interface DeliverySubmitFieldProps {
   isPending?: boolean;
   submitText: string;

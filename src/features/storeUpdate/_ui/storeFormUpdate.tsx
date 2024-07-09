@@ -40,8 +40,7 @@ export const StoreFormUpdate: FC<StoreFormProps> = (props) => {
 
   // const { toDataIdList, toOptionList } = useOptionListTransform();
 
-  const { toSearch, settlementListToSelect } =
-    useSettlementListSearchToSelectQuery();
+  const { toSearch, settlementList } = useSettlementListSearchToSelectQuery();
 
   useEffect(() => {
     if (store) {
@@ -79,13 +78,13 @@ export const StoreFormUpdate: FC<StoreFormProps> = (props) => {
   return (
     <div className={cn(className, "w-full")}>
       <StoreFormElements
-        store={store}
+        storeData={store}
         handleSubmit={handleSubmit}
         schema={storeFormDefaultSchema}
       >
         <StoreFormElements.FieldName />
         <StoreFormElements.FieldSettlement
-          settlementListToSelect={settlementListToSelect}
+          settlementListToSelect={settlementList}
           toSearch={toSearch}
           handleSelect={setSelectedSettlement}
         />

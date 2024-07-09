@@ -32,7 +32,7 @@ export const StoreCreateFormLayout: FC<StoreCreateFormLayoutProps> = (
 
   return (
     <StoreFormElements
-      store={store}
+      storeData={store}
       handleSubmit={handleSubmit}
       schema={storeFormDefaultSchema}
     >

@@ -1,21 +1,21 @@
 import { PostOffice } from "@/kernel/domain/post/post.type";
 import { IPostRepository } from "@/kernel/domain/post/repository.type";
 import { injectable } from "inversify";
-import { PostOfficeGetBySettlementSelector } from "../_domain/post.type";
+import { PostOfficeGetBySettlementRefSelector } from "../_domain/post.type";
 
 @injectable()
-export class PostOfficeListGetService {
+export class PostOfficeListGetBySettlementRefService {
   constructor(private readonly postRepo: IPostRepository) {}
 
   async execute(
-    selector: PostOfficeGetBySettlementSelector,
+    selector: PostOfficeGetBySettlementRefSelector,
   ): Promise<Array<PostOffice>> {
-    const { settlementId } = selector;
+    const { settlementRef } = selector;
 
-    if (!settlementId || settlementId === "") {
+    if (!settlementRef || settlementRef === "") {
       return [];
     }
 
-    return await this.postRepo.getPostOfficeListBySettlement(selector);
+    return await this.postRepo.getPostOfficeListBySettlementRef(selector);
   }
 }

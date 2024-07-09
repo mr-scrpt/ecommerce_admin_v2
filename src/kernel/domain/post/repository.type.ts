@@ -1,8 +1,8 @@
-import { PostOfficeGetBySettlementDTO } from "./post.dto";
+import { PostOfficeGetBySettlementRefDTO } from "./post.dto";
 import { PostOfficeEntity } from "./post.type";
 
 export abstract class IPostRepository {
-  abstract getPostOfficeListBySettlement(
-    dto: PostOfficeGetBySettlementDTO,
+  abstract getPostOfficeListBySettlementRef(
+    dto: PostOfficeGetBySettlementRefDTO,
   ): Promise<Array<PostOfficeEntity>>;
 }

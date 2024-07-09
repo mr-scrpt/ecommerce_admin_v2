@@ -1,5 +1,6 @@
-import { Order, OrderRowBase } from "@/entities/order/";
 import { ProductToSelect } from "@/entities/product";
+import { Order } from "@/kernel/domain/order/order.type";
+import { OrderRowBase } from "@/kernel/domain/order/orderRow.type";
 
 // export type OrderRowAddComplexible = OrderRowToAddPayload;
 

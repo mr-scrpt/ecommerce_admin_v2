@@ -1,7 +1,7 @@
 import { PostOfficeNovaPoshta, SettlementNovaPoshta } from "./novaposhta.type";
 
 export abstract class INovaPoshtaRepository {
-  abstract getPostOfficeListBySettlement(
+  abstract getPostOfficeListBySettlementRef(
     s: string,
   ): Promise<Array<PostOfficeNovaPoshta>>;
 

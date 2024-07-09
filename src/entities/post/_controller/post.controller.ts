@@ -2,26 +2,35 @@ import { Controller, publicProcedure, router } from "@/kernel/lib/trpc/server";
 import { injectable } from "inversify";
 import {
   getBySettlementInputSchema,
+  getBySettlementRefInputSchema,
   getListOutputSchema,
 } from "../_domain/validator.schema";
-import { PostOfficeListGetService } from "../_service/postOfficeListGetBySettlement.service";
+import { PostOfficeListGetBySettlementRefService } from "../_service/postOfficeListGetBySettlement.service";
 
 @injectable()
 export class PostController extends Controller {
   constructor(
-    private readonly getPostOfficeListService: PostOfficeListGetService,
+    private readonly getPostOfficeListBySettlementRefService: PostOfficeListGetBySettlementRefService,
   ) {
     super();
   }
 
   public router = router({
     post: {
-      getOfficeListBySettlement: publicProcedure
-        .input(getBySettlementInputSchema)
+      getOfficeListBySettlementRef: publicProcedure
+        .input(getBySettlementRefInputSchema)
         .query(async ({ input }) => {
-          const result = await this.getPostOfficeListService.execute(input);
+          const result =
+            await this.getPostOfficeListBySettlementRefService.execute(input);
           return getListOutputSchema.parse(result);
         }),
+      // getOfficeListBySettlementRef: publicProcedure
+      //   .input(getBySettlementRefInputSchema)
+      //   .query(async ({ input }) => {
+      //     const result =
+      //       await this.getPostOfficeListBySettlementRefService.execute(input);
+      //     return getListOutputSchema.parse(result);
+      //   }),
     },
   });
 }

@@ -1,5 +1,5 @@
 import { FC, HTMLAttributes } from "react";
-import { StoreFormElements } from "./elements/storeFormElements";
+import { PostFormElements } from "./elements/postFormElements";
 import { Settlement } from "@/kernel/domain/settlement/settlement.type";
 
 interface SettlementFormProps extends HTMLAttributes<HTMLDivElement> {
@@ -7,14 +7,14 @@ interface SettlementFormProps extends HTMLAttributes<HTMLDivElement> {
   onSettlementSelect: (settlement: Settlement["ref"]) => void;
 }
 
-export const StoreSelectForm: FC<SettlementFormProps> = (props) => {
+export const PostSelectForm: FC<SettlementFormProps> = (props) => {
   const { settlementActive, onSettlementSelect } = props;
   return (
-    <StoreFormElements handleSubmit={() => {}}>
-      <StoreFormElements.FieldStoreList
+    <PostFormElements handleSubmit={() => {}}>
+      <PostFormElements.FieldPostList
       // settlementRef={settlementActive}
-      // onSelectStore={onSettlementSelect}
+      // onSelectPost={onSettlementSelect}
       />
-    </StoreFormElements>
+    </PostFormElements>
   );
 };

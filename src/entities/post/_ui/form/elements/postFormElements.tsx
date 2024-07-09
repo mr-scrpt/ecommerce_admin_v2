@@ -1,5 +1,5 @@
 "use client";
-import { Store } from "@/kernel/domain/store/store.type";
+import { Post } from "@/kernel/domain/post/post.type";
 import { Button } from "@/shared/ui/button";
 import {
   FormControl,
@@ -20,25 +20,25 @@ import { FC, HTMLAttributes, useEffect } from "react";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
 import { ZodTypeAny } from "zod";
 import {
-  StoreFormDefaultValues,
-  storeFormDefaultSchema,
+  PostFormDefaultValues,
+  postFormDefaultSchema,
 } from "../../../_domain/form.schema";
-import { StoreSelectElement } from "./storeSelectElement";
+import { PostSelectElement } from "./postSelectElement";
 
-interface StoreFormElementsProps extends HTMLAttributes<HTMLFormElement> {
-  storeData?: Store;
-  handleSubmit: (data: StoreFormDefaultValues) => void;
+interface PostFormElementsProps extends HTMLAttributes<HTMLFormElement> {
+  postData?: Post;
+  handleSubmit: (data: PostFormDefaultValues) => void;
   schema?: ZodTypeAny;
 }
 
-type StoreFormElementsType = FC<StoreFormElementsProps> & {
+type PostFormElementsType = FC<PostFormElementsProps> & {
   // TODO: Select settlement entities
   FieldSettlement: FC<{
     settlementListToSelect: SettleToSelect[];
     toSearch: (q: string) => void;
     handleSelect?: (value: string) => void;
   }>;
-  FieldStoreList: FC;
+  FieldPostList: FC;
   FieldName: FC;
   FieldAddress: FC;
   SubmitButton: FC<{
@@ -48,24 +48,24 @@ type StoreFormElementsType = FC<StoreFormElementsProps> & {
   }>;
 };
 
-const getDefaultValues = (storeData?: Store) => ({
-  name: storeData?.name ?? "",
-  settlementRef: storeData?.settlementRef ?? "",
-  address: storeData?.address ?? "",
-  id: storeData?.id ?? "",
+const getDefaultValues = (postData?: Post) => ({
+  name: postData?.name ?? "",
+  settlementRef: postData?.settlementRef ?? "",
+  address: postData?.address ?? "",
+  id: postData?.id ?? "",
 });
 
-export const StoreFormElements: StoreFormElementsType = (props) => {
-  const { storeData, handleSubmit: onSubmit, schema, children } = props;
+export const PostFormElements: PostFormElementsType = (props) => {
+  const { postData, handleSubmit: onSubmit, schema, children } = props;
 
-  const form = useForm<StoreFormDefaultValues>({
-    resolver: zodResolver(schema ?? storeFormDefaultSchema),
-    defaultValues: getDefaultValues(storeData),
+  const form = useForm<PostFormDefaultValues>({
+    resolver: zodResolver(schema ?? postFormDefaultSchema),
+    defaultValues: getDefaultValues(postData),
   });
 
   useEffect(() => {
-    form.reset(getDefaultValues(storeData));
-  }, [storeData, form]);
+    form.reset(getDefaultValues(postData));
+  }, [postData, form]);
 
   const handleSubmit = form.handleSubmit(async (data) => {
     console.log("output_log: data =>>>", data);
@@ -83,10 +83,10 @@ export const StoreFormElements: StoreFormElementsType = (props) => {
   );
 };
 
-StoreFormElements.FieldSettlement = function FieldSettlement(props) {
+PostFormElements.FieldSettlement = function FieldSettlement(props) {
   const { settlementListToSelect, toSearch, handleSelect } = props;
-  const { control } = useFormContext<StoreFormDefaultValues>();
-  // TODO: Do like FieldStoreList - get list in field?
+  const { control } = useFormContext<PostFormDefaultValues>();
+  // TODO: Do like FieldPostList - get list in field?
   return (
     <FormField
       control={control}
@@ -107,8 +107,8 @@ StoreFormElements.FieldSettlement = function FieldSettlement(props) {
   );
 };
 
-StoreFormElements.FieldStoreList = function StoreList() {
-  const { control } = useFormContext<StoreFormDefaultValues>();
+PostFormElements.FieldPostList = function PostList() {
+  const { control } = useFormContext<PostFormDefaultValues>();
   // TODO: Like example get ref from field
   const { settlementRef } = control._formValues;
   // TODO: Fields name change "id", "settlement"?
@@ -118,11 +118,11 @@ StoreFormElements.FieldStoreList = function StoreList() {
       name="id"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>Store list</FormLabel>
-          <StoreSelectElement
-            onSelectStore={field.onChange}
+          <FormLabel>Post list</FormLabel>
+          <PostSelectElement
+            onSelectPost={field.onChange}
             settlementRef={settlementRef}
-            storeInit={field.value}
+            postInit={field.value}
           />
         </FormItem>
       )}
@@ -130,8 +130,8 @@ StoreFormElements.FieldStoreList = function StoreList() {
   );
 };
 
-StoreFormElements.FieldName = function FieldName() {
-  const { control } = useFormContext<StoreFormDefaultValues>();
+PostFormElements.FieldName = function FieldName() {
+  const { control } = useFormContext<PostFormDefaultValues>();
   return (
     <FormField
       control={control}
@@ -149,8 +149,8 @@ StoreFormElements.FieldName = function FieldName() {
   );
 };
 
-StoreFormElements.FieldAddress = function FieldAddress() {
-  const { control } = useFormContext<StoreFormDefaultValues>();
+PostFormElements.FieldAddress = function FieldAddress() {
+  const { control } = useFormContext<PostFormDefaultValues>();
   return (
     <FormField
       control={control}
@@ -168,7 +168,7 @@ StoreFormElements.FieldAddress = function FieldAddress() {
   );
 };
 
-StoreFormElements.SubmitButton = function SubmitButton({
+PostFormElements.SubmitButton = function SubmitButton({
   isPending,
   submitText,
   className,

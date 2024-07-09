@@ -1,1 +1,1 @@
-export { usePostOfficeListToSelectModel } from "./_vm/getPostOfficeListToSelect.model.query";
+export { usePostListBySettlementRefToSelectModel as usePostOfficeListToSelectModel } from "./_vm/usePostOfficeListBySettlementRefToSelect.model.query";

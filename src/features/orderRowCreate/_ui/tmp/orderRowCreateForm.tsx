@@ -1,5 +1,4 @@
 "use client";
-import { OrderRowAddValues } from "@/entities/order/server";
 import { ProductSelect, ProductToSelectGroup } from "@/entities/product";
 import { Button } from "@/shared/ui/button";
 import {
@@ -13,12 +12,13 @@ import {
 import { cn } from "@/shared/ui/utils";
 import { FC, HTMLAttributes } from "react";
 import { useForm } from "react-hook-form";
+import { OrderRowCreateValues } from "../../_domain/form.schema";
 
 interface OrderRowCreateFormProps extends HTMLAttributes<HTMLDivElement> {
   orderProductGroup: ProductToSelectGroup;
   searchValue: string;
   isPending: boolean;
-  handleSubmit: (data: OrderRowAddValues) => void;
+  handleSubmit: (data: OrderRowCreateValues) => void;
   toSearch: (q: string) => void;
 }
 
@@ -32,7 +32,7 @@ export const OrderRowCreateForm: FC<OrderRowCreateFormProps> = (props) => {
     isPending,
   } = props;
 
-  const form = useForm<OrderRowAddValues>();
+  const form = useForm<OrderRowCreateValues>();
 
   return (
     <div className={cn(className, "w-full")}>

@@ -71,7 +71,10 @@ export const OrderStatusFormElements: OrderFormType = (props) => {
   return (
     <FormProvider {...form}>
       <Form {...form}>
-        <form onSubmit={handleSubmit} className={cn(className, "space-y-4")}>
+        <form
+          action={() => handleSubmit}
+          className={cn(className, "space-y-4")}
+        >
           {children}
         </form>
       </Form>

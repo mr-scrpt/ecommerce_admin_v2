@@ -61,7 +61,6 @@ export const UserFormUpdate: FC<UserFormProps> = (props) => {
         user={user}
         schema={userUpdateFormSchema}
       >
-        <UserFormElements.FieldRole />
         <UserFormElements.FieldEmailVerified />
         <UserFormElements.FieldEmail />
         <UserFormElements.FieldName />

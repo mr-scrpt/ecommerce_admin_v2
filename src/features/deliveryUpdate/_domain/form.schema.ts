@@ -11,6 +11,7 @@ export const deliveryUpdateFormSchema = deliveryFormDefaultSchema
     settlement: true,
     street: true,
     house: true,
+    apartment: true,
   })
   .extend({
     orderId: z.string(),

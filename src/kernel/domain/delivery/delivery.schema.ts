@@ -7,11 +7,11 @@ export const deliveryBaseSchema = z.object({
   deliveryType: z.nativeEnum(DeliveryTypeEnum),
   // settlement: z.string(),
   settlementRef: z.string(),
-  street: z.string().nullable(),
-  house: z.string().nullable(),
-  apartment: z.string().nullable(),
-  postOffice: z.string().nullable(),
-  store: z.string().nullable(),
+  street: z.string().optional().nullable(),
+  house: z.string().optional().nullable(),
+  apartment: z.string().optional().nullable(),
+  postOffice: z.string().optional().nullable(),
+  store: z.string().optional().nullable(),
 });
 
 // NOTE: Projections

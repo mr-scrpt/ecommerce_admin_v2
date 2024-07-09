@@ -12,7 +12,7 @@ import {
 import { SettlementSelectElement } from "./settlementSelectElement";
 
 interface SettlementFromElementsProps extends HTMLAttributes<HTMLFormElement> {
-  settlementInit: Settlement["ref"];
+  settlementData: Settlement["ref"];
   handleSubmit?: (data: SettlementFormValues) => void;
 }
 
@@ -35,11 +35,11 @@ const getDefaultValues = (settlementRef: Settlement["ref"]) => ({
 });
 
 export const SettlementFromElements: SettlementFormType = (props) => {
-  const { settlementInit, handleSubmit: onSubmit, children } = props;
+  const { settlementData, handleSubmit: onSubmit, children } = props;
 
   const form = useForm<SettlementFormValues>({
     resolver: zodResolver(settlementFormSchema),
-    defaultValues: getDefaultValues(settlementInit),
+    defaultValues: getDefaultValues(settlementData),
   });
 
   const handleSubmit = form.handleSubmit(async (data) => {

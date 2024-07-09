@@ -11,7 +11,7 @@ import {
 } from "../_domain/form.schema";
 import { useDeliveryUpdateModel } from "../_vm/useDeliveryUpdate.model";
 import { StoreSelectElement } from "@/entities/store/_ui/form/elements/storeSelectElement";
-import { DeliveryUpdateFormElements } from "./form/deliveryUpdateFormElements";
+import { DeliveryUpdateFormElements } from "./form/elements/deliveryUpdateFormElements";
 
 interface OrderDeliveryFormProps extends HTMLAttributes<HTMLDivElement> {
   // orderId: string;
@@ -104,30 +104,19 @@ export const DeliveryFormUpdate: FC<OrderDeliveryFormProps> = (props) => {
         delivery={delivery}
         schema={deliveryUpdateFormSchema}
       >
-        {/* <DeliveryUpdateFormElements.FieldCourier delivery={delivery} /> */}
         <DeliveryUpdateFormElements.FieldSettlementSelect />
-        <DeliveryUpdateFormElements.FieldStoreSelect
-        // settlementRef={settlementRef}
-        // onSelectStore={console.log}
-        />
+        <DeliveryUpdateFormElements.FieldDeliveryType />
+        {/* <DeliveryUpdateFormElements.FieldSettlementSelect /> */}
+        {/* <DeliveryUpdateFormElements.FieldStoreSelect /> */}
+        {/* <DeliveryUpdateFormElements.FieldPostSelect /> */}
+        {/* <DeliveryUpdateFormElements.FieldStreet /> */}
+        {/* <DeliveryUpdateFormElements.FieldHouse /> */}
+        {/* <DeliveryUpdateFormElements.FieldApartment /> */}
         <DeliveryUpdateFormElements.SubmitButton
           isPending={isPendingComplexible}
           submitText="Save change"
         />
       </DeliveryUpdateFormElements>
-      {/* <DeliveryFormElements */}
-      {/*   handleSubmit={handleSubmit} */}
-      {/*   delivery={delivery} */}
-      {/*   schema={deliveryUpdateFormSchema} */}
-      {/*   settlementRef={settlementRef} */}
-      {/* > */}
-      {/*   <DeliveryFormElements.FieldStreet /> */}
-      {/*   <DeliveryFormElements.FieldHouse /> */}
-      {/*   <DeliveryFormElements.SubmitButton */}
-      {/*     isPending={isPendingComplexible} */}
-      {/*     submitText="Save change" */}
-      {/*   /> */}
-      {/* </DeliveryFormElements> */}
     </div>
   );
 };

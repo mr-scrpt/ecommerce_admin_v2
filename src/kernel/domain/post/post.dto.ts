@@ -3,8 +3,8 @@ export type PostOfficeGetDTO = {
   id: string;
 };
 
-export type PostOfficeGetBySettlementDTO = {
-  settlementId: string;
+export type PostOfficeGetBySettlementRefDTO = {
+  settlementRef: string;
 };
 
 export type PostOfficeListGetBySettlementDTO = {

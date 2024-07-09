@@ -6,4 +6,8 @@ export const getBySettlementInputSchema = z.object({
   settlementId: settlementSchema.shape.id,
 });
 
+export const getBySettlementRefInputSchema = z.object({
+  settlementRef: settlementSchema.shape.ref,
+});
+
 export const getListOutputSchema = z.array(postOfficeSchema);

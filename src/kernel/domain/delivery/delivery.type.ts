@@ -1,5 +1,4 @@
 import { DELIVERY_TYPE as DeliveryTypeEnum } from "@prisma/client";
-import { Settlement } from "../settlement/settlement.type";
 export { DeliveryTypeEnum };
 
 // NOTE: Base

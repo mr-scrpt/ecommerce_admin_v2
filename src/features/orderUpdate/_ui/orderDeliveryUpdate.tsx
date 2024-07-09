@@ -4,11 +4,12 @@ import { FC, HTMLAttributes } from "react";
 
 interface OrderDeliveryUpdateProps extends HTMLAttributes<HTMLDivElement> {
   orderId: string;
-  settlementRef: string;
+  // settlementRef: string;
 }
 
 export const OrderDeliveryUpdate: FC<OrderDeliveryUpdateProps> = (props) => {
-  const { orderId, settlementRef } = props;
+  // const { orderId, settlementRef } = props;
+  const { orderId } = props;
   const { order, isSuccess, isPending } = useOrderWithRelationQuery(orderId);
   if (isPending) {
     return <div>Loading...</div>;
@@ -20,7 +21,7 @@ export const OrderDeliveryUpdate: FC<OrderDeliveryUpdateProps> = (props) => {
   return (
     <DeliveryFormUpdate
       deliveryId={delivery.id}
-      settlementRef={settlementRef}
+      // settlementRef={delivery.settlementRef}
     />
   );
 };

@@ -54,7 +54,7 @@ export const ProductFormOptions: FC<ProductFormOptionsProps> = (props) => {
 
   return (
     <Form {...form}>
-      <form onSubmit={handleSubmit} className="space-y-8">
+      <form handleSubmit={handleSubmit} className="space-y-8">
         {optionSelectOptionList &&
           optionSelectOptionList.map((option) => {
             const { datatype } = option;

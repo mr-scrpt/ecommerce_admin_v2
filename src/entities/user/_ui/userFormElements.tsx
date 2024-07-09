@@ -19,7 +19,6 @@ import { FormProvider, useForm, useFormContext } from "react-hook-form";
 import { Country } from "react-phone-number-input";
 import { ZodTypeAny } from "zod";
 import { AvatarField } from "./avatarField";
-import { ROLES } from "@/kernel/domain/role.type";
 import { UserPartial } from "@/kernel/domain/user/user.type";
 import {
   UserFormDefaultValues,
@@ -39,7 +38,7 @@ interface UserSubmitFieldProps {
 }
 
 type UserFormElementsType = FC<UserFormElementsProps> & {
-  FieldRole: FC<{ disabled?: boolean }>;
+  // FieldRole: FC<{ disabled?: boolean }>;
   FieldEmailVerified: FC<{ disabled?: boolean }>;
   FieldEmail: FC<{}>;
   FieldPhone: FC<{ countryDefault?: Country }>;
@@ -54,7 +53,7 @@ const getDefaultValues = (user?: UserPartial) => ({
   image: user?.image ?? "",
   phone: user?.phone ?? "",
   emailVerified: user?.emailVerified,
-  role: user?.role ?? ROLES.USER,
+  // role: user?.role ?? RoleEnum.CONSUMER,
 });
 
 export const UserFormElements: UserFormElementsType = (props) => {
@@ -84,26 +83,26 @@ export const UserFormElements: UserFormElementsType = (props) => {
   );
 };
 
-UserFormElements.FieldRole = function FieldRole(props) {
-  const { disabled = true } = props;
-  const { control } = useFormContext<UserFormDefaultValues>();
-  return (
-    <FormField
-      control={control}
-      disabled={disabled}
-      name="role"
-      render={({ field }) => (
-        <FormItem>
-          <FormLabel>Role</FormLabel>
-          <FormControl>
-            <Input placeholder="" {...field} />
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      )}
-    />
-  );
-};
+// UserFormElements.FieldRole = function FieldRole(props) {
+//   const { disabled = true } = props;
+//   const { control } = useFormContext<UserFormDefaultValues>();
+//   return (
+//     <FormField
+//       control={control}
+//       disabled={disabled}
+//       name="role"
+//       render={({ field }) => (
+//         <FormItem>
+//           <FormLabel>Role</FormLabel>
+//           <FormControl>
+//             <Input placeholder="" {...field} />
+//           </FormControl>
+//           <FormMessage />
+//         </FormItem>
+//       )}
+//     />
+//   );
+// };
 
 UserFormElements.FieldEmailVerified = function FieldEmailVerified(props) {
   const { disabled = true } = props;

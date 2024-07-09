@@ -17,7 +17,10 @@ import { FC, HTMLAttributes, useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { CategoryRelation } from "../_domain/category.types";
 import { BoardField } from "./boardField";
-import { CategoryFormValues, categoryFormDefaultSchema } from "../_domain/form.schema";
+import {
+  CategoryFormValues,
+  categoryFormDefaultSchema,
+} from "../_domain/form.schema";
 
 interface CategoryFormProps extends HTMLAttributes<HTMLFormElement> {
   category?: CategoryRelation;
@@ -75,7 +78,7 @@ export const CategoryForm: FC<CategoryFormProps> = (props) => {
 
   return (
     <Form {...form}>
-      <form onSubmit={handleSubmit} className="space-y-8">
+      <form handleSubmit={handleSubmit} className="space-y-8">
         <FormField
           control={form.control}
           name="propertyList"

@@ -10,7 +10,7 @@ interface SettlementFormProps extends HTMLAttributes<HTMLDivElement> {
 export const SettlementSelectForm: FC<SettlementFormProps> = (props) => {
   const { settlementActive, onSettlementSelect } = props;
   return (
-    <SettlementFromElements settlementInit={settlementActive}>
+    <SettlementFromElements settlementData={settlementActive}>
       <SettlementFromElements.FieldSettlementSelect
         onSelectSettlement={onSettlementSelect}
       />

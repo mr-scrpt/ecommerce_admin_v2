@@ -18,7 +18,8 @@ export const OrderDeliveryItem: FC<OrderDeliveryItemProps> = (props) => {
       {/*   onSettlementSelect={setSettlementRef} */}
       {/* /> */}
       {/* TODO: Move to OrderDeliveryUpdate*/}
-      <OrderDeliveryUpdate orderId={orderId} settlementRef={settlementRef} />
+      {/* <OrderDeliveryUpdate orderId={orderId} settlementRef={settlementRef} /> */}
+      <OrderDeliveryUpdate orderId={orderId} />
     </>
   );
 };

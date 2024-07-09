@@ -7,6 +7,10 @@ export type PostOfficeGetBySettlementSelector = {
   settlementId: string;
 };
 
+export type PostOfficeGetBySettlementRefSelector = {
+  settlementRef: string;
+};
+
 // NOTE: UI
 export type PostOfficeToSelect = {
   value: string;

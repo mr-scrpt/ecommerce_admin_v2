@@ -1,6 +1,5 @@
 "use client";
 
-import { storeApi } from "../_api/store.api";
 import { useStoreListBySettlementRefWithRelation } from "../_query/storeListBySettlementRefWithRelation";
 import { useListenStoreListUpdate } from "./event/useListenStoreListUpdate";
 
@@ -24,11 +23,4 @@ export const useStoreListBySettltmentRefToSelectModel = (
     isFetchedAfterMount,
     storeListToSelect: sotoreListToSelect,
   };
-};
-
-export const useInvalidateStoreList = () => {
-  const invalidate =
-    storeApi.useUtils().store.getListBySettlementRefWithRelation.invalidate;
-
-  return (settlementRef: string) => invalidate({ settlementRef });
 };

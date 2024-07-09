@@ -2,11 +2,13 @@
 import { PostOfficeEntity } from "@/kernel/domain/post/post.type";
 import { convertPostToLowerCase } from "../_domain/post.convertor";
 import { PostOfficeToSelect } from "../_domain/post.type";
-import { usePostOfficeListBySettlementQuery } from "../_query/usePostOfficeListBySettlement.query";
+import { usePostOfficeListBySettlementRefQuery } from "../_query/usePostOfficeListBySettlementRef.query";
 
-export const usePostOfficeListToSelectModel = (settlementId: string) => {
+export const usePostListBySettlementRefToSelectModel = (
+  settlementId: string,
+) => {
   const { isPending, isSuccess, isFetchedAfterMount, postOfficeList } =
-    usePostOfficeListBySettlementQuery(settlementId);
+    usePostOfficeListBySettlementRefQuery(settlementId);
 
   const convertedPostOfficeList: Array<PostOfficeEntity> = [];
 
@@ -20,7 +22,7 @@ export const usePostOfficeListToSelectModel = (settlementId: string) => {
     isPending,
     isSuccess,
     isFetchedAfterMount,
-    postOfficeListToSelect: result || [],
+    postListToSelect: result || [],
   };
 };
 
