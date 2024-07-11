@@ -4,14 +4,12 @@ export { DeliveryTypeEnum };
 // NOTE: Base
 export type DeliveryBase = {
   orderId: string;
+  userId: string;
   deliveryType: DeliveryTypeEnum;
-  // settlement: string;
-  settlementRef: string;
-  street: string | null;
-  house: string | null;
-  apartment: string | null;
+  settlementRef: string | null;
   postOffice: string | null;
-  store: string | null;
+  storeId: string | null;
+  addressId: string | null;
 };
 
 // NOTE: Entity

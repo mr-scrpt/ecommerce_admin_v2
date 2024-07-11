@@ -4,10 +4,12 @@ import { AddressListGetByUserService } from "./_service/addressListGetByUser.ser
 import { Controller } from "@/kernel/lib/trpc/server";
 import { AddressController } from "./_controller/address.controller";
 import { ContainerModule } from "inversify";
+import { AddressListGetByUserAndSettlementRefService } from "./_service/addressListGetByUserAndSettlementRef.service";
 
 export const AddressModule = new ContainerModule((bind) => {
   bind(IAddressRepository).to(AddressRepository);
   bind(AddressListGetByUserService).toSelf();
+  bind(AddressListGetByUserAndSettlementRefService).toSelf();
 
   bind(Controller).to(AddressController);
 });

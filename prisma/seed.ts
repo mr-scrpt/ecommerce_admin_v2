@@ -59,16 +59,6 @@ async function main() {
     console.log("cart created", cartRow);
   }
 
-  for await (const order of orderListSeed) {
-    await prisma.order.create({ data: order });
-    console.log("order created", order);
-  }
-
-  for await (const receiver of receiverListSeed) {
-    await prisma.receiver.create({ data: receiver });
-    console.log("receiver created", receiver);
-  }
-
   for await (const settlementRow of settlementListSeed) {
     await prisma.settlement.create({ data: settlementRow });
     console.log("settlementRow created", settlementRow);
@@ -85,6 +75,11 @@ async function main() {
     console.log("store created", storeRow);
   }
 
+  for await (const order of orderListSeed) {
+    await prisma.order.create({ data: order });
+    console.log("order created", order);
+  }
+
   for await (const delivery of deliveryListSeed) {
     await prisma.delivery.create({ data: delivery });
     console.log("receiver created", delivery);
@@ -93,6 +88,11 @@ async function main() {
   for await (const orderRow of orderRowListSeed) {
     await prisma.orderRow.create({ data: orderRow });
     console.log("orderRow created", orderRow);
+  }
+
+  for await (const receiver of receiverListSeed) {
+    await prisma.receiver.create({ data: receiver });
+    console.log("receiver created", receiver);
   }
 
   // Relation

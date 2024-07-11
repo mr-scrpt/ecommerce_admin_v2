@@ -95,6 +95,7 @@ model User {
   orderList   Order[]
   receiverList  Receiver[]
   addressList  Address[]
+  deliveryList Delivery[]
 
   accounts      Account[]
   sessions      Session[]
@@ -199,15 +200,18 @@ model Delivery {
   order       Order    @relation(fields: [orderId], references: [id])
   orderId     String   @unique
 
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String
+
   deliveryType DELIVERY_TYPE
 
-  settlement    Settlement @relation(fields: [settlementRef], references: [ref], onDelete: Cascade)
-  settlementRef String
+  settlement    Settlement? @relation(fields: [settlementRef], references: [ref], onDelete: Cascade)
+  settlementRef String?
 
   postOffice  String?
 
-  store Store? @relation(fields: [storeRef], references: [id], onDelete: Cascade)
-  storeRef String?
+  store Store? @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  storeId String?
 
   address Address? @relation(fields: [addressId], references: [id], onDelete: Cascade)
   addressId String?

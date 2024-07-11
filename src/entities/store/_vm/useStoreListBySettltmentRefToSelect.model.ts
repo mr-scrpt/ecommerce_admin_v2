@@ -1,7 +1,6 @@
 "use client";
 
 import { useStoreListBySettlementRefWithRelation } from "../_query/storeListBySettlementRefWithRelation";
-import { useListenStoreListUpdate } from "./event/useListenStoreListUpdate";
 
 export const useStoreListBySettltmentRefToSelectModel = (
   settlementRef: string,
@@ -15,7 +14,6 @@ export const useStoreListBySettltmentRefToSelectModel = (
       label: store.name,
     };
   });
-  useListenStoreListUpdate();
 
   return {
     isPending,

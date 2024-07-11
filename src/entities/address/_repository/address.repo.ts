@@ -1,6 +1,7 @@
 import {
   AddressBindToDeliveryListDTO,
   AddressCreateDTO,
+  AddressGetByUserAndSettlementRefDTO,
   AddressGetByUserDTO,
   AddressGetDTO,
   AddressRemoveDTO,
@@ -41,6 +42,15 @@ export class AddressRepository implements IAddressRepository {
       where: {
         userId,
       },
+    });
+  }
+
+  async getListByUserAndSettlementRef(
+    dto: AddressGetByUserAndSettlementRefDTO,
+    db: Tx = this.db,
+  ): Promise<AddressEntity[]> {
+    return await db.address.findMany({
+      where: dto,
     });
   }
 

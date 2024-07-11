@@ -4,9 +4,10 @@ import { OrderEmptyCreateTxDTO } from "../_domain/types";
 import { IOrderRepository } from "@/kernel/domain/order/repository.type";
 import { OrderEntity } from "@/kernel/domain/order/order.type";
 import { IDeliveryRepository } from "@/kernel/domain/delivery/repository.type";
+import { IOrderCreateTx } from "../_domain/transaction.type";
 
 @injectable()
-export class OrderCreateTx extends Transaction {
+export class OrderCreateTx extends Transaction implements IOrderCreateTx {
   constructor(
     readonly db: DBClient,
     private readonly orderRepo: IOrderRepository,

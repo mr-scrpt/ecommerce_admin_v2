@@ -2,7 +2,7 @@ import { Controller, publicProcedure, router } from "@/kernel/lib/trpc/server";
 import { injectable } from "inversify";
 import { createEmptyInputSchema } from "../_domain/validator.schema";
 import { OrderEmptyCreateService } from "../_service/orderCreateEmpty.service";
-import { orderSchema } from "@/entities/order";
+import { orderSchema } from "@/kernel/domain/order/order.schema";
 
 @injectable()
 export class OrderCreateController extends Controller {

@@ -48,6 +48,7 @@ import { ConsumerUpdateModule } from "@/features/consumerUpdate/module";
 import { StoreRemoveModule } from "@/features/storeRemove/module";
 import { StoreCreateModule } from "@/features/storeCreate/module";
 import { AddressModule } from "@/entities/address/module";
+import { AddressCreateModule } from "@/features/addressCreate/module";
 
 export const loadModule = () => {
   const container = new Container();
@@ -99,6 +100,7 @@ export const loadModule = () => {
     DeliveryModule,
     PostModule,
     AddressModule,
+    AddressCreateModule,
 
     PropertyModule,
     PropertyCreateModule,

@@ -20,7 +20,7 @@ export const StoreSelectElement: FC<StoreSelectProps> = (props) => {
   const placeholder = isPending ? "Loading..." : "Select store";
 
   return (
-    <Select defaultValue={storeInit} onValueChange={onSelectStore}>
+    <Select defaultValue={storeInit || ""} onValueChange={onSelectStore}>
       <FormControl>
         <SelectTrigger>
           <SelectValue placeholder={placeholder} />

@@ -18,6 +18,7 @@ export class OrderRepository implements IOrderRepository {
     const result = await db.order.findUniqueOrThrow({
       where: dto,
     });
+
     return result;
   }
 
@@ -30,7 +31,12 @@ export class OrderRepository implements IOrderRepository {
             productName: SORTING_ORDER_DEFAULT,
           },
         },
-        delivery: true,
+        // delivery: true,
+        delivery: {
+          include: {
+            address: true,
+          },
+        },
         // delivery: {
         //   select: {
         //     id: true,
@@ -38,6 +44,7 @@ export class OrderRepository implements IOrderRepository {
         // },
       },
     });
+    console.log("output_log: with relation =>>>", result);
 
     return result as T;
   }

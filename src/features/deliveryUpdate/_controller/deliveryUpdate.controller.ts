@@ -1,8 +1,10 @@
 import { Controller, publicProcedure, router } from "@/kernel/lib/trpc/server";
 import { injectable } from "inversify";
-import { updateInputSchema } from "../_domain/validator.schema";
+import {
+  updateDeliveryOutputSchema,
+  updateInputSchema,
+} from "../_domain/validator.schema";
 import { DeliveryUpdateService } from "../_service/deliveryUpdate.service";
-import { deliverySchema } from "@/kernel/domain/delivery/delivery.schema";
 
 @injectable()
 export class DeliveryUpdateController extends Controller {
@@ -16,7 +18,7 @@ export class DeliveryUpdateController extends Controller {
         .input(updateInputSchema)
         .mutation(async ({ input }) => {
           const result = await this.updateDeliveryService.execute(input);
-          return deliverySchema.parse(result);
+          return updateDeliveryOutputSchema.parse(result);
         }),
     },
   });

@@ -46,9 +46,10 @@ export const DeliveryTypeFieldList: SelectDeliveryType = {
     value: "Courier",
     type: DeliveryTypeEnum.COURIER,
     formElement: [
-      () => <DeliveryUpdateFormElements.FieldStreet key="street" />,
-      () => <DeliveryUpdateFormElements.FieldHouse key="house" />,
-      () => <DeliveryUpdateFormElements.FieldApartment key="apartment" />,
+      () => <DeliveryUpdateFormElements.FieldAddress key="address" />,
+      // () => <DeliveryUpdateFormElements.FieldStreet key="street" />,
+      // () => <DeliveryUpdateFormElements.FieldHouse key="house" />,
+      // () => <DeliveryUpdateFormElements.FieldApartment key="apartment" />,
     ],
   },
 };

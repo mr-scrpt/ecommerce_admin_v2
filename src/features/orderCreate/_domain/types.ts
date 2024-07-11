@@ -4,16 +4,16 @@ import { DeliveryBase } from "@/kernel/domain/delivery/delivery.type";
 import { OrderCreateEmptyDTO } from "@/kernel/domain/order/order.dto";
 import { OrderBase } from "@/kernel/domain/order/order.type";
 
-type OrderCreateEmptyPayload = Pick<OrderBase, "userId" | "orderNo">;
+type OrderCreateEmptyPayload = Pick<OrderBase, "userId">;
+
 type OrderDeliveryDTO = Pick<
   DeliveryBase,
+  | "userId"
   | "deliveryType"
   | "settlementRef"
-  | "store"
+  | "storeId"
   | "postOffice"
-  | "street"
-  | "house"
-  | "apartment"
+  | "addressId"
 >;
 
 export type OrderCreateEmptyTxPayload = {

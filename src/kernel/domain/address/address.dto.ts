@@ -9,6 +9,11 @@ export type AddressGetByUserDTO = {
   userId: string;
 };
 
+export type AddressGetByUserAndSettlementRefDTO = {
+  userId: string;
+  settlementRef: string;
+};
+
 // NOTE: Mutations
 export type AddressCreateDTO = {
   data: AddressBase;

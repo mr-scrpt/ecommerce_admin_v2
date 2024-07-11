@@ -27,6 +27,7 @@ export const DeliveryTypeField: FC<DeliveryTypeRadioProps> = (props) => {
       control={control}
       name="deliveryType"
       render={({ field }) => {
+        console.log("output_log: deliveryType =>>>", field.value);
         return (
           <FormItem className="space-y-3">
             <FormLabel>Delivery type</FormLabel>
@@ -34,6 +35,7 @@ export const DeliveryTypeField: FC<DeliveryTypeRadioProps> = (props) => {
               <RadioGroup
                 onValueChange={field.onChange}
                 defaultValue={field.value}
+                value={field.value}
                 className="flex flex-col space-y-1"
               >
                 {Object.entries(DeliveryTypeFieldList).map(([key, row]) => {

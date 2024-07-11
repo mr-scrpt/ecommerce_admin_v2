@@ -1,4 +1,4 @@
-import { Order } from "@/entities/order";
+import { Order } from "@prisma/client";
 import { orderCreateApi } from "../_api/orderCreate.api";
 import { useEmitOrderCreate } from "../_vm/event/useEmitOrderCreate";
 

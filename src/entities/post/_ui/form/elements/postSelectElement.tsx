@@ -18,10 +18,9 @@ export const PostSelectElement: FC<PostSelectProps> = (props) => {
     usePostListBySettlementRefToSelectModel(settlementRef);
 
   const placeholder = isPending ? "Loading..." : "Select post";
-  console.log("output_log: postInit =>>>", postInit);
 
   return (
-    <Select defaultValue={postInit} onValueChange={onSelectPost}>
+    <Select defaultValue={postInit || ""} onValueChange={onSelectPost}>
       <FormControl>
         <SelectTrigger>
           <SelectValue placeholder={placeholder} />

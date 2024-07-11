@@ -4,14 +4,17 @@ import { DeliveryTypeEnum } from "./delivery.type";
 // NOTE: Base Schema
 export const deliveryBaseSchema = z.object({
   orderId: z.string(),
+  userId: z.string(),
   deliveryType: z.nativeEnum(DeliveryTypeEnum),
-  // settlement: z.string(),
-  settlementRef: z.string(),
-  street: z.string().optional().nullable(),
-  house: z.string().optional().nullable(),
-  apartment: z.string().optional().nullable(),
-  postOffice: z.string().optional().nullable(),
-  store: z.string().optional().nullable(),
+  // settlementRef: z.string().optional().nullable(),
+  // postOffice: z.string().optional().nullable(),
+  // storeId: z.string().optional().nullable(),
+  // addressId: z.string().optional().nullable(),
+
+  settlementRef: z.string().nullable(),
+  postOffice: z.string().nullable(),
+  storeId: z.string().nullable(),
+  addressId: z.string().nullable(),
 });
 
 // NOTE: Projections

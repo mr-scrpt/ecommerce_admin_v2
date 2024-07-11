@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Delivery" ALTER COLUMN "addressId" DROP NOT NULL,
+ALTER COLUMN "storeId" DROP NOT NULL;

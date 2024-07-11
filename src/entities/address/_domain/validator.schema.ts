@@ -9,6 +9,11 @@ export const getByUserInputSchema = z.object({
   userId: z.string(),
 });
 
+export const getByUserAndSettlementRefInputSchema = z.object({
+  userId: z.string().optional(),
+  settlementRef: z.string().optional(),
+});
+
 export const getByDeliveryInputSchema = z.object({
   deliveryId: z.string(),
 });

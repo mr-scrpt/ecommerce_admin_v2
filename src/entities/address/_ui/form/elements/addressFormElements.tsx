@@ -12,7 +12,7 @@ import {
   AddressFormDefaultValues,
   addressFormDefaultSchema,
 } from "../../../_domain/form.schema";
-import { AddressApartamentElement } from "./addressApartamentElement";
+import { AddressApartmentElement } from "./addressApartmentElement";
 import { AddressHouseElement } from "./addressHouseElement";
 import { AddressStreetElement } from "./addressStreetElement";
 
@@ -76,7 +76,7 @@ AddressFormElements.FieldStreet = function FieldSettlement() {
       render={({ field }) => (
         <FormItem>
           <FormLabel>Address list</FormLabel>
-          <AddressStreetElement field={field} />
+          <AddressStreetElement onChange={field.onChange} />
           <FormMessage />
         </FormItem>
       )}
@@ -94,7 +94,7 @@ AddressFormElements.FieldHouse = function FieldHouse() {
       render={({ field }) => (
         <FormItem>
           <FormLabel>House</FormLabel>
-          <AddressHouseElement field={field} />
+          <AddressHouseElement onChange={field.onChange} />
           <FormMessage />
         </FormItem>
       )}
@@ -112,7 +112,7 @@ AddressFormElements.FieldApartment = function FieldApartment() {
       render={({ field }) => (
         <FormItem>
           <FormLabel>Apartment</FormLabel>
-          <AddressApartamentElement field={field} />
+          <AddressApartmentElement onChange={field.onChange} />
           <FormMessage />
         </FormItem>
       )}

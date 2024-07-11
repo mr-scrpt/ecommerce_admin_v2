@@ -38,13 +38,12 @@ export class OrderEmptyCreateService {
         orderNo,
       },
       deliveryData: {
+        userId: payload.orderData.userId,
         deliveryType: DeliveryTypeEnum.POST,
-        settlementRef: "",
-        street: null,
-        house: null,
-        apartment: null,
+        settlementRef: null,
         postOffice: null,
-        store: null,
+        addressId: null,
+        storeId: null,
       },
     });
 

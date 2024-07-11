@@ -4,13 +4,13 @@ import { Input } from "@/shared/ui/input";
 import { FC, HTMLAttributes } from "react";
 import { ControllerRenderProps } from "react-hook-form";
 
-interface AddressApartamentElementProps
+interface AddressApartmentElementProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "onChange"> {
   // field: ControllerRenderProps<AddressFormDefaultValues, "appartment">;
   onChange: (value: string) => void;
 }
 
-export const AddressApartamentElement: FC<AddressApartamentElementProps> = (
+export const AddressApartmentElement: FC<AddressApartmentElementProps> = (
   props,
 ) => {
   // const { field } = props;

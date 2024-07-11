@@ -2,6 +2,7 @@ import { Tx } from "@/shared/lib/db/db";
 import {
   AddressBindToDeliveryListDTO,
   AddressCreateDTO,
+  AddressGetByUserAndSettlementRefDTO,
   AddressGetByUserDTO,
   AddressGetDTO,
   AddressRemoveDTO,
@@ -16,6 +17,11 @@ export abstract class IAddressRepository {
 
   abstract getListByUser(
     dto: AddressGetByUserDTO,
+    db?: Tx,
+  ): Promise<AddressEntity[]>;
+
+  abstract getListByUserAndSettlementRef(
+    dto: AddressGetByUserAndSettlementRefDTO,
     db?: Tx,
   ): Promise<AddressEntity[]>;
 

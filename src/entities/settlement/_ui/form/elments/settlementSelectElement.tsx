@@ -17,7 +17,7 @@ import { FC, HTMLAttributes, useEffect, useState } from "react";
 import { useSettlemetListToSelect } from "../../../_vm/useSettlemetListToSelect";
 
 interface SettlementSelectProps extends HTMLAttributes<HTMLDivElement> {
-  settlementActive: Settlement["ref"];
+  settlementActive?: Settlement["ref"];
   onSelectSettlement?: (settlement: Settlement["ref"]) => void;
 }
 

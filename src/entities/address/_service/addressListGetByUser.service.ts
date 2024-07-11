@@ -1,6 +1,6 @@
-import { injectable } from "inversify";
 import { Address } from "@/kernel/domain/address/address.type";
 import { IAddressRepository } from "@/kernel/domain/address/repository.type";
+import { injectable } from "inversify";
 import { AddressGetByUserSelector } from "../_domain/address.types";
 
 @injectable()

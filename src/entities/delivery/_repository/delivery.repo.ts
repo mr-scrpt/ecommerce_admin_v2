@@ -18,6 +18,7 @@ export class DeliveryRepository implements IDeliveryRepository {
     const result = await db.delivery.findUniqueOrThrow({
       where: dto,
     });
+
     return result;
   }
 

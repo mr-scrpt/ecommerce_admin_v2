@@ -1,8 +1,8 @@
 "use client";
 import { useSocketHandler } from "@/shared/lib/socket";
 import { WSEventEnum } from "@/shared/type/websokcetEvent.enum";
-import { Delivery } from "../../_domain/delivery.types";
 import { useInvalidateDelivery } from "../../_query/delivery.query";
+import { Delivery } from "@/kernel/domain/delivery/delivery.type";
 
 // TODO: Figure out how to use invalidate here
 export const useListenDeliveryUpdate = () => {

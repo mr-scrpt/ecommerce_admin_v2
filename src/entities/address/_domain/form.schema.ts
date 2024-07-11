@@ -3,7 +3,7 @@ import { z } from "zod";
 // NOTE: FORM
 // NOTE: Main information
 export const addressFormDefaultSchema = z.object({
-  settlementRef: z.string(),
+  // settlementRef: z.string(),
 
   street: z.string(),
   house: z.string(),

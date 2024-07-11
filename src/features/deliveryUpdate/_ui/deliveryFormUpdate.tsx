@@ -12,67 +12,50 @@ import {
 import { useDeliveryUpdateModel } from "../_vm/useDeliveryUpdate.model";
 import { StoreSelectElement } from "@/entities/store/_ui/form/elements/storeSelectElement";
 import { DeliveryUpdateFormElements } from "./form/elements/deliveryUpdateFormElements";
+import { AddressBase } from "@/kernel/domain/address/address.type";
+import { AddressCreateProps } from "@/kernel/domain/address/ui.type";
 
 interface OrderDeliveryFormProps extends HTMLAttributes<HTMLDivElement> {
-  // orderId: string;
   deliveryId: string;
   callbackUrl?: string;
   className?: string;
   onSuccess?: () => void;
+  addressModal: (props: AddressCreateProps) => void;
   // settlementRef?: string;
 }
 
 export const DeliveryFormUpdate: FC<OrderDeliveryFormProps> = (props) => {
-  const {
-    deliveryId,
-    callbackUrl,
-    className,
-    // settlementRef = "",
-    onSuccess,
-  } = props;
-
-  // const {
-  //   isPending: isPendingDelivery,
-  //   isFetchedAfterMount,
-  //   delivery,
-  // } = useDeliveryByOrderIdQuery(orderId);
+  const { deliveryId, callbackUrl, className, onSuccess, addressModal } = props;
 
   const {
     delivery,
     isPending: isPendingDelivery,
     isFetchedAfterMount,
   } = useDeliveryQuery(deliveryId);
+  console.log("output_log: getDelivery $$$$ =>>>", delivery);
 
   const router = useRouter();
 
   const { deliveryUpdate, isPending: isPendingUpdate } =
     useDeliveryUpdateModel();
 
-  // const [selectedSettlement, setSelectedSettlement] = useState<string>("");
-  //
-  // useEffect(() => {
-  //   if (settlementRef) {
-  //     setSelectedSettlement(settlementRef);
-  //   }
-  // }, [settlementRef]);
-
   const handleSubmit = useCallback(
     async (deliveryData: DeliveryUpdateFormValues) => {
       console.log("output_log: data form =>>>", deliveryData);
       // TODO: add validation
-      // if (!delivery) {
-      //   return;
-      // }
-      // await deliveryUpdate({
-      //   selector: { id: delivery.id },
-      //   deliveryData,
-      // });
-      //
-      // onSuccess?.();
-      //
-      // if (callbackUrl) {
-      //   router.push(callbackUrl);
-      // }
+      if (!delivery) {
+        return;
+      }
+      await deliveryUpdate({
+        selector: { id: delivery.id },
+        deliveryData,
+      });
+
+      onSuccess?.();
+
+      if (callbackUrl) {
+        router.push(callbackUrl);
+      }
     },
     [callbackUrl, delivery, deliveryUpdate, onSuccess, router],
   );
@@ -101,17 +84,12 @@ export const DeliveryFormUpdate: FC<OrderDeliveryFormProps> = (props) => {
     <div className={cn(className, "w-full")}>
       <DeliveryUpdateFormElements
         handleSubmit={handleSubmit}
+        addressModal={addressModal}
         delivery={delivery}
         schema={deliveryUpdateFormSchema}
       >
         <DeliveryUpdateFormElements.FieldSettlementSelect />
         <DeliveryUpdateFormElements.FieldDeliveryType />
-        {/* <DeliveryUpdateFormElements.FieldSettlementSelect /> */}
-        {/* <DeliveryUpdateFormElements.FieldStoreSelect /> */}
-        {/* <DeliveryUpdateFormElements.FieldPostSelect /> */}
-        {/* <DeliveryUpdateFormElements.FieldStreet /> */}
-        {/* <DeliveryUpdateFormElements.FieldHouse /> */}
-        {/* <DeliveryUpdateFormElements.FieldApartment /> */}
         <DeliveryUpdateFormElements.SubmitButton
           isPending={isPendingComplexible}
           submitText="Save change"

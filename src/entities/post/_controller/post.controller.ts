@@ -1,7 +1,6 @@
 import { Controller, publicProcedure, router } from "@/kernel/lib/trpc/server";
 import { injectable } from "inversify";
 import {
-  getBySettlementInputSchema,
   getBySettlementRefInputSchema,
   getListOutputSchema,
 } from "../_domain/validator.schema";
@@ -24,13 +23,6 @@ export class PostController extends Controller {
             await this.getPostOfficeListBySettlementRefService.execute(input);
           return getListOutputSchema.parse(result);
         }),
-      // getOfficeListBySettlementRef: publicProcedure
-      //   .input(getBySettlementRefInputSchema)
-      //   .query(async ({ input }) => {
-      //     const result =
-      //       await this.getPostOfficeListBySettlementRefService.execute(input);
-      //     return getListOutputSchema.parse(result);
-      //   }),
     },
   });
 }

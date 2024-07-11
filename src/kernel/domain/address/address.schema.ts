@@ -6,7 +6,7 @@ export const addressBaseSchema = z.object({
   settlementRef: z.string(),
   street: z.string(),
   house: z.string(),
-  apartment: z.string().optional(),
+  apartment: z.string().nullable(),
 });
 
 // NOTE: Projections
