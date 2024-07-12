@@ -1,4 +1,4 @@
-import { OrderEntity } from "@/entities/order";
+import { OrderEntity } from "@/kernel/domain/order/order.type";
 import { OrderRowUpdateTxDTO } from "./types";
 
 export abstract class IOrderRowUpdateTx {

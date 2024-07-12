@@ -1,6 +1,5 @@
 import { Delivery } from "@/kernel/domain/delivery/delivery.type";
 import {
-  Order,
   OrderComposite,
   OrderCompositeEntity,
   OrderPaymentStatusEnum,

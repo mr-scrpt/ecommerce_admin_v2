@@ -23,11 +23,9 @@ export class OrderUpdateController extends Controller {
       })
         .input(updateInputSchema)
         .mutation(async ({ input }) => {
-          console.log("output_log:  =>>>", input);
-
           const result = await this.updateOrderService.execute(input);
 
-          return orderSchema.safeParse(result);
+          return orderSchema.parse(result);
         }),
     },
   });

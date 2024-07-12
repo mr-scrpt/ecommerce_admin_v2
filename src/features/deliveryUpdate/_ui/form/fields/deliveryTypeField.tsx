@@ -8,8 +8,6 @@ import {
 import { RadioGroup } from "@/shared/ui/radio-group";
 import { FC, HTMLAttributes } from "react";
 import { useFormContext } from "react-hook-form";
-// import { DeliveryTypeEnum } from "../../_domain/delivery.types";
-// import { PostOfficeToSelect } from "../../_domain/postOffice.type";
 import { DeliveryFormDefaultValues } from "@/entities/delivery";
 import { DeliveryTypeEnum } from "@/kernel/domain/delivery/delivery.type";
 import { DeliveryCourierField } from "./deliveryCourierField";
@@ -27,7 +25,6 @@ export const DeliveryTypeField: FC<DeliveryTypeRadioProps> = (props) => {
       control={control}
       name="deliveryType"
       render={({ field }) => {
-        console.log("output_log: deliveryType =>>>", field.value);
         return (
           <FormItem className="space-y-3">
             <FormLabel>Delivery type</FormLabel>

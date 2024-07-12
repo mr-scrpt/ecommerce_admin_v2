@@ -1,5 +1,5 @@
-import { OrderRowBase } from "@/entities/order";
 import { OrderRowUpdateDTO } from "@/kernel/domain/order/orderRow.dto";
+import { OrderRowBase } from "@/kernel/domain/order/orderRow.type";
 
 type OrderRowUpdatePayload = Partial<OrderRowBase>;
 

@@ -19,7 +19,7 @@ export class OrderRowRemoveController extends Controller {
     orderRowRemove: {
       remove: checkAbilityProcedure({
         create: createOrderAbility,
-        check: (ability) => ability.canRemoveOrder(),
+        check: (ability) => ability.canRemoveFromOrder(),
       })
         .input(removeInputSchema)
         .mutation(async ({ input }) => {

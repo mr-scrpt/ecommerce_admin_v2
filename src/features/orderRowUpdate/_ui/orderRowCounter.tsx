@@ -4,7 +4,7 @@ import { FC, HTMLAttributes, useState } from "react";
 import { useOrderRowUpdateQuantityMutation } from "../_mutation/useOrderRowUpdateQuantity.mutation";
 import { useProductQuery } from "@/entities/product";
 import { cn } from "@/shared/ui/utils";
-import { OrderRow } from "@/entities/order";
+import { OrderRow } from "@/kernel/domain/order/orderRow.type";
 
 interface OrderRowCounterProps extends HTMLAttributes<HTMLDivElement> {
   orderRow: OrderRow;

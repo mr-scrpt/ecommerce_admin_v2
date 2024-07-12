@@ -1,7 +1,6 @@
-import { FC, HTMLAttributes, ReactNode } from "react";
+import { OrderRow } from "@/kernel/domain/order/orderRow.type";
 import Image from "next/image";
-import { OrderRow } from "../../_domain/orderRow.types";
-import { cn } from "@/shared/ui/utils";
+import { FC, HTMLAttributes } from "react";
 
 interface OrderRowItemProps extends HTMLAttributes<HTMLDivElement> {
   orderRow: OrderRow;
