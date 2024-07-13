@@ -2,6 +2,7 @@
 import { SignInButton } from "@/features/Auth/SignInButton";
 import { UseSignOutModel } from "@/features/Auth/_vm/useSignOut.model";
 import { useAppSession } from "@/kernel/lib/nextauth";
+import { nicknameGen } from "@/shared/lib/nickname";
 import { Button } from "@/shared/ui/button";
 import {
   DropdownMenu,
@@ -32,8 +33,10 @@ export const Profile: FC<ProfileProps> = (props) => {
     return <SignInButton />;
   }
   const user = data?.user;
+  console.log("output_log:user from session  =>>>", user);
 
-  const username = user?.name || user?.email || "";
+  const username = nicknameGen(user);
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>

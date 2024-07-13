@@ -37,6 +37,7 @@ interface ConsumerSubmitFieldProps {
 
 type ConsumerFormElementsType = FC<ConsumerFormElementsProps> & {
   FieldName: FC;
+  FieldLastName: FC;
   FieldEmail: FC;
   FieldPhone: FC<{ countryDefault?: Country }>;
   SubmitButton: FC<ConsumerSubmitFieldProps>;
@@ -44,6 +45,7 @@ type ConsumerFormElementsType = FC<ConsumerFormElementsProps> & {
 
 const getDefaultValues = (consumer?: Consumer) => ({
   name: consumer?.name ?? "",
+  lastName: consumer?.lastName ?? "",
   email: consumer?.email ?? "",
   image: consumer?.image ?? "",
   phone: consumer?.phone ?? "",
@@ -86,6 +88,25 @@ ConsumerFormElements.FieldName = function FieldName() {
       render={({ field }) => (
         <FormItem>
           <FormLabel>Name</FormLabel>
+          <FormControl>
+            <Input placeholder="" {...field} />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  );
+};
+
+ConsumerFormElements.FieldLastName = function FieldLastName() {
+  const { control } = useFormContext<ConsumerFormDefaultValues>();
+  return (
+    <FormField
+      control={control}
+      name="lastName"
+      render={({ field }) => (
+        <FormItem>
+          <FormLabel>Last Name</FormLabel>
           <FormControl>
             <Input placeholder="" {...field} />
           </FormControl>

@@ -1,12 +1,13 @@
-import { Role } from "./role.type";
+import { RoleEnum } from "./role.type";
 
 export type SessionEntity = {
   user: {
     id: string;
-    email: string;
-    role: Role;
-    cartId: string;
     name?: string | null;
+    lastName?: string | null;
+    email: string;
+    role: RoleEnum;
+    cartId: string;
     image?: string | null;
   };
   expires: string;

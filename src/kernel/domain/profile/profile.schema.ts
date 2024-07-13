@@ -3,6 +3,7 @@ import { z } from "zod";
 // NOTE: Base schema
 export const profileBaseSchema = z.object({
   name: z.string().nullable(),
+  lastName: z.string().nullable(),
   phone: z.string(),
   email: z.string(),
   image: z.string().optional().nullable(),

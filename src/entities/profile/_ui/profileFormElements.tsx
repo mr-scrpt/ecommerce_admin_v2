@@ -37,18 +37,20 @@ interface ProfileSubmitFieldProps {
 }
 
 type ProfileFormElementsType = FC<ProfileFormElementsProps> & {
-  FieldName: FC<{}>;
-  FieldEmail: FC<{}>;
+  FieldName: FC;
+  FieldLastName: FC;
+  FieldEmail: FC;
   FieldPhone: FC<{ countryDefault?: Country }>;
   FieldAvatar: FC<{ profile?: Profile }>;
   SubmitButton: FC<ProfileSubmitFieldProps>;
 };
 
 const getDefaultValues = (profile: Profile) => ({
+  name: profile.name ?? "",
+  lastName: profile.lastName ?? "",
   email: profile.email,
   phone: profile.phone ?? "",
   image: profile.image ?? "",
-  name: profile.name ?? "",
 });
 
 export const ProfileFormElements: ProfileFormElementsType = (props) => {
@@ -98,6 +100,24 @@ ProfileFormElements.FieldName = function FieldName() {
   );
 };
 
+ProfileFormElements.FieldLastName = function FieldLastName() {
+  const { control } = useFormContext<ProfileFormDefaultValues>();
+  return (
+    <FormField
+      control={control}
+      name="lastName"
+      render={({ field }) => (
+        <FormItem>
+          <FormLabel>LastName</FormLabel>
+          <FormControl>
+            <Input placeholder="" {...field} />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  );
+};
 ProfileFormElements.FieldEmail = function FieldEmail() {
   const { control } = useFormContext<ProfileFormDefaultValues>();
   return (

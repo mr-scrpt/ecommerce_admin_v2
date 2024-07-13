@@ -8,6 +8,7 @@ export const profileFormDefaultSchema = z.object({
     })
     .transform((name) => name.trim()),
   // .optional(),
+  lastName: z.string().max(30),
   email: z.string().email(),
   phone: z.string().or(z.literal("")),
   image: z.string().optional(),

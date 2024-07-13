@@ -1,6 +1,7 @@
 // NOTE: Base
 export type ConsumerBase = {
   name: string;
+  lastName: string;
   phone: string;
   email: string;
   image?: string | null;

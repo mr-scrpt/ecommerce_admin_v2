@@ -1,17 +1,10 @@
 "use client";
 
-import { useAddressListByUserAndSettlementRef } from "../_query/useAddressListByUserAndSettlementRef.query";
+import { useAddressListByUser } from "../_query/useAddressListByUser.query";
 
-interface IAddressListToSelectModel {
-  userId: string;
-  settlementRef: string;
-}
-
-export const useAddressListByUserToSelectModel = (
-  data: IAddressListToSelectModel,
-) => {
+export const useAddressListByUserToSelectModel = (userId: string) => {
   const { addressList, isPending, isSuccess, isFetchedAfterMount } =
-    useAddressListByUserAndSettlementRef(data);
+    useAddressListByUser(userId);
 
   const sotoreListToSelect = addressList.map((address) => {
     return {

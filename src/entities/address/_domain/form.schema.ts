@@ -8,6 +8,9 @@ export const addressFormDefaultSchema = z.object({
   street: z.string(),
   house: z.string(),
   apartment: z.string(),
+  addressId: z.string(),
+  settlementRef: z.string(),
+  userId: z.string(),
 });
 
 export type AddressFormDefaultValues = z.infer<typeof addressFormDefaultSchema>;

@@ -15,6 +15,7 @@ import {
 import { AddressApartmentElement } from "./addressApartmentElement";
 import { AddressHouseElement } from "./addressHouseElement";
 import { AddressStreetElement } from "./addressStreetElement";
+import { AddressSelectElement } from "./addressSelectElement";
 
 interface AddressFormElementsProps extends HTMLAttributes<HTMLFormElement> {
   addressData?: Address;
@@ -27,6 +28,7 @@ type AddressFormElementsType = FC<AddressFormElementsProps> & {
   FieldStreet: FC;
   FieldHouse: FC;
   FieldApartment: FC;
+  FieldAddressSelect: FC;
   SubmitButton: FC<{
     isPending: boolean;
     submitText: string;
@@ -39,6 +41,8 @@ const getDefaultValues = (addressData?: Address) => ({
   street: addressData?.street ?? "",
   house: addressData?.house ?? "",
   apartment: addressData?.apartment ?? "",
+  addressId: addressData?.id ?? "",
+  userId: addressData?.userId ?? "",
 });
 
 export const AddressFormElements: AddressFormElementsType = (props) => {
@@ -113,6 +117,31 @@ AddressFormElements.FieldApartment = function FieldApartment() {
         <FormItem>
           <FormLabel>Apartment</FormLabel>
           <AddressApartmentElement onChange={field.onChange} />
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  );
+};
+
+AddressFormElements.FieldAddressSelect = function FieldAddressSelect() {
+  const { control, getValues } = useFormContext<AddressFormDefaultValues>();
+
+  const { userId, settlementRef } = getValues();
+
+  return (
+    <FormField
+      control={control}
+      name="addressId"
+      render={({ field }) => (
+        <FormItem>
+          <FormLabel>Apartment list</FormLabel>
+          <AddressSelectElement
+            onSelectAddress={field.onChange}
+            userId={userId}
+            settlementRef={settlementRef}
+            addressInit={field.value}
+          />
           <FormMessage />
         </FormItem>
       )}

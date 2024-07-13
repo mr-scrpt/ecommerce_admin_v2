@@ -3,6 +3,7 @@ import { ORDER_STATUS, ORDER_PAYMENT_STATUS } from "@prisma/client";
 export const orderListSeed = [
   {
     id: "order_id_1",
+    receiverId: "receiver_id_1",
 
     userId: "admin_id_1",
     orderNo: "20240614-6526-103650",
@@ -13,6 +14,7 @@ export const orderListSeed = [
   },
   {
     id: "order_id_2",
+    receiverId: "receiver_id_2",
     orderNo: "20240615-3333-083611",
 
     userId: "admin_id_1",
@@ -23,6 +25,7 @@ export const orderListSeed = [
   },
   {
     id: "order_id_3",
+    receiverId: "receiver_id_3",
     orderNo: "20240616-4444-015822",
 
     userId: "manager_id_2",
@@ -34,6 +37,7 @@ export const orderListSeed = [
   {
     id: "order_id_4",
 
+    receiverId: "receiver_id_1",
     orderNo: "20240617-6666-124201",
 
     userId: "consumer_id_3",
@@ -44,6 +48,7 @@ export const orderListSeed = [
   },
   {
     id: "order_id_5",
+    receiverId: "receiver_id_2",
     orderNo: "20240513-7777-098759",
 
     userId: "consumer_id_3",
@@ -54,6 +59,7 @@ export const orderListSeed = [
   },
   {
     id: "order_id_6",
+    receiverId: "receiver_id_3",
     orderNo: "20240513-8888-15759",
 
     userId: "consumer_id_4",

@@ -20,16 +20,19 @@ export class UserCreateService implements IUserCreateService {
 
   private build(payload: UserCreateTxPayload): UserCreateTxDTO {
     const { userData } = payload;
-    const { email, phone, name, image } = userData;
+    const { email, phone, name, lastName, image } = userData;
 
     const adminEmails = configPrivate.ADMIN_EMAILS?.split(CHAR_SPLIT) ?? [];
     const role = adminEmails.includes(email)
       ? RoleEnum.ADMIN
       : RoleEnum.CONSUMER;
 
+    const [fistName, receivedLatName] = name?.split(" ") ?? [];
+
     return merge({}, payload, {
       userData: {
-        name: name ?? "",
+        name: fistName ?? "",
+        lastName: lastName ?? receivedLatName ?? "",
         phone: phone ?? "",
         image: image ?? "",
         role,

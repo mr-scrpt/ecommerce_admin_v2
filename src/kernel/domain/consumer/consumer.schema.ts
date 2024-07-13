@@ -2,9 +2,10 @@ import { z } from "zod";
 
 // NOTE: Base
 export const consumerBaseSchema = z.object({
+  name: z.string(),
+  lastName: z.string(),
   email: z.string(),
   phone: z.string(),
-  name: z.string(),
   image: z.string().nullable().optional(),
 });
 

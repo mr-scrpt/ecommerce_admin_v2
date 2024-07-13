@@ -3,6 +3,7 @@ import { z } from "zod";
 
 export const profileUpdateSchema = profileBaseSchema.pick({
   name: true,
+  lastName: true,
   email: true,
   phone: true,
   image: true,

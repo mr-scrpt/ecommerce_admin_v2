@@ -15,9 +15,11 @@ export class SessionGetRelationService implements ISessionGetRelationService {
 
   async execute(payload: SessionWithDataPayload): Promise<Session> {
     const { session, userId } = payload;
+
     const user = await this.userRepo.getWithCart<UserWithCartEntity>({
       id: userId,
     });
+    console.log("output_log: user to session =>>>", user);
 
     const clientDataParsed = getNetworkClientCookie();
 
@@ -26,6 +28,7 @@ export class SessionGetRelationService implements ISessionGetRelationService {
       user: {
         ...session.user,
         id: user.id,
+        lastName: user.lastName,
         cartId: user?.cart?.id ?? "",
         role: user.role,
       },

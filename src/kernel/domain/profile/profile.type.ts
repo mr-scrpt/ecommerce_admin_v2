@@ -1,6 +1,7 @@
 // NOTE: Base
 export type ProfileBase = {
   name: string | null;
+  lastName: string | null;
   phone: string;
   email: string;
   image?: string | null;

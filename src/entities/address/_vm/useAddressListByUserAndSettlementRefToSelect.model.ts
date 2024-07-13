@@ -3,8 +3,8 @@
 import { useAddressListByUserAndSettlementRef } from "../_query/useAddressListByUserAndSettlementRef.query";
 
 interface IAddressListToSelectModel {
-  userId?: string;
-  settlementRef?: string;
+  userId: string;
+  settlementRef: string;
 }
 
 export const useAddressListByUserAndSettlementRefToSelectModel = (

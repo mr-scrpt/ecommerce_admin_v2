@@ -66,6 +66,7 @@ export const ProfileFormUpdate: FC<ProfileFormProps> = (props) => {
       >
         <ProfileFormElements.FieldEmail />
         <ProfileFormElements.FieldName />
+        <ProfileFormElements.FieldLastName />
         <ProfileFormElements.FieldPhone />
         <ProfileFormElements.FieldAvatar profile={profile} />
         <ProfileFormElements.SubmitButton

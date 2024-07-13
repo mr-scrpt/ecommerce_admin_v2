@@ -8,6 +8,10 @@ export const consumerFormDefaultSchema = z.object({
     .string()
     .transform((name) => name.trim())
     .pipe(z.string().max(30).min(2)),
+  lastName: z
+    .string()
+    .transform((name) => name.trim())
+    .pipe(z.string().max(30).min(2)),
 
   email: z.string().email(),
   phone: z

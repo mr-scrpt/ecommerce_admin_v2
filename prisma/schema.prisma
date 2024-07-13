@@ -84,7 +84,9 @@ model Product {
 
 model User {
   id            String    @id @default(uuid())
+
   name          String?
+  lastName      String?
   email         String    @unique
   phone         String
   role          ROLE      @default(CONSUMER)
@@ -148,8 +150,8 @@ model Order {
 
   delivery      Delivery?
 
-  receiver      Receiver? @relation(fields: [receiverId], references: [id])
-  receiverId    String?
+  receiver      Receiver @relation(fields: [receiverId], references: [id])
+  receiverId    String
 
 
   createdAt DateTime @default(now())
@@ -181,8 +183,10 @@ model OrderRow {
 
 model Receiver {
   id        String   @id @default(uuid())
+
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
+
   name      String
   lastName  String
   phone     String

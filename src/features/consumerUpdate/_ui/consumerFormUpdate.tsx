@@ -64,6 +64,7 @@ export const ConsumerFormUpdate: FC<ConsumerFormProps> = (props) => {
       >
         <ConsumerFormElements.FieldEmail />
         <ConsumerFormElements.FieldName />
+        <ConsumerFormElements.FieldLastName />
         <ConsumerFormElements.FieldPhone />
         {/* <ConsumerFormElements.FieldAvatar consumer={data.consumer} /> */}
         <ConsumerFormElements.SubmitButton

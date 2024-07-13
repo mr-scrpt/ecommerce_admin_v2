@@ -26,7 +26,3 @@ export type AddressGetByUserAndSettlementRefSelector = {
   userId?: string;
   settlementRef?: string;
 };
-
-export type AddressGetByDeliverySelector = {
-  userId: string;
-};

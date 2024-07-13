@@ -161,7 +161,9 @@ DeliveryUpdateFormElements.FieldStoreSelect = function FieldStoreSelect() {
 DeliveryUpdateFormElements.FieldAddress = function FieldAddressSelect() {
   const { control, getValues } =
     useFormContext<DeliveryUpdateFormValuesExtends>();
+
   const { userId, settlementRef, addressModal } = getValues();
+
   return (
     <FormField
       control={control}

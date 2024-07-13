@@ -1,5 +1,5 @@
-import { Role } from "@/kernel/domain/role.type";
 import { User } from "@/kernel/domain/user/user.type";
+import { RoleEnum } from "../role.type";
 
 // NOTE: Queries
 export type UserGetDTO = {
@@ -17,7 +17,7 @@ export type UserCreateDTO = {
     phone: string;
     name?: string | null;
     image?: string | null;
-    role: Role;
+    role: RoleEnum;
   };
 };
 

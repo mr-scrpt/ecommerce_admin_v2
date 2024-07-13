@@ -13,6 +13,7 @@ export const userListSeed = [
   {
     id: "manager_id_2",
     name: "Manager User Name",
+    lastName: "Manager Last Name",
     email: "manager@gmail.com",
     phone: "+46701234567",
     role: $Enums.ROLE.MANAGER,
@@ -21,6 +22,7 @@ export const userListSeed = [
   {
     id: "consumer_id_3",
     name: "Consumer User Name",
+    lastName: "Consumer Last Name",
     email: "consumer@gmail.com",
     phone: "+4915112345678",
     role: $Enums.ROLE.CONSUMER,

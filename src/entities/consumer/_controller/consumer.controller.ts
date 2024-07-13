@@ -32,9 +32,7 @@ export class ConsumerController extends Controller {
         return consumerSchema.parse(result);
       }),
       getList: publicProcedure.query(async () => {
-        console.log("output_log:  =>>> before");
         const result = await this.getConsumerListService.execute();
-        console.log("output_log:  =>>>", result);
         return getListOutputSchema.parse(result);
       }),
       getRelationByOrder: publicProcedure

@@ -4,9 +4,10 @@ import { Session } from "next-auth";
 
 // NOTE: Payload
 export type UserCreatePayload = {
+  name?: string | null;
+  lastName?: string | null;
   email: string;
   phone: string;
-  name?: string | null;
   image?: string | null;
   // role: Role;
 };
@@ -17,9 +18,10 @@ export type UserCreateTxPayload = {
 
 export type UserCreateDTO = {
   data: {
+    name?: string | null;
+    lastName?: string | null;
     email: string;
     phone: string;
-    name?: string | null;
     image?: string | null;
     role: RoleEnum;
   };

@@ -1,11 +1,18 @@
 export enum WSEventEnum {
   CONNECT = "connect",
   DISCONNECTD = "disconnectd",
+
   USER_CREATE = "user_create",
   USER_UPDATE = "user_update",
   USER_REMOVE = "user_remove",
   USER_REFRESH = "user_refresh",
   USER_LIST_REFRESH = "user_list_refresh",
+
+  RECEIVER_CREATE = "receiver_create",
+  RECEIVER_UPDATE = "receiver_update",
+  RECEIVER_REMOVE = "receiver_remove",
+  RECEIVER_REFRESH = "receiver_refresh",
+  RECEIVER_LIST_REFRESH = "receiver_list_refresh",
 
   PROFILE_UPDATE = "profile_update",
   PROFILE_REFRESH = "profile_refresh",

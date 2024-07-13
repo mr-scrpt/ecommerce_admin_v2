@@ -1,5 +1,5 @@
 // "use client";
-import { Profile } from "@/entities/user/profile";
+import { Profile } from "@/kernel/domain/profile/profile.type";
 import { useEmitProfileUpdate } from "..";
 import { profileUpdateApi } from "../_api/profileUpdate.api";
 
@@ -11,7 +11,6 @@ export const useProfileUpdateMutation = (
   const { mutateAsync, isPending } =
     profileUpdateApi.profileUpdate.update.useMutation({
       onSuccess: async (profile) => {
-        console.log("output_log: success =>>>", profile);
         onSuccess(profile);
         profileUpdateEvent(profile.id);
       },
