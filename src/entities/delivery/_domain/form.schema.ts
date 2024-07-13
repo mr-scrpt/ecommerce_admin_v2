@@ -6,6 +6,7 @@ import { z } from "zod";
 export const deliveryFormDefaultSchema = z.object({
   orderId: z.string(),
   userId: z.string(),
+  receiverId: z.string(),
   deliveryType: z.nativeEnum(DeliveryTypeEnum),
   settlementRef: z.string(),
   postOffice: z.string(),

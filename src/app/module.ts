@@ -50,6 +50,7 @@ import { StoreCreateModule } from "@/features/storeCreate/module";
 import { AddressModule } from "@/entities/address/module";
 import { AddressCreateModule } from "@/features/addressCreate/module";
 import { ReceiverModule } from "@/entities/receiver/module";
+import { ReceiverCreateModule } from "@/features/receiverCreate/module";
 
 export const loadModule = () => {
   const container = new Container();
@@ -74,6 +75,7 @@ export const loadModule = () => {
     ProfileUpdateModule,
 
     ReceiverModule,
+    ReceiverCreateModule,
 
     CartModule,
     CartRowAddModule,

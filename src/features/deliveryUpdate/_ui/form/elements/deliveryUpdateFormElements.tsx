@@ -16,12 +16,15 @@ import {
   deliveryUpdateFormSchema,
 } from "../../../_domain/form.schema";
 import { DeliveryTypeField } from "../fields/deliveryTypeField";
+import { ReceiverSelectElement } from "@/entities/receiver";
+import { ReceiverCreateProps } from "@/kernel/domain/receiver/ui.type";
 
 export interface DeliveryFormElementsProps
   extends HTMLAttributes<HTMLFormElement> {
   delivery: Delivery;
   handleSubmit: (data: DeliveryUpdateFormValues) => void;
-  addressModal: (props: AddressCreateProps) => void;
+  addressAddModal: (props: AddressCreateProps) => void;
+  receiverAddModal: (props: ReceiverCreateProps) => void;
   schema?: ZodTypeAny;
 }
 
@@ -32,6 +35,7 @@ export interface DeliveryFormElementsFields {
   FieldPostSelect: FC;
 
   FieldStoreSelect: FC;
+  FieldReceiverSelect: FC;
 
   FieldAddress: FC;
 
@@ -44,7 +48,8 @@ interface IDeliveryFormElements
 
 const getDefaultValues = (
   delivery: Delivery & {
-    addressModal: (props: AddressCreateProps) => void;
+    addressAddModal: (props: AddressCreateProps) => void;
+    receiverAddModal: (props: ReceiverCreateProps) => void;
   },
 ) => ({
   deliveryType: delivery.deliveryType,
@@ -53,28 +58,45 @@ const getDefaultValues = (
   userId: delivery.userId,
   addressId: delivery.addressId ?? "",
   storeId: delivery.storeId ?? "",
-  addressModal: delivery.addressModal,
+  receiverId: delivery.receiverId,
+  addressAddModal: delivery.addressAddModal,
+  receiverAddModal: delivery.receiverAddModal,
 });
 
 interface DeliveryUpdateFormValuesExtends extends DeliveryUpdateFormValues {
-  addressModal: (props: AddressCreateProps) => void;
+  addressAddModal: (props: AddressCreateProps) => void;
+  receiverAddModal: (props: ReceiverCreateProps) => void;
 }
 
 export const DeliveryUpdateFormElements: IDeliveryFormElements = (props) => {
-  const { delivery, handleSubmit: onSubmit, children, addressModal } = props;
+  const {
+    delivery,
+    handleSubmit: onSubmit,
+    children,
+    addressAddModal,
+    receiverAddModal,
+  } = props;
 
   const form = useForm<DeliveryUpdateFormValuesExtends>({
     resolver: zodResolver(deliveryUpdateFormSchema),
-    defaultValues: getDefaultValues({ ...delivery, addressModal }),
+    defaultValues: getDefaultValues({
+      ...delivery,
+      addressAddModal,
+      receiverAddModal,
+    }),
   });
 
   useEffect(() => {
-    form.reset(getDefaultValues({ ...delivery, addressModal }));
-  }, [addressModal, delivery, form]);
+    form.reset(
+      getDefaultValues({ ...delivery, addressAddModal, receiverAddModal }),
+    );
+  }, [addressAddModal, delivery, form, receiverAddModal]);
 
   const handleSubmit = form.handleSubmit(async (data) => {
     onSubmit?.(data);
   });
+
+  console.log("output_log:  =>>>", form.getValues());
 
   return (
     <FormProvider {...form}>
@@ -162,7 +184,7 @@ DeliveryUpdateFormElements.FieldAddress = function FieldAddressSelect() {
   const { control, getValues } =
     useFormContext<DeliveryUpdateFormValuesExtends>();
 
-  const { userId, settlementRef, addressModal } = getValues();
+  const { userId, settlementRef, addressAddModal } = getValues();
 
   return (
     <FormField
@@ -179,7 +201,10 @@ DeliveryUpdateFormElements.FieldAddress = function FieldAddressSelect() {
               settlementRef={settlementRef}
               addressInit={field.value}
             />
-            <Button onClick={() => addressModal({ userId, settlementRef })}>
+            <Button
+              type="button"
+              onClick={() => addressAddModal({ userId, settlementRef })}
+            >
               Add Address
             </Button>
           </div>
@@ -188,6 +213,37 @@ DeliveryUpdateFormElements.FieldAddress = function FieldAddressSelect() {
     />
   );
 };
+
+DeliveryUpdateFormElements.FieldReceiverSelect =
+  function FieldReceiverSelect() {
+    const { control, getValues } =
+      useFormContext<DeliveryUpdateFormValuesExtends>();
+    const { userId, receiverAddModal } = getValues();
+    return (
+      <FormField
+        control={control}
+        name="receiverId"
+        render={({ field }) => (
+          <FormItem className="flex flex-col">
+            <FormLabel>Select receiver</FormLabel>
+            <div className="flex items-center space-x-2">
+              <ReceiverSelectElement
+                onSelectReceiver={field.onChange}
+                receiverInit={field.value}
+                userId={userId}
+              />
+              <Button
+                type="button"
+                onClick={() => receiverAddModal({ userId })}
+              >
+                Add Receiver
+              </Button>
+            </div>
+          </FormItem>
+        )}
+      />
+    );
+  };
 
 // DeliveryUpdateFormElements.FieldStreet = function FieldStreet() {
 //   const { control } = useFormContext<DeliveryUpdateFormValues>();

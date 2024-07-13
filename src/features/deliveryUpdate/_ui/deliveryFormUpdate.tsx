@@ -1,6 +1,5 @@
-import { DeliveryFormElements, useDeliveryQuery } from "@/entities/delivery";
-import { usePostOfficeListToSelectModel } from "@/entities/post";
-import { useStoreListBySettltmentRefToSelectModel } from "@/entities/store";
+import { useDeliveryQuery } from "@/entities/delivery";
+import { AddressCreateProps } from "@/kernel/domain/address/ui.type";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
@@ -10,29 +9,33 @@ import {
   deliveryUpdateFormSchema,
 } from "../_domain/form.schema";
 import { useDeliveryUpdateModel } from "../_vm/useDeliveryUpdate.model";
-import { StoreSelectElement } from "@/entities/store/_ui/form/elements/storeSelectElement";
 import { DeliveryUpdateFormElements } from "./form/elements/deliveryUpdateFormElements";
-import { AddressBase } from "@/kernel/domain/address/address.type";
-import { AddressCreateProps } from "@/kernel/domain/address/ui.type";
+import { ReceiverCreateProps } from "@/kernel/domain/receiver/ui.type";
 
 interface OrderDeliveryFormProps extends HTMLAttributes<HTMLDivElement> {
   deliveryId: string;
   callbackUrl?: string;
   className?: string;
   onSuccess?: () => void;
-  addressModal: (props: AddressCreateProps) => void;
-  // settlementRef?: string;
+  addressAddModal: (props: AddressCreateProps) => void;
+  receiverAddModal: (props: ReceiverCreateProps) => void;
 }
 
 export const DeliveryFormUpdate: FC<OrderDeliveryFormProps> = (props) => {
-  const { deliveryId, callbackUrl, className, onSuccess, addressModal } = props;
+  const {
+    deliveryId,
+    callbackUrl,
+    className,
+    onSuccess,
+    addressAddModal,
+    receiverAddModal,
+  } = props;
 
   const {
     delivery,
     isPending: isPendingDelivery,
     isFetchedAfterMount,
   } = useDeliveryQuery(deliveryId);
-  console.log("output_log: getDelivery $$$$ =>>>", delivery);
 
   const router = useRouter();
 
@@ -60,17 +63,8 @@ export const DeliveryFormUpdate: FC<OrderDeliveryFormProps> = (props) => {
     [callbackUrl, delivery, deliveryUpdate, onSuccess, router],
   );
 
-  // const { postOfficeListToSelect, isPending: isPendingPostOfficeList } =
-  //   usePostOfficeListToSelectModel(delivery?.settlementRef || "");
-  //
-  // const { storeListToSelect, isPending: isPendingStore } =
-  //   useStoreListBySettltmentRefToSelectModel(settlementRef);
-
   const isPendingComplexible =
     isPendingUpdate || isPendingDelivery || !isFetchedAfterMount;
-  // ||
-  // isPendingStore ||
-  // isPendingPostOfficeList;
 
   if (isPendingComplexible) {
     return <Spinner aria-label="Loading profile..." />;
@@ -84,12 +78,14 @@ export const DeliveryFormUpdate: FC<OrderDeliveryFormProps> = (props) => {
     <div className={cn(className, "w-full")}>
       <DeliveryUpdateFormElements
         handleSubmit={handleSubmit}
-        addressModal={addressModal}
+        addressAddModal={addressAddModal}
+        receiverAddModal={receiverAddModal}
         delivery={delivery}
         schema={deliveryUpdateFormSchema}
       >
         <DeliveryUpdateFormElements.FieldSettlementSelect />
         <DeliveryUpdateFormElements.FieldDeliveryType />
+        <DeliveryUpdateFormElements.FieldReceiverSelect />
         <DeliveryUpdateFormElements.SubmitButton
           isPending={isPendingComplexible}
           submitText="Save change"

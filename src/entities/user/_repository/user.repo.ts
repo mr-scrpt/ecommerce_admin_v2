@@ -1,7 +1,3 @@
-import { DBClient, Tx } from "@/shared/lib/db/db";
-import { injectable } from "inversify";
-import { UserWithCartEntity } from "../_domain/user.types";
-import { UserEntity } from "@/kernel/domain/user/user.type";
 import { IUserRepository } from "@/kernel/domain/user/repository.type";
 import {
   UserCreateDTO,
@@ -10,6 +6,9 @@ import {
   UserSearchDTO,
   UserUpdateDTO,
 } from "@/kernel/domain/user/user.dto";
+import { UserEntity } from "@/kernel/domain/user/user.type";
+import { DBClient, Tx } from "@/shared/lib/db/db";
+import { injectable } from "inversify";
 
 @injectable()
 export class UserRepository implements IUserRepository {

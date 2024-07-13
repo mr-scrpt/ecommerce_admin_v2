@@ -9,6 +9,7 @@ import { z } from "zod";
 export const deliveryUpdateFormSchema = deliveryFormDefaultSchema.pick({
   // orderId: true,
   userId: true,
+  receiverId: true,
   deliveryType: true,
   settlementRef: true,
   postOffice: true,

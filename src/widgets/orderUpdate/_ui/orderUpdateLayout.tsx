@@ -16,13 +16,14 @@ export const OrderUpdateLayout: FC<OrderUpdateLayoutProps> = (props) => {
   const onSelect = (value: string) => {
     localStorage.setItem(ORDER_TAB_ACTVE, value);
   };
+
   useEffect(() => {
-    // const tabActive = tabActiveStorege.getItem();
     const tabActive = localStorage.getItem(ORDER_TAB_ACTVE);
     if (tabActive) {
       setActiveTab(tabActive);
     }
   }, []);
+
   return (
     <div className="flex w-full flex-col gap-4">
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">

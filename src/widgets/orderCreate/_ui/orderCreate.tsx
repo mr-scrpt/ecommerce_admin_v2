@@ -5,10 +5,6 @@ import {
   useConsumerCreateMutation,
 } from "@/features/consumerCreate";
 import { useOrderCreateMutation } from "@/features/orderCreate/_mutation/useCreate.mutation";
-// import {
-//   UserFormCreate,
-//   useUserCreateMutation,
-// } from "@/features/consumerCreate";
 import { RoutePathEnum } from "@/shared/config/routing.config";
 import { Button } from "@/shared/ui/button";
 import { useRouter } from "next/navigation";
@@ -27,6 +23,7 @@ export const OrderCreate: FC<OrderUpdateProps> = (props) => {
   const { orderCreate, isSuccess } = useOrderCreateMutation();
 
   const router = useRouter();
+
   const handleCreate = async (userId: string) => {
     const order = await orderCreate({ orderData: { userId } });
 
@@ -37,7 +34,6 @@ export const OrderCreate: FC<OrderUpdateProps> = (props) => {
 
   return (
     <div className="flex w-full flex-col gap-4">
-      {/* <UserFormCreate onUserCreate={consumerCreate} isPending={false} /> */}
       <ConsumerFormCreate
         onConsumerCreate={consumerCreate}
         isPending={isConsumerPending}

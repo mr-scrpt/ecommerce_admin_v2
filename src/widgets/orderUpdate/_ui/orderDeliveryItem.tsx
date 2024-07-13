@@ -5,6 +5,7 @@ import {
   useAddressCreateMutation,
 } from "@/features/addressCreate";
 import { DeliveryFormUpdate } from "@/features/deliveryUpdate";
+import { useReceiverCreateModal } from "@/features/receiverCreate";
 import { AddressBase } from "@/kernel/domain/address/address.type";
 import { Button } from "@/shared/ui/button";
 import { FC, HTMLAttributes, useCallback } from "react";
@@ -19,17 +20,10 @@ export const OrderDeliveryItem: FC<OrderDeliveryItemProps> = (props) => {
   const { addressCreate, isPending: isPendingCreate } =
     useAddressCreateMutation();
 
-  const handleAddressCreate = useCallback(
-    (addressData: AddressBase) => {
-      addressCreate({
-        addressData,
-      });
-    },
-    [addressCreate],
-  );
-
   const { order, isSuccess, isPending } = useOrderWithRelationQuery(orderId);
-  const { openUpdateModal } = useAddressCreateModal();
+
+  const { openAddressCreateModal } = useAddressCreateModal();
+  const { openReceiverCreateModal } = useReceiverCreateModal();
 
   if (isPending) {
     return <div>Loading...</div>;
@@ -38,7 +32,6 @@ export const OrderDeliveryItem: FC<OrderDeliveryItemProps> = (props) => {
     return <div>Order not found</div>;
   }
   const { delivery } = order;
-  const { userId, settlementRef } = delivery;
 
   return (
     <>
@@ -46,8 +39,8 @@ export const OrderDeliveryItem: FC<OrderDeliveryItemProps> = (props) => {
       {/* <OrderDeliveryUpdate orderId={orderId} settlementRef={settlementRef} /> */}
       <DeliveryFormUpdate
         deliveryId={delivery.id}
-        handleAddressCreate={handleAddressCreate}
-        addressModal={openUpdateModal}
+        addressAddModal={openAddressCreateModal}
+        receiverAddModal={openReceiverCreateModal}
       />
     </>
   );

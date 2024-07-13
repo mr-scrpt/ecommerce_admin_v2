@@ -47,10 +47,6 @@ export class NextAuthConfig {
             userId: user.id,
           });
 
-        console.log(
-          "output_log: sessionWithRelation =>>>",
-          sessionWithRelation,
-        );
         return sessionWithRelation;
       },
     },

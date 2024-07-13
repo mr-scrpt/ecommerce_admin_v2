@@ -6,7 +6,12 @@ import {
   DeliveryTypeEnum,
 } from "@/kernel/domain/delivery/delivery.type";
 
-const ALWAYS_KEEP_FIELDS = ["userId", "deliveryType", "settlementRef"];
+const ALWAYS_KEEP_FIELDS = [
+  "userId",
+  "deliveryType",
+  "settlementRef",
+  "receiverId",
+];
 
 const DELIVERY_TYPE_FIELDS: Record<DeliveryTypeEnum, string[]> = {
   [DeliveryTypeEnum.PICKUP]: ["storeId"],

@@ -19,7 +19,6 @@ export class SessionGetRelationService implements ISessionGetRelationService {
     const user = await this.userRepo.getWithCart<UserWithCartEntity>({
       id: userId,
     });
-    console.log("output_log: user to session =>>>", user);
 
     const clientDataParsed = getNetworkClientCookie();
 

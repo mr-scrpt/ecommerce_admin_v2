@@ -9,7 +9,7 @@ export const useReceiverListByUserToSelectModel = (userId: string) => {
   const receiverListToSelect = receiverList.map((receiver) => {
     return {
       value: receiver.id,
-      label: `${receiver.name}, ${receiver.lastName}`,
+      label: `${receiver.name}, ${receiver.lastName} | ${receiver.phone}`,
     };
   });
 

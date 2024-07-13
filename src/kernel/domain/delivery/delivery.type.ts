@@ -5,8 +5,10 @@ export { DeliveryTypeEnum };
 export type DeliveryBase = {
   orderId: string;
   userId: string;
+  receiverId: string;
   deliveryType: DeliveryTypeEnum;
   settlementRef: string | null;
+
   postOffice: string | null;
   storeId: string | null;
   addressId: string | null;

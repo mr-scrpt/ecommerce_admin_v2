@@ -5,6 +5,9 @@ import { IOrderRepository } from "@/kernel/domain/order/repository.type";
 import { OrderEntity } from "@/kernel/domain/order/order.type";
 import { IDeliveryRepository } from "@/kernel/domain/delivery/repository.type";
 import { IOrderCreateTx } from "../_domain/transaction.type";
+import { IReceiverRepository } from "@/kernel/domain/receiver/repository.type";
+import { IConsumerRepository } from "@/kernel/domain/consumer/repository.type";
+import { ConsumerRelationEntity } from "@/entities/consumer/_domain/consumer.type";
 
 @injectable()
 export class OrderCreateTx extends Transaction implements IOrderCreateTx {
@@ -12,6 +15,8 @@ export class OrderCreateTx extends Transaction implements IOrderCreateTx {
     readonly db: DBClient,
     private readonly orderRepo: IOrderRepository,
     private readonly deliveryRepo: IDeliveryRepository,
+    private readonly consumerRepo: IConsumerRepository,
+    private readonly receiverRepo: IReceiverRepository,
   ) {
     super(db);
   }
@@ -19,6 +24,30 @@ export class OrderCreateTx extends Transaction implements IOrderCreateTx {
   async createEmpty(dto: OrderEmptyCreateTxDTO): Promise<OrderEntity> {
     const { orderData, deliveryData } = dto;
     const action = async (tx: Tx) => {
+      const { userId } = orderData;
+
+      const user =
+        await this.consumerRepo.getWithRelation<ConsumerRelationEntity>(
+          { id: userId },
+          tx,
+        );
+
+      let [receiver] = user.receiverList;
+
+      if (!receiver) {
+        receiver = await this.receiverRepo.create(
+          {
+            data: {
+              name: user.name ?? "",
+              lastName: user.lastName ?? "",
+              phone: user.phone ?? "",
+              userId: user.id,
+            },
+          },
+          tx,
+        );
+      }
+
       const { id } = await this.orderRepo.createEmpty({ data: orderData }, tx);
 
       const delivery = await this.deliveryRepo.create(

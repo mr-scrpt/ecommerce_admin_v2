@@ -11,7 +11,6 @@ import { RoleEnum } from "@/kernel/domain/role.type";
 import { UserEntity } from "@/kernel/domain/user/user.type";
 import { DBClient, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
-import { ConsumerRelationEntity } from "../_domain/consumer.type";
 
 @injectable()
 export class ConsumerRepository implements IConsumerRepository {
@@ -181,11 +180,13 @@ export class ConsumerRepository implements IConsumerRepository {
         `Consumer invalid data: missing ${missingFields.join(", ")}`,
       );
     }
-    const { id, name, phone, email, image, createdAt, updatedAt } = user;
+    const { id, name, lastName, phone, email, image, createdAt, updatedAt } =
+      user;
 
     return {
       id,
       name,
+      lastName,
       phone,
       email,
       image,

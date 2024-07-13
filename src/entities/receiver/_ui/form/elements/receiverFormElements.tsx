@@ -41,7 +41,7 @@ const getDefaultValues = (receiverData?: Receiver) => ({
   lastName: receiverData?.lastName,
   phone: receiverData?.phone,
   userId: receiverData?.userId,
-  receiverId: receiverData?.id,
+  receiverId: receiverData?.id ?? "",
 });
 
 export const ReceiverFormElements: ReceiverFormElementsType = (props) => {
@@ -59,6 +59,7 @@ export const ReceiverFormElements: ReceiverFormElementsType = (props) => {
   const handleSubmit = form.handleSubmit(async (data) => {
     onSubmit(data);
   });
+  console.log("output_log:  =>>> form errors", form.formState.errors);
 
   return (
     <FormProvider {...form}>
@@ -78,7 +79,7 @@ ReceiverFormElements.FieldName = function FieldName() {
       name="name"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>Receiver list</FormLabel>
+          <FormLabel>Receiver name</FormLabel>
           <ReceiverNameElement onChange={field.onChange} />
           <FormMessage />
         </FormItem>
@@ -96,7 +97,7 @@ ReceiverFormElements.FieldLastName = function FieldLastName() {
       name="lastName"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>House</FormLabel>
+          <FormLabel>Receiver last name</FormLabel>
           <ReceiverLastNameElement onChange={field.onChange} />
           <FormMessage />
         </FormItem>
@@ -114,7 +115,7 @@ ReceiverFormElements.FieldPhone = function FieldPhone() {
       name="phone"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>Apartment</FormLabel>
+          <FormLabel>Receiver phone</FormLabel>
           <ReceiverPhoneElement onChange={field.onChange} />
           <FormMessage />
         </FormItem>

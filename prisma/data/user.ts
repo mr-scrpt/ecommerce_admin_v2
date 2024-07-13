@@ -3,7 +3,8 @@ import { $Enums } from "@prisma/client";
 export const userListSeed = [
   {
     id: "admin_id_1",
-    name: "Admnin User Name",
+    name: "Admnin",
+    lastName: "Lastname",
     email: "admin@gmail.com",
     phone: "+380993282451",
     role: $Enums.ROLE.ADMIN,
@@ -12,8 +13,8 @@ export const userListSeed = [
 
   {
     id: "manager_id_2",
-    name: "Manager User Name",
-    lastName: "Manager Last Name",
+    name: "Manager",
+    lastName: "",
     email: "manager@gmail.com",
     phone: "+46701234567",
     role: $Enums.ROLE.MANAGER,
@@ -30,12 +31,15 @@ export const userListSeed = [
   {
     id: "consumer_id_4",
     email: "consumer_without_name@gmail.com",
+    name: "",
+    lastName: "Consumer Last Name",
     phone: "+4915112345678",
     role: $Enums.ROLE.CONSUMER,
   },
   {
     id: "consumer_id_5",
-    name: "Long Name Consumer User Name",
+    name: "Consumer5",
+    lastName: "Last Name",
     email: "long_name@gmail.com",
     phone: "+3809987889987",
     role: $Enums.ROLE.CONSUMER,

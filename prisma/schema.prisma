@@ -192,6 +192,8 @@ model Receiver {
   phone     String
   orderList  Order[]
 
+  deliveryList Delivery[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   @@unique([userId, name, lastName, phone])
@@ -206,6 +208,9 @@ model Delivery {
 
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String
+
+  receiver      Receiver @relation(fields: [receiverId], references: [id])
+  receiverId    String
 
   deliveryType DELIVERY_TYPE
 

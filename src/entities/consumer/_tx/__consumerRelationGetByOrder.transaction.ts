@@ -25,7 +25,11 @@ export class ConsumerGetByOrderTx
     const { orderId } = selector;
     const action = async (tx: Tx) => {
       const { userId } = await this.orderRepo.get({ id: orderId }, tx);
-      const consumer = await this.consumerRepo.get({ id: userId }, tx);
+      const consumer =
+        await this.consumerRepo.getWithRelation<ConsumerRelationEntity>(
+          { id: userId },
+          tx,
+        );
 
       const orderList = await this.orderRepo.getListByConsumer(
         { consumerId: consumer.id },
