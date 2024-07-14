@@ -76,18 +76,34 @@ async function main() {
   }
 
   for await (const receiver of receiverListSeed) {
-    await prisma.receiver.create({ data: receiver });
-    console.log("receiver created", receiver);
+    try {
+      await prisma.receiver.create({ data: receiver });
+      console.log("receiver created", receiver);
+    } catch (error) {
+      console.log("output_log: receiver error =>>>", error);
+    }
   }
 
   for await (const order of orderListSeed) {
-    await prisma.order.create({ data: order });
-    console.log("order created", order);
+    try {
+      await prisma.order.create({ data: order });
+      console.log("order created", order);
+    } catch (error) {
+      console.log("output_log: order error =>>>", error);
+    }
+    // await prisma.order.create({ data: order });
+    // console.log("order created", order);
   }
 
   for await (const delivery of deliveryListSeed) {
-    await prisma.delivery.create({ data: delivery });
-    console.log("delivery created", delivery);
+    // await prisma.delivery.create({ data: delivery });
+    // console.log("delivery created", delivery);
+    try {
+      await prisma.delivery.create({ data: delivery });
+      console.log("delivery created", delivery);
+    } catch (error) {
+      console.log("output_log: delivery error =>>>", error);
+    }
   }
 
   for await (const orderRow of orderRowListSeed) {

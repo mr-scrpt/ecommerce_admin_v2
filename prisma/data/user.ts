@@ -31,8 +31,8 @@ export const userListSeed = [
   {
     id: "consumer_id_4",
     email: "consumer_without_name@gmail.com",
-    name: "",
-    lastName: "Consumer Last Name",
+    name: "Consumer 4",
+    lastName: "Last Name 4",
     phone: "+4915112345678",
     role: $Enums.ROLE.CONSUMER,
   },

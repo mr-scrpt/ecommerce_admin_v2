@@ -17,6 +17,7 @@ export class ProfileController extends Controller {
   public router = router({
     profile: {
       get: publicProcedure.input(getProfile).query(async ({ input }) => {
+        console.log("output_log: $$$$$ =>>>", input);
         const result = await this.getProfileService.execute(input);
         return profileSchema.parse(result);
       }),

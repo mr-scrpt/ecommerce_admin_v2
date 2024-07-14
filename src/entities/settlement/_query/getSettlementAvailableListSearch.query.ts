@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { settlementApi } from "../_api/settlement.api";
 
-export const useSettlementListSearchToSelectQuery = (
+export const useSettlementAvailableListSearchToSelectQuery = (
   settlementDefault: string = "",
 ) => {
   const [q, setQ] = useState<string>("");
@@ -13,7 +13,7 @@ export const useSettlementListSearchToSelectQuery = (
   }, [settlementDefault]);
 
   const { isPending, isSuccess, isFetchedAfterMount, data } =
-    settlementApi.settlement.search.useQuery({ q });
+    settlementApi.settlement.searchAvailable.useQuery({ q });
 
   return {
     toSearch: (q: string) => setQ(q),
@@ -24,8 +24,9 @@ export const useSettlementListSearchToSelectQuery = (
   };
 };
 
-export const useInvalidateSettlementListSearchToSelect = () => {
-  const invalidate = settlementApi.useUtils().settlement.search.invalidate;
+export const useInvalidateSettlementAvailableListSearchToSelect = () => {
+  const invalidate =
+    settlementApi.useUtils().settlement.searchAvailable.invalidate;
 
   return (q: string) => invalidate({ q });
 };

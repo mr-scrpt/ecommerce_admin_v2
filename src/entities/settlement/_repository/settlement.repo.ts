@@ -60,6 +60,45 @@ export class SettlementRepository implements ISettlementRepository {
     return res;
   }
 
+  async searchAvailableList(
+    dto: SettlementSearchDTO,
+    db: Tx = this.db,
+  ): Promise<Array<SettlementEntity>> {
+    const { q } = dto;
+    const res = await db.settlement.findMany({
+      where: {
+        warehouse: "1",
+        OR: [
+          {
+            description: {
+              contains: q,
+              mode: "insensitive",
+            },
+          },
+          {
+            descriptionRu: {
+              contains: q,
+              mode: "insensitive",
+            },
+          },
+          {
+            descriptionTranslit: {
+              contains: q,
+              mode: "insensitive",
+            },
+          },
+          {
+            ref: {
+              contains: q,
+              mode: "insensitive",
+            },
+          },
+        ],
+      },
+    });
+    return res;
+  }
+
   async create(
     dto: SettlementCreateDTO,
     db: Tx = this.db,

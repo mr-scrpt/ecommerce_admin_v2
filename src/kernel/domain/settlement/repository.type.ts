@@ -16,6 +16,10 @@ export abstract class ISettlementRepository {
     dto: SettlementSearchDTO,
     db?: Tx,
   ): Promise<Array<SettlementEntity>>;
+  abstract searchAvailableList(
+    dto: SettlementSearchDTO,
+    db?: Tx,
+  ): Promise<Array<SettlementEntity>>;
 
   abstract create(dto: SettlementCreateDTO, db?: Tx): Promise<SettlementEntity>;
 }

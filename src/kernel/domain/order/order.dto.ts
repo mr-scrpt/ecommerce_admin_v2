@@ -12,7 +12,12 @@ export type OrderGetByConsumerDTO = {
 // NOTE: Mutations
 type OrderCreateEmpty = Pick<
   OrderBase,
-  "userId" | "priceTotal" | "paymentStatus" | "orderStatus" | "orderNo"
+  | "userId"
+  | "receiverId"
+  | "priceTotal"
+  | "paymentStatus"
+  | "orderStatus"
+  | "orderNo"
 >;
 
 export type OrderCreateEmptyDTO = {

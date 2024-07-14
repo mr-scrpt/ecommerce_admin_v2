@@ -11,6 +11,7 @@ export { OrderDBType, OrderPaymentStatusEnum, OrderStatusEnum };
 export type OrderBase = {
   orderNo: string;
   userId: string;
+  receiverId: string;
   orderStatus: OrderStatusEnum;
   paymentStatus: OrderPaymentStatusEnum;
   priceTotal: number;

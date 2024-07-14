@@ -2,6 +2,7 @@ import { inputDebounce } from "@/shared/lib/debounce";
 import { SettleToSelect } from "../_domain/ui.type";
 import { useSettlementListSearchToSelectQuery } from "../_query/getSettlementListSearch.query";
 import { useAppearanceDelay } from "@/shared/lib/react";
+import { useSettlementAvailableListSearchToSelectQuery } from "../_query/getSettlementAvailableListSearch.query";
 
 export const useSettlemetListToSelect = (settlementDefault: string = "") => {
   const {
@@ -10,7 +11,7 @@ export const useSettlemetListToSelect = (settlementDefault: string = "") => {
     isPending,
     isSuccess,
     isFetchedAfterMount,
-  } = useSettlementListSearchToSelectQuery(settlementDefault);
+  } = useSettlementAvailableListSearchToSelectQuery(settlementDefault);
 
   const settlementListToSelect = settlementList.map<SettleToSelect>(
     (settlement) => ({

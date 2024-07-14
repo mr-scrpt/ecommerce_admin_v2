@@ -86,6 +86,8 @@ export const DeliveryUpdateFormElements: IDeliveryFormElements = (props) => {
     }),
   });
 
+  console.log("output_log:  =>>>", form.getValues());
+
   useEffect(() => {
     form.reset(
       getDefaultValues({ ...delivery, addressAddModal, receiverAddModal }),
