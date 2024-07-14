@@ -1,5 +1,6 @@
 "use client";
 
+import { useAppearanceDelay } from "@/shared/lib/react";
 import { useAddressListByUserAndSettlementRef } from "../_query/useAddressListByUserAndSettlementRef.query";
 
 interface IAddressListToSelectModel {
@@ -20,8 +21,10 @@ export const useAddressListByUserAndSettlementRefToSelectModel = (
     };
   });
 
+  const isAppearancePending = useAppearanceDelay(isPending);
+
   return {
-    isPending,
+    isAppearancePending,
     isSuccess,
     isFetchedAfterMount,
     addressListToSelect: sotoreListToSelect || [],

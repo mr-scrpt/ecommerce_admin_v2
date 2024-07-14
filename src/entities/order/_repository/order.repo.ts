@@ -44,7 +44,6 @@ export class OrderRepository implements IOrderRepository {
         // },
       },
     });
-    console.log("output_log: with relation =>>>", result);
 
     return result as T;
   }

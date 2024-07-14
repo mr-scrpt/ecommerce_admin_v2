@@ -10,17 +10,26 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/shared/ui/select";
+import { Spinner } from "@/shared/ui/icons/spinner";
 
 export const AddressSelectElement: FC<AddressSelectProps> = (props) => {
   const { addressInit, userId, settlementRef, onSelectAddress } = props;
 
-  const { addressListToSelect, isPending, isSuccess } =
-    useAddressListByUserAndSettlementRefToSelectModel({
-      userId,
-      settlementRef,
-    });
+  const {
+    addressListToSelect,
+    isAppearancePending,
+    isSuccess,
+    isFetchedAfterMount,
+  } = useAddressListByUserAndSettlementRefToSelectModel({
+    userId,
+    settlementRef,
+  });
 
-  const placeholder = isPending ? "Loading..." : "Select address";
+  const placeholder = isAppearancePending ? "Loading..." : "Select address";
+
+  if (!isFetchedAfterMount || isAppearancePending) {
+    return <Spinner />;
+  }
 
   return (
     <Select

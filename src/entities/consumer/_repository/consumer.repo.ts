@@ -44,6 +44,7 @@ export class ConsumerRepository implements IConsumerRepository {
   }
 
   async getWithRelation<T>(dto: ConsumerGetDTO, db: Tx = this.db): Promise<T> {
+    console.log("output_log: dto:::  =>>>", dto);
     const user = await db.user.findUniqueOrThrow({
       where: { ...dto, role: RoleEnum.CONSUMER },
       include: {

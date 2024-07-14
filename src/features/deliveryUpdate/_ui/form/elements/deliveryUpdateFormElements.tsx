@@ -96,8 +96,6 @@ export const DeliveryUpdateFormElements: IDeliveryFormElements = (props) => {
     onSubmit?.(data);
   });
 
-  console.log("output_log:  =>>>", form.getValues());
-
   return (
     <FormProvider {...form}>
       <Form {...form}>

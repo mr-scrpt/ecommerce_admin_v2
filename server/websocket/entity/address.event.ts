@@ -1,5 +1,5 @@
 import { Server, Socket } from "socket.io";
-import { WSEventEnum } from "../../src/shared/type/websokcetEvent.enum";
+import { WSEventEnum } from "../../../src/shared/type/websokcetEvent.enum";
 
 export const adderessEvent = (socket: Socket, io: Server) => {
   socket.on(WSEventEnum.ADDRESS_CREATE, (data) => {
@@ -12,7 +12,7 @@ export const adderessEvent = (socket: Socket, io: Server) => {
     console.log("output_log: adderess update =>>>", data);
     io.emit(WSEventEnum.ADDRESS_LIST_REFRESH);
     io.emit(WSEventEnum.ADDRESS_REFRESH, data);
-    io.emit(WSEventEnum.DELIVERY_REFRESH, data);
+    // io.emit(WSEventEnum.DELIVERY_REFRESH, data);
   });
 
   socket.on(WSEventEnum.ADDRESS_REMOVE, (data) => {

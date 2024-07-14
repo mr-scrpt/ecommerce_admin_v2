@@ -7,6 +7,7 @@ interface OrderConsumerProps extends HTMLAttributes<HTMLDivElement> {
 
 export const OrderConsumerItem: FC<OrderConsumerProps> = (props) => {
   const { orderId } = props;
+  console.log("output_log:  =>>>", orderId);
   return (
     <ConsumerData orderId={orderId}>
       <ConsumerData.ConsumerData className="flex w-full border p-4" />

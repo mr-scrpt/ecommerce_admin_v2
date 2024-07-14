@@ -17,6 +17,7 @@ export class ConsumerRelationGetByOrderService {
     const { orderId } = selector;
 
     const { userId } = await this.orderRepo.get({ id: orderId });
+
     const result = await this.consumerRepo.getWithRelation<ConsumerRelation>({
       id: userId,
     });

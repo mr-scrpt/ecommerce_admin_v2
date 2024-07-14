@@ -1,5 +1,5 @@
 import { Server, Socket } from "socket.io";
-import { WSEventEnum } from "../../src/shared/type/websokcetEvent.enum";
+import { WSEventEnum } from "../../../src/shared/type/websokcetEvent.enum";
 
 export const productEvent = (socket: Socket, io: Server) => {
   socket.on(WSEventEnum.PRODUCT_CREATE, (data) => {

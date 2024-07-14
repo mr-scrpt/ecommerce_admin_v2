@@ -16,6 +16,7 @@ import {
   useOwnerInfo,
 } from "../_vm/orderOwnerContext.model";
 import { useGetConsumerRelationModel } from "../_vm/getConsumerRelationByOrder.model";
+import { Spinner } from "@/shared/ui/icons/spinner";
 
 interface ConsumerDataProps extends HTMLAttributes<HTMLDivElement> {
   orderId: string;
@@ -28,11 +29,11 @@ type ConsumerDataType = FC<ConsumerDataProps> & {
 
 export const ConsumerData: ConsumerDataType = (props) => {
   const { orderId, children } = props;
-  const { consumer, isSuccess, isPending } =
+  const { consumer, isSuccess, isAppearancePending } =
     useGetConsumerRelationModel(orderId);
 
-  if (isPending && !isSuccess) {
-    return <div>Loading...</div>;
+  if (isAppearancePending && !isSuccess) {
+    return <Spinner />;
   }
 
   if (!consumer) {

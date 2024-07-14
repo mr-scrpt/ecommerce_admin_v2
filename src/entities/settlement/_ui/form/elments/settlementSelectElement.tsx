@@ -15,6 +15,7 @@ import { Check } from "lucide-react";
 import { FC, HTMLAttributes, useEffect, useState } from "react";
 
 import { useSettlemetListToSelect } from "../../../_vm/useSettlemetListToSelect";
+import { Spinner } from "@/shared/ui/icons/spinner";
 
 interface SettlementSelectProps extends HTMLAttributes<HTMLDivElement> {
   settlementActive?: Settlement["ref"];
@@ -24,13 +25,19 @@ interface SettlementSelectProps extends HTMLAttributes<HTMLDivElement> {
 export const SettlementSelectElement: FC<SettlementSelectProps> = (props) => {
   const { settlementActive, onSelectSettlement } = props;
   const [open, setOpen] = useState(false);
+
   const [settlement, setSettlement] = useState(settlementActive);
 
-  const { toSearch, settlementListToSelect, isPending, isSuccess } =
-    useSettlemetListToSelect(settlement);
+  const {
+    toSearch,
+    settlementListToSelect,
+    isAppearancePending,
+    isSuccess,
+    isFetchedAfterMount,
+  } = useSettlemetListToSelect(settlement);
 
   const getButtonText = () => {
-    if (isPending) return "Searching...";
+    if (isAppearancePending) return "Searching...";
     if (!settlement) return "Select settlement...";
 
     if (settlementListToSelect.length) {
@@ -53,6 +60,10 @@ export const SettlementSelectElement: FC<SettlementSelectProps> = (props) => {
     setSettlement(currentValue === settlement ? "" : currentValue);
     setOpen(false);
   };
+
+  if (!isFetchedAfterMount || isAppearancePending) {
+    return <Spinner />;
+  }
 
   return (
     <Popover open={open} onOpenChange={setOpen}>

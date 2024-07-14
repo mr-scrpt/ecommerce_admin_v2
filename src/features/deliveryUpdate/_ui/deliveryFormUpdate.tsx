@@ -11,6 +11,7 @@ import {
 import { useDeliveryUpdateModel } from "../_vm/useDeliveryUpdate.model";
 import { DeliveryUpdateFormElements } from "./form/elements/deliveryUpdateFormElements";
 import { ReceiverCreateProps } from "@/kernel/domain/receiver/ui.type";
+import { useAppearanceDelay } from "@/shared/lib/react";
 
 interface OrderDeliveryFormProps extends HTMLAttributes<HTMLDivElement> {
   deliveryId: string;
@@ -35,6 +36,7 @@ export const DeliveryFormUpdate: FC<OrderDeliveryFormProps> = (props) => {
     delivery,
     isPending: isPendingDelivery,
     isFetchedAfterMount,
+    isSuccess,
   } = useDeliveryQuery(deliveryId);
 
   const router = useRouter();
@@ -63,15 +65,16 @@ export const DeliveryFormUpdate: FC<OrderDeliveryFormProps> = (props) => {
     [callbackUrl, delivery, deliveryUpdate, onSuccess, router],
   );
 
-  const isPendingComplexible =
-    isPendingUpdate || isPendingDelivery || !isFetchedAfterMount;
-
-  if (isPendingComplexible) {
-    return <Spinner aria-label="Loading profile..." />;
-  }
+  const isPendingComplexible = useAppearanceDelay(
+    isPendingUpdate || isPendingDelivery || !isFetchedAfterMount,
+  );
 
   if (!delivery) {
     return <div>Failed to load delivery, you may not have permissions</div>;
+  }
+
+  if (!isFetchedAfterMount || isPendingComplexible) {
+    return <Spinner />;
   }
 
   return (

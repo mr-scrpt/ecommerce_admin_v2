@@ -6,7 +6,7 @@
     "start:dev": "next dev --turbo",
     "start:infra": "concurrently \"docker compose up\" \"pnpm server:ws\" \"pnpm studio\"",
     "server:cron": "ts-node -r dotenv/config ./server/cron/cron.ts",
-    "server:ws": "ts-node ./server/websocket.ts",
+    "server:ws": "ts-node ./server/websocket/websocket.ts",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",

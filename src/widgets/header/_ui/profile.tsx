@@ -33,7 +33,6 @@ export const Profile: FC<ProfileProps> = (props) => {
     return <SignInButton />;
   }
   const user = data?.user;
-  console.log("output_log:user from session  =>>>", user);
 
   const username = nicknameGen(user);
 

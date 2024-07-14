@@ -1,5 +1,5 @@
-import { WSEventEnum } from "../src/shared/type/websokcetEvent.enum";
-import { socketServer } from "../src/shared/lib/socketServer";
+import { WSEventEnum } from "../../src/shared/type/websokcetEvent.enum";
+import { socketServer } from "../../src/shared/lib/socketServer";
 import { userEvent } from "./entity/user.event";
 import { profileEvent } from "./entity/profile.event";
 import { categoryEvent } from "./entity/category.event";
@@ -8,6 +8,7 @@ import { optionEvent } from "./entity/property.event";
 import { orderEvent } from "./entity/order.event";
 import { deliveryEvent } from "./entity/delivery.event";
 import { adderessEvent } from "./entity/address.event";
+import { receiverEvent } from "./entity/receiver.event";
 
 const io = socketServer;
 
@@ -20,6 +21,7 @@ io.on(WSEventEnum.CONNECT, (socket) => {
   orderEvent(socket, io);
   deliveryEvent(socket, io);
   adderessEvent(socket, io);
+  receiverEvent(socket, io);
 
   socket.on(WSEventEnum.DISCONNECTD, () => {
     console.log("output_log: disconnect  =>>>", socket.id);

@@ -1,5 +1,6 @@
 "use client";
 
+import { useAppearanceDelay } from "@/shared/lib/react";
 import { useReceiverListByUser } from "../_query/useReceiverListByUser.query";
 
 export const useReceiverListByUserToSelectModel = (userId: string) => {
@@ -13,8 +14,10 @@ export const useReceiverListByUserToSelectModel = (userId: string) => {
     };
   });
 
+  const isAppearancePending = useAppearanceDelay(isPending);
+
   return {
-    isPending,
+    isAppearancePending,
     isSuccess,
     isFetchedAfterMount,
     receiverListToSelect,

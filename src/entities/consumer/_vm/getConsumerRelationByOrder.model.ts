@@ -1,6 +1,7 @@
 import { buildDate } from "@/shared/lib/date";
 import { ConsumerRelationWithStringDateUI } from "../_domain/ui.type";
 import { useConsumerRelationByOrderQuery } from "../_query/consumerRelationByOrder.query";
+import { useAppearanceDelay } from "@/shared/lib/react";
 
 export const useGetConsumerRelationModel = (orderId: string) => {
   const { data, isPending, isSuccess } =
@@ -12,6 +13,7 @@ export const useGetConsumerRelationModel = (orderId: string) => {
         consumer: {
           id: data.id,
           name: data.name,
+          lastName: data.lastName,
           phone: data.phone,
           email: data.email,
           image: data.image,
@@ -35,9 +37,11 @@ export const useGetConsumerRelationModel = (orderId: string) => {
       }
     : undefined;
 
+  const isAppearancePending = useAppearanceDelay(isPending);
+
   return {
     consumer: orderOwnerDataBuild,
-    isPending,
+    isAppearancePending,
     isSuccess,
   };
 };
