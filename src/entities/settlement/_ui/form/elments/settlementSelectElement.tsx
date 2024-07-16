@@ -3,6 +3,7 @@ import { Button } from "@/shared/ui/button";
 import {
   Command,
   CommandEmpty,
+  CommandGroup,
   CommandInput,
   CommandItem,
   CommandList,
@@ -12,21 +13,19 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
 import { cn } from "@/shared/ui/utils";
 import { CaretSortIcon } from "@radix-ui/react-icons";
 import { Check } from "lucide-react";
-import { FC, HTMLAttributes, useEffect, useState } from "react";
+import { FC, HTMLAttributes, useCallback, useEffect, useState } from "react";
 
 import { useSettlemetListToSelect } from "../../../_vm/useSettlemetListToSelect";
 import { Spinner } from "@/shared/ui/icons/spinner";
 
 interface SettlementSelectProps extends HTMLAttributes<HTMLDivElement> {
   settlementActive?: Settlement["ref"];
-  onSelectSettlement?: (settlement: Settlement["ref"]) => void;
+  onSelectSettlement: (settlement: Settlement["ref"]) => void;
 }
 
 export const SettlementSelectElement: FC<SettlementSelectProps> = (props) => {
-  const { settlementActive, onSelectSettlement } = props;
+  const { settlementActive = "", onSelectSettlement } = props;
   const [open, setOpen] = useState(false);
-
-  const [settlement, setSettlement] = useState(settlementActive);
 
   const {
     toSearch,
@@ -34,36 +33,27 @@ export const SettlementSelectElement: FC<SettlementSelectProps> = (props) => {
     isAppearancePending,
     isSuccess,
     isFetchedAfterMount,
-  } = useSettlemetListToSelect(settlement);
+  } = useSettlemetListToSelect(settlementActive);
 
   const getButtonText = () => {
     if (isAppearancePending) return "Searching...";
-    if (!settlement) return "Select settlement...";
+    if (!settlementActive) return "Select settlement...";
 
     if (settlementListToSelect.length) {
       return (
-        settlementListToSelect.find((s) => s.value === settlement)?.label ||
-        "Select settlement..."
+        settlementListToSelect.find((s) => s.value === settlementActive)
+          ?.label || "Select settlement..."
       );
     }
 
     return "Type to search...";
   };
 
-  useEffect(() => {
-    if (isSuccess && settlement) {
-      onSelectSettlement?.(settlement);
-    }
-  }, [isSuccess, onSelectSettlement, settlement]);
-
   const onSelect = (currentValue: Settlement["ref"]) => {
-    setSettlement(currentValue === settlement ? "" : currentValue);
+    onSelectSettlement(currentValue);
     setOpen(false);
   };
-
-  if (!isFetchedAfterMount || isAppearancePending) {
-    return <Spinner />;
-  }
+  const isLoading = !isFetchedAfterMount || isAppearancePending;
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -74,10 +64,11 @@ export const SettlementSelectElement: FC<SettlementSelectProps> = (props) => {
             role="combobox"
             className={cn(
               "w-[480px] justify-between",
-              !settlement && "text-muted-foreground",
+              !settlementActive && "text-muted-foreground",
             )}
           >
             {getButtonText()}
+            {isLoading && <Spinner className="ml-2 h-4 w-4 animate-spin" />}
             <CaretSortIcon className="opasettlement-50 ml-2 h-4 w-4 shrink-0" />
           </Button>
         </FormControl>
@@ -89,19 +80,24 @@ export const SettlementSelectElement: FC<SettlementSelectProps> = (props) => {
             onValueChange={toSearch}
           />
           <CommandEmpty>No settlement found.</CommandEmpty>
-          <CommandList>
-            {settlementListToSelect.map((s) => (
-              <CommandItem key={s.value} value={s.value} onSelect={onSelect}>
-                <Check
-                  className={cn(
-                    "mr-2 h-4 w-4",
-                    settlement === s.value ? "opacity-100" : "opacity-0",
-                  )}
-                />
-                {s.label}
-              </CommandItem>
-            ))}
-          </CommandList>
+
+          <CommandGroup>
+            <CommandList>
+              {settlementListToSelect.map((s) => (
+                <CommandItem key={s.value} value={s.value} onSelect={onSelect}>
+                  <Check
+                    className={cn(
+                      "mr-2 h-4 w-4",
+                      settlementActive === s.value
+                        ? "opacity-100"
+                        : "opacity-0",
+                    )}
+                  />
+                  {s.label}
+                </CommandItem>
+              ))}
+            </CommandList>
+          </CommandGroup>
         </Command>
       </PopoverContent>
     </Popover>

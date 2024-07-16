@@ -1,1 +1,3 @@
-export { usePostListBySettlementRefToSelectModel as usePostOfficeListToSelectModel } from "./_vm/usePostOfficeListBySettlementRefToSelect.model.query";
+export { usePostOfficeAvailableBySettlementRef } from "./_vm/usePostOfficeAvailableBySettlementRef.model.query";
+
+export { usePostListBySettlementRefToSelectModel } from "./_vm/usePostOfficeListBySettlementRefToSelect.model.query";

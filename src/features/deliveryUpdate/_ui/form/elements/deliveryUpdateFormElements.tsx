@@ -6,7 +6,13 @@ import { StoreSelectElement } from "@/entities/store";
 import { AddressCreateProps } from "@/kernel/domain/address/ui.type";
 import { Delivery } from "@/kernel/domain/delivery/delivery.type";
 import { Button } from "@/shared/ui/button";
-import { Form, FormField, FormItem, FormLabel } from "@/shared/ui/form";
+import {
+  Form,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+} from "@/shared/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, HTMLAttributes, useEffect } from "react";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
@@ -86,13 +92,17 @@ export const DeliveryUpdateFormElements: IDeliveryFormElements = (props) => {
     }),
   });
 
-  console.log("output_log:  =>>>", form.getValues());
+  console.log("output_log: form values =>>>", form.getValues());
 
   useEffect(() => {
     form.reset(
-      getDefaultValues({ ...delivery, addressAddModal, receiverAddModal }),
+      getDefaultValues({
+        ...delivery,
+        addressAddModal,
+        receiverAddModal,
+      }),
     );
-  }, [addressAddModal, delivery, form, receiverAddModal]);
+  }, [delivery, form, addressAddModal, receiverAddModal]);
 
   const handleSubmit = form.handleSubmit(async (data) => {
     onSubmit?.(data);
@@ -110,17 +120,34 @@ export const DeliveryUpdateFormElements: IDeliveryFormElements = (props) => {
 };
 
 DeliveryUpdateFormElements.FieldDeliveryType = function FieldDeliveryType() {
-  const { getValues } = useFormContext<DeliveryUpdateFormValues>();
-  const { settlementRef, deliveryType } = getValues();
-  if (!settlementRef || !deliveryType) {
-    return null;
-  }
-  return <DeliveryTypeField />;
+  const { getValues, control } = useFormContext<DeliveryUpdateFormValues>();
+  const { settlementRef } = getValues();
+  // if (!settlementRef || !deliveryType) {
+  //   return null;
+  // }
+  return (
+    <FormField
+      control={control}
+      name="deliveryType"
+      render={({ field }) => {
+        return (
+          <FormItem className="space-y-3">
+            <FormLabel>Delivery type</FormLabel>
+            <DeliveryTypeField
+              settlementRef={settlementRef}
+              deliveryType={field.value}
+              onChangeDeliveryType={field.onChange}
+            />
+          </FormItem>
+        );
+      }}
+    />
+  );
 };
 
 DeliveryUpdateFormElements.FieldSettlementSelect =
   function FieldSettlementSelect() {
-    const { control } = useFormContext<DeliveryUpdateFormValues>();
+    const { control, resetField } = useFormContext<DeliveryUpdateFormValues>();
     return (
       <FormField
         control={control}
@@ -130,7 +157,10 @@ DeliveryUpdateFormElements.FieldSettlementSelect =
             <FormLabel>Select settlement</FormLabel>
             <SettlementSelectElement
               settlementActive={field.value}
-              onSelectSettlement={field.onChange}
+              onSelectSettlement={(v) => {
+                resetField("settlementRef");
+                field.onChange(v);
+              }}
             />
           </FormItem>
         )}
@@ -185,6 +215,7 @@ DeliveryUpdateFormElements.FieldAddress = function FieldAddressSelect() {
     useFormContext<DeliveryUpdateFormValuesExtends>();
 
   const { userId, settlementRef, addressAddModal } = getValues();
+  // const { userId, settlementRef } = getValues();
 
   return (
     <FormField

@@ -1,75 +1,68 @@
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/shared/ui/form";
+import { usePostOfficeAvailableBySettlementRef } from "@/entities/post";
+import { useSettlementCourierAvailableByRefModel } from "@/entities/settlement";
+import { useStoreAvailableBySettlementRefModel } from "@/entities/store";
+import { DeliveryTypeFieldList } from "@/features/deliveryUpdate/_vm/deliveryTypeFieldList";
+import { DeliveryTypeEnum } from "@/kernel/domain/delivery/delivery.type";
 import { RadioGroup } from "@/shared/ui/radio-group";
 import { FC, HTMLAttributes } from "react";
-import { useFormContext } from "react-hook-form";
-import { DeliveryFormDefaultValues } from "@/entities/delivery";
-import { DeliveryTypeEnum } from "@/kernel/domain/delivery/delivery.type";
 import { DeliveryCourierField } from "./deliveryCourierField";
 import { DeliveryStoreField } from "./deliveryPickupField";
 import { DeliveryPostSelect } from "./deliveryPostField";
-import { DeliveryTypeFieldList } from "@/features/deliveryUpdate/_vm/deliveryTypeFieldList";
 
-interface DeliveryTypeRadioProps extends HTMLAttributes<HTMLDivElement> {}
+interface DeliveryTypeRadioProps extends HTMLAttributes<HTMLDivElement> {
+  settlementRef: string;
+  onChangeDeliveryType: (value: string) => void;
+  deliveryType: string;
+}
 
 export const DeliveryTypeField: FC<DeliveryTypeRadioProps> = (props) => {
-  const { control } = useFormContext<DeliveryFormDefaultValues>();
+  const { settlementRef, deliveryType, onChangeDeliveryType } = props;
+
+  const { availableStore } =
+    useStoreAvailableBySettlementRefModel(settlementRef);
+
+  const { availablePost } =
+    usePostOfficeAvailableBySettlementRef(settlementRef);
+
+  const { availableSettlementCourier } =
+    useSettlementCourierAvailableByRefModel(settlementRef);
 
   return (
-    <FormField
-      control={control}
-      name="deliveryType"
-      render={({ field }) => {
-        return (
-          <FormItem className="space-y-3">
-            <FormLabel>Delivery type</FormLabel>
-            <FormControl>
-              <RadioGroup
-                onValueChange={field.onChange}
-                defaultValue={field.value}
-                value={field.value}
-                className="flex flex-col space-y-1"
-              >
-                {Object.entries(DeliveryTypeFieldList).map(([key, row]) => {
-                  if (key === DeliveryTypeEnum.POST) {
-                    return (
-                      <DeliveryPostSelect
-                        key={key}
-                        delivery={row}
-                        selected={field.value === DeliveryTypeEnum.POST}
-                      />
-                    );
-                  }
-                  if (key === DeliveryTypeEnum.PICKUP) {
-                    return (
-                      <DeliveryStoreField
-                        key={key}
-                        delivery={row}
-                        selected={field.value === DeliveryTypeEnum.PICKUP}
-                      />
-                    );
-                  }
-                  if (key === DeliveryTypeEnum.COURIER) {
-                    return (
-                      <DeliveryCourierField
-                        key={key}
-                        delivery={row}
-                        selected={field.value === DeliveryTypeEnum.COURIER}
-                      />
-                    );
-                  }
-                })}
-              </RadioGroup>
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        );
-      }}
-    />
+    <RadioGroup
+      onValueChange={onChangeDeliveryType}
+      defaultValue={deliveryType}
+      value={deliveryType}
+      className="flex flex-col space-y-1"
+    >
+      {Object.entries(DeliveryTypeFieldList).map(([key, row]) => {
+        if (key === DeliveryTypeEnum.POST && availablePost) {
+          return (
+            <DeliveryPostSelect
+              key={key}
+              delivery={row}
+              selected={deliveryType === DeliveryTypeEnum.POST}
+            />
+          );
+        }
+        if (key === DeliveryTypeEnum.PICKUP && availableStore) {
+          return (
+            <DeliveryStoreField
+              key={key}
+              delivery={row}
+              selected={deliveryType === DeliveryTypeEnum.PICKUP}
+            />
+          );
+        }
+        if (key === DeliveryTypeEnum.COURIER && availableSettlementCourier) {
+          return (
+            <DeliveryCourierField
+              key={key}
+              delivery={row}
+              selected={deliveryType === DeliveryTypeEnum.COURIER}
+            />
+          );
+        }
+      })}
+    </RadioGroup>
   );
 };

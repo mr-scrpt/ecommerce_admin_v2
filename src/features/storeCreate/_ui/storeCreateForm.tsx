@@ -26,7 +26,7 @@ export const StoreCreateForm: FC<StoreCreateFormProps> = (props) => {
   const {
     toSearch,
     settlementListToSelect,
-    isPending: isPendingStore,
+    isAppearancePending: isPendingStore,
     isSuccess: isSuccessStore,
   } = useSettlemetListToSelect();
 

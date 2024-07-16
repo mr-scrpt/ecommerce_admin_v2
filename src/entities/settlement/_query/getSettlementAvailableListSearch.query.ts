@@ -1,11 +1,18 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { settlementApi } from "../_api/settlement.api";
 
 export const useSettlementAvailableListSearchToSelectQuery = (
   settlementDefault: string = "",
 ) => {
   const [q, setQ] = useState<string>("");
+
+  const toSearch = useCallback(
+    (q: string) => {
+      setQ(q);
+    },
+    [setQ],
+  );
 
   useEffect(() => {
     if (!settlementDefault) return;
@@ -16,7 +23,7 @@ export const useSettlementAvailableListSearchToSelectQuery = (
     settlementApi.settlement.searchAvailable.useQuery({ q });
 
   return {
-    toSearch: (q: string) => setQ(q),
+    toSearch,
     isPending,
     isSuccess,
     isFetchedAfterMount,

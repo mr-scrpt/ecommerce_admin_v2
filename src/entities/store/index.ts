@@ -1,10 +1,11 @@
+export { useStoreAvailableBySettlementRefModel } from "./_vm/useStoreAvailableBySettlementRef.model";
+
 export { storeFormDefaultSchema } from "./_domain/form.schema";
 export { useStoreQuery } from "./_query/store.query";
 export {
   useStoreListBySettlementRefWithRelation,
   useInvaliteStoreListBySettlementRefWithRelation,
 } from "./_query/storeListBySettlementRefWithRelation";
-
 export { useStoreListQuery } from "./_query/storeList.query";
 export { useStoreListWithRelationQuery } from "./_query/storeListWithRelation.query";
 export { StoreFormElements } from "./_ui/form/elements/storeFormElements";

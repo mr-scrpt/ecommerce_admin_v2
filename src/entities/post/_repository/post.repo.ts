@@ -17,6 +17,7 @@ export class PostRepository implements IPostRepository {
 
     const postOfficeList =
       await this.novaposhta.getPostOfficeListBySettlementRef(settlementRef);
+
     const postOfficeListConverted: Array<PostOfficeEntity> = [];
 
     for await (const postOffice of postOfficeList) {

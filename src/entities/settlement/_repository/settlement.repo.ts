@@ -16,8 +16,9 @@ export class SettlementRepository implements ISettlementRepository {
     dto: SettlementGetByRefDTO,
     db: Tx = this.db,
   ): Promise<SettlementEntity> {
+    const { settlementRef } = dto;
     const res = await db.settlement.findUniqueOrThrow({
-      where: dto,
+      where: { ref: settlementRef },
     });
     return res;
   }

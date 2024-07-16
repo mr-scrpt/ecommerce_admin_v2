@@ -10,7 +10,9 @@ export class NovaPoshtaRepository implements INovaPoshtaRepository {
   async getPostOfficeListBySettlementRef(
     s: string,
   ): Promise<Array<PostOfficeNovaPoshta>> {
-    return await this.np.getPostOfficeListBySettlementRef(s);
+    const res = await this.np.getPostOfficeListBySettlementRef(s);
+    // console.log("output_log: s , res =>>>", s, res);
+    return res;
   }
 
   async getSettlementListSearch(

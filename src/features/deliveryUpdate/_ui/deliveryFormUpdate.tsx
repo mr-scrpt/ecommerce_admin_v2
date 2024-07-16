@@ -73,9 +73,9 @@ export const DeliveryFormUpdate: FC<OrderDeliveryFormProps> = (props) => {
     return <div>Failed to load delivery, you may not have permissions</div>;
   }
 
-  if (!isFetchedAfterMount || isPendingComplexible) {
-    return <Spinner />;
-  }
+  // if (!isFetchedAfterMount || isPendingComplexible) {
+  //   return <Spinner />;
+  // }
 
   return (
     <div className={cn(className, "w-full")}>

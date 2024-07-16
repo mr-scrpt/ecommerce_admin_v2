@@ -35,11 +35,6 @@ export const StoreFormUpdate: FC<StoreFormProps> = (props) => {
 
   const { storeUpdate, isPending: isPendingUpdate } = useStoreUpdateMutation();
 
-  // const { propertySelectOptionList, isPending: isPendingOptionList } =
-  //   usePropertyLikeSelectOptionList();
-
-  // const { toDataIdList, toOptionList } = useOptionListTransform();
-
   const { toSearch, settlementList } = useSettlementListSearchToSelectQuery();
 
   useEffect(() => {

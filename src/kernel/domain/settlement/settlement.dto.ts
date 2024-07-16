@@ -6,7 +6,7 @@ export type SettlementGetDTO = {
 };
 
 export type SettlementGetByRefDTO = {
-  ref: string;
+  settlementRef: string;
 };
 
 export type SettlementSearchDTO = {

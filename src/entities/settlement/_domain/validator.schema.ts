@@ -13,4 +13,8 @@ export const searchInputSchema = z.object({
   q: z.string(),
 });
 
+export const getByRefInputSchema = z.object({
+  settlementRef: z.string(),
+});
+
 export const getListOutputSchema = z.array(settlementSchema);

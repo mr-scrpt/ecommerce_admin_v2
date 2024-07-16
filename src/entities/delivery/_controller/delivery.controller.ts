@@ -24,7 +24,6 @@ export class DeliveryController extends Controller {
     delivery: {
       get: publicProcedure.input(getInputSchema).query(async ({ input }) => {
         const result = await this.getDeliveryService.execute(input);
-        console.log("output_log: result =>>>", result);
 
         return deliverySchema.parse(result);
       }),
