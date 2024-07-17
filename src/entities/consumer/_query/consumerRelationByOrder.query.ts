@@ -20,7 +20,7 @@ export const useConsumerRelationByOrderQuery = (orderId: string) => {
   };
 };
 
-export const useConsumerRelationByOrder = () => {
+export const useInvalidateConsumerRelationByOrder = () => {
   const invalidate =
     consumerApi.useUtils().consumer.getRelationByOrder.invalidate;
 

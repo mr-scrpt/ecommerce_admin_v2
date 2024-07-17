@@ -20,7 +20,7 @@ export enum RoutePathEnum {
   STORE_CREATE = "/stores/create",
 
   CONSUMERS = "/consumers",
-  STAFF = "/staff",
+  USERS = "/users",
   SETTINGS = "/settings",
 
   ORDERS = "/orders",
@@ -43,7 +43,7 @@ enum RouteNameEnum {
 
   SETTINGS = "Settings",
   CONSUMERS = "Consumers",
-  STAFF = "Staff",
+  USERS = "Users",
   ORDERS = "Orders",
 
   SIGN_IN = "Sign in",
@@ -78,8 +78,8 @@ export const ROUTING_MAIN_MENU_DATA = [
     role: [RoleEnum.ADMIN],
   },
   {
-    href: `${RoutePathEnum.STAFF}`,
-    label: RouteNameEnum.STAFF,
+    href: `${RoutePathEnum.USERS}`,
+    label: RouteNameEnum.USERS,
     role: [RoleEnum.ADMIN],
   },
   {

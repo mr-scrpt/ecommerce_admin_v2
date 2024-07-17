@@ -1,5 +1,5 @@
 import { TitlePage } from "@/shared/ui/titlePage";
-import { ConsumerTable } from "@/widgets/consumerTable";
+import { ConsumerTable } from "@/widgets/userTable";
 import { FC, HTMLAttributes } from "react";
 
 interface PageProps extends HTMLAttributes<HTMLDivElement> {}

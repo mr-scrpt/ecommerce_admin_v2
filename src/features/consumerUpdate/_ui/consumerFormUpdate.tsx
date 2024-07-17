@@ -1,4 +1,4 @@
-import { ConsumerFormElements, useConsumerQuery } from "@/entities/consumer";
+import { ConsumerFormElements, useGetConsumerModel } from "@/entities/consumer";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
@@ -19,11 +19,8 @@ interface ConsumerFormProps extends HTMLAttributes<HTMLDivElement> {
 export const ConsumerFormUpdate: FC<ConsumerFormProps> = (props) => {
   const { consumerId, callbackUrl, className, onSuccess } = props;
 
-  const {
-    isPending: isPendingConsumer,
-    isFetchedAfterMount,
-    consumer,
-  } = useConsumerQuery(consumerId);
+  const { isAppearancePending, isFetchedAfterMount, consumer } =
+    useGetConsumerModel(consumerId);
 
   const router = useRouter();
 
@@ -31,7 +28,7 @@ export const ConsumerFormUpdate: FC<ConsumerFormProps> = (props) => {
     useConsumerUpdateModel();
 
   const isPendingComplexible =
-    isPendingUpdate || isPendingConsumer || !isFetchedAfterMount;
+    isPendingUpdate || isAppearancePending || !isFetchedAfterMount;
 
   if (isPendingComplexible) {
     return <Spinner aria-label="Loading profile..." />;
@@ -42,7 +39,6 @@ export const ConsumerFormUpdate: FC<ConsumerFormProps> = (props) => {
   }
 
   const handleSubmit = async (consumerData: ConsumerUpdateFormValues) => {
-    // const {} = data.
     await consumerUpdate({
       selector: { id: consumerId },
       consumerData,

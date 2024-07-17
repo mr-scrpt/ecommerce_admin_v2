@@ -92,8 +92,6 @@ export const DeliveryUpdateFormElements: IDeliveryFormElements = (props) => {
     }),
   });
 
-  console.log("output_log: form values =>>>", form.getValues());
-
   useEffect(() => {
     form.reset(
       getDefaultValues({
@@ -122,9 +120,7 @@ export const DeliveryUpdateFormElements: IDeliveryFormElements = (props) => {
 DeliveryUpdateFormElements.FieldDeliveryType = function FieldDeliveryType() {
   const { getValues, control } = useFormContext<DeliveryUpdateFormValues>();
   const { settlementRef } = getValues();
-  // if (!settlementRef || !deliveryType) {
-  //   return null;
-  // }
+
   return (
     <FormField
       control={control}
@@ -215,7 +211,6 @@ DeliveryUpdateFormElements.FieldAddress = function FieldAddressSelect() {
     useFormContext<DeliveryUpdateFormValuesExtends>();
 
   const { userId, settlementRef, addressAddModal } = getValues();
-  // const { userId, settlementRef } = getValues();
 
   return (
     <FormField
@@ -276,53 +271,6 @@ DeliveryUpdateFormElements.FieldReceiverSelect =
     );
   };
 
-// DeliveryUpdateFormElements.FieldStreet = function FieldStreet() {
-//   const { control } = useFormContext<DeliveryUpdateFormValues>();
-//   return (
-//     <FormField
-//       control={control}
-//       name="street"
-//       render={({ field }) => (
-//         <FormItem className="flex flex-col">
-//           <FormLabel>Enter street</FormLabel>
-//           <AddressStreetElement onChange={field.onChange} />
-//         </FormItem>
-//       )}
-//     />
-//   );
-// };
-
-// DeliveryUpdateFormElements.FieldHouse = function FieldHouse() {
-//   const { control } = useFormContext<DeliveryUpdateFormValues>();
-//   return (
-//     <FormField
-//       control={control}
-//       name="house"
-//       render={({ field }) => (
-//         <FormItem className="flex flex-col">
-//           <FormLabel>Enter house</FormLabel>
-//           <AddressHouseElement onChange={field.onChange} />
-//         </FormItem>
-//       )}
-//     />
-//   );
-// };
-
-// DeliveryUpdateFormElements.FieldApartment = function FieldApartment() {
-//   const { control } = useFormContext<DeliveryUpdateFormValues>();
-//   return (
-//     <FormField
-//       control={control}
-//       name="apartment"
-//       render={({ field }) => (
-//         <FormItem className="flex flex-col">
-//           <FormLabel>Select apartment</FormLabel>
-//           <AddressApartamentElement onChange={field.onChange} />
-//         </FormItem>
-//       )}
-//     />
-//   );
-// };
 interface DeliverySubmitFieldProps {
   isPending?: boolean;
   submitText: string;
@@ -330,34 +278,3 @@ interface DeliverySubmitFieldProps {
 }
 
 DeliveryUpdateFormElements.SubmitButton = DeliveryFormElements.SubmitButton;
-
-// DeliveryUpdateFormElements.FieldDeliveryType = function FieldDeliveryType(
-//   props,
-// ) {
-//   const { customText } = props;
-//   return <div>Delivery Type {customText}</div>;
-// };
-//
-// DeliveryUpdateFormElements.FieldPostOffice = function FieldPostOffice(props) {
-//   return <div>Post Office</div>;
-// };
-//
-// DeliveryUpdateFormElements.FieldPickupPoint = function FieldPickupPoint(props) {
-//   const { settlementRef, onSelectStore } = props;
-//   const { control } = useFormContext<DeliveryFormDefaultValues>();
-//   return (
-//     <FormField
-//       control={control}
-//       name="store"
-//       render={({ field }) => (
-//         <StoreSelectElement
-//           onSelectStore={field.onChange}
-//           settlementRef={settlementRef}
-//           storeInit={field.value}
-//         />
-//       )}
-//     />
-//   );
-// };
-//
-// export default DeliveryUpdateFormElements;

@@ -2,9 +2,10 @@ export { ConsumerFormElements } from "./_ui/consumerFormElements";
 
 export { ConsumerSelect } from "./_ui/consumerSelect";
 
-export { useConsumerQuery } from "./_query/consumer.query";
 export { useConsumerListQuery } from "./_query/consumerList.query";
 export { useConsumerListSearchToSelectModel } from "./_vm/useConsumerListSearch.model";
+
+export { useGetConsumerModel } from "./_vm/useConsumerStaff.model";
 
 export type {
   ConsumerGetByOrderSelector,

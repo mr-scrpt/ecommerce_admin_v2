@@ -28,7 +28,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts",
+    ".next/types/**/*.ts", "src/widgets/userTable/_ui/userTable.layout.tss",
     // "src/entities/delivery/_usecase/instans.usecasets",
   ],
   "exclude": ["node_modules", "server"],

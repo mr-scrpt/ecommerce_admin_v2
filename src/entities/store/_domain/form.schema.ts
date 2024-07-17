@@ -8,7 +8,7 @@ export const storeFormDefaultSchema = z.object({
 
   name: z.string(),
   address: z.string(),
-  id: z.string(),
+  storeId: z.string(),
 });
 
 export type StoreFormDefaultValues = z.infer<typeof storeFormDefaultSchema>;

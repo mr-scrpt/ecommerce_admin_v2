@@ -1,8 +1,7 @@
-import { ConsumerGetByOrderSelector } from "@/entities/consumer";
-import { ConsumerRelationEntity } from "./consumer.type";
+import { StaffGetByOrderSelector, StaffRelationEntity } from "./staff.type";
 
-export abstract class IConsumerRelationGetByOrderTx {
-  abstract getConsumerByOrder(
-    selector: ConsumerGetByOrderSelector,
-  ): Promise<ConsumerRelationEntity>;
+export abstract class IStaffRelationGetByOrderTx {
+  abstract getStaffByOrder(
+    selector: StaffGetByOrderSelector,
+  ): Promise<StaffRelationEntity>;
 }

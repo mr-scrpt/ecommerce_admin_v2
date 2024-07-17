@@ -1,4 +1,5 @@
 "use client";
+import { SettlementSelectElement } from "@/entities/settlement";
 import { Store } from "@/kernel/domain/store/store.type";
 import { Button } from "@/shared/ui/button";
 import {
@@ -10,10 +11,6 @@ import {
 } from "@/shared/ui/form";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { Input } from "@/shared/ui/input";
-import {
-  SettleToSelect,
-  SettlementSelect,
-} from "@/shared/ui/select/settlementSelect";
 import { cn } from "@/shared/ui/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, HTMLAttributes, useEffect } from "react";
@@ -33,26 +30,18 @@ interface StoreFormElementsProps extends HTMLAttributes<HTMLFormElement> {
 
 type StoreFormElementsType = FC<StoreFormElementsProps> & {
   // TODO: Select settlement entities
-  FieldSettlement: FC<{
-    settlementListToSelect: SettleToSelect[];
-    toSearch: (q: string) => void;
-    handleSelect?: (value: string) => void;
-  }>;
-  FieldStoreList: FC;
+  FieldSettlementSelect: FC;
+  FieldStoreSelect: FC;
   FieldName: FC;
   FieldAddress: FC;
-  SubmitButton: FC<{
-    isPending: boolean;
-    submitText: string;
-    className?: string;
-  }>;
+  SubmitButton: FC<StoreSubmitFieldProps>;
 };
 
 const getDefaultValues = (storeData?: Store) => ({
   name: storeData?.name ?? "",
   settlementRef: storeData?.settlementRef ?? "",
   address: storeData?.address ?? "",
-  id: storeData?.id ?? "",
+  storeId: storeData?.id ?? "",
 });
 
 export const StoreFormElements: StoreFormElementsType = (props) => {
@@ -68,11 +57,8 @@ export const StoreFormElements: StoreFormElementsType = (props) => {
   }, [storeData, form]);
 
   const handleSubmit = form.handleSubmit(async (data) => {
-    console.log("output_log: data =>>>", data);
-    // onSubmit(data);
+    onSubmit(data);
   });
-
-  console.log("output_log: from state  =>>>", form.formState.errors);
 
   return (
     <FormProvider {...form}>
@@ -83,39 +69,38 @@ export const StoreFormElements: StoreFormElementsType = (props) => {
   );
 };
 
-StoreFormElements.FieldSettlement = function FieldSettlement(props) {
-  const { settlementListToSelect, toSearch, handleSelect } = props;
-  const { control } = useFormContext<StoreFormDefaultValues>();
-  // TODO: Do like FieldStoreList - get list in field?
+StoreFormElements.FieldSettlementSelect = function FieldSettlement() {
+  const { control, resetField } = useFormContext<StoreFormDefaultValues>();
+
   return (
     <FormField
       control={control}
       name="settlementRef"
       render={({ field }) => (
-        <SettlementSelect
-          control={control}
-          className="w-full"
-          name="settlement"
-          citiesList={settlementListToSelect}
-          isPending={false}
-          toSearch={toSearch}
-          handleSelect={handleSelect}
-          field={field}
-        />
+        <FormItem className="flex flex-col">
+          <FormLabel>Select settlement</FormLabel>
+          <SettlementSelectElement
+            settlementActive={field.value}
+            onSelectSettlement={(v) => {
+              resetField("settlementRef");
+              field.onChange(v);
+            }}
+          />
+        </FormItem>
       )}
     />
   );
 };
 
-StoreFormElements.FieldStoreList = function StoreList() {
-  const { control } = useFormContext<StoreFormDefaultValues>();
-  // TODO: Like example get ref from field
-  const { settlementRef } = control._formValues;
+StoreFormElements.FieldStoreSelect = function StoreList() {
+  const { control, getValues } = useFormContext<StoreFormDefaultValues>();
+  const { settlementRef } = getValues();
+
   // TODO: Fields name change "id", "settlement"?
   return (
     <FormField
       control={control}
-      name="id"
+      name="storeId"
       render={({ field }) => (
         <FormItem>
           <FormLabel>Store list</FormLabel>
@@ -138,7 +123,7 @@ StoreFormElements.FieldName = function FieldName() {
       name="name"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>Settlement Name</FormLabel>
+          <FormLabel>Store Name</FormLabel>
           <FormControl>
             <Input placeholder="" {...field} />
           </FormControl>
@@ -157,7 +142,7 @@ StoreFormElements.FieldAddress = function FieldAddress() {
       name="address"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>Street</FormLabel>
+          <FormLabel>Address line</FormLabel>
           <FormControl>
             <Input placeholder="" {...field} />
           </FormControl>
@@ -167,6 +152,12 @@ StoreFormElements.FieldAddress = function FieldAddress() {
     />
   );
 };
+
+interface StoreSubmitFieldProps {
+  isPending?: boolean;
+  submitText: string;
+  className?: string;
+}
 
 StoreFormElements.SubmitButton = function SubmitButton({
   isPending,

@@ -7,15 +7,11 @@ import {
   StaffUpdateDTO,
 } from "./staff.dto";
 import { StaffEntity } from "./staff.type";
-import { StaffRelationEntity } from "@/entities/staff/_domain/staff.type";
 
 export abstract class IStaffRepository {
   abstract get(dto: StaffGetDTO, db?: Tx): Promise<StaffEntity>;
 
-  abstract getWithRelation(
-    dto: StaffGetDTO,
-    db?: Tx,
-  ): Promise<StaffRelationEntity>;
+  abstract getWithRelation<T>(dto: StaffGetDTO, db?: Tx): Promise<T>;
 
   abstract getList(db?: Tx): Promise<StaffEntity[]>;
 

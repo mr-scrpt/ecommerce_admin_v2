@@ -1,16 +1,12 @@
-export { ConsumerFormElements } from "./_ui/consumerFormElements";
-
-export { ConsumerSelect } from "./_ui/consumerSelect";
-
-export { useConsumerQuery } from "./_query/consumer.query";
-export { useConsumerListQuery } from "./_query/consumerList.query";
-export { useConsumerListSearchToSelectModel } from "./_vm/useConsumerListSearch.model";
+export { useStaffQuery } from "./_query/staff.query";
+export { useStaffListQuery } from "./_query/staffList.query";
+export { useStaffListSearchToSelectModel } from "./_vm/useStaffListSearch.model";
 
 export type {
-  ConsumerGetByOrderSelector,
-  ConsumerGetSelector,
-} from "./_domain/consumer.type";
+  StaffGetByOrderSelector,
+  StaffGetSelector,
+} from "./_domain/staff.type";
 
-export { ConsumerData } from "./_ui/consumerData";
+export { StaffFormElements } from "./_ui/staffFormElements";
 
-export { consumerFormDefaultSchema } from "./_domain/form.schema";
+export { staffFormDefaultSchema } from "./_domain/form.schema";

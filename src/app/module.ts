@@ -51,6 +51,9 @@ import { AddressModule } from "@/entities/address/module";
 import { AddressCreateModule } from "@/features/addressCreate/module";
 import { ReceiverModule } from "@/entities/receiver/module";
 import { ReceiverCreateModule } from "@/features/receiverCreate/module";
+import { StaffModule } from "@/entities/staff/module";
+import { StaffUpdateModule } from "@/features/staffUpdate/module";
+import { StaffRemoveModule } from "@/features/staffRemove/module";
 
 export const loadModule = () => {
   const container = new Container();
@@ -70,6 +73,10 @@ export const loadModule = () => {
     ConsumerCreateModule,
     ConsumerRemoveModule,
     ConsumerUpdateModule,
+
+    StaffModule,
+    StaffRemoveModule,
+    StaffUpdateModule,
 
     ProfileModule,
     ProfileUpdateModule,

@@ -1,9 +1,13 @@
+import { RoleEnum } from "../role.type";
+
 // NOTE: Base
 export type StaffBase = {
   name: string;
+  lastName: string;
   phone: string;
   email: string;
   image?: string | null;
+  role: RoleEnum;
 };
 
 // NOTE: Entity

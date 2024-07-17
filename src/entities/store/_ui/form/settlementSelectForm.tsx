@@ -11,7 +11,7 @@ export const StoreSelectForm: FC<SettlementFormProps> = (props) => {
   const { settlementActive, onSettlementSelect } = props;
   return (
     <StoreFormElements handleSubmit={() => {}}>
-      <StoreFormElements.FieldStoreList
+      <StoreFormElements.FieldStoreSelect
       // settlementRef={settlementActive}
       // onSelectStore={onSettlementSelect}
       />

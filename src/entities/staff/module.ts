@@ -1,20 +1,18 @@
-import { IConsumerRepository } from "@/kernel/domain/consumer/repository.type";
+import { IStaffRepository } from "@/kernel/domain/staff/repository.type";
 import { Controller } from "@/kernel/lib/trpc/server";
 import { ContainerModule } from "inversify";
-import { ConsumerRepository } from "./_repository/consumer.repo";
-import { ConsumerController } from "./_controller/staff.controller";
-import { ConsumerRelationGetByOrderService } from "./_service/consumerRelationGetByOrder.service";
-import { ConsumerListSearchService } from "./_service/consumerListSearch.service";
-import { ConsumerListService } from "./_service/consumerList.service";
-import { ConsumerGetService } from "./_service/consumerGet.service";
+import { StaffRepository } from "./_repository/staff.repo";
+import { StaffController } from "./_controller/staff.controller";
+import { StaffListSearchService } from "./_service/staffListSearch.service";
+import { StaffListService } from "./_service/staffList.service";
+import { StaffGetService } from "./_service/staffGet.service";
 
-export const ConsumerModule = new ContainerModule((bind) => {
-  bind(IConsumerRepository).to(ConsumerRepository);
+export const StaffModule = new ContainerModule((bind) => {
+  bind(IStaffRepository).to(StaffRepository);
 
-  bind(ConsumerGetService).toSelf();
-  bind(ConsumerListService).toSelf();
-  bind(ConsumerListSearchService).toSelf();
-  bind(ConsumerRelationGetByOrderService).toSelf();
+  bind(StaffGetService).toSelf();
+  bind(StaffListService).toSelf();
+  bind(StaffListSearchService).toSelf();
 
-  bind(Controller).to(ConsumerController);
+  bind(Controller).to(StaffController);
 });

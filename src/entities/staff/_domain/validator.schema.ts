@@ -1,4 +1,4 @@
-import { consumerSchema } from "@/kernel/domain/consumer/consumer.schema";
+import { staffSchema } from "@/kernel/domain/staff/staff.schema";
 import { z } from "zod";
 
 export const getInputSchema = z.object({
@@ -13,5 +13,5 @@ export const searchInputSchema = z.object({
   q: z.string(),
 });
 
-export const getListOutputSchema = z.array(consumerSchema);
-export const searchOutputSchema = z.array(consumerSchema);
+export const getListOutputSchema = z.array(staffSchema);
+export const searchOutputSchema = z.array(staffSchema);
