@@ -29,7 +29,15 @@ export class CategoryCreateTx extends Transaction implements ICategoryCreateTx {
         tx,
       );
 
-      return await this.categoryRepo.get({ id }, tx);
+      const res = await this.categoryRepo.get({ id }, tx);
+
+      // TODO: implement monad
+      // res.mapLeft((e) => {
+      //
+      //
+      // })
+
+      return res;
     };
 
     return await this.start(action);

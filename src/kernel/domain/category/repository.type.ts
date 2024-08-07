@@ -1,4 +1,5 @@
 import { Tx } from "@/shared/lib/db/db";
+import { Either } from "@sweet-monads/either";
 import {
   CategoryBindToProductListDTO,
   CategoryBindToPropertyListDTO,
@@ -10,18 +11,28 @@ import {
   CategoryUpdateDTO,
 } from "./category.dto";
 import { CategoryEntity } from "./category.type";
+import { CategoryNotFoundError } from "./error";
 
 export abstract class ICategoryRepository {
-  abstract get(dto: CategoryGetDTO, db?: Tx): Promise<CategoryEntity>;
+  abstract get(
+    dto: CategoryGetDTO,
+    db?: Tx,
+  ): Promise<Either<CategoryNotFoundError, CategoryEntity>>;
 
-  abstract getWithRelation<T>(dto: CategoryGetDTO, db?: Tx): Promise<T>;
+  abstract getWithRelation<T>(
+    dto: CategoryGetDTO,
+    db?: Tx,
+  ): Promise<Either<CategoryNotFoundError, T>>;
 
   abstract getBySlug(
     dto: CategoryGetBySlugDTO,
     db?: Tx,
   ): Promise<CategoryEntity>;
 
-  abstract getBySlugRelation<T>(dto: CategoryGetBySlugDTO, db?: Tx): Promise<T>;
+  abstract getBySlugRelation<T>(
+    dto: CategoryGetBySlugDTO,
+    db?: Tx,
+  ): Promise<Either<CategoryNotFoundError, T>>;
 
   abstract getList(db?: Tx): Promise<CategoryEntity[]>;
 

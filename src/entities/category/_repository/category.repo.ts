@@ -1,3 +1,4 @@
+import { ToReceiverCreateButton } from "@/features/receiverCreate/_ui/receiverCreateButton";
 import {
   CategoryBindToProductListDTO,
   CategoryBindToPropertyListDTO,
@@ -9,30 +10,50 @@ import {
   CategoryUpdateDTO,
 } from "@/kernel/domain/category/category.dto";
 import { CategoryEntity } from "@/kernel/domain/category/category.type";
+import { CategoryNotFoundError } from "@/kernel/domain/category/error";
 import { ICategoryRepository } from "@/kernel/domain/category/repository.type";
 import { DBClient, Tx } from "@/shared/lib/db/db";
+import { Either, left, right } from "@sweet-monads/either";
 import { injectable } from "inversify";
 
 @injectable()
 export class CategoryRepository implements ICategoryRepository {
   constructor(private readonly db: DBClient) {}
 
-  async get(dto: CategoryGetDTO, db: Tx = this.db): Promise<CategoryEntity> {
-    const res = db.category.findUniqueOrThrow({
-      where: dto,
-    });
+  async get(
+    dto: CategoryGetDTO,
+    db: Tx = this.db,
+  ): Promise<Either<CategoryNotFoundError, CategoryEntity>> {
+    try {
+      const res = await db.category.findUniqueOrThrow({
+        where: dto,
+      });
 
-    return res;
+      return right(res);
+    } catch (e) {
+      return left(new CategoryNotFoundError({ cause: e }));
+    }
   }
 
-  async getWithRelation<T>(dto: CategoryGetDTO, db: Tx = this.db): Promise<T> {
-    return (await db.category.findUniqueOrThrow({
-      where: dto,
-      include: {
-        propertyList: true,
-        productList: true,
-      },
-    })) as unknown as T;
+  async getWithRelation<T>(
+    dto: CategoryGetDTO,
+    db: Tx = this.db,
+  ): Promise<Either<CategoryNotFoundError, T>> {
+    try {
+      const res = (await db.category.findUniqueOrThrow({
+        where: dto,
+        include: {
+          propertyList: true,
+          productList: true,
+        },
+      })) as unknown as T;
+
+      return right(res);
+    } catch (e) {
+      return left(
+        new CategoryNotFoundError({ message: (e as any).message, cause: e }),
+      );
+    }
   }
 
   async getBySlug(
@@ -47,14 +68,20 @@ export class CategoryRepository implements ICategoryRepository {
   async getBySlugRelation<T>(
     dto: CategoryGetBySlugDTO,
     db: Tx = this.db,
-  ): Promise<T> {
-    return (await db.category.findUniqueOrThrow({
-      where: dto,
-      include: {
-        propertyList: true,
-        productList: true,
-      },
-    })) as unknown as T;
+  ): Promise<Either<CategoryNotFoundError, T>> {
+    try {
+      const res = (await db.category.findUniqueOrThrow({
+        where: dto,
+        include: {
+          propertyList: true,
+          productList: true,
+        },
+      })) as unknown as T;
+
+      return right(res);
+    } catch (e) {
+      return left(new CategoryNotFoundError((e as any).message));
+    }
   }
 
   async getList(db: Tx = this.db): Promise<CategoryEntity[]> {

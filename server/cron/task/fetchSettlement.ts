@@ -14,13 +14,17 @@ export async function checkAndFetchData() {
 
   if (!lastRequestDate || lastRequestDate !== currentDate) {
     try {
-      console.log("Fetching settlement from API...");
+      console.log("Fetching settlement from API...", API_URL);
       const response = await fetch(API_URL, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
       });
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch data");
+      }
       console.log("Settlement fetched successfully:", await response.json());
 
       await createLog(

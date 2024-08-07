@@ -9,7 +9,7 @@ type QueryParams = {
 };
 
 export const useCategoryWithRelationQuery = (query: QueryParams) => {
-  const { data, isPending, isSuccess, isFetchedAfterMount } =
+  const { data, isPending, isSuccess, isFetchedAfterMount, error } =
     categoryApi.category.getRelation.useQuery<CategoryRelation>(query);
 
   useListenCategoryUpdate();

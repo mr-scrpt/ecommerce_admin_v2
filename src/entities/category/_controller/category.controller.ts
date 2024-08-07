@@ -5,8 +5,8 @@ import {
   getInputSchema,
   getListOutputSchema,
 } from "../_domain/validator.schema";
-import { CategoryRelationGetService } from "../_service/categoryRelationGet.service";
 import { CategoryListGetService } from "../_service/categoryListGet.service";
+import { CategoryRelationGetService } from "../_service/categoryRelationGet.service";
 
 @injectable()
 export class CategoryController extends Controller {
@@ -20,6 +20,13 @@ export class CategoryController extends Controller {
   public router = router({
     category: {
       getRelation: publicProcedure
+        .input(getInputSchema)
+        .query(async ({ input }) => {
+          const result = await this.getCategoryRelationService.execute(input);
+          return this.checkResult(result, categoryRelationSchema);
+        }),
+
+      getRelationBySlug: publicProcedure
         .input(getInputSchema)
         .query(async ({ input }) => {
           const result = await this.getCategoryRelationService.execute(input);

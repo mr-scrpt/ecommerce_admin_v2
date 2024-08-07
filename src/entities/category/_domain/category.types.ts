@@ -20,9 +20,15 @@ export type CategoryRelationEntity = CategoryEntity & {
 };
 
 // NOTE: Selector
+// export type CategoryGetSelector = {
+//   id?: string;
+//   slug?: string;
+// };
 export type CategoryGetSelector = {
-  id?: string;
-  slug?: string;
+  id: string;
+};
+export type CategoryGetBySlugSelector = {
+  slug: string;
 };
 
 // NOTE: Side
