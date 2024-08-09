@@ -1,11 +1,11 @@
-import { CategoryId } from "@/entities/category";
 import { RoutePathEnum } from "@/shared/config/routing.config";
 import { TitlePage } from "@/shared/ui/titlePage";
 import { CategoryUpdate } from "@/widgets/categoryUpdate";
-import { FC, HTMLAttributes } from "react";
+import { FC } from "react";
 
-interface PageProps extends HTMLAttributes<HTMLDivElement> {
-  params: { categoryId: CategoryId };
+interface PageProps {
+  params: { categoryId: string };
+  searchParams: { [key: string]: string | string[] | undefined };
 }
 
 const CategoryUpdatePage: FC<PageProps> = (props) => {

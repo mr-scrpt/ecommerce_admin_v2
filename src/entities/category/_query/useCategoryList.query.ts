@@ -1,6 +1,6 @@
 "use client";
+import { Category } from "@/kernel/domain/category/category.type";
 import { categoryApi } from "../_api/category.api";
-import { Category } from "../_domain/category.types";
 import { useListenCategoryListUpdate } from "../_vm/event/useListenCategoryListUpdate";
 
 export const useCategoryListQuery = () => {

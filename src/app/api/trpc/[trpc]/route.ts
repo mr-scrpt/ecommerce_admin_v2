@@ -7,8 +7,8 @@ import {
 } from "@/kernel/lib/trpc/server";
 import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
 
-export const appRouter = appModule.getAll(Controller).map((c) => c.router);
-export type AppRouter = typeof appRouter;
+const appRouter = appModule.getAll(Controller).map((c) => c.router);
+// type AppRouter = typeof appRouter;
 
 const handler = (req: Request) =>
   fetchRequestHandler({

@@ -78,7 +78,7 @@ export const CategoryForm: FC<CategoryFormProps> = (props) => {
 
   return (
     <Form {...form}>
-      <form handleSubmit={handleSubmit} className="space-y-8">
+      <form onSubmit={handleSubmit} className="space-y-8">
         <FormField
           control={form.control}
           name="propertyList"

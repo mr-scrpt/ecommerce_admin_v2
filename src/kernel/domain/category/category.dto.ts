@@ -33,6 +33,11 @@ export type CategoryRemoveBySlugDTO = {
   };
 };
 
+// NOTE: Checks
+export type CategoryCheckByNameDTO = {
+  name: string;
+};
+
 // NOTE: Bindings
 export type CategoryBindToProductListDTO = {
   target: {

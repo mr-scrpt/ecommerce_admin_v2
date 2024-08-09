@@ -21,10 +21,17 @@ import { CategoryUpdateModule } from "@/features/categoryUpdate/module";
 import { OrderDeliveryUpdateModule } from "@/features/deliveryUpdate/module";
 import { OrderCreateModule } from "@/features/orderCreate/module";
 
-import { OrderRowUpdateModule } from "@/features/orderRowUpdate/module";
 import { OrderRowCreateModule } from "@/features/orderRowCreate/module";
 import { OrderRowRemoveModule } from "@/features/orderRowRemove/module";
+import { OrderRowUpdateModule } from "@/features/orderRowUpdate/module";
 
+import { AddressModule } from "@/entities/address/module";
+import { ReceiverModule } from "@/entities/receiver/module";
+import { StaffModule } from "@/entities/staff/module";
+import { AddressCreateModule } from "@/features/addressCreate/module";
+import { ConsumerCreateModule } from "@/features/consumerCreate/module";
+import { ConsumerRemoveModule } from "@/features/consumerRemove/module";
+import { ConsumerUpdateModule } from "@/features/consumerUpdate/module";
 import { OrderUpdateModule } from "@/features/orderUpdate/module";
 import { ProductCreateModule } from "@/features/productCreate/module";
 import { ProductRemoveModule } from "@/features/productRemove/module";
@@ -33,8 +40,14 @@ import { ProfileUpdateModule } from "@/features/profileUpdate/module";
 import { PropertyCreateModule } from "@/features/propertyCreate/module";
 import { PropertyRemoveModule } from "@/features/propertyRemove/module";
 import { PropertyUpdateModule } from "@/features/propertyUpdate/module";
+import { ReceiverCreateModule } from "@/features/receiverCreate/module";
 import { SessionCreateModule } from "@/features/sessionGet/module";
-import { ConsumerCreateModule } from "@/features/consumerCreate/module";
+import { StaffRemoveModule } from "@/features/staffRemove/module";
+import { StaffUpdateModule } from "@/features/staffUpdate/module";
+import { StoreCreateModule } from "@/features/storeCreate/module";
+import { StoreRemoveModule } from "@/features/storeRemove/module";
+import { StoreUpdateModule } from "@/features/storeUpdate/module";
+import { UserCreateModule } from "@/features/userCreate/module";
 import { UserUpdateModule } from "@/features/userUpdate/module";
 import { NextAuthModule } from "@/kernel/lib/nextauth/module";
 import { NovaPoshtaModule } from "@/kernel/lib/novaposhta/module";
@@ -42,18 +55,6 @@ import { TrpcModule } from "@/kernel/lib/trpc/module";
 import { HttpClientModule } from "@/shared/api/module";
 import { DbModule } from "@/shared/lib/db/module";
 import { Container } from "inversify";
-import { UserCreateModule } from "@/features/userCreate/module";
-import { ConsumerRemoveModule } from "@/features/consumerRemove/module";
-import { ConsumerUpdateModule } from "@/features/consumerUpdate/module";
-import { StoreRemoveModule } from "@/features/storeRemove/module";
-import { StoreCreateModule } from "@/features/storeCreate/module";
-import { AddressModule } from "@/entities/address/module";
-import { AddressCreateModule } from "@/features/addressCreate/module";
-import { ReceiverModule } from "@/entities/receiver/module";
-import { ReceiverCreateModule } from "@/features/receiverCreate/module";
-import { StaffModule } from "@/entities/staff/module";
-import { StaffUpdateModule } from "@/features/staffUpdate/module";
-import { StaffRemoveModule } from "@/features/staffRemove/module";
 
 export const loadModule = () => {
   const container = new Container();
@@ -122,6 +123,7 @@ export const loadModule = () => {
     StoreModule,
     StoreCreateModule,
     StoreRemoveModule,
+    StoreUpdateModule,
 
     SettlementModule,
     TrpcModule,

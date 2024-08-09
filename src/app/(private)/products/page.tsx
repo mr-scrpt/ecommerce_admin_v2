@@ -2,11 +2,9 @@ import { ToProductCreateButton } from "@/features/productCreate";
 import { RoutePathEnum } from "@/shared/config/routing.config";
 import { TitlePage } from "@/shared/ui/titlePage";
 import { ProductTable } from "@/widgets/productTable";
-import { FC, HTMLAttributes } from "react";
+import { FC } from "react";
 
-interface PageProps extends HTMLAttributes<HTMLDivElement> {}
-
-const PageCategories: FC<PageProps> = (props) => {
+const PageCategories: FC = () => {
   return (
     <main className="flex min-h-screen flex-col gap-4 p-8">
       <TitlePage

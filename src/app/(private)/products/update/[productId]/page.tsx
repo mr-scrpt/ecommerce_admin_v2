@@ -1,11 +1,11 @@
-import { ProductId } from "@/entities/product";
 import { RoutePathEnum } from "@/shared/config/routing.config";
 import { TitlePage } from "@/shared/ui/titlePage";
 import { ProductUpdate } from "@/widgets/productUpdate";
-import { FC, HTMLAttributes, memo } from "react";
+import { FC, memo } from "react";
 
-interface PageProps extends HTMLAttributes<HTMLDivElement> {
-  params: { productId: ProductId };
+interface PageProps {
+  params: { productId: string };
+  searchParams: { [key: string]: string | string[] | undefined };
 }
 
 const ProductUpdatePage: FC<PageProps> = memo((props) => {

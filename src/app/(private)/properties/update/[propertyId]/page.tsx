@@ -1,11 +1,11 @@
-import { PropertyId } from "@/entities/property";
 import { RoutePathEnum } from "@/shared/config/routing.config";
 import { TitlePage } from "@/shared/ui/titlePage";
 import { PropertyUpdate } from "@/widgets/propertyUpdate";
-import { FC, HTMLAttributes } from "react";
+import { FC } from "react";
 
-interface PageProps extends HTMLAttributes<HTMLDivElement> {
-  params: { propertyId: PropertyId };
+interface PageProps {
+  params: { propertyId: string };
+  searchParams: { [key: string]: string | string[] | undefined };
 }
 
 const PropertyUpdatePage: FC<PageProps> = (props) => {

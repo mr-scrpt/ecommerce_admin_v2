@@ -3,11 +3,12 @@ export { categoryFormDefaultSchema } from "./_domain/form.schema";
 export {
   useCategoryListQuery,
   useInvalidateCategoryList,
-} from "./_query/categoryList.query";
+} from "./_query/useCategoryList.query";
+
 export {
   useCategoryWithRelationQuery,
   useInvalidateCategoryWithRelation,
-} from "./_query/categoryWithRelation.query";
+} from "./_query/userCategoryWithRelation.query";
 
 export { CategoryForm } from "./_ui/categoryForm";
 

@@ -4,9 +4,7 @@ import { TitlePage } from "@/shared/ui/titlePage";
 import { CategoryTable } from "@/widgets/categoryTable";
 import { FC, HTMLAttributes } from "react";
 
-interface PageProps extends HTMLAttributes<HTMLDivElement> {}
-
-const PageCategories: FC<PageProps> = (props) => {
+const PageCategories: FC = () => {
   return (
     <main className="flex min-h-screen flex-col gap-4 p-8">
       <TitlePage

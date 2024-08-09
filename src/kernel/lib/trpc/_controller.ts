@@ -13,9 +13,10 @@ export class ControllerWithValidation {
     schema: ZodSchema<T>,
   ): T {
     if (result.isLeft()) {
+      // TODO: add logger
       throw new TRPCError({
         code: result.value.code,
-        message: result.value.message,
+        message: JSON.stringify([result.value.message]),
       });
     }
 
@@ -25,6 +26,26 @@ export class ControllerWithValidation {
       throw new TRPCError({
         code: HTTP_STATUS.BAD_REQUEST,
         message: parseResult.error.message,
+        cause: parseResult.error.cause,
+      });
+    }
+
+    return parseResult.data;
+  }
+
+  protected checkInput<T>(input: T | unknown, schema: ZodSchema<T>): T {
+    const parseResult = schema.safeParse(input);
+
+    if (!parseResult.success) {
+      // TODO: add logger
+      const issues = parseResult.error.issues;
+      const message = issues.map(
+        (item) => `${item.path.at(-1)}: ${item.message}`,
+      );
+
+      throw new TRPCError({
+        code: HTTP_STATUS.BAD_REQUEST,
+        message: JSON.stringify(message),
         cause: parseResult.error.cause,
       });
     }

@@ -1,6 +1,20 @@
-import { StoreToUpdate } from "@/entities/store";
+import { StoreUpdateDTO } from "@/kernel/domain/store/store.dto";
+import { Store } from "@/kernel/domain/store/store.type";
 
-export type StoreUpdateComplexible = {
-  storeId: string;
-  storeData: Partial<StoreToUpdate>;
+type StoreUpdatePayload = Partial<Store>;
+
+export type StoreUpdateTxPayload = {
+  selector: StoreUpdateSelector;
+  storeData: StoreUpdatePayload;
+};
+
+export type StoreUpdateTxDTO = {
+  selector: StoreUpdateSelector;
+
+  storeData: StoreUpdateDTO["data"];
+};
+
+// NOTE: Selector
+export type StoreUpdateSelector = {
+  id: string;
 };

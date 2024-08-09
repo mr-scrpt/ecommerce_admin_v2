@@ -1,7 +1,7 @@
-import { ToReceiverCreateButton } from "@/features/receiverCreate/_ui/receiverCreateButton";
 import {
   CategoryBindToProductListDTO,
   CategoryBindToPropertyListDTO,
+  CategoryCheckByNameDTO,
   CategoryCreateDTO,
   CategoryGetBySlugDTO,
   CategoryGetDTO,
@@ -10,8 +10,16 @@ import {
   CategoryUpdateDTO,
 } from "@/kernel/domain/category/category.dto";
 import { CategoryEntity } from "@/kernel/domain/category/category.type";
-import { CategoryNotFoundError } from "@/kernel/domain/category/error";
+import {
+  CategoryAlreadyExistError,
+  CategoryBindProductError,
+  CategoryBindPropertyError,
+  CategoryNotBeenCreatedError,
+  CategoryNotFoundError,
+} from "@/kernel/domain/category/error";
 import { ICategoryRepository } from "@/kernel/domain/category/repository.type";
+import { UnexpectedError } from "@/kernel/error/error.common";
+import { ErrorApp } from "@/shared/error/error";
 import { DBClient, Tx } from "@/shared/lib/db/db";
 import { Either, left, right } from "@sweet-monads/either";
 import { injectable } from "inversify";
@@ -68,7 +76,7 @@ export class CategoryRepository implements ICategoryRepository {
   async getBySlugRelation<T>(
     dto: CategoryGetBySlugDTO,
     db: Tx = this.db,
-  ): Promise<Either<CategoryNotFoundError, T>> {
+  ): Promise<Either<CategoryNotBeenCreatedError, T>> {
     try {
       const res = (await db.category.findUniqueOrThrow({
         where: dto,
@@ -91,12 +99,18 @@ export class CategoryRepository implements ICategoryRepository {
   async create(
     dto: CategoryCreateDTO,
     db: Tx = this.db,
-  ): Promise<CategoryEntity> {
+  ): Promise<Either<CategoryNotBeenCreatedError, CategoryEntity>> {
     const { data } = dto;
 
-    return await db.category.create({
-      data,
-    });
+    try {
+      const res = await db.category.create({
+        data,
+      });
+
+      return right(res);
+    } catch (e) {
+      return left(new CategoryNotBeenCreatedError({ cause: e }));
+    }
   }
 
   async update(
@@ -132,34 +146,75 @@ export class CategoryRepository implements ICategoryRepository {
   async bindToPropertyList(
     dto: CategoryBindToPropertyListDTO,
     db: Tx = this.db,
-  ): Promise<CategoryEntity> {
+  ): Promise<Either<ErrorApp, CategoryEntity>> {
     const { target, data } = dto;
     const { propertyListId } = data;
 
-    return await db.category.update({
-      where: target,
-      data: {
-        propertyList: {
-          set: propertyListId.map(({ propertyId }) => ({ id: propertyId })),
+    // return await db.category.update({
+    //   where: target,
+    //   data: {
+    //     propertyList: {
+    //       set: propertyListId.map(({ propertyId }) => ({ id: propertyId })),
+    //     },
+    //   },
+    // });
+    try {
+      const res = await db.category.update({
+        where: target,
+        data: {
+          propertyList: {
+            set: propertyListId.map(({ propertyId }) => ({ id: propertyId })),
+          },
         },
-      },
-    });
+      });
+
+      return right(res);
+    } catch (e) {
+      return left(new CategoryBindPropertyError({ cause: e }));
+    }
   }
 
   async bindToProductList(
     dto: CategoryBindToProductListDTO,
     db: Tx = this.db,
-  ): Promise<CategoryEntity> {
+  ): Promise<Either<ErrorApp, CategoryEntity>> {
     const { target, data } = dto;
     const { productListId } = data;
 
-    return await db.category.update({
-      where: target,
-      data: {
-        productList: {
-          connect: productListId.map(({ productId }) => ({ id: productId })),
+    try {
+      const res = await db.category.update({
+        where: target,
+        data: {
+          productList: {
+            set: productListId.map(({ productId }) => ({ id: productId })),
+          },
         },
-      },
-    });
+      });
+
+      return right(res);
+    } catch (e) {
+      return left(new CategoryBindProductError({ cause: e }));
+    }
+  }
+
+  // Check
+
+  async checkIsUniqueByName(
+    dto: CategoryCheckByNameDTO,
+    db: Tx = this.db,
+  ): Promise<Either<ErrorApp, boolean>> {
+    const { name } = dto;
+
+    try {
+      const res = await db.category.findFirst({
+        where: {
+          name,
+        },
+      });
+
+      return right(!!res);
+    } catch (e) {
+      return left(new UnexpectedError({ cause: e }));
+    }
   }
 }

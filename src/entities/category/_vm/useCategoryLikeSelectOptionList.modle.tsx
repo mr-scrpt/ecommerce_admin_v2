@@ -1,5 +1,5 @@
 import { useOptionListTransform } from "@/shared/lib/map";
-import { useCategoryListQuery } from "../_query/categoryList.query";
+import { useCategoryListQuery } from "../_query/useCategoryList.query";
 
 export const useCategoryListToSelectModel = () => {
   const { categoryList, isPending } = useCategoryListQuery();

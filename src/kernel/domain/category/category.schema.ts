@@ -2,8 +2,8 @@ import { z } from "zod";
 
 // NOTE: Base
 export const categoryBaseSchema = z.object({
-  name: z.string(),
-  slug: z.string(),
+  name: z.string().min(3).max(255),
+  slug: z.string().min(3).max(255),
   board: z.array(z.string()),
 });
 

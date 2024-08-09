@@ -1,5 +1,5 @@
 import { ICategoryRepository } from "@/kernel/domain/category/repository.type";
-import { CategoryNotFoundError } from "@/kernel/domain/category/error";
+import { ErrorApp } from "@/shared/error/error";
 import { Either } from "@sweet-monads/either";
 import { injectable } from "inversify";
 import {
@@ -13,8 +13,7 @@ export class CategoryRelationGetService {
 
   async execute(
     selector: CategoryGetSelector,
-  ): Promise<Either<CategoryNotFoundError, CategoryRelation>> {
-    // throw new Error("Method not implemented.");
+  ): Promise<Either<ErrorApp, CategoryRelation>> {
     return await this.categoryRepo.getWithRelation<CategoryRelation>(selector);
   }
 }

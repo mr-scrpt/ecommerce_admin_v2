@@ -6,7 +6,7 @@ import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes } from "react";
 import { CategoryCreateFormValues } from "../_domain/form.schema";
-import { useCategoryCreateMutation } from "../_mutation/categoryCreate.mutation";
+import { useCategoryCreateModel } from "../_vm/useCategoryCreate.model";
 
 interface CategoryCreateFormProps extends HTMLAttributes<HTMLDivElement> {
   callbackUrl?: string;
@@ -20,7 +20,7 @@ export const CategoryFormCreate: FC<CategoryCreateFormProps> = (props) => {
   const router = useRouter();
 
   const { categoryCreate, isPending: isPendingCreate } =
-    useCategoryCreateMutation();
+    useCategoryCreateModel();
 
   const { propertySelectOptionList, isPending: isPendingOptionList } =
     usePropertyLikeSelectOptionListModel();

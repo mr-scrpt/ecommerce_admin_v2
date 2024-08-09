@@ -13,10 +13,10 @@ export class CategoryCreateController extends Controller {
   public router = router({
     categoryCreate: {
       create: publicProcedure
-        .input(createInputSchema)
+        .input((input) => this.checkInput(input, createInputSchema))
         .mutation(async ({ input }) => {
           const result = await this.createCategoryService.execute(input);
-          return categorySchema.parse(result);
+          return this.checkResult(result, categorySchema);
         }),
     },
   });

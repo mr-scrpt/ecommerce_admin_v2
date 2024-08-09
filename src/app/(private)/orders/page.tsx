@@ -2,11 +2,9 @@ import { ToOrderCreateButton } from "@/features/orderCreate";
 import { RoutePathEnum } from "@/shared/config/routing.config";
 import { TitlePage } from "@/shared/ui/titlePage";
 import { OrderTable } from "@/widgets/orderTable";
-import { FC, HTMLAttributes } from "react";
+import { FC } from "react";
 
-interface PageProps extends HTMLAttributes<HTMLDivElement> {}
-
-const PageOrders: FC<PageProps> = (props) => {
+const PageOrders: FC = () => {
   return (
     <main className="flex min-h-screen flex-col gap-4 p-8">
       <TitlePage

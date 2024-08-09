@@ -1,11 +1,9 @@
 import { RoutePathEnum } from "@/shared/config/routing.config";
 import { TitlePage } from "@/shared/ui/titlePage";
 import { StoreCreate } from "@/widgets/storeCreate";
-import { FC, HTMLAttributes } from "react";
+import { FC } from "react";
 
-interface PageProps extends HTMLAttributes<HTMLDivElement> {}
-
-const StoreCreatePage: FC<PageProps> = (props) => {
+const StoreCreatePage: FC = () => {
   return (
     <main className="flex min-h-screen flex-col gap-4 p-8">
       <TitlePage title="Store create" description="Create store item" />

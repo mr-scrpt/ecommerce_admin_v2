@@ -1,9 +1,10 @@
 import { ProfileFormUpdate } from "@/features/profileUpdate";
 import { Separator } from "@/shared/ui/separator";
-import { FC, HTMLAttributes } from "react";
+import { FC } from "react";
 
-interface PageProfileProps extends HTMLAttributes<HTMLDivElement> {
+interface PageProfileProps {
   params: { id: string };
+  searchParams: { [key: string]: string | string[] | undefined };
 }
 
 const PageProfile: FC<PageProfileProps> = (props) => {

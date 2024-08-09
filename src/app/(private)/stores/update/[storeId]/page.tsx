@@ -1,10 +1,11 @@
 import { RoutePathEnum } from "@/shared/config/routing.config";
 import { TitlePage } from "@/shared/ui/titlePage";
 import { StoreUpdate } from "@/widgets/storeUpdate";
-import { FC, HTMLAttributes } from "react";
+import { FC } from "react";
 
-interface PageProps extends HTMLAttributes<HTMLDivElement> {
+interface PageProps {
   params: { storeId: string };
+  searchParams: { [key: string]: string | string[] | undefined };
 }
 
 const StoreUpdatePage: FC<PageProps> = (props) => {

@@ -1,14 +1,13 @@
-import { Container, ContainerModule } from "inversify";
-import { StoreRepository } from "@/entities/store/server";
+import { ContainerModule } from "inversify";
 import { StoreUpdateTx } from "./_tx/storeUpdate.transaction";
-import { UpdateStoreComplexibleUseCase } from "./_usecase/storeUpdateComplexible.usecase";
+import { IStoreUpdateTx } from "./_domain/transaction.type";
 
-export const storeUpdateContainer = new Container();
+// export const storeUpdateContainer = new Container();
 
 export const StoreUpdateModule = new ContainerModule((bind) => {
-  bind(StoreUpdateTx).toSelf();
-  bind(StoreRepository).toSelf();
-  bind(UpdateStoreComplexibleUseCase).toSelf();
+  bind(IStoreUpdateTx).to(StoreUpdateTx);
+  // bind(StoreRepository).toSelf();
+  // bind(UpdateStoreComplexibleUseCase).toSelf();
 });
 
-storeUpdateContainer.load(StoreUpdateModule);
+// storeUpdateContainer.load(StoreUpdateModule);

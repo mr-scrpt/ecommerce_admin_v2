@@ -1,8 +1,10 @@
+import { ErrorApp } from "@/shared/error/error";
 import { Tx } from "@/shared/lib/db/db";
 import { Either } from "@sweet-monads/either";
 import {
   CategoryBindToProductListDTO,
   CategoryBindToPropertyListDTO,
+  CategoryCheckByNameDTO,
   CategoryCreateDTO,
   CategoryGetBySlugDTO,
   CategoryGetDTO,
@@ -11,18 +13,18 @@ import {
   CategoryUpdateDTO,
 } from "./category.dto";
 import { CategoryEntity } from "./category.type";
-import { CategoryNotFoundError } from "./error";
+import { CategoryNotBeenCreatedError } from "./error";
 
 export abstract class ICategoryRepository {
   abstract get(
     dto: CategoryGetDTO,
     db?: Tx,
-  ): Promise<Either<CategoryNotFoundError, CategoryEntity>>;
+  ): Promise<Either<ErrorApp, CategoryEntity>>;
 
   abstract getWithRelation<T>(
     dto: CategoryGetDTO,
     db?: Tx,
-  ): Promise<Either<CategoryNotFoundError, T>>;
+  ): Promise<Either<ErrorApp, T>>;
 
   abstract getBySlug(
     dto: CategoryGetBySlugDTO,
@@ -32,11 +34,14 @@ export abstract class ICategoryRepository {
   abstract getBySlugRelation<T>(
     dto: CategoryGetBySlugDTO,
     db?: Tx,
-  ): Promise<Either<CategoryNotFoundError, T>>;
+  ): Promise<Either<ErrorApp, T>>;
 
   abstract getList(db?: Tx): Promise<CategoryEntity[]>;
 
-  abstract create(dto: CategoryCreateDTO, db?: Tx): Promise<CategoryEntity>;
+  abstract create(
+    dto: CategoryCreateDTO,
+    db?: Tx,
+  ): Promise<Either<CategoryNotBeenCreatedError, CategoryEntity>>;
 
   abstract update(dto: CategoryUpdateDTO, db?: Tx): Promise<CategoryEntity>;
 
@@ -47,13 +52,23 @@ export abstract class ICategoryRepository {
     db?: Tx,
   ): Promise<CategoryEntity>;
 
+  // abstract bindToPropertyList(
+  //   dto: CategoryBindToPropertyListDTO,
+  //   db?: Tx,
+  // ): Promise<CategoryEntity>;
+
   abstract bindToPropertyList(
     dto: CategoryBindToPropertyListDTO,
     db?: Tx,
-  ): Promise<CategoryEntity>;
+  ): Promise<Either<ErrorApp, CategoryEntity>>;
 
   abstract bindToProductList(
     dto: CategoryBindToProductListDTO,
     db?: Tx,
-  ): Promise<CategoryEntity>;
+  ): Promise<Either<ErrorApp, CategoryEntity>>;
+
+  abstract checkIsUniqueByName(
+    dto: CategoryCheckByNameDTO,
+    db?: Tx,
+  ): Promise<Either<ErrorApp, boolean>>;
 }

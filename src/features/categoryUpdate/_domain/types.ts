@@ -1,4 +1,4 @@
-import { CategoryUpdateDTO } from "@/entities/category";
+import { CategoryUpdateDTO } from "@/kernel/domain/category/category.dto";
 import { Category } from "@/kernel/domain/category/category.type";
 import { Property } from "@/kernel/domain/property/property.type";
 

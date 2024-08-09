@@ -1,9 +1,7 @@
 import { Card, CardContent, CardHeader } from "@/shared/ui/card";
-import { FC, HTMLAttributes } from "react";
+import { FC } from "react";
 
-interface PageProps extends HTMLAttributes<HTMLDivElement> {}
-
-const VerifyRequestPage: FC<PageProps> = (props) => {
+const VerifyRequestPage: FC = () => {
   return (
     <div className="container relative  flex-col items-center justify-center self-center pt-24">
       <Card className="mx-auto max-w-[350px]">

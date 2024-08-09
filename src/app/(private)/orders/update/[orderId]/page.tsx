@@ -1,11 +1,10 @@
-import { OrderId } from "@/entities/order";
 import { RoutePathEnum } from "@/shared/config/routing.config";
 import { TitlePage } from "@/shared/ui/titlePage";
 import { OrderUpdate } from "@/widgets/orderUpdate";
-import { FC, HTMLAttributes, memo } from "react";
+import { FC, memo } from "react";
 
-interface PageProps extends HTMLAttributes<HTMLDivElement> {
-  params: { orderId: OrderId };
+interface PageProps {
+  params: { orderId: string };
 }
 
 const OrderUpdatePage: FC<PageProps> = memo((props) => {

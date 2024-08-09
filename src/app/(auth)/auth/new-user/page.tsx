@@ -1,15 +1,17 @@
 import { appModule } from "@/app/module";
 import { ProfileFormUpdate } from "@/features/profileUpdate";
 import { SessionService } from "@/kernel/lib/nextauth/session.service";
+import { isStirng } from "@/shared/lib/isString";
 import { Separator } from "@/shared/ui/separator";
 import { redirect } from "next/navigation";
-import { FC, HTMLAttributes } from "react";
-
-interface PageProps extends HTMLAttributes<HTMLDivElement> {
-  searchParams: { callbackUrl: string };
-}
+import { FC } from "react";
 
 const sessionService = appModule.get(SessionService);
+
+interface PageProps {
+  params: { slug: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+}
 
 const NewUserPage: FC<PageProps> = async (props) => {
   const { searchParams } = props;
@@ -33,7 +35,7 @@ const NewUserPage: FC<PageProps> = async (props) => {
       <div className="flex justify-center">
         <ProfileFormUpdate
           profileId={session.user.id}
-          callbackUrl={callbackUrl}
+          callbackUrl={isStirng(callbackUrl)}
           className="max-w-[500px]"
         />
       </div>

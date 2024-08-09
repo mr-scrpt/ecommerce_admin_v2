@@ -4,6 +4,8 @@ import { CategoryUpdateTxDTO } from "../_domain/types";
 import { ICategoryUpdateTx } from "../_domain/transaction.type";
 import { CategoryEntity } from "@/kernel/domain/category/category.type";
 import { ICategoryRepository } from "@/kernel/domain/category/repository.type";
+import { ErrorApp } from "@/shared/error/error";
+import { Either } from "@sweet-monads/either";
 
 @injectable()
 export class CategoryUpdateTx extends Transaction implements ICategoryUpdateTx {
@@ -14,7 +16,9 @@ export class CategoryUpdateTx extends Transaction implements ICategoryUpdateTx {
     super(db);
   }
 
-  async update(dto: CategoryUpdateTxDTO): Promise<CategoryEntity> {
+  async update(
+    dto: CategoryUpdateTxDTO,
+  ): Promise<Either<ErrorApp, CategoryEntity>> {
     const { selector, categoryData, propertyData } = dto;
 
     const action = async (tx: Tx) => {
