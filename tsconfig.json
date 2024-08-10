@@ -1,7 +1,13 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "types": ["reflect-metadata"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "types": [
+      "reflect-metadata"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -17,19 +23,26 @@
     "emitDecoratorMetadata": true,
     "plugins": [
       {
-        "name": "next",
-      },
+        "name": "next"
+      }
     ],
     "paths": {
-      "@/*": ["./src/*"],
-    },
+      "@/*": [
+        "./src/*"
+      ]
+    }
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts", "src/widgets/userTable/_ui/userTable.layout.tss",
+    ".next/types/**/*.ts",
+    "src/widgets/userTable/_ui/userTable.layout.tss",
+    "build/types/**/*.ts"
     // "src/entities/delivery/_usecase/instans.usecasets",
   ],
-  "exclude": ["node_modules", "server"],
+  "exclude": [
+    "node_modules",
+    "server"
+  ]
 }

@@ -1,7 +1,7 @@
 import { Button } from "@/shared/ui/button";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { FC } from "react";
-import { useUploadAvatarModel } from "../_vm/useUploadAvatar.model";
+// import { useUploadAvatarModel } from "../_vm/useUploadAvatar.model";
 import { ProfileAvatar } from "@/shared/ui/profileAvatar";
 
 interface AvatarFieldProps {
