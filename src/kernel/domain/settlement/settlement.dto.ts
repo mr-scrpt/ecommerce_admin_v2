@@ -13,6 +13,10 @@ export type SettlementSearchDTO = {
   q: string;
 };
 
+export type SettlementSearchByRefDTO = {
+  settlementRef: string;
+};
+
 // NOTE: Mutations
 export type SettlementCreateDTO = {
   data: SettlementBase;

@@ -14,7 +14,7 @@ export const useUploadBoardListModel = (
 ) => {
   const { onSuccess, onError } = props;
 
-  const { mutateAsync, isPending } = useMutation({
+  const { mutateAsync, isPending, error, isError } = useMutation({
     mutationFn: uploadBoardListAction,
     onSuccess(data) {
       onSuccess?.(data.boardList.path);

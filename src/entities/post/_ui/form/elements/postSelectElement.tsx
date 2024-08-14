@@ -1,5 +1,5 @@
 import { FormControl } from "@/shared/ui/form";
-import { FC } from "react";
+import { FC, memo } from "react";
 
 import {
   Select,
@@ -11,13 +11,11 @@ import {
 import { usePostListBySettlementRefToSelectModel } from "../../../_vm/usePostOfficeListBySettlementRefToSelect.model.query";
 import { PostSelectProps } from "@/kernel/domain/post/ui.type";
 
-export const PostSelectElement: FC<PostSelectProps> = (props) => {
+export const PostSelectElement: FC<PostSelectProps> = memo((props) => {
   const { postInit, settlementRef, onSelectPost } = props;
 
   const { postListToSelect, isPending, isSuccess } =
     usePostListBySettlementRefToSelectModel(settlementRef);
-
-  console.log("output_log: POST =>>>", postListToSelect);
 
   const placeholder = isPending ? "Loading..." : "Select post";
 
@@ -37,4 +35,32 @@ export const PostSelectElement: FC<PostSelectProps> = (props) => {
       </SelectContent>
     </Select>
   );
-};
+});
+
+PostSelectElement.displayName = "PostSelectElement";
+
+// export const PostSelectElement: FC<PostSelectProps> = (props) => {
+//   const { postInit, settlementRef, onSelectPost } = props;
+//
+//   const { postListToSelect, isPending, isSuccess } =
+//     usePostListBySettlementRefToSelectModel(settlementRef);
+//
+//   const placeholder = isPending ? "Loading..." : "Select post";
+//
+//   return (
+//     <Select defaultValue={postInit || ""} onValueChange={onSelectPost}>
+//       <FormControl>
+//         <SelectTrigger>
+//           <SelectValue placeholder={placeholder} />
+//         </SelectTrigger>
+//       </FormControl>
+//       <SelectContent>
+//         {postListToSelect.map((post) => (
+//           <SelectItem key={post.value} value={post.value}>
+//             {post.label}
+//           </SelectItem>
+//         ))}
+//       </SelectContent>
+//     </Select>
+//   );
+// };

@@ -1,4 +1,4 @@
-export { useSettlementListSearchToSelectQuery } from "./_query/getSettlementListSearch.query";
+export { useSettlementListSearchToSelectQuery } from "./_query/searchSettlementList.query";
 export { useSettlementCourierAvailableByRefModel } from "./_vm/useSettlemetAvailable";
 export type { SettleToSelect } from "./_domain/ui.type";
 export { useSettlemetListToSelect } from "./_vm/useSettlemetListToSelect";

@@ -12,6 +12,6 @@ export const useStoreAvailableBySettlementRefModel = (
     isPending,
     isSuccess,
     isFetchedAfterMount,
-    availableStore: !!storeList.length,
+    isStoreAvailable: !!storeList.length,
   };
 };

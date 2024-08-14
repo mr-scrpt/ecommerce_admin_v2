@@ -48,12 +48,16 @@ export class OrderCreateTx extends Transaction implements IOrderCreateTx {
         );
       }
 
-      const { id } = await this.orderRepo.createEmpty({ data: orderData }, tx);
+      const { id } = await this.orderRepo.createEmpty(
+        { data: { ...orderData, receiverId: receiver.id } },
+        tx,
+      );
 
       const delivery = await this.deliveryRepo.create(
         {
           data: {
             ...deliveryData,
+            receiverId: receiver.id,
             orderId: id,
           },
         },

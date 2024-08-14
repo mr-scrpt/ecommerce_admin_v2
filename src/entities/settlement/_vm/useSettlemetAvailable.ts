@@ -1,16 +1,16 @@
 import { useAppearanceDelay } from "@/shared/lib/react";
-import { useSettlementGetByRefQuery } from "../_query/getSettlementByRef.query";
+import { useSettlementSearchByRefQuery } from "../_query/searchSettlementByRef.query";
 
 export const useSettlementCourierAvailableByRefModel = (
-  settlementRef: string,
+  settlementRef?: string,
 ) => {
   const { settlement, isPending, isSuccess, isFetchedAfterMount } =
-    useSettlementGetByRefQuery(settlementRef);
+    useSettlementSearchByRefQuery(settlementRef || "");
 
   const isAppearancePending = useAppearanceDelay(isPending);
 
   return {
-    availableSettlementCourier: !!settlement?.radiusHomeDelivery,
+    isCourierAvailable: !!settlement?.radiusHomeDelivery,
     isAppearancePending,
     isSuccess,
     isFetchedAfterMount,

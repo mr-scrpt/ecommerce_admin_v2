@@ -56,11 +56,8 @@ export const StoreFormUpdate: FC<StoreFormProps> = (props) => {
 
   const handleSubmit = async (data: StoreFormValues) => {
     await storeUpdate({
-      storeId: store.id,
-      data: {
-        ...data,
-        id: store.id,
-      },
+      selector: { id: storeId },
+      storeData: data,
     });
 
     onSuccess?.();
@@ -78,11 +75,11 @@ export const StoreFormUpdate: FC<StoreFormProps> = (props) => {
         schema={storeFormDefaultSchema}
       >
         <StoreFormElements.FieldName />
-        <StoreFormElements.FieldSettlement
-          settlementListToSelect={settlementList}
-          toSearch={toSearch}
-          handleSelect={setSelectedSettlement}
-        />
+        {/* <StoreFormElements.FieldSettlement */}
+        {/*   settlementListToSelect={settlementList} */}
+        {/*   toSearch={toSearch} */}
+        {/*   handleSelect={setSelectedSettlement} */}
+        {/* /> */}
         <StoreFormElements.FieldAddress />
         <StoreFormElements.SubmitButton
           isPending={isPendingComplexible}

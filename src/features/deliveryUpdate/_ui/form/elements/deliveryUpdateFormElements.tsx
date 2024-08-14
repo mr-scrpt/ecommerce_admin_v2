@@ -1,18 +1,13 @@
 import { AddressSelectElement } from "@/entities/address";
-import { DeliveryFormElements } from "@/entities/delivery";
 import { PostSelectElement } from "@/entities/post/_ui/form/elements/postSelectElement";
+import { ReceiverSelectElement } from "@/entities/receiver";
 import { SettlementSelectElement } from "@/entities/settlement";
 import { StoreSelectElement } from "@/entities/store";
 import { AddressCreateProps } from "@/kernel/domain/address/ui.type";
 import { Delivery } from "@/kernel/domain/delivery/delivery.type";
+import { ReceiverCreateProps } from "@/kernel/domain/receiver/ui.type";
 import { Button } from "@/shared/ui/button";
-import {
-  Form,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-} from "@/shared/ui/form";
+import { Form, FormField, FormItem, FormLabel } from "@/shared/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, HTMLAttributes, useEffect } from "react";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
@@ -22,8 +17,7 @@ import {
   deliveryUpdateFormSchema,
 } from "../../../_domain/form.schema";
 import { DeliveryTypeField } from "../fields/deliveryTypeField";
-import { ReceiverSelectElement } from "@/entities/receiver";
-import { ReceiverCreateProps } from "@/kernel/domain/receiver/ui.type";
+import { Spinner } from "@/shared/ui/icons/spinner";
 
 export interface DeliveryFormElementsProps
   extends HTMLAttributes<HTMLFormElement> {
@@ -117,6 +111,29 @@ export const DeliveryUpdateFormElements: IDeliveryFormElements = (props) => {
   );
 };
 
+DeliveryUpdateFormElements.FieldSettlementSelect =
+  function FieldSettlementSelect() {
+    const { control, resetField } = useFormContext<DeliveryUpdateFormValues>();
+    return (
+      <FormField
+        control={control}
+        name="settlementRef"
+        render={({ field }) => (
+          <FormItem className="flex flex-col">
+            <FormLabel>Select settlement</FormLabel>
+            <SettlementSelectElement
+              settlementActive={field.value}
+              onSelectSettlement={(v) => {
+                resetField("settlementRef");
+                field.onChange(v);
+              }}
+            />
+          </FormItem>
+        )}
+      />
+    );
+  };
+
 DeliveryUpdateFormElements.FieldDeliveryType = function FieldDeliveryType() {
   const { getValues, control } = useFormContext<DeliveryUpdateFormValues>();
   const { settlementRef } = getValues();
@@ -140,29 +157,6 @@ DeliveryUpdateFormElements.FieldDeliveryType = function FieldDeliveryType() {
     />
   );
 };
-
-DeliveryUpdateFormElements.FieldSettlementSelect =
-  function FieldSettlementSelect() {
-    const { control, resetField } = useFormContext<DeliveryUpdateFormValues>();
-    return (
-      <FormField
-        control={control}
-        name="settlementRef"
-        render={({ field }) => (
-          <FormItem className="flex flex-col">
-            <FormLabel>Select settlement</FormLabel>
-            <SettlementSelectElement
-              settlementActive={field.value}
-              onSelectSettlement={(v) => {
-                resetField("settlementRef");
-                field.onChange(v);
-              }}
-            />
-          </FormItem>
-        )}
-      />
-    );
-  };
 
 DeliveryUpdateFormElements.FieldPostSelect = function FieldPostSelect() {
   const { control, getValues } = useFormContext<DeliveryUpdateFormValues>();
@@ -277,4 +271,17 @@ interface DeliverySubmitFieldProps {
   className?: string;
 }
 
-DeliveryUpdateFormElements.SubmitButton = DeliveryFormElements.SubmitButton;
+DeliveryUpdateFormElements.SubmitButton = function SubmitButton(props) {
+  const { isPending, submitText } = props;
+  return (
+    <Button type="submit" disabled={isPending}>
+      {isPending && (
+        <Spinner
+          className="mr-2 h-4 w-4 animate-spin"
+          aria-label="Delivery updating..."
+        />
+      )}
+      {submitText}
+    </Button>
+  );
+};

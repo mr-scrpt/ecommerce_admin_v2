@@ -1,5 +1,5 @@
-import { CartRowUpdateDTO } from "@/entities/cart";
 import { Cart } from "@/kernel/domain/cart/cart.type";
+import { CartRowUpdateDTO } from "@/kernel/domain/cart/cartRow.dto";
 import { CartRow } from "@/kernel/domain/cart/cartRow.type";
 import { Product } from "@/kernel/domain/product/product.type";
 

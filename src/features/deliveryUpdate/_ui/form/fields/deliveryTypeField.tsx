@@ -1,4 +1,4 @@
-import { usePostOfficeAvailableBySettlementRef } from "@/entities/post";
+import { usePostOfficeAvailableBySettlementRefModel } from "@/entities/post";
 import { useSettlementCourierAvailableByRefModel } from "@/entities/settlement";
 import { useStoreAvailableBySettlementRefModel } from "@/entities/store";
 import { DeliveryTypeFieldList } from "@/features/deliveryUpdate/_vm/deliveryTypeFieldList";
@@ -18,13 +18,13 @@ interface DeliveryTypeRadioProps extends HTMLAttributes<HTMLDivElement> {
 export const DeliveryTypeField: FC<DeliveryTypeRadioProps> = (props) => {
   const { settlementRef, deliveryType, onChangeDeliveryType } = props;
 
-  const { availableStore } =
+  const { isStoreAvailable } =
     useStoreAvailableBySettlementRefModel(settlementRef);
 
-  const { availablePost } =
-    usePostOfficeAvailableBySettlementRef(settlementRef);
+  const { isPostAvailable } =
+    usePostOfficeAvailableBySettlementRefModel(settlementRef);
 
-  const { availableSettlementCourier } =
+  const { isCourierAvailable } =
     useSettlementCourierAvailableByRefModel(settlementRef);
 
   return (
@@ -35,7 +35,7 @@ export const DeliveryTypeField: FC<DeliveryTypeRadioProps> = (props) => {
       className="flex flex-col space-y-1"
     >
       {Object.entries(DeliveryTypeFieldList).map(([key, row]) => {
-        if (key === DeliveryTypeEnum.POST && availablePost) {
+        if (key === DeliveryTypeEnum.POST && isPostAvailable) {
           return (
             <DeliveryPostSelect
               key={key}
@@ -44,7 +44,7 @@ export const DeliveryTypeField: FC<DeliveryTypeRadioProps> = (props) => {
             />
           );
         }
-        if (key === DeliveryTypeEnum.PICKUP && availableStore) {
+        if (key === DeliveryTypeEnum.PICKUP && isStoreAvailable) {
           return (
             <DeliveryStoreField
               key={key}
@@ -53,7 +53,7 @@ export const DeliveryTypeField: FC<DeliveryTypeRadioProps> = (props) => {
             />
           );
         }
-        if (key === DeliveryTypeEnum.COURIER && availableSettlementCourier) {
+        if (key === DeliveryTypeEnum.COURIER && isCourierAvailable) {
           return (
             <DeliveryCourierField
               key={key}

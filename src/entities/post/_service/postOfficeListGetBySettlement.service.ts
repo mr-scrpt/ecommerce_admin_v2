@@ -11,11 +11,16 @@ export class PostOfficeListGetBySettlementRefService {
     selector: PostOfficeGetBySettlementRefSelector,
   ): Promise<Array<PostOffice>> {
     const { settlementRef } = selector;
+    console.log("output_log: in service id =>>>", settlementRef);
 
     if (!settlementRef || settlementRef === "") {
       return [];
     }
 
-    return await this.postRepo.getPostOfficeListBySettlementRef(selector);
+    console.log("output_log:  =>>> after filter", settlementRef);
+    const res = await this.postRepo.getPostOfficeListBySettlementRef(selector);
+    console.log("output_log:  =>>> service result", res);
+
+    return res;
   }
 }

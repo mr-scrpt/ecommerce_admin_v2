@@ -13,7 +13,7 @@ export type OrderGetByConsumerDTO = {
 type OrderCreateEmpty = Pick<
   OrderBase,
   | "userId"
-  | "receiverId"
+  // | "receiverId"
   | "priceTotal"
   | "paymentStatus"
   | "orderStatus"
@@ -22,6 +22,12 @@ type OrderCreateEmpty = Pick<
 
 export type OrderCreateEmptyDTO = {
   data: OrderCreateEmpty;
+};
+
+export type OrderCreateEmptyWithReceiverDTO = {
+  data: OrderCreateEmpty & {
+    receiverId: string;
+  };
 };
 
 export type OrderUpdateDTO = {

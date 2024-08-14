@@ -11,7 +11,6 @@ export class NovaPoshtaRepository implements INovaPoshtaRepository {
     s: string,
   ): Promise<Array<PostOfficeNovaPoshta>> {
     const res = await this.np.getPostOfficeListBySettlementRef(s);
-    // console.log("output_log: s , res =>>>", s, res);
     return res;
   }
 

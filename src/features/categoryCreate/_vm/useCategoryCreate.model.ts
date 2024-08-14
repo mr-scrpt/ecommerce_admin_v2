@@ -10,7 +10,7 @@ export const useCategoryCreateModel = () => {
   }
 
   if (isError && error) {
-    noticeError({ title: "Error", description: buildError(error.message) });
+    noticeError({ title: "Error", description: error.message });
   }
 
   return {
@@ -20,8 +20,8 @@ export const useCategoryCreateModel = () => {
   };
 };
 
-const buildError = (error: string) => {
-  const arr = [...(JSON.parse(error) as Array<string>)];
-
-  return arr.join(",");
-};
+// const buildError = (error: string) => {
+//   const arr = [...(JSON.parse(error) as Array<string>)];
+//
+//   return arr.join(",");
+// };

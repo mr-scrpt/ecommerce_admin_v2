@@ -29,11 +29,11 @@ export const AddressCreateForm: FC<AddressCreateFormProps> = (props) => {
   const {
     toSearch,
     settlementListToSelect,
-    isPending: isPendingAddress,
+    isAppearancePending,
     isSuccess: isSuccessAddress,
   } = useSettlemetListToSelect();
 
-  const isPendingComplexible = isPendingAddress || isPendingCreate;
+  const isPendingComplexible = isAppearancePending || isPendingCreate;
 
   if (isPendingComplexible) {
     return <Spinner aria-label="Loading profile..." />;

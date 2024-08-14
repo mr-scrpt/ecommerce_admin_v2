@@ -1,5 +1,5 @@
-import { CartRowCreateDTO } from "@/entities/cart";
 import { Cart } from "@/kernel/domain/cart/cart.type";
+import { CartRowCreateDTO } from "@/kernel/domain/cart/cartRow.dto";
 import { CartRow } from "@/kernel/domain/cart/cartRow.type";
 import { Session } from "next-auth";
 

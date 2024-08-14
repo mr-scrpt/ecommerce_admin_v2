@@ -26,7 +26,7 @@ export const CategoryFormUpdate: FC<CategoryFormProps> = (props) => {
     category,
     isPending: isPendingCategory,
     isFetchedAfterMount,
-  } = useCategoryWithRelationQuery({ id: categoryId });
+  } = useCategoryWithRelationQuery(categoryId);
 
   const router = useRouter();
 

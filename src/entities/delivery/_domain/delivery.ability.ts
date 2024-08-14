@@ -1,4 +1,4 @@
-import { SessionEntity } from "@/shared/lib/user";
+import { SessionEntity } from "@/kernel/domain/session.type";
 
 export const createDeliveryAbility = (session: SessionEntity) => ({
   canCreateDelivery: () => !!session.user.role,

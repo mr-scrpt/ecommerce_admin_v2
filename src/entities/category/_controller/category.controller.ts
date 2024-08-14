@@ -20,10 +20,26 @@ export class CategoryController extends Controller {
   public router = router({
     category: {
       getRelation: publicProcedure
+        // .input((value) => this.checkInput(value, getInputSchema))
+        // .input((value: any) => ({
+        //   id: "d",
+        // }))
         .input(getInputSchema)
         .query(async ({ input }) => {
+          // try {
           const result = await this.getCategoryRelationService.execute(input);
-          return this.checkResult(result, categoryRelationSchema);
+          const validateResult = this.checkResult(
+            result,
+            categoryRelationSchema,
+          );
+          return validateResult;
+          // } catch (e) {
+          //   console.log("Error catching in controller", e);
+          // }
+          // const validation = this.checkInput(input, getInputSchema);
+          // if (validation.isLeft()) {
+          //   return validation;
+          // }
         }),
 
       getRelationBySlug: publicProcedure

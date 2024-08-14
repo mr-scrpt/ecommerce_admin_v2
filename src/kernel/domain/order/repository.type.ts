@@ -1,6 +1,7 @@
 import { Tx } from "@/shared/lib/db/db";
 import {
   OrderCreateEmptyDTO,
+  OrderCreateEmptyWithReceiverDTO,
   OrderGetByConsumerDTO,
   OrderGetDTO,
   OrderUpdateDTO,
@@ -28,7 +29,10 @@ export abstract class IOrderRepository {
 
   abstract getList(db?: Tx): Promise<OrderEntity[]>;
 
-  abstract createEmpty(dto: OrderCreateEmptyDTO, db?: Tx): Promise<OrderEntity>;
+  abstract createEmpty(
+    dto: OrderCreateEmptyWithReceiverDTO,
+    db?: Tx,
+  ): Promise<OrderEntity>;
 
   abstract update(dto: OrderUpdateDTO, db?: Tx): Promise<OrderEntity>;
 }

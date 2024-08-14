@@ -4,6 +4,7 @@ import { ISettlementRepository } from "@/kernel/domain/settlement/repository.typ
 import {
   SettlementCreateDTO,
   SettlementGetByRefDTO,
+  SettlementSearchByRefDTO,
   SettlementSearchDTO,
 } from "@/kernel/domain/settlement/settlement.dto";
 import { SettlementEntity } from "@/kernel/domain/settlement/settlement.type";
@@ -19,6 +20,18 @@ export class SettlementRepository implements ISettlementRepository {
     const { settlementRef } = dto;
     const res = await db.settlement.findUniqueOrThrow({
       where: { ref: settlementRef },
+    });
+    return res;
+  }
+  async searchByRef(
+    dto: SettlementSearchByRefDTO,
+    db: Tx = this.db,
+  ): Promise<SettlementEntity | null> {
+    const { settlementRef } = dto;
+    const res = await db.settlement.findFirst({
+      where: {
+        ref: settlementRef,
+      },
     });
     return res;
   }

@@ -1,4 +1,4 @@
-import {
+import type {
   CategoryBindToProductListDTO,
   CategoryBindToPropertyListDTO,
   CategoryCheckByNameDTO,
@@ -11,7 +11,6 @@ import {
 } from "@/kernel/domain/category/category.dto";
 import { CategoryEntity } from "@/kernel/domain/category/category.type";
 import {
-  CategoryAlreadyExistError,
   CategoryBindProductError,
   CategoryBindPropertyError,
   CategoryNotBeenCreatedError,

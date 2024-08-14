@@ -5,10 +5,13 @@ import { postApi } from "../_api/post.api";
 export const usePostOfficeListBySettlementRefQuery = (
   settlementRef: string,
 ) => {
+  console.log("output_log: Common Post Request =>>>", settlementRef);
+
   const { isPending, isSuccess, isFetchedAfterMount, data } =
     postApi.post.getOfficeListBySettlementRef.useQuery<Array<PostOffice>>({
       settlementRef,
     });
+  console.log("output_log: Common Post DATA =>>>", data);
 
   return {
     isPending,

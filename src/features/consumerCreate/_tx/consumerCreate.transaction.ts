@@ -41,6 +41,9 @@ export class ConsumerCreateTx extends Transaction implements IConsumerCreateTx {
         {
           data: {
             userId: id,
+            name,
+            lastName,
+            phone,
           },
         },
         tx,

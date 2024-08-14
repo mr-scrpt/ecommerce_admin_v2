@@ -7,9 +7,4 @@ export const updateInputSchema = z.object({
   deliveryData: deliveryUpdateSchema.partial(),
 });
 
-export const updateDeliveryOutputSchema = deliverySchema.extend({
-  // settlementRef: z.string(),
-  // postOffice: z.string(),
-  // addressId: z.string(),
-  // storeId: z.string(),
-});
+export const updateDeliveryOutputSchema = deliverySchema;

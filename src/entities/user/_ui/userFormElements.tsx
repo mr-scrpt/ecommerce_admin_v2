@@ -18,7 +18,7 @@ import { FC, HTMLAttributes, useEffect } from "react";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
 import { Country } from "react-phone-number-input";
 import { ZodTypeAny } from "zod";
-import { AvatarField } from "./avatarField";
+// import { AvatarField } from "./avatarField";
 import { UserPartial } from "@/kernel/domain/user/user.type";
 import {
   UserFormDefaultValues,
@@ -43,7 +43,7 @@ type UserFormElementsType = FC<UserFormElementsProps> & {
   FieldEmail: FC<{}>;
   FieldPhone: FC<{ countryDefault?: Country }>;
   FieldName: FC<{}>;
-  FieldAvatar: FC<{ user?: UserPartial }>;
+  // FieldAvatar: FC<{ user?: UserPartial }>;
   SubmitButton: FC<UserSubmitFieldProps>;
 };
 
@@ -197,37 +197,37 @@ UserFormElements.FieldPhone = function FieldPhone(props) {
   );
 };
 
-UserFormElements.FieldAvatar = function FieldAvatar(props) {
-  const { user } = props;
-  const { control, watch } = useFormContext<UserFormDefaultValues>();
-
-  const email = watch("email");
-  const name = watch("name");
-
-  console.log("output_log:  =>>> img", user?.image);
-  console.log("output_log:  =>>> is img", user?.image ?? "");
-  return (
-    <FormField
-      control={control}
-      name="image"
-      render={({ field }) => (
-        <FormItem>
-          <FormLabel>Avatar</FormLabel>
-          <FormControl>
-            <AvatarField
-              onChange={field.onChange}
-              avatarName={name ?? email}
-              avatarUrl={field.value ?? user?.image ?? ""}
-              // forLetters={user?.email ?? ""}
-              // forLetters={name ?? email}
-            />
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      )}
-    />
-  );
-};
+// UserFormElements.FieldAvatar = function FieldAvatar(props) {
+//   const { user } = props;
+//   const { control, watch } = useFormContext<UserFormDefaultValues>();
+//
+//   const email = watch("email");
+//   const name = watch("name");
+//
+//   console.log("output_log:  =>>> img", user?.image);
+//   console.log("output_log:  =>>> is img", user?.image ?? "");
+//   return (
+//     <FormField
+//       control={control}
+//       name="image"
+//       render={({ field }) => (
+//         <FormItem>
+//           <FormLabel>Avatar</FormLabel>
+//           <FormControl>
+//             <AvatarField
+//               onChange={field.onChange}
+//               avatarName={name ?? email}
+//               avatarUrl={field.value ?? user?.image ?? ""}
+//               // forLetters={user?.email ?? ""}
+//               // forLetters={name ?? email}
+//             />
+//           </FormControl>
+//           <FormMessage />
+//         </FormItem>
+//       )}
+//     />
+//   );
+// };
 
 UserFormElements.SubmitButton = function SubmitButton(props) {
   const { isPending, submitText } = props;

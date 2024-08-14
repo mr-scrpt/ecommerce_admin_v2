@@ -26,7 +26,8 @@ export const TestEmailSignInForm: FC<TestEmailSignInFormProps> = (props) => {
     },
   });
 
-  const { isPending, isSuccess, signIn, callbackUrl } = useTestEmailSignInModel();
+  const { isPending, isSuccess, signIn, callbackUrl } =
+    useTestEmailSignInModel();
   const link = generateTestLink({
     callbackUrl: callbackUrl ?? "",
     token: testToken,
@@ -35,7 +36,7 @@ export const TestEmailSignInForm: FC<TestEmailSignInFormProps> = (props) => {
 
   return (
     <Form {...form}>
-      <form handleSubmit={form.handleSubmit((data) => signIn(data.email))}>
+      <form onSubmit={form.handleSubmit((data) => signIn(data.email))}>
         <div className="grid gap-2">
           <FormField
             control={form.control}

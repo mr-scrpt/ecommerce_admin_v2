@@ -1,19 +1,8 @@
 "use client";
-import { Post } from "@/kernel/domain/post/post.type";
+import { PostOffice } from "@/kernel/domain/post/post.type";
 import { Button } from "@/shared/ui/button";
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/shared/ui/form";
+import { FormField, FormItem, FormLabel } from "@/shared/ui/form";
 import { Spinner } from "@/shared/ui/icons/spinner";
-import { Input } from "@/shared/ui/input";
-import {
-  SettleToSelect,
-  SettlementSelect,
-} from "@/shared/ui/select/settlementSelect";
 import { cn } from "@/shared/ui/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, HTMLAttributes, useEffect } from "react";
@@ -26,21 +15,21 @@ import {
 import { PostSelectElement } from "./postSelectElement";
 
 interface PostFormElementsProps extends HTMLAttributes<HTMLFormElement> {
-  postData?: Post;
+  postData?: PostOffice;
   handleSubmit: (data: PostFormDefaultValues) => void;
   schema?: ZodTypeAny;
 }
 
 type PostFormElementsType = FC<PostFormElementsProps> & {
   // TODO: Select settlement entities
-  FieldSettlement: FC<{
-    settlementListToSelect: SettleToSelect[];
-    toSearch: (q: string) => void;
-    handleSelect?: (value: string) => void;
-  }>;
+  // FieldSettlement: FC<{
+  //   settlementListToSelect: SettleToSelect[];
+  //   toSearch: (q: string) => void;
+  //   handleSelect?: (value: string) => void;
+  // }>;
   FieldPostList: FC;
-  FieldName: FC;
-  FieldAddress: FC;
+  // FieldName: FC;
+  // FieldAddress: FC;
   SubmitButton: FC<{
     isPending: boolean;
     submitText: string;
@@ -48,11 +37,11 @@ type PostFormElementsType = FC<PostFormElementsProps> & {
   }>;
 };
 
-const getDefaultValues = (postData?: Post) => ({
-  name: postData?.name ?? "",
+const getDefaultValues = (postData?: PostOffice) => ({
+  // name: postData?.name ?? "",
   settlementRef: postData?.settlementRef ?? "",
-  address: postData?.address ?? "",
-  id: postData?.id ?? "",
+  // address: postData?.address ?? "",
+  postId: postData?.id ?? "",
 });
 
 export const PostFormElements: PostFormElementsType = (props) => {
@@ -83,29 +72,29 @@ export const PostFormElements: PostFormElementsType = (props) => {
   );
 };
 
-PostFormElements.FieldSettlement = function FieldSettlement(props) {
-  const { settlementListToSelect, toSearch, handleSelect } = props;
-  const { control } = useFormContext<PostFormDefaultValues>();
-  // TODO: Do like FieldPostList - get list in field?
-  return (
-    <FormField
-      control={control}
-      name="settlementRef"
-      render={({ field }) => (
-        <SettlementSelect
-          control={control}
-          className="w-full"
-          name="settlement"
-          citiesList={settlementListToSelect}
-          isPending={false}
-          toSearch={toSearch}
-          handleSelect={handleSelect}
-          field={field}
-        />
-      )}
-    />
-  );
-};
+// PostFormElements.FieldSettlement = function FieldSettlement(props) {
+//   const { settlementListToSelect, toSearch, handleSelect } = props;
+//   const { control } = useFormContext<PostFormDefaultValues>();
+//   // TODO: Do like FieldPostList - get list in field?
+//   return (
+//     <FormField
+//       control={control}
+//       name="settlementRef"
+//       render={({ field }) => (
+//         <SettlementSelect
+//           control={control}
+//           className="w-full"
+//           name="settlement"
+//           citiesList={settlementListToSelect}
+//           isPending={false}
+//           toSearch={toSearch}
+//           handleSelect={handleSelect}
+//           field={field}
+//         />
+//       )}
+//     />
+//   );
+// };
 
 PostFormElements.FieldPostList = function PostList() {
   const { control } = useFormContext<PostFormDefaultValues>();
@@ -115,7 +104,7 @@ PostFormElements.FieldPostList = function PostList() {
   return (
     <FormField
       control={control}
-      name="id"
+      name="postId"
       render={({ field }) => (
         <FormItem>
           <FormLabel>Post list</FormLabel>
@@ -130,43 +119,43 @@ PostFormElements.FieldPostList = function PostList() {
   );
 };
 
-PostFormElements.FieldName = function FieldName() {
-  const { control } = useFormContext<PostFormDefaultValues>();
-  return (
-    <FormField
-      control={control}
-      name="name"
-      render={({ field }) => (
-        <FormItem>
-          <FormLabel>Settlement Name</FormLabel>
-          <FormControl>
-            <Input placeholder="" {...field} />
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      )}
-    />
-  );
-};
+// PostFormElements.FieldName = function FieldName() {
+//   const { control } = useFormContext<PostFormDefaultValues>();
+//   return (
+//     <FormField
+//       control={control}
+//       name="name"
+//       render={({ field }) => (
+//         <FormItem>
+//           <FormLabel>Settlement Name</FormLabel>
+//           <FormControl>
+//             <Input placeholder="" {...field} />
+//           </FormControl>
+//           <FormMessage />
+//         </FormItem>
+//       )}
+//     />
+//   );
+// };
 
-PostFormElements.FieldAddress = function FieldAddress() {
-  const { control } = useFormContext<PostFormDefaultValues>();
-  return (
-    <FormField
-      control={control}
-      name="address"
-      render={({ field }) => (
-        <FormItem>
-          <FormLabel>Street</FormLabel>
-          <FormControl>
-            <Input placeholder="" {...field} />
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      )}
-    />
-  );
-};
+// PostFormElements.FieldAddress = function FieldAddress() {
+//   const { control } = useFormContext<PostFormDefaultValues>();
+//   return (
+//     <FormField
+//       control={control}
+//       name="address"
+//       render={({ field }) => (
+//         <FormItem>
+//           <FormLabel>Street</FormLabel>
+//           <FormControl>
+//             <Input placeholder="" {...field} />
+//           </FormControl>
+//           <FormMessage />
+//         </FormItem>
+//       )}
+//     />
+//   );
+// };
 
 PostFormElements.SubmitButton = function SubmitButton({
   isPending,

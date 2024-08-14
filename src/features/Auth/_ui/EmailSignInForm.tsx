@@ -26,7 +26,7 @@ export const EmailSignInForm: FC<EmailSignInFormProps> = (props) => {
   return (
     <Form {...form}>
       <form
-        handleSubmit={form.handleSubmit((data) => emailSignIn.signIn(data.email))}
+        onSubmit={form.handleSubmit((data) => emailSignIn.signIn(data.email))}
       >
         <div className="grid gap-2">
           <FormField

@@ -1,5 +1,5 @@
 "use client";
-import { Property } from "../..";
+import { Property } from "@/kernel/domain/property/property.type";
 import { propertyApi } from "../../_api/property.api";
 import { useListenPropertyListUpdate } from "../../_vm/event/useListenPropertyListUpdate";
 

@@ -7,6 +7,7 @@ import { SettlementListSearchService } from "./_service/settlementListSearch.ser
 import { ISettlementRepository } from "@/kernel/domain/settlement/repository.type";
 import { SettlementAvailableListSearchService } from "./_service/settlementAvailableListSearch.service";
 import { SettlementGetByRefService } from "./_service/settlementGet.service";
+import { SettlementSearchByRefService } from "./_service/settlementSearchByRef.service";
 
 export const SettlementModule = new ContainerModule((bind) => {
   bind(ISettlementRepository).to(SettlementRepository);
@@ -14,6 +15,7 @@ export const SettlementModule = new ContainerModule((bind) => {
   bind(SettlementInitService).toSelf();
   bind(SettlementGetByRefService).toSelf();
   bind(SettlementListSearchService).toSelf();
+  bind(SettlementSearchByRefService).toSelf();
   bind(SettlementAvailableListSearchService).toSelf();
 
   bind(Controller).to(SettlementController);

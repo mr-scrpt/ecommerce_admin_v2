@@ -28,11 +28,11 @@ export const ReceiverCreateForm: FC<ReceiverCreateFormProps> = (props) => {
   const {
     toSearch,
     settlementListToSelect,
-    isPending: isPendingReceiver,
+    isAppearancePending,
     isSuccess: isSuccessReceiver,
   } = useSettlemetListToSelect();
 
-  const isPendingComplexible = isPendingReceiver || isPendingCreate;
+  const isPendingComplexible = isAppearancePending || isPendingCreate;
 
   if (isPendingComplexible) {
     return <Spinner aria-label="Loading profile..." />;

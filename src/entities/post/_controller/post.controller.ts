@@ -19,9 +19,14 @@ export class PostController extends Controller {
       getOfficeListBySettlementRef: publicProcedure
         .input(getBySettlementRefInputSchema)
         .query(async ({ input }) => {
+          console.log("output_log: input =>>>", input);
           const result =
             await this.getPostOfficeListBySettlementRefService.execute(input);
-          return getListOutputSchema.parse(result);
+
+          console.log("output_log: result====$$$$ =>>>", result);
+          const res = getListOutputSchema.parse(result);
+          console.log("output_log: RES =>>>", res);
+          return res;
         }),
     },
   });

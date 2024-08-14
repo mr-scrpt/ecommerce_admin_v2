@@ -13,6 +13,7 @@ export const useSettlemetListToSelect = (settlementDefault: string = "") => {
     isFetchedAfterMount,
   } = useSettlementAvailableListSearchToSelectQuery(settlementDefault);
 
+  console.log("output_log:  =>>> list settlement", settlementList);
   const settlementListToSelect = useMemo(
     () =>
       settlementList.map<SettleToSelect>((settlement) => ({

@@ -18,7 +18,6 @@ export class DeliveryUpdateTx extends Transaction implements IDeliveryUpdateTx {
     const { selector, deliveryData } = dto;
 
     const action = async (tx: Tx) => {
-      console.log("output_log: deliveryData =>>>", deliveryData);
       await this.deliveryRepo.update({ selector, data: deliveryData }, tx);
 
       return await this.deliveryRepo.get(selector, tx);

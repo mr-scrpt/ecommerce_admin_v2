@@ -18,56 +18,154 @@ export const calledMethod = {
   getSettlements: "getSettlements",
 };
 
+type RequestParams = { [key: string]: any };
+
+interface QueueItem<T> {
+  params: RequestParams;
+  resolve: (value: T) => void;
+  reject: (reason?: any) => void;
+}
+
 @injectable()
 export class NovaPoshtaApi {
+  private requestQueue: Array<QueueItem<any>> = [];
+  private lastRequestTime: number = 0;
+  private cache: Map<string, any> = new Map();
+
   constructor(
     readonly client: HttpClient,
     @inject(API_NOVA_POSHTA_KEY) private readonly apiKey: string,
   ) {}
 
+  private generateCacheKey(method: string, params: RequestParams): string {
+    return `${method}:${JSON.stringify(params)}`;
+  }
+
+  private async processQueue() {
+    if (this.requestQueue.length === 0) return;
+
+    const now = Date.now();
+    const timeSinceLastRequest = now - this.lastRequestTime;
+    const delay = Math.max(5000 - timeSinceLastRequest, 0);
+
+    setTimeout(async () => {
+      const { params, resolve, reject } = this.requestQueue.shift()!;
+
+      try {
+        const cacheKey = this.generateCacheKey(
+          params.calledMethod,
+          params.methodProperties,
+        );
+        if (this.cache.has(cacheKey)) {
+          resolve(this.cache.get(cacheKey));
+          return;
+        }
+
+        const result = await this.client.post<NovaPoshtaResponse<any>>(
+          configPrivate.API_NOVA_POSHTA_URL,
+          {
+            apiKey: this.apiKey,
+            ...params,
+          },
+        );
+
+        this.cache.set(cacheKey, result.data.data);
+        resolve(result.data.data);
+        this.lastRequestTime = Date.now();
+      } catch (error) {
+        reject(error);
+      } finally {
+        this.processQueue();
+      }
+    }, delay);
+  }
+
+  private enqueueRequest<T>(params: RequestParams): Promise<T> {
+    return new Promise((resolve, reject) => {
+      this.requestQueue.push({ params, resolve, reject });
+      if (this.requestQueue.length === 1) {
+        this.processQueue();
+      }
+    });
+  }
+
   async getPostOfficeListBySettlementRef(
     s: string,
   ): Promise<PostOfficeNovaPoshta[]> {
-    const result = await this.client.post<
-      NovaPoshtaResponse<PostOfficeNovaPoshta[]>
-    >(configPrivate.API_NOVA_POSHTA_URL, {
-      apiKey: this.apiKey,
+    return this.enqueueRequest({
       modelName: modelName.address,
       calledMethod: calledMethod.getPostOffice,
-      methodProperties: {
-        SettlementRef: s,
-      },
+      methodProperties: { SettlementRef: s },
     });
-
-    return result.data.data;
   }
 
   async getSettlementListSearch(q: string): Promise<SettlementNovaPoshta[]> {
-    const result = await this.client.post<
-      NovaPoshtaResponse<SettlementNovaPoshta[]>
-    >(configPrivate.API_NOVA_POSHTA_URL, {
-      apiKey: this.apiKey,
+    return this.enqueueRequest({
       modelName: modelName.address,
       calledMethod: calledMethod.getSettlements,
-      methodProperties: {
-        FindByString: q,
-      },
+      methodProperties: { FindByString: q },
     });
-
-    return result.data.data;
   }
 
   async getSettlementList(page: number): Promise<SettlementNovaPoshta[]> {
-    const result = await this.client.post<
-      NovaPoshtaResponse<SettlementNovaPoshta[]>
-    >(configPrivate.API_NOVA_POSHTA_URL, {
-      apiKey: this.apiKey,
+    return this.enqueueRequest({
       modelName: modelName.address,
       calledMethod: calledMethod.getSettlements,
-      methodProperties: {
-        Page: page,
-      },
+      methodProperties: { Page: page },
     });
-    return result.data.data;
   }
 }
+
+// @injectable()
+// export class NovaPoshtaApi {
+//   constructor(
+//     readonly client: HttpClient,
+//     @inject(API_NOVA_POSHTA_KEY) private readonly apiKey: string,
+//   ) {}
+//
+//   async getPostOfficeListBySettlementRef(
+//     s: string,
+//   ): Promise<PostOfficeNovaPoshta[]> {
+//     const result = await this.client.post<
+//       NovaPoshtaResponse<PostOfficeNovaPoshta[]>
+//     >(configPrivate.API_NOVA_POSHTA_URL, {
+//       apiKey: this.apiKey,
+//       modelName: modelName.address,
+//       calledMethod: calledMethod.getPostOffice,
+//       methodProperties: {
+//         SettlementRef: s,
+//       },
+//     });
+//
+//     return result.data.data;
+//   }
+//
+//   async getSettlementListSearch(q: string): Promise<SettlementNovaPoshta[]> {
+//     const result = await this.client.post<
+//       NovaPoshtaResponse<SettlementNovaPoshta[]>
+//     >(configPrivate.API_NOVA_POSHTA_URL, {
+//       apiKey: this.apiKey,
+//       modelName: modelName.address,
+//       calledMethod: calledMethod.getSettlements,
+//       methodProperties: {
+//         FindByString: q,
+//       },
+//     });
+//
+//     return result.data.data;
+//   }
+//
+//   async getSettlementList(page: number): Promise<SettlementNovaPoshta[]> {
+//     const result = await this.client.post<
+//       NovaPoshtaResponse<SettlementNovaPoshta[]>
+//     >(configPrivate.API_NOVA_POSHTA_URL, {
+//       apiKey: this.apiKey,
+//       modelName: modelName.address,
+//       calledMethod: calledMethod.getSettlements,
+//       methodProperties: {
+//         Page: page,
+//       },
+//     });
+//     return result.data.data;
+//   }
+// }

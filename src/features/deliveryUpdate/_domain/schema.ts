@@ -5,9 +5,4 @@ export const deliverySelectorSchema = z.object({
   id: z.string(),
 });
 
-// export const deliveryUpdateSchema = deliveryBaseSchema.omit({
-//   orderId: true,
-//   createdAt: true,
-// });
-
 export const deliveryUpdateSchema = deliveryBaseSchema;

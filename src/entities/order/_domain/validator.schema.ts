@@ -6,7 +6,8 @@ export const getInputSchema = z.object({
 });
 
 export const getByOwnerInputSchema = z.object({
-  ownerId: z.string(),
+  // ownerId: z.string(),
+  consumerId: z.string(),
 });
 
 export const getListOutputSchema = z.array(orderSchema);

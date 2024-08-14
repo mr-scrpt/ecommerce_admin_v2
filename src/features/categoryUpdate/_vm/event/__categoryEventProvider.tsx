@@ -1,10 +1,9 @@
 "use client";
 import { createStrictContext, useStrictContext } from "@/shared/lib/react";
 import { useEmitCategoryUpdate } from "./useEmitCategoryUpdate";
-import { CategoryId } from "@/entities/category";
 
 export const categoryUpdateContext =
-  createStrictContext<(categoryId: CategoryId) => void>();
+  createStrictContext<(categoryId: string) => void>();
 
 export function CategoryEventProvider({
   children,

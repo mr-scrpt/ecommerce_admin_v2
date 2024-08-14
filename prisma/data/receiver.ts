@@ -17,8 +17,8 @@ export const receiverListSeed = [
     id: "receiver_id_3",
     userId: "consumer_id_4",
 
-    name: "Bill",
-    lastName: "Clinton",
+    name: "Camala",
+    lastName: "Harris",
     phone: "+380993552451",
   },
   {

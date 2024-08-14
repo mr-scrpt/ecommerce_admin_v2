@@ -6,6 +6,7 @@ import { useInvalidateConsumerRelationByOrder } from "../../_query/consumerRelat
 export const useListenConsumerUpdate = () => {
   const invalidateConsumer = useInvalidateConsumerRelationByOrder();
 
+  // TODO: User or Consumer update?
   useSocketHandler(WSEventEnum.USER_REFRESH, (userId: string) => {
     console.log("output_log: order owner invalidate!!! =>>>", userId);
     invalidateConsumer(userId);

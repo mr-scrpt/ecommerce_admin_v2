@@ -70,10 +70,20 @@ export class OrderRepository implements IOrderRepository {
     dto: OrderCreateEmptyDTO,
     db: Tx = this.db,
   ): Promise<OrderEntity> {
-    const { data } = dto;
-
+    const {
+      data: { userId, receiverId, ...rest },
+    } = dto;
+    console.log("output_log: receiverId =>>>", receiverId);
     return await db.order.create({
-      data,
+      data: {
+        ...rest,
+        user: {
+          connect: { id: userId },
+        },
+        receiver: {
+          connect: { id: receiverId },
+        },
+      },
     });
   }
 

@@ -1,6 +1,7 @@
 import { injectable } from "inversify";
 import { IStoreRepository } from "../../../kernel/domain/store/repository.type";
-import { Store, StoreGetSelector } from "../_domain/types";
+import { StoreGetSelector } from "../_domain/types";
+import { Store } from "@/kernel/domain/store/store.type";
 
 @injectable()
 export class StoreGetService {

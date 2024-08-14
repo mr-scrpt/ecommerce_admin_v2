@@ -32,6 +32,7 @@ export class OrderController extends Controller {
       getRelation: publicProcedure
         .input(getInputSchema)
         .query(async ({ input }) => {
+          console.log("output_log:  =>>>", input);
           const result = await this.getOrderRelationService.execute(input);
           return orderRelationSchema.parse(result);
         }),
