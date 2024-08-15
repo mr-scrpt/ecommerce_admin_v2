@@ -11,7 +11,6 @@ export const useProductWithRelationQuery = (query: QueryParams) => {
     productApi.product.getRelation.useQuery(query);
 
   useListenProductUpdate();
-  console.log("output_log: data product =>>>", data);
 
   return {
     isPending,

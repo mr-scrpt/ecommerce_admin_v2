@@ -1,6 +1,6 @@
 "use client";
 import { useCategoryListToSelectModel } from "@/entities/category";
-import { ProductRelation } from "@/entities/product";
+import { ProductFromForm, ProductRelation } from "@/entities/product";
 import { useOptionListTransform } from "@/shared/lib/map";
 import { useEffect, useState } from "react";
 
@@ -27,7 +27,7 @@ export const useCategoryDataToFormModel = (product?: ProductRelation) => {
     if (categoryOptionListActive && product) {
       setProductWithActiveCategory({
         ...product,
-        categoryList: toDataIdList(categoryOptionListActive),
+        // categoryList: toDataIdList(categoryOptionListActive),
       });
     }
   }, [categoryOptionListActive, toDataIdList, product]);
@@ -42,7 +42,6 @@ export const useCategoryDataToFormModel = (product?: ProductRelation) => {
     categorySelectOptionList: categoryOptionListTotal,
     isPending: isPendingCategoryOptionList,
   } = useCategoryListToSelectModel();
-  // console.log("output_log: in hook =>>>", categoryOptionListActive);
 
   return {
     categoryOptionListTotal,

@@ -87,6 +87,7 @@ export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
 
   const handleSubmit = async (data: ProductFromForm) => {
     const { categoryList, propertyItemListSelected, ...productData } = data;
+    console.log("output_log: categoryList =>>>", categoryList);
     await productUpdate({
       selector: { id: productId },
       productData,
@@ -98,9 +99,9 @@ export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
 
     onSuccess?.();
 
-    if (callbackUrl) {
-      router.push(callbackUrl);
-    }
+    // if (callbackUrl) {
+    //   router.push(callbackUrl);
+    // }
   };
 
   return (

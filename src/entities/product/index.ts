@@ -12,4 +12,5 @@ export type {
   ProductRelation,
   ProductToSelect,
   ProductToSelectGroup,
+  ProductFromForm,
 } from "./_domain/product.types";

@@ -1,4 +1,4 @@
-import { ProductCreateDTO } from "@/entities/product";
+import { ProductCreateDTO } from "@/kernel/domain/product/product.dto";
 import { ProductBase } from "@/kernel/domain/product/product.type";
 import { Property } from "@/kernel/domain/property/property.type";
 

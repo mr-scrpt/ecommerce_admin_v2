@@ -78,10 +78,6 @@ export const ProductForm: ProductFormType = (props) => {
     propertySelectOptionList,
     propertySelectObjectActive,
   } = props;
-  console.log(
-    "output_log: propertySelectObjectActive =>>>",
-    propertySelectObjectActive,
-  );
 
   const productFormSchema = generateProductFormSchema(propertySelectOptionList);
 
@@ -93,6 +89,7 @@ export const ProductForm: ProductFormType = (props) => {
   });
 
   useEffect(() => {
+    console.log("output_log: form value### =>>>", form.getValues());
     form.reset(getDefaultValues(product, propertySelectObjectActive));
   }, [propertySelectObjectActive, form, product]);
 
@@ -113,7 +110,6 @@ export const ProductForm: ProductFormType = (props) => {
     });
   });
   // console.log("output_log: errors =>>>", form.formState.errors);
-  // console.log("output_log: form value =>>>", form.getValues());
 
   return (
     <FormProvider {...form}>
@@ -142,17 +138,20 @@ ProductForm.CategoryListField = function CategoryListField({
   categotySelectOptionListActive,
   handleCategorySelectOption,
 }: PropertyFieldCategoryListProps) {
-  const form = useFormContext<ProductFormValues>();
+  const { control, setValue, resetField } = useFormContext<ProductFormValues>();
 
-  const handleSelectCat = useCallback((value: MultiSelectOptionItem[]) => {
-    // console.log("output_log:  =>>>", value);
-    form.setValue("categoryList", handleCategorySelectOption(value));
-    handleCategorySelectOption(value);
-  }, []);
+  const handleSelectCat = useCallback(
+    (value: MultiSelectOptionItem[]) => {
+      console.log("output_log: value =>>>", value);
+      setValue("categoryList", handleCategorySelectOption(value));
+      handleCategorySelectOption(value);
+    },
+    [setValue, handleCategorySelectOption],
+  );
 
   return (
     <FormField
-      control={form.control}
+      control={control}
       name="categoryList"
       render={({ field }) => {
         // console.log("output_log: field =>>>", field);
@@ -163,7 +162,11 @@ ProductForm.CategoryListField = function CategoryListField({
               <MultiSelect
                 optionList={categorySelectOptionList}
                 optionActiveList={categotySelectOptionListActive}
-                onSelected={handleSelectCat}
+                // onSelected={handleSelectCat}
+                onSelected={(v) => {
+                  resetField("categoryList");
+                  handleSelectCat(v);
+                }}
                 // onSelected={(value) => {
                 //   console.log("output_log: value on change =>>>", value);
                 //   field.onChange(handleCategorySelectOption(value));

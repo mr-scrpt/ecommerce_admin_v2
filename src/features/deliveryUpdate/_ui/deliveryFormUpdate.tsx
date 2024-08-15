@@ -46,7 +46,6 @@ export const DeliveryFormUpdate: FC<OrderDeliveryFormProps> = (props) => {
 
   const handleSubmit = useCallback(
     async (deliveryData: DeliveryUpdateFormValues) => {
-      console.log("output_log: data form =>>>", deliveryData);
       // TODO: add validation
       if (!delivery) {
         return;

@@ -1,5 +1,5 @@
 import {
-  OrderCreateEmptyDTO,
+  OrderCreateEmptyWithReceiverDTO,
   OrderGetByConsumerDTO,
   OrderGetDTO,
   OrderUpdateDTO,
@@ -67,13 +67,12 @@ export class OrderRepository implements IOrderRepository {
   }
 
   async createEmpty(
-    dto: OrderCreateEmptyDTO,
+    dto: OrderCreateEmptyWithReceiverDTO,
     db: Tx = this.db,
   ): Promise<OrderEntity> {
     const {
       data: { userId, receiverId, ...rest },
     } = dto;
-    console.log("output_log: receiverId =>>>", receiverId);
     return await db.order.create({
       data: {
         ...rest,

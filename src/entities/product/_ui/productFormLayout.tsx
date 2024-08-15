@@ -39,14 +39,12 @@ export const ProductFormLayout: FC<ProductFormLayoutProps> = (props) => {
   } = props;
 
   const onSelect = (value: string) => {
-    // tabActiveStorege.setItem(value);
     localStorage.setItem(PROUDUCT_TAB_ACTVE, value);
   };
 
   const [activeTab, setActiveTab] = useState("general");
 
   useEffect(() => {
-    // const tabActive = tabActiveStorege.getItem();
     const tabActive = localStorage.getItem(PROUDUCT_TAB_ACTVE);
     if (tabActive) {
       setActiveTab(tabActive);

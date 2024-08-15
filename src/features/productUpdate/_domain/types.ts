@@ -1,13 +1,4 @@
-// export type ProductUpdateComplexible = {
-//   productId: string;
-//   productData: Partial<ProductToUpdate>;
-//   categoryListId: Array<{ id: string }>;
-//   propertyItemListSelected: Array<{ id: string }>;
-//   // propertyItemListSelected;
-//   // categoryList;
-// };
-//
-import { ProductUpdateDTO } from "@/entities/product";
+import { ProductUpdateDTO } from "@/kernel/domain/product/product.dto";
 import { ProductBase } from "@/kernel/domain/product/product.type";
 import { Property } from "@/kernel/domain/property/property.type";
 
