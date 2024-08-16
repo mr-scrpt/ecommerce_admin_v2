@@ -28,8 +28,6 @@ type PostFormElementsType = FC<PostFormElementsProps> & {
   //   handleSelect?: (value: string) => void;
   // }>;
   FieldPostList: FC;
-  // FieldName: FC;
-  // FieldAddress: FC;
   SubmitButton: FC<{
     isPending: boolean;
     submitText: string;
@@ -38,9 +36,7 @@ type PostFormElementsType = FC<PostFormElementsProps> & {
 };
 
 const getDefaultValues = (postData?: PostOffice) => ({
-  // name: postData?.name ?? "",
   settlementRef: postData?.settlementRef ?? "",
-  // address: postData?.address ?? "",
   postId: postData?.id ?? "",
 });
 
@@ -57,11 +53,8 @@ export const PostFormElements: PostFormElementsType = (props) => {
   }, [postData, form]);
 
   const handleSubmit = form.handleSubmit(async (data) => {
-    console.log("output_log: data =>>>", data);
-    // onSubmit(data);
+    onSubmit(data);
   });
-
-  console.log("output_log: from state  =>>>", form.formState.errors);
 
   return (
     <FormProvider {...form}>

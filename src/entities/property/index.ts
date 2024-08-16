@@ -3,9 +3,10 @@ export { propertyFormSchema } from "./_domain/property/form.schema";
 export { PropertyRepository } from "./_repository/property.repo";
 export { PropertyItemRepository } from "./_repository/propertyItem.repo";
 export { PropertyFormElements } from "./_ui/propertyFormElements";
+export { PropertySelectElement } from "./_ui/elements/propertySelectElement";
 export { PropertyFromLayout } from "./_ui/propertyFromLayout";
 
-export { usePropertyLikeSelectOptionListModel } from "./_vm/usePropertyLikeSelectOptionList.model";
+export { usePropertyListToSelectModel } from "./_vm/usePropertyListToSelect.model";
 export { usePropertyListByCategoryIdListModel } from "./_vm/usePropertyListByCategoryIdList.model";
 export { usePropertyListWithDataActiveModel } from "./_vm/usePropertyListWithDataActive.model.";
 

@@ -16,7 +16,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, HTMLAttributes, useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { CategoryRelation } from "../_domain/category.types";
-import { BoardField } from "./boardField";
+import { CategoryBoardElement } from "./elements/categoryBoardElement";
 import {
   CategoryFormValues,
   categoryFormDefaultSchema,
@@ -118,7 +118,7 @@ export const CategoryForm: FC<CategoryFormProps> = (props) => {
             <FormItem>
               <FormLabel>Board</FormLabel>
               <FormControl>
-                <BoardField
+                <CategoryBoardElement
                   value={field.value}
                   onChange={field.onChange}
                   onDelete={handleDeleteBoard}

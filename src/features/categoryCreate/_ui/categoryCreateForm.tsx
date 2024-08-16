@@ -1,11 +1,13 @@
 "use client";
-import { CategoryForm } from "@/entities/category";
-import { usePropertyLikeSelectOptionListModel } from "@/entities/property";
-import { useOptionListTransform } from "@/shared/lib/map";
+import { CategoryFormElements } from "@/entities/category";
+import { PropertyFormElements } from "@/entities/property";
 import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes } from "react";
-import { CategoryCreateFormValues } from "../_domain/form.schema";
+import {
+  CategoryCreateFormValues,
+  categoryCreateFormSchema,
+} from "../_domain/form.schema";
 import { useCategoryCreateModel } from "../_vm/useCategoryCreate.model";
 
 interface CategoryCreateFormProps extends HTMLAttributes<HTMLDivElement> {
@@ -22,37 +24,42 @@ export const CategoryFormCreate: FC<CategoryCreateFormProps> = (props) => {
   const { categoryCreate, isPending: isPendingCreate } =
     useCategoryCreateModel();
 
-  const { propertySelectOptionList, isPending: isPendingOptionList } =
-    usePropertyLikeSelectOptionListModel();
-
-  const { toDataIdList } = useOptionListTransform();
+  // const { propertySelectOptionList, isPending: isPendingOptionList } =
+  //   usePropertyListToSelectModel();
+  //
+  // const { toDataIdList } = useOptionListTransform();
 
   const handleSubmit = async (data: CategoryCreateFormValues) => {
+    console.log("output_log: cldatata =>>>", data);
     const { propertyList, ...categoryData } = data;
     await categoryCreate({
       categoryData,
-      propertyData: propertyList.map(({ id }) => ({
-        propertyId: id,
+      propertyData: propertyList.map(({ value }) => ({
+        propertyId: value,
       })),
     });
 
     onSuccess?.();
 
-    if (callbackUrl) {
-      router.push(callbackUrl);
-    }
+    // if (callbackUrl) {
+    //   router.push(callbackUrl);
+    // }
   };
-  const isPendingComplexible = isPendingCreate || isPendingOptionList;
 
   return (
     <div className={cn(className, "w-full")}>
-      <CategoryForm
+      <CategoryFormElements<CategoryCreateFormValues>
         handleSubmit={handleSubmit}
-        isPending={isPendingComplexible}
-        submitText={"Create Category"}
-        optionSelectOptionList={propertySelectOptionList}
-        handleOptionSelectOption={toDataIdList}
-      />
+        schema={categoryCreateFormSchema}
+      >
+        <PropertyFormElements.FieldSelectProperty />
+        <CategoryFormElements.FieldName />
+        <CategoryFormElements.FieldBoard />
+        <CategoryFormElements.SubmitButton
+          isPending={false}
+          submitText="Create Category"
+        />
+      </CategoryFormElements>
     </div>
   );
 };

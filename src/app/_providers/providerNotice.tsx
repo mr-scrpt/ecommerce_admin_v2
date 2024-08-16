@@ -10,7 +10,7 @@ import {
 } from "@/shared/ui/toast";
 import { useToast } from "@/shared/ui/use-toast";
 
-export const ProvierNotice = () => {
+export const ProviderNotice = () => {
   const { toasts } = useToast();
 
   return (

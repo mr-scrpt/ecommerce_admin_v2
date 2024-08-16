@@ -1,6 +1,9 @@
 import { categoryFormDefaultSchema } from "@/entities/category";
+import { selectItemSchema } from "@/shared/type/select";
 import { z } from "zod";
 
-export const categoryCreateFormSchema = categoryFormDefaultSchema;
+export const categoryCreateFormSchema = categoryFormDefaultSchema.extend({
+  propertyList: z.array(selectItemSchema),
+});
 
 export type CategoryCreateFormValues = z.infer<typeof categoryCreateFormSchema>;

@@ -1,5 +1,5 @@
 import { AddressSelectElement } from "@/entities/address";
-import { PostSelectElement } from "@/entities/post/_ui/form/elements/postSelectElement";
+import { PostSelectElement } from "@/entities/post";
 import { ReceiverSelectElement } from "@/entities/receiver";
 import { SettlementSelectElement } from "@/entities/settlement";
 import { StoreSelectElement } from "@/entities/store";
@@ -8,6 +8,7 @@ import { Delivery } from "@/kernel/domain/delivery/delivery.type";
 import { ReceiverCreateProps } from "@/kernel/domain/receiver/ui.type";
 import { Button } from "@/shared/ui/button";
 import { Form, FormField, FormItem, FormLabel } from "@/shared/ui/form";
+import { Spinner } from "@/shared/ui/icons/spinner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, HTMLAttributes, useEffect } from "react";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
@@ -17,7 +18,6 @@ import {
   deliveryUpdateFormSchema,
 } from "../../../_domain/form.schema";
 import { DeliveryTypeField } from "../fields/deliveryTypeField";
-import { Spinner } from "@/shared/ui/icons/spinner";
 
 export interface DeliveryFormElementsProps
   extends HTMLAttributes<HTMLFormElement> {

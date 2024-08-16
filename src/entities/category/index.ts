@@ -1,3 +1,5 @@
+export { CategoryFormElements } from "./_ui/elements/categoryFormElements";
+
 export { categoryFormDefaultSchema } from "./_domain/form.schema";
 
 export {
@@ -10,7 +12,7 @@ export {
   useInvalidateCategoryWithRelation,
 } from "./_query/userCategoryWithRelation.query";
 
-export { CategoryForm } from "./_ui/categoryForm";
+export { CategoryForm } from "./_ui/___categoryForm";
 
 export { useCategoryListToSelectModel } from "./_vm/useCategoryLikeSelectOptionList.modle";
 

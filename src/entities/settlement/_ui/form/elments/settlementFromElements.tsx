@@ -12,7 +12,7 @@ import {
 import { SettlementSelectElement } from "./settlementSelectElement";
 
 interface SettlementFromElementsProps extends HTMLAttributes<HTMLFormElement> {
-  settlementData: Settlement["ref"];
+  settlementData?: Settlement["ref"];
   handleSubmit?: (data: SettlementFormValues) => void;
 }
 
@@ -30,8 +30,8 @@ type SettlementFormType = FC<SettlementFromElementsProps> & {
   FieldSettlementSelect: FC<SettlementListProps>;
 };
 
-const getDefaultValues = (settlementRef: Settlement["ref"]) => ({
-  settlementRef,
+const getDefaultValues = (settlementRef?: Settlement["ref"]) => ({
+  settlementRef: settlementRef ?? "",
 });
 
 export const SettlementFromElements: SettlementFormType = (props) => {
@@ -57,31 +57,27 @@ export const SettlementFromElements: SettlementFormType = (props) => {
   );
 };
 
-SettlementFromElements.FieldSettlementSelect = function FieldSettlementSelect(
-  props,
-) {
-  // const { onSelectSettlement } = props;
-
-  const form = useFormContext<SettlementFormValues>();
-  return (
-    <FormField
-      control={form.control}
-      name="settlementRef"
-      render={({ field }) => {
-        return (
-          <FormItem className="flex flex-col">
-            <FormLabel>Select settlement</FormLabel>
-            <SettlementSelectElement
-              settlementActive={field.value}
-              onSelectSettlement={field.onChange}
-              // onSelectSettlement={onSelectSettlement}
-            />
-          </FormItem>
-        );
-      }}
-    />
-  );
-};
+SettlementFromElements.FieldSettlementSelect =
+  function FieldSettlementSelect() {
+    const form = useFormContext<SettlementFormValues>();
+    return (
+      <FormField
+        control={form.control}
+        name="settlementRef"
+        render={({ field }) => {
+          return (
+            <FormItem className="flex flex-col">
+              <FormLabel>Select settlement</FormLabel>
+              <SettlementSelectElement
+                settlementActive={field.value}
+                onSelectSettlement={field.onChange}
+              />
+            </FormItem>
+          );
+        }}
+      />
+    );
+  };
 
 SettlementFromElements.ButtonSubmit = function ButtonSubmit({
   isPending,

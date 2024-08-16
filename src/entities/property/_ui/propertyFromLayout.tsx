@@ -24,11 +24,11 @@ export const PropertyFromLayout: FC<PropertyFromLayoutProps> = (props) => {
       className="flex flex-col gap-4"
     >
       <div className="flex w-full">
-        <PropertyFormElements.FieldProperty />
+        <PropertyFormElements.FieldName />
       </div>
       <Separator />
       <div className="flex w-full">
-        <PropertyFormElements.FieldPropertysItem isPending={isPending} />
+        <PropertyFormElements.FieldSelectPropertyItem isPending={isPending} />
       </div>
       <div className="flex w-full">
         <PropertyFormElements.SubmitButton

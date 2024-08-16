@@ -26,6 +26,6 @@ export type Property = PropertyBase & {
   updatedAt: Date;
 };
 
-export type PropertyComposite = Property & {
-  propertyItemList: Array<PropertyItem>;
-};
+// export type PropertyComposite = Property & {
+//   propertyItemList: Array<PropertyItem>;
+// };

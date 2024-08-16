@@ -10,7 +10,7 @@ import { ProviderWS } from "./providerWS";
 import { SessionProvider } from "@/kernel/lib/nextauth";
 import { InitUserData } from "../_init/initUserData";
 import { ProviderTRPC } from "./providerTRPC";
-import { ProvierNotice } from "./providerNotice";
+import { ProviderNotice } from "./providerNotice";
 
 interface ProvidersRootProps extends HTMLAttributes<HTMLDivElement> {}
 
@@ -29,7 +29,7 @@ export const ProvidersRoot: FC<ProvidersRootProps> = (props) => {
         <InitUserData />
         {children}
       </ComposeChildren>
-      <ProvierNotice />
+      <ProviderNotice />
     </>
   );
 };

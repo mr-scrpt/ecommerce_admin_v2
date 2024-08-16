@@ -1,5 +1,5 @@
 import { FormControl } from "@/shared/ui/form";
-import { FC, memo } from "react";
+import { FC, HTMLAttributes, memo } from "react";
 
 import {
   Select,
@@ -9,7 +9,12 @@ import {
   SelectValue,
 } from "@/shared/ui/select";
 import { usePostListBySettlementRefToSelectModel } from "../../../_vm/usePostOfficeListBySettlementRefToSelect.model.query";
-import { PostSelectProps } from "@/kernel/domain/post/ui.type";
+
+export interface PostSelectProps extends HTMLAttributes<HTMLDivElement> {
+  postInit?: string | null;
+  settlementRef: string;
+  onSelectPost?: (post: string) => void;
+}
 
 export const PostSelectElement: FC<PostSelectProps> = memo((props) => {
   const { postInit, settlementRef, onSelectPost } = props;

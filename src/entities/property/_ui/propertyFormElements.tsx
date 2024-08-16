@@ -30,17 +30,20 @@ import {
   useFormContext,
 } from "react-hook-form";
 import { PropertyRelation } from "../_domain/property/property.types";
-import { PropertyDataTypeEnum } from "@/kernel/domain/property/property.type";
+import {
+  Property,
+  PropertyDataTypeEnum,
+} from "@/kernel/domain/property/property.type";
 import {
   PropertyFormValues,
   propertyFormSchema,
 } from "../_domain/property/form.schema";
 import { selectDataType } from "../_vm/selectDataType";
+import { PropertySelectElement } from "./elements/propertySelectElement";
 
 interface PropertyFormProps
   extends Omit<HTMLAttributes<HTMLFormElement>, "property"> {
   property?: PropertyRelation;
-  // handleSubmit?: (data: PropertyFormValues) => void;
   handleSubmit: (data: PropertyFormValues) => void;
   isPending: boolean;
   submitText?: string;
@@ -51,20 +54,18 @@ interface SubmitButtonProps {
   submitText: string;
 }
 
-interface FieldProperyItemProps {
-  isPending: boolean;
-}
-
 type PropertyFormType = FC<PropertyFormProps> & {
   SubmitButton: FC<SubmitButtonProps>;
-  FieldProperty: FC<{}>;
-  FieldPropertysItem: FC<FieldProperyItemProps>;
+  FieldSelectProperty: FC;
+  FieldName: FC;
+  // FieldSelectPropertyItem: FC;
 };
 
-const getDefaultValues = (property?: PropertyRelation) => ({
+const getDefaultValues = (property?: Property) => ({
   name: property?.name ?? "",
   datatype: property?.datatype ?? PropertyDataTypeEnum.SELECT,
-  propertyItemList: property?.propertyItemList ?? [{ name: "", value: "" }],
+  propertyList: [],
+  // propertyItemList: [{ name: "", value: "" }],
 });
 
 export const PropertyFormElements: PropertyFormType = (props) => {
@@ -109,27 +110,28 @@ export const PropertyFormElements: PropertyFormType = (props) => {
   );
 };
 
-PropertyFormElements.SubmitButton = function SubmitButton({
-  isPending,
-  submitText,
-}: {
-  isPending: boolean;
-  submitText: string;
-}) {
+PropertyFormElements.FieldSelectProperty = function FieldList() {
+  const { control } = useFormContext<PropertyFormValues>();
+
   return (
-    <Button type="submit" disabled={isPending}>
-      {isPending && (
-        <Spinner
-          className="mr-2 h-4 w-4 animate-spin"
-          aria-label="Profile updating..."
-        />
+    <FormField
+      control={control}
+      name="propertyList"
+      render={({ field }) => (
+        <FormItem>
+          <FormLabel>Property list</FormLabel>
+          <PropertySelectElement
+            propertyListActive={field.value}
+            onSelectProperty={field.onChange}
+          />
+          <FormMessage />
+        </FormItem>
       )}
-      {submitText}
-    </Button>
+    />
   );
 };
 
-PropertyFormElements.FieldProperty = function FieldProperty() {
+PropertyFormElements.FieldName = function FieldName() {
   const form = useFormContext<PropertyFormValues>();
 
   return (
@@ -176,7 +178,7 @@ PropertyFormElements.FieldProperty = function FieldProperty() {
   );
 };
 
-PropertyFormElements.FieldPropertysItem = function FieldPropertysItem({
+PropertyFormElements.FieldSelectPropertyItem = function FieldPropertyItemList({
   isPending,
 }: {
   isPending: boolean;
@@ -254,5 +256,25 @@ PropertyFormElements.FieldPropertysItem = function FieldPropertysItem({
         <PlusIcon size="15" /> Add property line
       </Button>
     </div>
+  );
+};
+
+PropertyFormElements.SubmitButton = function SubmitButton({
+  isPending,
+  submitText,
+}: {
+  isPending: boolean;
+  submitText: string;
+}) {
+  return (
+    <Button type="submit" disabled={isPending}>
+      {isPending && (
+        <Spinner
+          className="mr-2 h-4 w-4 animate-spin"
+          aria-label="Profile updating..."
+        />
+      )}
+      {submitText}
+    </Button>
   );
 };

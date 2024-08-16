@@ -1,6 +1,5 @@
 "use client";
 import { CategoryForm, categoryFormDefaultSchema } from "@/entities/category";
-import { usePropertyLikeSelectOptionListModel } from "@/entities/property";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
@@ -9,6 +8,7 @@ import { z } from "zod";
 import { useCategoryUpdateMutation } from "../_mutation/useCategoryUpdate.mutation";
 import { useOptionListTransform } from "@/shared/lib/map";
 import { useCategoryWithRelationQuery } from "@/entities/category";
+import { usePropertyListToSelectModel } from "@/entities/property";
 
 interface CategoryFormProps extends HTMLAttributes<HTMLDivElement> {
   categoryId: string;
@@ -34,7 +34,7 @@ export const CategoryFormUpdate: FC<CategoryFormProps> = (props) => {
     useCategoryUpdateMutation();
 
   const { propertySelectOptionList, isPending: isPendingOptionList } =
-    usePropertyLikeSelectOptionListModel();
+    usePropertyListToSelectModel();
 
   const { toDataIdList, toOptionList } = useOptionListTransform();
 

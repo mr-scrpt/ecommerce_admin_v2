@@ -1,7 +1,6 @@
 import { PropertyDataTypeEnum } from "@/kernel/domain/property/property.type";
-// import { propertyItemUpdateSchema } from "@/kernel/domain/property/propertyItem.schema";
+import { selectItemSchema } from "@/shared/type/select";
 import { z } from "zod";
-import { propertyItemFormSchema } from "../propertyItem/form.schema";
 
 export const propertyFormSchema = z.object({
   name: z
@@ -12,8 +11,7 @@ export const propertyFormSchema = z.object({
     })
     .transform((name) => name.trim()),
   datatype: z.nativeEnum(PropertyDataTypeEnum),
-  // propertyItemList: z.array(propertyItemUpdateSchema),
-  propertyItemList: z.array(propertyItemFormSchema),
+  propertyList: z.array(selectItemSchema),
 });
 
 export type PropertyFormValues = z.infer<typeof propertyFormSchema>;

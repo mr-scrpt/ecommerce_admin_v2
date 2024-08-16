@@ -1,3 +1,4 @@
+"use client";
 import { selectFile, validateImgSizeMedium } from "@/shared/lib/file";
 import { useMutation } from "@tanstack/react-query";
 import { uploadBoardListAction } from "../_action/uploadBoardList.action";

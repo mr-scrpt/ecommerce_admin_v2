@@ -11,11 +11,9 @@ export const categoryFormDefaultSchema = z.object({
     })
     .transform((name) => name.trim()),
   board: z.array(z.string()),
-  propertyList: z.array(
-    z.object({
-      id: z.string(),
-    }),
-  ),
 });
 
-export type CategoryFormValues = z.infer<typeof categoryFormDefaultSchema>;
+// export type CategoryFormValues = z.infer<typeof categoryFormDefaultSchema>;
+export type CategoryFormValues<
+  T extends z.ZodTypeAny = typeof categoryFormDefaultSchema,
+> = z.infer<T>;
