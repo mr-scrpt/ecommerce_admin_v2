@@ -1,6 +1,5 @@
 "use client";
 // import { storage } from "@/shared/lib/storege";
-import { MultiSelectOptionItem } from "@/shared/ui/multiSelect";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui/tabs";
 import { FC, HTMLAttributes, useEffect, useState } from "react";
 import {
@@ -10,18 +9,19 @@ import {
   ProductRelation,
 } from "../_domain/product.types";
 import { ProductForm } from "./productForm";
+import { SelectOptionItem } from "@/shared/type/select";
 
 interface ProductFormLayoutProps extends HTMLAttributes<HTMLFormElement> {
   product?: ProductRelation;
   handleSubmit?: (data: ProductFromForm) => void;
   isPending: boolean;
   submitText: string;
-  categorySelectOptionList: Array<MultiSelectOptionItem>;
-  categotySelectOptionListActive?: Array<MultiSelectOptionItem>;
+  categorySelectOptionList: Array<SelectOptionItem>;
+  categotySelectOptionListActive?: Array<SelectOptionItem>;
   propertySelectOptionList: Array<ProductPropertyToSelect>;
   propertySelectObjectActive?: ProductPropertyObjectList;
   handleCategorySelectOption: (
-    itemList: Array<MultiSelectOptionItem>,
+    itemList: Array<SelectOptionItem>,
   ) => Array<{ id: string; name: string }>;
 }
 

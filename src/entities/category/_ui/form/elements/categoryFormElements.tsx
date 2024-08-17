@@ -12,29 +12,32 @@ import {
 } from "react-hook-form";
 import { ZodTypeAny } from "zod";
 import {
-  CategoryFormValues,
+  CategoryFormDefaultValues,
   categoryFormDefaultSchema,
 } from "../../../_domain/form.schema";
 import { CategoryBoardElement } from "./categoryBoardElement";
 import { CategoryNameElement } from "./categoryNameElement";
+import { CategoryMultiSelectElement } from "./categoryMultiSelectElement";
+import { CategorySelectElement } from "./categorySelectElement";
 
-interface CategoryFormProps<T extends CategoryFormValues>
+interface CategoryFormElementsProps<T extends CategoryFormDefaultValues>
   extends HTMLAttributes<HTMLFormElement> {
-  categoryData?: T;
   handleSubmit?: (data: T) => void;
   defaultValues?: DefaultValues<T>;
   schema?: ZodTypeAny;
 }
 
 type CategoryFormElementsComponent = <
-  T extends CategoryFormValues = CategoryFormValues,
+  T extends CategoryFormDefaultValues = CategoryFormDefaultValues,
 >(
-  props: CategoryFormProps<T>,
+  props: CategoryFormElementsProps<T>,
 ) => React.ReactElement;
 
 type CategoryFormSubComponents = {
   FieldName: FC;
   FieldBoard: FC;
+  FieldCategoryMultiSelect: FC;
+  FieldCategorySelect: FC;
   SubmitButton: FC<{
     isPending: boolean;
     submitText: string;
@@ -45,12 +48,13 @@ type CategoryFormSubComponents = {
 type CategoryFormElementsType = CategoryFormElementsComponent &
   CategoryFormSubComponents;
 
-const standartFieldsValues: CategoryFormValues = {
+const standartFieldsValues: CategoryFormDefaultValues = {
   name: "",
   board: [],
+  categoryList: [],
 };
 
-const getDefaultFormValues = <T extends CategoryFormValues>(
+const getDefaultFormValues = <T extends CategoryFormDefaultValues>(
   defaultValues?: DefaultValues<T> | undefined,
 ): DefaultValues<T> => {
   return {
@@ -60,17 +64,11 @@ const getDefaultFormValues = <T extends CategoryFormValues>(
 };
 
 export const CategoryFormElements: CategoryFormElementsType = <
-  T extends CategoryFormValues,
+  T extends CategoryFormDefaultValues,
 >(
-  props: CategoryFormProps<T>,
+  props: CategoryFormElementsProps<T>,
 ) => {
-  const {
-    categoryData,
-    handleSubmit: onSubmit,
-    schema,
-    defaultValues,
-    children,
-  } = props;
+  const { handleSubmit: onSubmit, schema, defaultValues, children } = props;
 
   const form = useForm<T>({
     resolver: zodResolver(schema ?? categoryFormDefaultSchema),
@@ -79,11 +77,13 @@ export const CategoryFormElements: CategoryFormElementsType = <
 
   useEffect(() => {
     form.reset(getDefaultFormValues<T>(defaultValues));
-  }, [categoryData, defaultValues, form]);
+  }, [defaultValues, form]);
 
   const handleSubmit = form.handleSubmit(async (data: T) => {
     onSubmit?.(data);
   });
+
+  console.log("output_log: values =>>>", form.getValues());
 
   return (
     <FormProvider {...form}>
@@ -95,7 +95,7 @@ export const CategoryFormElements: CategoryFormElementsType = <
 };
 
 CategoryFormElements.FieldName = function FieldName() {
-  const { control } = useFormContext<CategoryFormValues>();
+  const { control } = useFormContext<CategoryFormDefaultValues>();
   return (
     <FormField
       control={control}
@@ -114,7 +114,8 @@ CategoryFormElements.FieldName = function FieldName() {
 };
 
 CategoryFormElements.FieldBoard = function FieldBoard() {
-  const { control, setValue, getValues } = useFormContext<CategoryFormValues>();
+  const { control, setValue, getValues } =
+    useFormContext<CategoryFormDefaultValues>();
 
   const handleDeleteBoard = (path: string) => {
     const list = getValues("board");
@@ -136,6 +137,52 @@ CategoryFormElements.FieldBoard = function FieldBoard() {
           />
         </FormItem>
       )}
+    />
+  );
+};
+
+CategoryFormElements.FieldCategoryMultiSelect = function FieldCategorySelect() {
+  const { control } = useFormContext<CategoryFormDefaultValues>();
+
+  return (
+    <FormField
+      control={control}
+      name="categoryList"
+      render={({ field }) => {
+        console.log("output_log: multiselect =>>>", field.value);
+        return (
+          <FormItem>
+            <FormLabel>Category list</FormLabel>
+            <CategoryMultiSelectElement
+              categoryListActive={field.value}
+              onSelectCategory={field.onChange}
+            />
+          </FormItem>
+        );
+      }}
+    />
+  );
+};
+
+CategoryFormElements.FieldCategorySelect = function FieldCategorySelect() {
+  const { control } = useFormContext<CategoryFormDefaultValues>();
+
+  return (
+    <FormField
+      control={control}
+      name="categoryList"
+      render={({ field }) => {
+        console.log("output_log: select =>>>", field.value);
+        return (
+          <FormItem>
+            <FormLabel>Category list</FormLabel>
+            <CategorySelectElement
+              categoryActive={field.value[0]}
+              onSelectCategory={field.onChange}
+            />
+          </FormItem>
+        );
+      }}
     />
   );
 };

@@ -1,18 +1,20 @@
 import { Category } from "@/kernel/domain/category/category.type";
 import {
-  PropertyComposite,
+  // PropertyComposite,
   PropertyCompositeEntity,
   PropertyDataTypeEnum,
 } from "@/kernel/domain/property/property.type";
-import { MultiSelectOptionItem } from "@/shared/ui/multiSelect";
+import { PropertyItem } from "@/kernel/domain/property/propertyItem.type";
+import { SelectOptionItem } from "@/shared/type/select";
 
 // NOTE: Relations
 export type PropertyRelationEntity = PropertyCompositeEntity & {
   categoryList: Array<Category>;
 };
 
-export type PropertyRelation = PropertyComposite & {
+export type PropertyRelation = {
   categoryList: Array<Category>;
+  propertyList: Array<PropertyItem>;
 };
 
 // NOTE: Selector
@@ -30,5 +32,5 @@ export type PropertyToSelect = {
   name: string;
   datatype: PropertyDataTypeEnum;
   // propertyList: Array<MultiSelectPropertyItem & { active: boolean }>;
-  propertyList: Array<MultiSelectOptionItem>;
+  propertyList: Array<SelectOptionItem>;
 };

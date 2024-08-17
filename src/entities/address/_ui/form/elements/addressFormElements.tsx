@@ -6,7 +6,12 @@ import { Spinner } from "@/shared/ui/icons/spinner";
 import { cn } from "@/shared/ui/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, HTMLAttributes, useEffect } from "react";
-import { FormProvider, useForm, useFormContext } from "react-hook-form";
+import {
+  DefaultValues,
+  FormProvider,
+  useForm,
+  useFormContext,
+} from "react-hook-form";
 import { ZodTypeAny } from "zod";
 import {
   AddressFormDefaultValues,
@@ -17,13 +22,20 @@ import { AddressHouseElement } from "./addressHouseElement";
 import { AddressStreetElement } from "./addressStreetElement";
 import { AddressSelectElement } from "./addressSelectElement";
 
-interface AddressFormElementsProps extends HTMLAttributes<HTMLFormElement> {
-  addressData?: Address;
-  handleSubmit: (data: AddressFormDefaultValues) => void;
+interface AddressFormElementsProps<T extends AddressFormDefaultValues>
+  extends HTMLAttributes<HTMLFormElement> {
+  handleSubmit?: (data: T) => void;
+  defaultValues?: DefaultValues<T>;
   schema?: ZodTypeAny;
 }
 
-type AddressFormElementsType = FC<AddressFormElementsProps> & {
+type AddressFormElementsComponent = <
+  T extends AddressFormDefaultValues = AddressFormDefaultValues,
+>(
+  props: AddressFormElementsProps<T>,
+) => React.ReactElement;
+
+type AddressFormElementsType = {
   // TODO: Select settlement entities
   FieldStreet: FC;
   FieldHouse: FC;
@@ -132,7 +144,7 @@ AddressFormElements.FieldAddressSelect = function FieldAddressSelect() {
   return (
     <FormField
       control={control}
-      name="addressId"
+      name="addressList"
       render={({ field }) => (
         <FormItem>
           <FormLabel>Apartment list</FormLabel>
@@ -140,7 +152,7 @@ AddressFormElements.FieldAddressSelect = function FieldAddressSelect() {
             onSelectAddress={field.onChange}
             userId={userId}
             settlementRef={settlementRef}
-            addressInit={field.value}
+            addressListActive={field.value}
           />
           <FormMessage />
         </FormItem>

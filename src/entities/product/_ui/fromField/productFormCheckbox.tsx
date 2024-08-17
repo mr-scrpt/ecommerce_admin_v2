@@ -1,3 +1,4 @@
+import { SelectOptionItem } from "@/shared/type/select";
 import { Checkbox } from "@/shared/ui/checkbox";
 import {
   FormControl,
@@ -7,14 +8,13 @@ import {
   FormLabel,
   FormMessage,
 } from "@/shared/ui/form";
-import { MultiSelectOptionItem } from "@/shared/ui/multiSelect";
 import { FC, HTMLAttributes } from "react";
 import { UseFormReturn } from "react-hook-form";
 
 interface ProductFromChechboxProps extends HTMLAttributes<HTMLDivElement> {
   name: string;
   // label: string;
-  propertyList: MultiSelectOptionItem[];
+  propertyList: SelectOptionItem[];
   control: UseFormReturn<any>["control"];
 }
 

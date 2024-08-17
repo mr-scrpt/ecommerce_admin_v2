@@ -9,7 +9,7 @@ import {
 } from "@/shared/ui/form";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { Input } from "@/shared/ui/input";
-import { MultiSelect, MultiSelectOptionItem } from "@/shared/ui/multiSelect";
+import { MultiSelectElement } from "@/shared/ui/select/multiSelectElement";
 import { Textarea } from "@/shared/ui/textarea";
 import { cn } from "@/shared/ui/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -27,6 +27,7 @@ import { propertyToFlatList } from "../_lib/propertyToFlatList";
 import { renderFormField } from "./fromField/renderFormField";
 import { ImgField as ImgFieldComponent } from "./imgField";
 import { ProductFormValues } from "../_domain/form.schema";
+import { SelectOptionItem } from "@/shared/type/select";
 
 interface ProductFormProps extends HTMLAttributes<HTMLFormElement> {
   product?: ProductRelation;
@@ -126,10 +127,10 @@ export const ProductForm: ProductFormType = (props) => {
 ProductForm.displayName = "ProductForm";
 
 interface PropertyFieldCategoryListProps {
-  categorySelectOptionList: Array<MultiSelectOptionItem>;
-  categotySelectOptionListActive?: Array<MultiSelectOptionItem>;
+  categorySelectOptionList: Array<SelectOptionItem>;
+  categotySelectOptionListActive?: Array<SelectOptionItem>;
   handleCategorySelectOption: (
-    itemList: Array<MultiSelectOptionItem>,
+    itemList: Array<SelectOptionItem>,
   ) => Array<{ id: string; name: string }>;
 }
 
@@ -141,8 +142,7 @@ ProductForm.CategoryListField = function CategoryListField({
   const { control, setValue, resetField } = useFormContext<ProductFormValues>();
 
   const handleSelectCat = useCallback(
-    (value: MultiSelectOptionItem[]) => {
-      console.log("output_log: value =>>>", value);
+    (value: SelectOptionItem[]) => {
       setValue("categoryList", handleCategorySelectOption(value));
       handleCategorySelectOption(value);
     },
@@ -159,11 +159,11 @@ ProductForm.CategoryListField = function CategoryListField({
           <FormItem>
             <FormLabel>Category list</FormLabel>
             <FormControl>
-              <MultiSelect
+              <MultiSelectElement
                 optionList={categorySelectOptionList}
                 optionActiveList={categotySelectOptionListActive}
                 // onSelected={handleSelectCat}
-                onSelected={(v) => {
+                onSelect={(v) => {
                   resetField("categoryList");
                   handleSelectCat(v);
                 }}

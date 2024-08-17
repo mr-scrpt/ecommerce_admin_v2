@@ -1,19 +1,20 @@
-import { FormControl } from "@/shared/ui/form";
-import { FC } from "react";
+import { FC, HTMLAttributes } from "react";
 
 import { useAddressListByUserAndSettlementRefToSelectModel } from "@/entities/address/_vm/useAddressListByUserAndSettlementRefToSelect.model";
-import { AddressSelectProps } from "@/kernel/domain/address/ui.type";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/shared/ui/select";
+import { SelectOptionItem } from "@/shared/type/select";
 import { Spinner } from "@/shared/ui/icons/spinner";
+import { SelectElement } from "@/shared/ui/select/selectElement";
 
+export interface AddressSelectProps extends HTMLAttributes<HTMLDivElement> {
+  userId: string;
+  settlementRef: string;
+  addressListActive?: Array<SelectOptionItem>;
+  onSelectAddress?: (address: string) => void;
+}
 export const AddressSelectElement: FC<AddressSelectProps> = (props) => {
-  const { addressInit, userId, settlementRef, onSelectAddress } = props;
+  const { addressListActive, userId, settlementRef, onSelectAddress } = props;
+
+  const [dafaultValue] = addressListActive || [];
 
   const {
     addressListToSelect,
@@ -32,23 +33,31 @@ export const AddressSelectElement: FC<AddressSelectProps> = (props) => {
   }
 
   return (
-    <Select
-      defaultValue={addressInit || ""}
-      onValueChange={onSelectAddress}
-      disabled={!addressListToSelect.length}
-    >
-      <FormControl>
-        <SelectTrigger>
-          <SelectValue placeholder={placeholder} />
-        </SelectTrigger>
-      </FormControl>
-      <SelectContent>
-        {addressListToSelect.map((address) => (
-          <SelectItem key={address.value} value={address.value}>
-            {address.label}
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
+    <SelectElement
+      defaultValue={dafaultValue.value}
+      onSelect={onSelectAddress}
+      optionList={addressListToSelect}
+      placeholder={placeholder}
+    />
   );
+  // return (
+  //   <Select
+  //     defaultValue={addressInit || ""}
+  //     onValueChange={onSelectAddress}
+  //     disabled={!addressListToSelect.length}
+  //   >
+  //     <FormControl>
+  //       <SelectTrigger>
+  //         <SelectValue placeholder={placeholder} />
+  //       </SelectTrigger>
+  //     </FormControl>
+  //     <SelectContent>
+  //       {addressListToSelect.map((address) => (
+  //         <SelectItem key={address.value} value={address.value}>
+  //           {address.label}
+  //         </SelectItem>
+  //       ))}
+  //     </SelectContent>
+  //   </Select>
+  // );
 };

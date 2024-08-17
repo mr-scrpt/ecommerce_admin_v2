@@ -39,7 +39,7 @@ export const useCategoryDataToFormModel = (product?: ProductRelation) => {
   }, [categoryOptionListSelected]);
 
   const {
-    categorySelectOptionList: categoryOptionListTotal,
+    categoryListToSelect: categoryOptionListTotal,
     isPending: isPendingCategoryOptionList,
   } = useCategoryListToSelectModel();
 

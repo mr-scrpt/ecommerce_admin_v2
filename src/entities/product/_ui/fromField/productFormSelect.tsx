@@ -1,3 +1,4 @@
+import { SelectOptionItem } from "@/shared/type/select";
 import {
   FormControl,
   FormField,
@@ -5,7 +6,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/shared/ui/form";
-import { MultiSelectOptionItem } from "@/shared/ui/multiSelect";
 import {
   Select,
   SelectContent,
@@ -18,7 +18,7 @@ import { UseFormReturn } from "react-hook-form";
 
 interface ProductFormSelectProps extends HTMLAttributes<HTMLDivElement> {
   name: string;
-  propertyList: MultiSelectOptionItem[];
+  propertyList: SelectOptionItem[];
   control: UseFormReturn<any>["control"];
 }
 

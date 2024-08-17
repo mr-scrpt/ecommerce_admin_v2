@@ -6,13 +6,13 @@ import {
 import { ProductFromForm } from "@/entities/product/_domain/product.types";
 import { useOptionListTransform } from "@/shared/lib/map";
 import { Spinner } from "@/shared/ui/icons/spinner";
-import { MultiSelectOptionItem } from "@/shared/ui/multiSelect";
 import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes, memo, useCallback } from "react";
 import { useProductUpdateMutation } from "../_mutation/useProductUpdate.mutation";
 import { useCategoryDataToFormModel } from "../_vm/useCategoryDataToForm.model";
 import { usePropertyListByCategoryIdListModel } from "@/entities/property";
+import { SelectOptionItem } from "@/shared/type/select";
 
 interface ProductFormProps extends HTMLAttributes<HTMLDivElement> {
   productId: string;
@@ -63,7 +63,7 @@ export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
     !isFetchedAfterMount;
 
   const handleSelectedProperty = useCallback(
-    (propertyListSelected: Array<MultiSelectOptionItem>) => {
+    (propertyListSelected: Array<SelectOptionItem>) => {
       const categoryIdList = toDataIdList(propertyListSelected);
       setCategoryOptionListSelected(toOptionList(categoryIdList));
       setCategoryIdList(categoryIdList.map((item) => item.id));

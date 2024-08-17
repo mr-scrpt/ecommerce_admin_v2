@@ -12,9 +12,7 @@ export {
   useInvalidateCategoryWithRelation,
 } from "./_query/userCategoryWithRelation.query";
 
-export { CategoryForm } from "./_ui/___categoryForm";
-
-export { useCategoryListToSelectModel } from "./_vm/useCategoryLikeSelectOptionList.modle";
+export { useCategoryListToSelectModel } from "./_vm/useCategoryListToSelect.modle";
 
 export { categoryApi } from "./_api/category.api";
 export type { CategoryRelationEntity } from "./_domain/category.types";

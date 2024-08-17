@@ -2,13 +2,13 @@
 import { ProductFormLayout } from "@/entities/product";
 import { ProductFromForm } from "@/entities/product/_domain/product.types";
 import { useOptionListTransform } from "@/shared/lib/map";
-import { MultiSelectOptionItem } from "@/shared/ui/multiSelect";
 import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes, useCallback } from "react";
 import { useProductCreateMutation } from "../_mutation/productCreate.mutation";
 import { useCategoryDataToFormModel } from "../_vm/useCategoryDataToFormModel";
 import { usePropertyListByCategoryIdListModel } from "@/entities/property";
+import { SelectOptionItem } from "@/shared/type/select";
 
 interface ProductCreateFormProps extends HTMLAttributes<HTMLDivElement> {
   callbackUrl?: string;
@@ -59,7 +59,7 @@ export const ProductFormCreate: FC<ProductCreateFormProps> = (props) => {
   const { toDataIdList, toOptionList } = useOptionListTransform();
 
   const handleSelectedProperty = useCallback(
-    (propertyListSelected: Array<MultiSelectOptionItem>) => {
+    (propertyListSelected: Array<SelectOptionItem>) => {
       const categoryIdList = toDataIdList(propertyListSelected);
       setCategoryOptionListSelected(toOptionList([]));
       setCategoryOptionListSelected(toOptionList(categoryIdList));

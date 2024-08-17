@@ -8,7 +8,7 @@ export const useCategoryListToSelectModel = () => {
   const optionListSelect = toOptionList(categoryList);
 
   return {
-    categorySelectOptionList: optionListSelect,
+    categoryListToSelect: optionListSelect,
     isPending,
   };
 };

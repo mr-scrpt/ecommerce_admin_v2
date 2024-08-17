@@ -2,9 +2,9 @@
 
 // import * as from "react";
 import { X } from "lucide-react";
-import { Badge } from "./badge";
+import { Badge } from "../badge";
 
-import { Command, CommandGroup, CommandItem } from "./command";
+import { Command, CommandGroup, CommandItem } from "../command";
 import { Command as CommandPrimitive } from "cmdk";
 import { isEqual } from "lodash-es";
 import {
@@ -17,52 +17,52 @@ import {
   useState,
   KeyboardEvent,
 } from "react";
+import { SelectOptionItem } from "@/shared/type/select";
 
 // export type MultiSelectOptionItem = Record<
 //   "value" | "label" | "active",
 //   string
 // >;
 //
-export type MultiSelectOptionItem = Record<"value" | "label", string>;
 
 interface MultiSelectProps {
-  optionList: Array<MultiSelectOptionItem>;
-  optionActiveList?: Array<MultiSelectOptionItem>;
-  onSelected: (items: Array<MultiSelectOptionItem>) => void;
+  optionList: Array<SelectOptionItem>;
+  optionActiveList?: Array<SelectOptionItem>;
+  onSelect: (items: Array<SelectOptionItem>) => void;
 }
 
-export const MultiSelect: FC<MultiSelectProps> = memo((props) => {
-  const { optionList, optionActiveList = [], onSelected } = props;
+export const MultiSelectElement: FC<MultiSelectProps> = memo((props) => {
+  const { optionList, optionActiveList = [], onSelect } = props;
 
   const [inputValue, setInputValue] = useState("");
   const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState<MultiSelectOptionItem[]>([]);
+  const [selected, setSelected] = useState<SelectOptionItem[]>([]);
 
   useEffect(() => {
     setSelected(optionActiveList);
   }, []);
-  const [sessionItems, setSessionItems] = useState<MultiSelectOptionItem[]>([]);
+
+  // const [sessionItems, setSessionItems] = useState<MultiSelectOptionItem[]>([]);
 
   const inputRef = useRef<HTMLInputElement>(null);
-  const prevOptionActiveList =
-    useRef<MultiSelectOptionItem[]>(optionActiveList);
+  const prevOptionActiveList = useRef<SelectOptionItem[]>(optionActiveList);
 
   useEffect(() => {
     if (!isEqual(optionActiveList, prevOptionActiveList.current)) {
       // console.log("output_log: not equal!!! =>>>");
-      onSelected(optionActiveList);
+      onSelect(optionActiveList);
       setSelected(optionActiveList);
       prevOptionActiveList.current = optionActiveList;
     }
-  }, [optionActiveList, setSelected, onSelected]);
+  }, [optionActiveList, onSelect]);
 
   const handleUnselect = useCallback(
-    (optionItem: MultiSelectOptionItem) => {
+    (optionItem: SelectOptionItem) => {
       setSelected((prev) => prev.filter((s) => s.value !== optionItem.value));
-      onSelected &&
-        onSelected(selected.filter((s) => s.value !== optionItem.value));
+      onSelect &&
+        onSelect(selected.filter((s) => s.value !== optionItem.value));
     },
-    [selected, onSelected],
+    [selected, onSelect],
   );
 
   const handleKeyDown = useCallback((e: KeyboardEvent<HTMLDivElement>) => {
@@ -130,7 +130,7 @@ export const MultiSelect: FC<MultiSelectProps> = memo((props) => {
             value={inputValue}
             onValueChange={setInputValue}
             onBlur={() => {
-              onSelected && onSelected([...selected]);
+              onSelect && onSelect([...selected]);
               setOpen(false);
             }}
             onFocus={() => {
@@ -161,8 +161,8 @@ export const MultiSelect: FC<MultiSelectProps> = memo((props) => {
                       // );
                       setInputValue("");
                       setSelected((prev) => [...prev, optionItem]);
-                      setSessionItems((prev) => [...prev, optionItem]);
-                      onSelected && onSelected([...selected, optionItem]);
+                      // setSessionItems((prev) => [...prev, optionItem]);
+                      onSelect && onSelect([...selected, optionItem]);
                     }}
                     className={"cursor-pointer"}
                   >
@@ -178,4 +178,4 @@ export const MultiSelect: FC<MultiSelectProps> = memo((props) => {
   );
 });
 
-MultiSelect.displayName = "MultiSelect";
+MultiSelectElement.displayName = "MultiSelect";

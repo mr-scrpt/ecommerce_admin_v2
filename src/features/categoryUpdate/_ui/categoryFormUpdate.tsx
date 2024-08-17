@@ -79,7 +79,7 @@ export const CategoryFormUpdate: FC<CategoryFormProps> = (props) => {
         handleSubmit={handleSubmit}
         schema={categoryUpdateFormSchema}
       >
-        <PropertyFormElements.FieldSelectProperty />
+        <PropertyFormElements.FieldPropertyMultiSelect />
         <CategoryFormElements.FieldName />
         <CategoryFormElements.FieldBoard />
         <CategoryFormElements.SubmitButton
@@ -87,16 +87,6 @@ export const CategoryFormUpdate: FC<CategoryFormProps> = (props) => {
           submitText="Update Category"
         />
       </CategoryFormElements>
-      {/* <CategoryForm */}
-      {/*   handleSubmit={handleSubmit} */}
-      {/*   isPending={isPendingComplexible} */}
-      {/*   category={category} */}
-      {/*   optionSelectOptionList={propertySelectOptionList} */}
-      {/*   optionSelectOptionListActive={optionSelectOptionListActive} */}
-      {/*   handleOptionSelectOption={toDataIdList} */}
-      {/*   submitText={"Save change"} */}
-      {/* /> */}
     </div>
   );
-  return <div>TODO</div>;
 };

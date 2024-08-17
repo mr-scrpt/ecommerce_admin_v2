@@ -41,13 +41,13 @@ export const CategoryFormCreate: FC<CategoryCreateFormProps> = (props) => {
     }
   };
 
-  const getDefaultValues = (dataToForm: CategoryCreateFormValues) => {
-    return {
-      name: dataToForm?.name ?? "",
-      board: dataToForm?.board ?? [],
-      propertyList: dataToForm?.propertyList ?? [],
-    };
-  };
+  // const getDefaultValues = (dataToForm: CategoryCreateFormValues) => {
+  //   return {
+  //     name: dataToForm?.name ?? "",
+  //     board: dataToForm?.board ?? [],
+  //     propertyList: dataToForm?.propertyList ?? [],
+  //   };
+  // };
 
   return (
     <div className={cn(className, "w-full")}>
@@ -55,7 +55,9 @@ export const CategoryFormCreate: FC<CategoryCreateFormProps> = (props) => {
         handleSubmit={handleSubmit}
         schema={categoryCreateFormSchema}
       >
-        <PropertyFormElements.FieldSelectProperty />
+        <CategoryFormElements.FieldCategorySelect />
+        <CategoryFormElements.FieldCategoryMultiSelect />
+        <PropertyFormElements.FieldPropertyMultiSelect />
         <CategoryFormElements.FieldName />
         <CategoryFormElements.FieldBoard />
         <CategoryFormElements.SubmitButton

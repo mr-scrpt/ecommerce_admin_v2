@@ -7,7 +7,7 @@ export const selectItemSchema = z.object({
   active: z.boolean().optional(),
 });
 
-export type SelectItemValues = z.infer<typeof selectItemSchema>;
+export type SelectOptionItem = z.infer<typeof selectItemSchema>;
 
 export const dataOptionItemSchema = z.object({
   id: z.string(),

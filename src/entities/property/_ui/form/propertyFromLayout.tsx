@@ -1,8 +1,8 @@
 import { Separator } from "@/shared/ui/separator";
 import { FC, HTMLAttributes } from "react";
-import { PropertyRelation } from "../_domain/property/property.types";
-import { PropertyFormElements } from "./propertyFormElements";
-import { PropertyFormValues } from "../_domain/property/form.schema";
+import { PropertyRelation } from "../../_domain/property/property.types";
+import { PropertyFormElements } from "./elements/propertyFormElements";
+import { PropertyFormValues } from "../../_domain/property/form.schema";
 
 interface PropertyFromLayoutProps
   extends Omit<HTMLAttributes<HTMLFormElement>, "property"> {
@@ -27,9 +27,9 @@ export const PropertyFromLayout: FC<PropertyFromLayoutProps> = (props) => {
         <PropertyFormElements.FieldName />
       </div>
       <Separator />
-      <div className="flex w-full">
-        <PropertyFormElements.FieldSelectPropertyItem isPending={isPending} />
-      </div>
+      {/* <div className="flex w-full"> */}
+      {/*   <PropertyFormElements.FieldSelectPropertyItem isPending={isPending} /> */}
+      {/* </div> */}
       <div className="flex w-full">
         <PropertyFormElements.SubmitButton
           isPending={isPending}

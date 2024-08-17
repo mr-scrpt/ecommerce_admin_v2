@@ -2,7 +2,7 @@ import { Category } from "@/kernel/domain/category/category.type";
 import { Product, ProductEntity } from "@/kernel/domain/product/product.type";
 import { PropertyDataTypeEnum } from "@/kernel/domain/property/property.type";
 import { PropertyItem } from "@/kernel/domain/property/propertyItem.type";
-import { MultiSelectOptionItem } from "@/shared/ui/multiSelect";
+import { SelectOptionItem } from "@/shared/type/select";
 
 // NOTE: Relations
 export type ProductRelationEntity = ProductEntity & {
@@ -64,7 +64,7 @@ export type ProductPropertyToSelect = {
   id: string;
   name: string;
   datatype: PropertyDataTypeEnum;
-  propertyList: Array<MultiSelectOptionItem>;
+  propertyList: Array<SelectOptionItem>;
 };
 
 export type ProductToSelect = {

@@ -1,10 +1,10 @@
 import { useCallback } from "react";
-import { DataOptionItem, SelectItemValues } from "../type/select";
+import { DataOptionItem, SelectOptionItem } from "../type/select";
 
 export const useOptionListTransform = () => {
   return {
     toOptionList: useCallback(
-      (dataList: Array<DataOptionItem>): SelectItemValues[] => {
+      (dataList: Array<DataOptionItem>): SelectOptionItem[] => {
         return dataList.map((item) => ({
           value: item.id,
           label: item.name,
@@ -22,7 +22,7 @@ export const useOptionListTransform = () => {
       [],
     ),
     toDataIdList: useCallback(
-      (optionList: Array<SelectItemValues>): Array<DataOptionItem> => {
+      (optionList: Array<SelectOptionItem>): Array<DataOptionItem> => {
         // console.log("output_log: 2 >>> toDataIdList =>>>", optionList);
         const res = optionList.map((item) => ({
           id: item.value,
