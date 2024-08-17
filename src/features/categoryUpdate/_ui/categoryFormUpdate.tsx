@@ -1,5 +1,9 @@
 "use client";
-import { CategoryForm, categoryFormDefaultSchema } from "@/entities/category";
+import {
+  CategoryForm,
+  CategoryFormElements,
+  categoryFormDefaultSchema,
+} from "@/entities/category";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
@@ -8,7 +12,15 @@ import { z } from "zod";
 import { useCategoryUpdateMutation } from "../_mutation/useCategoryUpdate.mutation";
 import { useOptionListTransform } from "@/shared/lib/map";
 import { useCategoryWithRelationQuery } from "@/entities/category";
-import { usePropertyListToSelectModel } from "@/entities/property";
+import {
+  PropertyFormElements,
+  usePropertyListToSelectModel,
+} from "@/entities/property";
+import {
+  CategoryUpdateFormValues,
+  categoryUpdateFormSchema,
+} from "../_domain/form.schema";
+import { categoryUpdateSchema } from "../_domain/schema";
 
 interface CategoryFormProps extends HTMLAttributes<HTMLDivElement> {
   categoryId: string;
@@ -17,7 +29,7 @@ interface CategoryFormProps extends HTMLAttributes<HTMLDivElement> {
   onSuccess?: () => void;
 }
 
-type CategoryFormValues = z.infer<typeof categoryFormDefaultSchema>;
+// type CategoryFormValues = z.infer<typeof categoryFormDefaultSchema>;
 
 export const CategoryFormUpdate: FC<CategoryFormProps> = (props) => {
   const { categoryId, callbackUrl, className, onSuccess } = props;
@@ -52,12 +64,12 @@ export const CategoryFormUpdate: FC<CategoryFormProps> = (props) => {
     return <div>Failed to load category, you may not have permissions</div>;
   }
 
-  const handleSubmit = async (data: CategoryFormValues) => {
+  const handleSubmit = async (data: CategoryUpdateFormValues) => {
     const { propertyList, ...categoryData } = data;
     await categoryUpdate({
       selector: { id: categoryId },
       categoryData,
-      propertyData: propertyList.map(({ id }) => ({ propertyId: id })),
+      propertyData: propertyList.map(({ value }) => ({ propertyId: value })),
     });
 
     onSuccess?.();
@@ -67,19 +79,35 @@ export const CategoryFormUpdate: FC<CategoryFormProps> = (props) => {
     }
   };
 
-  const optionSelectOptionListActive = toOptionList(category.propertyList);
-
   return (
     <div className={cn(className, "w-full")}>
-      <CategoryForm
+      <CategoryFormElements<CategoryUpdateFormValues>
+        // categoryData={category}
+        defaultValues={{
+          name: category.name,
+          board: category.board,
+          propertyList: toOptionList(category.propertyList),
+        }}
         handleSubmit={handleSubmit}
-        isPending={isPendingComplexible}
-        category={category}
-        optionSelectOptionList={propertySelectOptionList}
-        optionSelectOptionListActive={optionSelectOptionListActive}
-        handleOptionSelectOption={toDataIdList}
-        submitText={"Save change"}
-      />
+        schema={categoryUpdateFormSchema}
+      >
+        <PropertyFormElements.FieldSelectProperty />
+        <CategoryFormElements.FieldName />
+        <CategoryFormElements.FieldBoard />
+        <CategoryFormElements.SubmitButton
+          isPending={isPendingUpdate}
+          submitText="Update Category"
+        />
+      </CategoryFormElements>
+      {/* <CategoryForm */}
+      {/*   handleSubmit={handleSubmit} */}
+      {/*   isPending={isPendingComplexible} */}
+      {/*   category={category} */}
+      {/*   optionSelectOptionList={propertySelectOptionList} */}
+      {/*   optionSelectOptionListActive={optionSelectOptionListActive} */}
+      {/*   handleOptionSelectOption={toDataIdList} */}
+      {/*   submitText={"Save change"} */}
+      {/* /> */}
     </div>
   );
   return <div>TODO</div>;

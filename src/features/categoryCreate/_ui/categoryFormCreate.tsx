@@ -24,13 +24,7 @@ export const CategoryFormCreate: FC<CategoryCreateFormProps> = (props) => {
   const { categoryCreate, isPending: isPendingCreate } =
     useCategoryCreateModel();
 
-  // const { propertySelectOptionList, isPending: isPendingOptionList } =
-  //   usePropertyListToSelectModel();
-  //
-  // const { toDataIdList } = useOptionListTransform();
-
   const handleSubmit = async (data: CategoryCreateFormValues) => {
-    console.log("output_log: cldatata =>>>", data);
     const { propertyList, ...categoryData } = data;
     await categoryCreate({
       categoryData,
@@ -39,11 +33,20 @@ export const CategoryFormCreate: FC<CategoryCreateFormProps> = (props) => {
       })),
     });
 
+    // TODO: Callback and redirect mb move to hook?
     onSuccess?.();
 
-    // if (callbackUrl) {
-    //   router.push(callbackUrl);
-    // }
+    if (callbackUrl) {
+      router.push(callbackUrl);
+    }
+  };
+
+  const getDefaultValues = (dataToForm: CategoryCreateFormValues) => {
+    return {
+      name: dataToForm?.name ?? "",
+      board: dataToForm?.board ?? [],
+      propertyList: dataToForm?.propertyList ?? [],
+    };
   };
 
   return (
@@ -56,7 +59,7 @@ export const CategoryFormCreate: FC<CategoryCreateFormProps> = (props) => {
         <CategoryFormElements.FieldName />
         <CategoryFormElements.FieldBoard />
         <CategoryFormElements.SubmitButton
-          isPending={false}
+          isPending={isPendingCreate}
           submitText="Create Category"
         />
       </CategoryFormElements>

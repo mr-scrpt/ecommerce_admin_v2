@@ -29,7 +29,7 @@ export class SettlementController extends Controller {
   public router = router({
     settlement: {
       init: publicProcedure.query(async () => {
-        await this.initSettlementListService.execute();
+        return await this.initSettlementListService.execute();
       }),
       getByRef: publicProcedure
         .input(getByRefInputSchema)

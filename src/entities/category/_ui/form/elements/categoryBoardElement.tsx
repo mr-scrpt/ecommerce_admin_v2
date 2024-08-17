@@ -2,7 +2,7 @@
 import { Button } from "@/shared/ui/button";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { FC } from "react";
-import { useUploadBoardListModel } from "../../_vm/useUploadBoardList.model";
+import { useUploadBoardListModel } from "../../../_vm/useUploadBoardList.model";
 import { ImgPreviewer } from "@/shared/ui/imgPreviewer/imgPreviewer";
 import { Image as ImgIcon } from "lucide-react";
 import { FormControl } from "@/shared/ui/form";

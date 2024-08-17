@@ -3,6 +3,9 @@ import { INovaPoshtaRepository } from "@/kernel/lib/novaposhta/repository.type";
 import { injectable } from "inversify";
 import { ISettlementRepository } from "../../../kernel/domain/settlement/repository.type";
 import { SettlementEntity } from "@/kernel/domain/settlement/settlement.type";
+import { settlementBaseSchema } from "@/kernel/domain/settlement/settlement.schema";
+import { novaPoshtaSettlementBaseSchema } from "@/kernel/lib/novaposhta/novaposhta.schema";
+import { z } from "zod";
 
 const INIT_PAGE = 1;
 const INIT_DELAY = 250;
@@ -22,6 +25,7 @@ export class SettlementInitService {
     let page = INIT_PAGE;
 
     while (true) {
+      console.log("output_log: while page =>>>", page);
       const result = await this.np.getSettlementList(page);
 
       for await (const settlement of result) {
@@ -32,9 +36,8 @@ export class SettlementInitService {
 
       if (!result.length) break;
 
-      console.log("output_log: parse novaposhta settlements: page =>>>", page);
       page++;
-      await this.delay(INIT_DELAY);
+      // await this.delay(INIT_DELAY);
     }
   }
 

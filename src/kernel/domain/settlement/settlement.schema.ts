@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 // NOTE: Base Schema
-const settlementBaseSchema = z.object({
+export const settlementBaseSchema = z.object({
   ref: z.string(),
   settlementType: z.string(),
   latitude: z.string(),

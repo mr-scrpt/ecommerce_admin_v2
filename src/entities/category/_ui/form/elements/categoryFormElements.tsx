@@ -1,5 +1,4 @@
 "use client";
-import { PropertySelectElement } from "@/entities/property";
 import { Category } from "@/kernel/domain/category/category.type";
 import { Button } from "@/shared/ui/button";
 import { FormField, FormItem, FormLabel } from "@/shared/ui/form";
@@ -16,14 +15,15 @@ import { ZodTypeAny } from "zod";
 import {
   CategoryFormValues,
   categoryFormDefaultSchema,
-} from "../../_domain/form.schema";
+} from "../../../_domain/form.schema";
 import { CategoryBoardElement } from "./categoryBoardElement";
 import { CategoryNameElement } from "./categoryNameElement";
 
 interface CategoryFormProps<T extends CategoryFormValues>
   extends HTMLAttributes<HTMLFormElement> {
-  categoryData?: Category;
+  categoryData?: T;
   handleSubmit?: (data: T) => void;
+  defaultValues?: DefaultValues<T>;
   schema?: ZodTypeAny;
 }
 
@@ -46,46 +46,56 @@ type CategoryFormSubComponents = {
 type CategoryFormElementsType = CategoryFormElementsComponent &
   CategoryFormSubComponents;
 
-// const getDefaultValues = (category?: Category) => ({
-//   name: category?.name ?? "",
-//   board: category?.board ?? [],
-// });
-function getDefaultValues<T extends { name: string; board: string[] }>(
-  category?: Category,
-): T;
-function getDefaultValues(category?: Category) {
+// const getDefaultFormValues = <T extends CategoryFormValues>(
+//   standartValues: T,
+//   defaultValues?: T,
+// ): DefaultValues<T> => {
+//   if (!defaultValues) {
+//     return standartValues as DefaultValues<T>;
+//   }
+//   return defaultValues as DefaultValues<T>;
+// };
+// const getDefaultFormValues = <T extends CategoryFormValues>(
+//   standartValues: T,
+//   defaultValues?: Partial<T>,
+// ): DefaultValues<T> => {
+//   return { ...standartValues, ...defaultValues } as DefaultValues<T>;
+// };
+const getDefaultFormValues = <T extends CategoryFormValues>(
+  defaultValues: DefaultValues<T> | undefined,
+  categoryData?: T,
+): DefaultValues<T> => {
   return {
-    name: category?.name ?? "",
-    board: category?.board ?? [],
-  };
-}
-// const getDefaultValues = <T extends { name: string; board: string[] }>(category?: Category): Partial<T> => ({
-//   name: category?.name ?? "",
-//   board: category?.board ?? [],
-// });
+    ...defaultValues,
+    ...categoryData,
+  } as DefaultValues<T>;
+};
+
 export const CategoryFormElements: CategoryFormElementsType = <
   T extends CategoryFormValues,
 >(
   props: CategoryFormProps<T>,
 ) => {
-  const { categoryData, handleSubmit: onSubmit, schema, children } = props;
+  const {
+    categoryData,
+    handleSubmit: onSubmit,
+    schema,
+    defaultValues,
+    children,
+  } = props;
 
   const form = useForm<T>({
     resolver: zodResolver(schema ?? categoryFormDefaultSchema),
-    // defaultValues: getDefaultValues(categoryData) as T,
-    defaultValues: getDefaultValues(
-      categoryData,
-    ) as unknown as DefaultValues<T>,
+    defaultValues: getDefaultFormValues<T>(defaultValues, categoryData),
   });
 
   useEffect(() => {
-    form.reset(getDefaultValues(categoryData) as T);
-  }, [categoryData, form]);
+    form.reset(getDefaultFormValues<T>(defaultValues, categoryData));
+  }, [categoryData, defaultValues, form]);
 
   const handleSubmit = form.handleSubmit(async (data: T) => {
     onSubmit?.(data);
   });
-  console.log("output_log: form errors =>>>", form.formState.errors);
 
   return (
     <FormProvider {...form}>
@@ -105,7 +115,10 @@ CategoryFormElements.FieldName = function FieldName() {
       render={({ field }) => (
         <FormItem>
           <FormLabel>Category name</FormLabel>
-          <CategoryNameElement onChange={field.onChange} />
+          <CategoryNameElement
+            onChange={field.onChange}
+            defaultValue={field.value}
+          />
         </FormItem>
       )}
     />

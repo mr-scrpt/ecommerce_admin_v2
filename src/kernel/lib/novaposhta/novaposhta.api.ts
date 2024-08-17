@@ -2,12 +2,17 @@ import { HttpClient } from "@/shared/api/httpClient";
 import { configPrivate } from "@/shared/config/private.config";
 import { inject, injectable } from "inversify";
 import {
+  novaPoshtaPostOfficeListSchema,
+  novaPoshtaSettlementBaseListSchema,
+} from "./novaposhta.schema";
+import {
   NovaPoshtaResponse,
   PostOfficeNovaPoshta,
   SettlementNovaPoshta,
 } from "./novaposhta.type";
 
 export const API_NOVA_POSHTA_KEY = Symbol("apiKey");
+const REQUEST_DELAY = 1000;
 
 export const modelName = {
   address: "Address",
@@ -46,7 +51,7 @@ export class NovaPoshtaApi {
 
     const now = Date.now();
     const timeSinceLastRequest = now - this.lastRequestTime;
-    const delay = Math.max(5000 - timeSinceLastRequest, 0);
+    const delay = Math.max(REQUEST_DELAY - timeSinceLastRequest, 0);
 
     setTimeout(async () => {
       const { params, resolve, reject } = this.requestQueue.shift()!;
@@ -92,27 +97,34 @@ export class NovaPoshtaApi {
   async getPostOfficeListBySettlementRef(
     s: string,
   ): Promise<PostOfficeNovaPoshta[]> {
-    return this.enqueueRequest({
+    const result = await this.enqueueRequest<PostOfficeNovaPoshta[]>({
       modelName: modelName.address,
       calledMethod: calledMethod.getPostOffice,
       methodProperties: { SettlementRef: s },
     });
+
+    const parsed = novaPoshtaPostOfficeListSchema.parse(result);
+    return parsed;
   }
 
   async getSettlementListSearch(q: string): Promise<SettlementNovaPoshta[]> {
-    return this.enqueueRequest({
+    const result = this.enqueueRequest({
       modelName: modelName.address,
       calledMethod: calledMethod.getSettlements,
       methodProperties: { FindByString: q },
     });
+
+    const parsed = novaPoshtaSettlementBaseListSchema.parse(result);
+    return parsed;
   }
 
   async getSettlementList(page: number): Promise<SettlementNovaPoshta[]> {
-    return this.enqueueRequest({
+    const result = await this.enqueueRequest<SettlementNovaPoshta[]>({
       modelName: modelName.address,
       calledMethod: calledMethod.getSettlements,
       methodProperties: { Page: page },
     });
+    return novaPoshtaSettlementBaseListSchema.parse(result);
   }
 }
 

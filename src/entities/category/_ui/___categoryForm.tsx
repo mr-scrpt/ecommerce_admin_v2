@@ -16,7 +16,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, HTMLAttributes, useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { CategoryRelation } from "../_domain/category.types";
-import { CategoryBoardElement } from "./elements/categoryBoardElement";
+import { CategoryBoardElement } from "./form/elements/categoryBoardElement";
 import {
   CategoryFormValues,
   categoryFormDefaultSchema,
