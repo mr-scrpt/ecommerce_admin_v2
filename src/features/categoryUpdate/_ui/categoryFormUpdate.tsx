@@ -1,26 +1,19 @@
 "use client";
 import {
-  CategoryForm,
   CategoryFormElements,
-  categoryFormDefaultSchema,
+  useCategoryWithRelationQuery,
 } from "@/entities/category";
+import { PropertyFormElements } from "@/entities/property";
+import { useOptionListTransform } from "@/shared/lib/map";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
-import { FC, HTMLAttributes } from "react";
-import { z } from "zod";
-import { useCategoryUpdateMutation } from "../_mutation/useCategoryUpdate.mutation";
-import { useOptionListTransform } from "@/shared/lib/map";
-import { useCategoryWithRelationQuery } from "@/entities/category";
-import {
-  PropertyFormElements,
-  usePropertyListToSelectModel,
-} from "@/entities/property";
+import { FC, HTMLAttributes, useMemo } from "react";
 import {
   CategoryUpdateFormValues,
   categoryUpdateFormSchema,
 } from "../_domain/form.schema";
-import { categoryUpdateSchema } from "../_domain/schema";
+import { useCategoryUpdateMutation } from "../_mutation/useCategoryUpdate.mutation";
 
 interface CategoryFormProps extends HTMLAttributes<HTMLDivElement> {
   categoryId: string;
@@ -28,8 +21,6 @@ interface CategoryFormProps extends HTMLAttributes<HTMLDivElement> {
   className?: string;
   onSuccess?: () => void;
 }
-
-// type CategoryFormValues = z.infer<typeof categoryFormDefaultSchema>;
 
 export const CategoryFormUpdate: FC<CategoryFormProps> = (props) => {
   const { categoryId, callbackUrl, className, onSuccess } = props;
@@ -45,16 +36,18 @@ export const CategoryFormUpdate: FC<CategoryFormProps> = (props) => {
   const { categoryUpdate, isPending: isPendingUpdate } =
     useCategoryUpdateMutation();
 
-  const { propertySelectOptionList, isPending: isPendingOptionList } =
-    usePropertyListToSelectModel();
+  const { toOptionList } = useOptionListTransform();
 
-  const { toDataIdList, toOptionList } = useOptionListTransform();
+  const defaultValues = useMemo(() => {
+    return {
+      name: category?.name ?? "",
+      board: category?.board ?? [],
+      propertyList: toOptionList(category?.propertyList ?? []),
+    };
+  }, [category, toOptionList]);
 
   const isPendingComplexible =
-    isPendingCategory ||
-    isPendingUpdate ||
-    !isFetchedAfterMount ||
-    isPendingOptionList;
+    isPendingCategory || isPendingUpdate || !isFetchedAfterMount;
 
   if (isPendingComplexible) {
     return <Spinner aria-label="Loading profile..." />;
@@ -82,12 +75,7 @@ export const CategoryFormUpdate: FC<CategoryFormProps> = (props) => {
   return (
     <div className={cn(className, "w-full")}>
       <CategoryFormElements<CategoryUpdateFormValues>
-        // categoryData={category}
-        defaultValues={{
-          name: category.name,
-          board: category.board,
-          propertyList: toOptionList(category.propertyList),
-        }}
+        defaultValues={defaultValues}
         handleSubmit={handleSubmit}
         schema={categoryUpdateFormSchema}
       >
