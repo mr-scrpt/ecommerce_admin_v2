@@ -1,4 +1,4 @@
-export { CategoryFormElements } from "./_ui/form/elements/categoryFormElements";
+export { CategoryFormElements } from "./_ui/form/categoryFormElements";
 
 export { categoryFormDefaultSchema } from "./_domain/form.schema";
 

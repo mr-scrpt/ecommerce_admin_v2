@@ -1,5 +1,4 @@
 "use client";
-import { Address } from "@/kernel/domain/address/address.type";
 import { Button } from "@/shared/ui/button";
 import { FormField, FormItem, FormLabel, FormMessage } from "@/shared/ui/form";
 import { Spinner } from "@/shared/ui/icons/spinner";
@@ -16,11 +15,12 @@ import { ZodTypeAny } from "zod";
 import {
   AddressFormDefaultValues,
   addressFormDefaultSchema,
-} from "../../../_domain/form.schema";
-import { AddressApartmentElement } from "./addressApartmentElement";
-import { AddressHouseElement } from "./addressHouseElement";
-import { AddressStreetElement } from "./addressStreetElement";
-import { AddressSelectElement } from "./addressSelectElement";
+} from "../../_domain/form.schema";
+import { AddressApartmentElement } from "./elements/addressApartmentElement";
+import { AddressHouseElement } from "./elements/addressHouseElement";
+import { AddressStreetElement } from "./elements/addressStreetElement";
+import { AddressSelectElement } from "./elements/addressSelectElement";
+import { AddressMultiSelectElement } from "./elements/addressMultiSelectElement";
 
 interface AddressFormElementsProps<T extends AddressFormDefaultValues>
   extends HTMLAttributes<HTMLFormElement> {
@@ -35,12 +35,12 @@ type AddressFormElementsComponent = <
   props: AddressFormElementsProps<T>,
 ) => React.ReactElement;
 
-type AddressFormElementsType = {
-  // TODO: Select settlement entities
+type AddressFormFields = {
   FieldStreet: FC;
   FieldHouse: FC;
   FieldApartment: FC;
-  FieldAddressSelect: FC;
+  FieldAddressSelect: FC<AddressFormSelectProps>;
+  FieldAddressMultiSelect: FC<AddressFormSelectProps>;
   SubmitButton: FC<{
     isPending: boolean;
     submitText: string;
@@ -48,29 +48,52 @@ type AddressFormElementsType = {
   }>;
 };
 
-const getDefaultValues = (addressData?: Address) => ({
-  settlementRef: addressData?.settlementRef ?? "",
-  street: addressData?.street ?? "",
-  house: addressData?.house ?? "",
-  apartment: addressData?.apartment ?? "",
-  addressId: addressData?.id ?? "",
-  userId: addressData?.userId ?? "",
-});
+type AddressFormElementsType = AddressFormElementsComponent & AddressFormFields;
 
-export const AddressFormElements: AddressFormElementsType = (props) => {
-  const { addressData, handleSubmit: onSubmit, schema, children } = props;
+const standartFieldsValues: AddressFormDefaultValues = {
+  // settlementRef: "",
+  street: "",
+  house: "",
+  apartment: "",
+  // userId: "",
+};
 
-  const form = useForm<AddressFormDefaultValues>({
+// const getDefaultValues = (addressData?: Address) => ({
+//   settlementRef: addressData?.settlementRef ?? "",
+//   street: addressData?.street ?? "",
+//   house: addressData?.house ?? "",
+//   apartment: addressData?.apartment ?? "",
+//   addressId: addressData?.id ?? "",
+//   userId: addressData?.userId ?? "",
+// });
+
+const getDefaultFormValues = <T extends AddressFormDefaultValues>(
+  defaultValues?: DefaultValues<T> | undefined,
+): DefaultValues<T> => {
+  return {
+    ...standartFieldsValues,
+    ...defaultValues,
+  } as DefaultValues<T>;
+};
+
+export const AddressFormElements: AddressFormElementsType = <
+  T extends AddressFormDefaultValues,
+>(
+  props: AddressFormElementsProps<T>,
+) => {
+  const { defaultValues, handleSubmit: onSubmit, schema, children } = props;
+
+  const form = useForm<T>({
     resolver: zodResolver(schema ?? addressFormDefaultSchema),
-    defaultValues: getDefaultValues(addressData),
+    defaultValues: { ...getDefaultFormValues<T>(defaultValues) },
   });
 
   useEffect(() => {
-    form.reset(getDefaultValues(addressData));
-  }, [addressData, form]);
+    form.reset(getDefaultFormValues<T>(defaultValues));
+  }, [defaultValues, form]);
 
-  const handleSubmit = form.handleSubmit(async (data) => {
-    onSubmit(data);
+  const handleSubmit = form.handleSubmit(async (data: T) => {
+    onSubmit?.(data);
   });
 
   return (
@@ -136,10 +159,50 @@ AddressFormElements.FieldApartment = function FieldApartment() {
   );
 };
 
-AddressFormElements.FieldAddressSelect = function FieldAddressSelect() {
-  const { control, getValues } = useFormContext<AddressFormDefaultValues>();
+interface AddressFormSelectProps {
+  userId: string;
+  settlementRef: string;
+}
 
-  const { userId, settlementRef } = getValues();
+AddressFormElements.FieldAddressSelect = function FieldAddressSelect(
+  props: AddressFormSelectProps,
+) {
+  const { userId, settlementRef } = props;
+  const { control, getFieldState } = useFormContext<AddressFormDefaultValues>();
+
+  // const { userId, settlementRef } = getValues();
+
+  if (!getFieldState("addressList")) return null;
+
+  return (
+    <FormField
+      control={control}
+      name="addressList"
+      render={({ field }) => (
+        <FormItem>
+          <FormLabel>Select address</FormLabel>
+          <AddressSelectElement
+            onSelectAddress={field.onChange}
+            userId={userId}
+            settlementRef={settlementRef}
+            addressActive={field.value?.[0]}
+            // addressListActive={field.value}
+          />
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  );
+};
+
+AddressFormElements.FieldAddressMultiSelect = function FieldAddressMultiSelect(
+  props: AddressFormSelectProps,
+) {
+  const { userId, settlementRef } = props;
+  const { control, getValues, getFieldState } =
+    useFormContext<AddressFormDefaultValues>();
+
+  if (!getFieldState("addressList")) return null;
 
   return (
     <FormField
@@ -148,11 +211,11 @@ AddressFormElements.FieldAddressSelect = function FieldAddressSelect() {
       render={({ field }) => (
         <FormItem>
           <FormLabel>Apartment list</FormLabel>
-          <AddressSelectElement
+          <AddressMultiSelectElement
+            addressListActive={field.value}
             onSelectAddress={field.onChange}
             userId={userId}
             settlementRef={settlementRef}
-            addressListActive={field.value}
           />
           <FormMessage />
         </FormItem>

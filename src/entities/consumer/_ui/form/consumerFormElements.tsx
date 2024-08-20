@@ -15,41 +15,84 @@ import { Input } from "@/shared/ui/input";
 import { PhoneInput } from "@/shared/ui/phoneInput";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, HTMLAttributes, useEffect } from "react";
-import { FormProvider, useForm, useFormContext } from "react-hook-form";
+import { DefaultValues, FormProvider, useForm, useFormContext } from "react-hook-form";
 import { Country } from "react-phone-number-input";
 import { ZodTypeAny } from "zod";
 import {
   ConsumerFormDefaultValues,
   consumerFormDefaultSchema,
-} from "../_domain/form.schema";
+} from "../../_domain/form.schema";
+import { ButtonSubmitComponentType } from "@/shared/type/button";
 
-interface ConsumerFormElementsProps extends HTMLAttributes<HTMLFormElement> {
-  consumer?: Consumer;
-  handleSubmit: (data: ConsumerFormDefaultValues) => void;
+// interface ConsumerFormElementsProps extends HTMLAttributes<HTMLFormElement> {
+//   consumer?: Consumer;
+//   handleSubmit: (data: ConsumerFormDefaultValues) => void;
+//   schema?: ZodTypeAny;
+// }
+//
+// interface ConsumerSubmitFieldProps {
+//   isPending?: boolean;
+//   submitText: string;
+//   className?: string;
+// }
+//
+// type ConsumerFormElementsType = FC<ConsumerFormElementsProps> & {
+//   FieldName: FC;
+//   FieldLastName: FC;
+//   FieldEmail: FC;
+//   FieldPhone: FC<{ countryDefault?: Country }>;
+//   SubmitButton: FC<ConsumerSubmitFieldProps>;
+// };
+//
+// const getDefaultValues = (consumer?: Consumer) => ({
+//   name: consumer?.name ?? "",
+//   lastName: consumer?.lastName ?? "",
+//   email: consumer?.email ?? "",
+//   image: consumer?.image ?? "",
+//   phone: consumer?.phone ?? "",
+// });
+interface ConsumerFormElementsProps<T extends ConsumerFormDefaultValues>
+  extends HTMLAttributes<HTMLFormElement> {
+  handleSubmit?: (data: T) => void;
+  defaultValues?: DefaultValues<T>;
   schema?: ZodTypeAny;
 }
 
-interface ConsumerSubmitFieldProps {
-  isPending?: boolean;
-  submitText: string;
-  className?: string;
-}
+type ConsumerFormElementsComponent = <
+  T extends ConsumerFormDefaultValues = ConsumerFormDefaultValues,
+>(
+  props: ConsumerFormElementsProps<T>,
+) => React.ReactElement;
 
-type ConsumerFormElementsType = FC<ConsumerFormElementsProps> & {
+type ConsumerFormFields = {
+  // FieldName: FC;
+  // FieldBoard: FC;
+  // FieldConsumerSelect: FC;
+  // FieldConsumerMultiSelect: FC;
   FieldName: FC;
   FieldLastName: FC;
   FieldEmail: FC;
   FieldPhone: FC<{ countryDefault?: Country }>;
-  SubmitButton: FC<ConsumerSubmitFieldProps>;
+  SubmitButton: ButtonSubmitComponentType;
 };
 
-const getDefaultValues = (consumer?: Consumer) => ({
-  name: consumer?.name ?? "",
-  lastName: consumer?.lastName ?? "",
-  email: consumer?.email ?? "",
-  image: consumer?.image ?? "",
-  phone: consumer?.phone ?? "",
-});
+type ConsumerFormElementsType = ConsumerFormElementsComponent &
+  ConsumerFormFields;
+
+const standartFieldsValues: ConsumerFormDefaultValues = {
+  name: "",
+  board: [],
+  consumerList: [],
+};
+
+const getDefaultFormValues = <T extends ConsumerFormDefaultValues>(
+  defaultValues?: DefaultValues<T> | undefined,
+): DefaultValues<T> => {
+  return {
+    ...standartFieldsValues,
+    ...defaultValues,
+  } as DefaultValues<T>;
+};
 
 export const ConsumerFormElements: ConsumerFormElementsType = (props) => {
   const { consumer, handleSubmit: onSubmit, children, schema } = props;

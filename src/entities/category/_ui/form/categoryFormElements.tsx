@@ -14,11 +14,11 @@ import { ZodTypeAny } from "zod";
 import {
   CategoryFormDefaultValues,
   categoryFormDefaultSchema,
-} from "../../../_domain/form.schema";
-import { CategoryBoardElement } from "./categoryBoardElement";
-import { CategoryNameElement } from "./categoryNameElement";
-import { CategoryMultiSelectElement } from "./categoryMultiSelectElement";
-import { CategorySelectElement } from "./categorySelectElement";
+} from "../../_domain/form.schema";
+import { CategoryBoardElement } from "./elements/categoryBoardElement";
+import { CategoryNameElement } from "./elements/categoryNameElement";
+import { CategoryMultiSelectElement } from "./elements/categoryMultiSelectElement";
+import { CategorySelectElement } from "./elements/categorySelectElement";
 import { ButtonSubmitComponentType } from "@/shared/type/button";
 
 interface CategoryFormElementsProps<T extends CategoryFormDefaultValues>
@@ -137,7 +137,10 @@ CategoryFormElements.FieldBoard = function FieldBoard() {
 };
 
 CategoryFormElements.FieldCategorySelect = function FieldCategorySelect() {
-  const { control } = useFormContext<CategoryFormDefaultValues>();
+  const { control, getFieldState } =
+    useFormContext<CategoryFormDefaultValues>();
+
+  if (!getFieldState("categoryList")) return null;
 
   return (
     <FormField
@@ -148,7 +151,7 @@ CategoryFormElements.FieldCategorySelect = function FieldCategorySelect() {
           <FormItem>
             <FormLabel>Category select</FormLabel>
             <CategorySelectElement
-              categoryActive={field.value[0]}
+              categoryActive={field.value![0]}
               onSelectCategory={field.onChange}
             />
           </FormItem>

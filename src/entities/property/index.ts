@@ -2,10 +2,10 @@ export { propertyFormDefaultSchema } from "./_domain/property/form.schema";
 
 export { PropertyRepository } from "./_repository/property.repo";
 export { PropertyItemRepository } from "./_repository/propertyItem.repo";
-export { PropertyFormElements } from "./_ui/property/form/elements/propertyFormElements";
+export { PropertyFormElements } from "./_ui/property/form/propertyFormElements";
 export { PropertySelectElement } from "./_ui/property/form/elements/propertySelectElement";
 
-export { PropertyItemFormElements } from "./_ui/propertyItem/form/elements/propertyItemFormElements";
+export { PropertyItemFormElements } from "./_ui/propertyItem/form/propertyItemFormElements";
 
 export { usePropertyListByCategoryQuery } from "./_query/property/propertyListByCategory.query";
 export { usePropertyListByCategoryIdListModel } from "./_vm/usePropertyListByCategoryIdList.model";

@@ -25,10 +25,10 @@ import { ZodTypeAny } from "zod";
 import {
   PropertyFormDefaultValues,
   propertyFormDefaultSchema,
-} from "../../../../_domain/property/form.schema";
-import { PropertyDataTypeSelectElement } from "./propertyDataTypeElement";
-import { PropertyMultiSelectElement } from "./propertyMultiSelectElement";
-import { PropertySelectElement } from "./propertySelectElement";
+} from "../../../_domain/property/form.schema";
+import { PropertyDataTypeSelectElement } from "./elements/propertyDataTypeElement";
+import { PropertyMultiSelectElement } from "./elements/propertyMultiSelectElement";
+import { PropertySelectElement } from "./elements/propertySelectElement";
 
 interface PropertyFormElementsProps<T extends PropertyFormDefaultValues>
   extends HTMLAttributes<HTMLFormElement> {
@@ -173,7 +173,8 @@ PropertyFormElements.FieldPropertySelect = function FieldList() {
 };
 
 PropertyFormElements.FieldPropertyMultiSelect = function FieldList() {
-  const { control } = useFormContext<PropertyFormDefaultValues>();
+  const { control, getFieldState } =
+    useFormContext<PropertyFormDefaultValues>();
 
   return (
     <FormField

@@ -25,7 +25,9 @@ import { ZodTypeAny } from "zod";
 import {
   PropertyItemFormDefaultValues,
   propertyItemFormSchema,
-} from "../../../../_domain/propertyItem/form.schema";
+} from "../../../_domain/propertyItem/form.schema";
+import { PropertyItemNameElement } from "./elements/propertyItemNameElement";
+import { PropertyItemValueElement } from "./elements/propertyItemValueElement";
 
 interface PropertyItemFormElementsProps<T extends PropertyItemFormDefaultValues>
   extends HTMLAttributes<HTMLFormElement> {
@@ -112,10 +114,11 @@ PropertyItemFormElements.FieldPropertyItemList =
                 name={`propertyItemList.${idx}.label`}
                 render={({ field }) => (
                   <FormItem className="flex-grow">
-                    <FormLabel>Option name</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Enter option name..." {...field} />
-                    </FormControl>
+                    <FormLabel>Property name</FormLabel>
+                    <PropertyItemNameElement
+                      onChange={field.onChange}
+                      defaultValue={field.value}
+                    />
                     <FormMessage />
                   </FormItem>
                 )}
@@ -125,10 +128,11 @@ PropertyItemFormElements.FieldPropertyItemList =
                 name={`propertyItemList.${idx}.value`}
                 render={({ field }) => (
                   <FormItem className="flex-grow">
-                    <FormLabel>Option value</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Enter optin value..." {...field} />
-                    </FormControl>
+                    <FormLabel>Property value</FormLabel>
+                    <PropertyItemValueElement
+                      onChange={field.onChange}
+                      defaultValue={field.value}
+                    />
                     <FormMessage />
                   </FormItem>
                 )}

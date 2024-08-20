@@ -1,6 +1,6 @@
-export { ConsumerFormElements } from "./_ui/consumerFormElements";
+export { ConsumerFormElements } from "./_ui/form/consumerFormElements";
 
-export { ConsumerSelect } from "./_ui/consumerSelect";
+export { ConsumerSelect } from "./_ui/__consumerSelect";
 
 export { useConsumerListQuery } from "./_query/consumerList.query";
 export { useConsumerListSearchToSelectModel } from "./_vm/useConsumerListSearch.model";

@@ -8,13 +8,11 @@ import { SelectElement } from "@/shared/ui/select/selectElement";
 export interface AddressSelectProps extends HTMLAttributes<HTMLDivElement> {
   userId: string;
   settlementRef: string;
-  addressListActive?: Array<SelectOptionItem>;
-  onSelectAddress?: (address: string) => void;
+  addressActive?: SelectOptionItem;
+  onSelectAddress: (addressList: Array<SelectOptionItem>) => void;
 }
 export const AddressSelectElement: FC<AddressSelectProps> = (props) => {
-  const { addressListActive, userId, settlementRef, onSelectAddress } = props;
-
-  const [dafaultValue] = addressListActive || [];
+  const { addressActive, userId, settlementRef, onSelectAddress } = props;
 
   const {
     addressListToSelect,
@@ -26,6 +24,10 @@ export const AddressSelectElement: FC<AddressSelectProps> = (props) => {
     settlementRef,
   });
 
+  console.log("output_log: userId =>>>", userId);
+  console.log("output_log: settlementRef =>>>", settlementRef);
+  console.log("output_log: SELECT =>>>", addressListToSelect);
+
   const placeholder = isAppearancePending ? "Loading..." : "Select address";
 
   if (!isFetchedAfterMount || isAppearancePending) {
@@ -34,7 +36,7 @@ export const AddressSelectElement: FC<AddressSelectProps> = (props) => {
 
   return (
     <SelectElement
-      defaultValue={dafaultValue.value}
+      optionActive={addressActive}
       onSelect={onSelectAddress}
       optionList={addressListToSelect}
       placeholder={placeholder}

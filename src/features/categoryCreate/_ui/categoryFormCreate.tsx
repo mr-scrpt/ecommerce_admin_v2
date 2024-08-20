@@ -41,14 +41,6 @@ export const CategoryFormCreate: FC<CategoryCreateFormProps> = (props) => {
     }
   };
 
-  // const getDefaultValues = (dataToForm: CategoryCreateFormValues) => {
-  //   return {
-  //     name: dataToForm?.name ?? "",
-  //     board: dataToForm?.board ?? [],
-  //     propertyList: dataToForm?.propertyList ?? [],
-  //   };
-  // };
-
   return (
     <div className={cn(className, "w-full")}>
       <CategoryFormElements<CategoryCreateFormValues>
