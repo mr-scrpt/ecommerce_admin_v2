@@ -12,3 +12,7 @@ export type PropertyItemRelation = PropertyItem & {
 export type PropertyItemGetSelector = {
   id: string;
 };
+
+export type PropertyItemGetByPropertySelector = {
+  propertyId: string;
+};

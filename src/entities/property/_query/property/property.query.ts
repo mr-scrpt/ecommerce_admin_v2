@@ -3,13 +3,9 @@ import { Property } from "@/kernel/domain/property/property.type";
 import { propertyApi } from "../../_api/property.api";
 import { useListenPropertyUpdate } from "../../_vm/event/useListenPropertyUpdate";
 
-type QueryParams = {
-  id: string;
-};
-
-export const usePropertyQuery = (query: QueryParams) => {
+export const usePropertyQuery = (id: string) => {
   const { isPending, isSuccess, isFetchedAfterMount, data } =
-    propertyApi.property.get.useQuery<Property>(query);
+    propertyApi.property.get.useQuery<Property>({ id });
 
   useListenPropertyUpdate();
 
@@ -23,5 +19,5 @@ export const usePropertyQuery = (query: QueryParams) => {
 
 export const useInvalidateProperty = () => {
   const invalidateProperty = propertyApi.useUtils().property.get.invalidate;
-  return (query: QueryParams) => invalidateProperty(query);
+  return (id: string) => invalidateProperty({ id });
 };

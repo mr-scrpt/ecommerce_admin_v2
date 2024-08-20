@@ -2,7 +2,7 @@ import { PropertyDataTypeEnum } from "@/kernel/domain/property/property.type";
 import { selectItemSchema } from "@/shared/type/select";
 import { z } from "zod";
 
-export const propertyFormSchema = z.object({
+export const propertyFormDefaultSchema = z.object({
   name: z
     .string()
     .min(3)
@@ -10,8 +10,10 @@ export const propertyFormSchema = z.object({
       message: "Username must not be longer than 30 characters.",
     })
     .transform((name) => name.trim()),
-  datatype: z.nativeEnum(PropertyDataTypeEnum),
-  propertyList: z.array(selectItemSchema),
+  datatype: z.array(selectItemSchema(z.nativeEnum(PropertyDataTypeEnum))),
+  propertyList: z.array(selectItemSchema(z.string())).optional(),
 });
 
-export type PropertyFormValues = z.infer<typeof propertyFormSchema>;
+export type PropertyFormDefaultValues<
+  T extends z.ZodTypeAny = typeof propertyFormDefaultSchema,
+> = z.infer<T>;

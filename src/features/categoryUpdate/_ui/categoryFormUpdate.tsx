@@ -1,9 +1,9 @@
 "use client";
+import { CategoryFormElements, useCategoryQuery } from "@/entities/category";
 import {
-  CategoryFormElements,
-  useCategoryWithRelationQuery,
-} from "@/entities/category";
-import { PropertyFormElements } from "@/entities/property";
+  PropertyFormElements,
+  usePropertyListByCategoryQuery,
+} from "@/entities/property";
 import { useOptionListTransform } from "@/shared/lib/map";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { cn } from "@/shared/ui/utils";
@@ -28,8 +28,14 @@ export const CategoryFormUpdate: FC<CategoryFormProps> = (props) => {
   const {
     category,
     isPending: isPendingCategory,
-    isFetchedAfterMount,
-  } = useCategoryWithRelationQuery(categoryId);
+    isFetchedAfterMount: isFetchedAfterMountCategory,
+  } = useCategoryQuery(categoryId);
+
+  const {
+    propertyList,
+    isPending: isPendingProperty,
+    isFetchedAfterMount: isFetchedAfterMountProperty,
+  } = usePropertyListByCategoryQuery(categoryId);
 
   const router = useRouter();
 
@@ -38,16 +44,21 @@ export const CategoryFormUpdate: FC<CategoryFormProps> = (props) => {
 
   const { toOptionList } = useOptionListTransform();
 
-  const defaultValues = useMemo(() => {
+  const defaultValues: CategoryUpdateFormValues = useMemo(() => {
     return {
       name: category?.name ?? "",
       board: category?.board ?? [],
-      propertyList: toOptionList(category?.propertyList ?? []),
+      propertyList: toOptionList(propertyList ?? []),
+      // categoryList: toOptionList([]),
     };
-  }, [category, toOptionList]);
+  }, [category, propertyList, toOptionList]);
 
   const isPendingComplexible =
-    isPendingCategory || isPendingUpdate || !isFetchedAfterMount;
+    isPendingCategory ||
+    isPendingUpdate ||
+    isPendingProperty ||
+    !isFetchedAfterMountCategory ||
+    !isFetchedAfterMountProperty;
 
   if (isPendingComplexible) {
     return <Spinner aria-label="Loading profile..." />;

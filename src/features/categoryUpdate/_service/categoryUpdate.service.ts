@@ -18,7 +18,7 @@ export class CategoryUpdateService {
     return await this.categoryUpdateTx.update(cartRowUpdateDTO);
   }
 
-  private build(payload: CategoryUpdateTxPayload) {
+  private build(payload: CategoryUpdateTxPayload): CategoryUpdateTxPayload {
     const { categoryData } = payload;
     if (!categoryData.name) {
       return payload;

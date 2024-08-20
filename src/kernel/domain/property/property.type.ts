@@ -1,4 +1,5 @@
 import { DATATYPE as PropertyDataTypeEnum } from "@prisma/client";
+
 import { PropertyItem, PropertyItemEntity } from "./propertyItem.type";
 export { PropertyDataTypeEnum };
 
@@ -26,6 +27,6 @@ export type Property = PropertyBase & {
   updatedAt: Date;
 };
 
-// export type PropertyComposite = Property & {
-//   propertyItemList: Array<PropertyItem>;
-// };
+export type PropertyComposite = Property & {
+  propertyItemList: Array<PropertyItem>;
+};

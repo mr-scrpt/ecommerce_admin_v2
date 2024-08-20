@@ -27,10 +27,6 @@ export class CategoryInvariant implements ICategoryInvariant {
       tx,
     );
 
-    // if (isCategoryQnique.isLeft()) {
-    //   return left(isCategoryQnique.value);
-    // }
-
     if (isCategoryQnique.value) {
       return left(new CategoryAlreadyExistError());
     }

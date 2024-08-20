@@ -6,6 +6,10 @@ export const getInputSchema = z.object({
   id: z.string(),
 });
 
+export const getByCategoryInputSchema = z.object({
+  categoryId: z.string(),
+});
+
 export const getByCategoryListInputSchema = z.object({
   categoryIdList: z.array(z.object({ categoryId: z.string() })),
 });

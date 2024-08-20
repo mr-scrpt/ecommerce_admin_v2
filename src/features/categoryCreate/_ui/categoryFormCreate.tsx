@@ -57,7 +57,9 @@ export const CategoryFormCreate: FC<CategoryCreateFormProps> = (props) => {
       >
         <CategoryFormElements.FieldCategorySelect />
         <CategoryFormElements.FieldCategoryMultiSelect />
+
         <PropertyFormElements.FieldPropertyMultiSelect />
+
         <CategoryFormElements.FieldName />
         <CategoryFormElements.FieldBoard />
         <CategoryFormElements.SubmitButton

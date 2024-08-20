@@ -1,6 +1,7 @@
 import { Tx } from "@/shared/lib/db/db";
 import {
   PropertyCreateDTO,
+  PropertyGetByCategoryDTO,
   PropertyGetByCategoryIdListDTO,
   PropertyGetDTO,
   PropertyRemoveDTO,
@@ -28,6 +29,11 @@ export abstract class IPropertyRepository {
   ): Promise<T[]>;
 
   abstract getList(db?: Tx): Promise<PropertyEntity[]>;
+
+  abstract getListByCategory(
+    dto: PropertyGetByCategoryDTO,
+    db?: Tx,
+  ): Promise<Array<PropertyEntity>>;
 
   abstract create(dto: PropertyCreateDTO, db?: Tx): Promise<PropertyEntity>;
 

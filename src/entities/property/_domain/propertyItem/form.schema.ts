@@ -1,15 +1,10 @@
+import { selectItemWithIdSchema } from "@/shared/type/select";
 import { z } from "zod";
 
 export const propertyItemFormSchema = z.object({
-  id: z.string().optional(),
-  name: z
-    .string()
-    .min(1, { message: "Property must not be shorter than 1 characters." })
-    .max(30, {
-      message: "Property must not be longer than 30 characters.",
-    })
-    .transform((name) => name.trim()),
-  value: z.string(),
+  propertyItemList: z.array(selectItemWithIdSchema(z.string())),
 });
 
-export type PropertyItemFormValues = z.infer<typeof propertyItemFormSchema>;
+export type PropertyItemFormDefaultValues<
+  T extends z.ZodTypeAny = typeof propertyItemFormSchema,
+> = z.infer<T>;

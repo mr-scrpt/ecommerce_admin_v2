@@ -1,6 +1,6 @@
 import { Category } from "@/kernel/domain/category/category.type";
 import {
-  // PropertyComposite,
+  PropertyComposite,
   PropertyCompositeEntity,
   PropertyDataTypeEnum,
 } from "@/kernel/domain/property/property.type";
@@ -12,7 +12,7 @@ export type PropertyRelationEntity = PropertyCompositeEntity & {
   categoryList: Array<Category>;
 };
 
-export type PropertyRelation = {
+export type PropertyRelation = PropertyComposite & {
   categoryList: Array<Category>;
   propertyList: Array<PropertyItem>;
 };
@@ -22,7 +22,11 @@ export type PropertyGetSelector = {
   id: string;
 };
 
-export type PropertyListGetByCategoryListSelector = {
+export type PropertyGetByCategorySelector = {
+  categoryId: string;
+};
+
+export type PropertyGetByCategoryListSelector = {
   categoryIdList: Array<{ categoryId: string }>;
 };
 

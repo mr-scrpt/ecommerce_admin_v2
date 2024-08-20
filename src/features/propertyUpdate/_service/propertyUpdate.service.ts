@@ -15,9 +15,7 @@ export class PropertyUpdateService {
   constructor(private readonly propertyUpdateTx: IPropertyUpdateTx) {}
 
   async execute(payload: PropertyUpdateTxPayload): Promise<Property> {
-    console.log("output_log: payload =>>>", payload);
     const propertyUpdateDTO = this.build(payload);
-    console.log("output_log: propertyUpdateDTO =>>>", propertyUpdateDTO);
     return await this.propertyUpdateTx.update(propertyUpdateDTO);
   }
 
@@ -26,6 +24,11 @@ export class PropertyUpdateService {
     const [propertyItemListCreateData, propertyItemListUpdateData] =
       this.filterItems(propertyItemListData);
 
+    console.log(
+      "output_log: toCreate, toUpdate =>>>",
+      propertyItemListCreateData,
+      propertyItemListUpdateData,
+    );
     const build = omit(
       merge({}, payload, {
         propertyItemListCreateData,
@@ -44,13 +47,17 @@ export class PropertyUpdateService {
     const listToUpdate: Array<PropertyItemUpdateData> = [];
 
     for (const item of propertyItemList) {
-      if (!item.id) {
+      console.log("output_log: item =>>>", item);
+      if (!item.id && item.id === "") {
         if (!item.name || !item.value) {
           throw new Error(
             `Item without id must have both name and value. Invalid item: ${JSON.stringify(item)}`,
           );
         }
-        listToCreate.push(item as PropertyItemCreateData);
+        listToCreate.push({
+          value: item.value,
+          name: item.name,
+        } as PropertyItemCreateData);
       }
       if (item.id) {
         if (!item.name && !item.value) {
@@ -58,7 +65,11 @@ export class PropertyUpdateService {
             `Item without id must have both name and value. Invalid item: ${JSON.stringify(item)}`,
           );
         }
-        listToUpdate.push(item as PropertyItemUpdateData);
+        listToUpdate.push({
+          id: item.id,
+          name: item.name,
+          value: item.value,
+        } as PropertyItemUpdateData);
       }
     }
 

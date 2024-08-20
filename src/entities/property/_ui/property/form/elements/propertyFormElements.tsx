@@ -1,5 +1,6 @@
 "use client";
-import { useAppearanceDelay } from "@/shared/lib/react";
+import { DataTypeDefaultOption } from "@/entities/property/_vm/useSelectDataType";
+import { ButtonSubmitComponentType } from "@/shared/type/button";
 import { Button } from "@/shared/ui/button";
 import {
   Form,
@@ -12,97 +13,91 @@ import {
 } from "@/shared/ui/form";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { Input } from "@/shared/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/shared/ui/select";
-import { cn } from "@/shared/ui/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { MinusIcon, PlusIcon } from "lucide-react";
 import { FC, HTMLAttributes, useEffect } from "react";
 import {
+  DefaultValues,
   FormProvider,
-  useFieldArray,
   useForm,
   useFormContext,
 } from "react-hook-form";
-import { PropertyRelation } from "../../../_domain/property/property.types";
+import { ZodTypeAny } from "zod";
 import {
-  Property,
-  PropertyDataTypeEnum,
-} from "@/kernel/domain/property/property.type";
-import {
-  PropertyFormValues,
-  propertyFormSchema,
-} from "../../../_domain/property/form.schema";
-import { selectDataType } from "../../../_vm/selectDataType";
+  PropertyFormDefaultValues,
+  propertyFormDefaultSchema,
+} from "../../../../_domain/property/form.schema";
+import { PropertyDataTypeSelectElement } from "./propertyDataTypeElement";
 import { PropertyMultiSelectElement } from "./propertyMultiSelectElement";
+import { PropertySelectElement } from "./propertySelectElement";
 
-interface PropertyFormProps
-  extends Omit<HTMLAttributes<HTMLFormElement>, "property"> {
-  property?: PropertyRelation;
-  handleSubmit: (data: PropertyFormValues) => void;
-  isPending: boolean;
-  submitText?: string;
+interface PropertyFormElementsProps<T extends PropertyFormDefaultValues>
+  extends HTMLAttributes<HTMLFormElement> {
+  handleSubmit?: (data: T) => void;
+  defaultValues?: DefaultValues<T>;
+  schema?: ZodTypeAny;
 }
 
-interface SubmitButtonProps {
-  isPending: boolean;
-  submitText: string;
-}
+type PropertyFormElementsComponent = <
+  T extends PropertyFormDefaultValues = PropertyFormDefaultValues,
+>(
+  props: PropertyFormElementsProps<T>,
+) => React.ReactElement;
 
-type PropertyFormType = FC<PropertyFormProps> & {
-  SubmitButton: FC<SubmitButtonProps>;
-  FieldPropertyMultiSelect: FC;
+type PropertyFormFields = {
   FieldName: FC;
-  // FieldSelectPropertyItem: FC;
+  FieldDataType: FC;
+  FieldPropertySelect: FC;
+  FieldPropertyMultiSelect: FC;
+
+  SubmitButton: ButtonSubmitComponentType;
 };
 
-const getDefaultValues = (property?: Property) => ({
-  name: property?.name ?? "",
-  datatype: property?.datatype ?? PropertyDataTypeEnum.SELECT,
+type PropertyFormElementsType = PropertyFormElementsComponent &
+  PropertyFormFields;
+
+const standartFieldsValues: PropertyFormDefaultValues = {
+  name: "",
+  datatype: [DataTypeDefaultOption],
   propertyList: [],
-  // propertyItemList: [{ name: "", value: "" }],
-});
+};
 
-export const PropertyFormElements: PropertyFormType = (props) => {
-  const {
-    property,
-    handleSubmit: onSubmit,
-    submitText,
-    isPending,
-    children,
-    className,
-  } = props;
-  // console.log("output_log: property =>>>", property);
+const getDefaultFormValues = <T extends PropertyFormDefaultValues>(
+  defaultValues?: DefaultValues<T> | undefined,
+): DefaultValues<T> => {
+  return {
+    ...standartFieldsValues,
+    ...defaultValues,
+  } as DefaultValues<T>;
+};
 
-  const isPendingAppearance = useAppearanceDelay(isPending);
+export const PropertyFormElements: PropertyFormElementsType = <
+  T extends PropertyFormDefaultValues,
+>(
+  props: PropertyFormElementsProps<T>,
+) => {
+  const { handleSubmit: onSubmit, schema, defaultValues, children } = props;
 
-  const form = useForm<PropertyFormValues>({
-    resolver: zodResolver(propertyFormSchema),
-    defaultValues: {
-      ...getDefaultValues(property),
-    },
+  const form = useForm<T>({
+    resolver: zodResolver(schema ?? propertyFormDefaultSchema),
+    defaultValues: { ...getDefaultFormValues<T>(defaultValues) },
   });
 
   useEffect(() => {
-    form.reset({
-      ...getDefaultValues(property),
-    });
-  }, [property, form, isPendingAppearance, submitText]);
+    form.reset(getDefaultFormValues<T>(defaultValues));
+  }, [defaultValues, form]);
 
-  const handleSubmit = form.handleSubmit(async (data) => {
-    console.log("output_log: submit =>>>", data);
+  const handleSubmit = form.handleSubmit(async (data: T) => {
     onSubmit?.(data);
   });
+
+  console.log("output_log:  =>>> form values", form.getValues());
+  console.log("output_log: form errors =>>>", form.formState.errors);
+  console.log("output_log: form state =>>>", form.formState);
 
   return (
     <FormProvider {...form}>
       <Form {...form}>
-        <form onSubmit={handleSubmit} className={cn(className, "w-full")}>
+        <form onSubmit={handleSubmit} className={"space-y-8"}>
           {children}
         </form>
       </Form>
@@ -110,29 +105,8 @@ export const PropertyFormElements: PropertyFormType = (props) => {
   );
 };
 
-PropertyFormElements.FieldPropertyMultiSelect = function FieldList() {
-  const { control } = useFormContext<PropertyFormValues>();
-
-  return (
-    <FormField
-      control={control}
-      name="propertyList"
-      render={({ field }) => (
-        <FormItem>
-          <FormLabel>Property list</FormLabel>
-          <PropertyMultiSelectElement
-            propertyListActive={field.value}
-            onSelectProperty={field.onChange}
-          />
-          <FormMessage />
-        </FormItem>
-      )}
-    />
-  );
-};
-
 PropertyFormElements.FieldName = function FieldName() {
-  const form = useFormContext<PropertyFormValues>();
+  const form = useFormContext<PropertyFormDefaultValues>();
 
   return (
     <div className="flex w-full flex-col gap-2">
@@ -149,32 +123,73 @@ PropertyFormElements.FieldName = function FieldName() {
           </FormItem>
         )}
       />
-      <FormField
-        control={form.control}
-        name="datatype"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Data type</FormLabel>
-            <Select onValueChange={field.onChange} defaultValue={field.value}>
-              <FormControl>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select a verified email to display" />
-                </SelectTrigger>
-              </FormControl>
-              <SelectContent>
-                {selectDataType.map((item) => (
-                  <SelectItem key={item.type} value={item.type}>
-                    {item.value}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            <FormDescription>Select data type to this property</FormDescription>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
     </div>
+  );
+};
+
+PropertyFormElements.FieldDataType = function FieldDataType() {
+  const { control } = useFormContext<PropertyFormDefaultValues>();
+  return (
+    <FormField
+      control={control}
+      name="datatype"
+      render={({ field }) => (
+        <FormItem>
+          <FormLabel>Data type</FormLabel>
+          <PropertyDataTypeSelectElement
+            datatypeActive={field.value[0]}
+            onSelectDatatype={field.onChange}
+          />
+          <FormDescription>Select data type to this property</FormDescription>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  );
+};
+
+PropertyFormElements.FieldPropertySelect = function FieldList() {
+  const { control, getFieldState } =
+    useFormContext<PropertyFormDefaultValues>();
+
+  if (!getFieldState("propertyList")) return null;
+
+  return (
+    <FormField
+      control={control}
+      name="propertyList"
+      render={({ field }) => (
+        <FormItem>
+          <FormLabel>Property list</FormLabel>
+          <PropertySelectElement
+            propertyListActive={field.value![0]}
+            onSelectProperty={field.onChange}
+          />
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  );
+};
+
+PropertyFormElements.FieldPropertyMultiSelect = function FieldList() {
+  const { control } = useFormContext<PropertyFormDefaultValues>();
+
+  return (
+    <FormField
+      control={control}
+      name="propertyList"
+      render={({ field }) => (
+        <FormItem>
+          <FormLabel>Property multi select</FormLabel>
+          <PropertyMultiSelectElement
+            propertyListActive={field.value}
+            onSelectProperty={field.onChange}
+          />
+          <FormMessage />
+        </FormItem>
+      )}
+    />
   );
 };
 

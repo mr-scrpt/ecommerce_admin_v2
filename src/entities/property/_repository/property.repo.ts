@@ -2,6 +2,7 @@ import { DBClient, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
 import {
   PropertyCreateDTO,
+  PropertyGetByCategoryDTO,
   PropertyGetByCategoryIdListDTO,
   PropertyGetDTO,
   PropertyRemoveDTO,
@@ -32,10 +33,19 @@ export class PropertyRepository implements IPropertyRepository {
       },
     })) as unknown as T;
 
-    // return {
-    //   ...property,
-    //   datatype: mapPrismaDatatypeToEnum(property.datatype),
-    // };
+    return property;
+  }
+
+  async getListByCategory(
+    dto: PropertyGetByCategoryDTO,
+    db: Tx = this.db,
+  ): Promise<Array<PropertyEntity>> {
+    const { categoryId } = dto;
+
+    const property = await db.property.findMany({
+      where: { categoryList: { some: { id: categoryId } } },
+    });
+
     return property;
   }
 

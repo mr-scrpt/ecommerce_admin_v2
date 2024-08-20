@@ -8,7 +8,7 @@ import { OrderModule } from "@/entities/order/module";
 import { PostModule } from "@/entities/post/module";
 import { ProductModule } from "@/entities/product/module";
 import { ProfileModule } from "@/entities/profile/module";
-import { PropertyModule } from "@/entities/property/module";
+import { PropertyItemModule, PropertyModule } from "@/entities/property/module";
 import { SettlementModule } from "@/entities/settlement/module";
 import { StoreModule } from "@/entities/store/module";
 import { UserModule } from "@/entities/user/module";
@@ -119,6 +119,8 @@ export const loadModule = () => {
     PropertyCreateModule,
     PropertyUpdateModule,
     PropertyRemoveModule,
+
+    PropertyItemModule,
 
     StoreModule,
     StoreCreateModule,

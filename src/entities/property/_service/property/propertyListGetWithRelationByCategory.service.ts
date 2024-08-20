@@ -1,16 +1,16 @@
 import { injectable } from "inversify";
-import { IPropertyRepository } from "../../../kernel/domain/property/repository.type";
+import { IPropertyRepository } from "../../../../kernel/domain/property/repository.type";
 import {
-  PropertyListGetByCategoryListSelector,
+  PropertyGetByCategoryListSelector,
   PropertyRelation,
-} from "../_domain/property/property.types";
+} from "../../_domain/property/property.types";
 
 @injectable()
 export class PropertyListGetWithRelationByCategoryListService {
   constructor(private readonly propertyRepo: IPropertyRepository) {}
 
   async execute(
-    selector: PropertyListGetByCategoryListSelector,
+    selector: PropertyGetByCategoryListSelector,
   ): Promise<Array<PropertyRelation>> {
     return await this.propertyRepo.getWithRelationByCategoryIdList(selector);
   }

@@ -6,7 +6,7 @@ import { propertySchema } from "@/kernel/domain/property/property.schema";
 
 @injectable()
 export class PropertyUpdateController extends Controller {
-  constructor(private readonly createPropertyService: PropertyUpdateService) {
+  constructor(private readonly updatePropertyService: PropertyUpdateService) {
     super();
   }
 
@@ -15,7 +15,7 @@ export class PropertyUpdateController extends Controller {
       update: publicProcedure
         .input(updateInputSchema)
         .mutation(async ({ input }) => {
-          const result = await this.createPropertyService.execute(input);
+          const result = await this.updatePropertyService.execute(input);
           return propertySchema.parse(result);
         }),
     },

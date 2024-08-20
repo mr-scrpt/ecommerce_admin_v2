@@ -5,6 +5,10 @@ export type PropertyGetDTO = {
   id: string;
 };
 
+export type PropertyGetByCategoryDTO = {
+  categoryId: string;
+};
+
 export type PropertyGetByCategoryIdListDTO = {
   categoryIdList: Array<{ categoryId: string }>;
 };

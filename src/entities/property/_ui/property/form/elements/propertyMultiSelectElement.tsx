@@ -2,7 +2,7 @@ import { FC, memo } from "react";
 
 import { MultiSelectElement } from "@/shared/ui/select/multiSelectElement";
 import { HTMLAttributes } from "react";
-import { usePropertyListToSelectModel } from "../../../_vm/usePropertyListToSelect.model";
+import { usePropertyListToSelectModel } from "../../../../_vm/usePropertyListToSelect.model";
 import { SelectOptionItem } from "@/shared/type/select";
 
 export interface PropertyMultiSelectProps

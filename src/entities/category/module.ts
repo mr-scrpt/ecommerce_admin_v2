@@ -7,11 +7,13 @@ import { CategoryListGetService } from "./_service/categoryListGet.service";
 import { CategoryRelationGetService } from "./_service/categoryRelationGet.service";
 import { CategoryInvariant } from "./_domain/invariant.check";
 import { ICategoryInvariant } from "@/kernel/domain/category/invariant.type";
+import { CategoryGetService } from "./_service/categoryGet.service";
 
 export const CategoryModule = new ContainerModule((bind) => {
   bind(ICategoryRepository).to(CategoryRepository);
   bind(ICategoryInvariant).to(CategoryInvariant);
 
+  bind(CategoryGetService).toSelf();
   bind(CategoryRelationGetService).toSelf();
   bind(CategoryListGetService).toSelf();
 

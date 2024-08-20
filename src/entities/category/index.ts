@@ -6,6 +6,10 @@ export {
   useCategoryListQuery,
   useInvalidateCategoryList,
 } from "./_query/useCategoryList.query";
+export {
+  useCategoryQuery,
+  useInvalidateCategory,
+} from "./_query/useCategory.query";
 
 export {
   useCategoryWithRelationQuery,

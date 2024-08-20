@@ -16,7 +16,8 @@ export class CategoryUpdateController extends Controller {
         .input(updateInputSchema)
         .mutation(async ({ input }) => {
           const result = await this.updateCategoryService.execute(input);
-          return categorySchema.parse(result);
+          const validateResult = this.checkResult(result, categorySchema);
+          return validateResult;
         }),
     },
   });

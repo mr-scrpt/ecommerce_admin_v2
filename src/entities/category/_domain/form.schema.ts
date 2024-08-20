@@ -12,7 +12,7 @@ export const categoryFormDefaultSchema = z.object({
     })
     .transform((name) => name.trim()),
   board: z.array(z.string()),
-  categoryList: z.array(selectItemSchema),
+  categoryList: z.array(selectItemSchema(z.string())).optional(),
 });
 
 export type CategoryFormDefaultValues<
