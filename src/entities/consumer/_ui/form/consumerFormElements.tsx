@@ -1,5 +1,4 @@
 "use client";
-import { Consumer } from "@/kernel/domain/consumer/consumer.type";
 import { Button } from "@/shared/ui/button";
 import {
   Form,
@@ -15,7 +14,12 @@ import { Input } from "@/shared/ui/input";
 import { PhoneInput } from "@/shared/ui/phoneInput";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, HTMLAttributes, useEffect } from "react";
-import { DefaultValues, FormProvider, useForm, useFormContext } from "react-hook-form";
+import {
+  DefaultValues,
+  FormProvider,
+  useForm,
+  useFormContext,
+} from "react-hook-form";
 import { Country } from "react-phone-number-input";
 import { ZodTypeAny } from "zod";
 import {
@@ -23,6 +27,10 @@ import {
   consumerFormDefaultSchema,
 } from "../../_domain/form.schema";
 import { ButtonSubmitComponentType } from "@/shared/type/button";
+import { ConsumerNameElement } from "./elements/consumerNameElement";
+import { ConsumerLastNameElement } from "./elements/consumerLastNameElement";
+import { ConsumerEmailElement } from "./elements/consumerEmailElement";
+import { ConsumerPhoneElement } from "./elements/consumerPhoneElement";
 
 // interface ConsumerFormElementsProps extends HTMLAttributes<HTMLFormElement> {
 //   consumer?: Consumer;
@@ -65,14 +73,12 @@ type ConsumerFormElementsComponent = <
 ) => React.ReactElement;
 
 type ConsumerFormFields = {
-  // FieldName: FC;
-  // FieldBoard: FC;
-  // FieldConsumerSelect: FC;
-  // FieldConsumerMultiSelect: FC;
   FieldName: FC;
   FieldLastName: FC;
   FieldEmail: FC;
   FieldPhone: FC<{ countryDefault?: Country }>;
+  FieldConsumerSelect: FC;
+  FieldConsumerMultiSelect: FC;
   SubmitButton: ButtonSubmitComponentType;
 };
 
@@ -81,7 +87,9 @@ type ConsumerFormElementsType = ConsumerFormElementsComponent &
 
 const standartFieldsValues: ConsumerFormDefaultValues = {
   name: "",
-  board: [],
+  lastName: "",
+  email: "",
+  phone: "",
   consumerList: [],
 };
 
@@ -94,20 +102,24 @@ const getDefaultFormValues = <T extends ConsumerFormDefaultValues>(
   } as DefaultValues<T>;
 };
 
-export const ConsumerFormElements: ConsumerFormElementsType = (props) => {
-  const { consumer, handleSubmit: onSubmit, children, schema } = props;
+export const ConsumerFormElements: ConsumerFormElementsType = <
+  T extends ConsumerFormDefaultValues,
+>(
+  props: ConsumerFormElementsProps<T>,
+) => {
+  const { defaultValues, handleSubmit: onSubmit, children, schema } = props;
 
-  const form = useForm<ConsumerFormDefaultValues>({
+  const form = useForm<T>({
     resolver: zodResolver(schema ?? consumerFormDefaultSchema),
-    defaultValues: getDefaultValues(consumer),
+    defaultValues: { ...getDefaultFormValues<T>(defaultValues) },
   });
 
   useEffect(() => {
-    form.reset(getDefaultValues(consumer));
-  }, [consumer, form]);
+    form.reset(getDefaultFormValues<T>(defaultValues));
+  }, [defaultValues, form]);
 
-  const handleSubmit = form.handleSubmit(async (data) => {
-    onSubmit(data);
+  const handleSubmit = form.handleSubmit(async (data: T) => {
+    onSubmit?.(data);
   });
 
   return (
@@ -131,9 +143,7 @@ ConsumerFormElements.FieldName = function FieldName() {
       render={({ field }) => (
         <FormItem>
           <FormLabel>Name</FormLabel>
-          <FormControl>
-            <Input placeholder="" {...field} />
-          </FormControl>
+          <ConsumerNameElement value={field.value} onChange={field.onChange} />
           <FormMessage />
         </FormItem>
       )}
@@ -150,9 +160,10 @@ ConsumerFormElements.FieldLastName = function FieldLastName() {
       render={({ field }) => (
         <FormItem>
           <FormLabel>Last Name</FormLabel>
-          <FormControl>
-            <Input placeholder="" {...field} />
-          </FormControl>
+          <ConsumerLastNameElement
+            value={field.value}
+            onChange={field.onChange}
+          />
           <FormMessage />
         </FormItem>
       )}
@@ -169,9 +180,7 @@ ConsumerFormElements.FieldEmail = function FieldEmail() {
       render={({ field }) => (
         <FormItem>
           <FormLabel>Email</FormLabel>
-          <FormControl>
-            <Input placeholder="" {...field} />
-          </FormControl>
+          <ConsumerEmailElement value={field.value} onChange={field.onChange} />
           <FormMessage />
         </FormItem>
       )}
@@ -190,14 +199,19 @@ ConsumerFormElements.FieldPhone = function FieldPhone(props) {
       render={({ field }) => (
         <FormItem className="flex flex-col items-start">
           <FormLabel className="text-left">Phone Number</FormLabel>
-          <FormControl className="w-full">
-            <PhoneInput
-              placeholder="Enter a phone number"
-              defaultCountry={countryDefault as Country}
-              initialValueFormat="national"
-              {...field}
-            />
-          </FormControl>
+          {/* <FormControl className="w-full"> */}
+          {/*   <PhoneInput */}
+          {/*     placeholder="Enter a phone number" */}
+          {/*     defaultCountry={countryDefault as Country} */}
+          {/*     initialValueFormat="national" */}
+          {/*     {...field} */}
+          {/*   /> */}
+          {/* </FormControl> */}
+          <ConsumerPhoneElement
+            onChange={field.onChange}
+            countryDefault={countryDefault}
+            value={field.value}
+          />
           <FormDescription className="text-left">
             Enter a phone number
           </FormDescription>
@@ -207,6 +221,46 @@ ConsumerFormElements.FieldPhone = function FieldPhone(props) {
     />
   );
 };
+
+ConsumerFormElements.FieldConsumerSelect = function FieldConsumerSelect(props) {
+  const { control } = useFormContext<ConsumerFormDefaultValues>();
+
+  return (
+    <FormField
+      control={control}
+      name="consumerList"
+      render={({ field }) => (
+        <FormItem className="flex flex-col items-start">
+          <FormLabel className="text-left">Consumer</FormLabel>
+          <FormControl className="w-full">
+            {/* <ConsumerSelect {...field} /> */}
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  );
+};
+
+ConsumerFormElements.FieldConsumerMultiSelect =
+  function FieldConsumerMultiSelect(props) {
+    const { control } = useFormContext<ConsumerFormDefaultValues>();
+    return (
+      <FormField
+        control={control}
+        name="consumerList"
+        render={({ field }) => (
+          <FormItem className="flex flex-col items-start">
+            <FormLabel className="text-left">Consumer</FormLabel>
+            <FormControl className="w-full">
+              {/* <ConsumerMultiSelect {...field} /> */}
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+    );
+  };
 
 ConsumerFormElements.SubmitButton = function SubmitButton(props) {
   const { isPending, submitText } = props;

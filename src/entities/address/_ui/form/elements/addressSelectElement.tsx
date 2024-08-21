@@ -24,13 +24,9 @@ export const AddressSelectElement: FC<AddressSelectProps> = (props) => {
     settlementRef,
   });
 
-  console.log("output_log: userId =>>>", userId);
-  console.log("output_log: settlementRef =>>>", settlementRef);
-  console.log("output_log: SELECT =>>>", addressListToSelect);
-
   const placeholder = isAppearancePending ? "Loading..." : "Select address";
 
-  if (!isFetchedAfterMount || isAppearancePending) {
+  if (!isFetchedAfterMount || isAppearancePending || !isSuccess) {
     return <Spinner />;
   }
 

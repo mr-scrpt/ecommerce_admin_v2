@@ -2,32 +2,29 @@ import { FC, HTMLAttributes } from "react";
 
 import { SelectOptionItem } from "@/shared/type/select";
 import { Spinner } from "@/shared/ui/icons/spinner";
-import { SelectElement } from "@/shared/ui/select/selectElement";
+import { MultiSelectElement } from "@/shared/ui/select/multiSelectElement";
 import { usePostListBySettlementRefToSelectModel } from "../../../_vm/usePostOfficeListBySettlementRefToSelect.model.query";
 
-export interface PostSelectProps extends HTMLAttributes<HTMLDivElement> {
+export interface PostMultiSelectProps extends HTMLAttributes<HTMLDivElement> {
   settlementRef: string;
-  postActive?: SelectOptionItem;
+  postListActive?: Array<SelectOptionItem>;
   onSelectPost: (postList: Array<SelectOptionItem>) => void;
 }
-export const PostSelectElement: FC<PostSelectProps> = (props) => {
-  const { postActive, settlementRef, onSelectPost } = props;
+export const PostMultiSelectElement: FC<PostMultiSelectProps> = (props) => {
+  const { postListActive, settlementRef, onSelectPost } = props;
 
   const { postListToSelect, isPending, isSuccess, isFetchedAfterMount } =
     usePostListBySettlementRefToSelectModel(settlementRef);
-
-  const placeholder = isPending ? "Loading..." : "Select post";
 
   if (!isFetchedAfterMount || isPending || !isSuccess) {
     return <Spinner />;
   }
 
   return (
-    <SelectElement
-      optionActive={postActive}
-      onSelect={onSelectPost}
+    <MultiSelectElement
       optionList={postListToSelect}
-      placeholder={placeholder}
+      optionActiveList={postListActive}
+      onSelect={onSelectPost}
     />
   );
 };

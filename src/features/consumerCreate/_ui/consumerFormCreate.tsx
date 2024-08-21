@@ -6,6 +6,7 @@ import {
   consumerCreateFormSchema,
 } from "../_domain/form.schema";
 import { ConsumerCreateForm } from "../_domain/ui.type";
+import { useRouter } from "next/navigation";
 
 interface ConsumerCreateFormProps extends HTMLAttributes<HTMLDivElement> {
   callbackUrl?: string;
@@ -19,15 +20,20 @@ export const ConsumerFormCreate: FC<ConsumerCreateFormProps> = (props) => {
   const { className, onConsumerCreate, onSuccess, callbackUrl, isPending } =
     props;
 
+  const router = useRouter();
+
   const handleSubmit = async (consumerData: ConsumerCreateFormValues) => {
     onConsumerCreate({ consumerData });
 
     onSuccess?.();
+    if (callbackUrl) {
+      router.push(callbackUrl);
+    }
   };
 
   return (
     <div className={cn(className, "w-full")}>
-      <ConsumerFormElements
+      <ConsumerFormElements<ConsumerCreateFormValues>
         handleSubmit={handleSubmit}
         schema={consumerCreateFormSchema}
       >

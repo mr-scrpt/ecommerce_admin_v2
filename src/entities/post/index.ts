@@ -1,4 +1,4 @@
-export { PostSelectElement } from "./_ui/form/elements/postSelectElement";
+export { PostSelectElement } from "./_ui/form/elements/__postSelectElement";
 
 export { usePostOfficeAvailableBySettlementRefModel } from "./_vm/usePostOfficeAvailableBySettlementRef.model.query";
 

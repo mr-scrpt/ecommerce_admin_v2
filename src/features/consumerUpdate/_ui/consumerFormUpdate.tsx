@@ -2,7 +2,7 @@ import { ConsumerFormElements, useGetConsumerModel } from "@/entities/consumer";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
-import { FC, HTMLAttributes } from "react";
+import { FC, HTMLAttributes, useMemo } from "react";
 import {
   ConsumerUpdateFormValues,
   consumerUpdateFormSchema,
@@ -21,11 +21,21 @@ export const ConsumerFormUpdate: FC<ConsumerFormProps> = (props) => {
 
   const { isAppearancePending, isFetchedAfterMount, consumer } =
     useGetConsumerModel(consumerId);
+  console.log("output_log: CONSUMER =>>>", consumer);
 
   const router = useRouter();
 
   const { consumerUpdate, isPending: isPendingUpdate } =
     useConsumerUpdateModel();
+
+  const defaultValues: ConsumerUpdateFormValues = useMemo(() => {
+    return {
+      name: consumer?.name ?? "",
+      lastName: consumer?.lastName ?? "",
+      email: consumer?.email ?? "",
+      phone: consumer?.phone ?? "",
+    };
+  }, [consumer]);
 
   const isPendingComplexible =
     isPendingUpdate || isAppearancePending || !isFetchedAfterMount;
@@ -54,8 +64,8 @@ export const ConsumerFormUpdate: FC<ConsumerFormProps> = (props) => {
   return (
     <div className={cn(className, "w-full")}>
       <ConsumerFormElements
+        defaultValues={defaultValues}
         handleSubmit={handleSubmit}
-        consumer={consumer}
         schema={consumerUpdateFormSchema}
       >
         <ConsumerFormElements.FieldEmail />

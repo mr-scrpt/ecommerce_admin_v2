@@ -49,7 +49,6 @@ export const CategoryFormUpdate: FC<CategoryFormProps> = (props) => {
       name: category?.name ?? "",
       board: category?.board ?? [],
       propertyList: toOptionList(propertyList ?? []),
-      // categoryList: toOptionList([]),
     };
   }, [category, propertyList, toOptionList]);
 
@@ -85,7 +84,7 @@ export const CategoryFormUpdate: FC<CategoryFormProps> = (props) => {
 
   return (
     <div className={cn(className, "w-full")}>
-      <CategoryFormElements<CategoryUpdateFormValues>
+      <CategoryFormElements
         defaultValues={defaultValues}
         handleSubmit={handleSubmit}
         schema={categoryUpdateFormSchema}

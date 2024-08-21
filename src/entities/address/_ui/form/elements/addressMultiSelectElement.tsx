@@ -17,8 +17,6 @@ export const AddressMultiSelectElement: FC<AddressMultiSelectProps> = (
 ) => {
   const { addressListActive, userId, settlementRef, onSelectAddress } = props;
 
-  // const [dafaultValue] = addressListActive || [];
-
   const {
     addressListToSelect,
     isAppearancePending,
@@ -28,10 +26,6 @@ export const AddressMultiSelectElement: FC<AddressMultiSelectProps> = (
     userId,
     settlementRef,
   });
-
-  const placeholder = isAppearancePending
-    ? "Loading..."
-    : "MultiSelect address";
 
   if (!isFetchedAfterMount || isAppearancePending) {
     return <Spinner />;
@@ -44,24 +38,4 @@ export const AddressMultiSelectElement: FC<AddressMultiSelectProps> = (
       onSelect={onSelectAddress}
     />
   );
-  // return (
-  //   <MultiSelect
-  //     defaultValue={addressInit || ""}
-  //     onValueChange={onMultiSelectAddress}
-  //     disabled={!addressListToMultiSelect.length}
-  //   >
-  //     <FormControl>
-  //       <MultiSelectTrigger>
-  //         <MultiSelectValue placeholder={placeholder} />
-  //       </MultiSelectTrigger>
-  //     </FormControl>
-  //     <MultiSelectContent>
-  //       {addressListToMultiSelect.map((address) => (
-  //         <MultiSelectItem key={address.value} value={address.value}>
-  //           {address.label}
-  //         </MultiSelectItem>
-  //       ))}
-  //     </MultiSelectContent>
-  //   </MultiSelect>
-  // );
 };

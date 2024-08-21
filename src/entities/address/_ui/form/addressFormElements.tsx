@@ -21,6 +21,7 @@ import { AddressHouseElement } from "./elements/addressHouseElement";
 import { AddressStreetElement } from "./elements/addressStreetElement";
 import { AddressSelectElement } from "./elements/addressSelectElement";
 import { AddressMultiSelectElement } from "./elements/addressMultiSelectElement";
+import { ButtonSubmitComponentType } from "@/shared/type/button";
 
 interface AddressFormElementsProps<T extends AddressFormDefaultValues>
   extends HTMLAttributes<HTMLFormElement> {
@@ -41,31 +42,17 @@ type AddressFormFields = {
   FieldApartment: FC;
   FieldAddressSelect: FC<AddressFormSelectProps>;
   FieldAddressMultiSelect: FC<AddressFormSelectProps>;
-  SubmitButton: FC<{
-    isPending: boolean;
-    submitText: string;
-    className?: string;
-  }>;
+  SubmitButton: ButtonSubmitComponentType;
 };
 
 type AddressFormElementsType = AddressFormElementsComponent & AddressFormFields;
 
 const standartFieldsValues: AddressFormDefaultValues = {
-  // settlementRef: "",
   street: "",
   house: "",
   apartment: "",
-  // userId: "",
+  addressList: [],
 };
-
-// const getDefaultValues = (addressData?: Address) => ({
-//   settlementRef: addressData?.settlementRef ?? "",
-//   street: addressData?.street ?? "",
-//   house: addressData?.house ?? "",
-//   apartment: addressData?.apartment ?? "",
-//   addressId: addressData?.id ?? "",
-//   userId: addressData?.userId ?? "",
-// });
 
 const getDefaultFormValues = <T extends AddressFormDefaultValues>(
   defaultValues?: DefaultValues<T> | undefined,
@@ -115,7 +102,7 @@ AddressFormElements.FieldStreet = function FieldSettlement() {
       render={({ field }) => (
         <FormItem>
           <FormLabel>Address list</FormLabel>
-          <AddressStreetElement onChange={field.onChange} />
+          <AddressStreetElement value={field.value} onChange={field.onChange} />
           <FormMessage />
         </FormItem>
       )}
@@ -133,7 +120,7 @@ AddressFormElements.FieldHouse = function FieldHouse() {
       render={({ field }) => (
         <FormItem>
           <FormLabel>House</FormLabel>
-          <AddressHouseElement onChange={field.onChange} />
+          <AddressHouseElement value={field.value} onChange={field.onChange} />
           <FormMessage />
         </FormItem>
       )}
@@ -151,7 +138,10 @@ AddressFormElements.FieldApartment = function FieldApartment() {
       render={({ field }) => (
         <FormItem>
           <FormLabel>Apartment</FormLabel>
-          <AddressApartmentElement onChange={field.onChange} />
+          <AddressApartmentElement
+            value={field.value}
+            onChange={field.onChange}
+          />
           <FormMessage />
         </FormItem>
       )}
@@ -170,8 +160,6 @@ AddressFormElements.FieldAddressSelect = function FieldAddressSelect(
   const { userId, settlementRef } = props;
   const { control, getFieldState } = useFormContext<AddressFormDefaultValues>();
 
-  // const { userId, settlementRef } = getValues();
-
   if (!getFieldState("addressList")) return null;
 
   return (
@@ -186,7 +174,6 @@ AddressFormElements.FieldAddressSelect = function FieldAddressSelect(
             userId={userId}
             settlementRef={settlementRef}
             addressActive={field.value?.[0]}
-            // addressListActive={field.value}
           />
           <FormMessage />
         </FormItem>
@@ -199,8 +186,7 @@ AddressFormElements.FieldAddressMultiSelect = function FieldAddressMultiSelect(
   props: AddressFormSelectProps,
 ) {
   const { userId, settlementRef } = props;
-  const { control, getValues, getFieldState } =
-    useFormContext<AddressFormDefaultValues>();
+  const { control, getFieldState } = useFormContext<AddressFormDefaultValues>();
 
   if (!getFieldState("addressList")) return null;
 
@@ -210,7 +196,7 @@ AddressFormElements.FieldAddressMultiSelect = function FieldAddressMultiSelect(
       name="addressList"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>Apartment list</FormLabel>
+          <FormLabel>Select address list</FormLabel>
           <AddressMultiSelectElement
             addressListActive={field.value}
             onSelectAddress={field.onChange}

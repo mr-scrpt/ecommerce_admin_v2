@@ -38,6 +38,7 @@ export const OrderCreate: FC<OrderUpdateProps> = (props) => {
         onConsumerCreate={consumerCreate}
         isPending={isConsumerPending}
       />
+      {/* TODO: Change this field to new consumer select */}
       <ConsumerSelect onSelectOwner={setUserId} />
       <Button onClick={() => handleCreate(userId)}>Create Order</Button>
     </div>

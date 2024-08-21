@@ -18,6 +18,7 @@ export const consumerFormDefaultSchema = z.object({
     .string()
     .transform((name) => name.trim())
     .pipe(z.string().max(18).min(9)),
+  consumerList: z.array(z.string()).optional(),
 });
 
 export type ConsumerFormDefaultValues = z.infer<
