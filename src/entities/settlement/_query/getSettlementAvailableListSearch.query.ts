@@ -24,6 +24,7 @@ export const useSettlementAvailableListSearchToSelectQuery = (
 
   return {
     toSearch,
+    searchValue: q,
     isPending,
     isSuccess,
     isFetchedAfterMount,

@@ -1,4 +1,4 @@
-import { CategoryFormCreate } from "@/features/categoryCreate";
+import { CategoryCreateForm } from "@/features/categoryCreate";
 import { RoutePathEnum } from "@/shared/config/routing.config";
 import { FC, HTMLAttributes } from "react";
 
@@ -8,5 +8,5 @@ interface CategoryCreateProps extends HTMLAttributes<HTMLDivElement> {
 
 export const CategoryCreate: FC<CategoryCreateProps> = (props) => {
   const { callbackUrl } = props;
-  return <CategoryFormCreate callbackUrl={callbackUrl} />;
+  return <CategoryCreateForm callbackUrl={callbackUrl} />;
 };

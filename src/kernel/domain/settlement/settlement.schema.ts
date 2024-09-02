@@ -44,3 +44,23 @@ export const settlementSchema = z.object({
   createdAt: z.date(),
   updatedAt: z.date(),
 });
+
+// NOTE: Select Settlement Option
+export const selectSettlementItemSchema = <
+  T extends z.ZodTypeAny = z.ZodString,
+>(
+  valueSchema: T = z.string() as unknown as T,
+) =>
+  z.object({
+    value: valueSchema,
+    area: z.string(),
+    label: z.string(),
+    region: z.string(),
+    active: z.boolean().optional(),
+  });
+
+const defaultSettlementStringSchema = selectSettlementItemSchema();
+
+export type SelectSettlemtnOptionItem = z.infer<
+  typeof defaultSettlementStringSchema
+>;

@@ -13,7 +13,7 @@ export const useConsumerQuery = (id: string) => {
     isPending,
     isSuccess,
     isFetchedAfterMount,
-    consumer: data,
+    consumer: data ?? null,
   };
 };
 

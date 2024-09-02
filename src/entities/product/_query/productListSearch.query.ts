@@ -9,15 +9,22 @@ export const useProductListSearchQuery = () => {
   const { isPending, isFetchedAfterMount, isSuccess, data } =
     productApi.product.search.useQuery({ q });
 
+  const toSearch = useCallback(
+    (q: string) => {
+      setQ(q);
+    },
+    [setQ],
+  );
+
   useListenProductListUpdate();
 
   return {
-    toSearch: useCallback((q: string) => setQ(q), []),
+    toSearch,
     searchValue: q,
     isPending,
     isSuccess,
     isFetchedAfterMount,
-    data: data ?? [],
+    productList: data ?? [],
   };
 };
 

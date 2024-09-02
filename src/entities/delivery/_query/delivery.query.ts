@@ -13,7 +13,7 @@ export const useDeliveryQuery = (id: string) => {
     isPending,
     isSuccess,
     isFetchedAfterMount,
-    delivery: data,
+    delivery: data ?? null,
   };
 };
 

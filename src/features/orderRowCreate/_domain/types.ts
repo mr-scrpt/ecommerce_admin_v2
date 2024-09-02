@@ -19,12 +19,12 @@ type OrderRowPayload = Pick<OrderRowBase, "productId" | "quantity">;
 type OrderRowDTO = Pick<OrderRowBase, "productId" | "quantity">;
 
 export type OrderRowCreateTxPayload = {
-  target: OrderRowCreateTarget;
+  selector: OrderRowCreateTarget;
   orderRowData: OrderRowPayload;
 };
 
 export type OrderRowCreateTxDTO = {
-  target: OrderRowCreateTarget;
+  selector: OrderRowCreateTarget;
   orderRowData: OrderRowDTO;
 };
 

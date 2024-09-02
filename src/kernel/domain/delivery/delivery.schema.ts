@@ -1,12 +1,12 @@
 import { z } from "zod";
-import { DeliveryTypeEnum } from "./delivery.type";
+import { DELIVERY_TYPE } from "./delivery.type";
 
 // NOTE: Base Schema
 export const deliveryBaseSchema = z.object({
   orderId: z.string(),
   userId: z.string(),
   receiverId: z.string(),
-  deliveryType: z.nativeEnum(DeliveryTypeEnum),
+  deliveryType: z.nativeEnum(DELIVERY_TYPE),
   // settlementRef: z.string().optional().nullable(),
   // postOffice: z.string().optional().nullable(),
   // storeId: z.string().optional().nullable(),

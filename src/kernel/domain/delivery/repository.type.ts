@@ -7,6 +7,7 @@ import {
   DeliveryUpdateDTO,
 } from "./delivery.dto";
 import { DeliveryEntity } from "./delivery.type";
+import { DeliveryRelationEntity } from "@/entities/delivery/_domain/delivery.types";
 
 export abstract class IDeliveryRepository {
   abstract get(dto: DeliveryGetDTO, db?: Tx): Promise<DeliveryEntity>;
@@ -15,6 +16,11 @@ export abstract class IDeliveryRepository {
     dto: DeliveryGetByOrderDTO,
     db?: Tx,
   ): Promise<DeliveryEntity>;
+
+  abstract getWithRelationsByOrder<T>(
+    dto: DeliveryGetByOrderDTO,
+    db?: Tx,
+  ): Promise<T>;
 
   abstract getList(db?: Tx): Promise<DeliveryEntity[]>;
 

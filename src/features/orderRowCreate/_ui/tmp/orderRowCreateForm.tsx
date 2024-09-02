@@ -12,13 +12,13 @@ import {
 import { cn } from "@/shared/ui/utils";
 import { FC, HTMLAttributes } from "react";
 import { useForm } from "react-hook-form";
-import { OrderRowCreateValues } from "../../_domain/form.schema";
+import { OrderRowCreateFormValues } from "../../_domain/form.schema";
 
 interface OrderRowCreateFormProps extends HTMLAttributes<HTMLDivElement> {
   orderProductGroup: ProductToSelectGroup;
   searchValue: string;
   isPending: boolean;
-  handleSubmit: (data: OrderRowCreateValues) => void;
+  handleSubmit: (data: OrderRowCreateFormValues) => void;
   toSearch: (q: string) => void;
 }
 
@@ -32,7 +32,7 @@ export const OrderRowCreateForm: FC<OrderRowCreateFormProps> = (props) => {
     isPending,
   } = props;
 
-  const form = useForm<OrderRowCreateValues>();
+  const form = useForm<OrderRowCreateFormValues>();
 
   return (
     <div className={cn(className, "w-full")}>

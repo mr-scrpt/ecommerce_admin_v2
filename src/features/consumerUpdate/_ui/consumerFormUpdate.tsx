@@ -8,6 +8,7 @@ import {
   consumerUpdateFormSchema,
 } from "../_domain/form.schema";
 import { useConsumerUpdateModel } from "../_vm/useConsumerUpdate.model";
+import { useConsumerDefaultValues } from "../_vm/useConsumerDefaultValues.model";
 
 interface ConsumerFormProps extends HTMLAttributes<HTMLDivElement> {
   consumerId: string;
@@ -21,21 +22,13 @@ export const ConsumerFormUpdate: FC<ConsumerFormProps> = (props) => {
 
   const { isAppearancePending, isFetchedAfterMount, consumer } =
     useGetConsumerModel(consumerId);
-  console.log("output_log: CONSUMER =>>>", consumer);
 
   const router = useRouter();
 
   const { consumerUpdate, isPending: isPendingUpdate } =
     useConsumerUpdateModel();
 
-  const defaultValues: ConsumerUpdateFormValues = useMemo(() => {
-    return {
-      name: consumer?.name ?? "",
-      lastName: consumer?.lastName ?? "",
-      email: consumer?.email ?? "",
-      phone: consumer?.phone ?? "",
-    };
-  }, [consumer]);
+  const defaultValues = useConsumerDefaultValues(consumer);
 
   const isPendingComplexible =
     isPendingUpdate || isAppearancePending || !isFetchedAfterMount;

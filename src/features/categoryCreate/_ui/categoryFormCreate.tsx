@@ -10,13 +10,13 @@ import {
 } from "../_domain/form.schema";
 import { useCategoryCreateModel } from "../_vm/useCategoryCreate.model";
 
-interface CategoryCreateFormProps extends HTMLAttributes<HTMLDivElement> {
+interface CategoryFormCreateProps extends HTMLAttributes<HTMLDivElement> {
   callbackUrl?: string;
   className?: string;
   onSuccess?: () => void;
 }
 
-export const CategoryFormCreate: FC<CategoryCreateFormProps> = (props) => {
+export const CategoryFormCreate: FC<CategoryFormCreateProps> = (props) => {
   const { callbackUrl, className, onSuccess } = props;
 
   const router = useRouter();

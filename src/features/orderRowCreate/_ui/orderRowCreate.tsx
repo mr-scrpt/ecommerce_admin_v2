@@ -2,9 +2,9 @@
 import { cn } from "@/shared/ui/utils";
 import { FC, HTMLAttributes } from "react";
 import { useOrderRowCreateMutation } from "../_mutation/useOrderRowCreate.mutation";
-import { useOrderProductListToSelectModel } from "../_vm/useOrderProductList.model";
+import { useOrderProductListToSelectModel } from "../_vm/__useOrderProductList.model";
 import { OrderRowCreateForm } from "./tmp/orderRowCreateForm";
-import { OrderRowCreateValues } from "../_domain/form.schema";
+import { OrderRowCreateFormValues } from "../_domain/form.schema";
 
 interface OrderRowCreateProps extends HTMLAttributes<HTMLDivElement> {
   orderId: string;
@@ -13,12 +13,12 @@ interface OrderRowCreateProps extends HTMLAttributes<HTMLDivElement> {
 
 export const OrderRowCreate: FC<OrderRowCreateProps> = (props) => {
   const { className, orderId } = props;
-  const { orderRowAdd, isPending: isPendingUpdate } =
+  const { orderRowCreate: orderRowAdd, isPending: isPendingUpdate } =
     useOrderRowCreateMutation();
 
-  const handleSubmit = async (data: OrderRowCreateValues) => {
+  const handleSubmit = async (data: OrderRowCreateFormValues) => {
     await orderRowAdd({
-      target: {
+      select: {
         orderId,
       },
       orderRowData: {

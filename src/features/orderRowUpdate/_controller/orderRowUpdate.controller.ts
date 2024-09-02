@@ -11,7 +11,7 @@ import { OrderRowUpdateService } from "../_service/orderRowUpdate.service";
 
 @injectable()
 export class OrderRowUpdateController extends Controller {
-  constructor(private readonly updateOrderService: OrderRowUpdateService) {
+  constructor(private readonly updateOrderRowService: OrderRowUpdateService) {
     super();
   }
 
@@ -23,7 +23,7 @@ export class OrderRowUpdateController extends Controller {
       })
         .input(updateInputSchema)
         .mutation(async ({ input }) => {
-          const result = await this.updateOrderService.execute(input);
+          const result = await this.updateOrderRowService.execute(input);
 
           return orderSchema.parse(result);
         }),

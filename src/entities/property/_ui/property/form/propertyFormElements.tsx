@@ -1,5 +1,4 @@
 "use client";
-import { DataTypeDefaultOption } from "@/entities/property/_vm/useSelectDataType";
 import { ButtonSubmitComponentType } from "@/shared/type/button";
 import { Button } from "@/shared/ui/button";
 import {
@@ -26,9 +25,10 @@ import {
   PropertyFormDefaultValues,
   propertyFormDefaultSchema,
 } from "../../../_domain/property/form.schema";
-import { PropertyDataTypeSelectElement } from "./elements/propertyDataTypeElement";
+import { PropertyDataTypeSelectElement } from "./elements/propertySelectDataTypeElement";
 import { PropertyMultiSelectElement } from "./elements/propertyMultiSelectElement";
 import { PropertySelectElement } from "./elements/propertySelectElement";
+import { DataTypeDefaultOption } from "@/kernel/domain/property/ui.type";
 
 interface PropertyFormElementsProps<T extends PropertyFormDefaultValues>
   extends HTMLAttributes<HTMLFormElement> {
@@ -57,7 +57,7 @@ type PropertyFormElementsType = PropertyFormElementsComponent &
 
 const standartFieldsValues: PropertyFormDefaultValues = {
   name: "",
-  datatype: [DataTypeDefaultOption],
+  datatypeList: [DataTypeDefaultOption],
   propertyList: [],
 };
 
@@ -90,10 +90,6 @@ export const PropertyFormElements: PropertyFormElementsType = <
     onSubmit?.(data);
   });
 
-  console.log("output_log:  =>>> form values", form.getValues());
-  console.log("output_log: form errors =>>>", form.formState.errors);
-  console.log("output_log: form state =>>>", form.formState);
-
   return (
     <FormProvider {...form}>
       <Form {...form}>
@@ -116,6 +112,7 @@ PropertyFormElements.FieldName = function FieldName() {
         render={({ field }) => (
           <FormItem>
             <FormLabel>Property name</FormLabel>
+            {/* TODO: Create external filed component */}
             <FormControl>
               <Input placeholder="Enter property name..." {...field} />
             </FormControl>
@@ -132,7 +129,7 @@ PropertyFormElements.FieldDataType = function FieldDataType() {
   return (
     <FormField
       control={control}
-      name="datatype"
+      name="datatypeList"
       render={({ field }) => (
         <FormItem>
           <FormLabel>Data type</FormLabel>

@@ -7,6 +7,7 @@ import {
   IOrderRowRepository,
 } from "@/kernel/domain/order/repository.type";
 import { OrderEntity } from "@/kernel/domain/order/order.type";
+import { OrderRowRelation } from "@/entities/order/_domain/orderRow/orderRow.types";
 
 @injectable()
 export class OrderRowRemoveTx extends Transaction implements IOrderRowRemoveTx {
@@ -23,13 +24,12 @@ export class OrderRowRemoveTx extends Transaction implements IOrderRowRemoveTx {
       const { selector } = dto;
       const { orderId } = await this.orderRowRepo.remove({ selector }, tx);
 
-      const orderRowList = await this.orderRowRepo.getListByOrder(
-        { orderId },
-        tx,
-      );
+      const orderRowList = await this.orderRowRepo.getListWithRelationByOrder<
+        Array<OrderRowRelation>
+      >({ orderId }, tx);
 
       const priceTotal = orderRowList.reduce(
-        (acc, row) => acc + row.price * row.quantity,
+        (acc, row) => acc + row.product.price * row.quantity,
         0,
       );
 

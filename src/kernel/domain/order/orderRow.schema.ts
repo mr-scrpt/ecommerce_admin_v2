@@ -4,12 +4,12 @@ import { z } from "zod";
 export const orderRowBaseSchema = z.object({
   orderId: z.string(),
   productId: z.string(),
-  productName: z.string(),
-  productArticle: z.string(),
-  productImg: z.string(),
+  // productName: z.string(),
+  // productArticle: z.string(),
+  // productImg: z.string(),
 
-  quantity: z.number(),
-  price: z.number(),
+  quantity: z.coerce.number(),
+  priceFixed: z.number(),
 });
 
 // NOTE: Projections

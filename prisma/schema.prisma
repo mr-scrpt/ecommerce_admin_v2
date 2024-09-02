@@ -76,6 +76,7 @@ model Product {
   categoryList   Category[]   @relation("ProductToCategory")
   propertyItemListSelected PropertyItem[] @relation("PropertyItemToProduct")
   cartRowList  CartRow[]
+  orderRowList  OrderRow[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -165,14 +166,14 @@ model OrderRow {
   order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
   orderId   String
 
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId String
-  productName  String
-  productImg  String
 
-  productArticle  String
+  priceFixed  Float
+
+
   quantity  Int
 
-  price     Float
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

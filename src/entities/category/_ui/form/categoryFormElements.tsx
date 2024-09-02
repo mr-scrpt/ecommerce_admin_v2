@@ -151,7 +151,7 @@ CategoryFormElements.FieldCategorySelect = function FieldCategorySelect() {
           <FormItem>
             <FormLabel>Category select</FormLabel>
             <CategorySelectElement
-              categoryActive={field.value![0]}
+              categoryActive={field.value?.[0]}
               onSelectCategory={field.onChange}
             />
           </FormItem>

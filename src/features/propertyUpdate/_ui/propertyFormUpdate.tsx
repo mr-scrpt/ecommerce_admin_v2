@@ -15,6 +15,7 @@ import {
   propertyUpdateFormSchema,
 } from "../_domain/form.schema";
 import { usePropertyUpdateMutation } from "../_mutation/usePropertyUpdate.mutation";
+import { usePropertyDefaultValues } from "../_vm/usePropertyDefaultValues.model";
 
 interface PropertyFormProps extends HTMLAttributes<HTMLDivElement> {
   propertyId: string;
@@ -38,13 +39,15 @@ export const PropertyFormUpdate: FC<PropertyFormProps> = (props) => {
     isFetchedAfterMount: isFetchedAfterMountPropertyItem,
   } = usePropertyItemListByPropertyQuery(propertyId);
 
-  console.log("output_log: propertyItemList =>>>", propertyItemList);
   const router = useRouter();
 
   const { propertyUpdate, isPending: isPendingUpdate } =
     usePropertyUpdateMutation();
 
-  const { toOptionList } = useOptionListTransform();
+  const defaultValues = usePropertyDefaultValues({
+    property,
+    propertyList: propertyItemList,
+  });
 
   const isPendingComplexible =
     isPendingUpdate ||
@@ -61,19 +64,8 @@ export const PropertyFormUpdate: FC<PropertyFormProps> = (props) => {
     return <div>Failed to load property, you may not have permissions</div>;
   }
 
-  const defaultValues: PropertyUpdateFormValues = {
-    name: property?.name,
-    datatype: [{ label: property?.datatype, value: property?.datatype }],
-    propertyItemList: propertyItemList.map((item) => ({
-      value: item.value,
-      label: item.name,
-      id: item.id,
-    })),
-  };
-
   const handleSubmit = async (data: PropertyUpdateFormValues) => {
-    console.log("output_log: form data =>>>", data);
-    const { name, datatype, propertyItemList } = data;
+    const { name, datatypeList: datatype, propertyItemList } = data;
     await propertyUpdate({
       selector: { id: property.id },
       propertyData: {
@@ -90,9 +82,9 @@ export const PropertyFormUpdate: FC<PropertyFormProps> = (props) => {
 
     onSuccess?.();
 
-    // if (callbackUrl) {
-    //   router.push(callbackUrl);
-    // }
+    if (callbackUrl) {
+      router.push(callbackUrl);
+    }
   };
   return (
     <div className={cn(className, "w-full")}>

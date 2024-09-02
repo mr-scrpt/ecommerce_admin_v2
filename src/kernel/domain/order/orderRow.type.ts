@@ -3,12 +3,9 @@ export type OrderRowBase = {
   orderId: string;
 
   productId: string;
-  productName: string;
-  productArticle: string;
-  productImg: string;
 
   quantity: number;
-  price: number;
+  priceFixed: number;
 };
 
 // NOTE: Entity

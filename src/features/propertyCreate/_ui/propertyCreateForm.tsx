@@ -41,7 +41,7 @@ export const PropertyFormCreate: FC<PropertyCreateFormProps> = (props) => {
   }, []);
 
   const handleSubmit = async (data: PropertyCreateFormValues) => {
-    const { name, datatype, propertyItemList } = data;
+    const { name, datatypeList: datatype, propertyItemList } = data;
     await propertyCreate({
       propertyData: {
         name,

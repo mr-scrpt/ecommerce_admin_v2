@@ -41,16 +41,35 @@ export class OrderRowRepository implements IOrderRowRepository {
     return result;
   }
 
+  async getListWithRelationByOrder<T>(
+    dto: OrderRowListGetByOrderDTO,
+    db: Tx = this.db,
+  ): Promise<T> {
+    const result = (await db?.orderRow.findMany({
+      where: dto,
+      include: { product: true },
+    })) as unknown as T;
+    return result;
+  }
+
+  async getWithRelation<T>(dto: OrderRowGetDTO, db: Tx = this.db): Promise<T> {
+    const result = (await db.orderRow.findUniqueOrThrow({
+      where: dto,
+      include: { product: true },
+    })) as unknown as T;
+    return result;
+  }
+
   async create(
     dto: OrderRowCreateDTO,
     db: Tx = this.db,
   ): Promise<OrderRowEntity> {
-    const { data, target } = dto;
+    const { data, selector } = dto;
 
     const result = await db.orderRow.create({
       data: {
         ...data,
-        orderId: target.orderId,
+        orderId: selector.orderId,
       },
     });
     return result;

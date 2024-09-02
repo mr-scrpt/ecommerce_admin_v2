@@ -2,7 +2,7 @@ import { usePostOfficeAvailableBySettlementRefModel } from "@/entities/post";
 import { useSettlementCourierAvailableByRefModel } from "@/entities/settlement";
 import { useStoreAvailableBySettlementRefModel } from "@/entities/store";
 import { DeliveryTypeFieldList } from "@/features/deliveryUpdate/_vm/deliveryTypeFieldList";
-import { DeliveryTypeEnum } from "@/kernel/domain/delivery/delivery.type";
+import { DELIVERY_TYPE } from "@/kernel/domain/delivery/delivery.type";
 import { RadioGroup } from "@/shared/ui/radio-group";
 import { FC, HTMLAttributes } from "react";
 import { DeliveryCourierField } from "./deliveryCourierField";
@@ -35,30 +35,30 @@ export const DeliveryTypeField: FC<DeliveryTypeRadioProps> = (props) => {
       className="flex flex-col space-y-1"
     >
       {Object.entries(DeliveryTypeFieldList).map(([key, row]) => {
-        if (key === DeliveryTypeEnum.POST && isPostAvailable) {
+        if (key === DELIVERY_TYPE.POST && isPostAvailable) {
           return (
             <DeliveryPostSelect
               key={key}
               delivery={row}
-              selected={deliveryType === DeliveryTypeEnum.POST}
+              selected={deliveryType === DELIVERY_TYPE.POST}
             />
           );
         }
-        if (key === DeliveryTypeEnum.PICKUP && isStoreAvailable) {
+        if (key === DELIVERY_TYPE.PICKUP && isStoreAvailable) {
           return (
             <DeliveryStoreField
               key={key}
               delivery={row}
-              selected={deliveryType === DeliveryTypeEnum.PICKUP}
+              selected={deliveryType === DELIVERY_TYPE.PICKUP}
             />
           );
         }
-        if (key === DeliveryTypeEnum.COURIER && isCourierAvailable) {
+        if (key === DELIVERY_TYPE.COURIER && isCourierAvailable) {
           return (
             <DeliveryCourierField
               key={key}
               delivery={row}
-              selected={deliveryType === DeliveryTypeEnum.COURIER}
+              selected={deliveryType === DELIVERY_TYPE.COURIER}
             />
           );
         }

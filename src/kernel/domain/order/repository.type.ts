@@ -40,6 +40,8 @@ export abstract class IOrderRepository {
 export abstract class IOrderRowRepository {
   abstract get(dto: OrderRowGetDTO, db?: Tx): Promise<OrderRowEntity>;
 
+  abstract getWithRelation<T>(dto: OrderRowGetDTO, db?: Tx): Promise<T>;
+
   abstract getByOrderProduct(
     dto: OrderRowGetByOrderProductDTO,
     db?: Tx,
@@ -49,6 +51,11 @@ export abstract class IOrderRowRepository {
     dto: OrderRowListGetByOrderDTO,
     db?: Tx,
   ): Promise<OrderRowEntity[]>;
+
+  abstract getListWithRelationByOrder<T>(
+    dto: OrderRowListGetByOrderDTO,
+    db?: Tx,
+  ): Promise<T>;
 
   abstract create(dto: OrderRowCreateDTO, db?: Tx): Promise<OrderRowEntity>;
 

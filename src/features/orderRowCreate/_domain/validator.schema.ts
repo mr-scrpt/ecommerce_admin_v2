@@ -1,7 +1,7 @@
 import { z } from "zod";
-import { orderRowCreateSchema, orderRowTargetSchema } from "./schema";
+import { orderRowCreateSchema, orderRowSelectorSchema } from "./schema";
 
 export const createInputSchema = z.object({
-  target: orderRowTargetSchema,
+  selector: orderRowSelectorSchema,
   orderRowData: orderRowCreateSchema,
 });

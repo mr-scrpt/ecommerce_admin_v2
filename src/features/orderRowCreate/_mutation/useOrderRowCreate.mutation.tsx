@@ -3,7 +3,7 @@ import { useEmitOrderRowAdd } from "../_vm/event/useEmitOrderRowAdd";
 
 export const useOrderRowCreateMutation = () => {
   const { orderRowAddEvent } = useEmitOrderRowAdd();
-  //
+
   const { isPending, isSuccess, mutateAsync } =
     orderRowCreateApi.orderRowCreate.create.useMutation({
       onSuccess: async ({ id }) => {
@@ -11,7 +11,7 @@ export const useOrderRowCreateMutation = () => {
       },
     });
   return {
-    orderRowAdd: mutateAsync,
+    orderRowCreate: mutateAsync,
     isPending,
     isSuccess,
   };

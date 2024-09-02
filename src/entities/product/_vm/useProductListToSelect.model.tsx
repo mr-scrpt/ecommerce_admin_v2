@@ -1,15 +1,18 @@
+import { useOptionListTransform } from "@/shared/lib/map";
 import { useProductListQuery } from "../_query/productList.query";
 
 export const useProductListToSelectModel = () => {
-  const { product, isPending } = useProductListQuery();
+  const { productList, isPending, isSuccess, isFetchedAfterMount } =
+    useProductListQuery();
 
-  const productList = product?.map((item) => ({
-    label: item.name,
-    value: item.id,
-  }));
+  const { toOptionList } = useOptionListTransform();
+
+  const productListToSelect = toOptionList(productList);
 
   return {
-    productList,
+    productListToSelect,
     isPending,
+    isSuccess,
+    isFetchedAfterMount,
   };
 };

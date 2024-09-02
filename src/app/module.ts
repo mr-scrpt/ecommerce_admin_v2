@@ -4,7 +4,7 @@ import { CartModule } from "@/entities/cart/module";
 import { CategoryModule } from "@/entities/category/module";
 import { ConsumerModule } from "@/entities/consumer/module";
 import { DeliveryModule } from "@/entities/delivery/module";
-import { OrderModule } from "@/entities/order/module";
+import { OrderModule, OrderRowModule } from "@/entities/order/module";
 import { PostModule } from "@/entities/post/module";
 import { ProductModule } from "@/entities/product/module";
 import { ProfileModule } from "@/entities/profile/module";
@@ -21,7 +21,7 @@ import { CategoryUpdateModule } from "@/features/categoryUpdate/module";
 import { OrderDeliveryUpdateModule } from "@/features/deliveryUpdate/module";
 import { OrderCreateModule } from "@/features/orderCreate/module";
 
-import { OrderRowCreateModule } from "@/features/orderRowCreate/module";
+// import { OrderRowCreateModule } from "@/features/__orderRowCreate/module";
 import { OrderRowRemoveModule } from "@/features/orderRowRemove/module";
 import { OrderRowUpdateModule } from "@/features/orderRowUpdate/module";
 
@@ -55,6 +55,7 @@ import { TrpcModule } from "@/kernel/lib/trpc/module";
 import { HttpClientModule } from "@/shared/api/module";
 import { DbModule } from "@/shared/lib/db/module";
 import { Container } from "inversify";
+import { OrderRowCreateModule } from "@/features/orderRowCreate/module";
 
 export const loadModule = () => {
   const container = new Container();
@@ -94,10 +95,13 @@ export const loadModule = () => {
     OrderCreateModule,
     OrderUpdateModule,
 
+    OrderRowModule,
+    OrderRowCreateModule,
+
     OrderDeliveryUpdateModule,
 
     OrderRowUpdateModule,
-    OrderRowCreateModule,
+    // OrderRowCreateModule,
     OrderRowRemoveModule,
 
     CategoryModule,

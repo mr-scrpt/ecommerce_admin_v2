@@ -20,11 +20,11 @@ import { cn } from "@/shared/ui/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, HTMLAttributes, useEffect } from "react";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
-import { OrderStatusGroup } from "../../_domain/order.types";
+import { OrderStatusGroup } from "../../_domain/order/order.types";
 import {
   OrderStatusFormValues,
   orderStatusFormSchema,
-} from "../../_domain/form.schema";
+} from "../../_domain/order/form.schema";
 import {
   OrderPaymentStatusEnum,
   OrderStatusEnum,

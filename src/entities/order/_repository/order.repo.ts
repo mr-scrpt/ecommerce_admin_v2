@@ -26,11 +26,12 @@ export class OrderRepository implements IOrderRepository {
     const result = await db.order.findUniqueOrThrow({
       where: dto,
       include: {
-        orderRowList: {
-          orderBy: {
-            productName: SORTING_ORDER_DEFAULT,
-          },
-        },
+        orderRowList: true,
+        // orderRowList: {
+        //   orderBy: {
+        //     productName: SORTING_ORDER_DEFAULT,
+        //   },
+        // },
         // delivery: true,
         delivery: {
           include: {

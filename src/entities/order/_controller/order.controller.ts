@@ -4,12 +4,12 @@ import {
   getByOwnerInputSchema,
   getInputSchema,
   getListOutputSchema,
-} from "../_domain/validator.schema";
-import { orderRelationSchema } from "../_domain/order.schema";
-import { OrderGetService } from "../_service/orderGet.service";
-import { OrderRelationGetService } from "../_service/orderRelationGet.service";
-import { OrderListGetService } from "../_service/orderListGet.service";
-import { OrderListGetByOwnerService } from "../_service/orderListGetByOwner.service";
+} from "../_domain/order/validator.schema";
+import { orderRelationSchema } from "../_domain/order/order.schema";
+import { OrderGetService } from "../_service/order/orderGet.service";
+import { OrderRelationGetService } from "../_service/order/orderRelationGet.service";
+import { OrderListGetService } from "../_service/order/orderListGet.service";
+import { OrderListGetByOwnerService } from "../_service/order/orderListGetByOwner.service";
 import { orderSchema } from "@/kernel/domain/order/order.schema";
 
 @injectable()
@@ -32,20 +32,12 @@ export class OrderController extends Controller {
       getRelation: publicProcedure
         .input(getInputSchema)
         .query(async ({ input }) => {
-          console.log("output_log:  =>>>", input);
           const result = await this.getOrderRelationService.execute(input);
           return orderRelationSchema.parse(result);
         }),
 
-      // getByOrder: publicProcedure
-      //   .input(getByOrderInputSchema)
-      //   .query(async ({ input }) => {
-      //     const result = await this.getOrderByOrderService.execute(input);
-      //     return orderSchema.parse(result);
-      //   }),
       getList: publicProcedure.query(async () => {
         const result = await this.getOrderListService.execute();
-        console.log("output_log:  =>>>", result);
         return getListOutputSchema.parse(result);
       }),
 

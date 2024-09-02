@@ -1,6 +1,6 @@
 import { ORDER_PRICE_TOTAL_DEFAULT } from "@/entities/order";
 import { IOrderGenerateNumberService } from "@/entities/order/server";
-import { DeliveryTypeEnum } from "@/kernel/domain/delivery/delivery.type";
+import { DELIVERY_TYPE } from "@/kernel/domain/delivery/delivery.type";
 import {
   Order,
   OrderPaymentStatusEnum,
@@ -39,7 +39,7 @@ export class OrderEmptyCreateService {
       },
       deliveryData: {
         userId: payload.orderData.userId,
-        deliveryType: DeliveryTypeEnum.POST,
+        deliveryType: DELIVERY_TYPE.POST,
         settlementRef: null,
         postOffice: null,
         addressId: null,

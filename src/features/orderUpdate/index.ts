@@ -1,1 +1,1 @@
-export { OrderStatusUpdate } from "./_ui/orderStatusUpdate";
+export { OrderUpdateLayout } from "./_ui/orderUpdateLayout";

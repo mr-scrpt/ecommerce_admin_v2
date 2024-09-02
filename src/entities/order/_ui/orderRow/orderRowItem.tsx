@@ -1,35 +1,35 @@
-import { OrderRow } from "@/kernel/domain/order/orderRow.type";
 import Image from "next/image";
 import { FC, HTMLAttributes } from "react";
+import { OrderRowRelation } from "../../_domain/orderRow/orderRow.types";
 
 interface OrderRowItemProps extends HTMLAttributes<HTMLDivElement> {
-  orderRow: OrderRow;
+  orderRow: OrderRowRelation;
   slotFirst: React.ReactNode;
   slotSecond: React.ReactNode;
 }
 
 export const OrderRowItem: FC<OrderRowItemProps> = (props) => {
   const { orderRow, slotFirst, slotSecond } = props;
-  const { productName, productArticle, productImg, price } = orderRow;
+  const { product } = orderRow;
+  if (!product) {
+    return null;
+  }
+  const { name, article, img, price } = product;
+  const [firstImg] = img;
   return (
     <div key={orderRow.id} className="flex w-full flex-row border p-2">
       <div className="flex w-full flex-row">
         <div className="flex w-1/5 min-w-[180px] flex-col gap-2 border p-2">
           <div className="flex w-full justify-center">
-            <div className="text-center">{productName}</div>
+            <div className="text-center">{name}</div>
           </div>
           <div className="flex w-full justify-center">
             <div className="text-center text-sm text-gray-400">
-              Article: #{productArticle}
+              Article: #{article}
             </div>
           </div>
           <div className="flex w-full justify-center">
-            <Image
-              src={productImg}
-              alt={productName}
-              width={120}
-              height={120}
-            />
+            <Image src={firstImg} alt={name} width={120} height={120} />
           </div>
           <div className="flex w-full justify-center">Price: {price}</div>
         </div>

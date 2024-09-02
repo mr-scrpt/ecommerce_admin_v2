@@ -13,7 +13,7 @@ export const useDeliveryByOrderIdQuery = (orderId: string) => {
     isPending,
     isSuccess,
     isFetchedAfterMount,
-    delivery: data,
+    delivery: data ?? null,
   };
 };
 
@@ -21,7 +21,6 @@ export const useInvalidateDeliveryByOrderId = () => {
   const invalidateDelivery = deliveryApi.useUtils().delivery.invalidate;
 
   return (orderId: string) => {
-    console.log("output_log: in invalidate function 888884444 =>>>", orderId);
     invalidateDelivery();
   };
 };

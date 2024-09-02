@@ -14,6 +14,7 @@ import {
   categoryUpdateFormSchema,
 } from "../_domain/form.schema";
 import { useCategoryUpdateMutation } from "../_mutation/useCategoryUpdate.mutation";
+import { useCategoryDefaultValues } from "../_vm/useCategoryDefaultValues.model";
 
 interface CategoryFormProps extends HTMLAttributes<HTMLDivElement> {
   categoryId: string;
@@ -42,15 +43,10 @@ export const CategoryFormUpdate: FC<CategoryFormProps> = (props) => {
   const { categoryUpdate, isPending: isPendingUpdate } =
     useCategoryUpdateMutation();
 
-  const { toOptionList } = useOptionListTransform();
-
-  const defaultValues: CategoryUpdateFormValues = useMemo(() => {
-    return {
-      name: category?.name ?? "",
-      board: category?.board ?? [],
-      propertyList: toOptionList(propertyList ?? []),
-    };
-  }, [category, propertyList, toOptionList]);
+  const defaultValues = useCategoryDefaultValues({
+    category,
+    propertyList,
+  });
 
   const isPendingComplexible =
     isPendingCategory ||

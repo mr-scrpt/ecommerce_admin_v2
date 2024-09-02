@@ -23,6 +23,7 @@ export class OrderRowCreateController extends Controller {
       })
         .input(createInputSchema)
         .mutation(async ({ input }) => {
+          console.log("Order row create", input);
           const result = await this.createOrederRowService.execute(input);
           return orderSchema.parse(result);
         }),

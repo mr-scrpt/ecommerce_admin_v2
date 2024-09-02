@@ -1,3 +1,5 @@
+export { ProductFormElements } from "./_ui/form/productFormElements";
+
 export { useProductQuery } from "./_query/product.query";
 export { useProductListQuery } from "./_query/productList.query";
 export { useProductListSearchQuery } from "./_query/productListSearch.query";

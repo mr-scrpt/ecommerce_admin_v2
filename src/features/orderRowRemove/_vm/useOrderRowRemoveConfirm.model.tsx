@@ -7,6 +7,7 @@ export const useOrderRowRemoveConfirmModel = () => {
   const { orderRowRemove, isPending, isSuccess } = useOrderRowRowMutation();
 
   const removeOrderConfirm = async (orderRowId: string) => {
+    console.log("output_log: ORDER REMOVE =>>>", orderRowId);
     const confirmation = await getConfirmation({
       description:
         "Do you really want to remove a order row? This action cannot be canceled",

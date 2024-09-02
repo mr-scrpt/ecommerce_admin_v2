@@ -2,7 +2,7 @@
 import { StoreToSelect } from "@/entities/store";
 // import { DeliveryTypeEnum } from "../_domain/delivery.types";
 // import { PostOfficeToSelect } from "../_domain/postOffice.type";
-import { DeliveryTypeEnum } from "@/kernel/domain/delivery/delivery.type";
+import { DELIVERY_TYPE } from "@/kernel/domain/delivery/delivery.type";
 import { ReactNode } from "react";
 import { DeliveryUpdateFormElements } from "../_ui/form/elements/deliveryUpdateFormElements";
 
@@ -13,38 +13,38 @@ export type PostOfficeToSelect = {
   type: string;
   label: string;
 };
-type DeliveryTypeKeys = keyof typeof DeliveryTypeEnum;
+type DeliveryTypeKeys = keyof typeof DELIVERY_TYPE;
 
 // Тип для объекта selectDeliveryType, где ключи - это значения из DeliveryTypeEnum
 type SelectDeliveryType = {
   [key in DeliveryTypeKeys]: {
     value: string;
-    type: DeliveryTypeEnum;
+    type: DELIVERY_TYPE;
     formElement: Array<(...args: any[]) => JSX.Element>;
   };
 };
 
 // Объект selectDeliveryType с типизацией на основе DeliveryTypeEnum
 export const DeliveryTypeFieldList: SelectDeliveryType = {
-  [DeliveryTypeEnum.PICKUP]: {
+  [DELIVERY_TYPE.PICKUP]: {
     value: "Pickup",
-    type: DeliveryTypeEnum.PICKUP,
+    type: DELIVERY_TYPE.PICKUP,
     formElement: [
       () => {
         return <DeliveryUpdateFormElements.FieldStoreSelect key="store" />;
       },
     ],
   },
-  [DeliveryTypeEnum.POST]: {
+  [DELIVERY_TYPE.POST]: {
     value: "Post",
-    type: DeliveryTypeEnum.POST,
+    type: DELIVERY_TYPE.POST,
     formElement: [
       () => <DeliveryUpdateFormElements.FieldPostSelect key="post" />,
     ],
   },
-  [DeliveryTypeEnum.COURIER]: {
+  [DELIVERY_TYPE.COURIER]: {
     value: "Courier",
-    type: DeliveryTypeEnum.COURIER,
+    type: DELIVERY_TYPE.COURIER,
     formElement: [
       () => <DeliveryUpdateFormElements.FieldAddress key="address" />,
       // () => <DeliveryUpdateFormElements.FieldStreet key="street" />,
@@ -55,8 +55,8 @@ export const DeliveryTypeFieldList: SelectDeliveryType = {
 };
 
 export type PickupType =
-  (typeof DeliveryTypeFieldList)[typeof DeliveryTypeEnum.PICKUP];
+  (typeof DeliveryTypeFieldList)[typeof DELIVERY_TYPE.PICKUP];
 export type PostType =
-  (typeof DeliveryTypeFieldList)[typeof DeliveryTypeEnum.POST];
+  (typeof DeliveryTypeFieldList)[typeof DELIVERY_TYPE.POST];
 export type CourierType =
-  (typeof DeliveryTypeFieldList)[typeof DeliveryTypeEnum.COURIER];
+  (typeof DeliveryTypeFieldList)[typeof DELIVERY_TYPE.COURIER];

@@ -13,7 +13,7 @@ export const usePropertyQuery = (id: string) => {
     isPending,
     isSuccess,
     isFetchedAfterMount,
-    property: data,
+    property: data ?? null,
   };
 };
 

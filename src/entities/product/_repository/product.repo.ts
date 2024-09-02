@@ -1,5 +1,3 @@
-import { DBClient, Tx } from "@/shared/lib/db/db";
-import { injectable } from "inversify";
 import {
   ProductBindCategoryListListDTO,
   ProductBindPropertyListDTO,
@@ -12,9 +10,10 @@ import {
   ProductTotalPriceGetDTO,
   ProductUpdateDTO,
 } from "@/kernel/domain/product/product.dto";
-import { ProductRelationEntity } from "../_domain/product.types";
-import { IProductRepository } from "@/kernel/domain/product/repository.type";
 import { ProductEntity } from "@/kernel/domain/product/product.type";
+import { IProductRepository } from "@/kernel/domain/product/repository.type";
+import { DBClient, Tx } from "@/shared/lib/db/db";
+import { injectable } from "inversify";
 
 @injectable()
 export class ProductRepository implements IProductRepository {

@@ -3,7 +3,7 @@ import { IDeliveryUpdateTx } from "../_domain/transaction.type";
 import { DeliveryUpdateTxPayload } from "../_domain/types";
 import {
   Delivery,
-  DeliveryTypeEnum,
+  DELIVERY_TYPE,
 } from "@/kernel/domain/delivery/delivery.type";
 
 const ALWAYS_KEEP_FIELDS = [
@@ -13,10 +13,10 @@ const ALWAYS_KEEP_FIELDS = [
   "receiverId",
 ];
 
-const DELIVERY_TYPE_FIELDS: Record<DeliveryTypeEnum, string[]> = {
-  [DeliveryTypeEnum.PICKUP]: ["storeId"],
-  [DeliveryTypeEnum.POST]: ["postOffice"],
-  [DeliveryTypeEnum.COURIER]: ["addressId"],
+const DELIVERY_TYPE_FIELDS: Record<DELIVERY_TYPE, string[]> = {
+  [DELIVERY_TYPE.PICKUP]: ["storeId"],
+  [DELIVERY_TYPE.POST]: ["postOffice"],
+  [DELIVERY_TYPE.COURIER]: ["addressId"],
 };
 
 @injectable()
@@ -45,7 +45,7 @@ export class DeliveryUpdateService {
     const result = { ...obj };
     const fieldsToKeep = [
       ...ALWAYS_KEEP_FIELDS,
-      ...(DELIVERY_TYPE_FIELDS[obj.deliveryType as DeliveryTypeEnum] || []),
+      ...(DELIVERY_TYPE_FIELDS[obj.deliveryType as DELIVERY_TYPE] || []),
     ];
 
     for (const key in result) {

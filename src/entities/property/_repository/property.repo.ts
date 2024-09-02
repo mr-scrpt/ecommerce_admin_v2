@@ -1,5 +1,3 @@
-import { DBClient, Tx } from "@/shared/lib/db/db";
-import { injectable } from "inversify";
 import {
   PropertyCreateDTO,
   PropertyGetByCategoryDTO,
@@ -8,9 +6,10 @@ import {
   PropertyRemoveDTO,
   PropertyUpdateDTO,
 } from "@/kernel/domain/property/property.dto";
-import { IPropertyRepository } from "@/kernel/domain/property/repository.type";
-import { PropertyRelationEntity } from "../_domain/property/property.types";
 import { PropertyEntity } from "@/kernel/domain/property/property.type";
+import { IPropertyRepository } from "@/kernel/domain/property/repository.type";
+import { DBClient, Tx } from "@/shared/lib/db/db";
+import { injectable } from "inversify";
 
 @injectable()
 export class PropertyRepository implements IPropertyRepository {

@@ -22,9 +22,9 @@ export class OrderRowCreateTx extends Transaction implements IOrderRowCreateTx {
 
   async create(dto: OrderRowCreateTxDTO): Promise<OrderEntity> {
     const action = async (tx: Tx) => {
-      const { orderRowData, target } = dto;
+      const { orderRowData, selector } = dto;
       const { productId, quantity } = orderRowData;
-      const { orderId } = target;
+      const { orderId } = selector;
 
       const orderRow = await this.orderRowRepo.getByOrderProduct({
         orderId,
@@ -43,14 +43,15 @@ export class OrderRowCreateTx extends Transaction implements IOrderRowCreateTx {
 
       await this.orderRowRepo.create(
         {
-          target,
+          selector,
           data: {
             ...orderRowData,
             productId,
-            productName: name,
-            price: price,
-            productArticle: article,
-            productImg: img[0],
+            priceFixed: price,
+            // productName: name,
+            // price: price,
+            // productArticle: article,
+            // productImg: img[0],
           },
         },
         tx,

@@ -1,12 +1,12 @@
-import { DELIVERY_TYPE as DeliveryTypeEnum } from "@prisma/client";
-export { DeliveryTypeEnum };
+import { DELIVERY_TYPE } from "@prisma/client";
+export { DELIVERY_TYPE };
 
 // NOTE: Base
 export type DeliveryBase = {
   orderId: string;
   userId: string;
   receiverId: string;
-  deliveryType: DeliveryTypeEnum;
+  deliveryType: DELIVERY_TYPE;
   settlementRef: string | null;
 
   postOffice: string | null;

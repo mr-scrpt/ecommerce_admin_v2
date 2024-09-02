@@ -21,15 +21,10 @@ export type OrderRowListGetByOrderDTO = {
 // NOTE: Mutations
 type OrderRowCreate = Pick<
   OrderRowBase,
-  | "productId"
-  | "quantity"
-  | "productImg"
-  | "productName"
-  | "productArticle"
-  | "price"
+  "productId" | "priceFixed" | "quantity"
 >;
 export type OrderRowCreateDTO = {
-  target: {
+  selector: {
     orderId: string;
   };
   data: OrderRowCreate;

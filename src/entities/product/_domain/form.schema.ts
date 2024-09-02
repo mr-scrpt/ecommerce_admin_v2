@@ -1,7 +1,8 @@
+import { selectItemSchema } from "@/shared/type/select";
 import { z } from "zod";
 
 // NOTE: Form
-export const productFormSchema = z.object({
+export const productFormDefaultSchema = z.object({
   name: z
     .string()
     .min(3)
@@ -14,15 +15,19 @@ export const productFormSchema = z.object({
   description: z.string(),
   about: z.string(),
 
-  img: z.array(z.string()),
+  imgList: z.array(z.string()),
 
-  categoryList: z.array(
-    z.object({
-      id: z.string(),
-      name: z.string(),
-    }),
-  ),
-  propertyList: z.object({}),
+  // categoryList: z.array(
+  //   z.object({
+  //     id: z.string(),
+  //     name: z.string(),
+  //   }),
+  // ),
+  // propertyList: z.object({}),
+  product: selectItemSchema(z.string()).optional(),
+  productList: z.array(selectItemSchema(z.string())).optional(),
 });
 
-export type ProductFormValues = z.infer<typeof productFormSchema>;
+export type ProductFormDefaultValues<
+  T extends z.ZodTypeAny = typeof productFormDefaultSchema,
+> = z.infer<T>;

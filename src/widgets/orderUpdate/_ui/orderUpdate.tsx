@@ -1,10 +1,9 @@
 "use client";
 import { RoutePathEnum } from "@/shared/config/routing.config";
 import { FC, HTMLAttributes } from "react";
-import { OrderConsumerItem } from "./orderConsumerItem";
+import { OrderUpdateDeliveryItem } from "./delivery/orderUpdateDeliveryItem";
+import { OrderUpdateProductItem } from "./products/orderUpdateProductItem";
 import { OrderDeliveryItem } from "./orderDeliveryItem";
-import { OrderGeneralItem } from "./orderGeneralItem";
-import { OrderUpdateLayout } from "./orderUpdateLayout";
 
 interface OrderUpdateProps extends HTMLAttributes<HTMLDivElement> {
   callbackUrl: RoutePathEnum;
@@ -13,12 +12,13 @@ interface OrderUpdateProps extends HTMLAttributes<HTMLDivElement> {
 
 export const OrderUpdate: FC<OrderUpdateProps> = (props) => {
   const { callbackUrl, orderId } = props;
-
   return (
-    <OrderUpdateLayout
-      slotGeneral={<OrderGeneralItem orderId={orderId} />}
-      slotDelivery={<OrderDeliveryItem orderId={orderId} />}
-      slotConsumer={<OrderConsumerItem orderId={orderId} />}
-    />
+    <>
+      {/* <OrderDeliveryItem orderId={orderId} /> */}
+
+      <OrderUpdateDeliveryItem orderId={orderId} />
+      {/* <OrderDeliveryItem orderId={orderId} /> */}
+      {/* <OrderUpdateProductItem orderId={orderId} /> */}
+    </>
   );
 };

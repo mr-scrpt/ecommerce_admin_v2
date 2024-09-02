@@ -1,11 +1,11 @@
 "use client";
+import { OrderRow } from "@/kernel/domain/order/orderRow.type";
 import { cn } from "@/shared/ui/utils";
 import { ComponentType, FC, HTMLAttributes } from "react";
-import { useOrderWithRelationQuery } from "../../_query/orderWithRelation.query";
+import { useOrderRowListByOrderModel } from "../../_vm/orderRow/useOrderRowListByOrder.model";
 import { OrderRowItem } from "./orderRowItem";
-import { OrderRow } from "@/kernel/domain/order/orderRow.type";
 
-interface OrderRowListProps extends HTMLAttributes<HTMLDivElement> {
+export interface OrderRowListProps extends HTMLAttributes<HTMLDivElement> {
   orderId: string;
   SlotFirst?: ComponentType<{ orderRow: OrderRow }>;
   SlotSecond?: ComponentType<{ orderRow: OrderRow }>;
@@ -13,11 +13,11 @@ interface OrderRowListProps extends HTMLAttributes<HTMLDivElement> {
 
 export const OrderRowList: FC<OrderRowListProps> = (props) => {
   const { orderId, SlotFirst, SlotSecond, className } = props;
-  const { order, isPending, isSuccess } = useOrderWithRelationQuery(orderId);
+  const { orderRowList } = useOrderRowListByOrderModel(orderId);
 
   return (
     <div className={cn("flex w-full flex-col gap-4", className)}>
-      {order?.orderRowList.map((orderRow) => (
+      {orderRowList.map((orderRow) => (
         <OrderRowItem
           orderRow={orderRow}
           key={orderRow.id}

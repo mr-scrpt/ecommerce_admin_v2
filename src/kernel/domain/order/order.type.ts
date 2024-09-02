@@ -3,6 +3,7 @@ import {
   ORDER_PAYMENT_STATUS as OrderPaymentStatusEnum,
   ORDER_STATUS as OrderStatusEnum,
 } from "@prisma/client";
+
 import { OrderRow, OrderRowEntity } from "./orderRow.type";
 
 export { OrderDBType, OrderPaymentStatusEnum, OrderStatusEnum };
@@ -35,6 +36,7 @@ export type Order = OrderBase & {
   updatedAt: Date;
 };
 
+// TODO: Strange type - check property and property item exemple
 export type OrderComposite = Order & {
   orderRowList: Array<OrderRow>;
 };

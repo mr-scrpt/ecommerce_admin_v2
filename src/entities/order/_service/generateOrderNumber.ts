@@ -1,5 +1,5 @@
 import { injectable } from "inversify";
-import { IOrderGenerateNumberService } from "../_domain/service.type";
+import { IOrderGenerateNumberService } from "../_domain/order/service.type";
 
 @injectable()
 export class OrderGenerateNumberService implements IOrderGenerateNumberService {

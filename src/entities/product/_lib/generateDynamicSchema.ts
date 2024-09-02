@@ -1,7 +1,7 @@
 import { ProductPropertyToSelect } from "../_domain/product.types";
 import { z } from "zod";
 import { PropertyDataTypeEnum } from "@/kernel/domain/property/property.type";
-import { productFormSchema } from "../_domain/form.schema";
+import { productFormDefaultSchema } from "../_domain/form.schema";
 
 // const dynamicOptionSchema: Record<string, z.ZodType<any, any>> = {};
 
@@ -28,7 +28,7 @@ export const generateProductFormSchema = (
 ) => {
   const dynamicOptionSchema = generateDynamicSchema(propertySelectOptionList);
 
-  return productFormSchema.extend({
+  return productFormDefaultSchema.extend({
     propertyList: z.object(dynamicOptionSchema),
   });
 };

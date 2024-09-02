@@ -1,14 +1,14 @@
 import { DBClient, Transaction, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
-import { IOrderStatusUpdateTx } from "../_domain/transaction.type";
-import { OrderStatusUpdateTxDTO } from "../_domain/types";
+import { IOrderUpdateTx } from "../_domain/transaction.type";
+import { OrderUpdateTxDTO } from "../_domain/types";
 import { IOrderRepository } from "@/kernel/domain/order/repository.type";
 import { OrderEntity } from "@/kernel/domain/order/order.type";
 
 @injectable()
 export class OrderStatusUpdateTx
   extends Transaction
-  implements IOrderStatusUpdateTx
+  implements IOrderUpdateTx
 {
   constructor(
     readonly db: DBClient,
@@ -17,7 +17,7 @@ export class OrderStatusUpdateTx
     super(db);
   }
 
-  async update(dto: OrderStatusUpdateTxDTO): Promise<OrderEntity> {
+  async update(dto: OrderUpdateTxDTO): Promise<OrderEntity> {
     const action = async (tx: Tx) => {
       const { selector, orderStatusData, orderPaymentStatusData } = dto;
 

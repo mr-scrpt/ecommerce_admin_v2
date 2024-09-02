@@ -9,6 +9,7 @@ import {
 } from "@/kernel/domain/delivery/delivery.dto";
 import { IDeliveryRepository } from "@/kernel/domain/delivery/repository.type";
 import { DeliveryEntity } from "@/kernel/domain/delivery/delivery.type";
+import { DeliveryRelationEntity } from "../_domain/delivery.types";
 
 @injectable()
 export class DeliveryRepository implements IDeliveryRepository {
@@ -28,8 +29,24 @@ export class DeliveryRepository implements IDeliveryRepository {
   ): Promise<DeliveryEntity> {
     const result = await db.delivery.findUniqueOrThrow({
       where: dto,
+      include: {
+        settlement: true,
+      },
     });
     return result;
+  }
+
+  async getWithRelationsByOrder<T>(
+    dto: DeliveryGetByOrderDTO,
+    db: Tx = this.db,
+  ): Promise<T> {
+    const result = await db.delivery.findUniqueOrThrow({
+      where: dto,
+      include: {
+        settlement: true,
+      },
+    });
+    return result as unknown as T;
   }
 
   async getList(db: Tx = this.db): Promise<DeliveryEntity[]> {

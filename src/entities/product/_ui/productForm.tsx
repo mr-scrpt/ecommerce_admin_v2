@@ -26,7 +26,7 @@ import { generateProductFormSchema } from "../_lib/generateDynamicSchema";
 import { propertyToFlatList } from "../_lib/propertyToFlatList";
 import { renderFormField } from "./fromField/renderFormField";
 import { ImgField as ImgFieldComponent } from "./imgField";
-import { ProductFormValues } from "../_domain/form.schema";
+import { ProductFormDefaultValues } from "../_domain/form.schema";
 import { SelectOptionItem } from "@/shared/type/select";
 
 interface ProductFormProps extends HTMLAttributes<HTMLFormElement> {
@@ -105,7 +105,7 @@ export const ProductForm: ProductFormType = (props) => {
       inStock: +data.inStock,
       description: data.description,
       about: data.about,
-      img: data.img,
+      img: data.imgList,
       categoryList: data.categoryList,
       propertyItemListSelected,
     });
@@ -139,7 +139,8 @@ ProductForm.CategoryListField = function CategoryListField({
   categotySelectOptionListActive,
   handleCategorySelectOption,
 }: PropertyFieldCategoryListProps) {
-  const { control, setValue, resetField } = useFormContext<ProductFormValues>();
+  const { control, setValue, resetField } =
+    useFormContext<ProductFormDefaultValues>();
 
   const handleSelectCat = useCallback(
     (value: SelectOptionItem[]) => {
@@ -224,7 +225,7 @@ ProductForm.PropertyField = function PropertyField({
 };
 
 ProductForm.NameField = function NameField() {
-  const { control } = useFormContext<ProductFormValues>();
+  const { control } = useFormContext<ProductFormDefaultValues>();
 
   return (
     <FormField
@@ -244,7 +245,7 @@ ProductForm.NameField = function NameField() {
 };
 
 ProductForm.ArticleField = function ArticleField() {
-  const { control } = useFormContext<ProductFormValues>();
+  const { control } = useFormContext<ProductFormDefaultValues>();
   return (
     <FormField
       control={control}
@@ -263,7 +264,7 @@ ProductForm.ArticleField = function ArticleField() {
 };
 
 ProductForm.PriceField = function PriceField() {
-  const { control } = useFormContext<ProductFormValues>();
+  const { control } = useFormContext<ProductFormDefaultValues>();
   return (
     <FormField
       control={control}
@@ -286,7 +287,7 @@ ProductForm.PriceField = function PriceField() {
 };
 
 ProductForm.InStockField = function InStockField() {
-  const { control } = useFormContext<ProductFormValues>();
+  const { control } = useFormContext<ProductFormDefaultValues>();
   return (
     <FormField
       control={control}
@@ -309,7 +310,7 @@ ProductForm.InStockField = function InStockField() {
 };
 
 ProductForm.DescriptionField = function DescriptionField() {
-  const { control } = useFormContext<ProductFormValues>();
+  const { control } = useFormContext<ProductFormDefaultValues>();
   return (
     <FormField
       control={control}
@@ -328,7 +329,7 @@ ProductForm.DescriptionField = function DescriptionField() {
 };
 
 ProductForm.AboutField = function AboutField() {
-  const { control } = useFormContext<ProductFormValues>();
+  const { control } = useFormContext<ProductFormDefaultValues>();
   return (
     <FormField
       control={control}
@@ -347,16 +348,17 @@ ProductForm.AboutField = function AboutField() {
 };
 
 ProductForm.ImgField = function ImgField() {
-  const { control, getValues, setValue } = useFormContext<ProductFormValues>();
+  const { control, getValues, setValue } =
+    useFormContext<ProductFormDefaultValues>();
   const handleDeleteImg = (path: string) => {
-    const list = getValues("img");
+    const list = getValues("imgList");
     const result = list.filter((item) => item !== path);
-    setValue("img", result);
+    setValue("imgList", result);
   };
   return (
     <FormField
       control={control}
-      name="img"
+      name="imgList"
       render={({ field }) => (
         <FormItem>
           <FormLabel>Avatar</FormLabel>

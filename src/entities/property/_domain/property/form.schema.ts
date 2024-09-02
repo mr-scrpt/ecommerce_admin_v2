@@ -10,7 +10,7 @@ export const propertyFormDefaultSchema = z.object({
       message: "Username must not be longer than 30 characters.",
     })
     .transform((name) => name.trim()),
-  datatype: z.array(selectItemSchema(z.nativeEnum(PropertyDataTypeEnum))),
+  datatypeList: z.array(selectItemSchema(z.nativeEnum(PropertyDataTypeEnum))),
   propertyList: z.array(selectItemSchema(z.string())).optional(),
 });
 
