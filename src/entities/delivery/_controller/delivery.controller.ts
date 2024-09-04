@@ -54,7 +54,7 @@ export class DeliveryController extends Controller {
         const result = await this.getDeliveryTypeListService.execute();
         return getTypeListOutputSchema.parse(result);
       }),
-      getTypeAvailabelList: publicProcedure
+      getTypeAvailableList: publicProcedure
         .input(getTypeInputSchema)
         .query(async ({ input }) => {
           const result =

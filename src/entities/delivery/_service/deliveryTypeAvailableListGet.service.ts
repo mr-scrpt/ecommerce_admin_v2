@@ -1,10 +1,10 @@
-import { DELIVERY_TYPE } from "@/kernel/domain/delivery/delivery.type";
+import { IDeliveryTypeRepository } from "@/kernel/domain/delivery/repository.type";
 import { ISettlementRepository } from "@/kernel/domain/settlement/repository.type";
 import { IStoreRepository } from "@/kernel/domain/store/repository.type";
+import { DeliveryType } from "@prisma/client";
 import { injectable } from "inversify";
 import { deliveryMapToSettlement } from "../_domain/delivery.map";
 import { DeliveryTypeListGetBySettlementRefSelector } from "../_domain/delivery.types";
-import { IDeliveryTypeRepository } from "@/kernel/domain/delivery/repository.type";
 
 @injectable()
 export class DeliveryTypeAvailableListGetService {
@@ -15,16 +15,20 @@ export class DeliveryTypeAvailableListGetService {
   ) {}
 
   async execute(
-    selector: DeliveryTypeListGetBySettlementRefSelector,
-  ): Promise<any> {
-    DELIVERY_TYPE;
-
+    selector?: DeliveryTypeListGetBySettlementRefSelector,
+  ): Promise<Array<DeliveryType>> {
     const deliveryTypeList = await this.deliveryTypeRepo.getList();
 
-    const settlement = await this.settlementRepo.getByRef(selector);
+    if (!selector) {
+      return deliveryTypeList;
+    }
+    const { settlementRef } = selector;
 
-    const storeList =
-      await this.storeRepo.getListBySettlementRefWithRelation(selector);
+    const settlement = await this.settlementRepo.getByRef({ settlementRef });
+
+    const storeList = await this.storeRepo.getListBySettlementRefWithRelation({
+      settlementRef,
+    });
 
     const settlementWithStoreList = deliveryMapToSettlement({
       deliveryTypeList,
@@ -34,7 +38,6 @@ export class DeliveryTypeAvailableListGetService {
       },
     });
 
-    console.log("output_log: AVAILABLE =>>>", settlementWithStoreList);
     return settlementWithStoreList;
   }
 }

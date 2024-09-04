@@ -12,7 +12,7 @@ export const deliveryMapToSettlement = ({
   };
 }) => {
   const deliveryTypeChecks = {
-    [DELIVERY_TYPE.POST]: () => !!settlement.warehouse,
+    [DELIVERY_TYPE.POST]: () => !!+settlement.warehouse,
     [DELIVERY_TYPE.PICKUP]: () =>
       settlement.storeList && settlement.storeList.length > 0,
     [DELIVERY_TYPE.COURIER]: () => !!settlement.radiusHomeDelivery,

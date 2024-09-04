@@ -7,9 +7,11 @@ export const getInputSchema = z.object({
   id: z.string(),
 });
 
-export const getTypeInputSchema = z.object({
-  settlementRef: z.string(),
-});
+export const getTypeInputSchema = z
+  .object({
+    settlementRef: z.string(),
+  })
+  .optional();
 
 export const getByOrderInputSchema = z.object({
   orderId: z.string(),
