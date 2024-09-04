@@ -6,12 +6,14 @@ import {
   getInputSchema,
   getListOutputSchema,
   getTypeInputSchema,
+  getTypeListOutputSchema,
   getWithRelationOutputSchema,
 } from "../_domain/validator.schema";
 import { DeliveryGetService } from "../_service/deliveryGet.service";
 import { DeliveryGetByOrderService } from "../_service/deliveryGetByOrder.service";
 import { DeliveryListGetService } from "../_service/deliveryListGet.service";
 import { DeliveryTypeListGetService } from "../_service/deliveryTypeListGet.service";
+import { DeliveryTypeAvailableListGetService } from "../_service/deliveryTypeAvailableListGet.service";
 
 @injectable()
 export class DeliveryController extends Controller {
@@ -20,6 +22,7 @@ export class DeliveryController extends Controller {
     private readonly getDeliveryByOrderService: DeliveryGetByOrderService,
     private readonly getDeliveryListService: DeliveryListGetService,
     private readonly getDeliveryTypeListService: DeliveryTypeListGetService,
+    private readonly getDeliveryTypeAvailableListService: DeliveryTypeAvailableListGetService,
   ) {
     super();
   }
@@ -47,11 +50,16 @@ export class DeliveryController extends Controller {
         const result = await this.getDeliveryListService.execute();
         return getListOutputSchema.parse(result);
       }),
-      getTypeList: publicProcedure
+      getTypeList: publicProcedure.query(async () => {
+        const result = await this.getDeliveryTypeListService.execute();
+        return getTypeListOutputSchema.parse(result);
+      }),
+      getTypeAvailabelList: publicProcedure
         .input(getTypeInputSchema)
         .query(async ({ input }) => {
-          const result = await this.getDeliveryTypeListService.execute(input);
-          return getListOutputSchema.parse(result);
+          const result =
+            await this.getDeliveryTypeAvailableListService.execute(input);
+          return getTypeListOutputSchema.parse(result);
         }),
     },
   });

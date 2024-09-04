@@ -6,7 +6,8 @@ export type DeliveryBase = {
   orderId: string;
   userId: string;
   receiverId: string;
-  deliveryType: DELIVERY_TYPE;
+  deliveryTypeId: string;
+  // deliveryType: DELIVERY_TYPE;
   settlementRef: string | null;
 
   postOffice: string | null;

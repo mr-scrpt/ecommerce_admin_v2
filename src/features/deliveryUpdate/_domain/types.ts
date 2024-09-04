@@ -1,7 +1,7 @@
 import { DeliveryUpdateDTO } from "@/kernel/domain/delivery/delivery.dto";
-import { DeliveryBase } from "@/kernel/domain/delivery/delivery.type";
+import { DeliveryTypeBase } from "@/kernel/domain/delivery/delivery.type";
 
-type DeliveryUpdatePayload = Partial<DeliveryBase>;
+type DeliveryUpdatePayload = Partial<DeliveryTypeBase>;
 
 export type DeliveryUpdateTxPayload = {
   selector: DeliveryUpdateSelector;

@@ -7,7 +7,7 @@ import {
   DeliveryUpdateDTO,
 } from "./delivery.dto";
 import { DeliveryEntity } from "./delivery.type";
-import { DeliveryRelationEntity } from "@/entities/delivery/_domain/delivery.types";
+import { DeliveryTypeEntity } from "./deliveryType.type";
 
 export abstract class IDeliveryRepository {
   abstract get(dto: DeliveryGetDTO, db?: Tx): Promise<DeliveryEntity>;
@@ -32,4 +32,9 @@ export abstract class IDeliveryRepository {
     dto: DeliveryBindToOrderDTO,
     db?: Tx,
   ): Promise<DeliveryEntity>;
+}
+
+export abstract class IDeliveryTypeRepository {
+  abstract getList(db?: Tx): Promise<DeliveryTypeEntity[]>;
+  // abstract getAvailableList(db?: Tx): Promise<DeliveryTypeEntity[]>;
 }

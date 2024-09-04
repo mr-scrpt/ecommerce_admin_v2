@@ -23,6 +23,7 @@ export class SettlementRepository implements ISettlementRepository {
     });
     return res;
   }
+
   async searchByRef(
     dto: SettlementSearchByRefDTO,
     db: Tx = this.db,

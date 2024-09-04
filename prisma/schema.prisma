@@ -214,7 +214,8 @@ model Delivery {
   receiver      Receiver @relation(fields: [receiverId], references: [id])
   receiverId    String
 
-  deliveryType DELIVERY_TYPE
+  deliveryType DeliveryType @relation(fields: [deliveryTypeId], references: [id], onDelete: Cascade)
+  deliveryTypeId String
 
   settlement    Settlement? @relation(fields: [settlementRef], references: [ref], onDelete: Cascade)
   settlementRef String?
@@ -228,6 +229,14 @@ model Delivery {
   addressId String?
 
 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model DeliveryType {
+  id       String   @id @default(uuid())
+  type     DELIVERY_TYPE @unique
+  delivery Delivery[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

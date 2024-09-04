@@ -16,6 +16,7 @@ import { deliveryListSeed } from "./data/delivery";
 import { settlementListSeed } from "./data/settlement";
 import { storeListSeed } from "./data/store";
 import { addressListSeed } from "./data/address";
+import { deliveryTypeListSeed } from "./data/deliveryType";
 
 const prisma = new PrismaClient();
 
@@ -91,13 +92,18 @@ async function main() {
     } catch (error) {
       console.log("output_log: order error =>>>", error);
     }
-    // await prisma.order.create({ data: order });
-    // console.log("order created", order);
+  }
+
+  for await (const deliveryType of deliveryTypeListSeed) {
+    try {
+      await prisma.deliveryType.create({ data: deliveryType });
+      console.log("delivery created", deliveryType);
+    } catch (error) {
+      console.log("output_log: delivery error =>>>", error);
+    }
   }
 
   for await (const delivery of deliveryListSeed) {
-    // await prisma.delivery.create({ data: delivery });
-    // console.log("delivery created", delivery);
     try {
       await prisma.delivery.create({ data: delivery });
       console.log("delivery created", delivery);
