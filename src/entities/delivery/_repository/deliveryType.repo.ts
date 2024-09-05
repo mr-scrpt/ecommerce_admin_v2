@@ -8,9 +8,7 @@ export class DeliveryTypeRepository implements IDeliveryTypeRepository {
   constructor(readonly db: DBClient) {}
 
   async getList(db: Tx = this.db): Promise<DeliveryTypeEntity[]> {
-    console.log("output_log:  =>>> in repo");
     const deliveryList = await db.deliveryType.findMany();
-    console.log("output_log:  =>>>", deliveryList);
     return deliveryList;
   }
 }

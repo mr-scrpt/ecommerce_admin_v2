@@ -19,8 +19,8 @@ export const useDeliveryDefaultValues = (props: DeliveryDefaultValueProps) => {
     const { settlement } = delivery || {};
     return {
       deliveryType: {
-        label: delivery.deliveryType,
-        value: delivery.deliveryType,
+        label: delivery.deliveryType.type,
+        value: delivery.deliveryType.type,
       },
       settlement: {
         // label: delivery.settlement.description,

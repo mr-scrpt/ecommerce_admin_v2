@@ -44,6 +44,7 @@ export class DeliveryRepository implements IDeliveryRepository {
       where: dto,
       include: {
         settlement: true,
+        deliveryType: true,
       },
     });
     return result as unknown as T;

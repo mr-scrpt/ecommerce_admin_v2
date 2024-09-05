@@ -14,12 +14,14 @@ import { DeliveryGetByOrderService } from "../_service/deliveryGetByOrder.servic
 import { DeliveryListGetService } from "../_service/deliveryListGet.service";
 import { DeliveryTypeListGetService } from "../_service/deliveryTypeListGet.service";
 import { DeliveryTypeAvailableListGetService } from "../_service/deliveryTypeAvailableListGet.service";
+import { DeliveryWithRelationGetByOrderService } from "../_service/deliveryGetWithRelationByOrder.service";
 
 @injectable()
 export class DeliveryController extends Controller {
   constructor(
     private readonly getDeliveryService: DeliveryGetService,
     private readonly getDeliveryByOrderService: DeliveryGetByOrderService,
+    private readonly getDeliveryWithRelationByOrderService: DeliveryWithRelationGetByOrderService,
     private readonly getDeliveryListService: DeliveryListGetService,
     private readonly getDeliveryTypeListService: DeliveryTypeListGetService,
     private readonly getDeliveryTypeAvailableListService: DeliveryTypeAvailableListGetService,
@@ -43,7 +45,9 @@ export class DeliveryController extends Controller {
       getWithRelationByOrder: publicProcedure
         .input(getByOrderInputSchema)
         .query(async ({ input }) => {
-          const result = await this.getDeliveryByOrderService.execute(input);
+          const result =
+            await this.getDeliveryWithRelationByOrderService.execute(input);
+          console.log("output_log: ___RESULT =>>>", result);
           return getWithRelationOutputSchema.parse(result);
         }),
       getList: publicProcedure.query(async () => {
@@ -59,6 +63,7 @@ export class DeliveryController extends Controller {
         .query(async ({ input }) => {
           const result =
             await this.getDeliveryTypeAvailableListService.execute(input);
+          console.log("output_log: RESULT =>>>", result);
           return getTypeListOutputSchema.parse(result);
         }),
     },

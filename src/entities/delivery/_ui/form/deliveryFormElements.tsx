@@ -1,5 +1,6 @@
 "use client";
 import { DeliveryTypeDefaultOption } from "@/kernel/domain/delivery/ui.type";
+import { SelectSettlemtnOptionItem } from "@/kernel/domain/settlement/settlement.schema";
 import { ButtonSubmitComponentType } from "@/shared/type/button";
 import { Button } from "@/shared/ui/button";
 import { FormField, FormItem, FormLabel } from "@/shared/ui/form";
@@ -11,6 +12,7 @@ import {
   FormProvider,
   useForm,
   useFormContext,
+  useWatch,
 } from "react-hook-form";
 import { ZodTypeAny } from "zod";
 import {
@@ -73,7 +75,6 @@ export const DeliveryFormElements: DeliveryFormElementsType = <
   const handleSubmit = form.handleSubmit(async (data: T) => {
     onSubmit?.(data);
   });
-  console.log("output_log: form state =>>>", form.getValues());
 
   return (
     <FormProvider {...form}>
@@ -85,8 +86,11 @@ export const DeliveryFormElements: DeliveryFormElementsType = <
 };
 
 DeliveryFormElements.FieldDeliveryTypeSelect = function FieldDeliverySelect() {
-  const { control, getFieldState } =
-    useFormContext<DeliveryFormDefaultValues>();
+  const { control, getFieldState } = useFormContext<
+    DeliveryFormDefaultValues & { settlement: SelectSettlemtnOptionItem }
+  >();
+
+  const settlement = useWatch({ name: "settlement" });
 
   if (!getFieldState("deliveryType")) return null;
 
@@ -101,6 +105,7 @@ DeliveryFormElements.FieldDeliveryTypeSelect = function FieldDeliverySelect() {
             <DeliveryTypeSelectElement
               deliveryActive={field.value}
               onSelectDelivery={field.onChange}
+              settlementRef={settlement?.value}
             />
           </FormItem>
         );

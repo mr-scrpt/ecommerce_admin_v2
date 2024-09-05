@@ -1,13 +1,16 @@
 import { Delivery } from "@/kernel/domain/delivery/delivery.type";
+import { DeliveryType } from "@/kernel/domain/delivery/deliveryType.type";
 import { Settlement } from "@/kernel/domain/settlement/settlement.type";
 
 // NOTE: Relations
 export type DeliveryRelation = Delivery & {
   settlement: Settlement;
+  deliveryType: DeliveryType;
 };
 
 export type DeliveryRelationEntity = Delivery & {
   settlement: Settlement;
+  deliveryType: DeliveryType;
 };
 // NOTE: Selector
 export type DeliveryGetSelector = {
@@ -19,5 +22,5 @@ export type DeliveryGetByOrderSelector = {
 };
 
 export type DeliveryTypeListGetBySettlementRefSelector = {
-  settlementRef: string;
+  settlementRef?: string;
 };

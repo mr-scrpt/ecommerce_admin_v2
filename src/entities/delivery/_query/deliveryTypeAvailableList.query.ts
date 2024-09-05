@@ -3,8 +3,15 @@ import { DeliveryType } from "@/kernel/domain/delivery/deliveryType.type";
 import { deliveryApi } from "../_api/delivery.api";
 import { useListenDeliveryListUpdate } from "../_vm/event/useListenDeliveryListUpdate";
 
-export const useDeliveryTypeAvailableListQuery = (settlementRef?: string) => {
-  const { isPending, isSuccess, isFetchedAfterMount, data } =
+// type UseDeliveryTypeAvailableListQueryParams = {
+//   settlementRef: string;
+// };
+
+export const useDeliveryTypeAvailableListQuery = (
+  // params: UseDeliveryTypeAvailableListQueryParams | undefined,
+  settlementRef?: string,
+) => {
+  const { isPending, isSuccess, isFetchedAfterMount, data, error } =
     deliveryApi.delivery.getTypeAvailableList.useQuery<Array<DeliveryType>>({
       settlementRef,
     });
@@ -15,7 +22,7 @@ export const useDeliveryTypeAvailableListQuery = (settlementRef?: string) => {
     isPending,
     isSuccess,
     isFetchedAfterMount,
-    deliveryList: data ? data : [],
+    deliveryTypeAvailablList: data ? data : [],
   };
 };
 
@@ -23,12 +30,7 @@ export const useInvalidateDeliveryList = () => {
   const invalidateDelivery = deliveryApi.useUtils().delivery.getList.invalidate;
   return () => invalidateDelivery();
 };
-interface QueryResult<T> {
-  isPending: boolean;
-  isSuccess: boolean;
-  isFetchedAfterMount: boolean;
-  data?: T;
-}
+
 //
 // type DeliveryQueryFunction = () => QueryResult<Array<DeliveryType>>;
 //

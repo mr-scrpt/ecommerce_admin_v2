@@ -1,17 +1,20 @@
-import { DELIVERY_TYPE_LIST } from "@/kernel/domain/delivery/ui.type";
 import { SelectOptionItem } from "@/shared/type/select";
 import { useMemo } from "react";
+import { useDeliveryTypeAvailableListQuery } from "../_query/deliveryTypeAvailableList.query";
 
-export const useDeliveryTypeListToSelectModel = () => {
-  // const deliveryTypeListToSelect: Array<SelectOptionItem> = useMemo(
-  //   () =>
-  //     DELIVERY_TYPE_LIST.map((item) => ({
-  //       value: item.type,
-  //       label: item.value,
-  //     })),
-  //   [],
-  // );
+export const useDeliveryTypeListToSelectModel = (settlementRef?: string) => {
+  const { deliveryTypeAvailablList } =
+    useDeliveryTypeAvailableListQuery(settlementRef);
+
+  const deliveryTypeAvailableListToSelect: Array<SelectOptionItem> = useMemo(
+    () =>
+      deliveryTypeAvailablList.map((item) => ({
+        value: item.type,
+        label: item.type,
+      })),
+    [deliveryTypeAvailablList],
+  );
   return {
-    deliveryTypeListToSelect,
+    deliveryTypeAvailableListToSelect,
   };
 };

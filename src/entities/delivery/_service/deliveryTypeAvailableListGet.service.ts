@@ -15,11 +15,11 @@ export class DeliveryTypeAvailableListGetService {
   ) {}
 
   async execute(
-    selector?: DeliveryTypeListGetBySettlementRefSelector,
+    selector: DeliveryTypeListGetBySettlementRefSelector,
   ): Promise<Array<DeliveryType>> {
     const deliveryTypeList = await this.deliveryTypeRepo.getList();
 
-    if (!selector) {
+    if (!selector.settlementRef) {
       return deliveryTypeList;
     }
     const { settlementRef } = selector;

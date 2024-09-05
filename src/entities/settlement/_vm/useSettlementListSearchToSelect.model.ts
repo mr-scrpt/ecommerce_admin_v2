@@ -2,7 +2,7 @@ import { inputDebounce } from "@/shared/lib/debounce";
 import { useAppearanceDelay } from "@/shared/lib/react";
 import { useMemo } from "react";
 import { SettleToSelect } from "../_domain/ui.type";
-import { useSettlementAvailableListSearchToSelectQuery } from "../_query/getSettlementAvailableListSearch.query";
+import { useSettlemenListSearchToSelectQuery } from "../_query/getSettlementListSearch.query";
 
 export const useSettlementListSearchToSelectModel = (
   settlementDefault: string = "",
@@ -14,7 +14,7 @@ export const useSettlementListSearchToSelectModel = (
     isPending,
     isSuccess,
     isFetchedAfterMount,
-  } = useSettlementAvailableListSearchToSelectQuery(settlementDefault);
+  } = useSettlemenListSearchToSelectQuery(settlementDefault);
 
   const settlementListToSelect = useMemo(
     () =>

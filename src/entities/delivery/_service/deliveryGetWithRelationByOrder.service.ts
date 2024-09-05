@@ -7,7 +7,7 @@ import {
 } from "../_domain/delivery.types";
 
 @injectable()
-export class DeliveryGetWithRelationByOrderService {
+export class DeliveryWithRelationGetByOrderService {
   constructor(private readonly deliveryRepo: IDeliveryRepository) {}
 
   async execute(
