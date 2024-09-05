@@ -13,6 +13,7 @@ import { ZodTypeAny } from "zod";
 import {
   ProductFormDefaultValues,
   productFormDefaultSchema,
+  defaultFieldsValues,
 } from "../../_domain/form.schema";
 import { ProductAboutElement } from "./elements/productAboutElement";
 import { ProductArticleElement } from "./elements/productArticleElement";
@@ -58,23 +59,11 @@ type ProductFormFields = {
 
 type ProductFormElementsType = ProductFormElementsComponent & ProductFormFields;
 
-const standartFieldsValues: ProductFormDefaultValues = {
-  name: "",
-  article: "",
-  price: 0,
-  inStock: 0,
-  description: "",
-  about: "",
-  imgList: [],
-  product: { label: "", value: "" },
-  productList: [],
-};
-
 const getDefaultFormValues = <T extends ProductFormDefaultValues>(
   defaultValues?: DefaultValues<T> | undefined,
 ): DefaultValues<T> => {
   return {
-    ...standartFieldsValues,
+    ...defaultFieldsValues,
     ...defaultValues,
   } as DefaultValues<T>;
 };
@@ -103,6 +92,7 @@ export const ProductFormElements: ProductFormElementsType = <
     <FormProvider {...form}>
       <form onSubmit={handleSubmit} className="space-y-8">
         {children}
+        <FormMessage />
       </form>
     </FormProvider>
   );
@@ -119,7 +109,7 @@ ProductFormElements.FieldName = function FieldName() {
         <FormItem>
           <FormLabel>Product list</FormLabel>
           <ProductNameElement value={field.value} onChange={field.onChange} />
-          <FormMessage />
+          {/* <FormMessage /> */}
         </FormItem>
       )}
     />
@@ -140,7 +130,7 @@ ProductFormElements.FieldArticle = function FieldArticle() {
             value={field.value}
             onChange={field.onChange}
           />
-          <FormMessage />
+          {/* <FormMessage /> */}
         </FormItem>
       )}
     />
@@ -158,7 +148,7 @@ ProductFormElements.FieldPrice = function FieldPrice() {
         <FormItem>
           <FormLabel>Price</FormLabel>
           <ProductPriceElement value={field.value} onChange={field.onChange} />
-          <FormMessage />
+          {/* <FormMessage /> */}
         </FormItem>
       )}
     />
@@ -179,7 +169,7 @@ ProductFormElements.FieldInStock = function FieldInStock() {
             value={field.value}
             onChange={field.onChange}
           />
-          <FormMessage />
+          {/* <FormMessage /> */}
         </FormItem>
       )}
     />
@@ -200,7 +190,7 @@ ProductFormElements.FieldDescription = function FieldDescription() {
             value={field.value}
             onChange={field.onChange}
           />
-          <FormMessage />
+          {/* <FormMessage /> */}
         </FormItem>
       )}
     />
@@ -218,7 +208,7 @@ ProductFormElements.FieldAbout = function FieldAbout() {
         <FormItem>
           <FormLabel>About</FormLabel>
           <ProductAboutElement value={field.value} onChange={field.onChange} />
-          <FormMessage />
+          {/* <FormMessage /> */}
         </FormItem>
       )}
     />
@@ -246,7 +236,7 @@ ProductFormElements.FieldImgList = function FieldImgList() {
             onChange={field.onChange}
             // onRemove={field.onRemove}
           />
-          <FormMessage />
+          {/* <FormMessage /> */}
         </FormItem>
       )}
     />
@@ -269,7 +259,7 @@ ProductFormElements.FieldProductSelect = function FieldProductSelect() {
             productActive={field.value?.[0]}
             onSelectProduct={field.onChange}
           />
-          <FormMessage />
+          {/* <FormMessage /> */}
         </FormItem>
       )}
     />
@@ -294,7 +284,7 @@ ProductFormElements.FieldProductMultiSelect =
               productListActive={field.value}
               onSelectProduct={field.onChange}
             />
-            <FormMessage />
+            {/* <FormMessage /> */}
           </FormItem>
         )}
       />
@@ -319,7 +309,7 @@ ProductFormElements.FieldProductSelectSearch =
               productActive={field.value}
               onSelectProduct={field.onChange}
             />
-            <FormMessage />
+            {/* <FormMessage /> */}
           </FormItem>
         )}
       />
@@ -352,7 +342,7 @@ ProductFormElements.FieldProductSelectGroupSearch =
               productInOrder={productInOrder}
               onSelectProduct={field.onChange}
             />
-            <FormMessage />
+            {/* <FormMessage /> */}
           </FormItem>
         )}
       />

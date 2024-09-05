@@ -1,4 +1,5 @@
 import { PropertyDataTypeEnum } from "@/kernel/domain/property/property.type";
+import { DataTypeDefaultOption } from "@/kernel/domain/property/ui.type";
 import { selectItemSchema } from "@/shared/type/select";
 import { z } from "zod";
 
@@ -17,3 +18,10 @@ export const propertyFormDefaultSchema = z.object({
 export type PropertyFormDefaultValues<
   T extends z.ZodTypeAny = typeof propertyFormDefaultSchema,
 > = z.infer<T>;
+
+// TODO: DefaultValues
+export const defaultFieldsValues: PropertyFormDefaultValues = {
+  name: "",
+  datatypeList: [DataTypeDefaultOption],
+  propertyList: [],
+};

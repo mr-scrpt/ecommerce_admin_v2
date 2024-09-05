@@ -8,3 +8,8 @@ export const propertyItemFormSchema = z.object({
 export type PropertyItemFormDefaultValues<
   T extends z.ZodTypeAny = typeof propertyItemFormSchema,
 > = z.infer<T>;
+
+// TODO: DefaultValues
+export const defaultFieldsValues: PropertyItemFormDefaultValues = {
+  propertyItemList: [{ label: "", value: "", id: "" }],
+};

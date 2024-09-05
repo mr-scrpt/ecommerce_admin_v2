@@ -15,6 +15,7 @@ import { ZodTypeAny } from "zod";
 import {
   AddressFormDefaultValues,
   addressFormDefaultSchema,
+  defaultFieldsValues,
 } from "../../_domain/form.schema";
 import { AddressApartmentElement } from "./elements/addressApartmentElement";
 import { AddressHouseElement } from "./elements/addressHouseElement";
@@ -47,18 +48,11 @@ type AddressFormFields = {
 
 type AddressFormElementsType = AddressFormElementsComponent & AddressFormFields;
 
-const standartFieldsValues: AddressFormDefaultValues = {
-  street: "",
-  house: "",
-  apartment: "",
-  addressList: [],
-};
-
 const getDefaultFormValues = <T extends AddressFormDefaultValues>(
   defaultValues?: DefaultValues<T> | undefined,
 ): DefaultValues<T> => {
   return {
-    ...standartFieldsValues,
+    ...defaultFieldsValues,
     ...defaultValues,
   } as DefaultValues<T>;
 };
@@ -87,6 +81,7 @@ export const AddressFormElements: AddressFormElementsType = <
     <FormProvider {...form}>
       <form onSubmit={handleSubmit} className="space-y-8">
         {children}
+        <FormMessage />
       </form>
     </FormProvider>
   );

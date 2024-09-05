@@ -14,7 +14,6 @@ import { z } from "zod";
 // });
 export const deliveryUpdateFormSchema = deliveryFormDefaultSchema.extend({
   settlement: selectSettlementItemSchema(z.string()),
-  street: z.string(),
 });
 
 export type DeliveryUpdateFormValues = z.infer<typeof deliveryUpdateFormSchema>;

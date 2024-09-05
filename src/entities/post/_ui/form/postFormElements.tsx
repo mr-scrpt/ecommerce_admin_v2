@@ -15,6 +15,7 @@ import {
 import { ZodTypeAny } from "zod";
 import {
   PostFormDefaultValues,
+  defaultFieldsValues,
   postFormDefaultSchema,
 } from "../../_domain/form.schema";
 import { ButtonSubmitComponentType } from "@/shared/type/button";
@@ -63,15 +64,11 @@ type PostFormFields = {
 
 type PostFormElementsType = PostFormElementsComponent & PostFormFields;
 
-const standartFieldsValues: PostFormDefaultValues = {
-  postList: [],
-};
-
 const getDefaultFormValues = <T extends PostFormDefaultValues>(
   defaultValues?: DefaultValues<T> | undefined,
 ): DefaultValues<T> => {
   return {
-    ...standartFieldsValues,
+    ...defaultFieldsValues,
     ...defaultValues,
   } as DefaultValues<T>;
 };
@@ -100,6 +97,7 @@ export const PostFormElements: PostFormElementsType = <
     <FormProvider {...form}>
       <form onSubmit={handleSubmit} className="space-y-8">
         {children}
+        <FormMessage />
       </form>
     </FormProvider>
   );
@@ -153,7 +151,7 @@ PostFormElements.FieldPostMultiSelect = function FieldPostMultiSelect(
             onSelectPost={field.onChange}
             settlementRef={settlementRef}
           />
-          <FormMessage />
+          {/* <FormMessage /> */}
         </FormItem>
       )}
     />

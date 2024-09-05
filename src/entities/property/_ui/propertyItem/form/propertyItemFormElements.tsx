@@ -24,6 +24,7 @@ import {
 import { ZodTypeAny } from "zod";
 import {
   PropertyItemFormDefaultValues,
+  defaultFieldsValues,
   propertyItemFormSchema,
 } from "../../../_domain/propertyItem/form.schema";
 import { PropertyItemNameElement } from "./elements/propertyItemNameElement";
@@ -51,15 +52,11 @@ type PropertyItemFormFields = {
 type PropertyFormElementsType = PropertyItemFormElementsComponent &
   PropertyItemFormFields;
 
-const standartFieldsValues: PropertyItemFormDefaultValues = {
-  propertyItemList: [{ label: "", value: "", id: "" }],
-};
-
 const getDefaultFormValues = <T extends PropertyItemFormDefaultValues>(
   defaultValues?: DefaultValues<T> | undefined,
 ): DefaultValues<T> => {
   return {
-    ...standartFieldsValues,
+    ...defaultFieldsValues,
     ...defaultValues,
   } as DefaultValues<T>;
 };

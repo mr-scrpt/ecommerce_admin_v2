@@ -31,3 +31,16 @@ export const productFormDefaultSchema = z.object({
 export type ProductFormDefaultValues<
   T extends z.ZodTypeAny = typeof productFormDefaultSchema,
 > = z.infer<T>;
+
+// TODO: DefaultValues
+export const defaultFieldsValues: ProductFormDefaultValues = {
+  name: "",
+  article: "",
+  price: 0,
+  inStock: 0,
+  description: "",
+  about: "",
+  imgList: [],
+  product: { label: "", value: "" },
+  productList: [],
+};

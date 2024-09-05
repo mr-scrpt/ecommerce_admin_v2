@@ -2,6 +2,10 @@ import {
   OrderPaymentStatusEnum,
   OrderStatusEnum,
 } from "@/kernel/domain/order/order.type";
+import {
+  OrderPaymentStatusDefaultOption,
+  OrderStatusDefaultOption,
+} from "@/kernel/domain/order/ui.type";
 import { selectItemSchema } from "@/shared/type/select";
 import { z } from "zod";
 
@@ -16,3 +20,8 @@ export const orderFormDefaultSchema = z.object({
 });
 
 export type OrderFormDefaultValues = z.infer<typeof orderFormDefaultSchema>;
+
+export const defaultFieldsValues: OrderFormDefaultValues = {
+  orderStatusList: [OrderStatusDefaultOption],
+  orderPaymentStatusList: [OrderPaymentStatusDefaultOption],
+};

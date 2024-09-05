@@ -9,7 +9,7 @@ export interface DeliveryTypeSelectProps
   extends HTMLAttributes<HTMLDivElement> {
   deliveryActive?: SelectOptionItem;
   settlementRef?: string;
-  onSelectDelivery: (deliveryList: Array<SelectOptionItem>) => void;
+  onSelectDelivery: (delivery: SelectOptionItem) => void;
 }
 
 export const DeliveryTypeSelectElement: FC<DeliveryTypeSelectProps> = memo(
@@ -21,17 +21,12 @@ export const DeliveryTypeSelectElement: FC<DeliveryTypeSelectProps> = memo(
 
     const placeholder = "Select delivery type";
 
-    // console.log(
-    //   "output_log: deliveryTypeAvailableListToSelect =>>>",
-    //   deliveryTypeAvailableListToSelect,
-    // );
-
     return (
       <SelectElement
         optionList={deliveryTypeAvailableListToSelect}
         optionActive={deliveryActive}
         placeholder={placeholder}
-        onSelect={onSelectDelivery}
+        onSelect={(value) => onSelectDelivery(value[0])}
       />
     );
   },

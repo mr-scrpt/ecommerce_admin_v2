@@ -23,6 +23,7 @@ import {
 import { ZodTypeAny } from "zod";
 import {
   PropertyFormDefaultValues,
+  defaultFieldsValues,
   propertyFormDefaultSchema,
 } from "../../../_domain/property/form.schema";
 import { PropertyDataTypeSelectElement } from "./elements/propertySelectDataTypeElement";
@@ -55,17 +56,11 @@ type PropertyFormFields = {
 type PropertyFormElementsType = PropertyFormElementsComponent &
   PropertyFormFields;
 
-const standartFieldsValues: PropertyFormDefaultValues = {
-  name: "",
-  datatypeList: [DataTypeDefaultOption],
-  propertyList: [],
-};
-
 const getDefaultFormValues = <T extends PropertyFormDefaultValues>(
   defaultValues?: DefaultValues<T> | undefined,
 ): DefaultValues<T> => {
   return {
-    ...standartFieldsValues,
+    ...defaultFieldsValues,
     ...defaultValues,
   } as DefaultValues<T>;
 };

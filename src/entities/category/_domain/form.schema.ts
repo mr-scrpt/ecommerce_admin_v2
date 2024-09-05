@@ -18,3 +18,10 @@ export const categoryFormDefaultSchema = z.object({
 export type CategoryFormDefaultValues<
   T extends z.ZodTypeAny = typeof categoryFormDefaultSchema,
 > = z.infer<T>;
+
+// TODO: DefaultValues
+export const defaultFieldsValues: CategoryFormDefaultValues = {
+  name: "",
+  board: [],
+  categoryList: [],
+};

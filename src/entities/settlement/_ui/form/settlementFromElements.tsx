@@ -13,34 +13,10 @@ import {
 import { ZodTypeAny } from "zod";
 import {
   SettlementFormDefaultValues,
+  defaultFieldsValues,
   settlementFormDefaultSchema,
 } from "../../_domain/form.schema";
-import { SettlementSelectElement } from "./elements/settlementSelectElement";
-import { SettlementMultiSelectElement } from "./elements/settlementMultiSelectElement";
 import { SettlementSelectSearchElement } from "./elements/settlementSelectSearchElement";
-
-// interface SettlementFromElementsProps extends HTMLAttributes<HTMLFormElement> {
-//   settlementData?: Settlement["ref"];
-//   handleSubmit?: (data: SettlementFormValues) => void;
-// }
-//
-// interface SubmitButtonProps {
-//   isPending: boolean;
-//   submitText: string;
-// }
-//
-// interface SettlementListProps extends HTMLAttributes<HTMLFormElement> {
-//   onSelectSettlement: (settlement: Settlement["ref"]) => void;
-// }
-//
-// type SettlementFormType = FC<SettlementFromElementsProps> & {
-//   ButtonSubmit: FC<SubmitButtonProps>;
-//   FieldSettlementSelect: FC<SettlementListProps>;
-// };
-//
-// const getDefaultValues = (settlementRef?: Settlement["ref"]) => ({
-//   settlementRef: settlementRef ?? "",
-// });
 
 interface SettlementFormElementsProps<T extends SettlementFormDefaultValues>
   extends HTMLAttributes<HTMLFormElement> {
@@ -63,15 +39,11 @@ type SettlementFormFields = {
 type SettlementFormElementsType = SettlementFormElementsComponent &
   SettlementFormFields;
 
-const standartFieldsValues: SettlementFormDefaultValues = {
-  settlement: { label: "", value: "" },
-};
-
 const getDefaultFormValues = <T extends SettlementFormDefaultValues>(
   defaultValues?: DefaultValues<T> | undefined,
 ): DefaultValues<T> => {
   return {
-    ...standartFieldsValues,
+    ...defaultFieldsValues,
     ...defaultValues,
   } as DefaultValues<T>;
 };

@@ -1,4 +1,5 @@
 import { DELIVERY_TYPE } from "@/kernel/domain/delivery/delivery.type";
+import { DeliveryTypeDefaultOption } from "@/kernel/domain/delivery/ui.type";
 import { selectItemSchema } from "@/shared/type/select";
 import { z } from "zod";
 
@@ -19,3 +20,7 @@ export const deliveryFormDefaultSchema = z.object({
 export type DeliveryFormDefaultValues = z.infer<
   typeof deliveryFormDefaultSchema
 >;
+
+export const defaultFieldsValues: DeliveryFormDefaultValues = {
+  deliveryType: DeliveryTypeDefaultOption,
+};

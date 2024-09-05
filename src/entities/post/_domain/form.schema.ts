@@ -11,3 +11,6 @@ export const postFormDefaultSchema = z.object({
 });
 
 export type PostFormDefaultValues = z.infer<typeof postFormDefaultSchema>;
+export const defaultFieldsValues: PostFormDefaultValues = {
+  postList: [],
+};

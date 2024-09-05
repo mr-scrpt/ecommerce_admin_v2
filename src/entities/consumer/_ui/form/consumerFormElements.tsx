@@ -25,6 +25,7 @@ import { ZodTypeAny } from "zod";
 import {
   ConsumerFormDefaultValues,
   consumerFormDefaultSchema,
+  defaultFieldsValues,
 } from "../../_domain/form.schema";
 import { ButtonSubmitComponentType } from "@/shared/type/button";
 import { ConsumerNameElement } from "./elements/consumerNameElement";
@@ -85,19 +86,11 @@ type ConsumerFormFields = {
 type ConsumerFormElementsType = ConsumerFormElementsComponent &
   ConsumerFormFields;
 
-const standartFieldsValues: ConsumerFormDefaultValues = {
-  name: "",
-  lastName: "",
-  email: "",
-  phone: "",
-  consumerList: [],
-};
-
 const getDefaultFormValues = <T extends ConsumerFormDefaultValues>(
   defaultValues?: DefaultValues<T> | undefined,
 ): DefaultValues<T> => {
   return {
-    ...standartFieldsValues,
+    ...defaultFieldsValues,
     ...defaultValues,
   } as DefaultValues<T>;
 };

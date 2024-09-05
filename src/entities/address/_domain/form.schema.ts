@@ -17,3 +17,11 @@ export const addressFormDefaultSchema = z.object({
 export type AddressFormDefaultValues<
   T extends z.ZodTypeAny = typeof addressFormDefaultSchema,
 > = z.infer<T>;
+
+// TODO: DefaultValues
+export const defaultFieldsValues: AddressFormDefaultValues = {
+  street: "",
+  house: "",
+  apartment: "",
+  addressList: [],
+};

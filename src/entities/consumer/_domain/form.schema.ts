@@ -31,3 +31,11 @@ export const consumerSelectFromSchema = z.object({
 });
 
 export type ConsumerSelectFormValues = z.infer<typeof consumerSelectFromSchema>;
+
+export const defaultFieldsValues: ConsumerFormDefaultValues = {
+  name: "",
+  lastName: "",
+  email: "",
+  phone: "",
+  consumerList: [],
+};

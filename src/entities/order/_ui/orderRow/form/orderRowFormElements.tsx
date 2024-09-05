@@ -15,6 +15,7 @@ import { ZodTypeAny } from "zod";
 import { ButtonSubmitComponentType } from "@/shared/type/button";
 import {
   OrderRowFormDefaultValues,
+  defaultFieldsValues,
   orderRowFormDefaultSchema,
 } from "../../../_domain/orderRow/form.schema";
 import { OrderRowQuantityElement } from "./elements/orderRowQuantityElement";
@@ -40,15 +41,11 @@ type OrderRowFormFields = {
 type OrderRowFormElementsType = OrderRowFormElementsComponent &
   OrderRowFormFields;
 
-const standartFieldsValues: OrderRowFormDefaultValues = {
-  quantity: 1,
-};
-
 const getDefaultFormValues = <T extends OrderRowFormDefaultValues>(
   defaultValues?: DefaultValues<T> | undefined,
 ): DefaultValues<T> => {
   return {
-    ...standartFieldsValues,
+    ...defaultFieldsValues,
     ...defaultValues,
   } as DefaultValues<T>;
 };
@@ -79,6 +76,7 @@ export const OrderRowFormElements: OrderRowFormElementsType = <
     <FormProvider {...form}>
       <form onSubmit={handleSubmit} className="space-y-8">
         {children}
+        <FormMessage />
       </form>
     </FormProvider>
   );
@@ -101,7 +99,7 @@ OrderRowFormElements.FieldOrderRowQuantity =
               value={field.value}
             />
 
-            <FormMessage />
+            {/* <FormMessage /> */}
           </FormItem>
         )}
       />

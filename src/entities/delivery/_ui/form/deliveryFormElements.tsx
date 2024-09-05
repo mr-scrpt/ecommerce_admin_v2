@@ -3,7 +3,7 @@ import { DeliveryTypeDefaultOption } from "@/kernel/domain/delivery/ui.type";
 import { SelectSettlemtnOptionItem } from "@/kernel/domain/settlement/settlement.schema";
 import { ButtonSubmitComponentType } from "@/shared/type/button";
 import { Button } from "@/shared/ui/button";
-import { FormField, FormItem, FormLabel } from "@/shared/ui/form";
+import { FormField, FormItem, FormLabel, FormMessage } from "@/shared/ui/form";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, HTMLAttributes, useEffect } from "react";
@@ -17,9 +17,11 @@ import {
 import { ZodTypeAny } from "zod";
 import {
   DeliveryFormDefaultValues,
+  defaultFieldsValues,
   deliveryFormDefaultSchema,
 } from "../../_domain/form.schema";
 import { DeliveryTypeSelectElement } from "./elements/deliveryTypeSelectElement";
+import { DeliveryTypeRadioElement } from "./elements/deliveryTypeRadioElement";
 
 interface DeliveryFormElementsProps<T extends DeliveryFormDefaultValues>
   extends HTMLAttributes<HTMLFormElement> {
@@ -43,15 +45,11 @@ type DeliveryFormFields = {
 type DeliveryFormElementsType = DeliveryFormElementsComponent &
   DeliveryFormFields;
 
-const standartFieldsValues: DeliveryFormDefaultValues = {
-  deliveryType: DeliveryTypeDefaultOption,
-};
-
 const getDefaultFormValues = <T extends DeliveryFormDefaultValues>(
   defaultValues?: DefaultValues<T> | undefined,
 ): DefaultValues<T> => {
   return {
-    ...standartFieldsValues,
+    ...defaultFieldsValues,
     ...defaultValues,
   } as DefaultValues<T>;
 };
@@ -80,17 +78,19 @@ export const DeliveryFormElements: DeliveryFormElementsType = <
     <FormProvider {...form}>
       <form onSubmit={handleSubmit} className="space-y-8">
         {children}
+        <FormMessage />
       </form>
     </FormProvider>
   );
 };
 
 DeliveryFormElements.FieldDeliveryTypeSelect = function FieldDeliverySelect() {
-  const { control, getFieldState } = useFormContext<
+  const { control, getFieldState, watch } = useFormContext<
     DeliveryFormDefaultValues & { settlement: SelectSettlemtnOptionItem }
   >();
 
-  const settlement = useWatch({ name: "settlement" });
+  // const settlement = useWatch({ name: "settlement" });
+  const settlement = watch("settlement");
 
   if (!getFieldState("deliveryType")) return null;
 
@@ -115,10 +115,13 @@ DeliveryFormElements.FieldDeliveryTypeSelect = function FieldDeliverySelect() {
 };
 
 DeliveryFormElements.FieldDeliveryTypeRadio = function FieldDeliveryRadio() {
-  const { control, getFieldState } =
-    useFormContext<DeliveryFormDefaultValues>();
+  const { control, getFieldState, watch } = useFormContext<
+    DeliveryFormDefaultValues & { settlement: SelectSettlemtnOptionItem }
+  >();
 
   if (!getFieldState("deliveryType")) return null;
+
+  const settlement = watch("settlement");
 
   return (
     <FormField
@@ -128,9 +131,10 @@ DeliveryFormElements.FieldDeliveryTypeRadio = function FieldDeliveryRadio() {
         return (
           <FormItem>
             <FormLabel>Delivery type select</FormLabel>
-            <DeliveryTypeSelectElement
+            <DeliveryTypeRadioElement
               deliveryActive={field.value}
               onSelectDelivery={field.onChange}
+              settlementRef={settlement?.value}
             />
           </FormItem>
         );

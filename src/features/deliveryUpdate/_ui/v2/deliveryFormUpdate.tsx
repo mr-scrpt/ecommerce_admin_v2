@@ -30,6 +30,7 @@ export const DeliveryFormUpdate: FC<DeliveryFormProps> = (props) => {
     >
       <SettlementFormElements.FieldSettlementSelectSearch />
       <DeliveryFormElements.FieldDeliveryTypeSelect />
+      <DeliveryFormElements.FieldDeliveryTypeRadio />
     </DeliveryFormElements>
   );
 };

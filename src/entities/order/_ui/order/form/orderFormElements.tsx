@@ -14,6 +14,7 @@ import {
 import { ZodTypeAny } from "zod";
 import {
   OrderFormDefaultValues,
+  defaultFieldsValues,
   orderFormDefaultSchema,
 } from "../../../_domain/order/form.schema";
 import { ButtonSubmitComponentType } from "@/shared/type/button";
@@ -45,16 +46,11 @@ type OrderFormFields = {
 
 type OrderFormElementsType = OrderFormElementsComponent & OrderFormFields;
 
-const standartFieldsValues: OrderFormDefaultValues = {
-  orderStatusList: [OrderStatusDefaultOption],
-  orderPaymentStatusList: [OrderPaymentStatusDefaultOption],
-};
-
 const getDefaultFormValues = <T extends OrderFormDefaultValues>(
   defaultValues?: DefaultValues<T> | undefined,
 ): DefaultValues<T> => {
   return {
-    ...standartFieldsValues,
+    ...defaultFieldsValues,
     ...defaultValues,
   } as DefaultValues<T>;
 };
@@ -83,6 +79,7 @@ export const OrderFormElements: OrderFormElementsType = <
     <FormProvider {...form}>
       <form onSubmit={handleSubmit} className="space-y-8">
         {children}
+        <FormMessage />
       </form>
     </FormProvider>
   );
@@ -128,7 +125,7 @@ OrderFormElements.FieldOrderPaymentStatusSelect =
               onSelectOrderPayment={field.onChange}
               orderActive={field.value?.[0]}
             />
-            <FormMessage />
+            {/* <FormMessage /> */}
           </FormItem>
         )}
       />

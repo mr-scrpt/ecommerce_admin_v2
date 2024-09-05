@@ -26,3 +26,8 @@ export const settlementFormDefaultSchema = z.object({
 export type SettlementFormDefaultValues<
   T extends z.ZodTypeAny = typeof settlementFormDefaultSchema,
 > = z.infer<T>;
+
+// TODO: DefaultValues
+export const defaultFieldsValues: SettlementFormDefaultValues = {
+  settlement: { label: "", value: "" },
+};

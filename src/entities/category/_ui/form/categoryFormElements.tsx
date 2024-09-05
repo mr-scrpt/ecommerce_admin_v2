@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/shared/ui/button";
-import { FormField, FormItem, FormLabel } from "@/shared/ui/form";
+import { FormField, FormItem, FormLabel, FormMessage } from "@/shared/ui/form";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, HTMLAttributes, useEffect } from "react";
@@ -14,6 +14,7 @@ import { ZodTypeAny } from "zod";
 import {
   CategoryFormDefaultValues,
   categoryFormDefaultSchema,
+  defaultFieldsValues,
 } from "../../_domain/form.schema";
 import { CategoryBoardElement } from "./elements/categoryBoardElement";
 import { CategoryNameElement } from "./elements/categoryNameElement";
@@ -45,17 +46,11 @@ type CategoryFormFields = {
 type CategoryFormElementsType = CategoryFormElementsComponent &
   CategoryFormFields;
 
-const standartFieldsValues: CategoryFormDefaultValues = {
-  name: "",
-  board: [],
-  categoryList: [],
-};
-
 const getDefaultFormValues = <T extends CategoryFormDefaultValues>(
   defaultValues?: DefaultValues<T> | undefined,
 ): DefaultValues<T> => {
   return {
-    ...standartFieldsValues,
+    ...defaultFieldsValues,
     ...defaultValues,
   } as DefaultValues<T>;
 };
@@ -84,6 +79,7 @@ export const CategoryFormElements: CategoryFormElementsType = <
     <FormProvider {...form}>
       <form onSubmit={handleSubmit} className="space-y-8">
         {children}
+        <FormMessage />
       </form>
     </FormProvider>
   );

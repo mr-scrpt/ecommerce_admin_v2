@@ -12,3 +12,7 @@ export const orderRowFormDefaultSchema = z.object({
 export type OrderRowFormDefaultValues = z.infer<
   typeof orderRowFormDefaultSchema
 >;
+
+export const defaultFieldsValues: OrderRowFormDefaultValues = {
+  quantity: 1,
+};
