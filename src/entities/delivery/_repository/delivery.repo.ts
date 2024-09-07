@@ -1,5 +1,3 @@
-import { DBClient, Tx } from "@/shared/lib/db/db";
-import { injectable } from "inversify";
 import {
   DeliveryBindToOrderDTO,
   DeliveryCreateDTO,
@@ -7,9 +5,10 @@ import {
   DeliveryGetDTO,
   DeliveryUpdateDTO,
 } from "@/kernel/domain/delivery/delivery.dto";
-import { IDeliveryRepository } from "@/kernel/domain/delivery/repository.type";
 import { DeliveryEntity } from "@/kernel/domain/delivery/delivery.type";
-import { DeliveryRelationEntity } from "../_domain/delivery.types";
+import { IDeliveryRepository } from "@/kernel/domain/delivery/repository.type";
+import { DBClient, Tx } from "@/shared/lib/db/db";
+import { injectable } from "inversify";
 
 @injectable()
 export class DeliveryRepository implements IDeliveryRepository {
@@ -21,6 +20,17 @@ export class DeliveryRepository implements IDeliveryRepository {
     });
 
     return result;
+  }
+
+  async getWithRelations<T>(dto: DeliveryGetDTO, db: Tx = this.db): Promise<T> {
+    const result = await db.delivery.findUniqueOrThrow({
+      where: dto,
+      include: {
+        settlement: true,
+        deliveryType: true,
+      },
+    });
+    return result as unknown as T;
   }
 
   async getByOrder(

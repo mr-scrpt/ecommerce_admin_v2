@@ -1,25 +1,22 @@
 import { IDeliveryRepository } from "@/kernel/domain/delivery/repository.type";
 import { injectable } from "inversify";
 import {
-  DeliveryGetByOrderSelector,
+  DeliveryGetSelector,
   DeliveryRelation,
   DeliveryRelationEntity,
 } from "../_domain/delivery.types";
 import { IPostRepository } from "@/kernel/domain/post/repository.type";
 
 @injectable()
-export class DeliveryWithRelationGetByOrderService {
+export class DeliveryWithRelationGetService {
   constructor(
     private readonly deliveryRepo: IDeliveryRepository,
-
     private readonly postRepo: IPostRepository,
   ) {}
 
-  async execute(
-    selector: DeliveryGetByOrderSelector,
-  ): Promise<DeliveryRelation> {
+  async execute(selector: DeliveryGetSelector): Promise<DeliveryRelation> {
     const delivery =
-      await this.deliveryRepo.getWithRelationsByOrder<DeliveryRelationEntity>(
+      await this.deliveryRepo.getWithRelations<DeliveryRelationEntity>(
         selector,
       );
 

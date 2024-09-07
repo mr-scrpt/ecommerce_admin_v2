@@ -1,4 +1,7 @@
-import { PostOfficeGetBySettlementRefDTO } from "@/kernel/domain/post/post.dto";
+import {
+  PostOfficeGetBySettlementRefDTO,
+  PostOfficeGetDTO,
+} from "@/kernel/domain/post/post.dto";
 import { PostOfficeEntity } from "@/kernel/domain/post/post.type";
 import { IPostRepository } from "@/kernel/domain/post/repository.type";
 import { PostOfficeNovaPoshtaIndex } from "@/kernel/lib/novaposhta/novaposhta.type";
@@ -10,6 +13,13 @@ import { injectable } from "inversify";
 export class PostRepository implements IPostRepository {
   constructor(readonly novaposhta: INovaPoshtaRepository) {}
 
+  async getPostOffice(dto: PostOfficeGetDTO): Promise<PostOfficeEntity> {
+    const { id } = dto;
+    const postOffice = await this.novaposhta.getPostOffice(id);
+    const postOfficeConverted = this.convertToLowerCase(postOffice);
+    return postOfficeConverted;
+  }
+
   async getPostOfficeListBySettlementRef(
     dto: PostOfficeGetBySettlementRefDTO,
   ): Promise<Array<PostOfficeEntity>> {
@@ -20,7 +30,7 @@ export class PostRepository implements IPostRepository {
 
     const postOfficeListConverted: Array<PostOfficeEntity> = [];
 
-    for await (const postOffice of postOfficeList) {
+    for (const postOffice of postOfficeList) {
       postOfficeListConverted.push(this.convertToLowerCase(postOffice));
     }
     return postOfficeListConverted;
@@ -29,6 +39,7 @@ export class PostRepository implements IPostRepository {
   private convertToLowerCase(
     settlementData: PostOfficeNovaPoshtaIndex,
   ): PostOfficeEntity {
+    console.log("output_log: BEFORE CONVERT =>>>", settlementData);
     const convertedSettle: any = {};
     for (const key in settlementData) {
       if (Object.prototype.hasOwnProperty.call(settlementData, key)) {
@@ -37,6 +48,8 @@ export class PostRepository implements IPostRepository {
           settlementData[key];
       }
     }
+
+    console.log("output_log: AFTER CONVERT =>>>", convertedSettle);
     return convertedSettle;
   }
 }

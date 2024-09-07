@@ -1,36 +1,48 @@
 "use client";
 import { DeliveryFormElements } from "@/entities/delivery";
-import { useDeliveryWithRelationByOrderIdQuery } from "@/entities/delivery/_query/deliveryWithRelationByOrderId.query";
-import { SettlementFormElements } from "@/entities/settlement/_ui/form/settlementFromElements";
 import { FC, HTMLAttributes } from "react";
-import { deliveryUpdateFormSchema } from "../../_domain/form.schema";
-import { useDeliveryDefaultValues } from "../../_vm/useDeliveryDefaultValues.model";
+import { deliveryUpdateFormDefaultSchema } from "../../_domain/form.schema";
+import { useDeliveryFormDefaultValues } from "../../_vm/useDeliveryFormDefaultValues.model";
+import { SettlementFormElements } from "@/entities/settlement";
+import { DeliveryFormUpdateElements } from "./deliveryFormUpdateElements";
 
 interface DeliveryFormProps extends HTMLAttributes<HTMLDivElement> {
-  orderId: string;
+  // orderId: string;
+  deliveryId: string;
   callbackUrl?: string;
   className?: string;
   onSuccess?: () => void;
 }
 
 export const DeliveryFormUpdate: FC<DeliveryFormProps> = (props) => {
-  const { orderId, callbackUrl, className, onSuccess } = props;
+  const { deliveryId, callbackUrl, className, onSuccess } = props;
 
-  const { isPending, delivery, isFetchedAfterMount } =
-    useDeliveryWithRelationByOrderIdQuery(orderId);
+  // const { isPending, delivery, isFetchedAfterMount } =
+  //   useDeliveryWithRelationByOrderIdQuery(orderId);
 
-  const defaultValues = useDeliveryDefaultValues({ delivery });
+  // const { postListToSelect } = usePostOfficeToSelectModel(
+  //   "169227f4-e1c2-11e3-8c4a-0050568002cf",
+  // );
 
-  if (!delivery) return null;
+  // const defaultValues = useDeliveryDefaultValues({ delivery });
 
+  // if (!delivery) return null;
+  //
+  // const defaultValues = useDeliveryFormDefaultValues({ orderId });
+  //
+  const { defaultValues, isPending } = useDeliveryFormDefaultValues({
+    deliveryId,
+  });
+
+  console.log("output_log: defaultValues =>>>", defaultValues);
   return (
     <DeliveryFormElements
       defaultValues={{ ...defaultValues }}
-      schema={deliveryUpdateFormSchema}
+      schema={deliveryUpdateFormDefaultSchema}
     >
       <SettlementFormElements.FieldSettlementSelectSearch />
       <DeliveryFormElements.FieldDeliveryTypeSelect />
-      <DeliveryFormElements.FieldDeliveryTypeRadio />
+      <DeliveryFormUpdateElements.FieldDeliveryTypeRadioSection />
     </DeliveryFormElements>
   );
 };

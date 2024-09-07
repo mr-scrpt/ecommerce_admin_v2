@@ -45,22 +45,38 @@ export const settlementSchema = z.object({
   updatedAt: z.date(),
 });
 
+// NOTE: UI
 // NOTE: Select Settlement Option
-export const selectSettlementItemSchema = <
-  T extends z.ZodTypeAny = z.ZodString,
->(
-  valueSchema: T = z.string() as unknown as T,
-) =>
-  z.object({
-    value: valueSchema,
-    area: z.string(),
-    label: z.string(),
-    region: z.string(),
-    active: z.boolean().optional(),
-  });
+// export const selectSettlementItemSchema = <
+//   T extends z.ZodTypeAny = z.ZodString,
+// >(
+//   valueSchema: T = z.string() as unknown as T,
+// ) =>
+//   z.object({
+//     value: valueSchema,
+//     area: z.string(),
+//     label: z.string(),
+//     region: z.string(),
+//     active: z.boolean().optional(),
+//   });
+//
+// const defaultSettlementStringSchema = selectSettlementItemSchema();
+export const selectSettlementItemSchema = z.object({
+  value: z.string(),
+  area: z.string(),
+  label: z.string(),
+  region: z.string(),
+  active: z.boolean().optional(),
+});
 
-const defaultSettlementStringSchema = selectSettlementItemSchema();
-
-export type SelectSettlemtnOptionItem = z.infer<
-  typeof defaultSettlementStringSchema
+export type SelectSettlementOptionItem = z.infer<
+  typeof selectSettlementItemSchema
 >;
+
+// NOTE: Default Option
+export const settlementDefaultOption: SelectSettlementOptionItem = {
+  label: "",
+  value: "",
+  area: "",
+  region: "",
+};

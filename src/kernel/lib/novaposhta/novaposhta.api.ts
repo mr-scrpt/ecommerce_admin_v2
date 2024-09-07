@@ -16,6 +16,7 @@ const REQUEST_DELAY = 1000;
 
 export const modelName = {
   address: "Address",
+  addressGeneral: "AddressGeneral",
 };
 
 export const calledMethod = {
@@ -92,6 +93,15 @@ export class NovaPoshtaApi {
         this.processQueue();
       }
     });
+  }
+
+  async getPostOffice(id: string): Promise<PostOfficeNovaPoshta> {
+    const [result] = await this.enqueueRequest<PostOfficeNovaPoshta[]>({
+      modelName: modelName.addressGeneral,
+      calledMethod: calledMethod.getPostOffice,
+      methodProperties: { Ref: id },
+    });
+    return result;
   }
 
   async getPostOfficeListBySettlementRef(

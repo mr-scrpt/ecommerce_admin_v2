@@ -12,6 +12,8 @@ import { DeliveryTypeEntity } from "./deliveryType.type";
 export abstract class IDeliveryRepository {
   abstract get(dto: DeliveryGetDTO, db?: Tx): Promise<DeliveryEntity>;
 
+  abstract getWithRelations<T>(dto: DeliveryGetDTO, db?: Tx): Promise<T>;
+
   abstract getByOrder(
     dto: DeliveryGetByOrderDTO,
     db?: Tx,

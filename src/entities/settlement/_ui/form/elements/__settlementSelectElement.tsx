@@ -93,7 +93,7 @@ export const SettlementSelectElement: FC<SettlementSelectProps> = (props) => {
                         : "opacity-0",
                     )}
                   />
-                  {s.label}
+                  {`${s.label} | ${s.area} | ${s.region}`}
                 </CommandItem>
               ))}
             </CommandList>

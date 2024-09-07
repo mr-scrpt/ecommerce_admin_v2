@@ -1,6 +1,5 @@
 "use client";
-import { DeliveryTypeDefaultOption } from "@/kernel/domain/delivery/ui.type";
-import { SelectSettlemtnOptionItem } from "@/kernel/domain/settlement/settlement.schema";
+import { SelectSettlementOptionItem } from "@/kernel/domain/settlement/settlement.schema";
 import { ButtonSubmitComponentType } from "@/shared/type/button";
 import { Button } from "@/shared/ui/button";
 import { FormField, FormItem, FormLabel, FormMessage } from "@/shared/ui/form";
@@ -12,7 +11,6 @@ import {
   FormProvider,
   useForm,
   useFormContext,
-  useWatch,
 } from "react-hook-form";
 import { ZodTypeAny } from "zod";
 import {
@@ -20,8 +18,8 @@ import {
   defaultFieldsValues,
   deliveryFormDefaultSchema,
 } from "../../_domain/form.schema";
-import { DeliveryTypeSelectElement } from "./elements/deliveryTypeSelectElement";
 import { DeliveryTypeRadioElement } from "./elements/deliveryTypeRadioElement";
+import { DeliveryTypeSelectElement } from "./elements/deliveryTypeSelectElement";
 
 interface DeliveryFormElementsProps<T extends DeliveryFormDefaultValues>
   extends HTMLAttributes<HTMLFormElement> {
@@ -86,10 +84,9 @@ export const DeliveryFormElements: DeliveryFormElementsType = <
 
 DeliveryFormElements.FieldDeliveryTypeSelect = function FieldDeliverySelect() {
   const { control, getFieldState, watch } = useFormContext<
-    DeliveryFormDefaultValues & { settlement: SelectSettlemtnOptionItem }
+    DeliveryFormDefaultValues & { settlement: SelectSettlementOptionItem }
   >();
 
-  // const settlement = useWatch({ name: "settlement" });
   const settlement = watch("settlement");
 
   if (!getFieldState("deliveryType")) return null;
@@ -116,7 +113,7 @@ DeliveryFormElements.FieldDeliveryTypeSelect = function FieldDeliverySelect() {
 
 DeliveryFormElements.FieldDeliveryTypeRadio = function FieldDeliveryRadio() {
   const { control, getFieldState, watch } = useFormContext<
-    DeliveryFormDefaultValues & { settlement: SelectSettlemtnOptionItem }
+    DeliveryFormDefaultValues & { settlement: SelectSettlementOptionItem }
   >();
 
   if (!getFieldState("deliveryType")) return null;

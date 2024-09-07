@@ -10,7 +10,7 @@ export type DeliveryBase = {
   // deliveryType: DELIVERY_TYPE;
   settlementRef: string | null;
 
-  postOffice: string | null;
+  postOfficeId: string | null;
   storeId: string | null;
   addressId: string | null;
 };

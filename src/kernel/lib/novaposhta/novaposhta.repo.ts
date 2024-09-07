@@ -7,6 +7,10 @@ import { INovaPoshtaRepository } from "./repository.type";
 export class NovaPoshtaRepository implements INovaPoshtaRepository {
   constructor(readonly np: NovaPoshtaApi) {}
 
+  async getPostOffice(id: string): Promise<PostOfficeNovaPoshta> {
+    return await this.np.getPostOffice(id);
+  }
+
   async getPostOfficeListBySettlementRef(
     s: string,
   ): Promise<Array<PostOfficeNovaPoshta>> {

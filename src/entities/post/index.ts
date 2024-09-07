@@ -1,3 +1,5 @@
+export { usePostOfficeToSelectModel } from "./_vm/usePostOfficeToSelect.model.query";
+
 export { PostSelectElement } from "./_ui/form/elements/__postSelectElement";
 
 export { usePostOfficeAvailableBySettlementRefModel } from "./_vm/usePostOfficeAvailableBySettlementRef.model.query";

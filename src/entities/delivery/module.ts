@@ -13,12 +13,14 @@ import { DeliveryTypeAvailableListGetService } from "./_service/deliveryTypeAvai
 import { DeliveryTypeListGetService } from "./_service/deliveryTypeListGet.service";
 import { DeliveryWithRelationGetByOrderService } from "./_service/deliveryGetWithRelationByOrder.service";
 import { DeliveryGetByOrderService } from "./_service/deliveryGetByOrder.service";
+import { DeliveryWithRelationGetService } from "./_service/deliveryGetWithRelation.service";
 
 export const DeliveryModule = new ContainerModule((bind) => {
   bind(IDeliveryRepository).to(DeliveryRepository);
   bind(IDeliveryTypeRepository).to(DeliveryTypeRepository);
 
   bind(DeliveryGetService).toSelf();
+  bind(DeliveryWithRelationGetService).toSelf();
   bind(DeliveryWithRelationGetByOrderService).toSelf();
   bind(DeliveryGetByOrderService).toSelf();
   bind(DeliveryListGetService).toSelf();

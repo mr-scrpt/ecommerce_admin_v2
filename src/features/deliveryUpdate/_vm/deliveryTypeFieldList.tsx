@@ -5,6 +5,7 @@ import { StoreToSelect } from "@/entities/store";
 import { DELIVERY_TYPE } from "@/kernel/domain/delivery/delivery.type";
 import { ReactNode } from "react";
 import { DeliveryUpdateFormElements } from "../_ui/form/elements/deliveryUpdateFormElements";
+import { PostFormElements } from "@/entities/post/_ui/form/postFormElements";
 
 // TODO: Move this type <<<<
 // TODO: Move this component
@@ -25,12 +26,38 @@ type SelectDeliveryType = {
 };
 
 // Объект selectDeliveryType с типизацией на основе DeliveryTypeEnum
+// export const DeliveryTypeFieldList: SelectDeliveryType = {
+//   [DELIVERY_TYPE.PICKUP]: {
+//     value: "Pickup",
+//     type: DELIVERY_TYPE.PICKUP,
+//     formElement: [
+//       () => {
+//         return <DeliveryUpdateFormElements.FieldStoreSelect key="store" />;
+//       },
+//     ],
+//   },
+//   [DELIVERY_TYPE.POST]: {
+//     value: "Post",
+//     type: DELIVERY_TYPE.POST,
+//     formElement: [
+//       () => <DeliveryUpdateFormElements.FieldPostSelect key="post" />,
+//     ],
+//   },
+//   [DELIVERY_TYPE.COURIER]: {
+//     value: "Courier",
+//     type: DELIVERY_TYPE.COURIER,
+//     formElement: [
+//       () => <DeliveryUpdateFormElements.FieldAddress key="address" />,
+//     ],
+//   },
+// };
+
 export const DeliveryTypeFieldList: SelectDeliveryType = {
   [DELIVERY_TYPE.PICKUP]: {
     value: "Pickup",
     type: DELIVERY_TYPE.PICKUP,
     formElement: [
-      () => {
+      (props: any) => {
         return <DeliveryUpdateFormElements.FieldStoreSelect key="store" />;
       },
     ],
@@ -39,17 +66,19 @@ export const DeliveryTypeFieldList: SelectDeliveryType = {
     value: "Post",
     type: DELIVERY_TYPE.POST,
     formElement: [
-      () => <DeliveryUpdateFormElements.FieldPostSelect key="post" />,
+      (props: any) => (
+        <PostFormElements.FieldPostSelect
+          key="post"
+          settlementRef={props.settlementRef}
+        />
+      ),
     ],
   },
   [DELIVERY_TYPE.COURIER]: {
     value: "Courier",
     type: DELIVERY_TYPE.COURIER,
     formElement: [
-      () => <DeliveryUpdateFormElements.FieldAddress key="address" />,
-      // () => <DeliveryUpdateFormElements.FieldStreet key="street" />,
-      // () => <DeliveryUpdateFormElements.FieldHouse key="house" />,
-      // () => <DeliveryUpdateFormElements.FieldApartment key="apartment" />,
+      (props: any) => <DeliveryUpdateFormElements.FieldAddress key="address" />,
     ],
   },
 };

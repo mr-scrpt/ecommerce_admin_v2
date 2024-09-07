@@ -3,10 +3,10 @@ import { deliveryApi } from "../_api/delivery.api";
 import { DeliveryRelation } from "../_domain/delivery.types";
 import { useListenDeliveryUpdateByOrderId } from "../_vm/event/useListenDeliveryUpdateByOrderId";
 
-export const useDeliveryWithRelationByOrderIdQuery = (orderId: string) => {
+export const useDeliveryWithRelationQuery = (id: string) => {
   const { isPending, isSuccess, isFetchedAfterMount, data } =
-    deliveryApi.delivery.getWithRelationByOrder.useQuery<DeliveryRelation>({
-      orderId,
+    deliveryApi.delivery.getWithRelation.useQuery<DeliveryRelation>({
+      id,
     });
 
   useListenDeliveryUpdateByOrderId();
@@ -19,11 +19,11 @@ export const useDeliveryWithRelationByOrderIdQuery = (orderId: string) => {
   };
 };
 
-export const useInvalidateDeliveryWithRelationByOrderId = () => {
+export const useInvalidateDeliveryWithRelation = () => {
   const invalidateDelivery =
-    deliveryApi.useUtils().delivery.getWithRelationByOrder.invalidate;
+    deliveryApi.useUtils().delivery.getWithRelation.invalidate;
 
   return (orderId: string) => {
-    invalidateDelivery({ orderId });
+    invalidateDelivery();
   };
 };

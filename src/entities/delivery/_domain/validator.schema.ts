@@ -1,7 +1,7 @@
 import { deliverySchema } from "@/kernel/domain/delivery/delivery.schema";
 import { deliveryTypeSchema } from "@/kernel/domain/delivery/deliveryType.schema";
-import { settlementSchema } from "@/kernel/domain/settlement/settlement.schema";
 import { z } from "zod";
+import { deliveryRelationSchema } from "./delivery.schema";
 
 export const getInputSchema = z.object({
   id: z.string(),
@@ -19,8 +19,8 @@ export const getListOutputSchema = z.array(deliverySchema);
 export const getTypeListOutputSchema = z.array(deliveryTypeSchema);
 
 export const getWithRelationOutputSchema = z.object({
-  ...deliverySchema.shape,
+  ...deliveryRelationSchema.shape,
 
-  settlement: settlementSchema,
-  deliveryType: deliveryTypeSchema,
+  // settlement: settlementSchema,
+  // deliveryType: deliveryTypeSchema,
 });

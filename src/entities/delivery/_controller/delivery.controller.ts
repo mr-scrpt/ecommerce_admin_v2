@@ -15,11 +15,13 @@ import { DeliveryListGetService } from "../_service/deliveryListGet.service";
 import { DeliveryTypeListGetService } from "../_service/deliveryTypeListGet.service";
 import { DeliveryTypeAvailableListGetService } from "../_service/deliveryTypeAvailableListGet.service";
 import { DeliveryWithRelationGetByOrderService } from "../_service/deliveryGetWithRelationByOrder.service";
+import { DeliveryWithRelationGetService } from "../_service/deliveryGetWithRelation.service";
 
 @injectable()
 export class DeliveryController extends Controller {
   constructor(
     private readonly getDeliveryService: DeliveryGetService,
+    private readonly getDeliveryWithRelationService: DeliveryWithRelationGetService,
     private readonly getDeliveryByOrderService: DeliveryGetByOrderService,
     private readonly getDeliveryWithRelationByOrderService: DeliveryWithRelationGetByOrderService,
     private readonly getDeliveryListService: DeliveryListGetService,
@@ -36,19 +38,35 @@ export class DeliveryController extends Controller {
 
         return deliverySchema.parse(result);
       }),
+      getWithRelation: publicProcedure
+        .input(getInputSchema)
+        .query(async ({ input }) => {
+          console.log("output_log: INPUT DELIVERY =>>>", input);
+          const result =
+            await this.getDeliveryWithRelationService.execute(input);
+          const resultParsed = getWithRelationOutputSchema.parse(result);
+          return resultParsed;
+        }),
       getByOrder: publicProcedure
         .input(getByOrderInputSchema)
         .query(async ({ input }) => {
           const result = await this.getDeliveryByOrderService.execute(input);
           return deliverySchema.parse(result);
         }),
+
       getWithRelationByOrder: publicProcedure
         .input(getByOrderInputSchema)
         .query(async ({ input }) => {
+          // try {
+          // console.log("output_log: INPUT =>>>", input);
           const result =
             await this.getDeliveryWithRelationByOrderService.execute(input);
-          console.log("output_log: ___RESULT =>>>", result);
-          return getWithRelationOutputSchema.parse(result);
+          // console.log("output_log: BEFORE PARSING =>>>", result);
+          const resultParsed = getWithRelationOutputSchema.parse(result);
+          return resultParsed;
+          // } catch (e) {
+          //   console.log("output_log: ERROR  =>>>", e);
+          // }
         }),
       getList: publicProcedure.query(async () => {
         const result = await this.getDeliveryListService.execute();
@@ -63,7 +81,6 @@ export class DeliveryController extends Controller {
         .query(async ({ input }) => {
           const result =
             await this.getDeliveryTypeAvailableListService.execute(input);
-          console.log("output_log: RESULT =>>>", result);
           return getTypeListOutputSchema.parse(result);
         }),
     },

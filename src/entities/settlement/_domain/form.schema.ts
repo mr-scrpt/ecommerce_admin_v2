@@ -1,3 +1,5 @@
+// import { selectSettlementItemSchema } from "@/kernel/domain/settlement/settlement.schema";
+import { selectSettlementItemSchema } from "@/kernel/domain/settlement/settlement.schema";
 import { selectItemSchema } from "@/shared/type/select";
 import { z } from "zod";
 
@@ -20,7 +22,8 @@ import { z } from "zod";
 // NOTE: FORM
 // NOTE: Main information
 export const settlementFormDefaultSchema = z.object({
-  settlement: selectItemSchema(z.string()).optional(),
+  // settlement: selectItemSchema(z.string()).optional(),
+  settlement: selectSettlementItemSchema,
 });
 
 export type SettlementFormDefaultValues<
@@ -29,5 +32,5 @@ export type SettlementFormDefaultValues<
 
 // TODO: DefaultValues
 export const defaultFieldsValues: SettlementFormDefaultValues = {
-  settlement: { label: "", value: "" },
+  settlement: { label: "", value: "", area: "", region: "" },
 };

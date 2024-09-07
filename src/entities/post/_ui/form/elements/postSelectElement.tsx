@@ -15,6 +15,7 @@ export const PostSelectElement: FC<PostSelectProps> = (props) => {
 
   const { postListToSelect, isPending, isSuccess, isFetchedAfterMount } =
     usePostListBySettlementRefToSelectModel(settlementRef);
+  console.log("output_log:  =>>>", postListToSelect);
 
   const placeholder = isPending ? "Loading..." : "Select post";
 

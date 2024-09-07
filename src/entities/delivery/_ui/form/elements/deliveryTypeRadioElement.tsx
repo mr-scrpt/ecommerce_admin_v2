@@ -27,45 +27,18 @@ export const DeliveryTypeRadioElement: FC<DeliveryTypeRadioProps> = memo(
         value={deliveryActive?.value}
         className="flex flex-col space-y-1"
       >
-        {Object.entries(deliveryTypeAvailableListToSelect).map(([key, row]) => {
+        {deliveryTypeAvailableListToSelect.map((item) => {
           return (
             <FormItem
               className="flex items-center space-x-3 space-y-0"
-              key={key}
+              key={item.value}
             >
               <FormControl>
-                <RadioGroupItem value={row.value} />
+                <RadioGroupItem value={item.value} />
               </FormControl>
-              <FormLabel className="font-normal">{row.label}</FormLabel>
+              <FormLabel className="font-normal">{item.label}</FormLabel>
             </FormItem>
           );
-          // if (key === DeliveryTypeEnum.POST && isPostAvailable) {
-          //   return (
-          //     <DeliveryPostSelect
-          //       key={key}
-          //       delivery={row}
-          //       selected={deliveryType === DeliveryTypeEnum.POST}
-          //     />
-          //   );
-          // }
-          // if (key === DeliveryTypeEnum.PICKUP && isStoreAvailable) {
-          //   return (
-          //     <DeliveryStoreField
-          //       key={key}
-          //       delivery={row}
-          //       selected={deliveryType === DeliveryTypeEnum.PICKUP}
-          //     />
-          //   );
-          // }
-          // if (key === DeliveryTypeEnum.COURIER && isCourierAvailable) {
-          //   return (
-          //     <DeliveryCourierField
-          //       key={key}
-          //       delivery={row}
-          //       selected={deliveryType === DeliveryTypeEnum.COURIER}
-          //     />
-          //   );
-          // }
         })}
       </RadioGroup>
     );

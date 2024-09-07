@@ -42,6 +42,10 @@ export const SettlementSelectSearchElement: FC<
     }
   }, [debouncedToSearch, search, searchValue]);
 
+  const settlementActiveItem = settlementListToSelect.find(
+    (settlement) => settlement.value === settlementActive?.value,
+  );
+
   return (
     <div className={"flex w-full flex-col gap-3"}>
       <Popover open={open} onOpenChange={setOpen}>
@@ -55,11 +59,21 @@ export const SettlementSelectSearchElement: FC<
                 !settlementActive?.value && "text-muted-foreground",
               )}
             >
-              {settlementActive?.value
-                ? settlementListToSelect.find(
-                    (settlement) => settlement.value === settlementActive.value,
-                  )?.label || "Select settlement"
-                : "Select settlement"}
+              {settlementActiveItem ? (
+                <div className="flex items-center gap-2">
+                  <div className="left-0 grow text-left">
+                    {settlementActiveItem.label}
+                  </div>
+                  <div className="text-right text-xs opacity-50">
+                    {settlementActiveItem.area}
+                  </div>
+                  <div className="text-right text-xs opacity-50">
+                    {settlementActiveItem.region}
+                  </div>
+                </div>
+              ) : (
+                "Select settlement"
+              )}
               <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
             </Button>
           </FormControl>
@@ -99,7 +113,12 @@ export const SettlementSelectSearchElement: FC<
                       className="flex w-full items-center gap-2 text-sm"
                     >
                       <div className="grow">{settlement.label}</div>
-                      <div>{settlement.label}</div>
+                      <div className="text-xs opacity-50">
+                        {settlement.area}
+                      </div>
+                      <div className="text-xs opacity-50">
+                        {settlement.region}
+                      </div>
                     </CommandItem>
                   );
                 })}

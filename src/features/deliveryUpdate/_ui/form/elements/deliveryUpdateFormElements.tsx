@@ -14,15 +14,15 @@ import { FC, HTMLAttributes, useEffect } from "react";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
 import { ZodTypeAny } from "zod";
 import {
-  DeliveryUpdateFormValues,
-  deliveryUpdateFormSchema,
+  DeliveryUpdateFormDefaultValues,
+  deliveryUpdateFormDefaultSchema,
 } from "../../../_domain/form.schema";
 import { DeliveryTypeField } from "../fields/deliveryTypeField";
 
 export interface DeliveryFormElementsProps
   extends HTMLAttributes<HTMLFormElement> {
   delivery: Delivery;
-  handleSubmit: (data: DeliveryUpdateFormValues) => void;
+  handleSubmit: (data: DeliveryUpdateFormDefaultValues) => void;
   addressAddModal: (props: AddressCreateProps) => void;
   receiverAddModal: (props: ReceiverCreateProps) => void;
   schema?: ZodTypeAny;
@@ -63,7 +63,7 @@ const getDefaultValues = (
   receiverAddModal: delivery.receiverAddModal,
 });
 
-interface DeliveryUpdateFormValuesExtends extends DeliveryUpdateFormValues {
+interface DeliveryUpdateFormValuesExtends extends DeliveryUpdateFormDefaultValues {
   addressAddModal: (props: AddressCreateProps) => void;
   receiverAddModal: (props: ReceiverCreateProps) => void;
 }
@@ -78,7 +78,7 @@ export const DeliveryUpdateFormElements: IDeliveryFormElements = (props) => {
   } = props;
 
   const form = useForm<DeliveryUpdateFormValuesExtends>({
-    resolver: zodResolver(deliveryUpdateFormSchema),
+    resolver: zodResolver(deliveryUpdateFormDefaultSchema),
     defaultValues: getDefaultValues({
       ...delivery,
       addressAddModal,
@@ -113,7 +113,7 @@ export const DeliveryUpdateFormElements: IDeliveryFormElements = (props) => {
 
 DeliveryUpdateFormElements.FieldSettlementSelect =
   function FieldSettlementSelect() {
-    const { control, resetField } = useFormContext<DeliveryUpdateFormValues>();
+    const { control, resetField } = useFormContext<DeliveryUpdateFormDefaultValues>();
     return (
       <FormField
         control={control}
@@ -135,7 +135,7 @@ DeliveryUpdateFormElements.FieldSettlementSelect =
   };
 
 DeliveryUpdateFormElements.FieldDeliveryType = function FieldDeliveryType() {
-  const { getValues, control } = useFormContext<DeliveryUpdateFormValues>();
+  const { getValues, control } = useFormContext<DeliveryUpdateFormDefaultValues>();
   const { settlementRef } = getValues();
 
   return (
@@ -159,7 +159,7 @@ DeliveryUpdateFormElements.FieldDeliveryType = function FieldDeliveryType() {
 };
 
 DeliveryUpdateFormElements.FieldPostSelect = function FieldPostSelect() {
-  const { control, getValues } = useFormContext<DeliveryUpdateFormValues>();
+  const { control, getValues } = useFormContext<DeliveryUpdateFormDefaultValues>();
   const { settlementRef } = getValues();
   return (
     <FormField
@@ -180,7 +180,7 @@ DeliveryUpdateFormElements.FieldPostSelect = function FieldPostSelect() {
 };
 
 DeliveryUpdateFormElements.FieldStoreSelect = function FieldStoreSelect() {
-  const { control, getValues } = useFormContext<DeliveryUpdateFormValues>();
+  const { control, getValues } = useFormContext<DeliveryUpdateFormDefaultValues>();
   const { settlementRef } = getValues();
   return (
     <FormField

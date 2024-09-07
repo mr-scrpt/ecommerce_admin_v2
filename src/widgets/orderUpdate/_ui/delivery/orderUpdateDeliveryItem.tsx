@@ -1,4 +1,4 @@
-import { SettlementFormElements } from "@/entities/settlement/_ui/form/settlementFromElements";
+import { useDeliveryWithRelationByOrderIdQuery } from "@/entities/delivery";
 import { DeliveryFormUpdate } from "@/features/deliveryUpdate";
 import { FC, HTMLAttributes } from "react";
 
@@ -10,5 +10,10 @@ export const OrderUpdateDeliveryItem: FC<OrderUpdateDeliveryItemProps> = (
   props,
 ) => {
   const { orderId } = props;
-  return <DeliveryFormUpdate orderId={orderId} />;
+  const { isPending, delivery, isFetchedAfterMount } =
+    useDeliveryWithRelationByOrderIdQuery(orderId);
+
+  if (!delivery) return null;
+  // if (!isPending && !isFetchedAfterMount) return null;
+  return <DeliveryFormUpdate deliveryId={delivery.id} />;
 };

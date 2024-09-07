@@ -116,7 +116,7 @@ PostFormElements.FieldPostSelect = function FieldPostSelect(
   return (
     <FormField
       control={control}
-      name="postList"
+      name="postOfficeList"
       render={({ field }) => (
         <FormItem>
           <FormLabel>Post list</FormLabel>
@@ -137,12 +137,12 @@ PostFormElements.FieldPostMultiSelect = function FieldPostMultiSelect(
   const { settlementRef } = props;
   const { control, getFieldState } = useFormContext<PostFormDefaultValues>();
 
-  if (!getFieldState("postList")) return null;
+  if (!getFieldState("postOfficeList")) return null;
 
   return (
     <FormField
       control={control}
-      name="postList"
+      name="postOfficeList"
       render={({ field }) => (
         <FormItem>
           <FormLabel>Select post list</FormLabel>

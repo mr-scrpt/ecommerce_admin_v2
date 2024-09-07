@@ -1,5 +1,6 @@
 import { DeliveryRelation } from "@/entities/delivery/_domain/delivery.types";
-import { DeliveryTypeDefaultOption } from "@/kernel/domain/delivery/ui.type";
+import { deliveryTypeDefaultOption } from "@/kernel/domain/delivery/deliveryType.schema";
+import { settlementDefaultOption } from "@/kernel/domain/settlement/settlement.schema";
 import { useMemo } from "react";
 
 interface DeliveryDefaultValueProps {
@@ -11,8 +12,8 @@ export const useDeliveryDefaultValues = (props: DeliveryDefaultValueProps) => {
   return useMemo(() => {
     if (!delivery) {
       return {
-        deliveryType: DeliveryTypeDefaultOption,
-        settlement: { label: "", value: "", area: "", region: "" },
+        deliveryType: deliveryTypeDefaultOption,
+        settlement: settlementDefaultOption,
       };
     }
 
@@ -30,6 +31,7 @@ export const useDeliveryDefaultValues = (props: DeliveryDefaultValueProps) => {
         region: settlement.regionsDescription,
         label: settlement.description,
       },
+      postList: [],
     };
   }, [delivery]);
 };

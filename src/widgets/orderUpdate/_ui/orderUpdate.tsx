@@ -2,8 +2,6 @@
 import { RoutePathEnum } from "@/shared/config/routing.config";
 import { FC, HTMLAttributes } from "react";
 import { OrderUpdateDeliveryItem } from "./delivery/orderUpdateDeliveryItem";
-import { OrderUpdateProductItem } from "./products/orderUpdateProductItem";
-import { OrderDeliveryItem } from "./orderDeliveryItem";
 
 interface OrderUpdateProps extends HTMLAttributes<HTMLDivElement> {
   callbackUrl: RoutePathEnum;
