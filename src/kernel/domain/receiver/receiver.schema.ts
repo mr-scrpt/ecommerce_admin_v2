@@ -15,3 +15,12 @@ export const receiverSchema = z.object({
   createdAt: z.date(),
   updatedAt: z.date(),
 });
+
+// NOTE: Default Option
+export const receiverDefaultOption = {
+  label: "",
+  value: "",
+  name: "",
+  lastName: "",
+  phone: "",
+};

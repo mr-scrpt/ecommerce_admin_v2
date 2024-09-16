@@ -14,16 +14,12 @@ import {
 import { ZodTypeAny } from "zod";
 import {
   OrderFormDefaultValues,
-  defaultFieldsValues,
+  orderDefaultFieldsValues,
   orderFormDefaultSchema,
 } from "../../../_domain/order/form.schema";
 import { ButtonSubmitComponentType } from "@/shared/type/button";
-import {
-  OrderPaymentStatusDefaultOption,
-  OrderStatusDefaultOption,
-} from "@/kernel/domain/order/ui.type";
-import { OrderStatusSelectElement } from "./elements/orderSelectElement";
-import { OrderPaymentStatusSelectElement } from "./elements/orderPaymentSelectElement";
+import { OrderStatusStateSelectElement } from "./elements/orderStatusStateSelectElement";
+import { OrderStatusPaymentSelectElement } from "./elements/orderStatusPaymentSelectElement";
 
 interface OrderFormElementsProps<T extends OrderFormDefaultValues>
   extends HTMLAttributes<HTMLFormElement> {
@@ -39,8 +35,8 @@ type OrderFormElementsComponent = <
 ) => React.ReactElement;
 
 type OrderFormFields = {
-  FieldOrderStatusSelect: FC;
-  FieldOrderPaymentStatusSelect: FC;
+  FieldOrderStatusStateSelect: FC;
+  FieldOrderStatusPaymentSelect: FC;
   SubmitButton: ButtonSubmitComponentType;
 };
 
@@ -50,7 +46,7 @@ const getDefaultFormValues = <T extends OrderFormDefaultValues>(
   defaultValues?: DefaultValues<T> | undefined,
 ): DefaultValues<T> => {
   return {
-    ...defaultFieldsValues,
+    ...orderDefaultFieldsValues,
     ...defaultValues,
   } as DefaultValues<T>;
 };
@@ -85,43 +81,44 @@ export const OrderFormElements: OrderFormElementsType = <
   );
 };
 
-OrderFormElements.FieldOrderStatusSelect = function FieldOrderStatusSelect() {
-  const { control, getFieldState } = useFormContext<OrderFormDefaultValues>();
-
-  if (!getFieldState("orderStatusList")) return null;
-
-  return (
-    <FormField
-      control={control}
-      name="orderStatusList"
-      render={({ field }) => (
-        <FormItem>
-          <FormLabel>Select order status</FormLabel>
-          <OrderStatusSelectElement
-            onSelectOrder={field.onChange}
-            orderActive={field.value?.[0]}
-          />
-          <FormMessage />
-        </FormItem>
-      )}
-    />
-  );
-};
-
-OrderFormElements.FieldOrderPaymentStatusSelect =
-  function FieldOrderPaymentStatusSelect() {
+OrderFormElements.FieldOrderStatusStateSelect =
+  function FieldOrderStatusStateSelect() {
     const { control, getFieldState } = useFormContext<OrderFormDefaultValues>();
 
-    if (!getFieldState("orderPaymentStatusList")) return null;
+    if (!getFieldState("orderStatusStateList")) return null;
 
     return (
       <FormField
         control={control}
-        name="orderPaymentStatusList"
+        name="orderStatusStateList"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Select order status</FormLabel>
+            <OrderStatusStateSelectElement
+              onSelectOrder={field.onChange}
+              orderActive={field.value?.[0]}
+            />
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+    );
+  };
+
+OrderFormElements.FieldOrderStatusPaymentSelect =
+  function FieldOrderStatusPaymentSelect() {
+    const { control, getFieldState } = useFormContext<OrderFormDefaultValues>();
+
+    if (!getFieldState("orderStatusPaymentList")) return null;
+
+    return (
+      <FormField
+        control={control}
+        name="orderStatusPaymentList"
         render={({ field }) => (
           <FormItem>
             <FormLabel>Select payment status</FormLabel>
-            <OrderPaymentStatusSelectElement
+            <OrderStatusPaymentSelectElement
               onSelectOrderPayment={field.onChange}
               orderActive={field.value?.[0]}
             />

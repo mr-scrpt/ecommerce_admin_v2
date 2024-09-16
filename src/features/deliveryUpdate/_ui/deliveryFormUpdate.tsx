@@ -1,6 +1,5 @@
 import { useDeliveryQuery } from "@/entities/delivery";
 import { AddressCreateProps } from "@/kernel/domain/address/ui.type";
-import { Spinner } from "@/shared/ui/icons/spinner";
 import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes, useCallback } from "react";
@@ -47,19 +46,19 @@ export const DeliveryFormUpdate: FC<OrderDeliveryFormProps> = (props) => {
   const handleSubmit = useCallback(
     async (deliveryData: DeliveryUpdateFormDefaultValues) => {
       // TODO: add validation
-      if (!delivery) {
-        return;
-      }
-      await deliveryUpdate({
-        selector: { id: delivery.id },
-        deliveryData,
-      });
-
-      onSuccess?.();
-
-      if (callbackUrl) {
-        router.push(callbackUrl);
-      }
+      // if (!delivery) {
+      //   return;
+      // }
+      // await deliveryUpdate({
+      //   selector: { id: delivery.id },
+      //   deliveryData,
+      // });
+      //
+      // onSuccess?.();
+      //
+      // if (callbackUrl) {
+      //   router.push(callbackUrl);
+      // }
     },
     [callbackUrl, delivery, deliveryUpdate, onSuccess, router],
   );

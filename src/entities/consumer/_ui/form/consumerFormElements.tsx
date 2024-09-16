@@ -1,4 +1,5 @@
 "use client";
+import { ButtonSubmitComponentType } from "@/shared/type/button";
 import { Button } from "@/shared/ui/button";
 import {
   Form,
@@ -10,8 +11,6 @@ import {
   FormMessage,
 } from "@/shared/ui/form";
 import { Spinner } from "@/shared/ui/icons/spinner";
-import { Input } from "@/shared/ui/input";
-import { PhoneInput } from "@/shared/ui/phoneInput";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, HTMLAttributes, useEffect } from "react";
 import {
@@ -27,39 +26,12 @@ import {
   consumerFormDefaultSchema,
   defaultFieldsValues,
 } from "../../_domain/form.schema";
-import { ButtonSubmitComponentType } from "@/shared/type/button";
-import { ConsumerNameElement } from "./elements/consumerNameElement";
-import { ConsumerLastNameElement } from "./elements/consumerLastNameElement";
 import { ConsumerEmailElement } from "./elements/consumerEmailElement";
+import { ConsumerLastNameElement } from "./elements/consumerLastNameElement";
+import { ConsumerNameElement } from "./elements/consumerNameElement";
 import { ConsumerPhoneElement } from "./elements/consumerPhoneElement";
+import { ConsumerSelectSearchElement } from "./elements/consumerSelectSearchElement";
 
-// interface ConsumerFormElementsProps extends HTMLAttributes<HTMLFormElement> {
-//   consumer?: Consumer;
-//   handleSubmit: (data: ConsumerFormDefaultValues) => void;
-//   schema?: ZodTypeAny;
-// }
-//
-// interface ConsumerSubmitFieldProps {
-//   isPending?: boolean;
-//   submitText: string;
-//   className?: string;
-// }
-//
-// type ConsumerFormElementsType = FC<ConsumerFormElementsProps> & {
-//   FieldName: FC;
-//   FieldLastName: FC;
-//   FieldEmail: FC;
-//   FieldPhone: FC<{ countryDefault?: Country }>;
-//   SubmitButton: FC<ConsumerSubmitFieldProps>;
-// };
-//
-// const getDefaultValues = (consumer?: Consumer) => ({
-//   name: consumer?.name ?? "",
-//   lastName: consumer?.lastName ?? "",
-//   email: consumer?.email ?? "",
-//   image: consumer?.image ?? "",
-//   phone: consumer?.phone ?? "",
-// });
 interface ConsumerFormElementsProps<T extends ConsumerFormDefaultValues>
   extends HTMLAttributes<HTMLFormElement> {
   handleSubmit?: (data: T) => void;
@@ -78,8 +50,7 @@ type ConsumerFormFields = {
   FieldLastName: FC;
   FieldEmail: FC;
   FieldPhone: FC<{ countryDefault?: Country }>;
-  FieldConsumerSelect: FC;
-  FieldConsumerMultiSelect: FC;
+  FieldConsumerSelectSearch: FC;
   SubmitButton: ButtonSubmitComponentType;
 };
 
@@ -192,14 +163,6 @@ ConsumerFormElements.FieldPhone = function FieldPhone(props) {
       render={({ field }) => (
         <FormItem className="flex flex-col items-start">
           <FormLabel className="text-left">Phone Number</FormLabel>
-          {/* <FormControl className="w-full"> */}
-          {/*   <PhoneInput */}
-          {/*     placeholder="Enter a phone number" */}
-          {/*     defaultCountry={countryDefault as Country} */}
-          {/*     initialValueFormat="national" */}
-          {/*     {...field} */}
-          {/*   /> */}
-          {/* </FormControl> */}
           <ConsumerPhoneElement
             onChange={field.onChange}
             countryDefault={countryDefault}
@@ -215,38 +178,22 @@ ConsumerFormElements.FieldPhone = function FieldPhone(props) {
   );
 };
 
-ConsumerFormElements.FieldConsumerSelect = function FieldConsumerSelect(props) {
-  const { control } = useFormContext<ConsumerFormDefaultValues>();
-
-  return (
-    <FormField
-      control={control}
-      name="consumerList"
-      render={({ field }) => (
-        <FormItem className="flex flex-col items-start">
-          <FormLabel className="text-left">Consumer</FormLabel>
-          <FormControl className="w-full">
-            {/* <ConsumerSelect {...field} /> */}
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      )}
-    />
-  );
-};
-
-ConsumerFormElements.FieldConsumerMultiSelect =
-  function FieldConsumerMultiSelect(props) {
+ConsumerFormElements.FieldConsumerSelectSearch =
+  function FieldConsumerSelectSearch() {
     const { control } = useFormContext<ConsumerFormDefaultValues>();
+
     return (
       <FormField
         control={control}
-        name="consumerList"
+        name="consumer"
         render={({ field }) => (
           <FormItem className="flex flex-col items-start">
             <FormLabel className="text-left">Consumer</FormLabel>
             <FormControl className="w-full">
-              {/* <ConsumerMultiSelect {...field} /> */}
+              <ConsumerSelectSearchElement
+                consumerActive={field.value}
+                onSelectConsumer={field.onChange}
+              />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -254,6 +201,26 @@ ConsumerFormElements.FieldConsumerMultiSelect =
       />
     );
   };
+
+// ConsumerFormElements.FieldConsumerMultiSelect =
+//   function FieldConsumerMultiSelect(props) {
+//     const { control } = useFormContext<ConsumerFormDefaultValues>();
+//     return (
+//       <FormField
+//         control={control}
+//         name="consumerList"
+//         render={({ field }) => (
+//           <FormItem className="flex flex-col items-start">
+//             <FormLabel className="text-left">Consumer</FormLabel>
+//             <FormControl className="w-full">
+//               {/* <ConsumerMultiSelect {...field} /> */}
+//             </FormControl>
+//             <FormMessage />
+//           </FormItem>
+//         )}
+//       />
+//     );
+//   };
 
 ConsumerFormElements.SubmitButton = function SubmitButton(props) {
   const { isPending, submitText } = props;

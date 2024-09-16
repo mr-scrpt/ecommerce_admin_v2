@@ -1,7 +1,6 @@
 // NOTE: Base
 export type StoreBase = {
   name: string;
-  settlementRef: string;
   address: string;
 };
 

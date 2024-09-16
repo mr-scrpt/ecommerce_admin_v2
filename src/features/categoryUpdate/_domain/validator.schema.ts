@@ -1,6 +1,6 @@
 import { z } from "zod";
 import {
-  categoryPropertySchema,
+  categoryPropertyBindSchema,
   categorySelectorSchema,
   categoryUpdateSchema,
 } from "./schema";
@@ -8,5 +8,5 @@ import {
 export const updateInputSchema = z.object({
   selector: categorySelectorSchema,
   categoryData: categoryUpdateSchema.partial(),
-  propertyData: z.array(categoryPropertySchema),
+  propertyData: z.array(categoryPropertyBindSchema),
 });

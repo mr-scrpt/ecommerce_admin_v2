@@ -7,17 +7,20 @@ import {
   SelectValue,
 } from "../select";
 import { FormControl } from "../form";
-import { SelectOptionItem } from "@/shared/type/select";
+import { DefaultSelectOption } from "@/shared/type/select";
 
-interface selectElementProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, "onSelect"> {
-  onSelect: (items: Array<SelectOptionItem>) => void;
-  optionList: Array<SelectOptionItem>;
-  optionActive?: SelectOptionItem;
+interface SelectElementProps<
+  T extends DefaultSelectOption = DefaultSelectOption,
+> extends Omit<HTMLAttributes<HTMLDivElement>, "onSelect"> {
+  onSelect: (items: Array<T>) => void;
+  optionList: Array<T>;
+  optionActive?: T;
   placeholder?: string;
 }
 
-export const SelectElement: FC<selectElementProps> = (props) => {
+export const SelectElement = <T extends DefaultSelectOption>(
+  props: SelectElementProps<T>,
+) => {
   const {
     optionActive,
     optionList,
@@ -25,6 +28,7 @@ export const SelectElement: FC<selectElementProps> = (props) => {
     onSelect,
   } = props;
   const defaultValue = optionActive?.value || "";
+
   return (
     <Select
       defaultValue={defaultValue}

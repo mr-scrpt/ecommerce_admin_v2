@@ -1,11 +1,11 @@
 import { Tx } from "@/shared/lib/db/db";
 import {
-  OrderCreateEmptyDTO,
   OrderCreateEmptyWithReceiverDTO,
   OrderGetByConsumerDTO,
   OrderGetDTO,
   OrderUpdateDTO,
 } from "./order.dto";
+import { OrderEntity } from "./order.type";
 import {
   OrderRowCreateDTO,
   OrderRowGetByOrderProductDTO,
@@ -14,8 +14,12 @@ import {
   OrderRowRemoveDTO,
   OrderRowUpdateDTO,
 } from "./orderRow.dto";
-import { OrderEntity } from "./order.type";
 import { OrderRowEntity } from "./orderRow.type";
+import {
+  OrderStatusPaymentEntity,
+  OrderStatusStateEntity,
+} from "./orderStatus.type";
+import { OrderStatusGetDTO } from "./orderStatus.dto";
 
 export abstract class IOrderRepository {
   abstract get(dto: OrderGetDTO, db?: Tx): Promise<OrderEntity>;
@@ -62,4 +66,21 @@ export abstract class IOrderRowRepository {
   abstract update(dto: OrderRowUpdateDTO, db?: Tx): Promise<OrderRowEntity>;
 
   abstract remove(dto: OrderRowRemoveDTO, db?: Tx): Promise<OrderRowEntity>;
+}
+export abstract class IOrderStatusRepository {
+  abstract getStatusState(
+    dto: OrderStatusGetDTO,
+    db?: Tx,
+  ): Promise<OrderStatusStateEntity>;
+
+  abstract getStatusPayment(
+    dto: OrderStatusGetDTO,
+    db?: Tx,
+  ): Promise<OrderStatusPaymentEntity>;
+
+  abstract getStatusStateList(db?: Tx): Promise<Array<OrderStatusStateEntity>>;
+
+  abstract getStatusPaymentList(
+    db?: Tx,
+  ): Promise<Array<OrderStatusPaymentEntity>>;
 }

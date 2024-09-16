@@ -17,6 +17,10 @@ import { settlementListSeed } from "./data/settlement";
 import { storeListSeed } from "./data/store";
 import { addressListSeed } from "./data/address";
 import { deliveryTypeListSeed } from "./data/deliveryType";
+import {
+  orderStatusPaymentListSeed,
+  orderStatusStateListSeed,
+} from "./data/orderStatus";
 
 const prisma = new PrismaClient();
 
@@ -82,6 +86,24 @@ async function main() {
       console.log("receiver created", receiver);
     } catch (error) {
       console.log("output_log: receiver error =>>>", error);
+    }
+  }
+
+  for await (const orderStatusState of orderStatusStateListSeed) {
+    try {
+      await prisma.orderStatusState.create({ data: orderStatusState });
+      console.log("order status state created", orderStatusState);
+    } catch (error) {
+      console.log("output_log: order status state error =>>>", error);
+    }
+  }
+
+  for await (const orderStatusPayment of orderStatusPaymentListSeed) {
+    try {
+      await prisma.orderStatusPayment.create({ data: orderStatusPayment });
+      console.log("order status payment created", orderStatusPayment);
+    } catch (error) {
+      console.log("output_log: order status payment error =>>>", error);
     }
   }
 

@@ -1,14 +1,14 @@
 import { orderBaseSchema } from "@/kernel/domain/order/order.schema";
 import {
-  OrderPaymentStatusEnum,
-  OrderStatusEnum,
-} from "@/kernel/domain/order/order.type";
+  ORDER_STATUS_PAYMENT,
+  ORDER_STATUS_STATE,
+} from "@/kernel/domain/order/orderStatus.type";
 import { orderRowBaseSchema } from "@/kernel/domain/order/orderRow.schema";
 import { z } from "zod";
 
 export const orderCreateSchema = z.object({
-  orderStatus: z.nativeEnum(OrderStatusEnum),
-  orderPayment: z.nativeEnum(OrderPaymentStatusEnum),
+  orderStatusState: z.nativeEnum(ORDER_STATUS_STATE),
+  orderStatusPayment: z.nativeEnum(ORDER_STATUS_PAYMENT),
 });
 
 export const orderEmptyCreateSchema = orderBaseSchema.pick({

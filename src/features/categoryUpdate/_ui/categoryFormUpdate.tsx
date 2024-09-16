@@ -4,11 +4,10 @@ import {
   PropertyFormElements,
   usePropertyListByCategoryQuery,
 } from "@/entities/property";
-import { useOptionListTransform } from "@/shared/lib/map";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
-import { FC, HTMLAttributes, useMemo } from "react";
+import { FC, HTMLAttributes } from "react";
 import {
   CategoryUpdateFormValues,
   categoryUpdateFormSchema,
@@ -26,41 +25,18 @@ interface CategoryFormProps extends HTMLAttributes<HTMLDivElement> {
 export const CategoryFormUpdate: FC<CategoryFormProps> = (props) => {
   const { categoryId, callbackUrl, className, onSuccess } = props;
 
-  const {
-    category,
-    isPending: isPendingCategory,
-    isFetchedAfterMount: isFetchedAfterMountCategory,
-  } = useCategoryQuery(categoryId);
-
-  const {
-    propertyList,
-    isPending: isPendingProperty,
-    isFetchedAfterMount: isFetchedAfterMountProperty,
-  } = usePropertyListByCategoryQuery(categoryId);
-
   const router = useRouter();
 
   const { categoryUpdate, isPending: isPendingUpdate } =
     useCategoryUpdateMutation();
 
-  const defaultValues = useCategoryDefaultValues({
-    category,
-    propertyList,
-  });
+  const { defaultValues, isPending, isFetchedAfterMount } =
+    useCategoryDefaultValues({
+      categoryId,
+    });
 
-  const isPendingComplexible =
-    isPendingCategory ||
-    isPendingUpdate ||
-    isPendingProperty ||
-    !isFetchedAfterMountCategory ||
-    !isFetchedAfterMountProperty;
-
-  if (isPendingComplexible) {
+  if (isPending || !isFetchedAfterMount) {
     return <Spinner aria-label="Loading profile..." />;
-  }
-
-  if (!category) {
-    return <div>Failed to load category, you may not have permissions</div>;
   }
 
   const handleSubmit = async (data: CategoryUpdateFormValues) => {

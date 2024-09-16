@@ -24,6 +24,6 @@ export const useInvalidateDeliveryWithRelation = () => {
     deliveryApi.useUtils().delivery.getWithRelation.invalidate;
 
   return (orderId: string) => {
-    invalidateDelivery();
+    invalidateDelivery({ id: orderId });
   };
 };

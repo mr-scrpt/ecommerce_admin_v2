@@ -1,6 +1,7 @@
-import { PropertyDataTypeEnum } from "@/kernel/domain/property/property.type";
-import { DataTypeDefaultOption } from "@/kernel/domain/property/ui.type";
-import { selectItemSchema } from "@/shared/type/select";
+import {
+  propertyDataTypeDefaultSelectOptionSchema,
+  propertyDefaultSelectOptionSchema,
+} from "@/kernel/domain/property/form.schema";
 import { z } from "zod";
 
 export const propertyFormDefaultSchema = z.object({
@@ -11,8 +12,8 @@ export const propertyFormDefaultSchema = z.object({
       message: "Username must not be longer than 30 characters.",
     })
     .transform((name) => name.trim()),
-  datatypeList: z.array(selectItemSchema(z.nativeEnum(PropertyDataTypeEnum))),
-  propertyList: z.array(selectItemSchema(z.string())).optional(),
+  datatypeList: z.array(propertyDataTypeDefaultSelectOptionSchema),
+  propertyList: z.array(propertyDefaultSelectOptionSchema).optional(),
 });
 
 export type PropertyFormDefaultValues<
@@ -20,8 +21,8 @@ export type PropertyFormDefaultValues<
 > = z.infer<T>;
 
 // TODO: DefaultValues
-export const defaultFieldsValues: PropertyFormDefaultValues = {
+export const propertyDefaultFieldsValues: PropertyFormDefaultValues = {
   name: "",
-  datatypeList: [DataTypeDefaultOption],
+  datatypeList: [],
   propertyList: [],
 };

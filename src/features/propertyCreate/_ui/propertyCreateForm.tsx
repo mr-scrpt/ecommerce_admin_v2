@@ -11,7 +11,7 @@ import {
   propertyCreateFormSchema,
 } from "../_domain/form.schema";
 import { usePropertyCreateMutation } from "../_mutation/propertyCreate.mutation";
-import { PropertyDataTypeEnum } from "@/kernel/domain/property/property.type";
+import { PROPERTY_DATATYPE } from "@prisma/client";
 
 interface PropertyCreateFormProps extends HTMLAttributes<HTMLDivElement> {
   callbackUrl?: string;
@@ -27,13 +27,15 @@ export const PropertyFormCreate: FC<PropertyCreateFormProps> = (props) => {
   const { propertyCreate, isPending: isPendingUpdate } =
     usePropertyCreateMutation();
 
+  // TODO: DefaultValues move to hook and data from server
   const defaultValues: PropertyCreateFormValues = useMemo(() => {
     return {
       name: "",
-      datatype: [
+      datatypeList: [
         {
-          label: PropertyDataTypeEnum.SELECT,
-          value: PropertyDataTypeEnum.SELECT,
+          label: PROPERTY_DATATYPE.SELECT,
+          value: PROPERTY_DATATYPE.SELECT,
+          type: PROPERTY_DATATYPE.SELECT,
         },
       ],
       propertyItemList: [{ label: "", value: "" }],
@@ -41,11 +43,13 @@ export const PropertyFormCreate: FC<PropertyCreateFormProps> = (props) => {
   }, []);
 
   const handleSubmit = async (data: PropertyCreateFormValues) => {
-    const { name, datatypeList: datatype, propertyItemList } = data;
+    const { name, datatypeList, propertyItemList } = data;
+    const [datatype] = datatypeList;
+
     await propertyCreate({
       propertyData: {
         name,
-        datatype: datatype[0].value,
+        datatype: datatype.type,
       },
       propertyItemData: propertyItemList.map(({ value, label }) => ({
         name: label,

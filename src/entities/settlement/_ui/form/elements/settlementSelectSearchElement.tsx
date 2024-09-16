@@ -1,6 +1,6 @@
 import { useSettlementListSearchToSelectModel } from "@/entities/settlement/_vm/useSettlementListSearchToSelect.model";
+import { SettlementDefaultSelectOption } from "@/kernel/domain/settlement/form.schema";
 import { SEARCH_MIN_LENGTH } from "@/shared/config/constant";
-import { SelectOptionItem } from "@/shared/type/select";
 import { Button } from "@/shared/ui/button";
 import {
   Command,
@@ -18,8 +18,8 @@ import { FC, HTMLAttributes, useEffect, useState } from "react";
 
 interface SettlementSelectSearchElementProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "onChange"> {
-  settlementActive?: SelectOptionItem;
-  onSelectSettlement: (settlement: SelectOptionItem) => void;
+  settlementActive?: SettlementDefaultSelectOption;
+  onSelectSettlement: (settlement: SettlementDefaultSelectOption) => void;
 }
 
 export const SettlementSelectSearchElement: FC<
@@ -60,16 +60,18 @@ export const SettlementSelectSearchElement: FC<
               )}
             >
               {settlementActiveItem ? (
-                <div className="flex items-center gap-2">
+                <div className="flex w-full items-center gap-2">
                   <div className="left-0 grow text-left">
                     {settlementActiveItem.label}
                   </div>
                   <div className="text-right text-xs opacity-50">
                     {settlementActiveItem.area}
                   </div>
-                  <div className="text-right text-xs opacity-50">
-                    {settlementActiveItem.region}
-                  </div>
+                  {settlementActiveItem.region && (
+                    <div className="text-right text-xs opacity-50">
+                      ({settlementActiveItem.region})
+                    </div>
+                  )}
                 </div>
               ) : (
                 "Select settlement"
@@ -107,6 +109,8 @@ export const SettlementSelectSearchElement: FC<
                         onSelectSettlement({
                           label: settlement.label,
                           value: settlement.value,
+                          area: settlement.area,
+                          region: settlement.region,
                         });
                         setOpen(false);
                       }}
@@ -116,9 +120,11 @@ export const SettlementSelectSearchElement: FC<
                       <div className="text-xs opacity-50">
                         {settlement.area}
                       </div>
-                      <div className="text-xs opacity-50">
-                        {settlement.region}
-                      </div>
+                      {settlement.region && (
+                        <div className="text-xs opacity-50">
+                          ({settlement.region})
+                        </div>
+                      )}
                     </CommandItem>
                   );
                 })}

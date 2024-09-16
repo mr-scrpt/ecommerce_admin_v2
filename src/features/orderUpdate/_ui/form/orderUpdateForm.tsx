@@ -20,18 +20,25 @@ export const OrderUpdateForm: FC<OrderUpdateFromProps> = (props) => {
 
   const router = useRouter();
 
+  // TODO: add UI
+
+  if (!order) {
+    return null;
+  }
+
   const defaultValues = useOrderDefaultValues(order);
 
   const { orderUpdate } = useOrderUpdateMutation();
+
   const handleSubmit = async (data: OrderUpdateFormValues) => {
-    const { orderStatusList, orderPaymentStatusList } = data;
-    const [orderStatusData] = orderStatusList;
-    const [orderPaymentStatusData] = orderPaymentStatusList;
+    const { orderStatusStateList, orderStatusPaymentList } = data;
+    const [orderStatusData] = orderStatusStateList;
+    const [orderPaymentStatusData] = orderStatusPaymentList;
 
     await orderUpdate({
       selector: { id: orderId },
-      orderStatusData: orderStatusData.value,
-      orderPaymentStatusData: orderPaymentStatusData.value,
+      orderStatusStateData: { id: orderStatusData.value },
+      orderStatusPaymentData: { id: orderPaymentStatusData.value },
     });
 
     onSuccess?.();
@@ -46,8 +53,8 @@ export const OrderUpdateForm: FC<OrderUpdateFromProps> = (props) => {
       defaultValues={defaultValues}
       handleSubmit={handleSubmit}
     >
-      <OrderFormElements.FieldOrderStatusSelect />
-      <OrderFormElements.FieldOrderPaymentStatusSelect />
+      <OrderFormElements.FieldOrderStatusStateSelect />
+      <OrderFormElements.FieldOrderStatusPaymentSelect />
       <OrderFormElements.SubmitButton
         isPending={isPending}
         submitText="Update Order"

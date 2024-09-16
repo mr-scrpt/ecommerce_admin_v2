@@ -6,12 +6,15 @@ export type StoreGetDTO = {
 };
 
 export type StoreGetBySettlementRefDTO = {
-  settlementRef: string;
+  settlementRef?: string;
 };
 
 // NOTE: Mutations
 export type StoreCreateDTO = {
   data: StoreBase;
+  relations: {
+    settlementRef: string;
+  };
 };
 
 export type StoreUpdateDTO = {

@@ -3,14 +3,12 @@ import { ButtonSubmitComponentType } from "@/shared/type/button";
 import { Button } from "@/shared/ui/button";
 import {
   Form,
-  FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/shared/ui/form";
 import { Spinner } from "@/shared/ui/icons/spinner";
-import { Input } from "@/shared/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { MinusIcon, PlusIcon } from "lucide-react";
 import { FC, HTMLAttributes, useEffect } from "react";
@@ -24,7 +22,8 @@ import {
 import { ZodTypeAny } from "zod";
 import {
   PropertyItemFormDefaultValues,
-  defaultFieldsValues,
+  propertyItemDefaultFieldsValues,
+  propertyItemEmptyRow,
   propertyItemFormSchema,
 } from "../../../_domain/propertyItem/form.schema";
 import { PropertyItemNameElement } from "./elements/propertyItemNameElement";
@@ -56,7 +55,7 @@ const getDefaultFormValues = <T extends PropertyItemFormDefaultValues>(
   defaultValues?: DefaultValues<T> | undefined,
 ): DefaultValues<T> => {
   return {
-    ...defaultFieldsValues,
+    ...propertyItemDefaultFieldsValues,
     ...defaultValues,
   } as DefaultValues<T>;
 };
@@ -157,10 +156,7 @@ PropertyItemFormElements.FieldPropertyItemList =
           );
         })}
 
-        <Button
-          type="button"
-          onClick={() => append({ label: "", value: "", id: "" })}
-        >
+        <Button type="button" onClick={() => append(propertyItemEmptyRow)}>
           <PlusIcon size="15" /> Add property line
         </Button>
       </div>

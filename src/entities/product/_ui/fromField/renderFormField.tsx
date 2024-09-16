@@ -3,13 +3,13 @@ import { ProductFormCheckbox } from "./productFormCheckbox";
 import { ProductFormMult } from "./productFormMult";
 import { ProductFormRadio } from "./productFormRadio";
 import { ProductPropertyToSelect } from "../../_domain/product.types";
-import { PropertyDataTypeEnum } from "@/kernel/domain/property/property.type";
+import { PROPERTY_DATATYPE } from "@prisma/client";
 
 const propertyTypeToComponentMap = {
-  [PropertyDataTypeEnum.SELECT]: ProductFormSelect,
-  [PropertyDataTypeEnum.CHECKBOX]: ProductFormCheckbox,
-  [PropertyDataTypeEnum.MULT]: ProductFormMult,
-  [PropertyDataTypeEnum.RADIO]: ProductFormRadio,
+  [PROPERTY_DATATYPE.SELECT]: ProductFormSelect,
+  [PROPERTY_DATATYPE.CHECKBOX]: ProductFormCheckbox,
+  [PROPERTY_DATATYPE.MULT]: ProductFormMult,
+  [PROPERTY_DATATYPE.RADIO]: ProductFormRadio,
 };
 
 export const renderFormField = ({

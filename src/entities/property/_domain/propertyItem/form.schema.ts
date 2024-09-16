@@ -1,8 +1,13 @@
-import { selectItemWithIdSchema } from "@/shared/type/select";
+import {
+  PropertyItemDefaultSelectOption,
+  propertyItemDefaultSelectOptionSchema,
+} from "@/kernel/domain/property/form.schema";
 import { z } from "zod";
 
+// NOTE: FORM
+// NOTE: Main information
 export const propertyItemFormSchema = z.object({
-  propertyItemList: z.array(selectItemWithIdSchema(z.string())),
+  propertyItemList: z.array(propertyItemDefaultSelectOptionSchema),
 });
 
 export type PropertyItemFormDefaultValues<
@@ -10,6 +15,11 @@ export type PropertyItemFormDefaultValues<
 > = z.infer<T>;
 
 // TODO: DefaultValues
-export const defaultFieldsValues: PropertyItemFormDefaultValues = {
-  propertyItemList: [{ label: "", value: "", id: "" }],
+export const propertyItemDefaultFieldsValues: PropertyItemFormDefaultValues = {
+  propertyItemList: [],
+};
+
+export const propertyItemEmptyRow: PropertyItemDefaultSelectOption = {
+  value: "",
+  label: "",
 };

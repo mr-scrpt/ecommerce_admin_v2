@@ -10,7 +10,7 @@ export const getByUserInputSchema = z.object({
 });
 
 export const getByUserAndSettlementRefInputSchema = z.object({
-  userId: z.string().optional(),
+  userId: z.string(),
   settlementRef: z.string().optional(),
 });
 

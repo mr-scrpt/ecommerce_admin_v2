@@ -1,15 +1,8 @@
-import { PropertyDataTypeEnum } from "./property.type";
+import { PROPERTY_DATATYPE } from "./property.type";
 
-export const DATATYPE_LIST = [
-  { type: PropertyDataTypeEnum.SELECT, value: "Select" },
-  { type: PropertyDataTypeEnum.MULT, value: "Multi select" },
-  { type: PropertyDataTypeEnum.CHECKBOX, value: "Checkbox" },
-  { type: PropertyDataTypeEnum.RADIO, value: "Radio" },
+export const PROPERTY_DATATYPE_LIST = [
+  { type: PROPERTY_DATATYPE.SELECT, value: "Select" },
+  { type: PROPERTY_DATATYPE.MULT, value: "Multi select" },
+  { type: PROPERTY_DATATYPE.CHECKBOX, value: "Checkbox" },
+  { type: PROPERTY_DATATYPE.RADIO, value: "Radio" },
 ];
-
-const [DataTypeDefaultElement] = DATATYPE_LIST;
-
-export const DataTypeDefaultOption = {
-  label: DataTypeDefaultElement.value,
-  value: DataTypeDefaultElement.type,
-};

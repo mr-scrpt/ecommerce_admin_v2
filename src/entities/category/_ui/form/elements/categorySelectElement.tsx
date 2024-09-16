@@ -1,14 +1,14 @@
 import { FC, memo } from "react";
 
-import { SelectOptionItem } from "@/shared/type/select";
+import { CategoryDefaultSelectOption } from "@/kernel/domain/category/form.schema";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { SelectElement } from "@/shared/ui/select/selectElement";
 import { HTMLAttributes } from "react";
 import { useCategoryListToSelectModel } from "../../../_vm/useCategoryListToSelect.modle";
 
 export interface CategorySelectProps extends HTMLAttributes<HTMLDivElement> {
-  categoryActive?: SelectOptionItem;
-  onSelectCategory: (categoryList: Array<SelectOptionItem>) => void;
+  categoryActive?: CategoryDefaultSelectOption;
+  onSelectCategory: (categoryList: Array<CategoryDefaultSelectOption>) => void;
 }
 
 export const CategorySelectElement: FC<CategorySelectProps> = memo((props) => {

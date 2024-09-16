@@ -7,6 +7,7 @@ import { FC, HTMLAttributes } from "react";
 import { useAddressCreateMutation } from "../_mutation/useAddressCreate.mutation";
 import {
   AddressCreateFormValues,
+  addressCreateDefaultFieldsValues,
   addressCreateFormSchema,
 } from "../_domain/form.schema";
 
@@ -51,18 +52,11 @@ export const AddressFormCreate: FC<AddressFormCreateProps> = (props) => {
       <AddressFormElements<AddressCreateFormValues>
         handleSubmit={handleSubmit}
         schema={addressCreateFormSchema}
+        defaultValues={addressCreateDefaultFieldsValues}
       >
         <AddressFormElements.FieldStreet />
         <AddressFormElements.FieldHouse />
         <AddressFormElements.FieldApartment />
-        {/* <AddressFormElements.FieldAddressSelect */}
-        {/*   userId={userId} */}
-        {/*   settlementRef={settlementRef} */}
-        {/* /> */}
-        {/* <AddressFormElements.FieldAddressMultiSelect */}
-        {/*   userId={userId} */}
-        {/*   settlementRef={settlementRef} */}
-        {/* /> */}
         <AddressFormElements.SubmitButton
           isPending={isPendingCreate}
           submitText={"Create Address"}

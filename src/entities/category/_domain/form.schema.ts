@@ -1,4 +1,4 @@
-import { selectItemSchema } from "@/shared/type/select";
+import { categoryDefaultSelectOptionSchema } from "@/kernel/domain/category/form.schema";
 import { z } from "zod";
 
 // NOTE: FORM
@@ -12,15 +12,15 @@ export const categoryFormDefaultSchema = z.object({
     })
     .transform((name) => name.trim()),
   board: z.array(z.string()),
-  categoryList: z.array(selectItemSchema(z.string())).optional(),
+  categoryList: z.array(categoryDefaultSelectOptionSchema).optional(),
 });
 
 export type CategoryFormDefaultValues<
   T extends z.ZodTypeAny = typeof categoryFormDefaultSchema,
 > = z.infer<T>;
 
-// TODO: DefaultValues
-export const defaultFieldsValues: CategoryFormDefaultValues = {
+// NOTE: DefaultValues
+export const categoryDefaultFieldsValues: CategoryFormDefaultValues = {
   name: "",
   board: [],
   categoryList: [],

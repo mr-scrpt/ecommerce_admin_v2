@@ -1,11 +1,8 @@
+import { SettlementEntity } from "@/kernel/domain/settlement/settlement.type";
 import { SettlementNovaPoshtaIndex } from "@/kernel/lib/novaposhta/novaposhta.type";
 import { INovaPoshtaRepository } from "@/kernel/lib/novaposhta/repository.type";
 import { injectable } from "inversify";
 import { ISettlementRepository } from "../../../kernel/domain/settlement/repository.type";
-import { SettlementEntity } from "@/kernel/domain/settlement/settlement.type";
-import { settlementBaseSchema } from "@/kernel/domain/settlement/settlement.schema";
-import { novaPoshtaSettlementBaseSchema } from "@/kernel/lib/novaposhta/novaposhta.schema";
-import { z } from "zod";
 
 const INIT_PAGE = 1;
 const INIT_DELAY = 250;

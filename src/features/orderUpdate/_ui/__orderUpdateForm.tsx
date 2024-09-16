@@ -40,8 +40,8 @@ export const OrderUpdateForm: FC<OrderUpdateFromProps> = (props) => {
       defaultValues={defaultValues}
       handleSubmit={handleSubmit}
     >
-      <OrderFormElements.FieldOrderStatusSelect />
-      <OrderFormElements.FieldOrderPaymentStatusSelect />
+      <OrderFormElements.FieldOrderStatusStateSelect />
+      <OrderFormElements.FieldOrderStatusPaymentSelect />
       {/* <ProductFormElements.FieldProductSelectGroupSearch */}
       {/*   productInOrder={ */}
       {/*     order?.orderRowList.map(({ productId }) => productId) ?? [] */}

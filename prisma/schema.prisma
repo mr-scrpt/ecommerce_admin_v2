@@ -16,23 +16,25 @@ enum ROLE {
   CONSUMER
 }
 
-enum DATATYPE {
+enum PROPERTY_DATATYPE {
   SELECT
   MULT
   CHECKBOX
   RADIO
 }
 
-enum ORDER_STATUS {
+enum ORDER_STATUS_STATE {
   TEMP
   NEW
   PENDING
   CALLED
   NOT_CONTACTED
+  DELIVERED
+  RECEIVED
   COMPLETED
   CANCELED
 }
-enum ORDER_PAYMENT_STATUS {
+enum ORDER_STATUS_PAYMENT {
   TEMP
   PAID
   NOT_PAID
@@ -143,8 +145,10 @@ model Order {
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
 
-  orderStatus       ORDER_STATUS
-  paymentStatus     ORDER_PAYMENT_STATUS
+  orderStatusState  OrderStatusState     @relation(fields: [orderStatusStateId], references: [id])
+  orderStatusStateId     String
+  orderStatusPayment  OrderStatusPayment   @relation(fields: [orderStatusPaymentId], references: [id])
+  orderStatusPaymentId   String
 
   orderRowList  OrderRow[]
   priceTotal  Float
@@ -159,6 +163,22 @@ model Order {
   updatedAt DateTime @updatedAt
 
   @@unique([id,userId])
+}
+
+model OrderStatusState {
+  id       String   @id @default(uuid())
+  status     ORDER_STATUS_STATE @unique @default(TEMP)
+  order Order[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model OrderStatusPayment {
+  id       String   @id @default(uuid())
+  status     ORDER_STATUS_PAYMENT @unique @default(TEMP)
+  order Order[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model OrderRow {
@@ -325,7 +345,7 @@ model Store {
 model Property {
   id       String   @id @default(uuid())
   name     String   @unique
-  datatype DATATYPE
+  datatype PROPERTY_DATATYPE
 
   propertyItemList PropertyItem[] @relation("PropertyItemToProperty")
   categoryList   Category[]   @relation("PropertyToCategory")

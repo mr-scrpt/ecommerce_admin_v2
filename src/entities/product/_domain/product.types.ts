@@ -1,8 +1,8 @@
 import { Category } from "@/kernel/domain/category/category.type";
+import { ProductDefaultSelectOption } from "@/kernel/domain/product/form.schema";
 import { Product, ProductEntity } from "@/kernel/domain/product/product.type";
-import { PropertyDataTypeEnum } from "@/kernel/domain/property/property.type";
 import { PropertyItem } from "@/kernel/domain/property/propertyItem.type";
-import { SelectOptionItem } from "@/shared/type/select";
+import { PROPERTY_DATATYPE } from "@prisma/client";
 
 // NOTE: Relations
 export type ProductRelationEntity = ProductEntity & {
@@ -60,11 +60,12 @@ export type ProductFromForm = {
   // propertyItemListSelected: Array<PropertyItem>;
 };
 
+// TODO: Needed?
 export type ProductPropertyToSelect = {
   id: string;
   name: string;
-  datatype: PropertyDataTypeEnum;
-  propertyList: Array<SelectOptionItem>;
+  datatype: PROPERTY_DATATYPE;
+  propertyList: Array<ProductDefaultSelectOption>;
 };
 
 export type ProductToSelect = {

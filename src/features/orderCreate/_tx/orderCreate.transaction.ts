@@ -1,7 +1,10 @@
 import { DBClient, Transaction, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
 import { OrderEmptyCreateTxDTO } from "../_domain/types";
-import { IOrderRepository } from "@/kernel/domain/order/repository.type";
+import {
+  IOrderRepository,
+  IOrderStatusRepository,
+} from "@/kernel/domain/order/repository.type";
 import { OrderEntity } from "@/kernel/domain/order/order.type";
 import { IDeliveryRepository } from "@/kernel/domain/delivery/repository.type";
 import { IOrderCreateTx } from "../_domain/transaction.type";
@@ -14,6 +17,7 @@ export class OrderCreateTx extends Transaction implements IOrderCreateTx {
   constructor(
     readonly db: DBClient,
     private readonly orderRepo: IOrderRepository,
+    private readonly orderStatusRepo: IOrderStatusRepository,
     private readonly deliveryRepo: IDeliveryRepository,
     private readonly consumerRepo: IConsumerRepository,
     private readonly receiverRepo: IReceiverRepository,

@@ -1,38 +1,38 @@
-import { FormControl } from "@/shared/ui/form";
-import { FC } from "react";
+import { FC, memo } from "react";
 
-import { StoreSelectProps } from "@/kernel/domain/store/ui.type";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/shared/ui/select";
-import { useStoreListBySettltmentRefToSelectModel } from "../../../_vm/useStoreListBySettltmentRefToSelect.model";
+import { DefaultSelectOption } from "@/shared/type/select";
+import { Spinner } from "@/shared/ui/icons/spinner";
+import { SelectElement } from "@/shared/ui/select/selectElement";
+import { HTMLAttributes } from "react";
+import { useAddressListBySettlementRefToSelectModel } from "../../../_vm/useAddressListBySettlementRefToSelect.model";
+import { StoreDefaultSelectOption } from "@/kernel/domain/store/form.schema";
 
-export const StoreSelectElement: FC<StoreSelectProps> = (props) => {
-  const { storeInit, settlementRef, onSelectStore } = props;
+export interface StoreSelectProps extends HTMLAttributes<HTMLDivElement> {
+  storeActive?: StoreDefaultSelectOption;
+  settlementRef?: string;
+  onSelectStore: (storeList: Array<StoreDefaultSelectOption>) => void;
+}
 
-  const { storeListToSelect, isPending, isSuccess } =
-    useStoreListBySettltmentRefToSelectModel(settlementRef);
+export const StoreSelectElement: FC<StoreSelectProps> = memo((props) => {
+  const { storeActive, settlementRef, onSelectStore } = props;
+
+  const { storeListToSelect, isPending } =
+    useAddressListBySettlementRefToSelectModel(settlementRef);
 
   const placeholder = isPending ? "Loading..." : "Select store";
 
+  if (isPending) {
+    return <Spinner />;
+  }
+
   return (
-    <Select defaultValue={storeInit || ""} onValueChange={onSelectStore}>
-      <FormControl>
-        <SelectTrigger>
-          <SelectValue placeholder={placeholder} />
-        </SelectTrigger>
-      </FormControl>
-      <SelectContent>
-        {storeListToSelect.map((store) => (
-          <SelectItem key={store.value} value={store.value}>
-            {store.label}
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
+    <SelectElement
+      optionList={storeListToSelect}
+      optionActive={storeActive}
+      placeholder={placeholder}
+      onSelect={onSelectStore}
+    />
   );
-};
+});
+
+StoreSelectElement.displayName = "StoreSelectElement";

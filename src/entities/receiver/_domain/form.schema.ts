@@ -1,3 +1,4 @@
+import { receiverDefaultSelectOptionSchema } from "@/kernel/domain/receiver/form.schema";
 import { z } from "zod";
 
 // NOTE: FORM
@@ -6,9 +7,17 @@ export const receiverFormDefaultSchema = z.object({
   name: z.string(),
   lastName: z.string(),
   phone: z.string(),
-  receiverId: z.string(),
+  receiverList: z.array(receiverDefaultSelectOptionSchema).optional(),
 });
 
-export type ReceiverFormDefaultValues = z.infer<
-  typeof receiverFormDefaultSchema
->;
+export type ReceiverFormDefaultValues<
+  T extends z.ZodTypeAny = typeof receiverFormDefaultSchema,
+> = z.infer<T>;
+
+// TODO: DefaultValues
+export const receiverDefaultFieldsValues: ReceiverFormDefaultValues = {
+  name: "",
+  lastName: "",
+  phone: "",
+  receiverList: [],
+};

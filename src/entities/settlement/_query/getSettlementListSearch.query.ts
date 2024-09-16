@@ -33,8 +33,7 @@ export const useSettlemenListSearchToSelectQuery = (
 };
 
 export const useInvalidateSettlementListSearchToSelect = () => {
-  const invalidate =
-    settlementApi.useUtils().settlement.searchAvailable.invalidate;
+  const invalidate = settlementApi.useUtils().settlement.search.invalidate;
 
   return (q: string) => invalidate({ q });
 };

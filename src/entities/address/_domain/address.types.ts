@@ -23,6 +23,6 @@ export type AddressGetByUserSelector = {
 };
 
 export type AddressGetByUserAndSettlementRefSelector = {
-  userId?: string;
+  userId: string;
   settlementRef?: string;
 };

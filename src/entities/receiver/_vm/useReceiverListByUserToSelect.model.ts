@@ -11,6 +11,9 @@ export const useReceiverListByUserToSelectModel = (userId: string) => {
     return {
       value: receiver.id,
       label: `${receiver.name}, ${receiver.lastName} | ${receiver.phone}`,
+      name: receiver.name,
+      phone: receiver.phone,
+      lastName: receiver.lastName,
     };
   });
 

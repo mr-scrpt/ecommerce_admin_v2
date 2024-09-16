@@ -1,5 +1,5 @@
 "use client";
-import { ConsumerSelect } from "@/entities/consumer";
+import { ConsumerFormElements, ConsumerSelect } from "@/entities/consumer";
 import {
   ConsumerFormCreate,
   useConsumerCreateMutation,
@@ -37,10 +37,10 @@ export const OrderCreate: FC<OrderUpdateProps> = (props) => {
       <ConsumerFormCreate
         onConsumerCreate={consumerCreate}
         isPending={isConsumerPending}
-      />
-      {/* TODO: Change this field to new consumer select */}
-      <ConsumerSelect onSelectOwner={setUserId} />
-      <Button onClick={() => handleCreate(userId)}>Create Order</Button>
+      >
+        <ConsumerFormElements.FieldConsumerSelectSearch />
+        <Button onClick={() => handleCreate(userId)}>Create Order</Button>
+      </ConsumerFormCreate>
     </div>
   );
 };

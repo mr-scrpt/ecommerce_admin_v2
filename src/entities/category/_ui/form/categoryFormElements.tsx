@@ -14,7 +14,7 @@ import { ZodTypeAny } from "zod";
 import {
   CategoryFormDefaultValues,
   categoryFormDefaultSchema,
-  defaultFieldsValues,
+  categoryDefaultFieldsValues,
 } from "../../_domain/form.schema";
 import { CategoryBoardElement } from "./elements/categoryBoardElement";
 import { CategoryNameElement } from "./elements/categoryNameElement";
@@ -50,7 +50,7 @@ const getDefaultFormValues = <T extends CategoryFormDefaultValues>(
   defaultValues?: DefaultValues<T> | undefined,
 ): DefaultValues<T> => {
   return {
-    ...defaultFieldsValues,
+    ...categoryDefaultFieldsValues,
     ...defaultValues,
   } as DefaultValues<T>;
 };

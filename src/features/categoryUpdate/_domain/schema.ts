@@ -10,6 +10,6 @@ export const categoryUpdateSchema = categoryBaseSchema.pick({
   board: true,
 });
 
-export const categoryPropertySchema = z.object({
+export const categoryPropertyBindSchema = z.object({
   propertyId: z.string(),
 });

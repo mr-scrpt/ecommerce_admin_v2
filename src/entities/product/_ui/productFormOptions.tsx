@@ -1,4 +1,3 @@
-import { PropertyDataTypeEnum } from "@/kernel/domain/property/property.type";
 import { Button } from "@/shared/ui/button";
 import {
   Form,
@@ -20,6 +19,7 @@ import { FC, HTMLAttributes } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { ProductPropertyToSelect } from "../_domain/product.types";
+import { PROPERTY_DATATYPE } from "@prisma/client";
 
 interface ProductFormOptionsProps extends HTMLAttributes<HTMLDivElement> {
   optionSelectOptionList: Array<ProductPropertyToSelect>;
@@ -32,7 +32,7 @@ export const ProductFormOptions: FC<ProductFormOptionsProps> = (props) => {
   const productFormSchema = z.object(
     Object.fromEntries(
       optionSelectOptionList.map((option) => {
-        if (option.datatype === PropertyDataTypeEnum.MULT) {
+        if (option.datatype === PROPERTY_DATATYPE.MULT) {
           return [option.name, z.array(z.string({}))];
         } else {
           return [option.name, z.string({})];
@@ -58,7 +58,7 @@ export const ProductFormOptions: FC<ProductFormOptionsProps> = (props) => {
         {optionSelectOptionList &&
           optionSelectOptionList.map((option) => {
             const { datatype } = option;
-            if (datatype === PropertyDataTypeEnum.SELECT) {
+            if (datatype === PROPERTY_DATATYPE.SELECT) {
               return (
                 <FormField
                   key={option.name}

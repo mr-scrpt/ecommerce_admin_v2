@@ -1,28 +1,28 @@
-import { PropertyDataTypeEnum } from "../../src/kernel/domain/property/property.type";
+import { PROPERTY_DATATYPE } from "@prisma/client";
 
 export const propertyListSeed = [
   {
-    id: "property_585fsddfew7898dd",
+    id: "property_id_1",
     name: "Size",
-    datatype: PropertyDataTypeEnum.SELECT,
+    datatype: PROPERTY_DATATYPE.SELECT,
     // isFilter: true,
   },
   {
-    id: "property_11fsddfew7898186",
+    id: "property_id_2",
     name: "Color",
-    datatype: PropertyDataTypeEnum.MULT,
+    datatype: PROPERTY_DATATYPE.MULT,
     // isFilter: true,
   },
   {
-    id: "property_195fsd55846fddew",
+    id: "property_id_3",
     name: "Type",
-    datatype: PropertyDataTypeEnum.CHECKBOX,
+    datatype: PROPERTY_DATATYPE.CHECKBOX,
     // isFilter: false,
   },
   {
-    id: "property_eeesddfew789855",
+    id: "property_id_4",
     name: "New",
-    datatype: PropertyDataTypeEnum.RADIO,
+    datatype: PROPERTY_DATATYPE.RADIO,
     // isFilter: true,
   },
 ];

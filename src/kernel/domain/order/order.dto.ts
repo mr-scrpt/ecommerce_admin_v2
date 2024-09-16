@@ -15,8 +15,8 @@ type OrderCreateEmpty = Pick<
   | "userId"
   // | "receiverId"
   | "priceTotal"
-  | "paymentStatus"
-  | "orderStatus"
+  // | "orderStatusStateId"
+  // | "orderStatusPaymentId"
   | "orderNo"
 >;
 

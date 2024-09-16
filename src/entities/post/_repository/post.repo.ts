@@ -39,7 +39,6 @@ export class PostRepository implements IPostRepository {
   private convertToLowerCase(
     settlementData: PostOfficeNovaPoshtaIndex,
   ): PostOfficeEntity {
-    console.log("output_log: BEFORE CONVERT =>>>", settlementData);
     const convertedSettle: any = {};
     for (const key in settlementData) {
       if (Object.prototype.hasOwnProperty.call(settlementData, key)) {
@@ -49,7 +48,6 @@ export class PostRepository implements IPostRepository {
       }
     }
 
-    console.log("output_log: AFTER CONVERT =>>>", convertedSettle);
     return convertedSettle;
   }
 }

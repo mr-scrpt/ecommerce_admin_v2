@@ -2,34 +2,52 @@ import { FC, memo } from "react";
 
 import { useDeliveryTypeListToSelectModel } from "@/entities/delivery";
 import { DeliveryTypeFieldList } from "@/features/deliveryUpdate/_vm/deliveryTypeFieldList";
-import { SelectOptionItem } from "@/shared/type/select";
 import { FormControl, FormItem, FormLabel } from "@/shared/ui/form";
 import { RadioGroup, RadioGroupItem } from "@/shared/ui/radio-group";
 import { HTMLAttributes } from "react";
+import { DeliveryTypeDefaultSelectOption } from "@/kernel/domain/delivery/form.schema";
 
 export interface DeliveryTypeRadioSectionProps
   extends HTMLAttributes<HTMLDivElement> {
-  deliveryActive?: SelectOptionItem;
-  settlementRef?: string;
-  onSelectDelivery: (delivery: SelectOptionItem) => void;
+  deliveryActive?: DeliveryTypeDefaultSelectOption;
+  settlementRef: string;
+  deliveryId: string;
+  onSelectDelivery: (delivery: DeliveryTypeDefaultSelectOption) => void;
 }
 
 export const DeliveryTypeRadioSectionElement: FC<DeliveryTypeRadioSectionProps> =
   memo((props) => {
-    const { deliveryActive, onSelectDelivery, settlementRef } = props;
+    const { deliveryActive, onSelectDelivery, settlementRef, deliveryId } =
+      props;
 
     const { deliveryTypeAvailableListToSelect } =
       useDeliveryTypeListToSelectModel(settlementRef);
 
+    const onChange = (value: string) => {
+      const type = deliveryTypeAvailableListToSelect.find(
+        (item) => item.value === value,
+      )?.type;
+
+      if (!type) {
+        return;
+      }
+
+      onSelectDelivery({
+        value,
+        label: value,
+        type,
+      });
+    };
+
     return (
       <RadioGroup
-        onValueChange={(value) => onSelectDelivery({ value, label: value })}
+        onValueChange={onChange}
         defaultValue={deliveryActive?.value}
         value={deliveryActive?.value}
         className="flex flex-col space-y-1"
       >
         {deliveryTypeAvailableListToSelect.map((item) => {
-          const deliveryTypeComponent = DeliveryTypeFieldList[item.value];
+          const deliveryTypeComponent = DeliveryTypeFieldList[item.type];
           return (
             <div
               className="flex w-full flex-col gap-2 border p-4"
@@ -48,6 +66,7 @@ export const DeliveryTypeRadioSectionElement: FC<DeliveryTypeRadioSectionProps> 
                   <Element
                     key={`${item.value}-${index}`}
                     settlementRef={settlementRef}
+                    deliveryId={deliveryId}
                   />
                 ))}
             </div>

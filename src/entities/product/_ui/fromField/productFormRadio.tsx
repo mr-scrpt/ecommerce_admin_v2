@@ -1,4 +1,4 @@
-import { SelectOptionItem } from "@/shared/type/select";
+import { ProductDefaultSelectOption } from "@/kernel/domain/product/form.schema";
 import {
   FormControl,
   FormField,
@@ -12,7 +12,7 @@ import { UseFormReturn } from "react-hook-form";
 
 interface ProductFormRadioProps extends HTMLAttributes<HTMLDivElement> {
   name: string;
-  propertyList: SelectOptionItem[];
+  propertyList: ProductDefaultSelectOption[];
   control: UseFormReturn<any>["control"];
 }
 

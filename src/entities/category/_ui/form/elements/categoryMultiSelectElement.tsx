@@ -1,14 +1,14 @@
 import { FC, memo } from "react";
 
+import { CategoryDefaultSelectOption } from "@/kernel/domain/category/form.schema";
 import { MultiSelectElement } from "@/shared/ui/select/multiSelectElement";
 import { HTMLAttributes } from "react";
-import { SelectOptionItem } from "@/shared/type/select";
 import { useCategoryListToSelectModel } from "../../../_vm/useCategoryListToSelect.modle";
 
 export interface CategoryMultiSelectProps
   extends HTMLAttributes<HTMLDivElement> {
-  categoryListActive?: Array<SelectOptionItem>;
-  onSelectCategory: (categoryList: Array<SelectOptionItem>) => void;
+  categoryListActive?: Array<CategoryDefaultSelectOption>;
+  onSelectCategory: (categoryList: Array<CategoryDefaultSelectOption>) => void;
 }
 
 export const CategoryMultiSelectElement: FC<CategoryMultiSelectProps> = memo(

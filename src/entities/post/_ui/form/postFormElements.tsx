@@ -1,5 +1,5 @@
 "use client";
-import { PostOffice } from "@/kernel/domain/post/post.type";
+import { ButtonSubmitComponentType } from "@/shared/type/button";
 import { Button } from "@/shared/ui/button";
 import { FormField, FormItem, FormLabel, FormMessage } from "@/shared/ui/form";
 import { Spinner } from "@/shared/ui/icons/spinner";
@@ -15,34 +15,12 @@ import {
 import { ZodTypeAny } from "zod";
 import {
   PostFormDefaultValues,
-  defaultFieldsValues,
+  postDefaultFieldsValues,
   postFormDefaultSchema,
 } from "../../_domain/form.schema";
-import { ButtonSubmitComponentType } from "@/shared/type/button";
-import { PostSelectElement } from "./elements/postSelectElement";
 import { PostMultiSelectElement } from "./elements/postMultiSelectElement";
+import { PostSelectElement } from "./elements/postSelectElement";
 
-// interface PostFormElementsProps extends HTMLAttributes<HTMLFormElement> {
-//   postData?: PostOffice;
-//   handleSubmit: (data: PostFormDefaultValues) => void;
-//   schema?: ZodTypeAny;
-// }
-//
-// type PostFormElementsType = FC<PostFormElementsProps> & {
-//   FieldPostList: FC;
-//   SubmitButton: FC<{
-//     isPending: boolean;
-//     submitText: string;
-//     className?: string;
-//   }>;
-// };
-//
-// const getDefaultValues = (postData?: PostOffice) => ({
-//   settlementRef: postData?.settlementRef ?? "",
-//   postId: postData?.id ?? "",
-// });
-//
-// export const PostFormElements: PostFormElementsType = (props) => {
 interface PostFormElementsProps<T extends PostFormDefaultValues>
   extends HTMLAttributes<HTMLFormElement> {
   handleSubmit?: (data: T) => void;
@@ -68,7 +46,7 @@ const getDefaultFormValues = <T extends PostFormDefaultValues>(
   defaultValues?: DefaultValues<T> | undefined,
 ): DefaultValues<T> => {
   return {
-    ...defaultFieldsValues,
+    ...postDefaultFieldsValues,
     ...defaultValues,
   } as DefaultValues<T>;
 };

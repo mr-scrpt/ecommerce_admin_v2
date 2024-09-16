@@ -6,10 +6,10 @@ import { useListenAddressListByUserAndSettlementRefUpdate } from "../_vm/event/u
 
 interface IAddressListToSelectQuery {
   userId: string;
-  settlementRef: string;
+  settlementRef?: string;
 }
 
-export const useAddressListByUserAndSettlementRef = (
+export const useAddressListByUserAndSettlementRefQuery = (
   query: IAddressListToSelectQuery,
 ) => {
   const { data, isPending, isSuccess, isFetchedAfterMount } =

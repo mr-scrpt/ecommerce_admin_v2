@@ -3,7 +3,7 @@ import { z } from "zod";
 // NOTE: Base
 export const storeBaseSchema = z.object({
   name: z.string(),
-  settlementRef: z.string(),
+  // settlementRef: z.string(),
   address: z.string(),
 });
 

@@ -1,15 +1,15 @@
 import { FC, HTMLAttributes } from "react";
 
 import { useAddressListByUserAndSettlementRefToSelectModel } from "@/entities/address/_vm/useAddressListByUserAndSettlementRefToSelect.model";
-import { SelectOptionItem } from "@/shared/type/select";
+import { AddressDefaultSelectOption } from "@/kernel/domain/address/form.schema";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { SelectElement } from "@/shared/ui/select/selectElement";
 
 export interface AddressSelectProps extends HTMLAttributes<HTMLDivElement> {
   userId: string;
-  settlementRef: string;
-  addressActive?: SelectOptionItem;
-  onSelectAddress: (addressList: Array<SelectOptionItem>) => void;
+  settlementRef?: string;
+  addressActive?: AddressDefaultSelectOption;
+  onSelectAddress: (addressList: Array<AddressDefaultSelectOption>) => void;
 }
 export const AddressSelectElement: FC<AddressSelectProps> = (props) => {
   const { addressActive, userId, settlementRef, onSelectAddress } = props;
@@ -38,24 +38,4 @@ export const AddressSelectElement: FC<AddressSelectProps> = (props) => {
       placeholder={placeholder}
     />
   );
-  // return (
-  //   <Select
-  //     defaultValue={addressInit || ""}
-  //     onValueChange={onSelectAddress}
-  //     disabled={!addressListToSelect.length}
-  //   >
-  //     <FormControl>
-  //       <SelectTrigger>
-  //         <SelectValue placeholder={placeholder} />
-  //       </SelectTrigger>
-  //     </FormControl>
-  //     <SelectContent>
-  //       {addressListToSelect.map((address) => (
-  //         <SelectItem key={address.value} value={address.value}>
-  //           {address.label}
-  //         </SelectItem>
-  //       ))}
-  //     </SelectContent>
-  //   </Select>
-  // );
 };

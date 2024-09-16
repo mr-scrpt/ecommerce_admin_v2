@@ -1,5 +1,8 @@
 import { cartRowBaseSchema } from "@/kernel/domain/cart/cartRow.schema";
-import { orderSchema } from "@/kernel/domain/order/order.schema";
+import {
+  orderStatusPaymentSchema,
+  orderStatusStateSchema,
+} from "@/kernel/domain/order/orderStatus.schema";
 import { z } from "zod";
 
 // NOTE: Order Update
@@ -7,12 +10,18 @@ export const orderSelectorSchema = z.object({
   id: z.string(),
 });
 
-export const orderStatusUpdateSchema = orderSchema.pick({
-  orderStatus: true,
+export const orderStatusStateUpdateSchema = orderStatusStateSchema.pick({
+  id: true,
 });
-export const orderPaymentStatusUpdateSchema = orderSchema.pick({
-  paymentStatus: true,
+export const orderStatusPaymentUpdateSchema = orderStatusPaymentSchema.pick({
+  id: true,
 });
+// export const orderStatusStateUpdateSchema = orderRelationSchema.pick({
+//   orderStatusState: true,
+// });
+// export const orderStatusPaymentUpdateSchema = orderRelationSchema.pick({
+//   orderStatusPayment: true,
+// });
 
 // NOTE: Order Row Create
 export const orderRowSelectorSchema = z.object({

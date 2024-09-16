@@ -1,5 +1,3 @@
-import { ORDER_STATUS, ORDER_PAYMENT_STATUS } from "@prisma/client";
-
 export const orderListSeed = [
   {
     id: "order_id_1",
@@ -8,8 +6,8 @@ export const orderListSeed = [
     receiverId: "receiver_id_1",
     orderNo: "20240614-6526-103650",
 
-    orderStatus: ORDER_STATUS.NEW,
-    paymentStatus: ORDER_PAYMENT_STATUS.NOT_PAID,
+    orderStatusStateId: "orderStatusState_id_1",
+    orderStatusPaymentId: "orderStatusPayment_id_1",
     priceTotal: 56558,
   },
   {
@@ -20,8 +18,8 @@ export const orderListSeed = [
 
     receiverId: "receiver_id_2",
 
-    orderStatus: ORDER_STATUS.COMPLETED,
-    paymentStatus: ORDER_PAYMENT_STATUS.PAID,
+    orderStatusStateId: "orderStatusState_id_2",
+    orderStatusPaymentId: "orderStatusPayment_id_3",
     priceTotal: 7854,
   },
   {
@@ -32,8 +30,8 @@ export const orderListSeed = [
 
     receiverId: "receiver_id_5",
 
-    orderStatus: ORDER_STATUS.NEW,
-    paymentStatus: ORDER_PAYMENT_STATUS.CONTACT_PAID,
+    orderStatusStateId: "orderStatusState_id_3",
+    orderStatusPaymentId: "orderStatusPayment_id_2",
     priceTotal: 3421,
   },
   {
@@ -44,8 +42,8 @@ export const orderListSeed = [
 
     receiverId: "receiver_id_5",
 
-    orderStatus: ORDER_STATUS.NEW,
-    paymentStatus: ORDER_PAYMENT_STATUS.POSTAL_PAID,
+    orderStatusStateId: "orderStatusState_id_4",
+    orderStatusPaymentId: "orderStatusPayment_id_5",
     priceTotal: 8423,
   },
   {
@@ -55,8 +53,8 @@ export const orderListSeed = [
     receiverId: "receiver_id_6",
     orderNo: "20240513-7777-098759",
 
-    orderStatus: ORDER_STATUS.NEW,
-    paymentStatus: ORDER_PAYMENT_STATUS.POSTAL_PAID,
+    orderStatusStateId: "orderStatusState_id_3",
+    orderStatusPaymentId: "orderStatusPayment_id_3",
     priceTotal: 0,
   },
   {
@@ -66,8 +64,8 @@ export const orderListSeed = [
 
     userId: "consumer_id_3",
 
-    orderStatus: ORDER_STATUS.NEW,
-    paymentStatus: ORDER_PAYMENT_STATUS.PAID,
+    orderStatusStateId: "orderStatusState_id_7",
+    orderStatusPaymentId: "orderStatusPayment_id_2",
     priceTotal: 1000,
   },
 ];

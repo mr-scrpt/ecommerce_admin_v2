@@ -22,17 +22,6 @@ export class DeliveryRepository implements IDeliveryRepository {
     return result;
   }
 
-  async getWithRelations<T>(dto: DeliveryGetDTO, db: Tx = this.db): Promise<T> {
-    const result = await db.delivery.findUniqueOrThrow({
-      where: dto,
-      include: {
-        settlement: true,
-        deliveryType: true,
-      },
-    });
-    return result as unknown as T;
-  }
-
   async getByOrder(
     dto: DeliveryGetByOrderDTO,
     db: Tx = this.db,
@@ -46,6 +35,19 @@ export class DeliveryRepository implements IDeliveryRepository {
     return result;
   }
 
+  async getWithRelations<T>(dto: DeliveryGetDTO, db: Tx = this.db): Promise<T> {
+    const result = await db.delivery.findUniqueOrThrow({
+      where: dto,
+      include: {
+        settlement: true,
+        deliveryType: true,
+        receiver: true,
+      },
+    });
+
+    return result as unknown as T;
+  }
+
   async getWithRelationsByOrder<T>(
     dto: DeliveryGetByOrderDTO,
     db: Tx = this.db,
@@ -55,6 +57,7 @@ export class DeliveryRepository implements IDeliveryRepository {
       include: {
         settlement: true,
         deliveryType: true,
+        receiver: true,
       },
     });
     return result as unknown as T;

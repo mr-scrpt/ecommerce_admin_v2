@@ -14,7 +14,7 @@ import {
 import { ZodTypeAny } from "zod";
 import {
   DeliveryUpdateFormDefaultValues,
-  defaultFieldsValues,
+  deliveryUpdateDefaultFieldsValues,
   deliveryUpdateFormDefaultSchema,
 } from "../../_domain/form.schema";
 import { DeliveryTypeRadioSectionElement } from "./elements/deliveryTypeRadioSectionElement";
@@ -34,7 +34,7 @@ type DeliveryFormUpdateElementsComponent = <
 ) => React.ReactElement;
 
 type DeliveryFormUpdateFields = {
-  FieldDeliveryTypeRadioSection: FC;
+  FieldDeliveryTypeRadioSection: FC<FieldDeliveryTypeRadioSectionProps>;
   SubmitButton: ButtonSubmitComponentType;
 };
 
@@ -45,7 +45,7 @@ const getDefaultFormValues = <T extends DeliveryUpdateFormDefaultValues>(
   defaultValues?: DefaultValues<T> | undefined,
 ): DefaultValues<T> => {
   return {
-    ...defaultFieldsValues,
+    ...deliveryUpdateDefaultFieldsValues,
     ...defaultValues,
   } as DefaultValues<T>;
 };
@@ -80,8 +80,13 @@ export const DeliveryFormUpdateElements: DeliveryFormUpdateElementsType = <
   );
 };
 
+interface FieldDeliveryTypeRadioSectionProps {
+  deliveryId: string;
+}
 DeliveryFormUpdateElements.FieldDeliveryTypeRadioSection =
-  function FieldDeliveryRadio() {
+  function FieldDeliveryRadio(props: FieldDeliveryTypeRadioSectionProps) {
+    const { deliveryId } = props;
+
     const { control, getFieldState, watch } =
       useFormContext<DeliveryUpdateFormDefaultValues>();
 
@@ -97,11 +102,16 @@ DeliveryFormUpdateElements.FieldDeliveryTypeRadioSection =
           return (
             <FormItem>
               <FormLabel>Delivery type select</FormLabel>
-              <DeliveryTypeRadioSectionElement
-                deliveryActive={field.value}
-                onSelectDelivery={field.onChange}
-                settlementRef={settlement?.value}
-              />
+              {!settlement ? (
+                <FormMessage>Please select settlement before</FormMessage>
+              ) : (
+                <DeliveryTypeRadioSectionElement
+                  deliveryActive={field.value}
+                  onSelectDelivery={field.onChange}
+                  settlementRef={settlement.value}
+                  deliveryId={deliveryId}
+                />
+              )}
             </FormItem>
           );
         }}

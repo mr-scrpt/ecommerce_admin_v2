@@ -1,4 +1,4 @@
-import { RoleEnum } from "@/kernel/domain/role.type";
+import { staffDefaultSelectOptionSchema } from "@/kernel/domain/staff/form.schema";
 import { z } from "zod";
 
 // NOTE: FORM
@@ -19,15 +19,19 @@ export const staffFormDefaultSchema = z.object({
     .string()
     .transform((name) => name.trim())
     .pipe(z.string().max(18).min(9)),
+  staff: staffDefaultSelectOptionSchema.optional().nullable(),
 
-  role: z.custom<RoleEnum>(),
+  // role: z.custom<RoleEnum>(),
 });
 
-export type StaffFormDefaultValues = z.infer<typeof staffFormDefaultSchema>;
+export type StaffFormDefaultValues<
+  T extends z.ZodTypeAny = typeof staffFormDefaultSchema,
+> = z.infer<T>;
 
-// NOTE: Select
-export const staffSelectFromSchema = z.object({
-  id: z.string(),
-});
-
-export type StaffSelectFormValues = z.infer<typeof staffSelectFromSchema>;
+export const staffDefaultFieldsValues: StaffFormDefaultValues = {
+  name: "",
+  lastName: "",
+  email: "",
+  phone: "",
+  staff: null,
+};

@@ -15,7 +15,7 @@ import { ZodTypeAny } from "zod";
 import {
   AddressFormDefaultValues,
   addressFormDefaultSchema,
-  defaultFieldsValues,
+  addressDefaultFieldsValues,
 } from "../../_domain/form.schema";
 import { AddressApartmentElement } from "./elements/addressApartmentElement";
 import { AddressHouseElement } from "./elements/addressHouseElement";
@@ -52,7 +52,7 @@ const getDefaultFormValues = <T extends AddressFormDefaultValues>(
   defaultValues?: DefaultValues<T> | undefined,
 ): DefaultValues<T> => {
   return {
-    ...defaultFieldsValues,
+    ...addressDefaultFieldsValues,
     ...defaultValues,
   } as DefaultValues<T>;
 };
@@ -68,6 +68,7 @@ export const AddressFormElements: AddressFormElementsType = <
     resolver: zodResolver(schema ?? addressFormDefaultSchema),
     defaultValues: { ...getDefaultFormValues<T>(defaultValues) },
   });
+  console.log("output_log: VALUES =>>>", form.getValues());
 
   useEffect(() => {
     form.reset(getDefaultFormValues<T>(defaultValues));
@@ -96,7 +97,7 @@ AddressFormElements.FieldStreet = function FieldSettlement() {
       name="street"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>Address list</FormLabel>
+          <FormLabel>Street</FormLabel>
           <AddressStreetElement value={field.value} onChange={field.onChange} />
           <FormMessage />
         </FormItem>
@@ -144,15 +145,15 @@ AddressFormElements.FieldApartment = function FieldApartment() {
   );
 };
 
-interface AddressFormSelectProps {
+interface AddressFormSelectProps extends HTMLAttributes<HTMLDivElement> {
   userId: string;
-  settlementRef: string;
+  settlementRef?: string;
 }
 
 AddressFormElements.FieldAddressSelect = function FieldAddressSelect(
   props: AddressFormSelectProps,
 ) {
-  const { userId, settlementRef } = props;
+  const { userId, settlementRef, className } = props;
   const { control, getFieldState } = useFormContext<AddressFormDefaultValues>();
 
   if (!getFieldState("addressList")) return null;
@@ -162,7 +163,7 @@ AddressFormElements.FieldAddressSelect = function FieldAddressSelect(
       control={control}
       name="addressList"
       render={({ field }) => (
-        <FormItem>
+        <FormItem className={className}>
           <FormLabel>Select address</FormLabel>
           <AddressSelectElement
             onSelectAddress={field.onChange}

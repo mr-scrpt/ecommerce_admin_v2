@@ -2,7 +2,7 @@ export { ReceiverNameElement } from "./_ui/form/elements/receiverNameElement";
 export { ReceiverLastNameElement } from "./_ui/form/elements/receiverLastNameElement";
 export { ReceiverPhoneElement } from "./_ui/form/elements/receiverPhoneElement";
 export { ReceiverSelectElement } from "./_ui/form/elements/receiverSelectElement";
-export { ReceiverFormElements } from "./_ui/form/elements/receiverFormElements";
+export { ReceiverFormElements } from "./_ui/form/receiverFormElements";
 
 export {
   type ReceiverFormDefaultValues,

@@ -1,15 +1,17 @@
 import { FC, memo } from "react";
 
-import { SelectOptionItem } from "@/shared/type/select";
+import { DeliveryTypeDefaultSelectOption } from "@/kernel/domain/delivery/form.schema";
 import { SelectElement } from "@/shared/ui/select/selectElement";
 import { HTMLAttributes } from "react";
 import { useDeliveryTypeListToSelectModel } from "../../../_vm/useDeliveryTypeListToSelect.modle";
 
 export interface DeliveryTypeSelectProps
   extends HTMLAttributes<HTMLDivElement> {
-  deliveryActive?: SelectOptionItem;
+  deliveryActive?: DeliveryTypeDefaultSelectOption;
   settlementRef?: string;
-  onSelectDelivery: (delivery: SelectOptionItem) => void;
+  onSelectDelivery: (
+    deliveryList: Array<DeliveryTypeDefaultSelectOption>,
+  ) => void;
 }
 
 export const DeliveryTypeSelectElement: FC<DeliveryTypeSelectProps> = memo(
@@ -26,7 +28,7 @@ export const DeliveryTypeSelectElement: FC<DeliveryTypeSelectProps> = memo(
         optionList={deliveryTypeAvailableListToSelect}
         optionActive={deliveryActive}
         placeholder={placeholder}
-        onSelect={(value) => onSelectDelivery(value[0])}
+        onSelect={onSelectDelivery}
       />
     );
   },

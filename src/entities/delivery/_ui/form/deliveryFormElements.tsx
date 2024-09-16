@@ -1,5 +1,4 @@
 "use client";
-import { SelectSettlementOptionItem } from "@/kernel/domain/settlement/settlement.schema";
 import { ButtonSubmitComponentType } from "@/shared/type/button";
 import { Button } from "@/shared/ui/button";
 import { FormField, FormItem, FormLabel, FormMessage } from "@/shared/ui/form";
@@ -15,11 +14,12 @@ import {
 import { ZodTypeAny } from "zod";
 import {
   DeliveryFormDefaultValues,
-  defaultFieldsValues,
+  deliveryDefaultFieldsValues,
   deliveryFormDefaultSchema,
 } from "../../_domain/form.schema";
 import { DeliveryTypeRadioElement } from "./elements/deliveryTypeRadioElement";
 import { DeliveryTypeSelectElement } from "./elements/deliveryTypeSelectElement";
+import { SettlementDefaultSelectOption } from "@/kernel/domain/settlement/form.schema";
 
 interface DeliveryFormElementsProps<T extends DeliveryFormDefaultValues>
   extends HTMLAttributes<HTMLFormElement> {
@@ -47,7 +47,7 @@ const getDefaultFormValues = <T extends DeliveryFormDefaultValues>(
   defaultValues?: DefaultValues<T> | undefined,
 ): DefaultValues<T> => {
   return {
-    ...defaultFieldsValues,
+    ...deliveryDefaultFieldsValues,
     ...defaultValues,
   } as DefaultValues<T>;
 };
@@ -84,7 +84,7 @@ export const DeliveryFormElements: DeliveryFormElementsType = <
 
 DeliveryFormElements.FieldDeliveryTypeSelect = function FieldDeliverySelect() {
   const { control, getFieldState, watch } = useFormContext<
-    DeliveryFormDefaultValues & { settlement: SelectSettlementOptionItem }
+    DeliveryFormDefaultValues & { settlement: SettlementDefaultSelectOption }
   >();
 
   const settlement = watch("settlement");
@@ -113,7 +113,7 @@ DeliveryFormElements.FieldDeliveryTypeSelect = function FieldDeliverySelect() {
 
 DeliveryFormElements.FieldDeliveryTypeRadio = function FieldDeliveryRadio() {
   const { control, getFieldState, watch } = useFormContext<
-    DeliveryFormDefaultValues & { settlement: SelectSettlementOptionItem }
+    DeliveryFormDefaultValues & { settlement: SettlementDefaultSelectOption }
   >();
 
   if (!getFieldState("deliveryType")) return null;

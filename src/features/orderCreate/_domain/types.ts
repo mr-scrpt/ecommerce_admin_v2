@@ -1,18 +1,16 @@
-// import { OrderBase } from "@/entities/order";
-// import { OrderCreateEmptyDTO } from "@/entities/order";
-import { DeliveryTypeBase } from "@/kernel/domain/delivery/delivery.type";
+import { DeliveryBase } from "@/kernel/domain/delivery/delivery.type";
 import { OrderCreateEmptyDTO } from "@/kernel/domain/order/order.dto";
 import { OrderBase } from "@/kernel/domain/order/order.type";
 
 type OrderCreateEmptyPayload = Pick<OrderBase, "userId">;
 
 type OrderDeliveryDTO = Pick<
-  DeliveryTypeBase,
+  DeliveryBase,
   | "userId"
-  | "deliveryType"
+  | "deliveryTypeId"
   | "settlementRef"
   | "storeId"
-  | "postOffice"
+  | "postOfficeId"
   | "addressId"
 >;
 

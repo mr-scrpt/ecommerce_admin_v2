@@ -1,19 +1,17 @@
-import { FormControl } from "@/shared/ui/form";
-import { FC } from "react";
+import { FC, HTMLAttributes } from "react";
 
-import { useReceiverListByUserToSelectModel } from "@/entities/receiver/_vm/useReceiverListByUserToSelect.model";
-import { ReceiverSelectProps } from "@/kernel/domain/receiver/ui.type";
+import { ReceiverDefaultSelectOption } from "@/kernel/domain/receiver/form.schema";
 import { Spinner } from "@/shared/ui/icons/spinner";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/shared/ui/select";
+import { SelectElement } from "@/shared/ui/select/selectElement";
+import { useReceiverListByUserToSelectModel } from "../../../_vm/useReceiverListByUserToSelect.model";
 
+export interface ReceiverSelectProps extends HTMLAttributes<HTMLDivElement> {
+  userId: string;
+  receiverActive?: ReceiverDefaultSelectOption;
+  onSelectReceiver: (receiverList: Array<ReceiverDefaultSelectOption>) => void;
+}
 export const ReceiverSelectElement: FC<ReceiverSelectProps> = (props) => {
-  const { receiverInit, userId, onSelectReceiver } = props;
+  const { receiverActive, userId, onSelectReceiver } = props;
 
   const {
     receiverListToSelect,
@@ -24,30 +22,16 @@ export const ReceiverSelectElement: FC<ReceiverSelectProps> = (props) => {
 
   const placeholder = isAppearancePending ? "Loading..." : "Select receiver";
 
-  if (!isFetchedAfterMount || isAppearancePending) {
+  if (!isFetchedAfterMount || isAppearancePending || !isSuccess) {
     return <Spinner />;
   }
 
   return (
-    <Select
-      defaultValue={receiverInit || ""}
-      value={receiverInit || ""}
-      onValueChange={onSelectReceiver}
-      disabled={!receiverListToSelect.length}
-    >
-      <FormControl>
-        <SelectTrigger>
-          <SelectValue placeholder={placeholder} />
-        </SelectTrigger>
-      </FormControl>
-      <SelectContent>
-        {isSuccess &&
-          receiverListToSelect.map((receiver) => (
-            <SelectItem key={receiver.value} value={receiver.value}>
-              {receiver.label}
-            </SelectItem>
-          ))}
-      </SelectContent>
-    </Select>
+    <SelectElement
+      optionActive={receiverActive}
+      onSelect={onSelectReceiver}
+      optionList={receiverListToSelect}
+      placeholder={placeholder}
+    />
   );
 };

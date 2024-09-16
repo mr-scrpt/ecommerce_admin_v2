@@ -1,15 +1,15 @@
 import { ProductPropertyToSelect } from "../_domain/product.types";
 import { z } from "zod";
-import { PropertyDataTypeEnum } from "@/kernel/domain/property/property.type";
 import { productFormDefaultSchema } from "../_domain/form.schema";
+import { PROPERTY_DATATYPE } from "@prisma/client";
 
 // const dynamicOptionSchema: Record<string, z.ZodType<any, any>> = {};
 
-const typeToSchemaMap: Record<PropertyDataTypeEnum, z.ZodType<any, any>> = {
-  [PropertyDataTypeEnum.MULT]: z.array(z.string()),
-  [PropertyDataTypeEnum.CHECKBOX]: z.array(z.string()),
-  [PropertyDataTypeEnum.SELECT]: z.string(),
-  [PropertyDataTypeEnum.RADIO]: z.string(),
+const typeToSchemaMap: Record<PROPERTY_DATATYPE, z.ZodType<any, any>> = {
+  [PROPERTY_DATATYPE.MULT]: z.array(z.string()),
+  [PROPERTY_DATATYPE.CHECKBOX]: z.array(z.string()),
+  [PROPERTY_DATATYPE.SELECT]: z.string(),
+  [PROPERTY_DATATYPE.RADIO]: z.string(),
 };
 
 export const generateDynamicSchema = (

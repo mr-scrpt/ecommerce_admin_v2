@@ -1,4 +1,4 @@
-import { selectItemSchema } from "@/shared/type/select";
+import { productDefaultSelectOptionSchema } from "@/kernel/domain/product/form.schema";
 import { z } from "zod";
 
 // NOTE: Form
@@ -17,15 +17,8 @@ export const productFormDefaultSchema = z.object({
 
   imgList: z.array(z.string()),
 
-  // categoryList: z.array(
-  //   z.object({
-  //     id: z.string(),
-  //     name: z.string(),
-  //   }),
-  // ),
-  // propertyList: z.object({}),
-  product: selectItemSchema(z.string()).optional(),
-  productList: z.array(selectItemSchema(z.string())).optional(),
+  product: productDefaultSelectOptionSchema.optional().nullable(),
+  productList: z.array(productDefaultSelectOptionSchema).optional(),
 });
 
 export type ProductFormDefaultValues<
@@ -33,7 +26,7 @@ export type ProductFormDefaultValues<
 > = z.infer<T>;
 
 // TODO: DefaultValues
-export const defaultFieldsValues: ProductFormDefaultValues = {
+export const productDefaultFieldsValues: ProductFormDefaultValues = {
   name: "",
   article: "",
   price: 0,
@@ -41,6 +34,6 @@ export const defaultFieldsValues: ProductFormDefaultValues = {
   description: "",
   about: "",
   imgList: [],
-  product: { label: "", value: "" },
+  product: null,
   productList: [],
 };

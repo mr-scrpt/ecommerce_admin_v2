@@ -1,13 +1,13 @@
 import { FC, HTMLAttributes } from "react";
 
-import { SelectOptionItem } from "@/shared/type/select";
+import { ProductDefaultSelectOption } from "@/kernel/domain/product/form.schema";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { SelectElement } from "@/shared/ui/select/selectElement";
 import { useProductListToSelectModel } from "../../../_vm/useProductListToSelect.model";
 
 export interface ProductSelectProps extends HTMLAttributes<HTMLDivElement> {
-  productActive?: SelectOptionItem;
-  onSelectProduct: (productList: Array<SelectOptionItem>) => void;
+  productActive?: ProductDefaultSelectOption;
+  onSelectProduct: (productList: Array<ProductDefaultSelectOption>) => void;
 }
 export const ProductSelectElement: FC<ProductSelectProps> = (props) => {
   const { productActive, onSelectProduct } = props;

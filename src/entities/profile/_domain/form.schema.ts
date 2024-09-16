@@ -1,3 +1,4 @@
+import { profileDefaultSelectOptionSchema } from "@/kernel/domain/profile/form.schema";
 import { z } from "zod";
 
 export const profileFormDefaultSchema = z.object({
@@ -12,6 +13,18 @@ export const profileFormDefaultSchema = z.object({
   email: z.string().email(),
   phone: z.string().or(z.literal("")),
   image: z.string().optional(),
+  profile: profileDefaultSelectOptionSchema.optional().nullable(),
 });
 
-export type ProfileFormDefaultValues = z.infer<typeof profileFormDefaultSchema>;
+export type ProfileFormDefaultValues<
+  T extends z.ZodTypeAny = typeof profileFormDefaultSchema,
+> = z.infer<T>;
+
+export const profileDefaultFieldsValues: ProfileFormDefaultValues = {
+  name: "",
+  lastName: "",
+  email: "",
+  phone: "",
+  image: "",
+  profile: null,
+};

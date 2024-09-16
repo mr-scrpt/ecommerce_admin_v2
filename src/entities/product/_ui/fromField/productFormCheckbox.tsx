@@ -1,4 +1,4 @@
-import { SelectOptionItem } from "@/shared/type/select";
+import { ProductDefaultSelectOption } from "@/kernel/domain/product/form.schema";
 import { Checkbox } from "@/shared/ui/checkbox";
 import {
   FormControl,
@@ -14,7 +14,7 @@ import { UseFormReturn } from "react-hook-form";
 interface ProductFromChechboxProps extends HTMLAttributes<HTMLDivElement> {
   name: string;
   // label: string;
-  propertyList: SelectOptionItem[];
+  propertyList: ProductDefaultSelectOption[];
   control: UseFormReturn<any>["control"];
 }
 

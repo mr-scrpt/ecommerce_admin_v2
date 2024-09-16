@@ -1,14 +1,15 @@
-import { useOptionListTransform } from "@/shared/lib/map";
 import { usePropertyListQuery } from "../_query/property/propertyList.query";
 
 export const usePropertyListToSelectModel = () => {
   const { propertyList, isPending } = usePropertyListQuery();
-  const { toOptionList } = useOptionListTransform();
 
-  const propertyListSelect = toOptionList(propertyList);
+  const propertySelectOptionList = propertyList.map((item) => ({
+    value: item.id,
+    label: item.name,
+  }));
 
   return {
-    propertySelectOptionList: propertyListSelect,
+    propertySelectOptionList,
     isPending,
   };
 };

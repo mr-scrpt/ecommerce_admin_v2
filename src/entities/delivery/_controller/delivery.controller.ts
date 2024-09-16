@@ -38,35 +38,29 @@ export class DeliveryController extends Controller {
 
         return deliverySchema.parse(result);
       }),
-      getWithRelation: publicProcedure
-        .input(getInputSchema)
-        .query(async ({ input }) => {
-          console.log("output_log: INPUT DELIVERY =>>>", input);
-          const result =
-            await this.getDeliveryWithRelationService.execute(input);
-          const resultParsed = getWithRelationOutputSchema.parse(result);
-          return resultParsed;
-        }),
       getByOrder: publicProcedure
         .input(getByOrderInputSchema)
         .query(async ({ input }) => {
           const result = await this.getDeliveryByOrderService.execute(input);
           return deliverySchema.parse(result);
         }),
+      getWithRelation: publicProcedure
+        .input(getInputSchema)
+        .query(async ({ input }) => {
+          const result =
+            await this.getDeliveryWithRelationService.execute(input);
+          const resultParsed = getWithRelationOutputSchema.parse(result);
+
+          return resultParsed;
+        }),
 
       getWithRelationByOrder: publicProcedure
         .input(getByOrderInputSchema)
         .query(async ({ input }) => {
-          // try {
-          // console.log("output_log: INPUT =>>>", input);
           const result =
             await this.getDeliveryWithRelationByOrderService.execute(input);
-          // console.log("output_log: BEFORE PARSING =>>>", result);
           const resultParsed = getWithRelationOutputSchema.parse(result);
           return resultParsed;
-          // } catch (e) {
-          //   console.log("output_log: ERROR  =>>>", e);
-          // }
         }),
       getList: publicProcedure.query(async () => {
         const result = await this.getDeliveryListService.execute();

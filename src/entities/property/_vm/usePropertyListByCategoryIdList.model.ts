@@ -4,8 +4,8 @@ import { useOptionListTransform } from "@/shared/lib/map";
 import { useEffect, useState } from "react";
 import { PropertyToSelect } from "../_domain/property/property.types";
 import { usePropertyWithRelationByCategoryQuery } from "../_query/property/propertyListWithRelationByCategory.query";
-import { PropertyDataTypeEnum } from "@/kernel/domain/property/property.type";
 import { PropertyItem } from "@/kernel/domain/property/propertyItem.type";
+import { PROPERTY_DATATYPE } from "@/kernel/domain/property/property.type";
 
 export const usePropertyListByCategoryIdListModel = (
   categoryIdListActive: Array<{ value: string; label: string }>,
@@ -42,8 +42,8 @@ export const usePropertyListByCategoryIdListModel = (
         .map((item) => item.id);
 
       if (
-        curr.datatype === PropertyDataTypeEnum.CHECKBOX ||
-        curr.datatype === PropertyDataTypeEnum.MULT
+        curr.datatype === PROPERTY_DATATYPE.CHECKBOX ||
+        curr.datatype === PROPERTY_DATATYPE.MULT
       ) {
         acc[curr.name] = correspondingItems;
       } else {

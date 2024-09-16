@@ -10,11 +10,16 @@ import { OrderListGetService } from "./_service/order/orderListGet.service";
 import {
   IOrderRepository,
   IOrderRowRepository,
+  IOrderStatusRepository,
 } from "@/kernel/domain/order/repository.type";
 import { OrderGenerateNumberService } from "./_service/generateOrderNumber";
 import { IOrderGenerateNumberService } from "./_domain/order/service.type";
 import { OrderRowListWithRelationGetByOrderService } from "./_service/orderRow/orderRowListWithRelationGetByOrder.service";
 import { OrderRowController } from "./_controller/orderRow.controller";
+import { OrderStatusRepository } from "./_repository/orderStatus.repo";
+import { OrderStatusAvailableGetService } from "./_service/orderStatus/orderStatusAvailableGet.service";
+import { OrderStatusPaymentListGetService } from "./_service/orderStatus/orderStatusPaymentListGet.service";
+import { OrderStatusStateListGetService } from "./_service/orderStatus/orderStatusStateListGet.service";
 
 export const OrderModule = new ContainerModule((bind) => {
   bind(IOrderRepository).to(OrderRepository);
@@ -33,4 +38,12 @@ export const OrderRowModule = new ContainerModule((bind) => {
   bind(OrderRowListWithRelationGetByOrderService).toSelf();
 
   bind(Controller).to(OrderRowController);
+});
+
+export const OrderStatusModule = new ContainerModule((bind) => {
+  bind(IOrderStatusRepository).to(OrderStatusRepository);
+  bind(OrderStatusAvailableGetService).toSelf();
+
+  bind(OrderStatusStateListGetService).toSelf();
+  bind(OrderStatusPaymentListGetService).toSelf();
 });

@@ -6,9 +6,10 @@ import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes } from "react";
 import {
   CategoryCreateFormValues,
+  categoryCreateDefaultFieldsValues,
   categoryCreateFormSchema,
 } from "../_domain/form.schema";
-import { useCategoryCreateModel } from "../_vm/useCategoryCreate.model";
+import { useCategoryCreateMutation } from "../_mutation/useCategoryCreate.mutation";
 
 interface CategoryFormCreateProps extends HTMLAttributes<HTMLDivElement> {
   callbackUrl?: string;
@@ -22,7 +23,7 @@ export const CategoryFormCreate: FC<CategoryFormCreateProps> = (props) => {
   const router = useRouter();
 
   const { categoryCreate, isPending: isPendingCreate } =
-    useCategoryCreateModel();
+    useCategoryCreateMutation();
 
   const handleSubmit = async (data: CategoryCreateFormValues) => {
     const { propertyList, ...categoryData } = data;
@@ -46,9 +47,10 @@ export const CategoryFormCreate: FC<CategoryFormCreateProps> = (props) => {
       <CategoryFormElements<CategoryCreateFormValues>
         handleSubmit={handleSubmit}
         schema={categoryCreateFormSchema}
+        defaultValues={categoryCreateDefaultFieldsValues}
       >
-        <CategoryFormElements.FieldCategorySelect />
-        <CategoryFormElements.FieldCategoryMultiSelect />
+        {/* <CategoryFormElements.FieldCategorySelect /> */}
+        {/* <CategoryFormElements.FieldCategoryMultiSelect /> */}
 
         <PropertyFormElements.FieldPropertyMultiSelect />
 

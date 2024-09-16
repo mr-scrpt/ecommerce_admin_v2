@@ -1,4 +1,4 @@
-import { selectItemSchema } from "@/shared/type/select";
+import { addressDefaultSelectOptionSchema } from "@/kernel/domain/address/form.schema";
 import { z } from "zod";
 
 // NOTE: FORM
@@ -7,19 +7,16 @@ export const addressFormDefaultSchema = z.object({
   street: z.string(),
   house: z.string(),
   apartment: z.string(),
-  // settlementRef: z.string(),
-  // userId: z.string(),
 
-  addressList: z.array(selectItemSchema(z.string())).optional(),
+  addressList: z.array(addressDefaultSelectOptionSchema).optional(),
 });
 
-// export type AddressFormDefaultValues = z.infer<typeof addressFormDefaultSchema>;
 export type AddressFormDefaultValues<
   T extends z.ZodTypeAny = typeof addressFormDefaultSchema,
 > = z.infer<T>;
 
 // TODO: DefaultValues
-export const defaultFieldsValues: AddressFormDefaultValues = {
+export const addressDefaultFieldsValues: AddressFormDefaultValues = {
   street: "",
   house: "",
   apartment: "",

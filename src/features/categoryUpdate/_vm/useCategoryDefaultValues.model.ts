@@ -1,29 +1,56 @@
-import { PropertyRelation } from "@/entities/property";
-import { Category } from "@/kernel/domain/category/category.type";
-import { useOptionListTransform } from "@/shared/lib/map";
-import { useMemo } from "react";
+import { useCategoryQuery } from "@/entities/category";
+import { usePropertyListByCategoryQuery } from "@/entities/property";
+import {
+  CategoryUpdateFormValues,
+  categoryUpdateDefaultFieldsValues,
+} from "../_domain/form.schema";
 
 interface CategoryDefaultValueProps {
-  category: Category | null;
-  propertyList: Array<PropertyRelation>;
+  categoryId: string;
 }
 
 export const useCategoryDefaultValues = (props: CategoryDefaultValueProps) => {
-  const { category, propertyList } = props;
-  const { toOptionList } = useOptionListTransform();
-  return useMemo(() => {
-    if (!category) {
-      return {
-        name: "",
-        board: [],
-        propertyList: [],
-      };
-    }
+  const { categoryId } = props;
+  const {
+    category,
+    isPending: isPendingCategory,
+    isFetchedAfterMount: isFetchedAfterMountCategory,
+  } = useCategoryQuery(categoryId);
 
-    return {
+  const {
+    propertyList,
+    isPending: isPendingProperty,
+    isFetchedAfterMount: isFetchedAfterMountProperty,
+  } = usePropertyListByCategoryQuery(categoryId);
+
+  let defaultValues: CategoryUpdateFormValues = {
+    ...categoryUpdateDefaultFieldsValues,
+  };
+
+  if (propertyList) {
+    defaultValues.propertyList = propertyList.map((item) => {
+      return {
+        value: item.id,
+        label: item.name,
+      };
+    });
+  }
+  if (category) {
+    defaultValues = {
       name: category.name,
       board: category.board,
-      propertyList: toOptionList(propertyList ?? []),
+      propertyList: propertyList.map((item) => {
+        return {
+          value: item.id,
+          label: item.name,
+        };
+      }),
     };
-  }, [category, propertyList, toOptionList]);
+  }
+
+  const isPending = isPendingCategory || isPendingProperty;
+  const isFetchedAfterMount =
+    isFetchedAfterMountCategory && isFetchedAfterMountProperty;
+
+  return { defaultValues, isPending, isFetchedAfterMount };
 };

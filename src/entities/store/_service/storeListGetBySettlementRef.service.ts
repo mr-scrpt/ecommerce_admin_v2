@@ -8,6 +8,9 @@ export class StoreListGetBySettlementRefService {
   constructor(private readonly storeRepo: IStoreRepository) {}
 
   async execute(selector: StoreGetBySettlementRefDTO): Promise<Store[]> {
+    // if (!selector.settlementRef) {
+    // }
+
     return await this.storeRepo.getListBySettlementRef(selector);
   }
 }

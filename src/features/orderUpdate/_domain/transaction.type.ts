@@ -1,5 +1,5 @@
 import { Transaction } from "@/shared/lib/db/db";
-import { OrderUpdateTxDTO } from "./types";
+import { OrderRowCreateTxDTO, OrderUpdateTxDTO } from "./types";
 import { OrderEntity } from "@/kernel/domain/order/order.type";
 
 export abstract class IOrderUpdateTx extends Transaction {

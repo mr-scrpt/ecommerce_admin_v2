@@ -1,16 +1,17 @@
-import { selectItemSchema } from "@/shared/type/select";
+import { postDefaultSelectOptionSchema } from "@/kernel/domain/post/form.schema";
 import { z } from "zod";
 
 // NOTE: FORM
 // NOTE: Main information
 
 export const postFormDefaultSchema = z.object({
-  // settlementRef: z.string(),
-  // postId: z.string(),
-  postOfficeList: z.array(selectItemSchema(z.string())).optional(),
+  postOfficeList: z.array(postDefaultSelectOptionSchema).optional(),
 });
 
-export type PostFormDefaultValues = z.infer<typeof postFormDefaultSchema>;
-export const defaultFieldsValues: PostFormDefaultValues = {
+export type PostFormDefaultValues<
+  T extends z.ZodTypeAny = typeof postFormDefaultSchema,
+> = z.infer<T>;
+
+export const postDefaultFieldsValues: PostFormDefaultValues = {
   postOfficeList: [],
 };

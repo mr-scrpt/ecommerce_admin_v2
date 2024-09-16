@@ -1,14 +1,20 @@
-import { useOptionListTransform } from "@/shared/lib/map";
+import { useMemo } from "react";
 import { useCategoryListQuery } from "../_query/useCategoryList.query";
 
 export const useCategoryListToSelectModel = () => {
   const { categoryList, isPending } = useCategoryListQuery();
-  const { toOptionList } = useOptionListTransform();
 
-  const optionListSelect = toOptionList(categoryList);
+  const categoryListToSelect = useMemo(
+    () =>
+      categoryList.map((item) => ({
+        value: item.id,
+        label: item.name,
+      })),
+    [categoryList],
+  );
 
   return {
-    categoryListToSelect: optionListSelect,
+    categoryListToSelect,
     isPending,
   };
 };

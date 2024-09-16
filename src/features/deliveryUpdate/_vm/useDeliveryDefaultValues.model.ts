@@ -1,6 +1,6 @@
 import { DeliveryRelation } from "@/entities/delivery/_domain/delivery.types";
 import { deliveryTypeDefaultOption } from "@/kernel/domain/delivery/deliveryType.schema";
-import { settlementDefaultOption } from "@/kernel/domain/settlement/settlement.schema";
+import { settlementDefaultSelectOption } from "@/kernel/domain/settlement/form.schema";
 import { useMemo } from "react";
 
 interface DeliveryDefaultValueProps {
@@ -13,7 +13,7 @@ export const useDeliveryDefaultValues = (props: DeliveryDefaultValueProps) => {
     if (!delivery) {
       return {
         deliveryType: deliveryTypeDefaultOption,
-        settlement: settlementDefaultOption,
+        settlement: settlementDefaultSelectOption,
       };
     }
 

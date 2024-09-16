@@ -1,26 +1,31 @@
 import { FC, memo } from "react";
 
-import { SelectOptionItem } from "@/shared/type/select";
+import { DefaultSelectOption } from "@/shared/type/select";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { SelectElement } from "@/shared/ui/select/selectElement";
 import { HTMLAttributes } from "react";
 import { useSettlementListSearchToSelectModel } from "../../../_vm/useSettlementListSearchToSelect.model";
+import { SettlementDefaultSelectOption } from "@/kernel/domain/settlement/form.schema";
 
 export interface SettlementSelectProps extends HTMLAttributes<HTMLDivElement> {
-  settlementActive?: SelectOptionItem;
-  onSelectSettlement: (settlementList: Array<SelectOptionItem>) => void;
+  settlementActive?: SettlementDefaultSelectOption;
+  onSelectSettlement: (
+    settlementList: Array<SettlementDefaultSelectOption>,
+  ) => void;
 }
 
 export const SettlementSelectElement: FC<SettlementSelectProps> = memo(
   (props) => {
     const { settlementActive, onSelectSettlement } = props;
 
-    const { settlementListToSelect, isPending } =
+    const { settlementListToSelect, isAppearancePending } =
       useSettlementListSearchToSelectModel();
 
-    const placeholder = isPending ? "Loading..." : "Select settlement";
+    const placeholder = isAppearancePending
+      ? "Loading..."
+      : "Select settlement";
 
-    if (isPending) {
+    if (!isAppearancePending) {
       return <Spinner />;
     }
 

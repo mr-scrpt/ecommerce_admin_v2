@@ -7,6 +7,6 @@ export type {
   StaffGetSelector,
 } from "./_domain/staff.type";
 
-export { StaffFormElements } from "./_ui/staffFormElements";
+export { StaffFormElements } from "./_ui/form/staffFormElements";
 
 export { staffFormDefaultSchema } from "./_domain/form.schema";

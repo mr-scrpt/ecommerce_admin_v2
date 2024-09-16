@@ -1,19 +1,17 @@
-import { DELIVERY_TYPE } from "@/kernel/domain/delivery/delivery.type";
-import { deliveryTypeDefaultOption } from "@/kernel/domain/delivery/deliveryType.schema";
-import { selectItemSchema } from "@/shared/type/select";
+import { deliveryTypeDefaultSelectOptionSchema } from "@/kernel/domain/delivery/form.schema";
 import { z } from "zod";
 
 // NOTE: FORM
 // NOTE: Main information
 export const deliveryFormDefaultSchema = z.object({
-  deliveryType: selectItemSchema(z.nativeEnum(DELIVERY_TYPE)),
+  deliveryType: deliveryTypeDefaultSelectOptionSchema.nullable(),
 });
 
-export type DeliveryFormDefaultValues = z.infer<
-  typeof deliveryFormDefaultSchema
->;
+export type DeliveryFormDefaultValues<
+  T extends z.ZodTypeAny = typeof deliveryFormDefaultSchema,
+> = z.infer<T>;
 
 // TODO: DefaultValues
-export const defaultFieldsValues: DeliveryFormDefaultValues = {
-  deliveryType: deliveryTypeDefaultOption,
+export const deliveryDefaultFieldsValues: DeliveryFormDefaultValues = {
+  deliveryType: null,
 };

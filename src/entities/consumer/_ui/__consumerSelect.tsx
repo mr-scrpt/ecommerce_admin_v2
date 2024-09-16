@@ -11,7 +11,7 @@ import {
 import { cn } from "@/shared/ui/utils";
 import { FC, HTMLAttributes } from "react";
 import { useForm } from "react-hook-form";
-import { useConsumerListSearchToSelectModel } from "../_vm/useConsumerListSearch.model";
+import { useConsumerListSearchToSelectModel } from "../_vm/__useConsumerListSearch.model";
 import { ConsumerSelectFormValues } from "../_domain/form.schema";
 
 interface ConsumerSelectFormProps extends HTMLAttributes<HTMLDivElement> {

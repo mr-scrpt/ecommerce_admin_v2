@@ -11,12 +11,12 @@ import {
   useFormContext,
 } from "react-hook-form";
 import { ZodTypeAny } from "zod";
+import { SettlementSelectSearchElement } from "./elements/settlementSelectSearchElement";
 import {
   SettlementFormDefaultValues,
-  defaultFieldsValues,
+  settlementDefaultFieldsValues,
   settlementFormDefaultSchema,
 } from "../../_domain/form.schema";
-import { SettlementSelectSearchElement } from "./elements/settlementSelectSearchElement";
 
 interface SettlementFormElementsProps<T extends SettlementFormDefaultValues>
   extends HTMLAttributes<HTMLFormElement> {
@@ -43,7 +43,7 @@ const getDefaultFormValues = <T extends SettlementFormDefaultValues>(
   defaultValues?: DefaultValues<T> | undefined,
 ): DefaultValues<T> => {
   return {
-    ...defaultFieldsValues,
+    ...settlementDefaultFieldsValues,
     ...defaultValues,
   } as DefaultValues<T>;
 };

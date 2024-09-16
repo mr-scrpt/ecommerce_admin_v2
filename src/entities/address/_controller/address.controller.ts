@@ -29,6 +29,7 @@ export class AddressController extends Controller {
       getListByUserAndSettlementRef: publicProcedure
         .input(getByUserAndSettlementRefInputSchema)
         .query(async ({ input }) => {
+          console.log("output_log: INPUT =>>>", input);
           const result =
             await this.getAddressListByUserAndSettlementRefService.execute(
               input,

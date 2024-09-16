@@ -1,16 +1,17 @@
 import { FC, memo } from "react";
 
-import { SelectOptionItem } from "@/shared/type/select";
+import { DefaultSelectOption } from "@/shared/type/select";
 import { SelectElement } from "@/shared/ui/select/selectElement";
 import { HTMLAttributes } from "react";
 import { useDeliveryTypeListToSelectModel } from "../../../_vm/useDeliveryTypeListToSelect.modle";
 import { RadioGroup, RadioGroupItem } from "@/shared/ui/radio-group";
 import { FormControl, FormItem, FormLabel } from "@/shared/ui/form";
+import { DeliveryTypeDefaultSelectOption } from "@/kernel/domain/delivery/form.schema";
 
 export interface DeliveryTypeRadioProps extends HTMLAttributes<HTMLDivElement> {
-  deliveryActive?: SelectOptionItem;
+  deliveryActive?: DeliveryTypeDefaultSelectOption;
   settlementRef?: string;
-  onSelectDelivery: (delivery: SelectOptionItem) => void;
+  onSelectDelivery: (delivery: DefaultSelectOption) => void;
 }
 
 export const DeliveryTypeRadioElement: FC<DeliveryTypeRadioProps> = memo(

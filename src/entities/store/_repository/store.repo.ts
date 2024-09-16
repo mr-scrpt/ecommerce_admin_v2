@@ -64,9 +64,14 @@ export class StoreRepository implements IStoreRepository {
   }
 
   async create(dto: StoreCreateDTO, db: Tx = this.db): Promise<StoreEntity> {
-    const { data } = dto;
+    const { data, relations } = dto;
+    const { settlementRef } = relations;
+
     return await db.store.create({
-      data,
+      data: {
+        ...data,
+        settlementRef,
+      },
     });
   }
 

@@ -1,5 +1,5 @@
+import { ProductDefaultSelectOption } from "@/kernel/domain/product/form.schema";
 import { SEARCH_MIN_LENGTH } from "@/shared/config/constant";
-import { SelectOptionItem } from "@/shared/type/select";
 import { Button } from "@/shared/ui/button";
 import {
   Command,
@@ -18,8 +18,8 @@ import { useProductListSearchToSelectModel } from "../../../_vm/useProductListSe
 
 interface ProductSelectSearchElementProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "onChange"> {
-  productActive?: SelectOptionItem;
-  onSelectProduct: (product: SelectOptionItem) => void;
+  productActive?: ProductDefaultSelectOption;
+  onSelectProduct: (product: ProductDefaultSelectOption) => void;
 }
 
 export const ProductSelectSearchElement: FC<ProductSelectSearchElementProps> = (

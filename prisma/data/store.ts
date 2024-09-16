@@ -20,7 +20,7 @@ export const storeListSeed = [
   {
     id: "store_id_4",
     name: "Магазин 4",
-    settlementRef: "e71c2a15-4b33-11e4-ab6d-005056801329",
+    settlementRef: "e71abb60-4b33-11e4-ab6d-005056801329",
     address: "ул. Львівська, 1",
   },
 ];

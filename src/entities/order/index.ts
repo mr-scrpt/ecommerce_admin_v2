@@ -11,7 +11,6 @@ export {
 } from "./_domain/order/form.schema";
 
 export { ORDER_PRICE_TOTAL_DEFAULT } from "./_constant/constant";
-export { OrderStatusForm } from "./_ui/orderStatusForm/orderStatusForm";
 export { OrderRowList } from "./_ui/orderRow/orderRowList";
 export { useListenOrderListUpdate } from "./_vm/order/event/useListenOrderListUpdate";
 export { useOrderModel } from "./_vm/order/useOrder.model";

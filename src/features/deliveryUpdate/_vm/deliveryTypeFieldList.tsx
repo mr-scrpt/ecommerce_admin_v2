@@ -1,11 +1,11 @@
 // "use client";
-import { StoreToSelect } from "@/entities/store";
-// import { DeliveryTypeEnum } from "../_domain/delivery.types";
-// import { PostOfficeToSelect } from "../_domain/postOffice.type";
 import { DELIVERY_TYPE } from "@/kernel/domain/delivery/delivery.type";
-import { ReactNode } from "react";
-import { DeliveryUpdateFormElements } from "../_ui/form/elements/deliveryUpdateFormElements";
-import { PostFormElements } from "@/entities/post/_ui/form/postFormElements";
+import { StoreFormElements } from "@/entities/store";
+import { AddressFormElements } from "@/entities/address";
+import { DeliveryPostSection } from "../_ui/v2/elements/sections/deliveryPostSection";
+import { DeliveryCommonSectionProps } from "../_domain/ui.type";
+import { DeliveryPickupSection } from "../_ui/v2/elements/sections/deliveryPickupSection";
+import { DeliveryCourierSection } from "../_ui/v2/elements/sections/deliveryCourierSection";
 
 // TODO: Move this type <<<<
 // TODO: Move this component
@@ -21,64 +21,36 @@ type SelectDeliveryType = {
   [key in DeliveryTypeKeys]: {
     value: string;
     type: DELIVERY_TYPE;
-    formElement: Array<(...args: any[]) => JSX.Element>;
+    formElement: Array<(props: DeliveryCommonSectionProps) => JSX.Element>;
   };
 };
 
-// Объект selectDeliveryType с типизацией на основе DeliveryTypeEnum
-// export const DeliveryTypeFieldList: SelectDeliveryType = {
-//   [DELIVERY_TYPE.PICKUP]: {
-//     value: "Pickup",
-//     type: DELIVERY_TYPE.PICKUP,
-//     formElement: [
-//       () => {
-//         return <DeliveryUpdateFormElements.FieldStoreSelect key="store" />;
-//       },
-//     ],
-//   },
-//   [DELIVERY_TYPE.POST]: {
-//     value: "Post",
-//     type: DELIVERY_TYPE.POST,
-//     formElement: [
-//       () => <DeliveryUpdateFormElements.FieldPostSelect key="post" />,
-//     ],
-//   },
-//   [DELIVERY_TYPE.COURIER]: {
-//     value: "Courier",
-//     type: DELIVERY_TYPE.COURIER,
-//     formElement: [
-//       () => <DeliveryUpdateFormElements.FieldAddress key="address" />,
-//     ],
-//   },
-// };
-
 export const DeliveryTypeFieldList: SelectDeliveryType = {
   [DELIVERY_TYPE.PICKUP]: {
-    value: "Pickup",
+    value: DELIVERY_TYPE.PICKUP,
     type: DELIVERY_TYPE.PICKUP,
     formElement: [
-      (props: any) => {
-        return <DeliveryUpdateFormElements.FieldStoreSelect key="store" />;
+      (props: DeliveryCommonSectionProps) => {
+        return <DeliveryPickupSection {...props} key={DELIVERY_TYPE.PICKUP} />;
       },
     ],
   },
   [DELIVERY_TYPE.POST]: {
-    value: "Post",
+    value: DELIVERY_TYPE.POST,
     type: DELIVERY_TYPE.POST,
     formElement: [
-      (props: any) => (
-        <PostFormElements.FieldPostSelect
-          key="post"
-          settlementRef={props.settlementRef}
-        />
+      (props: DeliveryCommonSectionProps) => (
+        <DeliveryPostSection {...props} key={DELIVERY_TYPE.POST} />
       ),
     ],
   },
   [DELIVERY_TYPE.COURIER]: {
-    value: "Courier",
+    value: DELIVERY_TYPE.COURIER,
     type: DELIVERY_TYPE.COURIER,
     formElement: [
-      (props: any) => <DeliveryUpdateFormElements.FieldAddress key="address" />,
+      (props: DeliveryCommonSectionProps) => (
+        <DeliveryCourierSection {...props} key={DELIVERY_TYPE.COURIER} />
+      ),
     ],
   },
 };

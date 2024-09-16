@@ -1,24 +1,24 @@
 import { OrderUpdateDTO } from "@/kernel/domain/order/order.dto";
-import {
-  OrderPaymentStatusEnum,
-  OrderStatusEnum,
-} from "@/kernel/domain/order/order.type";
 import { OrderRowBase } from "@/kernel/domain/order/orderRow.type";
+import {
+  ORDER_STATUS_PAYMENT,
+  ORDER_STATUS_STATE,
+} from "@/kernel/domain/order/orderStatus.type";
 
 // NOTE: Order Update
-type OrderStatusUpdatePayload = OrderStatusEnum;
-type OrderPaymentStatusUpdatePayload = OrderPaymentStatusEnum;
+type OrderStatusStateUpdatePayload = { id: string };
+type OrderStatusPaymentUpdatePayload = { id: string };
 
 export type OrderUpdateTxPayload = {
   selector: OrderUpdateSelector;
-  orderStatusData: OrderStatusUpdatePayload;
-  orderPaymentStatusData: OrderPaymentStatusUpdatePayload;
+  orderStatusStateData: OrderStatusStateUpdatePayload;
+  orderStatusPaymentData: OrderStatusPaymentUpdatePayload;
 };
 
 export type OrderUpdateTxDTO = {
   selector: OrderUpdateSelector;
-  orderStatusData: OrderUpdateDTO["data"]["orderStatus"];
-  orderPaymentStatusData: OrderUpdateDTO["data"]["paymentStatus"];
+  orderStatusStateData: OrderStatusStateUpdatePayload;
+  orderStatusPaymentData: OrderStatusPaymentUpdatePayload;
 };
 
 // NOTE: Selector

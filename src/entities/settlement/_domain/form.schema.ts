@@ -1,36 +1,17 @@
-// import { selectSettlementItemSchema } from "@/kernel/domain/settlement/settlement.schema";
-import { selectSettlementItemSchema } from "@/kernel/domain/settlement/settlement.schema";
-import { selectItemSchema } from "@/shared/type/select";
+import { settlementDefaultSelectOptionSchema } from "@/kernel/domain/settlement/form.schema";
 import { z } from "zod";
 
-// NOTE: Form
-// export const settlementItemFormSchema = z.object({
-//   id: z.string().optional(),
-//   value: z.string(),
-//   area: z.string(),
-//   region: z.string(),
-//   label: z.string(),
-// });
-//
-// export const settlementFormSchema = z.object({
-//   // settlementList: z.array(settlementItemFormSchema),
-//   settlementRef: z.string(),
-// });
-//
-// export type SettlementFormValues = z.infer<typeof settlementFormSchema>;
-//
-// NOTE: FORM
+// NOTE: FORM UI
 // NOTE: Main information
 export const settlementFormDefaultSchema = z.object({
-  // settlement: selectItemSchema(z.string()).optional(),
-  settlement: selectSettlementItemSchema,
+  settlement: settlementDefaultSelectOptionSchema.nullable(),
 });
 
 export type SettlementFormDefaultValues<
   T extends z.ZodTypeAny = typeof settlementFormDefaultSchema,
 > = z.infer<T>;
 
-// TODO: DefaultValues
-export const defaultFieldsValues: SettlementFormDefaultValues = {
-  settlement: { label: "", value: "", area: "", region: "" },
+// TODO: Default Form Values
+export const settlementDefaultFieldsValues: SettlementFormDefaultValues = {
+  settlement: null,
 };

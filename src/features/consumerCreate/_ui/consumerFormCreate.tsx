@@ -41,6 +41,7 @@ export const ConsumerFormCreate: FC<ConsumerCreateFormProps> = (props) => {
         <ConsumerFormElements.FieldName />
         <ConsumerFormElements.FieldLastName />
         <ConsumerFormElements.FieldPhone />
+        <ConsumerFormElements.FieldConsumerSelectSearch />
         <ConsumerFormElements.SubmitButton
           isPending={isPending}
           submitText="Create consumer"

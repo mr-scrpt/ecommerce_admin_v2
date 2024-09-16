@@ -1,17 +1,23 @@
 import { deliveryFormDefaultSchema } from "@/entities/delivery";
-import { deliveryTypeDefaultOption } from "@/kernel/domain/delivery/deliveryType.schema";
-import { postTypeDefaultOption } from "@/kernel/domain/post/post.schema";
 import {
-  settlementDefaultOption,
-  selectSettlementItemSchema,
-} from "@/kernel/domain/settlement/settlement.schema";
-import { selectItemSchema } from "@/shared/type/select";
+  // postOfficeDefaultSelectOption,
+  postOfficeDefaultSelectOptionSchema,
+} from "@/kernel/domain/post/form.schema";
+import {
+  // receiverDefaultSelectOption,
+  receiverDefaultSelectOptionSchema,
+} from "@/kernel/domain/receiver/form.schema";
+import {
+  // settlementDefaultSelectOption,
+  settlementDefaultSelectOptionSchema,
+} from "@/kernel/domain/settlement/form.schema";
 import { z } from "zod";
 
 export const deliveryUpdateFormDefaultSchema = deliveryFormDefaultSchema.extend(
   {
-    settlement: selectSettlementItemSchema,
-    postOfficeList: z.array(selectItemSchema(z.string())),
+    settlement: settlementDefaultSelectOptionSchema.nullable(),
+    postOfficeList: z.array(postOfficeDefaultSelectOptionSchema).nullable(),
+    receiverList: z.array(receiverDefaultSelectOptionSchema).nullable(),
   },
 );
 
@@ -19,9 +25,12 @@ export type DeliveryUpdateFormDefaultValues = z.infer<
   typeof deliveryUpdateFormDefaultSchema
 >;
 
-// TODO: DefaultValues
-export const defaultFieldsValues: DeliveryUpdateFormDefaultValues = {
-  deliveryType: deliveryTypeDefaultOption,
-  settlement: settlementDefaultOption,
-  postOfficeList: [postTypeDefaultOption],
-};
+// TODO: Default Form Values
+export const deliveryUpdateDefaultFieldsValues: DeliveryUpdateFormDefaultValues =
+  {
+    deliveryType: null,
+
+    settlement: null,
+    postOfficeList: [],
+    receiverList: [],
+  };

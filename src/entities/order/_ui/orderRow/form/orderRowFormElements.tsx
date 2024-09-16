@@ -15,7 +15,7 @@ import { ZodTypeAny } from "zod";
 import { ButtonSubmitComponentType } from "@/shared/type/button";
 import {
   OrderRowFormDefaultValues,
-  defaultFieldsValues,
+  orderRowDefaultFieldsValues,
   orderRowFormDefaultSchema,
 } from "../../../_domain/orderRow/form.schema";
 import { OrderRowQuantityElement } from "./elements/orderRowQuantityElement";
@@ -45,7 +45,7 @@ const getDefaultFormValues = <T extends OrderRowFormDefaultValues>(
   defaultValues?: DefaultValues<T> | undefined,
 ): DefaultValues<T> => {
   return {
-    ...defaultFieldsValues,
+    ...orderRowDefaultFieldsValues,
     ...defaultValues,
   } as DefaultValues<T>;
 };
@@ -69,8 +69,6 @@ export const OrderRowFormElements: OrderRowFormElementsType = <
   const handleSubmit = form.handleSubmit(async (data: T) => {
     onSubmit?.(data);
   });
-
-  console.log("output_log: errors =>>>", form.formState.errors);
 
   return (
     <FormProvider {...form}>

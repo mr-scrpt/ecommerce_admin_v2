@@ -12,9 +12,9 @@ export class AddressListGetByUserAndSettlementRefService {
     selector: AddressGetByUserAndSettlementRefSelector,
   ): Promise<Address[]> {
     const { userId, settlementRef } = selector;
-    if (!userId || !settlementRef) {
-      return [];
-    }
+    // if (!userId || !settlementRef) {
+    //   return [];
+    // }
     return await this.addressRepo.getListByUserAndSettlementRef(
       selector as AddressGetByUserAndSettlementRefDTO,
     );

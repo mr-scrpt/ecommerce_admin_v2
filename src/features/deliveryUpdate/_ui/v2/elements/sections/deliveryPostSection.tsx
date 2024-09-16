@@ -1,7 +1,8 @@
-import { FC, HTMLAttributes } from "react";
+import { PostFormElements } from "@/entities/post";
+import { DeliveryCommonSectionProps } from "../../../../_domain/ui.type";
+import { FC } from "react";
 
-interface DeliveryPostSectionProps extends HTMLAttributes<HTMLDivElement> {}
-
-export const DeliveryPostSection: FC<DeliveryPostSectionProps> = (props) => {
-  return <div>DeliveryPostSection</div>;
+export const DeliveryPostSection: FC<DeliveryCommonSectionProps> = (props) => {
+  const { settlementRef } = props;
+  return <PostFormElements.FieldPostSelect settlementRef={settlementRef} />;
 };

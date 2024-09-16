@@ -5,12 +5,13 @@ import { Country } from "react-phone-number-input";
 
 interface ReceiverPhoneElementProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "onChange"> {
+  value: string;
   onChange: (value: string) => void;
   countryDefault?: string;
 }
 
 export const ReceiverPhoneElement: FC<ReceiverPhoneElementProps> = (props) => {
-  const { onChange, countryDefault = "UA" } = props;
+  const { onChange, value, countryDefault = "UA" } = props;
 
   return (
     <FormControl>
@@ -19,6 +20,7 @@ export const ReceiverPhoneElement: FC<ReceiverPhoneElementProps> = (props) => {
         defaultCountry={countryDefault as Country}
         initialValueFormat="national"
         onChange={onChange}
+        value={value}
       ></PhoneInput>
     </FormControl>
   );

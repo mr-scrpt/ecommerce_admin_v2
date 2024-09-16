@@ -1,20 +1,16 @@
-import {
-  type Order as OrderDBType,
-  ORDER_PAYMENT_STATUS as OrderPaymentStatusEnum,
-  ORDER_STATUS as OrderStatusEnum,
-} from "@prisma/client";
+import { type Order as OrderDBType } from "@prisma/client";
 
-import { OrderRow, OrderRowEntity } from "./orderRow.type";
+import { OrderRow } from "./orderRow.type";
 
-export { OrderDBType, OrderPaymentStatusEnum, OrderStatusEnum };
+export { OrderDBType };
 
 // NOTE: Base
 export type OrderBase = {
   orderNo: string;
   userId: string;
   receiverId: string;
-  orderStatus: OrderStatusEnum;
-  paymentStatus: OrderPaymentStatusEnum;
+  orderStatusStateId: string;
+  orderStatusPaymentId: string;
   priceTotal: number;
 };
 
@@ -25,9 +21,9 @@ export type OrderEntity = OrderBase & {
   updatedAt: Date;
 };
 
-export type OrderCompositeEntity = OrderEntity & {
-  orderRowList: Array<OrderRowEntity>;
-};
+// export type OrderCompositeEntity = OrderEntity & {
+//   orderRowList: Array<OrderRowEntity>;
+// };
 
 // NOTE: Projetions
 export type Order = OrderBase & {
@@ -37,11 +33,6 @@ export type Order = OrderBase & {
 };
 
 // TODO: Strange type - check property and property item exemple
-export type OrderComposite = Order & {
-  orderRowList: Array<OrderRow>;
-};
-
-// NOTE: UI
-export type OrderUI = Omit<Order, "createdAt"> & {
-  createdAt: string;
-};
+// export type OrderComposite = Order & {
+//   orderRowList: Array<OrderRow>;
+// };

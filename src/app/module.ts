@@ -4,7 +4,11 @@ import { CartModule } from "@/entities/cart/module";
 import { CategoryModule } from "@/entities/category/module";
 import { ConsumerModule } from "@/entities/consumer/module";
 import { DeliveryModule } from "@/entities/delivery/module";
-import { OrderModule, OrderRowModule } from "@/entities/order/module";
+import {
+  OrderModule,
+  OrderRowModule,
+  OrderStatusModule,
+} from "@/entities/order/module";
 import { PostModule } from "@/entities/post/module";
 import { ProductModule } from "@/entities/product/module";
 import { ProfileModule } from "@/entities/profile/module";
@@ -94,6 +98,7 @@ export const loadModule = () => {
     OrderModule,
     OrderCreateModule,
     OrderUpdateModule,
+    OrderStatusModule,
 
     OrderRowModule,
     OrderRowCreateModule,

@@ -12,7 +12,7 @@ import { FC, HTMLAttributes, memo, useCallback } from "react";
 import { useProductUpdateMutation } from "../_mutation/useProductUpdate.mutation";
 import { useCategoryDataToFormModel } from "../_vm/useCategoryDataToForm.model";
 import { usePropertyListByCategoryIdListModel } from "@/entities/property";
-import { SelectOptionItem } from "@/shared/type/select";
+import { ProductDefaultSelectOption } from "@/kernel/domain/product/form.schema";
 
 interface ProductFormProps extends HTMLAttributes<HTMLDivElement> {
   productId: string;
@@ -63,7 +63,7 @@ export const ProductFormUpdate: FC<ProductFormProps> = memo((props) => {
     !isFetchedAfterMount;
 
   const handleSelectedProperty = useCallback(
-    (propertyListSelected: Array<SelectOptionItem>) => {
+    (propertyListSelected: Array<ProductDefaultSelectOption>) => {
       const categoryIdList = toDataIdList(propertyListSelected);
       setCategoryOptionListSelected(toOptionList(categoryIdList));
       setCategoryIdList(categoryIdList.map((item) => item.id));

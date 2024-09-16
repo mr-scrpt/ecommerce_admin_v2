@@ -58,7 +58,6 @@ export const StaffFormUpdate: FC<StaffFormProps> = (props) => {
     <div className={cn(className, "w-full")}>
       <StaffFormElements
         handleSubmit={handleSubmit}
-        staff={staff}
         schema={staffUpdateFormSchema}
       >
         <StaffFormElements.FieldEmail />

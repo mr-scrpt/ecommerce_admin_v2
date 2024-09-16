@@ -1,3 +1,4 @@
+import { ProductDefaultSelectOption } from "@/kernel/domain/product/form.schema";
 import { SEARCH_MIN_LENGTH } from "@/shared/config/constant";
 import { useAppearanceDelay } from "@/shared/lib/react";
 import { Button } from "@/shared/ui/button";
@@ -12,17 +13,16 @@ import {
 import { FormControl } from "@/shared/ui/form";
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
 import { cn } from "@/shared/ui/utils";
-import { FC, HTMLAttributes, useEffect, useState } from "react";
 import { CaretSortIcon } from "@radix-ui/react-icons";
 import _ from "lodash";
-import { SelectOptionItem } from "@/shared/type/select";
+import { FC, HTMLAttributes, useEffect, useState } from "react";
 import { useProductListGroupSearchToSelectModel } from "../../../_vm/useProductListGroupSearchToSelect.model";
 
 interface ProductSelectGroupSearchElementProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "onChange"> {
-  productActive?: SelectOptionItem;
+  productActive?: ProductDefaultSelectOption;
   productInOrder: Array<string>;
-  onSelectProduct: (product: SelectOptionItem) => void;
+  onSelectProduct: (product: ProductDefaultSelectOption) => void;
 }
 
 export const ProductSelectGroupSearchElement: FC<

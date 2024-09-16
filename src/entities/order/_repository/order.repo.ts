@@ -6,8 +6,8 @@ import {
 } from "@/kernel/domain/order/order.dto";
 import { OrderEntity } from "@/kernel/domain/order/order.type";
 import { IOrderRepository } from "@/kernel/domain/order/repository.type";
-import { SORTING_ORDER_DEFAULT } from "@/shared/config/constant";
 import { DBClient, Tx } from "@/shared/lib/db/db";
+import { ORDER_STATUS_PAYMENT, ORDER_STATUS_STATE } from "@prisma/client";
 import { injectable } from "inversify";
 
 @injectable()
@@ -27,22 +27,13 @@ export class OrderRepository implements IOrderRepository {
       where: dto,
       include: {
         orderRowList: true,
-        // orderRowList: {
-        //   orderBy: {
-        //     productName: SORTING_ORDER_DEFAULT,
-        //   },
-        // },
-        // delivery: true,
         delivery: {
           include: {
             address: true,
           },
         },
-        // delivery: {
-        //   select: {
-        //     id: true,
-        //   },
-        // },
+        orderStatusState: true,
+        orderStatusPayment: true,
       },
     });
 
@@ -83,38 +74,16 @@ export class OrderRepository implements IOrderRepository {
         receiver: {
           connect: { id: receiverId },
         },
+        orderStatusState: {
+          connect: { status: ORDER_STATUS_STATE.TEMP },
+        },
+        orderStatusPayment: {
+          connect: { status: ORDER_STATUS_PAYMENT.TEMP },
+        },
       },
     });
   }
 
-  // async updateStatus(
-  //   dto: OrderUpdateDTO,
-  //   data: Partial<OrderToUpdateStatus>,
-  //   db: Tx = this.db,
-  // ): Promise<OrderEntity> {
-  //   return await db.order.update({
-  //     where: {
-  //       id: orderId,
-  //     },
-  //     data,
-  //   });
-  // }
-
-  // async updateTotalPrice(
-  //   orderId: OrderId,
-  //   totalPrice: number,
-  //   db: Tx = this.db,
-  // ): Promise<OrderEntity> {
-  //   return await db.order.update({
-  //     where: {
-  //       id: orderId,
-  //     },
-  //     data: {
-  //       priceTotal: totalPrice,
-  //     },
-  //   });
-  // }
-  //
   async update(dto: OrderUpdateDTO, db: Tx = this.db): Promise<OrderEntity> {
     const { selector, data } = dto;
     return await db.order.update({

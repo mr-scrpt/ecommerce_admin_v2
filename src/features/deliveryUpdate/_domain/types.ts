@@ -1,5 +1,5 @@
 import { DeliveryUpdateDTO } from "@/kernel/domain/delivery/delivery.dto";
-import { DeliveryTypeBase } from "@/kernel/domain/delivery/delivery.type";
+import { DeliveryTypeBase } from "@/kernel/domain/delivery/deliveryType.type";
 
 type DeliveryUpdatePayload = Partial<DeliveryTypeBase>;
 

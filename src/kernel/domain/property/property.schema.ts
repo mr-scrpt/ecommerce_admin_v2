@@ -1,11 +1,11 @@
 import { z } from "zod";
-import { PropertyDataTypeEnum } from "./property.type";
 import { propertyItemSchema } from "./propertyItem.schema";
+import { PROPERTY_DATATYPE } from "./property.type";
 
 // NOTE: Base
 export const propertyBaseSchema = z.object({
   name: z.string(),
-  datatype: z.nativeEnum(PropertyDataTypeEnum),
+  datatype: z.nativeEnum(PROPERTY_DATATYPE),
 });
 
 // NOTE: Projections

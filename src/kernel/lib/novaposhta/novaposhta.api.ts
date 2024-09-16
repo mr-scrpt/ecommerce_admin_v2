@@ -58,14 +58,14 @@ export class NovaPoshtaApi {
       const { params, resolve, reject } = this.requestQueue.shift()!;
 
       try {
-        const cacheKey = this.generateCacheKey(
-          params.calledMethod,
-          params.methodProperties,
-        );
-        if (this.cache.has(cacheKey)) {
-          resolve(this.cache.get(cacheKey));
-          return;
-        }
+        // const cacheKey = this.generateCacheKey(
+        //   params.calledMethod,
+        //   params.methodProperties,
+        // );
+        // if (this.cache.has(cacheKey)) {
+        //   resolve(this.cache.get(cacheKey));
+        //   return;
+        // }
 
         const result = await this.client.post<NovaPoshtaResponse<any>>(
           configPrivate.API_NOVA_POSHTA_URL,
@@ -75,9 +75,9 @@ export class NovaPoshtaApi {
           },
         );
 
-        this.cache.set(cacheKey, result.data.data);
+        // this.cache.set(cacheKey, result.data.data);
         resolve(result.data.data);
-        this.lastRequestTime = Date.now();
+        // this.lastRequestTime = Date.now();
       } catch (error) {
         reject(error);
       } finally {
@@ -96,11 +96,13 @@ export class NovaPoshtaApi {
   }
 
   async getPostOffice(id: string): Promise<PostOfficeNovaPoshta> {
+    // console.log("output_log: ID =>>>", id);
     const [result] = await this.enqueueRequest<PostOfficeNovaPoshta[]>({
       modelName: modelName.addressGeneral,
       calledMethod: calledMethod.getPostOffice,
       methodProperties: { Ref: id },
     });
+    // console.log("output_log:  =>>>", result);
     return result;
   }
 

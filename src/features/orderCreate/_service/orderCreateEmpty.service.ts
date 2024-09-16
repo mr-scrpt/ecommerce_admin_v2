@@ -2,10 +2,9 @@ import { ORDER_PRICE_TOTAL_DEFAULT } from "@/entities/order";
 import { IOrderGenerateNumberService } from "@/entities/order/server";
 import { DELIVERY_TYPE } from "@/kernel/domain/delivery/delivery.type";
 import {
-  Order,
-  OrderPaymentStatusEnum,
-  OrderStatusEnum,
-} from "@/kernel/domain/order/order.type";
+  ORDER_STATUS_PAYMENT,
+  ORDER_STATUS_STATE,
+} from "@/kernel/domain/order/orderStatus.type";
 import { injectable } from "inversify";
 import { merge } from "lodash";
 import { IOrderCreateTx } from "../_domain/transaction.type";
@@ -13,6 +12,7 @@ import {
   OrderCreateEmptyTxPayload,
   OrderEmptyCreateTxDTO,
 } from "../_domain/types";
+import { Order } from "@/kernel/domain/order/order.type";
 
 @injectable()
 export class OrderEmptyCreateService {
@@ -31,8 +31,8 @@ export class OrderEmptyCreateService {
     const orderData = merge({}, payload, {
       orderData: {
         ...payload.orderData,
-        orderStatus: OrderStatusEnum.TEMP,
-        paymentStatus: OrderPaymentStatusEnum.TEMP,
+        orderStatus: ORDER_STATUS_STATE.TEMP,
+        paymentStatus: ORDER_STATUS_PAYMENT.TEMP,
 
         priceTotal: ORDER_PRICE_TOTAL_DEFAULT,
         orderNo,

@@ -1,12 +1,20 @@
 "use client";
-import { useSettlemetListToSelect } from "@/entities/settlement";
+import {
+  SettlementFormElements,
+  useSettlemetListToSelect,
+} from "@/entities/settlement";
 import { StoreFormDefaultValues, StoreFormElements } from "@/entities/store";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes } from "react";
 import { useStoreCreateMutation } from "../_mutation/useStoreCreate.mutation";
-import { storeCreateFormSchema } from "../_domain/form.schema";
+import {
+  StoreCreateFormValues,
+  storeCreateFormSchema,
+} from "../_domain/form.schema";
+import { storeDefaultFieldsValues } from "@/entities/store/_domain/form.schema";
+import { useStoreCreateHandler } from "../_vm/useStoreCreate.handler";
 
 interface StoreCreateFormProps extends HTMLAttributes<HTMLDivElement> {
   callbackUrl?: string;
@@ -17,12 +25,6 @@ interface StoreCreateFormProps extends HTMLAttributes<HTMLDivElement> {
 export const StoreCreateForm: FC<StoreCreateFormProps> = (props) => {
   const { callbackUrl, className, onSuccess } = props;
 
-  // const [selectedSettlement, setSelectedSettlement] = useState<string>("");
-
-  const router = useRouter();
-
-  const { storeCreate, isPending: isPendingCreate } = useStoreCreateMutation();
-
   const {
     toSearch,
     settlementListToSelect,
@@ -30,31 +32,23 @@ export const StoreCreateForm: FC<StoreCreateFormProps> = (props) => {
     isSuccess: isSuccessStore,
   } = useSettlemetListToSelect();
 
+  const { handleSubmit, isPendingCreate } = useStoreCreateHandler();
+
   const isPendingComplexible = isPendingStore || isPendingCreate;
 
   if (isPendingComplexible) {
     return <Spinner aria-label="Loading profile..." />;
   }
 
-  const handleSubmit = async (data: StoreFormDefaultValues) => {
-    await storeCreate({
-      storeData: data,
-    });
-
-    onSuccess?.();
-
-    if (callbackUrl) {
-      router.push(callbackUrl);
-    }
-  };
-
   return (
     <div className={cn(className, "w-full")}>
-      <StoreFormElements
+      <StoreFormElements<StoreCreateFormValues>
         handleSubmit={handleSubmit}
         schema={storeCreateFormSchema}
+        defaultValues={storeDefaultFieldsValues}
       >
-        <StoreFormElements.FieldSettlementSelect />
+        {/* <StoreFormElements.FieldSettlementSelect /> */}
+        <SettlementFormElements.FieldSettlementSelectSearch />
         <StoreFormElements.FieldName />
         {/* <StoreFormElements.FieldStoreList /> */}
         <StoreFormElements.FieldAddress />

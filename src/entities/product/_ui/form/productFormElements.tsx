@@ -13,7 +13,7 @@ import { ZodTypeAny } from "zod";
 import {
   ProductFormDefaultValues,
   productFormDefaultSchema,
-  defaultFieldsValues,
+  productDefaultFieldsValues,
 } from "../../_domain/form.schema";
 import { ProductAboutElement } from "./elements/productAboutElement";
 import { ProductArticleElement } from "./elements/productArticleElement";
@@ -63,7 +63,7 @@ const getDefaultFormValues = <T extends ProductFormDefaultValues>(
   defaultValues?: DefaultValues<T> | undefined,
 ): DefaultValues<T> => {
   return {
-    ...defaultFieldsValues,
+    ...productDefaultFieldsValues,
     ...defaultValues,
   } as DefaultValues<T>;
 };

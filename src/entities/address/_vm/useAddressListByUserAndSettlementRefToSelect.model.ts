@@ -1,18 +1,18 @@
 "use client";
 
 import { useAppearanceDelay } from "@/shared/lib/react";
-import { useAddressListByUserAndSettlementRef } from "../_query/useAddressListByUserAndSettlementRef.query";
+import { useAddressListByUserAndSettlementRefQuery } from "../_query/useAddressListByUserAndSettlementRef.query";
 
 interface IAddressListToSelectModel {
   userId: string;
-  settlementRef: string;
+  settlementRef?: string;
 }
 
 export const useAddressListByUserAndSettlementRefToSelectModel = (
   data: IAddressListToSelectModel,
 ) => {
   const { addressList, isPending, isSuccess, isFetchedAfterMount } =
-    useAddressListByUserAndSettlementRef(data);
+    useAddressListByUserAndSettlementRefQuery(data);
 
   const sotoreListToSelect = addressList.map((address) => {
     return {

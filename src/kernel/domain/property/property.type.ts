@@ -1,12 +1,12 @@
-import { DATATYPE as PropertyDataTypeEnum } from "@prisma/client";
+import { PROPERTY_DATATYPE } from "@prisma/client";
 
 import { PropertyItem, PropertyItemEntity } from "./propertyItem.type";
-export { PropertyDataTypeEnum };
+export { PROPERTY_DATATYPE } from "@prisma/client";
 
 // NOTE: Base
 export type PropertyBase = {
   name: string;
-  datatype: PropertyDataTypeEnum;
+  datatype: PROPERTY_DATATYPE;
 };
 
 // NOTE: Entity
