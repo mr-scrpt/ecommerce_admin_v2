@@ -2,7 +2,7 @@ import { FC, HTMLAttributes } from "react";
 
 import { ProductDefaultSelectOption } from "@/kernel/domain/product/form.schema";
 import { Spinner } from "@/shared/ui/icons/spinner";
-import { MultiSelectElement } from "@/shared/ui/select/multiSelectElement";
+import { MultiSelectElementInner } from "@/shared/ui/select/multiSelectElement";
 import { useProductListToSelectModel } from "../../../_vm/useProductListToSelect.model";
 
 export interface ProductMultiSelectProps
@@ -23,7 +23,7 @@ export const ProductMultiSelectElement: FC<ProductMultiSelectProps> = (
   }
 
   return (
-    <MultiSelectElement
+    <MultiSelectElementInner
       optionList={productListToSelect}
       optionActiveList={productListActive}
       onSelect={onSelectProduct}

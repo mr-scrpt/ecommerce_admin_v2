@@ -1,7 +1,7 @@
 import { FC, memo } from "react";
 
 import { useDeliveryTypeListToSelectModel } from "@/entities/delivery";
-import { DeliveryTypeFieldList } from "@/features/deliveryUpdate/_vm/deliveryTypeFieldList";
+import { DeliveryTypeFieldList } from "../../../_vm/deliveryTypeFieldList";
 import { FormControl, FormItem, FormLabel } from "@/shared/ui/form";
 import { RadioGroup, RadioGroupItem } from "@/shared/ui/radio-group";
 import { HTMLAttributes } from "react";
@@ -9,7 +9,7 @@ import { DeliveryTypeDefaultSelectOption } from "@/kernel/domain/delivery/form.s
 
 export interface DeliveryTypeRadioSectionProps
   extends HTMLAttributes<HTMLDivElement> {
-  deliveryActive?: DeliveryTypeDefaultSelectOption;
+  deliveryActive?: DeliveryTypeDefaultSelectOption | null;
   settlementRef: string;
   deliveryId: string;
   onSelectDelivery: (delivery: DeliveryTypeDefaultSelectOption) => void;
@@ -76,4 +76,4 @@ export const DeliveryTypeRadioSectionElement: FC<DeliveryTypeRadioSectionProps> 
     );
   });
 
-DeliveryTypeRadioSectionElement.displayName = "DeliveryTypeRadioElement";
+DeliveryTypeRadioSectionElement.displayName = "DeliveryTypeRadioSectionElement";

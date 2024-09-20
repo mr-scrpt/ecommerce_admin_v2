@@ -1,66 +1,40 @@
 "use client";
-import { ProductPropertyObjectList } from "@/entities/product";
-import { useOptionListTransform } from "@/shared/lib/map";
-import { useEffect, useState } from "react";
-import { PropertyToSelect } from "../_domain/property/property.types";
+import { CategoryDefaultSelectOption } from "@/kernel/domain/category/form.schema";
 import { usePropertyWithRelationByCategoryQuery } from "../_query/property/propertyListWithRelationByCategory.query";
-import { PropertyItem } from "@/kernel/domain/property/propertyItem.type";
-import { PROPERTY_DATATYPE } from "@/kernel/domain/property/property.type";
+import { PropertyDefaultSelectOption } from "@/kernel/domain/property/form.schema";
 
 export const usePropertyListByCategoryIdListModel = (
-  categoryIdListActive: Array<{ value: string; label: string }>,
-  productPropertyIdListActive: Array<PropertyItem>,
+  categoryIdList: Array<CategoryDefaultSelectOption>,
 ) => {
-  const [categoryIdList, setCategoryIdList] = useState<string[]>([]);
-  const { toOptionList } = useOptionListTransform();
-
-  useEffect(() => {
-    if (!categoryIdListActive) return;
-    setCategoryIdList(categoryIdListActive.map((item) => item.value));
-  }, [categoryIdListActive, setCategoryIdList]);
-
   const { isPending, isSuccess, propertyList, isFetchedAfterMount } =
     usePropertyWithRelationByCategoryQuery({
-      categoryIdList: categoryIdList.map((id) => ({ categoryId: id })),
+      categoryIdList: categoryIdList.map(({ value }) => ({
+        categoryId: value,
+      })),
     });
 
-  const propertyListCompleted: Array<PropertyToSelect> = propertyList.map(
-    (property) => {
+  const propertyListCompleted: Array<PropertyDefaultSelectOption> =
+    propertyList.map((property) => {
       return {
-        id: property.id,
-        name: property.name,
+        value: property.id,
+        label: property.name,
         datatype: property.datatype,
-        propertyList: toOptionList(property.propertyItemList),
+        // propertyList: property.propertyItemList.map((item) => ({
+        //   value: item.id,
+        //   label: item.name,
+        // })),
       };
-    },
-  );
+    });
 
-  const propertyObjectActive =
-    propertyListCompleted.reduce<ProductPropertyObjectList>((acc, curr) => {
-      const correspondingItems = productPropertyIdListActive
-        .filter((item) => item.propertyId === curr.id)
-        .map((item) => item.id);
-
-      if (
-        curr.datatype === PROPERTY_DATATYPE.CHECKBOX ||
-        curr.datatype === PROPERTY_DATATYPE.MULT
-      ) {
-        acc[curr.name] = correspondingItems;
-      } else {
-        acc[curr.name] = correspondingItems[0];
-      }
-
-      return acc;
-    }, {});
+  console.log("output_log: DATA **** =>>>", propertyListCompleted);
 
   return {
     isPending,
     isSuccess,
     propertyList: propertyListCompleted,
-    propertyObjectActive,
+    // propertyList,
     categoryIdList,
     isFetchedAfterMount,
-    setCategoryIdList,
   };
 };
 

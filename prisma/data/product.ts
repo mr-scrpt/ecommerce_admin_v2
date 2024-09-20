@@ -8,7 +8,7 @@ export const productListSeed = [
     slug: "first-product",
     description: "Metadata to first product",
     about: "About first product text",
-    img: [
+    imgList: [
       "https://images.examples.com/wp-content/uploads/2018/04/urban-billboard.jpg",
       "https://images.examples.com/wp-content/uploads/2018/04/Station-Billboard-Design-Example.jpg?width=600",
     ],
@@ -22,7 +22,7 @@ export const productListSeed = [
     slug: "second-product",
     description: "Metadata to second product",
     about: "About second product text",
-    img: [
+    imgList: [
       "https://images.examples.com/wp-content/uploads/2018/04/School-Billboard-Design-Example.jpg?width=600",
       "https://images.examples.com/wp-content/uploads/2018/04/Metal-Billboard-Design-Example.jpg?width=600",
     ],
@@ -36,7 +36,7 @@ export const productListSeed = [
     slug: "third-product",
     description: "Metadata to third product",
     about: "About third produtc text",
-    img: [
+    imgList: [
       "https://images.examples.com/wp-content/uploads/2018/04/Outdoor-Advertising-Billboard-Design-Example.jpg?width=600",
       "https://images.examples.com/wp-content/uploads/2018/04/Metal-Billboard-Design-Example.jpg?width=600",
     ],
@@ -50,7 +50,7 @@ export const productListSeed = [
     slug: "fourth-product",
     description: "Metadata to fourth product",
     about: "About fourth product text",
-    img: [
+    imgList: [
       "https://images.examples.com/wp-content/uploads/2018/04/Station-Billboard-Design-Example.jpg?width=600",
       "https://images.examples.com/wp-content/uploads/2018/04/Metal-Billboard-Design-Example.jpg?width=600",
     ],
@@ -64,7 +64,7 @@ export const productListSeed = [
     slug: "fifth-product",
     description: "Metadata to fifth product",
     about: "About fifth product text",
-    img: [
+    imgList: [
       "https://images.examples.com/wp-content/uploads/2018/04/School-Billboard-Design-Example.jpg?width=600",
       "https://images.examples.com/wp-content/uploads/2018/04/Urban-Billboard-Design-Example.jpg?width=600",
     ],
@@ -78,7 +78,7 @@ export const productListSeed = [
     slug: "sixth-product",
     description: "Metadata to sixth product",
     about: "About sixth product text",
-    img: [
+    imgList: [
       "https://images.examples.com/wp-content/uploads/2018/04/Outdoor-Advertising-Billboard-Design-Example.jpg?width=600",
       "https://images.examples.com/wp-content/uploads/2018/04/Station-Billboard-Design-Example.jpg?width=600",
     ],
@@ -92,7 +92,7 @@ export const productListSeed = [
     slug: "seventh-product",
     description: "Metadata to seventh product",
     about: "About seventh product text",
-    img: [
+    imgList: [
       "https://images.examples.com/wp-content/uploads/2018/04/Metal-Billboard-Design-Example.jpg?width=600",
       "https://images.examples.com/wp-content/uploads/2018/04/Urban-Billboard-Design-Example.jpg?width=600",
     ],
@@ -106,7 +106,7 @@ export const productListSeed = [
     slug: "eighth-product",
     description: "Metadata to eighth product",
     about: "About eighth product text",
-    img: [
+    imgList: [
       "https://images.examples.com/wp-content/uploads/2018/04/School-Billboard-Design-Example.jpg?width=600",
       "https://images.examples.com/wp-content/uploads/2018/04/Outdoor-Advertising-Billboard-Design-Example.jpg?width=600",
     ],
@@ -120,7 +120,7 @@ export const productListSeed = [
     slug: "ninth-product",
     description: "Metadata to ninth product",
     about: "About ninth product text",
-    img: [
+    imgList: [
       "https://images.examples.com/wp-content/uploads/2018/04/Station-Billboard-Design-Example.jpg?width=600",
       "https://images.examples.com/wp-content/uploads/2018/04/Metal-Billboard-Design-Example.jpg?width=600",
     ],
@@ -134,7 +134,7 @@ export const productListSeed = [
     slug: "tenth-product",
     description: "Metadata to tenth product",
     about: "About tenth product text",
-    img: [
+    imgList: [
       "https://images.examples.com/wp-content/uploads/2018/04/Urban-Billboard-Design-Example.jpg?width=600",
       "https://images.examples.com/wp-content/uploads/2018/04/School-Billboard-Design-Example.jpg?width=600",
     ],
@@ -148,7 +148,7 @@ export const productListSeed = [
     slug: "eleventh-product",
     description: "Metadata to eleventh product",
     about: "About eleventh product text",
-    img: [
+    imgList: [
       "https://images.examples.com/wp-content/uploads/2018/04/Outdoor-Advertising-Billboard-Design-Example.jpg?width=600",
       "https://images.examples.com/wp-content/uploads/2018/04/Station-Billboard-Design-Example.jpg?width=600",
     ],
@@ -162,7 +162,7 @@ export const productListSeed = [
     slug: "twelfth-product",
     description: "Metadata to twelfth product",
     about: "About twelfth product text",
-    img: [
+    imgList: [
       "https://images.examples.com/wp-content/uploads/2018/04/Metal-Billboard-Design-Example.jpg?width=600",
       "https://images.examples.com/wp-content/uploads/2018/04/Urban-Billboard-Design-Example.jpg?width=600",
     ],
@@ -176,7 +176,7 @@ export const productListSeed = [
     slug: "thirteenth-product",
     description: "Metadata to thirteenth product",
     about: "About thirteenth product text",
-    img: [
+    imgList: [
       "https://images.examples.com/wp-content/uploads/2018/04/School-Billboard-Design-Example.jpg?width=600",
       "https://images.examples.com/wp-content/uploads/2018/04/Outdoor-Advertising-Billboard-Design-Example.jpg?width=600",
     ],
@@ -190,7 +190,7 @@ export const productListSeed = [
     slug: "fourteenth-product",
     description: "Metadata to fourteenth product",
     about: "About fourteenth product text",
-    img: [
+    imgList: [
       "https://images.examples.com/wp-content/uploads/2018/04/Station-Billboard-Design-Example.jpg?width=600",
       "https://images.examples.com/wp-content/uploads/2018/04/Metal-Billboard-Design-Example.jpg?width=600",
     ],
@@ -204,7 +204,7 @@ export const productListSeed = [
     slug: "fifteenth-product",
     description: "Metadata to fifteenth product",
     about: "About fifteenth product text",
-    img: [
+    imgList: [
       "https://images.examples.com/wp-content/uploads/2018/04/Urban-Billboard-Design-Example.jpg?width=600",
       "https://images.examples.com/wp-content/uploads/2018/04/School-Billboard-Design-Example.jpg?width=600",
     ],
@@ -218,7 +218,7 @@ export const productListSeed = [
     slug: "sixteenth-product",
     description: "Metadata to sixteenth product",
     about: "About sixteenth product text",
-    img: [
+    imgList: [
       "https://images.examples.com/wp-content/uploads/2018/04/Outdoor-Advertising-Billboard-Design-Example.jpg?width=600",
       "https://images.examples.com/wp-content/uploads/2018/04/Station-Billboard-Design-Example.jpg?width=600",
     ],

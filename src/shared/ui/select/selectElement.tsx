@@ -14,7 +14,7 @@ interface SelectElementProps<
 > extends Omit<HTMLAttributes<HTMLDivElement>, "onSelect"> {
   onSelect: (items: Array<T>) => void;
   optionList: Array<T>;
-  optionActive?: T;
+  optionActive?: T | null;
   placeholder?: string;
 }
 

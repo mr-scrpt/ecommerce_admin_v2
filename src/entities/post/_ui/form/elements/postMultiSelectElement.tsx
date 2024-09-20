@@ -2,7 +2,7 @@ import { FC, HTMLAttributes } from "react";
 
 import { PostDefaultSelectOption } from "@/kernel/domain/post/form.schema";
 import { Spinner } from "@/shared/ui/icons/spinner";
-import { MultiSelectElement } from "@/shared/ui/select/multiSelectElement";
+import { MultiSelectElementInner } from "@/shared/ui/select/multiSelectElement";
 import { usePostListBySettlementRefToSelectModel } from "../../../_vm/usePostOfficeListBySettlementRefToSelect.model.query";
 
 export interface PostMultiSelectProps extends HTMLAttributes<HTMLDivElement> {
@@ -21,7 +21,7 @@ export const PostMultiSelectElement: FC<PostMultiSelectProps> = (props) => {
   }
 
   return (
-    <MultiSelectElement
+    <MultiSelectElementInner
       optionList={postListToSelect}
       optionActiveList={postListActive}
       onSelect={onSelectPost}

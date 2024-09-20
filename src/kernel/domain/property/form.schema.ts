@@ -4,12 +4,15 @@ import { PROPERTY_DATATYPE } from "./property.type";
 // NOTE: Select Property Option
 export const propertyDefaultSelectOptionSchema = z.object({
   value: z.string(),
+  datatype: z.nativeEnum(PROPERTY_DATATYPE),
   label: z.string(),
   active: z.boolean().optional(),
 });
+
 export const propertyItemDefaultSelectOptionSchema = z.object({
   value: z.string(),
   label: z.string(),
+  propertyId: z.string(),
   active: z.boolean().optional(),
 });
 

@@ -11,7 +11,7 @@ export const productBaseSchema = z.object({
   description: z.string(),
   about: z.string(),
 
-  img: z.array(z.string()),
+  imgList: z.array(z.string()),
 });
 
 // NOTE: Projections

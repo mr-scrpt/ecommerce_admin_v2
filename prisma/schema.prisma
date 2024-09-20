@@ -73,10 +73,10 @@ model Product {
   description String
   about       String
 
-  img         String[]
+  imgList         String[]
 
   categoryList   Category[]   @relation("ProductToCategory")
-  propertyItemListSelected PropertyItem[] @relation("PropertyItemToProduct")
+  propertyItemList PropertyItem[] @relation("PropertyItemToProduct")
   cartRowList  CartRow[]
   orderRowList  OrderRow[]
 

@@ -6,6 +6,7 @@ export const usePropertyListToSelectModel = () => {
   const propertySelectOptionList = propertyList.map((item) => ({
     value: item.id,
     label: item.name,
+    datatype: item.datatype,
   }));
 
   return {

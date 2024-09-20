@@ -1,16 +1,7 @@
 import { deliveryFormDefaultSchema } from "@/entities/delivery";
-import {
-  // postOfficeDefaultSelectOption,
-  postOfficeDefaultSelectOptionSchema,
-} from "@/kernel/domain/post/form.schema";
-import {
-  // receiverDefaultSelectOption,
-  receiverDefaultSelectOptionSchema,
-} from "@/kernel/domain/receiver/form.schema";
-import {
-  // settlementDefaultSelectOption,
-  settlementDefaultSelectOptionSchema,
-} from "@/kernel/domain/settlement/form.schema";
+import { postOfficeDefaultSelectOptionSchema } from "@/kernel/domain/post/form.schema";
+import { receiverDefaultSelectOptionSchema } from "@/kernel/domain/receiver/form.schema";
+import { settlementDefaultSelectOptionSchema } from "@/kernel/domain/settlement/form.schema";
 import { z } from "zod";
 
 export const deliveryUpdateFormDefaultSchema = deliveryFormDefaultSchema.extend(

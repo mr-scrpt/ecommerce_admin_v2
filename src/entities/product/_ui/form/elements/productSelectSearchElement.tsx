@@ -18,7 +18,7 @@ import { useProductListSearchToSelectModel } from "../../../_vm/useProductListSe
 
 interface ProductSelectSearchElementProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "onChange"> {
-  productActive?: ProductDefaultSelectOption;
+  productActive?: ProductDefaultSelectOption | null;
   onSelectProduct: (product: ProductDefaultSelectOption) => void;
 }
 

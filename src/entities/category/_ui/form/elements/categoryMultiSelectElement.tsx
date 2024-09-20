@@ -1,7 +1,7 @@
 import { FC, memo } from "react";
 
 import { CategoryDefaultSelectOption } from "@/kernel/domain/category/form.schema";
-import { MultiSelectElement } from "@/shared/ui/select/multiSelectElement";
+import { MultiSelectElementInner } from "@/shared/ui/select/multiSelectElement";
 import { HTMLAttributes } from "react";
 import { useCategoryListToSelectModel } from "../../../_vm/useCategoryListToSelect.modle";
 
@@ -19,7 +19,7 @@ export const CategoryMultiSelectElement: FC<CategoryMultiSelectProps> = memo(
       useCategoryListToSelectModel();
 
     return (
-      <MultiSelectElement
+      <MultiSelectElementInner
         optionList={categorySelectOptionList}
         optionActiveList={categoryListActive}
         onSelect={onSelectCategory}

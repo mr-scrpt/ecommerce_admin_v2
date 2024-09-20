@@ -1,7 +1,7 @@
 import { FC, memo } from "react";
 
 import { PropertyDefaultSelectOption } from "@/kernel/domain/property/form.schema";
-import { MultiSelectElement } from "@/shared/ui/select/multiSelectElement";
+import { MultiSelectElementInner } from "@/shared/ui/select/multiSelectElement";
 import { HTMLAttributes } from "react";
 import { usePropertyListToSelectModel } from "../../../../_vm/usePropertyListToSelect.model";
 
@@ -18,7 +18,7 @@ export const PropertyMultiSelectElement: FC<PropertyMultiSelectProps> = memo(
     const { propertySelectOptionList } = usePropertyListToSelectModel();
 
     return (
-      <MultiSelectElement
+      <MultiSelectElementInner
         optionList={propertySelectOptionList}
         optionActiveList={propertyListActive}
         onSelect={onSelectProperty}

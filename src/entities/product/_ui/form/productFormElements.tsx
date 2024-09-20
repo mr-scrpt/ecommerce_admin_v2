@@ -88,6 +88,8 @@ export const ProductFormElements: ProductFormElementsType = <
     onSubmit?.(data);
   });
 
+  console.log("output_log: VALUES  =>>>", form.getValues());
+
   return (
     <FormProvider {...form}>
       <form onSubmit={handleSubmit} className="space-y-8">
@@ -107,7 +109,7 @@ ProductFormElements.FieldName = function FieldName() {
       name="name"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>Product list</FormLabel>
+          <FormLabel>Product name</FormLabel>
           <ProductNameElement value={field.value} onChange={field.onChange} />
           {/* <FormMessage /> */}
         </FormItem>
@@ -277,16 +279,22 @@ ProductFormElements.FieldProductMultiSelect =
       <FormField
         control={control}
         name="productList"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Product</FormLabel>
-            <ProductMultiSelectElement
-              productListActive={field.value}
-              onSelectProduct={field.onChange}
-            />
-            {/* <FormMessage /> */}
-          </FormItem>
-        )}
+        render={({ field }) => {
+          // field.value?.map((product) => {
+          //   product.
+          //
+          // })
+          return (
+            <FormItem>
+              <FormLabel>Product</FormLabel>
+              <ProductMultiSelectElement
+                productListActive={field.value}
+                onSelectProduct={field.onChange}
+              />
+              {/* <FormMessage /> */}
+            </FormItem>
+          );
+        }}
       />
     );
   };
@@ -302,16 +310,18 @@ ProductFormElements.FieldProductSelectSearch =
       <FormField
         control={control}
         name="product"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Product</FormLabel>
-            <ProductSelectSearchElement
-              productActive={field.value}
-              onSelectProduct={field.onChange}
-            />
-            {/* <FormMessage /> */}
-          </FormItem>
-        )}
+        render={({ field }) => {
+          return (
+            <FormItem>
+              <FormLabel>Product</FormLabel>
+              <ProductSelectSearchElement
+                productActive={field.value}
+                onSelectProduct={field.onChange}
+              />
+              {/* <FormMessage /> */}
+            </FormItem>
+          );
+        }}
       />
     );
   };

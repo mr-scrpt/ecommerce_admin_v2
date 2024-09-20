@@ -1,6 +1,5 @@
 import { useProfileListSearchToSelectModel } from "@/entities/profile/_vm/useProfileListSearchToSelect.model";
 import { SEARCH_MIN_LENGTH } from "@/shared/config/constant";
-import { DefaultSelectOption } from "@/shared/type/select";
 import { Button } from "@/shared/ui/button";
 import {
   Command,

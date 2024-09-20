@@ -3,7 +3,7 @@ import { FC, HTMLAttributes } from "react";
 import { useAddressListByUserAndSettlementRefToSelectModel } from "@/entities/address/_vm/useAddressListByUserAndSettlementRefToSelect.model";
 import { AddressDefaultSelectOption } from "@/kernel/domain/address/form.schema";
 import { Spinner } from "@/shared/ui/icons/spinner";
-import { MultiSelectElement } from "@/shared/ui/select/multiSelectElement";
+import { MultiSelectElementInner } from "@/shared/ui/select/multiSelectElement";
 
 export interface AddressMultiSelectProps
   extends HTMLAttributes<HTMLDivElement> {
@@ -32,7 +32,7 @@ export const AddressMultiSelectElement: FC<AddressMultiSelectProps> = (
   }
 
   return (
-    <MultiSelectElement
+    <MultiSelectElementInner
       optionList={addressListToSelect}
       optionActiveList={addressListActive}
       onSelect={onSelectAddress}

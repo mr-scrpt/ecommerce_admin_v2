@@ -84,7 +84,9 @@ interface FieldDeliveryTypeRadioSectionProps {
   deliveryId: string;
 }
 DeliveryFormUpdateElements.FieldDeliveryTypeRadioSection =
-  function FieldDeliveryRadio(props: FieldDeliveryTypeRadioSectionProps) {
+  function fieldDeliveryTypeRadioSection(
+    props: FieldDeliveryTypeRadioSectionProps,
+  ) {
     const { deliveryId } = props;
 
     const { control, getFieldState, watch } =

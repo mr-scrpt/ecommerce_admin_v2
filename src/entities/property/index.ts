@@ -1,3 +1,5 @@
+export { usePropertyItemListToSelectModel } from "./_vm/propertyItem/usePropertyItemListToSelect.model";
+
 export { propertyFormDefaultSchema } from "./_domain/property/form.schema";
 
 export { PropertyRepository } from "./_repository/property.repo";

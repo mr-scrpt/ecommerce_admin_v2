@@ -2,45 +2,27 @@
 import { CategoryFormElements } from "@/entities/category";
 import { PropertyFormElements } from "@/entities/property";
 import { cn } from "@/shared/ui/utils";
-import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes } from "react";
 import {
   CategoryCreateFormValues,
   categoryCreateDefaultFieldsValues,
   categoryCreateFormSchema,
 } from "../_domain/form.schema";
-import { useCategoryCreateMutation } from "../_mutation/useCategoryCreate.mutation";
+import { useCategoryCreateHandler } from "../_vm/useCategoryCreate.handler";
 
-interface CategoryFormCreateProps extends HTMLAttributes<HTMLDivElement> {
+interface CategoryCreateFormProps extends HTMLAttributes<HTMLDivElement> {
   callbackUrl?: string;
   className?: string;
   onSuccess?: () => void;
 }
 
-export const CategoryFormCreate: FC<CategoryFormCreateProps> = (props) => {
+export const CategoryCreateForm: FC<CategoryCreateFormProps> = (props) => {
   const { callbackUrl, className, onSuccess } = props;
 
-  const router = useRouter();
-
-  const { categoryCreate, isPending: isPendingCreate } =
-    useCategoryCreateMutation();
-
-  const handleSubmit = async (data: CategoryCreateFormValues) => {
-    const { propertyList, ...categoryData } = data;
-    await categoryCreate({
-      categoryData,
-      propertyData: propertyList.map(({ value }) => ({
-        propertyId: value,
-      })),
-    });
-
-    // TODO: Callback and redirect mb move to hook?
-    onSuccess?.();
-
-    if (callbackUrl) {
-      router.push(callbackUrl);
-    }
-  };
+  const { handleSubmit, isPendingCreate } = useCategoryCreateHandler(
+    onSuccess,
+    callbackUrl,
+  );
 
   return (
     <div className={cn(className, "w-full")}>
@@ -49,9 +31,6 @@ export const CategoryFormCreate: FC<CategoryFormCreateProps> = (props) => {
         schema={categoryCreateFormSchema}
         defaultValues={categoryCreateDefaultFieldsValues}
       >
-        {/* <CategoryFormElements.FieldCategorySelect /> */}
-        {/* <CategoryFormElements.FieldCategoryMultiSelect /> */}
-
         <PropertyFormElements.FieldPropertyMultiSelect />
 
         <CategoryFormElements.FieldName />

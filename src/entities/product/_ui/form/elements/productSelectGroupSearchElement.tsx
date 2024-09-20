@@ -20,7 +20,7 @@ import { useProductListGroupSearchToSelectModel } from "../../../_vm/useProductL
 
 interface ProductSelectGroupSearchElementProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "onChange"> {
-  productActive?: ProductDefaultSelectOption;
+  productActive?: ProductDefaultSelectOption | null;
   productInOrder: Array<string>;
   onSelectProduct: (product: ProductDefaultSelectOption) => void;
 }

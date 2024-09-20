@@ -11,8 +11,6 @@ import {
   FormMessage,
 } from "@/shared/ui/form";
 import { Spinner } from "@/shared/ui/icons/spinner";
-import { Input } from "@/shared/ui/input";
-import { PhoneInput } from "@/shared/ui/phoneInput";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, HTMLAttributes, useEffect } from "react";
 import {
@@ -29,10 +27,10 @@ import {
   profileFormDefaultSchema,
 } from "../../_domain/form.schema";
 import { AvatarField } from "../avatarField";
-import { ProfilePhoneElement } from "./elements/profilePhoneElement";
-import { ProfileNameElement } from "./elements/profileNameElement";
-import { ProfileLastNameElement } from "./elements/profileLastNameElement";
 import { ProfileEmailElement } from "./elements/profileEmailElement";
+import { ProfileLastNameElement } from "./elements/profileLastNameElement";
+import { ProfileNameElement } from "./elements/profileNameElement";
+import { ProfilePhoneElement } from "./elements/profilePhoneElement";
 
 interface ProfileFormElementsProps<T extends ProfileFormDefaultValues>
   extends HTMLAttributes<HTMLFormElement> {
@@ -202,7 +200,6 @@ ProfileFormElements.FieldAvatar = function FieldAvatar() {
               onChange={field.onChange}
               avatarName={name ?? email}
               avatarUrl={field.value ?? ""}
-              // forLetters={profile?.email ?? ""}
             />
           </FormControl>
           <FormMessage />

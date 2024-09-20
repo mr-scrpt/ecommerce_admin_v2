@@ -30,7 +30,7 @@ export class ProductRepository implements IProductRepository {
       where: dto,
       include: {
         categoryList: true,
-        propertyItemListSelected: true,
+        propertyItemList: true,
       },
     }) as unknown as T;
   }
@@ -164,7 +164,7 @@ export class ProductRepository implements IProductRepository {
     return db.product.update({
       where: selector,
       data: {
-        propertyItemListSelected: {
+        propertyItemList: {
           set: propertyItemListId.map(({ propertyItemId }) => ({
             id: propertyItemId,
           })),

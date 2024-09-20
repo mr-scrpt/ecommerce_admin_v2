@@ -9,7 +9,7 @@ import {
 } from "@/shared/ui/form";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { Input } from "@/shared/ui/input";
-import { MultiSelectElement } from "@/shared/ui/select/multiSelectElement";
+import { MultiSelectElementInner } from "@/shared/ui/select/multiSelectElement";
 import { Textarea } from "@/shared/ui/textarea";
 import { cn } from "@/shared/ui/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -159,7 +159,7 @@ ProductForm.CategoryListField = function CategoryListField({
           <FormItem>
             <FormLabel>Category list</FormLabel>
             <FormControl>
-              <MultiSelectElement
+              <MultiSelectElementInner
                 optionList={categorySelectOptionList}
                 optionActiveList={categotySelectOptionListActive}
                 // onSelected={handleSelectCat}

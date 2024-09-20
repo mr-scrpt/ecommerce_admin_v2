@@ -9,8 +9,9 @@ interface CategoryDefaultValueProps {
   categoryId: string;
 }
 
-export const useCategoryDefaultValues = (props: CategoryDefaultValueProps) => {
+export const useCategoryUpdateValues = (props: CategoryDefaultValueProps) => {
   const { categoryId } = props;
+
   const {
     category,
     isPending: isPendingCategory,
@@ -23,26 +24,29 @@ export const useCategoryDefaultValues = (props: CategoryDefaultValueProps) => {
     isFetchedAfterMount: isFetchedAfterMountProperty,
   } = usePropertyListByCategoryQuery(categoryId);
 
-  let defaultValues: CategoryUpdateFormValues = {
+  let categoryUpdateValues: CategoryUpdateFormValues = {
     ...categoryUpdateDefaultFieldsValues,
   };
 
-  if (propertyList) {
-    defaultValues.propertyList = propertyList.map((item) => {
-      return {
-        value: item.id,
-        label: item.name,
-      };
-    });
-  }
-  if (category) {
-    defaultValues = {
+  // if (propertyList) {
+  //   defaultValues.propertyList = propertyList.map((item) => {
+  //     return {
+  //       value: item.id,
+  //       label: item.name,
+  //       datatype: item.datatype,
+  //     };
+  //   });
+  // }
+
+  if (category && propertyList) {
+    categoryUpdateValues = {
       name: category.name,
       board: category.board,
       propertyList: propertyList.map((item) => {
         return {
           value: item.id,
           label: item.name,
+          datatype: item.datatype,
         };
       }),
     };
@@ -52,5 +56,5 @@ export const useCategoryDefaultValues = (props: CategoryDefaultValueProps) => {
   const isFetchedAfterMount =
     isFetchedAfterMountCategory && isFetchedAfterMountProperty;
 
-  return { defaultValues, isPending, isFetchedAfterMount };
+  return { categoryUpdateValues, isPending, isFetchedAfterMount };
 };

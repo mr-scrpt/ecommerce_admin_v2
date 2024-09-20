@@ -4,7 +4,7 @@ export const productRelationsSeed = [
     categoryList: {
       connect: [{ id: "cat_585fsddfew7898few" }, { id: "cat_ew975fee9885" }],
     },
-    propertyItemListSelected: {
+    propertyItemList: {
       connect: [
         { id: "propertyItem_8fsddfew7898d857Red" },
         { id: "propertyItem_M68ddtwaew65687M" },
@@ -20,7 +20,7 @@ export const productRelationsSeed = [
     categoryList: {
       connect: [{ id: "cat_ew975fee9885" }],
     },
-    propertyItemListSelected: {
+    propertyItemList: {
       connect: [
         { id: "propertyItem_d555fsddfew78981feBlue" },
         { id: "propertyItem_8fsddfew7898d857Red" },
@@ -32,7 +32,7 @@ export const productRelationsSeed = [
     categoryList: {
       connect: [{ id: "cat_585fsddfew7898few" }, { id: "cat_ew975fee9885" }],
     },
-    propertyItemListSelected: {
+    propertyItemList: {
       connect: [{ id: "propertyItem_d555fsddfew78981feBlue" }],
     },
   },

@@ -32,10 +32,10 @@ export type PropertyGetByCategoryListSelector = {
 
 // NOTE: UI
 // TODO: NEEDED?
-export type PropertyToSelect = {
-  id: string;
-  name: string;
-  datatype: PROPERTY_DATATYPE;
-  // propertyList: Array<MultiSelectPropertyItem & { active: boolean }>;
-  propertyList: Array<PropertyDefaultSelectOption>;
-};
+// export type PropertyToSelect = {
+//   id: string;
+//   name: string;
+//   datatype: PROPERTY_DATATYPE;
+//   // propertyList: Array<MultiSelectPropertyItem & { active: boolean }>;
+//   propertyList: Array<PropertyDefaultSelectOption>;
+// };

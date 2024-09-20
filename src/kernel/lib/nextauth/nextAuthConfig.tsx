@@ -35,6 +35,7 @@ export class NextAuthConfig {
     adapter: {
       ...prismaAdapter,
       createUser: async (user) => {
+        console.log("output_log: USER in nextauth =>>>", user);
         return await this.createUserService.execute({ userData: user });
       },
     } as AuthOptions["adapter"],

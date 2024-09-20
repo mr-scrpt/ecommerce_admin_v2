@@ -6,7 +6,7 @@ export type ProductBase = {
   about: string;
   inStock: number;
   slug: string;
-  img: Array<string>;
+  imgList: Array<string>;
   price: number;
 };
 

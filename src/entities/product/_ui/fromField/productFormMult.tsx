@@ -6,7 +6,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/shared/ui/form";
-import { MultiSelectElement } from "@/shared/ui/select/multiSelectElement";
+import { MultiSelectElementInner } from "@/shared/ui/select/multiSelectElement";
 import { FC, HTMLAttributes } from "react";
 import { UseFormReturn } from "react-hook-form";
 
@@ -29,7 +29,7 @@ export const ProductFormMult: FC<ProductFormMultProps> = (props) => {
           <FormItem>
             <FormLabel>{name}</FormLabel>
             <FormControl>
-              <MultiSelectElement
+              <MultiSelectElementInner
                 optionList={propertyList.map((row) => ({
                   value: row.value,
                   label: row.label,

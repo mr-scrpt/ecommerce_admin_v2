@@ -1,19 +1,12 @@
 "use client";
-import { CategoryFormElements, useCategoryQuery } from "@/entities/category";
-import {
-  PropertyFormElements,
-  usePropertyListByCategoryQuery,
-} from "@/entities/property";
+import { CategoryFormElements } from "@/entities/category";
+import { PropertyFormElements } from "@/entities/property";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { cn } from "@/shared/ui/utils";
-import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes } from "react";
-import {
-  CategoryUpdateFormValues,
-  categoryUpdateFormSchema,
-} from "../_domain/form.schema";
-import { useCategoryUpdateMutation } from "../_mutation/useCategoryUpdate.mutation";
-import { useCategoryDefaultValues } from "../_vm/useCategoryDefaultValues.model";
+import { categoryUpdateFormSchema } from "../_domain/form.schema";
+import { useCategoryUpdateHandler } from "../_vm/useCategoryUpdate.handler";
+import { useCategoryUpdateValues } from "../_vm/useCategoryUpdateValues.model";
 
 interface CategoryFormProps extends HTMLAttributes<HTMLDivElement> {
   categoryId: string;
@@ -25,40 +18,26 @@ interface CategoryFormProps extends HTMLAttributes<HTMLDivElement> {
 export const CategoryFormUpdate: FC<CategoryFormProps> = (props) => {
   const { categoryId, callbackUrl, className, onSuccess } = props;
 
-  const router = useRouter();
-
-  const { categoryUpdate, isPending: isPendingUpdate } =
-    useCategoryUpdateMutation();
-
-  const { defaultValues, isPending, isFetchedAfterMount } =
-    useCategoryDefaultValues({
+  const { categoryUpdateValues, isPending, isFetchedAfterMount } =
+    useCategoryUpdateValues({
       categoryId,
     });
+
+  const { handleCategoryUpdate, isPendingUpdate } = useCategoryUpdateHandler({
+    data: { categoryId },
+    onSuccess,
+    callbackUrl,
+  });
 
   if (isPending || !isFetchedAfterMount) {
     return <Spinner aria-label="Loading profile..." />;
   }
 
-  const handleSubmit = async (data: CategoryUpdateFormValues) => {
-    const { propertyList, ...categoryData } = data;
-    await categoryUpdate({
-      selector: { id: categoryId },
-      categoryData,
-      propertyData: propertyList.map(({ value }) => ({ propertyId: value })),
-    });
-
-    onSuccess?.();
-
-    if (callbackUrl) {
-      router.push(callbackUrl);
-    }
-  };
-
   return (
     <div className={cn(className, "w-full")}>
       <CategoryFormElements
-        defaultValues={defaultValues}
-        handleSubmit={handleSubmit}
+        defaultValues={categoryUpdateValues}
+        handleSubmit={handleCategoryUpdate}
         schema={categoryUpdateFormSchema}
       >
         <PropertyFormElements.FieldPropertyMultiSelect />

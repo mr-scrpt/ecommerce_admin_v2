@@ -1,2 +1,2 @@
 export { ToProductCreateButton } from "./_ui/productCreateButton";
-export { ProductFormCreate } from "./_ui/productCreateForm";
+export { ProductCreateForm } from "./_ui/form/productCreateForm";

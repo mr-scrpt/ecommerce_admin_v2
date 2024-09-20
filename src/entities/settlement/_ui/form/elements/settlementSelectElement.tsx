@@ -1,6 +1,5 @@
 import { FC, memo } from "react";
 
-import { DefaultSelectOption } from "@/shared/type/select";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { SelectElement } from "@/shared/ui/select/selectElement";
 import { HTMLAttributes } from "react";
