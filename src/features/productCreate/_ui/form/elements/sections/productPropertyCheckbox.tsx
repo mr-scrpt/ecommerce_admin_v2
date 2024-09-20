@@ -6,13 +6,12 @@ import { Control } from "react-hook-form";
 interface ProductPropertyCheckboxProps extends HTMLAttributes<HTMLDivElement> {
   title: string;
   propertyId: string;
-  control: Control<PropertyItemFormDefaultValues, any>;
 }
 
 export const ProductPropertyCheckbox: FC<ProductPropertyCheckboxProps> = (
   props,
 ) => {
-  const { title, propertyId, control } = props;
+  const { title, propertyId } = props;
 
   return (
     <div className="flex flex-row gap-4">

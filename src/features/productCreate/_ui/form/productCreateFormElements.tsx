@@ -19,9 +19,8 @@ import { Button } from "@/shared/ui/button";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { ProductPropertySectionElement } from "./elements/productPropertySectionElement";
 
-interface ProductCreateFormElementsProps<
-  T extends ProductCreateFormValues,
-> extends HTMLAttributes<HTMLFormElement> {
+interface ProductCreateFormElementsProps<T extends ProductCreateFormValues>
+  extends HTMLAttributes<HTMLFormElement> {
   handleSubmit?: (data: T) => void;
   defaultValues?: DefaultValues<T>;
   schema?: ZodTypeAny;

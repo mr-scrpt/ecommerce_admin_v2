@@ -7,6 +7,10 @@ import {
   PropertyItemDefaultSelectOption,
 } from "@/kernel/domain/property/form.schema";
 import { ProductPropertyDatatypeFieldList } from "../../../_vm/productPropertyDatatypeFieldList";
+import { ProductPropertyCheckbox } from "./sections/productPropertyCheckbox";
+import { ProductPropertySelect } from "./sections/productPropertySelect";
+import { ProductPropertyMultiSelect } from "./sections/productPropertyMultiSelect";
+import { ProductPropertyRadio } from "./sections/productPropertyRadio";
 
 export interface ProductPropertySectionProps
   extends HTMLAttributes<HTMLDivElement> {
@@ -21,11 +25,17 @@ export const ProductPropertySectionElement: FC<ProductPropertySectionProps> =
 
     const { propertyList } = usePropertyListByCategoryIdListModel(categoryList);
 
+    const elementList = ProductPropertyDatatypeFieldList({
+      Checkbox: ProductPropertyCheckbox,
+      Select: ProductPropertySelect,
+      Mult: ProductPropertyMultiSelect,
+      Radio: ProductPropertyRadio,
+    });
+
     return (
       <div className="flex flex-col space-y-1">
         {propertyList?.map((item) => {
-          const propertyDatatypeComponent =
-            ProductPropertyDatatypeFieldList[item.datatype];
+          const propertyDatatypeComponent = elementList[item.datatype];
 
           const Element = propertyDatatypeComponent.formElement;
           return (
@@ -36,7 +46,13 @@ export const ProductPropertySectionElement: FC<ProductPropertySectionProps> =
               <div className="flex w-full items-center space-x-3 space-y-0">
                 <div className="font-normal">{item.label}</div>
               </div>
-              <Element propertyId={item.value} />
+              {/* <Element propertyId={item.value} /> */}
+
+              <Element
+                propertyId={item.value}
+                title={item.label}
+                key={item.value}
+              />
             </div>
           );
         })}
