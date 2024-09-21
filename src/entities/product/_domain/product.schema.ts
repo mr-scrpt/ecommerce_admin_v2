@@ -22,5 +22,5 @@ export const productRelationSchema = z.object({
   //     propertyId: z.string(),
   //   }),
   // ),
-  propertyItemListSelected: z.array(propertyItemSchema),
+  propertyItemList: z.array(propertyItemSchema),
 });

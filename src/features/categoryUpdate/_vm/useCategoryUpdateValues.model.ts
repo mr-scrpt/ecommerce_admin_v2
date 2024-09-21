@@ -2,7 +2,7 @@ import { useCategoryQuery } from "@/entities/category";
 import { usePropertyListByCategoryQuery } from "@/entities/property";
 import {
   CategoryUpdateFormValues,
-  categoryUpdateDefaultFieldsValues,
+  categoryUpdateFieldsValues,
 } from "../_domain/form.schema";
 
 interface CategoryDefaultValueProps {
@@ -25,7 +25,7 @@ export const useCategoryUpdateValues = (props: CategoryDefaultValueProps) => {
   } = usePropertyListByCategoryQuery(categoryId);
 
   let categoryUpdateValues: CategoryUpdateFormValues = {
-    ...categoryUpdateDefaultFieldsValues,
+    ...categoryUpdateFieldsValues,
   };
 
   // if (propertyList) {

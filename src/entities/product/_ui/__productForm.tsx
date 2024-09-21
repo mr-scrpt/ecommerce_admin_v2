@@ -106,7 +106,7 @@ export const ProductForm: ProductFormType = (props) => {
       about: data.about,
       img: data.imgList,
       categoryList: data.categoryList,
-      propertyItemListSelected,
+      propertyItemList,
     });
   });
   // console.log("output_log: errors =>>>", form.formState.errors);

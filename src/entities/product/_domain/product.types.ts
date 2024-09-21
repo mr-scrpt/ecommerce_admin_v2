@@ -7,12 +7,12 @@ import { PROPERTY_DATATYPE } from "@prisma/client";
 // NOTE: Relations
 export type ProductRelationEntity = ProductEntity & {
   categoryList: Array<Category>;
-  propertyItemListSelected: Array<PropertyItem>;
+  propertyItemList: Array<PropertyItem>;
 };
 
 export type ProductRelation = Product & {
   categoryList: Array<Category>;
-  propertyItemListSelected: Array<PropertyItem>;
+  propertyItemList: Array<PropertyItem>;
 };
 
 // NOTE: Selector
@@ -55,7 +55,7 @@ export type ProductFromForm = {
   inStock: number;
   img: Array<string>;
   categoryList: Array<{ id: string }>;
-  propertyItemListSelected: Array<{ id: string }>;
+  propertyItemList: Array<{ id: string }>;
   // categoryList: Array<Category>;
   // propertyItemListSelected: Array<PropertyItem>;
 };

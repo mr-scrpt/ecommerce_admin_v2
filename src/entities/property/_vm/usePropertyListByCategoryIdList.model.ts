@@ -4,11 +4,11 @@ import { usePropertyWithRelationByCategoryQuery } from "../_query/property/prope
 import { PropertyDefaultSelectOption } from "@/kernel/domain/property/form.schema";
 
 export const usePropertyListByCategoryIdListModel = (
-  categoryIdList: Array<CategoryDefaultSelectOption>,
+  categoryList: Array<CategoryDefaultSelectOption>,
 ) => {
   const { isPending, isSuccess, propertyList, isFetchedAfterMount } =
     usePropertyWithRelationByCategoryQuery({
-      categoryIdList: categoryIdList.map(({ value }) => ({
+      categoryIdList: categoryList.map(({ value }) => ({
         categoryId: value,
       })),
     });
@@ -33,7 +33,7 @@ export const usePropertyListByCategoryIdListModel = (
     isSuccess,
     propertyList: propertyListCompleted,
     // propertyList,
-    categoryIdList,
+    categoryIdList: categoryList,
     isFetchedAfterMount,
   };
 };

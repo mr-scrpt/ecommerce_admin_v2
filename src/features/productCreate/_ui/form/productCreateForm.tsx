@@ -19,13 +19,13 @@ interface ProductCreateFormProps extends HTMLAttributes<HTMLDivElement> {
 export const ProductCreateForm: FC<ProductCreateFormProps> = (props) => {
   const { callbackUrl, className, onSuccess } = props;
 
-  const { createProductHandler, isPendingCreate, isSuccessCreate } =
+  const { handleProductCreate, isPendingCreate, isSuccessCreate } =
     useProductCreateHandler(onSuccess, callbackUrl);
 
   return (
     <div className={cn(className, "w-full")}>
       <ProductFormElements
-        handleSubmit={createProductHandler}
+        handleSubmit={handleProductCreate}
         schema={productCreateFormSchema}
         defaultValues={productCreateFieldsValues}
       >
@@ -46,49 +46,3 @@ export const ProductCreateForm: FC<ProductCreateFormProps> = (props) => {
     </div>
   );
 };
-// const {
-//   categoryOptionListTotal,
-//   categoryOptionListActive,
-//   isPendingCategoryOptionList,
-//   setCategoryOptionListSelected,
-// } = useCategoryDataToFormModel();
-// // TODO: What is the type?
-// const handleSubmit = async (data: ProductFromForm) => {
-//   const { categoryList, propertyItemListSelected, ...productData } = data;
-//
-//   await productCreate({
-//     productData,
-//     propertyItemData: propertyItemListSelected.map(({ id }) => ({
-//       propertyItemId: id,
-//     })),
-//     categoryData: categoryList.map(({ id }) => ({ categoryId: id })),
-//   });
-//
-//   onSuccess?.();
-//
-//   if (callbackUrl) {
-//     router.push(callbackUrl);
-//   }
-// };
-// const {
-//   propertyList,
-//   setCategoryIdList,
-//   isPending: isPendingPropertyList,
-// } = usePropertyListByCategoryIdListModel(categoryOptionListActive, []);
-// const { toDataIdList, toOptionList } = useOptionListTransform();
-//
-// const handleSelectedProperty = useCallback(
-//   (propertyListSelected: Array<ProductDefaultSelectOption>) => {
-//     const categoryIdList = toDataIdList(propertyListSelected);
-//     setCategoryOptionListSelected(toOptionList([]));
-//     setCategoryOptionListSelected(toOptionList(categoryIdList));
-//     setCategoryIdList(categoryIdList.map((item) => item.id));
-//     return categoryIdList;
-//   },
-//   [
-//     toDataIdList,
-//     toOptionList,
-//     setCategoryOptionListSelected,
-//     setCategoryIdList,
-//   ],
-// );

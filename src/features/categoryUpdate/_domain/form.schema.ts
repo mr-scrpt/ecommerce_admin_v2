@@ -16,7 +16,7 @@ export const categoryUpdateFormSchema = categoryFormDefaultSchema
 export type CategoryUpdateFormValues = z.infer<typeof categoryUpdateFormSchema>;
 
 // TODO: DefaultValues
-export const categoryUpdateDefaultFieldsValues: CategoryUpdateFormValues = {
+export const categoryUpdateFieldsValues: CategoryUpdateFormValues = {
   name: "",
   board: [],
   propertyList: [],

@@ -11,54 +11,54 @@ import {
 } from "react-hook-form";
 import { ZodTypeAny } from "zod";
 import {
-  ProductCreateFormValues,
-  productCreateFieldsValues,
-  productCreateFormSchema,
+  ProductUpdateFormValues,
+  productUpdateFieldsValues,
+  productUpdateFormSchema,
 } from "../../_domain/form.schema";
 import { Button } from "@/shared/ui/button";
 import { Spinner } from "@/shared/ui/icons/spinner";
-import { ProductCreatePropertySectionElement } from "./elements/productCreatePropertySectionElement";
+import { ProductPropertySectionElement } from "./elements/productUpdatePropertySectionElement";
 
-interface ProductCreateFormElementsProps<T extends ProductCreateFormValues>
+interface ProductUpdateFormElementsProps<T extends ProductUpdateFormValues>
   extends HTMLAttributes<HTMLFormElement> {
   handleSubmit?: (data: T) => void;
   defaultValues?: DefaultValues<T>;
   schema?: ZodTypeAny;
 }
 
-type ProductCreateFormElementsComponent = <
-  T extends ProductCreateFormValues = ProductCreateFormValues,
+type ProductUpdateFormElementsComponent = <
+  T extends ProductUpdateFormValues = ProductUpdateFormValues,
 >(
-  props: ProductCreateFormElementsProps<T>,
+  props: ProductUpdateFormElementsProps<T>,
 ) => React.ReactElement;
 
-type ProductCreateFormFields = {
+type ProductUpdateFormFields = {
   FieldProductPropertySection: FC;
   // FieldProductSelectGroupSearch: FC<ProductSelectGroupSearchElementProps>;
   SubmitButton: ButtonSubmitComponentType;
 };
 
-type ProductCreateFormElementsType = ProductCreateFormElementsComponent &
-  ProductCreateFormFields;
+type ProductUpdateFormElementsType = ProductUpdateFormElementsComponent &
+  ProductUpdateFormFields;
 
-const getDefaultFormValues = <T extends ProductCreateFormValues>(
+const getDefaultFormValues = <T extends ProductUpdateFormValues>(
   defaultValues?: DefaultValues<T> | undefined,
 ): DefaultValues<T> => {
   return {
-    ...productCreateFieldsValues,
+    ...productUpdateFieldsValues,
     ...defaultValues,
   } as DefaultValues<T>;
 };
 
-export const ProductCreateFormElements: ProductCreateFormElementsType = <
-  T extends ProductCreateFormValues,
+export const ProductUpdateFormElements: ProductUpdateFormElementsType = <
+  T extends ProductUpdateFormValues,
 >(
-  props: ProductCreateFormElementsProps<T>,
+  props: ProductUpdateFormElementsProps<T>,
 ) => {
   const { defaultValues, handleSubmit: onSubmit, schema, children } = props;
 
   const form = useForm<T>({
-    resolver: zodResolver(schema ?? productCreateFormSchema),
+    resolver: zodResolver(schema ?? productUpdateFormSchema),
     defaultValues: { ...getDefaultFormValues<T>(defaultValues) },
   });
 
@@ -80,9 +80,9 @@ export const ProductCreateFormElements: ProductCreateFormElementsType = <
   );
 };
 
-ProductCreateFormElements.FieldProductPropertySection =
+ProductUpdateFormElements.FieldProductPropertySection =
   function FieldProductPropertySection() {
-    const { control, watch } = useFormContext<ProductCreateFormValues>();
+    const { control, watch } = useFormContext<ProductUpdateFormValues>();
 
     const categoryList = watch("categoryList");
 
@@ -93,7 +93,7 @@ ProductCreateFormElements.FieldProductPropertySection =
         render={({ field }) => (
           <FormItem>
             <FormLabel>Property product</FormLabel>
-            <ProductCreatePropertySectionElement
+            <ProductPropertySectionElement
               propertyItemListActive={field.value}
               onSelectPropertyItem={field.onChange}
               categoryList={categoryList}
@@ -104,7 +104,7 @@ ProductCreateFormElements.FieldProductPropertySection =
     );
   };
 
-ProductCreateFormElements.SubmitButton = function SubmitButton({
+ProductUpdateFormElements.SubmitButton = function SubmitButton({
   isPending,
   submitText,
   className,

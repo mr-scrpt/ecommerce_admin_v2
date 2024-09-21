@@ -14,8 +14,11 @@ export const useCategoryUpdateHandler = (props: CategoryUpdateHandlerProps) => {
   const { data, onSuccess, callbackUrl } = props;
   const { categoryId } = data;
 
-  const { categoryUpdate, isPending: isPendingUpdate } =
-    useCategoryUpdateMutation();
+  const {
+    categoryUpdate,
+    isPending: isPendingUpdate,
+    isSuccess: isSuccessUpdate,
+  } = useCategoryUpdateMutation();
 
   const router = useRouter();
 
@@ -37,5 +40,6 @@ export const useCategoryUpdateHandler = (props: CategoryUpdateHandlerProps) => {
   return {
     handleCategoryUpdate,
     isPendingUpdate,
+    isSuccessUpdate,
   };
 };

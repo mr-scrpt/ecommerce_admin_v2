@@ -6,18 +6,17 @@ export const useProductCreateHandler = (
   onSuccess?: () => void,
   callbackUrl?: string,
 ) => {
-  const { productCreate, isPending, isSuccess } = useProductCreateMutation();
+  const {
+    productCreate,
+    isPending: isPendingCreate,
+    isSuccess: isSuccessCreate,
+  } = useProductCreateMutation();
 
   const router = useRouter();
 
-  const createProductHandler = async (data: ProductCreateFormValues) => {
+  const handleProductCreate = async (data: ProductCreateFormValues) => {
     const { propertyItemList, categoryList, ...productData } = data;
-    console.log(
-      "output_log:  =>>> FORMDATA__",
-      propertyItemList,
-      categoryList,
-      productData,
-    );
+    console.log(propertyItemList, categoryList, productData);
     await productCreate({
       productData,
       categoryData: categoryList.map(({ value }) => ({
@@ -37,8 +36,8 @@ export const useProductCreateHandler = (
   };
 
   return {
-    createProductHandler,
-    isPendingCreate: isPending,
-    isSuccessCreate: isSuccess,
+    handleProductCreate,
+    isPendingCreate,
+    isSuccessCreate,
   };
 };

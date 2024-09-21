@@ -26,13 +26,15 @@ export class ProductRepository implements IProductRepository {
   }
 
   async getWithRelation<T>(dto: ProductGetDTO, db: Tx = this.db): Promise<T> {
-    return db.product.findUniqueOrThrow({
+    const res = (await db.product.findUniqueOrThrow({
       where: dto,
       include: {
         categoryList: true,
         propertyItemList: true,
       },
-    }) as unknown as T;
+    })) as unknown as T;
+
+    return res;
   }
 
   async getBySlug(

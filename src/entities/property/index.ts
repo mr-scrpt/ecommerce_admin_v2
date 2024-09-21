@@ -12,7 +12,7 @@ export { PropertyItemFormElements } from "./_ui/propertyItem/form/propertyItemFo
 export { usePropertyListByCategoryQuery } from "./_query/property/propertyListByCategory.query";
 export { usePropertyListByCategoryIdListModel } from "./_vm/usePropertyListByCategoryIdList.model";
 export { usePropertyListToSelectModel } from "./_vm/usePropertyListToSelect.model";
-export { usePropertyListWithDataActiveModel } from "./_vm/usePropertyListWithDataActive.model.";
+// export { usePropertyListWithDataActiveModel } from "./_vm/usePropertyListWithDataActive.model.";
 
 export { usePropertyQuery } from "./_query/property/property.query";
 export { usePropertyListQuery } from "./_query/property/propertyList.query";

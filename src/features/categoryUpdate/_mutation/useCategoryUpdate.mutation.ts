@@ -5,7 +5,7 @@ import { useEmitCategoryUpdate } from "../_vm/event/useEmitCategoryUpdate";
 export const useCategoryUpdateMutation = () => {
   const { categoryUpdateEvent } = useEmitCategoryUpdate();
 
-  const { mutateAsync, isPending } =
+  const { mutateAsync, isPending, isSuccess } =
     categoryUpdateApi.categoryUpdate.update.useMutation({
       onSuccess: async ({ id }) => {
         categoryUpdateEvent(id);
@@ -14,5 +14,6 @@ export const useCategoryUpdateMutation = () => {
   return {
     categoryUpdate: mutateAsync,
     isPending,
+    isSuccess,
   };
 };

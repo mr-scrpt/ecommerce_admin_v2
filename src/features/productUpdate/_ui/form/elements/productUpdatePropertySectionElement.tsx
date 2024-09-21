@@ -1,16 +1,15 @@
 import { FC, memo, HTMLAttributes } from "react";
 
-import { usePropertyListByCategoryIdListModel } from "@/entities/property";
+import {
+  PropertyItemFormElements,
+  usePropertyListByCategoryIdListModel,
+} from "@/entities/property";
 import { CategoryDefaultSelectOption } from "@/kernel/domain/category/form.schema";
 import {
   PropertyDefaultSelectOption,
   PropertyItemDefaultSelectOption,
 } from "@/kernel/domain/property/form.schema";
-import { ProductPropertyDatatypeFieldList } from "../../../_vm/productPropertyDatatypeFieldList";
-import { ProductPropertyCheckbox } from "./sections/productPropertyCheckbox";
-import { ProductPropertySelect } from "./sections/productPropertySelect";
-import { ProductPropertyMultiSelect } from "./sections/productPropertyMultiSelect";
-import { ProductPropertyRadio } from "./sections/productPropertyRadio";
+import { ProductPropertyDatatypeFieldList } from "@/entities/product";
 
 export interface ProductPropertySectionProps
   extends HTMLAttributes<HTMLDivElement> {
@@ -26,10 +25,10 @@ export const ProductPropertySectionElement: FC<ProductPropertySectionProps> =
     const { propertyList } = usePropertyListByCategoryIdListModel(categoryList);
 
     const elementList = ProductPropertyDatatypeFieldList({
-      Checkbox: ProductPropertyCheckbox,
-      Select: ProductPropertySelect,
-      Mult: ProductPropertyMultiSelect,
-      Radio: ProductPropertyRadio,
+      Checkbox: PropertyItemFormElements.FieldPropertyItemCheckbox,
+      Select: PropertyItemFormElements.FieldPropertyItemSelect,
+      Mult: PropertyItemFormElements.FieldPropertyItemMultiSelect,
+      Radio: PropertyItemFormElements.FieldPropertyItemRadio,
     });
 
     return (
@@ -46,7 +45,6 @@ export const ProductPropertySectionElement: FC<ProductPropertySectionProps> =
               <div className="flex w-full items-center space-x-3 space-y-0">
                 <div className="font-normal">{item.label}</div>
               </div>
-              {/* <Element propertyId={item.value} /> */}
 
               <Element
                 propertyId={item.value}

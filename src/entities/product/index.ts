@@ -1,5 +1,6 @@
-export { productFormDefaultSchema } from "./_domain/form.schema";
+export { ProductPropertyDatatypeFieldList } from "./_vm/productPropertyDatatypeFieldList";
 
+export { productFormDefaultSchema } from "./_domain/form.schema";
 export { ProductFormElements } from "./_ui/form/productFormElements";
 
 export { useProductQuery } from "./_query/product.query";

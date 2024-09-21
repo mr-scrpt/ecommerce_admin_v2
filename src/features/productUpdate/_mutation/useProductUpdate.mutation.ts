@@ -4,7 +4,7 @@ import { productUpdateApi } from "../_api/productUpdate.api";
 export const useProductUpdateMutation = () => {
   const { productUpdateEvent } = useEmitProductUpdate();
 
-  const { mutateAsync, isPending } =
+  const { mutateAsync, isPending, isSuccess } =
     productUpdateApi.productUpdate.update.useMutation({
       onSuccess: async ({ id }) => {
         productUpdateEvent(id);
@@ -13,5 +13,6 @@ export const useProductUpdateMutation = () => {
   return {
     productUpdate: mutateAsync,
     isPending,
+    isSuccess,
   };
 };

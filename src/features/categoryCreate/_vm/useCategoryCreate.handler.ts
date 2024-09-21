@@ -6,12 +6,15 @@ export const useCategoryCreateHandler = (
   onSuccess?: () => void,
   callbackUrl?: string,
 ) => {
-  const { categoryCreate, isPending: isPendingCreate } =
-    useCategoryCreateMutation();
+  const {
+    categoryCreate,
+    isPending: isPendingCreate,
+    isSuccess: isSuccessCreate,
+  } = useCategoryCreateMutation();
 
   const router = useRouter();
 
-  const handleSubmit = async (data: CategoryCreateFormValues) => {
+  const handleCategoryCreate = async (data: CategoryCreateFormValues) => {
     const { propertyList, ...categoryData } = data;
     await categoryCreate({
       categoryData,
@@ -29,7 +32,8 @@ export const useCategoryCreateHandler = (
   };
 
   return {
-    handleSubmit,
+    handleCategoryCreate,
     isPendingCreate,
+    isSuccessCreate,
   };
 };
