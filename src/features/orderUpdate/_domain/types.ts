@@ -1,4 +1,4 @@
-import { OrderUpdateDTO } from "@/kernel/domain/order/order.dto";
+import { OrderReceiverUpdateDTO } from "@/kernel/domain/order/order.dto";
 import { OrderRowBase } from "@/kernel/domain/order/orderRow.type";
 import {
   ORDER_STATUS_PAYMENT,

@@ -1,7 +1,5 @@
 import { type Order as OrderDBType } from "@prisma/client";
 
-import { OrderRow } from "./orderRow.type";
-
 export { OrderDBType };
 
 // NOTE: Base
@@ -20,10 +18,6 @@ export type OrderEntity = OrderBase & {
   createdAt: Date;
   updatedAt: Date;
 };
-
-// export type OrderCompositeEntity = OrderEntity & {
-//   orderRowList: Array<OrderRowEntity>;
-// };
 
 // NOTE: Projetions
 export type Order = OrderBase & {

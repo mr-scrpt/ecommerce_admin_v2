@@ -36,3 +36,12 @@ export type OrderUpdateDTO = {
   };
   data: Partial<OrderBase>;
 };
+
+export type OrderReceiverUpdateDTO = {
+  selector: {
+    id: string;
+  };
+  data: {
+    receiverId: string;
+  };
+};

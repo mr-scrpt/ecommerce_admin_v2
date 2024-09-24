@@ -60,6 +60,7 @@ import { HttpClientModule } from "@/shared/api/module";
 import { DbModule } from "@/shared/lib/db/module";
 import { Container } from "inversify";
 import { OrderRowCreateModule } from "@/features/orderRowCreate/module";
+import { OrderReceiverUpdateModule } from "@/features/orderReceiverUpdate/module";
 
 export const loadModule = () => {
   const container = new Container();
@@ -102,12 +103,11 @@ export const loadModule = () => {
 
     OrderRowModule,
     OrderRowCreateModule,
+    OrderRowUpdateModule,
+    OrderRowRemoveModule,
 
     OrderDeliveryUpdateModule,
-
-    OrderRowUpdateModule,
-    // OrderRowCreateModule,
-    OrderRowRemoveModule,
+    OrderReceiverUpdateModule,
 
     CategoryModule,
     CategoryCreateModule,

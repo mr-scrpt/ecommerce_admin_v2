@@ -5,6 +5,7 @@ import {
   orderStatusPaymentSchema,
   orderStatusStateSchema,
 } from "@/kernel/domain/order/orderStatus.schema";
+import { receiverSchema } from "@/kernel/domain/receiver/receiver.schema";
 import { z } from "zod";
 
 // NOTE: Relation
@@ -14,5 +15,6 @@ export const orderRelationSchema = z.object({
   orderStatusState: orderStatusStateSchema,
   orderStatusPayment: orderStatusPaymentSchema,
   orderRowList: orderRowSchema.array(),
-  delivery: deliverySchema,
+  delivery: deliverySchema.nullable(),
+  receiver: receiverSchema.nullable(),
 });

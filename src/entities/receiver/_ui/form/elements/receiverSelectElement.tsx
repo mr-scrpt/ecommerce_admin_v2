@@ -13,15 +13,12 @@ export interface ReceiverSelectProps extends HTMLAttributes<HTMLDivElement> {
 export const ReceiverSelectElement: FC<ReceiverSelectProps> = (props) => {
   const { receiverActive, userId, onSelectReceiver } = props;
 
-  console.log("output_log: ACTIVE RECEIVER =>>>", receiverActive);
-
   const {
     receiverListToSelect,
     isAppearancePending,
     isSuccess,
     isFetchedAfterMount,
   } = useReceiverListByUserToSelectModel(userId);
-  console.log("output_log: ReceiverList =>>>", receiverListToSelect);
 
   const placeholder = isAppearancePending ? "Loading..." : "Select receiver";
 

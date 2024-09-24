@@ -1,13 +1,12 @@
+import { buildAddressOptionsArray } from "@/entities/address";
 import {
   buildDeliveryTypeOption,
   useDeliveryWithRelationQuery,
 } from "@/entities/delivery";
-import { DeliveryUpdateFormValues } from "../_domain/form.schema";
-import { buildSettlementOption } from "@/entities/settlement";
 import { buildPostOfficeOptionsArray } from "@/entities/post";
-import { buildAddressOptionsArray } from "@/entities/address";
+import { buildSettlementOption } from "@/entities/settlement";
 import { buildStoreOptionsArray } from "@/entities/store";
-import { buildReceiverOptionsArray } from "@/entities/receiver";
+import { DeliveryUpdateFormValues } from "../_domain/form.schema";
 
 interface useDeliveryFormDefaultValuesProps {
   deliveryId: string;
@@ -21,7 +20,7 @@ export const useDeliveryFormDefaultValues = (
   const { isPending, delivery, isFetchedAfterMount } =
     useDeliveryWithRelationQuery(deliveryId);
 
-  const { settlement, postOffice, deliveryType, address, store, receiver } =
+  const { settlement, postOffice, deliveryType, address, store } =
     delivery || {};
 
   const defaultValues: DeliveryUpdateFormValues = {
@@ -30,7 +29,6 @@ export const useDeliveryFormDefaultValues = (
     postOfficeList: buildPostOfficeOptionsArray([postOffice]),
     addressList: buildAddressOptionsArray([address]),
     storeList: buildStoreOptionsArray([store]),
-    // receiverList: buildReceiverOptionsArray([receiver]),
   };
 
   return { defaultValues, isPending, isFetchedAfterMount };

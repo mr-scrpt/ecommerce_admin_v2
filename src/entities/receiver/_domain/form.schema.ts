@@ -27,7 +27,7 @@ export const receiverDefaultFieldsValues: ReceiverFormDefaultValues = {
   receiverList: [],
 };
 
-// NOTE: Build Post Office Option
+// NOTE: Build Receiver Option
 export const buildReceiverOption = (
   receiver?: Receiver | null,
 ): ReceiverDefaultSelectOption | null =>

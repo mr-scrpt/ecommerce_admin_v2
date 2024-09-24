@@ -2,6 +2,7 @@ import {
   OrderCreateEmptyWithReceiverDTO,
   OrderGetByConsumerDTO,
   OrderGetDTO,
+  OrderReceiverUpdateDTO,
   OrderUpdateDTO,
 } from "@/kernel/domain/order/order.dto";
 import { OrderEntity } from "@/kernel/domain/order/order.type";
@@ -32,6 +33,7 @@ export class OrderRepository implements IOrderRepository {
             address: true,
           },
         },
+        receiver: true,
         orderStatusState: true,
         orderStatusPayment: true,
       },
@@ -85,6 +87,17 @@ export class OrderRepository implements IOrderRepository {
   }
 
   async update(dto: OrderUpdateDTO, db: Tx = this.db): Promise<OrderEntity> {
+    const { selector, data } = dto;
+    return await db.order.update({
+      where: selector,
+      data,
+    });
+  }
+
+  async bindReceiver(
+    dto: OrderReceiverUpdateDTO,
+    db: Tx = this.db,
+  ): Promise<OrderEntity> {
     const { selector, data } = dto;
     return await db.order.update({
       where: selector,

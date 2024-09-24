@@ -42,6 +42,7 @@ export class OrderController extends Controller {
         .input(getInputSchema)
         .query(async ({ input }) => {
           const result = await this.getOrderRelationService.execute(input);
+          console.log("output_log: receiver  =>>>", result);
           return orderRelationSchema.parse(result);
         }),
 

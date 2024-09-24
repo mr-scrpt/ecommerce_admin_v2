@@ -3,6 +3,7 @@ import {
   OrderCreateEmptyWithReceiverDTO,
   OrderGetByConsumerDTO,
   OrderGetDTO,
+  OrderReceiverUpdateDTO,
   OrderUpdateDTO,
 } from "./order.dto";
 import { OrderEntity } from "./order.type";
@@ -39,6 +40,10 @@ export abstract class IOrderRepository {
   ): Promise<OrderEntity>;
 
   abstract update(dto: OrderUpdateDTO, db?: Tx): Promise<OrderEntity>;
+  abstract bindReceiver(
+    dto: OrderReceiverUpdateDTO,
+    db?: Tx,
+  ): Promise<OrderEntity>;
 }
 
 export abstract class IOrderRowRepository {
