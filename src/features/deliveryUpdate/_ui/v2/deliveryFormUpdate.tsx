@@ -1,11 +1,11 @@
 "use client";
 import { DeliveryFormElements } from "@/entities/delivery";
+import { ReceiverFormElements } from "@/entities/receiver";
 import { SettlementFormElements } from "@/entities/settlement";
 import { FC, HTMLAttributes, memo } from "react";
-import { deliveryUpdateFormDefaultSchema } from "../../_domain/form.schema";
+import { deliveryUpdateFormSchema } from "../../_domain/form.schema";
 import { useDeliveryFormDefaultValues } from "../../_vm/useDeliveryFormDefaultValues.model";
 import { DeliveryFormUpdateElements } from "./deliveryFormUpdateElements";
-import { ReceiverFormElements } from "@/entities/receiver";
 
 interface DeliveryFormProps extends HTMLAttributes<HTMLDivElement> {
   userId: string;
@@ -24,8 +24,8 @@ export const DeliveryFormUpdate: FC<DeliveryFormProps> = memo((props) => {
 
   return (
     <DeliveryFormElements
-      defaultValues={{ ...defaultValues }}
-      schema={deliveryUpdateFormDefaultSchema}
+      defaultValues={defaultValues}
+      schema={deliveryUpdateFormSchema}
     >
       <SettlementFormElements.FieldSettlementSelectSearch />
       <DeliveryFormElements.FieldDeliveryTypeSelect />
@@ -33,7 +33,7 @@ export const DeliveryFormUpdate: FC<DeliveryFormProps> = memo((props) => {
       <DeliveryFormUpdateElements.FieldDeliveryTypeRadioSection
         deliveryId={deliveryId}
       />
-      <ReceiverFormElements.FieldReceiverSelect userId={userId} />
+      {/* <ReceiverFormElements.FieldReceiverSelect userId={userId} /> */}
     </DeliveryFormElements>
   );
 });

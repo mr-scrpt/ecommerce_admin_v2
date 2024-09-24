@@ -10,10 +10,10 @@ export const useOrderStatusPaymentToSelectModel = () => {
     useMemo(
       () =>
         orderStatusPaymentList.map((item) => ({
-          value: item.status,
+          value: item.id,
           label: item.status,
         })),
-      [],
+      [orderStatusPaymentList],
     );
   return {
     orderStatusPaymentListToSelect,

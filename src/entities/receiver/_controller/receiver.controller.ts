@@ -34,6 +34,14 @@ export class ReceiverController extends Controller {
 
           return getListOutputSchema.parse(result);
         }),
+      // getListByOrder: publicProcedure
+      //   .input(getByOrderInputSchema)
+      //   .query(async ({ input }) => {
+      //     const result =
+      //       await this.getReceiverListByOrderService.execute(input);
+      //
+      //     return getListOutputSchema.parse(result);
+      //   }),
     },
   });
 }

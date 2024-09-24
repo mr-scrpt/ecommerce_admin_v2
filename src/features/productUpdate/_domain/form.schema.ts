@@ -1,4 +1,5 @@
 import { productFormDefaultSchema } from "@/entities/product";
+import { productDefaultFieldsValues } from "@/entities/product/_domain/form.schema";
 import { categoryDefaultSelectOptionSchema } from "@/kernel/domain/category/form.schema";
 import { propertyItemDefaultSelectOptionSchema } from "@/kernel/domain/property/form.schema";
 import { z } from "zod";
@@ -18,17 +19,9 @@ export const productUpdateFormSchema = productFormDefaultSchema
 
 export type ProductUpdateFormValues = z.infer<typeof productUpdateFormSchema>;
 
-// TODO: Default Form Values
+// NOTE: Default Form Values
 export const productUpdateFieldsValues: ProductUpdateFormValues = {
-  name: "",
-  article: "",
-  description: "",
-  price: 0,
-  inStock: 0,
-  about: "",
-  imgList: [],
+  ...productDefaultFieldsValues,
   categoryList: [],
   propertyItemList: [],
-
-  // propertyItemList: [],
 };

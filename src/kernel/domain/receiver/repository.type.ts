@@ -6,6 +6,7 @@ import {
   ReceiverRemoveDTO,
   ReceiverUpdateDTO,
   ReceiverBindToOrderDTO,
+  ReceiverGetByOrderDTO,
 } from "./receiver.dto";
 import { ReceiverEntity } from "./receiver.type";
 
@@ -18,6 +19,11 @@ export abstract class IReceiverRepository {
     dto: ReceiverGetByUserDTO,
     db?: Tx,
   ): Promise<ReceiverEntity[]>;
+
+  // abstract getListByOrder(
+  //   dto: ReceiverGetByOrderDTO,
+  //   db?: Tx,
+  // ): Promise<ReceiverEntity[]>;
 
   abstract create(dto: ReceiverCreateDTO, db?: Tx): Promise<ReceiverEntity>;
 

@@ -4,6 +4,8 @@ import { z } from "zod";
 export const storeDefaultSelectOptionSchema = z.object({
   value: z.string(),
   label: z.string(),
+  address: z.string(),
+  name: z.string(),
   active: z.boolean().optional(),
 });
 

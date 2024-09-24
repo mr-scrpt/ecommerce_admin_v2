@@ -41,7 +41,8 @@ export class DeliveryRepository implements IDeliveryRepository {
       include: {
         settlement: true,
         deliveryType: true,
-        receiver: true,
+        address: true,
+        store: true,
       },
     });
 
@@ -57,7 +58,9 @@ export class DeliveryRepository implements IDeliveryRepository {
       include: {
         settlement: true,
         deliveryType: true,
-        receiver: true,
+        address: true,
+        store: true,
+        // receiver: true,
       },
     });
     return result as unknown as T;

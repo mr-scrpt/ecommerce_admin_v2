@@ -71,6 +71,8 @@ export const OrderFormElements: OrderFormElementsType = <
     onSubmit?.(data);
   });
 
+  // console.log("output_log: Form values =>>>", form.getValues());
+
   return (
     <FormProvider {...form}>
       <form onSubmit={handleSubmit} className="space-y-8">

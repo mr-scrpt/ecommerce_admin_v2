@@ -1,3 +1,9 @@
+export { buildPropertyOptionsArray } from "./_domain/property/form.schema";
+
+export { buildPropertyOption } from "./_domain/property/form.schema";
+
+export { buildPropertySingleOptionsArray } from "./_domain/property/form.schema";
+
 export { usePropertyItemListToSelectModel } from "./_vm/propertyItem/usePropertyItemListToSelect.model";
 
 export { propertyFormDefaultSchema } from "./_domain/property/form.schema";

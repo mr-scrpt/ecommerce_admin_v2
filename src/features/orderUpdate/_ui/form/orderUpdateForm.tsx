@@ -1,10 +1,7 @@
-import { useOrderWithRelationModel } from "@/entities/order";
 import { OrderFormElements } from "@/entities/order/_ui/order/form/orderFormElements";
-import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes } from "react";
-import { OrderUpdateFormValues } from "../../_domain/form.schema";
-import { useOrderUpdateMutation } from "../../_mutation/useOrderUpdate.mutation";
 import { useOrderDefaultValues } from "../../_vm/useOrderDefaultValues.model";
+import { useOrderUpdateHandler } from "../../_vm/useOrderUpdate.handler";
 
 interface OrderUpdateFromProps extends HTMLAttributes<HTMLDivElement> {
   orderId: string;
@@ -16,42 +13,23 @@ interface OrderUpdateFromProps extends HTMLAttributes<HTMLDivElement> {
 export const OrderUpdateForm: FC<OrderUpdateFromProps> = (props) => {
   const { orderId, className, callbackUrl, onSuccess } = props;
 
-  const { order, isSuccess, isPending } = useOrderWithRelationModel(orderId);
+  const {
+    orderUpdateValues,
+    isPendingOrderData,
+    isFetchedAfterMountOrderData,
+    isSuccessOrderData,
+  } = useOrderDefaultValues(orderId);
 
-  const router = useRouter();
+  const { handleOrderUpdate, isSuccessUpdate, isPendingUpdate } =
+    useOrderUpdateHandler({ data: { orderId }, onSuccess, callbackUrl });
 
-  // TODO: add UI
-
-  if (!order) {
-    return null;
-  }
-
-  const defaultValues = useOrderDefaultValues(order);
-
-  const { orderUpdate } = useOrderUpdateMutation();
-
-  const handleSubmit = async (data: OrderUpdateFormValues) => {
-    const { orderStatusStateList, orderStatusPaymentList } = data;
-    const [orderStatusData] = orderStatusStateList;
-    const [orderPaymentStatusData] = orderStatusPaymentList;
-
-    await orderUpdate({
-      selector: { id: orderId },
-      orderStatusStateData: { id: orderStatusData.value },
-      orderStatusPaymentData: { id: orderPaymentStatusData.value },
-    });
-
-    onSuccess?.();
-
-    if (callbackUrl) {
-      router.push(callbackUrl);
-    }
-  };
+  const isPending =
+    isPendingOrderData || isPendingUpdate || !isFetchedAfterMountOrderData;
 
   return (
     <OrderFormElements
-      defaultValues={defaultValues}
-      handleSubmit={handleSubmit}
+      defaultValues={orderUpdateValues}
+      handleSubmit={handleOrderUpdate}
     >
       <OrderFormElements.FieldOrderStatusStateSelect />
       <OrderFormElements.FieldOrderStatusPaymentSelect />

@@ -1,4 +1,9 @@
-import { addressDefaultSelectOptionSchema } from "@/kernel/domain/address/form.schema";
+import { Address } from "@/kernel/domain/address/address.type";
+import {
+  AddressDefaultSelectOption,
+  addressDefaultSelectOptionSchema,
+} from "@/kernel/domain/address/form.schema";
+import { filterNullValues } from "@/shared/lib/filter";
 import { z } from "zod";
 
 // NOTE: FORM
@@ -22,3 +27,22 @@ export const addressDefaultFieldsValues: AddressFormDefaultValues = {
   apartment: "",
   addressList: [],
 };
+
+// NOTE: Build Post Office Option
+export const buildAddressOption = (
+  address?: Address | null,
+): AddressDefaultSelectOption | null =>
+  address
+    ? {
+        value: address.id,
+        label: address.street,
+        street: address.street,
+        house: address.house,
+        apartment: address.apartment,
+      }
+    : null;
+
+export const buildAddressOptionsArray = (
+  address?: Array<Address | null | undefined> | null,
+): AddressDefaultSelectOption[] =>
+  address ? filterNullValues(address.map(buildAddressOption)) : [];

@@ -1,3 +1,5 @@
+export { buildAddressOptionsArray } from "./_domain/form.schema";
+
 export { AddressStreetElement } from "./_ui/form/elements/addressStreetElement";
 export { AddressHouseElement } from "./_ui/form/elements/addressHouseElement";
 export { AddressApartmentElement } from "./_ui/form/elements/addressApartmentElement";

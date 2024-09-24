@@ -1,3 +1,7 @@
+// export { useReceiverListByOrderToSelectModel } from "./_vm/useReceiverListByOrderToSelect.model";
+
+export { buildReceiverOptionsArray } from "./_domain/form.schema";
+
 export { ReceiverNameElement } from "./_ui/form/elements/receiverNameElement";
 export { ReceiverLastNameElement } from "./_ui/form/elements/receiverLastNameElement";
 export { ReceiverPhoneElement } from "./_ui/form/elements/receiverPhoneElement";

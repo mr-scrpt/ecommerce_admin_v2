@@ -1,4 +1,9 @@
-import { receiverDefaultSelectOptionSchema } from "@/kernel/domain/receiver/form.schema";
+import {
+  ReceiverDefaultSelectOption,
+  receiverDefaultSelectOptionSchema,
+} from "@/kernel/domain/receiver/form.schema";
+import { Receiver } from "@/kernel/domain/receiver/receiver.type";
+import { filterNullValues } from "@/shared/lib/filter";
 import { z } from "zod";
 
 // NOTE: FORM
@@ -21,3 +26,22 @@ export const receiverDefaultFieldsValues: ReceiverFormDefaultValues = {
   phone: "",
   receiverList: [],
 };
+
+// NOTE: Build Post Office Option
+export const buildReceiverOption = (
+  receiver?: Receiver | null,
+): ReceiverDefaultSelectOption | null =>
+  receiver
+    ? {
+        label: receiver.name,
+        value: receiver.id,
+        name: receiver.name,
+        lastName: receiver.lastName,
+        phone: receiver.phone,
+      }
+    : null;
+
+export const buildReceiverOptionsArray = (
+  receiver?: Array<Receiver | null | undefined> | null,
+): ReceiverDefaultSelectOption[] =>
+  receiver ? filterNullValues(receiver.map(buildReceiverOption)) : [];

@@ -57,7 +57,7 @@ export const DeliveryTypeRadioSectionElement: FC<DeliveryTypeRadioSectionProps> 
                 <FormControl>
                   <RadioGroupItem value={item.value} />
                 </FormControl>
-                <FormLabel className="font-normal">{item.value}</FormLabel>
+                <FormLabel className="font-normal">{item.label}</FormLabel>
               </FormItem>
 
               {deliveryActive?.value === item.value &&

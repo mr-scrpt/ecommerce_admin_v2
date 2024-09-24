@@ -12,7 +12,7 @@ export const useAddressListBySettlementRefToSelectModel = (
     () =>
       storeList.map((item) => ({
         value: item.id,
-        label: item.address,
+        label: `"${item.name}", ${item.address}`,
       })),
     [storeList],
   );

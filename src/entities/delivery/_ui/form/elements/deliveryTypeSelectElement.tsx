@@ -7,7 +7,7 @@ import { useDeliveryTypeListToSelectModel } from "../../../_vm/useDeliveryTypeLi
 
 export interface DeliveryTypeSelectProps
   extends HTMLAttributes<HTMLDivElement> {
-  deliveryActive?: DeliveryTypeDefaultSelectOption;
+  deliveryActive?: DeliveryTypeDefaultSelectOption | null;
   settlementRef?: string;
   onSelectDelivery: (
     deliveryList: Array<DeliveryTypeDefaultSelectOption>,

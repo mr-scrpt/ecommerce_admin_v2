@@ -9,4 +9,8 @@ export const getByUserInputSchema = z.object({
   userId: z.string(),
 });
 
+export const getByOrderInputSchema = z.object({
+  orderId: z.string(),
+});
+
 export const getListOutputSchema = z.array(receiverSchema);

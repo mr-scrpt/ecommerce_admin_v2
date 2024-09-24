@@ -1,4 +1,4 @@
-// export { useAddressListBySettlementRefToSelectModel } from "./_vm/useAddressListBySettlementRefToSelect.model";
+export { buildStoreOptionsArray } from "./_domain/form.schema";
 
 export { useStoreAvailableBySettlementRefModel } from "./_vm/__useStoreAvailableBySettlementRef.model";
 export { storeFormDefaultSchema } from "./_domain/form.schema";

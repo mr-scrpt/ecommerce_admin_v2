@@ -19,19 +19,23 @@ interface ProductUpdateFormProps extends HTMLAttributes<HTMLDivElement> {
 export const ProductUpdateForm: FC<ProductUpdateFormProps> = memo((props) => {
   const { productId, callbackUrl, className, onSuccess } = props;
 
-  const { productUpdateValues, isPendingProduct, isFetchedAfterMountProduct } =
-    useProductUpdateValues({
-      productId,
-    });
+  const {
+    productUpdateValues,
+    isPendingProductData,
+    isFetchedAfterMountProductData,
+  } = useProductUpdateValues({
+    productId,
+  });
 
   const { handleProductUpdate, isPendingUpdate, isSuccessUpdate } =
     useProductUpdateHandler({ data: { productId }, onSuccess, callbackUrl });
 
-  if (isPendingProduct || !isFetchedAfterMountProduct) {
-    return <Spinner aria-label="Loading profile..." />;
-  }
+  // if (isPendingProductData || !isFetchedAfterMountProductData) {
+  //   return <Spinner aria-label="Loading profile..." />;
+  // }
 
-  const isPending = isPendingProduct || !isFetchedAfterMountProduct;
+  const isPending =
+    isPendingProductData || !isFetchedAfterMountProductData || isPendingUpdate;
 
   return (
     <div className={cn(className, "w-full")}>

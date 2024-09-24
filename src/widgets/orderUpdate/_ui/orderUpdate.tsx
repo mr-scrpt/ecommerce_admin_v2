@@ -2,6 +2,7 @@
 import { RoutePathEnum } from "@/shared/config/routing.config";
 import { FC, HTMLAttributes } from "react";
 import { OrderUpdateDeliveryItem } from "./delivery/orderUpdateDeliveryItem";
+import { OrderUpdateReceiverItem } from "./receiver/orderUpdateReceiverItem";
 
 interface OrderUpdateProps extends HTMLAttributes<HTMLDivElement> {
   callbackUrl: RoutePathEnum;
@@ -14,7 +15,11 @@ export const OrderUpdate: FC<OrderUpdateProps> = (props) => {
     <>
       {/* <OrderDeliveryItem orderId={orderId} /> */}
 
+      {/* <OrderUpdateStatusItem orderId={orderId} /> */}
+      {/* <OrderUpdateProductItem orderId={orderId} /> */}
       <OrderUpdateDeliveryItem orderId={orderId} />
+      <OrderUpdateReceiverItem orderId={orderId} />
+
       {/* <OrderDeliveryItem orderId={orderId} /> */}
       {/* <OrderUpdateProductItem orderId={orderId} /> */}
     </>

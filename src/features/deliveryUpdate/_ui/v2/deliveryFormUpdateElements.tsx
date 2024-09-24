@@ -13,14 +13,14 @@ import {
 } from "react-hook-form";
 import { ZodTypeAny } from "zod";
 import {
-  DeliveryUpdateFormDefaultValues,
-  deliveryUpdateDefaultFieldsValues,
-  deliveryUpdateFormDefaultSchema,
+  DeliveryUpdateFormValues,
+  deliveryUpdateFieldsValues,
+  deliveryUpdateFormSchema,
 } from "../../_domain/form.schema";
 import { DeliveryTypeRadioSectionElement } from "./elements/deliveryTypeRadioSectionElement";
 
 interface DeliveryFormUpdateElementsProps<
-  T extends DeliveryUpdateFormDefaultValues,
+  T extends DeliveryUpdateFormValues,
 > extends HTMLAttributes<HTMLFormElement> {
   handleSubmit?: (data: T) => void;
   defaultValues?: DefaultValues<T>;
@@ -28,7 +28,7 @@ interface DeliveryFormUpdateElementsProps<
 }
 
 type DeliveryFormUpdateElementsComponent = <
-  T extends DeliveryUpdateFormDefaultValues = DeliveryUpdateFormDefaultValues,
+  T extends DeliveryUpdateFormValues = DeliveryUpdateFormValues,
 >(
   props: DeliveryFormUpdateElementsProps<T>,
 ) => React.ReactElement;
@@ -41,24 +41,24 @@ type DeliveryFormUpdateFields = {
 type DeliveryFormUpdateElementsType = DeliveryFormUpdateElementsComponent &
   DeliveryFormUpdateFields;
 
-const getDefaultFormValues = <T extends DeliveryUpdateFormDefaultValues>(
+const getDefaultFormValues = <T extends DeliveryUpdateFormValues>(
   defaultValues?: DefaultValues<T> | undefined,
 ): DefaultValues<T> => {
   return {
-    ...deliveryUpdateDefaultFieldsValues,
+    ...deliveryUpdateFieldsValues,
     ...defaultValues,
   } as DefaultValues<T>;
 };
 
 export const DeliveryFormUpdateElements: DeliveryFormUpdateElementsType = <
-  T extends DeliveryUpdateFormDefaultValues,
+  T extends DeliveryUpdateFormValues,
 >(
   props: DeliveryFormUpdateElementsProps<T>,
 ) => {
   const { handleSubmit: onSubmit, schema, defaultValues, children } = props;
 
   const form = useForm<T>({
-    resolver: zodResolver(schema ?? deliveryUpdateFormDefaultSchema),
+    resolver: zodResolver(schema ?? deliveryUpdateFormSchema),
     defaultValues: { ...getDefaultFormValues<T>(defaultValues) },
   });
 
@@ -90,7 +90,7 @@ DeliveryFormUpdateElements.FieldDeliveryTypeRadioSection =
     const { deliveryId } = props;
 
     const { control, getFieldState, watch } =
-      useFormContext<DeliveryUpdateFormDefaultValues>();
+      useFormContext<DeliveryUpdateFormValues>();
 
     if (!getFieldState("deliveryType")) return null;
 

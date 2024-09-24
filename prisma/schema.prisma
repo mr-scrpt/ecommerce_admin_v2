@@ -213,7 +213,7 @@ model Receiver {
   phone     String
   orderList  Order[]
 
-  deliveryList Delivery[]
+  // deliveryList Delivery[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -231,8 +231,8 @@ model Delivery {
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String
 
-  receiver      Receiver @relation(fields: [receiverId], references: [id])
-  receiverId    String
+  // receiver      Receiver @relation(fields: [receiverId], references: [id])
+  // receiverId    String
 
   deliveryType DeliveryType @relation(fields: [deliveryTypeId], references: [id], onDelete: Cascade)
   deliveryTypeId String

@@ -14,8 +14,8 @@ export const OrderRowItem: FC<OrderRowItemProps> = (props) => {
   if (!product) {
     return null;
   }
-  const { name, article, img, price } = product;
-  const [firstImg] = img;
+  const { name, article, imgList, price } = product;
+  const [firstImg] = imgList;
   return (
     <div key={orderRow.id} className="flex w-full flex-row border p-2">
       <div className="flex w-full flex-row">

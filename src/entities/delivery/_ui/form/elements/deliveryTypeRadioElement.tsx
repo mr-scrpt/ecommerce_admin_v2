@@ -9,7 +9,7 @@ import { FormControl, FormItem, FormLabel } from "@/shared/ui/form";
 import { DeliveryTypeDefaultSelectOption } from "@/kernel/domain/delivery/form.schema";
 
 export interface DeliveryTypeRadioProps extends HTMLAttributes<HTMLDivElement> {
-  deliveryActive?: DeliveryTypeDefaultSelectOption;
+  deliveryActive?: DeliveryTypeDefaultSelectOption | null;
   settlementRef?: string;
   onSelectDelivery: (delivery: DefaultSelectOption) => void;
 }

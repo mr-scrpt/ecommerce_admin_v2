@@ -13,12 +13,14 @@ import { ConsumerListSearchService } from "../_service/consumerListSearch.servic
 import { ConsumerRelationGetByOrderService } from "../_service/consumerRelationGetByOrder.service";
 import { consumerSchema } from "@/kernel/domain/consumer/consumer.schema";
 import { ConsumerGetService } from "../_service/consumerGet.service";
+import { ConsumerGetByOrderService } from "../_service/consumerGetByOrder.service";
 
 @injectable()
 export class ConsumerController extends Controller {
   constructor(
     private readonly getConsumerService: ConsumerGetService,
     private readonly getConsumerRelationByOrderService: ConsumerRelationGetByOrderService,
+    private readonly getConsumerByOrderService: ConsumerGetByOrderService,
     private readonly getConsumerListService: ConsumerListService,
     private readonly searchConsumerListService: ConsumerListSearchService,
   ) {
@@ -35,6 +37,12 @@ export class ConsumerController extends Controller {
         const result = await this.getConsumerListService.execute();
         return getListOutputSchema.parse(result);
       }),
+      getByOrder: publicProcedure
+        .input(getByOrderInputSchema)
+        .query(async ({ input }) => {
+          const result = await this.getConsumerByOrderService.execute(input);
+          return consumerSchema.parse(result);
+        }),
       getRelationByOrder: publicProcedure
         .input(getByOrderInputSchema)
         .query(async ({ input }) => {

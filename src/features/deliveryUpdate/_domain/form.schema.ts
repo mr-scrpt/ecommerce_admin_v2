@@ -1,27 +1,28 @@
 import { deliveryFormDefaultSchema } from "@/entities/delivery";
+import { addressDefaultSelectOptionSchema } from "@/kernel/domain/address/form.schema";
 import { postOfficeDefaultSelectOptionSchema } from "@/kernel/domain/post/form.schema";
 import { receiverDefaultSelectOptionSchema } from "@/kernel/domain/receiver/form.schema";
 import { settlementDefaultSelectOptionSchema } from "@/kernel/domain/settlement/form.schema";
+import { storeDefaultSelectOptionSchema } from "@/kernel/domain/store/form.schema";
 import { z } from "zod";
 
-export const deliveryUpdateFormDefaultSchema = deliveryFormDefaultSchema.extend(
-  {
-    settlement: settlementDefaultSelectOptionSchema.nullable(),
-    postOfficeList: z.array(postOfficeDefaultSelectOptionSchema).nullable(),
-    receiverList: z.array(receiverDefaultSelectOptionSchema).nullable(),
-  },
-);
+export const deliveryUpdateFormSchema = deliveryFormDefaultSchema.extend({
+  settlement: settlementDefaultSelectOptionSchema.nullable(),
+  postOfficeList: z.array(postOfficeDefaultSelectOptionSchema),
+  addressList: z.array(addressDefaultSelectOptionSchema),
+  storeList: z.array(storeDefaultSelectOptionSchema),
+  // receiverList: z.array(receiverDefaultSelectOptionSchema),
+});
 
-export type DeliveryUpdateFormDefaultValues = z.infer<
-  typeof deliveryUpdateFormDefaultSchema
->;
+export type DeliveryUpdateFormValues = z.infer<typeof deliveryUpdateFormSchema>;
 
 // TODO: Default Form Values
-export const deliveryUpdateDefaultFieldsValues: DeliveryUpdateFormDefaultValues =
-  {
-    deliveryType: null,
+export const deliveryUpdateFieldsValues: DeliveryUpdateFormValues = {
+  deliveryType: null,
 
-    settlement: null,
-    postOfficeList: [],
-    receiverList: [],
-  };
+  settlement: null,
+  postOfficeList: [],
+  addressList: [],
+  storeList: [],
+  // receiverList: [],
+};

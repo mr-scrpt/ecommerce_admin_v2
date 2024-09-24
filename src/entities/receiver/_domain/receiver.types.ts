@@ -21,3 +21,6 @@ export type ReceiverGetSelector = {
 export type ReceiverGetByUserSelector = {
   userId: string;
 };
+export type ReceiverGetByOrderSelector = {
+  orderId: string;
+};

@@ -1,5 +1,13 @@
-import { useDeliveryWithRelationQuery } from "@/entities/delivery";
-import { DeliveryUpdateFormDefaultValues } from "../_domain/form.schema";
+import {
+  buildDeliveryTypeOption,
+  useDeliveryWithRelationQuery,
+} from "@/entities/delivery";
+import { DeliveryUpdateFormValues } from "../_domain/form.schema";
+import { buildSettlementOption } from "@/entities/settlement";
+import { buildPostOfficeOptionsArray } from "@/entities/post";
+import { buildAddressOptionsArray } from "@/entities/address";
+import { buildStoreOptionsArray } from "@/entities/store";
+import { buildReceiverOptionsArray } from "@/entities/receiver";
 
 interface useDeliveryFormDefaultValuesProps {
   deliveryId: string;
@@ -13,83 +21,17 @@ export const useDeliveryFormDefaultValues = (
   const { isPending, delivery, isFetchedAfterMount } =
     useDeliveryWithRelationQuery(deliveryId);
 
-  let defaultValues: DeliveryUpdateFormDefaultValues = {
-    deliveryType: null,
-    settlement: null,
-    postOfficeList: [],
-    receiverList: [],
+  const { settlement, postOffice, deliveryType, address, store, receiver } =
+    delivery || {};
+
+  const defaultValues: DeliveryUpdateFormValues = {
+    deliveryType: buildDeliveryTypeOption(deliveryType),
+    settlement: buildSettlementOption(settlement),
+    postOfficeList: buildPostOfficeOptionsArray([postOffice]),
+    addressList: buildAddressOptionsArray([address]),
+    storeList: buildStoreOptionsArray([store]),
+    // receiverList: buildReceiverOptionsArray([receiver]),
   };
-
-  const { settlement, postOffice, deliveryType, receiver } = delivery || {};
-
-  if (deliveryType) {
-    defaultValues.deliveryType = {
-      value: deliveryType.id,
-      label: deliveryType.type,
-      type: deliveryType.type,
-    };
-  }
-
-  if (settlement) {
-    defaultValues.settlement = {
-      value: settlement.ref,
-      area: settlement.areaDescription,
-      region: settlement.regionsDescription,
-      label: settlement.description,
-    };
-  }
-
-  if (postOffice) {
-    defaultValues.postOfficeList = [
-      {
-        label: postOffice.description,
-        value: postOffice.ref,
-      },
-    ];
-  }
-
-  if (receiver) {
-    defaultValues.receiverList = [
-      {
-        label: receiver.name,
-        value: receiver.id,
-        name: receiver.name,
-        lastName: receiver.lastName,
-        phone: receiver.phone,
-      },
-    ];
-  }
-  // const defaultValues = {
-  //   settlement: {
-  //     value: settlement?.ref || "",
-  //     area: settlement?.areaDescription || "",
-  //     region: settlement?.regionsDescription || "",
-  //     label: settlement?.description || "",
-  //   },
-  //   deliveryType: {
-  //     value: deliveryType?.id || "",
-  //     label: deliveryType?.type || "",
-  //     type: deliveryType?.type || "",
-  //   },
-  //   postOfficeList: {
-  //     label: postOffice?.description || "",
-  //     value: postOffice?.ref || "",
-  //   },
-  //   receiverList: {
-  //     label: receiver?.name || "",
-  //     value: receiver?.id || "",
-  //     name: receiver?.name || "",
-  //     lastName: receiver?.lastName || "",
-  //     phone: receiver?.phone || "",
-  //   },
-  // };
-
-  // const defaultValues = {
-  //   // deliveryType: deliveryTypeDefaultSelectOption,
-  //   // settlement: settlementDefaultSelectOption,
-  //   // postOfficeList: [postTypeDefaultOption],
-  //   // receiverList: [receiverDefaultOption],
-  // };
 
   return { defaultValues, isPending, isFetchedAfterMount };
 };

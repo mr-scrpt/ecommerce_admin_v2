@@ -7,6 +7,7 @@ import { ConsumerRelationGetByOrderService } from "./_service/consumerRelationGe
 import { ConsumerListSearchService } from "./_service/consumerListSearch.service";
 import { ConsumerListService } from "./_service/consumerList.service";
 import { ConsumerGetService } from "./_service/consumerGet.service";
+import { ConsumerGetByOrderService } from "./_service/consumerGetByOrder.service";
 
 export const ConsumerModule = new ContainerModule((bind) => {
   bind(IConsumerRepository).to(ConsumerRepository);
@@ -15,6 +16,7 @@ export const ConsumerModule = new ContainerModule((bind) => {
   bind(ConsumerListService).toSelf();
   bind(ConsumerListSearchService).toSelf();
   bind(ConsumerRelationGetByOrderService).toSelf();
+  bind(ConsumerGetByOrderService).toSelf();
 
   bind(Controller).to(ConsumerController);
 });

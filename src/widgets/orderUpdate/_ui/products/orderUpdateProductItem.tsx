@@ -13,7 +13,7 @@ export const OrderUpdateProductItem: FC<OrderUpdateProductItemProps> = (
   const { orderId } = props;
   return (
     <>
-      <OrderUpdateLayout orderId={orderId} />
+      {/* <OrderUpdateLayout orderId={orderId} /> */}
       <OrderRowFormCreate orderId={orderId} />
       <OrderRowListWithActions orderId={orderId} />
     </>

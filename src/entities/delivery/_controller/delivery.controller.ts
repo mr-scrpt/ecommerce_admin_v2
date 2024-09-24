@@ -60,6 +60,7 @@ export class DeliveryController extends Controller {
           const result =
             await this.getDeliveryWithRelationByOrderService.execute(input);
           const resultParsed = getWithRelationOutputSchema.parse(result);
+          console.log("output_log:RESu  =>>>", resultParsed);
           return resultParsed;
         }),
       getList: publicProcedure.query(async () => {

@@ -1,6 +1,7 @@
 import {
   ReceiverBindToOrderDTO,
   ReceiverCreateDTO,
+  ReceiverGetByOrderDTO,
   ReceiverGetByUserDTO,
   ReceiverGetDTO,
   ReceiverRemoveDTO,
@@ -43,6 +44,24 @@ export class ReceiverRepository implements IReceiverRepository {
       },
     });
   }
+
+  // async getListByOrder(
+  //   dto: ReceiverGetByOrderDTO,
+  //   db: Tx = this.db,
+  // ): Promise<ReceiverEntity[]> {
+  //   const { orderId } = dto;
+  //   return await db.receiver.findMany({
+  //     where: {
+  //       user: {
+  //         orderList: {
+  //           some: {
+  //             id: orderId,
+  //           },
+  //         },
+  //       },
+  //     },
+  //   });
+  // }
 
   async create(
     dto: ReceiverCreateDTO,

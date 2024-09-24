@@ -4,7 +4,7 @@ import { z } from "zod";
 export const deliveryBaseSchema = z.object({
   orderId: z.string(),
   userId: z.string(),
-  receiverId: z.string(),
+  // receiverId: z.string(),
   deliveryTypeId: z.string(),
   settlementRef: z.string().optional().nullable(),
   storeId: z.string().optional().nullable(),

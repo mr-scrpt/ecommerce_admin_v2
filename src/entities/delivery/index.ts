@@ -1,3 +1,5 @@
+export { buildDeliveryTypeOption } from "./_domain/form.schema";
+
 export { useDeliveryWithRelationQuery } from "./_query/deliveryWithRelation.query";
 
 export { useDeliveryWithRelationByOrderIdQuery } from "./_query/deliveryWithRelationByOrderId.query";

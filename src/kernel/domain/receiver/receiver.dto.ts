@@ -9,6 +9,10 @@ export type ReceiverGetByUserDTO = {
   userId: string;
 };
 
+export type ReceiverGetByOrderDTO = {
+  orderId: string;
+};
+
 // NOTE: Mutations
 export type ReceiverCreateDTO = {
   data: ReceiverBase;

@@ -1,8 +1,5 @@
 import { categoryFormDefaultSchema } from "@/entities/category";
-import {
-  propertyDefaultSelectOptionSchema,
-  propertyItemDefaultSelectOptionSchema,
-} from "@/kernel/domain/property/form.schema";
+import { propertyDefaultSelectOptionSchema } from "@/kernel/domain/property/form.schema";
 import { z } from "zod";
 
 export const categoryUpdateFormSchema = categoryFormDefaultSchema

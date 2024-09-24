@@ -18,7 +18,7 @@ import { FC, HTMLAttributes, useEffect, useState } from "react";
 
 interface SettlementSelectSearchElementProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "onChange"> {
-  settlementActive?: SettlementDefaultSelectOption;
+  settlementActive?: SettlementDefaultSelectOption | null;
   onSelectSettlement: (settlement: SettlementDefaultSelectOption) => void;
 }
 

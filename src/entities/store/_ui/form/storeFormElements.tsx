@@ -95,8 +95,6 @@ export const StoreFormElements: StoreFormElementsType = <
     defaultValues: { ...getDefaultFormValues<T>(defaultValues) },
   });
 
-  console.log("output_log: VALUES =>>>", form.getValues());
-  console.log("output_log: errors =>>>", form.formState.errors);
   useEffect(() => {
     form.reset(getDefaultFormValues<T>(defaultValues));
   }, [defaultValues, form]);
@@ -172,6 +170,7 @@ StoreFormElements.FieldStoreSelect = function FieldStoreSelect(
         return (
           <FormItem>
             <FormLabel>Store select</FormLabel>
+
             <StoreSelectElement
               storeActive={field.value?.[0]}
               onSelectStore={field.onChange}

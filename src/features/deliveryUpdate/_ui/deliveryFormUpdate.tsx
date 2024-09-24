@@ -4,8 +4,8 @@ import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes, useCallback } from "react";
 import {
-  DeliveryUpdateFormDefaultValues,
-  deliveryUpdateFormDefaultSchema,
+  DeliveryUpdateFormValues,
+  deliveryUpdateFormSchema,
 } from "../_domain/form.schema";
 import { useDeliveryUpdateModel } from "../_vm/useDeliveryUpdate.model";
 import { DeliveryUpdateFormElements } from "./form/elements/deliveryUpdateFormElements";
@@ -44,7 +44,7 @@ export const DeliveryFormUpdate: FC<OrderDeliveryFormProps> = (props) => {
     useDeliveryUpdateModel();
 
   const handleSubmit = useCallback(
-    async (deliveryData: DeliveryUpdateFormDefaultValues) => {
+    async (deliveryData: DeliveryUpdateFormValues) => {
       // TODO: add validation
       // if (!delivery) {
       //   return;
@@ -78,7 +78,7 @@ export const DeliveryFormUpdate: FC<OrderDeliveryFormProps> = (props) => {
         addressAddModal={addressAddModal}
         receiverAddModal={receiverAddModal}
         delivery={delivery}
-        schema={deliveryUpdateFormDefaultSchema}
+        schema={deliveryUpdateFormSchema}
       >
         <DeliveryUpdateFormElements.FieldSettlementSelect />
         <DeliveryUpdateFormElements.FieldDeliveryType />

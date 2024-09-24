@@ -1,40 +1,59 @@
-import { OrderRelation } from "@/entities/order";
+import { useOrderWithRelationModel } from "@/entities/order";
 import { useMemo } from "react";
-import { OrderUpdateFormValues } from "../_domain/form.schema";
-// import {
-//   orderStatusPaymentDefaultSelectOption,
-//   orderStatusStateDefaultSelectOption,
-// } from "@/kernel/domain/order/form.schema";
+import {
+  OrderUpdateFormValues,
+  orderUpdateFieldsValues,
+} from "../_domain/form.schema";
+
+interface UseOrderDefaultValues {
+  orderUpdateValues: OrderUpdateFormValues;
+  isPendingOrderData: boolean;
+  isFetchedAfterMountOrderData: boolean;
+  isSuccessOrderData: boolean;
+}
 
 export const useOrderDefaultValues = (
-  order: OrderRelation,
-): OrderUpdateFormValues => {
-  const res = useMemo(() => {
-    // if (!order?.orderStatusState || !order?.orderStatusPayment) {
-    //   return {
-    //     orderStatusStateList: [orderStatusStateDefaultSelectOption],
-    //     orderStatusPaymentList: [orderStatusPaymentDefaultSelectOption],
-    //   };
-    // }
+  orderId: string,
+): UseOrderDefaultValues => {
+  const {
+    order,
+    isPending: isPendingOrderData,
+    isFetchedAfterMount: isFetchedAfterMountOrderData,
+    isSuccess: isSuccessOrderData,
+  } = useOrderWithRelationModel(orderId);
 
-    const { orderStatusState, orderStatusPayment } = order;
+  // const res = useMemo(() => {
+  if (!order) {
     return {
+      orderUpdateValues: orderUpdateFieldsValues,
+      isPendingOrderData,
+      isFetchedAfterMountOrderData,
+      isSuccessOrderData,
+    };
+  }
+
+  const { orderStatusState, orderStatusPayment } = order;
+
+  return {
+    orderUpdateValues: {
       orderStatusStateList: [
         {
-          id: orderStatusState.id,
+          value: orderStatusState.id,
           label: orderStatusState.status,
-          value: orderStatusState.status,
         },
       ],
       orderStatusPaymentList: [
         {
-          id: orderStatusPayment.id,
+          value: orderStatusPayment.id,
           label: orderStatusPayment.status,
-          value: orderStatusPayment.status,
         },
       ],
-    };
-  }, [order]);
+    },
+    isPendingOrderData,
+    isFetchedAfterMountOrderData,
+    isSuccessOrderData,
+  };
+  // }, [orderId]);
 
-  return res;
+  // return res;
 };

@@ -1,3 +1,5 @@
+export { buildSettlementOption } from "./_domain/form.schema";
+
 export { SettlementFormElements } from "./_ui/form/settlementFromElements";
 
 export { useSettlementListSearchToSelectQuery } from "./_query/searchSettlementList.query";

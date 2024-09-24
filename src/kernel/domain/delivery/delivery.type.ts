@@ -5,7 +5,7 @@ export { DELIVERY_TYPE };
 export type DeliveryBase = {
   orderId: string;
   userId: string;
-  receiverId: string;
+  // receiverId: string;
   deliveryTypeId: string;
   // deliveryType: DELIVERY_TYPE;
   settlementRef: string | null;

@@ -15,15 +15,16 @@ export const useProductUpdateValues = (props: ProductDefaultValueProps) => {
 
   const {
     product,
-    isPending: isPendingProduct,
-    isFetchedAfterMount: isFetchedAfterMountProduct,
+    isPending: isPendingProductData,
+    isFetchedAfterMount: isFetchedAfterMountProductData,
+    isSuccess: isSuccessProductData,
   } = useProductWithRelationQuery({ id: productId });
 
   if (!product) {
     return {
       productUpdateValues: productUpdateFieldsValues,
-      isPendingProduct,
-      isFetchedAfterMountProduct,
+      isPendingProductData,
+      isFetchedAfterMountProductData,
     };
   }
 
@@ -46,5 +47,10 @@ export const useProductUpdateValues = (props: ProductDefaultValueProps) => {
     })),
   };
 
-  return { productUpdateValues, isPendingProduct, isFetchedAfterMountProduct };
+  return {
+    productUpdateValues,
+    isPendingProductData,
+    isSuccessProductData,
+    isFetchedAfterMountProductData,
+  };
 };
