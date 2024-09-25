@@ -29,6 +29,7 @@ export const useOrderReceiverUpdateHandler = (
   ) => {
     const { orderReceiverList } = data;
     const [receiver] = orderReceiverList;
+
     await orderReceiverUpdate({
       selector: { id: orderId },
       orderReceiverData: { receiverId: receiver.value },

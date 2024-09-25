@@ -1,5 +1,3 @@
-export { buildPostOfficeOptionsArray } from "./_domain/form.schema";
-
 export { PostFormElements } from "./_ui/form/postFormElements";
 
 export { usePostOfficeToSelectModel } from "./_vm/usePostOfficeToSelect.model.query";

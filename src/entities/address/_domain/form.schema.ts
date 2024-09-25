@@ -27,22 +27,3 @@ export const addressDefaultFieldsValues: AddressFormDefaultValues = {
   apartment: "",
   addressList: [],
 };
-
-// NOTE: Build Post Office Option
-export const buildAddressOption = (
-  address?: Address | null,
-): AddressDefaultSelectOption | null =>
-  address
-    ? {
-        value: address.id,
-        label: address.street,
-        street: address.street,
-        house: address.house,
-        apartment: address.apartment,
-      }
-    : null;
-
-export const buildAddressOptionsArray = (
-  address?: Array<Address | null | undefined> | null,
-): AddressDefaultSelectOption[] =>
-  address ? filterNullValues(address.map(buildAddressOption)) : [];

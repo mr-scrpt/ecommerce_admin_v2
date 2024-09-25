@@ -1,5 +1,5 @@
 "use client";
-import { ConsumerFormElements, ConsumerSelect } from "@/entities/consumer";
+import { ConsumerFormElements } from "@/entities/consumer";
 import {
   ConsumerFormCreate,
   useConsumerCreateMutation,
@@ -10,14 +10,16 @@ import { Button } from "@/shared/ui/button";
 import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes, useState } from "react";
 
-interface OrderUpdateProps extends HTMLAttributes<HTMLDivElement> {
+interface OrderCreateProps extends HTMLAttributes<HTMLDivElement> {
   callbackUrl: RoutePathEnum;
 }
 
-export const OrderCreate: FC<OrderUpdateProps> = (props) => {
+export const OrderCreate: FC<OrderCreateProps> = (props) => {
   const { callbackUrl } = props;
+
   const [userId, setUserId] = useState("");
 
+  // TODO: Move in hook
   const { consumerCreate, isPending: isConsumerPending } =
     useConsumerCreateMutation();
   const { orderCreate, isSuccess } = useOrderCreateMutation();
@@ -31,6 +33,8 @@ export const OrderCreate: FC<OrderUpdateProps> = (props) => {
       router.push(`${RoutePathEnum.ORDER_UPDATE}/${order.id}`);
     }
   };
+
+  // TODO: Add consumer in modal like address
 
   return (
     <div className="flex w-full flex-col gap-4">

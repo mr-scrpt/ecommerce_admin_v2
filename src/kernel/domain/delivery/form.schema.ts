@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { DELIVERY_TYPE } from "./delivery.type";
+import { DeliveryType } from "./deliveryType.type";
 
 // NOTE: Select Delivery Type Option
 export const deliveryTypeDefaultSelectOptionSchema = z.object({
@@ -13,10 +14,14 @@ export type DeliveryTypeDefaultSelectOption = z.infer<
   typeof deliveryTypeDefaultSelectOptionSchema
 >;
 
-// NOTE: Default Option
-// export const deliveryTypeDefaultSelectOption: DeliveryTypeDefaultSelectOption =
-//   {
-//     value: "",
-//     label: "Select Delivery type",
-//     type: DELIVERY_TYPE.POST,
-//   };
+// NOTE: Build Delivery Type Option
+export const buildDeliveryTypeOption = (
+  deliveryType?: DeliveryType | null,
+): DeliveryTypeDefaultSelectOption | null =>
+  deliveryType
+    ? {
+        value: deliveryType.id,
+        label: deliveryType.type,
+        type: deliveryType.type,
+      }
+    : null;

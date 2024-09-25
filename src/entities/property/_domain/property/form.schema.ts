@@ -42,11 +42,6 @@ export const buildPropertyOption = (
       }
     : null;
 
-export const buildPropertySingleOptionsArray = (
-  property?: Property | null,
-): PropertyDefaultSelectOption[] =>
-  property ? filterNullValues([buildPropertyOption(property)]) : [];
-
 export const buildPropertyOptionsArray = (
   property?: Array<Property> | null,
 ): PropertyDefaultSelectOption[] =>

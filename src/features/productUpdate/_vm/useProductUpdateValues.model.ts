@@ -5,6 +5,8 @@ import {
   ProductUpdateFormValues,
   productUpdateFieldsValues,
 } from "../_domain/form.schema";
+import { buildPropertyItemOptionsArray } from "@/entities/property";
+import { buildCategoryOptionsArray } from "@/kernel/domain/category/form.schema";
 
 interface ProductDefaultValueProps {
   productId: string;
@@ -36,15 +38,8 @@ export const useProductUpdateValues = (props: ProductDefaultValueProps) => {
     inStock: product.inStock,
     about: product.about,
     imgList: product.imgList,
-    categoryList: product.categoryList.map((category) => ({
-      value: category.id,
-      label: category.name,
-    })),
-    propertyItemList: product.propertyItemList.map((item) => ({
-      value: item.id,
-      label: item.name,
-      propertyId: item.propertyId,
-    })),
+    categoryList: buildCategoryOptionsArray(product.categoryList),
+    propertyItemList: buildPropertyItemOptionsArray(product.propertyItemList),
   };
 
   return {

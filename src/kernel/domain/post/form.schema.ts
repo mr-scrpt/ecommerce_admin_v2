@@ -1,4 +1,6 @@
 import { z } from "zod";
+import { PostOffice } from "./post.type";
+import { filterNullValues } from "@/shared/lib/filter";
 
 // NOTE: Select Post Option
 export const postDefaultSelectOptionSchema = z.object({
@@ -11,12 +13,6 @@ export type PostDefaultSelectOption = z.infer<
   typeof postDefaultSelectOptionSchema
 >;
 
-// NOTE: Default Option
-// export const postDefaultSelectOption: PostDefaultSelectOption = {
-//   value: "",
-//   label: "",
-// };
-
 export const postOfficeDefaultSelectOptionSchema = z.object({
   value: z.string(),
   label: z.string(),
@@ -27,8 +23,18 @@ export type PostOfficeDefaultSelectOption = z.infer<
   typeof postOfficeDefaultSelectOptionSchema
 >;
 
-// NOTE: Default Option
-// export const postOfficeDefaultSelectOption: PostOfficeDefaultSelectOption = {
-//   value: "",
-//   label: "",
-// };
+// NOTE: Build Post Office Option
+export const buildPostOfficeOption = (
+  postOffice?: PostOffice | null,
+): PostDefaultSelectOption | null =>
+  postOffice
+    ? {
+        value: postOffice.ref,
+        label: postOffice.description,
+      }
+    : null;
+
+export const buildPostOfficeOptionsArray = (
+  postOffice?: Array<PostOffice | null | undefined> | null,
+): PostDefaultSelectOption[] =>
+  postOffice ? filterNullValues(postOffice.map(buildPostOfficeOption)) : [];

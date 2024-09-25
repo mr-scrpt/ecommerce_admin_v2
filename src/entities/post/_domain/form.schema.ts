@@ -1,9 +1,4 @@
-import {
-  PostDefaultSelectOption,
-  postDefaultSelectOptionSchema,
-} from "@/kernel/domain/post/form.schema";
-import { PostOffice } from "@/kernel/domain/post/post.type";
-import { filterNullValues } from "@/shared/lib/filter";
+import { postDefaultSelectOptionSchema } from "@/kernel/domain/post/form.schema";
 import { z } from "zod";
 
 // NOTE: FORM
@@ -20,19 +15,3 @@ export type PostFormDefaultValues<
 export const postDefaultFieldsValues: PostFormDefaultValues = {
   postOfficeList: [],
 };
-
-// NOTE: Build Post Office Option
-export const buildPostOfficeOption = (
-  postOffice?: PostOffice | null,
-): PostDefaultSelectOption | null =>
-  postOffice
-    ? {
-        value: postOffice.ref,
-        label: postOffice.description,
-      }
-    : null;
-
-export const buildPostOfficeOptionsArray = (
-  postOffice?: Array<PostOffice | null | undefined> | null,
-): PostDefaultSelectOption[] =>
-  postOffice ? filterNullValues(postOffice.map(buildPostOfficeOption)) : [];
