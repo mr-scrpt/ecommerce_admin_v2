@@ -1,4 +1,6 @@
 import { z } from "zod";
+import { Store } from "./store.type";
+import { filterNullValues } from "@/shared/lib/filter";
 
 // NOTE: Select Store Option
 export const storeDefaultSelectOptionSchema = z.object({
@@ -13,8 +15,20 @@ export type StoreDefaultSelectOption = z.infer<
   typeof storeDefaultSelectOptionSchema
 >;
 
-// NOTE: Default Option
-export const storeDefaultSelectOption: StoreDefaultSelectOption = {
-  value: "",
-  label: "",
-};
+// NOTE: Build Post Office Option
+export const buildStoreOption = (
+  store?: Store | null,
+): StoreDefaultSelectOption | null =>
+  store
+    ? {
+        value: store.id,
+        label: store.address,
+        address: store.address,
+        name: store.name,
+      }
+    : null;
+
+export const buildStoreOptionsArray = (
+  store?: Array<Store | null | undefined> | null,
+): StoreDefaultSelectOption[] =>
+  store ? filterNullValues(store.map(buildStoreOption)) : [];

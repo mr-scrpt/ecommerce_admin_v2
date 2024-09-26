@@ -30,10 +30,10 @@ export const ProductSelectGroupSearchElement: FC<
 > = (props) => {
   const { onSelectProduct, productActive, productInOrder } = props;
 
-  const { productGroup, isPending, toSearch, searchValue } =
+  const { productListGroup, isPending, toSearch, searchValue } =
     useProductListGroupSearchToSelectModel(productInOrder);
 
-  const { available, inOrder, outOfStock } = productGroup;
+  const { available, inOrder, outOfStock } = productListGroup;
 
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState(searchValue);
@@ -101,6 +101,9 @@ export const ProductSelectGroupSearchElement: FC<
                           onSelectProduct({
                             label: product.label,
                             value: product.value,
+                            name: product.name,
+                            article: product.article,
+                            inStock: product.inStock,
                           });
                           setOpen(false);
                         }}

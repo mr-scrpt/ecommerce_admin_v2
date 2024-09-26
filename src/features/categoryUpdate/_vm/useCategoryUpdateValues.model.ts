@@ -1,9 +1,7 @@
 import { useCategoryQuery } from "@/entities/category";
-import {
-  buildPropertyOptionsArray,
-  usePropertyListByCategoryQuery,
-} from "@/entities/property";
+import { usePropertyListByCategoryQuery } from "@/entities/property";
 import { CategoryUpdateFormValues } from "../_domain/form.schema";
+import { buildPropertyOptionsArray } from "@/kernel/domain/property/form.schema";
 
 interface CategoryDefaultValueProps {
   categoryId: string;

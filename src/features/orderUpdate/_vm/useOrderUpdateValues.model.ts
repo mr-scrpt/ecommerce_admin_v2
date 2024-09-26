@@ -22,15 +22,15 @@ export const useOrderUpdateValues = (orderId: string): UseOrderUpdateValues => {
 
   const { orderStatusState, orderStatusPayment } = order || {};
 
+  const orderUpdateValues: OrderUpdateFormValues = {
+    orderStatusStateList: buildOrderStateStatusOptionsArray([orderStatusState]),
+    orderStatusPaymentList: buildOrderPaymentStatusOptionsArray([
+      orderStatusPayment,
+    ]),
+  };
+
   return {
-    orderUpdateValues: {
-      orderStatusStateList: buildOrderStateStatusOptionsArray([
-        orderStatusState,
-      ]),
-      orderStatusPaymentList: buildOrderPaymentStatusOptionsArray([
-        orderStatusPayment,
-      ]),
-    },
+    orderUpdateValues,
     isPendingOrderData,
     isFetchedAfterMountOrderData,
     isSuccessOrderData,

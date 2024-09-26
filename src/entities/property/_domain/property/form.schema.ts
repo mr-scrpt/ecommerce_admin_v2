@@ -1,10 +1,7 @@
 import {
-  PropertyDefaultSelectOption,
   propertyDataTypeDefaultSelectOptionSchema,
   propertyDefaultSelectOptionSchema,
 } from "@/kernel/domain/property/form.schema";
-import { Property } from "@/kernel/domain/property/property.type";
-import { filterNullValues } from "@/shared/lib/filter";
 import { z } from "zod";
 
 export const propertyFormDefaultSchema = z.object({
@@ -29,20 +26,3 @@ export const propertyDefaultFieldsValues: PropertyFormDefaultValues = {
   datatypeList: [],
   propertyList: [],
 };
-
-// NOTE: Build Post Office Option
-export const buildPropertyOption = (
-  property?: Property | null,
-): PropertyDefaultSelectOption | null =>
-  property
-    ? {
-        value: property.id,
-        label: property.name,
-        datatype: property.datatype,
-      }
-    : null;
-
-export const buildPropertyOptionsArray = (
-  property?: Array<Property> | null,
-): PropertyDefaultSelectOption[] =>
-  property ? filterNullValues(property.map(buildPropertyOption)) : [];

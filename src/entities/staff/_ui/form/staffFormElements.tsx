@@ -3,7 +3,6 @@ import { ButtonSubmitComponentType } from "@/shared/type/button";
 import { Button } from "@/shared/ui/button";
 import {
   Form,
-  FormControl,
   FormDescription,
   FormField,
   FormItem,
@@ -11,8 +10,6 @@ import {
   FormMessage,
 } from "@/shared/ui/form";
 import { Spinner } from "@/shared/ui/icons/spinner";
-import { Input } from "@/shared/ui/input";
-import { PhoneInput } from "@/shared/ui/phoneInput";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, HTMLAttributes, useEffect } from "react";
 import {
@@ -28,11 +25,10 @@ import {
   staffDefaultFieldsValues,
   staffFormDefaultSchema,
 } from "../../_domain/form.schema";
-import { StaffNameElement } from "./elements/staffNameElement";
-import { StaffLastNameElement } from "./elements/staffLastNameElement";
 import { StaffEmailElement } from "./elements/staffEmailElement";
+import { StaffLastNameElement } from "./elements/staffLastNameElement";
+import { StaffNameElement } from "./elements/staffNameElement";
 import { StaffPhoneElement } from "./elements/staffPhoneElement";
-import { StaffSelectSearchElement } from "./elements/__staffSelectSearchElement";
 
 interface StaffFormElementsProps<T extends StaffFormDefaultValues>
   extends HTMLAttributes<HTMLFormElement> {

@@ -1,5 +1,5 @@
 import { OrderRowList } from "@/entities/order";
-import { OrderRowCreate } from "@/features/orderRowCreate";
+import { OrderRowFormCreate } from "@/features/orderRowCreate";
 import { OrderRemoveButton } from "@/features/orderRowRemove";
 import { OrderRowCounter } from "@/features/orderRowUpdate";
 // import { OrderStatusUpdate } from "@/features/orderUpdate";
@@ -14,7 +14,10 @@ export const OrderGeneralItem: FC<OrderGeneralItemProps> = (props) => {
   return (
     <>
       {/* <OrderStatusUpdate orderId={orderId} className="flex w-full border p-4" /> */}
-      <OrderRowCreate orderId={orderId} className="flex w-full border p-4" />
+      <OrderRowFormCreate
+        orderId={orderId}
+        className="flex w-full border p-4"
+      />
       <OrderRowList
         orderId={orderId}
         SlotFirst={OrderRowCounter}

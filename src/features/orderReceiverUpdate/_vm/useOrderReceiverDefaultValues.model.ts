@@ -1,6 +1,6 @@
 import { useOrderWithRelationModel } from "@/entities/order";
-import { buildReceiverOptionsArray } from "@/entities/receiver";
 import { OrderReceiverUpdateFormValues } from "../_domain/form.schema";
+import { buildReceiverOptionsArray } from "@/kernel/domain/receiver/form.schema";
 
 export const useOrderReceiverUpdateValues = (orderId: string) => {
   const {

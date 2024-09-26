@@ -1,10 +1,10 @@
 import { useDeliveryWithRelationQuery } from "@/entities/delivery";
-import { buildSettlementOption } from "@/entities/settlement";
-import { buildStoreOptionsArray } from "@/entities/store";
 import { DeliveryUpdateFormValues } from "../_domain/form.schema";
 import { buildAddressOptionsArray } from "@/kernel/domain/address/form.schema";
 import { buildDeliveryTypeOption } from "@/kernel/domain/delivery/form.schema";
 import { buildPostOfficeOptionsArray } from "@/kernel/domain/post/form.schema";
+import { buildSettlementOption } from "@/kernel/domain/settlement/form.schema";
+import { buildStoreOptionsArray } from "@/kernel/domain/store/form.schema";
 
 interface useDeliveryFormDefaultValuesProps {
   deliveryId: string;

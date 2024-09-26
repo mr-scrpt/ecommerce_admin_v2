@@ -1,10 +1,11 @@
+import { OrderRow } from "@/kernel/domain/order/orderRow.type";
 import { Button } from "@/shared/ui/button";
 import Counter from "@/shared/ui/counter";
-import { FC, HTMLAttributes, useState } from "react";
-import { useOrderRowUpdateQuantityMutation } from "../_mutation/useOrderRowUpdateQuantity.mutation";
-import { useProductQuery } from "@/entities/product";
 import { cn } from "@/shared/ui/utils";
-import { OrderRow } from "@/kernel/domain/order/orderRow.type";
+import { FC, HTMLAttributes } from "react";
+import { useOrderRowUpdateQuantityData } from "../_vm/useOrderRowQuantityUpdate.data";
+import { useOrderRowUpdateData } from "../_vm/useOrderRowUpdate.data";
+import { useOrderRowUpdateHandler } from "../_vm/useOrderRowUpdate.handler";
 
 interface OrderRowCounterProps extends HTMLAttributes<HTMLDivElement> {
   orderRow: OrderRow;
@@ -14,21 +15,16 @@ export const OrderRowCounter: FC<OrderRowCounterProps> = (props) => {
   const { orderRow } = props;
   const { productId, quantity, id } = orderRow;
 
-  const [quantityActual, setQuantityActual] = useState(quantity);
-
-  const [reached, setReached] = useState(false);
-
   const {
-    orderRowUpdateQuantity,
-    isPending: isOrderRowUpdateQuantityPending,
-    isSuccess: isSuccessOrderRowUpdateQuantity,
-  } = useOrderRowUpdateQuantityMutation();
+    handleOrderRowUpdate,
+    isSuccessOrderRowUpdateQuantity,
+    isOrderRowUpdateQuantityPending,
+  } = useOrderRowUpdateHandler();
 
-  const {
-    product,
-    isPending: isProductPending,
-    isSuccess: isSuccessProduct,
-  } = useProductQuery(productId);
+  const { quantityActual, setQuantityActual, reached, setReached } =
+    useOrderRowUpdateQuantityData({ quantity });
+
+  const { product, isProductPending } = useOrderRowUpdateData({ productId });
 
   const isPendingComplexity =
     isOrderRowUpdateQuantityPending || isProductPending;
@@ -58,7 +54,7 @@ export const OrderRowCounter: FC<OrderRowCounterProps> = (props) => {
         {quantityActual !== quantity && (
           <Button
             onClick={() => {
-              orderRowUpdateQuantity({
+              handleOrderRowUpdate({
                 selector: { id },
                 orderRowData: { quantity: quantityActual },
               });

@@ -1,7 +1,7 @@
-import { OrderProductSelectListOption } from "../_domain/ui.type";
+import { ProductSelectListOptionExtended } from "../_domain/ui.type";
 
-export const classifyOrderRow = (
-  productList: Array<OrderProductSelectListOption>,
+export const groupProductOptionList = (
+  productList: Array<ProductSelectListOptionExtended>,
 ) => ({
   available: productList.filter(
     (product) => !product.disabled && product.inStock,

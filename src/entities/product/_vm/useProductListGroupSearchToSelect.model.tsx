@@ -1,44 +1,30 @@
-import { ProductToSelect } from "../_domain/product.types";
+import { buildProductOptionsArray } from "@/kernel/domain/product/form.schema";
 import { useProductListSearchQuery } from "../_query/productListSearch.query";
+import { buildProductListExtended } from "./buildProductListExtended.model";
+import { groupProductOptionList } from "./groupProductOptionList.model";
 
 export const useProductListGroupSearchToSelectModel = (
   productInOrder: Array<string>,
 ) => {
-  const { productList, isPending, searchValue, toSearch } =
-    useProductListSearchQuery();
+  const {
+    productList,
+    isPending: isProductPending,
+    searchValue,
+    toSearch,
+  } = useProductListSearchQuery();
 
-  const productListSearch = productList?.map((item) => ({
-    label: item.name,
-    article: item.article,
-    value: item.id,
-    inStock: !!item.inStock,
-    disabled: !!productInOrder.find((id) => {
-      return id === item.id;
-    }),
-  }));
+  const orderRowListWithDisabled = buildProductListExtended(
+    buildProductOptionsArray(productList),
+    productInOrder,
+  );
 
-  const productListAvailable: Array<ProductToSelect> = [];
-  const productListInOrder: Array<ProductToSelect> = [];
-  const productListOutOfStock: Array<ProductToSelect> = [];
-
-  productListSearch.forEach((product) => {
-    if (product.disabled) {
-      productListInOrder.push(product);
-    } else if (!product.inStock) {
-      productListOutOfStock.push(product);
-    } else {
-      productListAvailable.push(product);
-    }
-  });
+  const productListGroup = groupProductOptionList(orderRowListWithDisabled);
 
   return {
-    productGroup: {
-      available: productListAvailable,
-      inOrder: productListInOrder,
-      outOfStock: productListOutOfStock,
-    },
     toSearch,
     searchValue,
-    isPending,
+    productList,
+    productListGroup,
+    isPending: isProductPending,
   };
 };

@@ -1,8 +1,4 @@
-import {
-  SettlementDefaultSelectOption,
-  settlementDefaultSelectOptionSchema,
-} from "@/kernel/domain/settlement/form.schema";
-import { Settlement } from "@/kernel/domain/settlement/settlement.type";
+import { settlementDefaultSelectOptionSchema } from "@/kernel/domain/settlement/form.schema";
 import { z } from "zod";
 
 // NOTE: FORM UI
@@ -19,15 +15,3 @@ export type SettlementFormDefaultValues<
 export const settlementDefaultFieldsValues: SettlementFormDefaultValues = {
   settlement: null,
 };
-// NOTE: Build Settlement Option
-export const buildSettlementOption = (
-  settlement?: Settlement | null,
-): SettlementDefaultSelectOption | null =>
-  settlement
-    ? {
-        value: settlement.ref,
-        label: settlement.description,
-        area: settlement.areaDescription,
-        region: settlement.regionsDescription,
-      }
-    : null;
