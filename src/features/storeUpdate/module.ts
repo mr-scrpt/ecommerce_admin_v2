@@ -1,13 +1,14 @@
 import { ContainerModule } from "inversify";
 import { StoreUpdateTx } from "./_tx/storeUpdate.transaction";
 import { IStoreUpdateTx } from "./_domain/transaction.type";
-
-// export const storeUpdateContainer = new Container();
+import { StoreUpdateService } from "./_service/storeUpdate.service";
+import { Controller } from "@/kernel/lib/trpc/_controller";
+import { StoreUpdateController } from "./_controller/storeUpdate.controller";
 
 export const StoreUpdateModule = new ContainerModule((bind) => {
   bind(IStoreUpdateTx).to(StoreUpdateTx);
-  // bind(StoreRepository).toSelf();
-  // bind(UpdateStoreComplexibleUseCase).toSelf();
-});
 
-// storeUpdateContainer.load(StoreUpdateModule);
+  bind(StoreUpdateService).toSelf();
+
+  bind(Controller).to(StoreUpdateController);
+});

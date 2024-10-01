@@ -4,7 +4,7 @@ import { useEmitDeliveryUpdate } from "../_vm/event/useEmitDeliveryUpdate";
 export const useDeliveryUpdateMutation = () => {
   const { deliveryUpdateEvent } = useEmitDeliveryUpdate();
 
-  const { mutateAsync, isPending } =
+  const { mutateAsync, isPending, isSuccess } =
     deliveryUpdateApi.deliveryUpdate.update.useMutation({
       onSuccess: async (delivery) => {
         deliveryUpdateEvent(delivery);
@@ -13,5 +13,6 @@ export const useDeliveryUpdateMutation = () => {
   return {
     deliveryUpdate: mutateAsync,
     isPending,
+    isSuccess,
   };
 };

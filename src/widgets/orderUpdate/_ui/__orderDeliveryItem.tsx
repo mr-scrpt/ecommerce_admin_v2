@@ -1,7 +1,7 @@
 import { useOrderWithRelationQuery } from "@/entities/order";
 import { useAddressCreateModal } from "@/features/addressCreate";
 import { useReceiverCreateModal } from "@/features/receiverCreate";
-import { DeliveryFormUpdate } from "@/features/deliveryUpdate/_ui/deliveryFormUpdate";
+import { DeliveryFormUpdate } from "@/features/deliveryUpdate/_ui/__deliveryFormUpdate";
 // import { DeliveryFormUpdate } from "@/features/deliveryUpdate";
 import { FC, HTMLAttributes } from "react";
 

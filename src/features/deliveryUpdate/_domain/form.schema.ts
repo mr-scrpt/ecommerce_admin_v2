@@ -1,7 +1,6 @@
 import { deliveryFormDefaultSchema } from "@/entities/delivery";
 import { addressDefaultSelectOptionSchema } from "@/kernel/domain/address/form.schema";
 import { postOfficeDefaultSelectOptionSchema } from "@/kernel/domain/post/form.schema";
-import { receiverDefaultSelectOptionSchema } from "@/kernel/domain/receiver/form.schema";
 import { settlementDefaultSelectOptionSchema } from "@/kernel/domain/settlement/form.schema";
 import { storeDefaultSelectOptionSchema } from "@/kernel/domain/store/form.schema";
 import { z } from "zod";
@@ -11,7 +10,6 @@ export const deliveryUpdateFormSchema = deliveryFormDefaultSchema.extend({
   postOfficeList: z.array(postOfficeDefaultSelectOptionSchema),
   addressList: z.array(addressDefaultSelectOptionSchema),
   storeList: z.array(storeDefaultSelectOptionSchema),
-  // receiverList: z.array(receiverDefaultSelectOptionSchema),
 });
 
 export type DeliveryUpdateFormValues = z.infer<typeof deliveryUpdateFormSchema>;
@@ -24,5 +22,4 @@ export const deliveryUpdateFieldsValues: DeliveryUpdateFormValues = {
   postOfficeList: [],
   addressList: [],
   storeList: [],
-  // receiverList: [],
 };

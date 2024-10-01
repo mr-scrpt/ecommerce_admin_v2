@@ -22,6 +22,9 @@ export type StoreUpdateDTO = {
     id: string;
   };
   data: Partial<StoreBase>;
+  relations: {
+    settlementRef: string;
+  };
 };
 
 export type StoreRemoveDTO = {

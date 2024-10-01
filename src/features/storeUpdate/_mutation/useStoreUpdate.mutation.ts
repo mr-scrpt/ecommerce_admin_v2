@@ -4,7 +4,7 @@ import { useEmitStoreUpdate } from "../_vm/event/useEmitStoreUpdate";
 export const useStoreUpdateMutation = () => {
   const { storeUpdateEvent } = useEmitStoreUpdate();
 
-  const { mutateAsync, isPending } =
+  const { mutateAsync, isPending, isSuccess } =
     storeUpdateApi.storeUpdate.update.useMutation({
       onSuccess: async ({ id }) => {
         storeUpdateEvent(id);
@@ -13,5 +13,6 @@ export const useStoreUpdateMutation = () => {
   return {
     storeUpdate: mutateAsync,
     isPending,
+    isSuccess,
   };
 };

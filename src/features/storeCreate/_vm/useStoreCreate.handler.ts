@@ -2,15 +2,23 @@ import { useRouter } from "next/navigation";
 import { StoreCreateFormValues } from "../_domain/form.schema";
 import { useStoreCreateMutation } from "../_mutation/useStoreCreate.mutation";
 
-export const useStoreCreateHandler = (
-  onSuccess?: () => void,
-  callbackUrl?: string,
-) => {
-  const { storeCreate, isPending } = useStoreCreateMutation();
+interface StoreFormCreateProps {
+  callbackUrl?: string;
+  onSuccess?: () => void;
+}
+
+export const useStoreCreateHandler = (props: StoreFormCreateProps) => {
+  const { callbackUrl, onSuccess } = props;
+
+  const {
+    storeCreate,
+    isPending: isPendingCreate,
+    isSuccess: isSuccessCreate,
+  } = useStoreCreateMutation();
 
   const router = useRouter();
 
-  const handleSubmit = async (data: StoreCreateFormValues) => {
+  const handleStoreCreate = async (data: StoreCreateFormValues) => {
     const { settlement, ...storeData } = data;
 
     if (!settlement) {
@@ -29,7 +37,8 @@ export const useStoreCreateHandler = (
   };
 
   return {
-    handleSubmit,
-    isPendingCreate: isPending,
+    handleStoreCreate,
+    isPendingCreate,
+    isSuccessCreate,
   };
 };

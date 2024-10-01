@@ -14,28 +14,37 @@ export const useDeliveryUpdateHandler = (props: DeliveryUpdateHandlerProps) => {
   const { data, onSuccess, callbackUrl } = props;
   const { deliveryId } = data;
 
-  const { deliveryUpdate, isPending: isPendingUpdate } =
-    useDeliveryUpdateMutation();
+  const {
+    deliveryUpdate,
+    isPending: isPendingUpdate,
+    isSuccess: isSuccessUpdate,
+  } = useDeliveryUpdateMutation();
 
   const router = useRouter();
 
   const handleDeliveryUpdate = async (data: DeliveryUpdateFormValues) => {
     const { deliveryType, settlement, storeList, addressList, postOfficeList } =
       data;
+
+    if (!deliveryType) {
+      return;
+    }
+
+    const [store] = storeList;
+    const [address] = addressList;
+    const [postOffice] = postOfficeList;
+
     await deliveryUpdate({
       selector: { id: deliveryId },
       deliveryData: {
-        // userId: data.userId,
-        deliveryTypeId: deliveryType?.value ?? null,
+        deliveryTypeId: deliveryType.value,
 
-        settlementRef: data.settlement?.value ?? null,
-        storeId,
-        addressId,
+        settlementRef: settlement?.value ?? null,
+        storeId: store?.value ?? null,
+        addressId: address?.value ?? null,
 
-        postOfficeId,
+        postOfficeId: postOffice?.value ?? null,
       },
-      // deliveryData,
-      // propertyData: propertyList.map(({ value }) => ({ propertyId: value })),
     });
 
     onSuccess?.();

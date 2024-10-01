@@ -1,16 +1,11 @@
 "use client";
-import { useSettlementListSearchToSelectQuery } from "@/entities/settlement";
-import {
-  StoreFormElements,
-  storeFormDefaultSchema,
-  useStoreQuery,
-} from "@/entities/store";
-import { Spinner } from "@/shared/ui/icons/spinner";
+import { SettlementFormElements } from "@/entities/settlement";
+import { StoreFormElements } from "@/entities/store";
 import { cn } from "@/shared/ui/utils";
-import { useRouter } from "next/navigation";
-import { FC, HTMLAttributes, useEffect, useState } from "react";
-import { z } from "zod";
-import { useStoreUpdateMutation } from "../_mutation/useStoreUpdate.mutation";
+import { FC, HTMLAttributes } from "react";
+import { storeUpdateFormSchema } from "../_domain/form.schema";
+import { useStoreUpdateHandler } from "../_vm/useStoreUpdate.handler";
+import { useStoreUpdateValues } from "../_vm/useStoreUpdateValues.model";
 
 interface StoreFormProps extends HTMLAttributes<HTMLDivElement> {
   storeId: string;
@@ -19,70 +14,30 @@ interface StoreFormProps extends HTMLAttributes<HTMLDivElement> {
   onSuccess?: () => void;
 }
 
-type StoreFormValues = z.infer<typeof storeFormDefaultSchema>;
-
 export const StoreFormUpdate: FC<StoreFormProps> = (props) => {
   const { storeId, callbackUrl, className, onSuccess } = props;
 
-  const [selectedSettlement, setSelectedSettlement] = useState<string>("");
+  const { handleStoreUpdate, isPendingUpdate, isSuccessUpdate } =
+    useStoreUpdateHandler({ data: { storeId }, onSuccess, callbackUrl });
   const {
-    isPending: isPendingStore,
-    isFetchedAfterMount,
-    store,
-  } = useStoreQuery(storeId);
-
-  const router = useRouter();
-
-  const { storeUpdate, isPending: isPendingUpdate } = useStoreUpdateMutation();
-
-  const { toSearch, settlementList } = useSettlementListSearchToSelectQuery();
-
-  useEffect(() => {
-    if (store) {
-      toSearch(store.settlementRef);
-    }
-  }, [store]);
-
-  const isPendingComplexible =
-    isPendingStore || isPendingUpdate || !isFetchedAfterMount;
-
-  if (isPendingComplexible) {
-    return <Spinner aria-label="Loading profile..." />;
-  }
-
-  if (!store) {
-    return <div>Failed to load store, you may not have permissions</div>;
-  }
-
-  const handleSubmit = async (data: StoreFormValues) => {
-    await storeUpdate({
-      selector: { id: storeId },
-      storeData: data,
-    });
-
-    onSuccess?.();
-
-    if (callbackUrl) {
-      router.push(callbackUrl);
-    }
-  };
+    storeUpdateValues,
+    isPendingStore,
+    isSuccessStore,
+    isFetchedAfterMountStore,
+  } = useStoreUpdateValues({ storeId });
 
   return (
     <div className={cn(className, "w-full")}>
       <StoreFormElements
-        storeData={store}
-        handleSubmit={handleSubmit}
-        schema={storeFormDefaultSchema}
+        handleSubmit={handleStoreUpdate}
+        defaultValues={storeUpdateValues}
+        schema={storeUpdateFormSchema}
       >
+        <SettlementFormElements.FieldSettlementSelectSearch />
         <StoreFormElements.FieldName />
-        {/* <StoreFormElements.FieldSettlement */}
-        {/*   settlementListToSelect={settlementList} */}
-        {/*   toSearch={toSearch} */}
-        {/*   handleSelect={setSelectedSettlement} */}
-        {/* /> */}
-        <StoreFormElements.FieldAddress />
+        <StoreFormElements.FieldAddressLine />
         <StoreFormElements.SubmitButton
-          isPending={isPendingComplexible}
+          isPending={isPendingUpdate}
           submitText={"Save change"}
         />
       </StoreFormElements>

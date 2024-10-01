@@ -1,6 +1,6 @@
+import { storeSchema } from "@/kernel/domain/store/store.schema";
 import { Controller, publicProcedure, router } from "@/kernel/lib/trpc/server";
 import { injectable } from "inversify";
-// import { storeSchema } from "../_domain/store.schema";
 import {
   getBySettlementRefInputSchema,
   getInputSchema,
@@ -8,16 +8,18 @@ import {
   getListWithRelationOutputSchema,
 } from "../_domain/validator.schema";
 import { StoreGetService } from "../_service/storeGet.service";
-import { StoreListGetBySettlementRefService } from "../_service/storeListGetBySettlementRef.service";
 import { StoreListGetService } from "../_service/storeListGet.service";
-import { StoreListWithRelationGetService } from "../_service/storeListWithRelationGet.service";
+import { StoreListGetBySettlementRefService } from "../_service/storeListGetBySettlementRef.service";
 import { StoreListGetBySettlementRefWithRelationService } from "../_service/storeListGetBySettlementRefWithRelation.service";
-import { storeSchema } from "@/kernel/domain/store/store.schema";
+import { StoreListWithRelationGetService } from "../_service/storeListWithRelationGet.service";
+import { storeRelationSchema } from "../_domain/store.schema";
+import { StoreWithRelationGetService } from "../_service/storeGetWithRelation.service";
 
 @injectable()
 export class StoreController extends Controller {
   constructor(
     private readonly getStoreService: StoreGetService,
+    private readonly getStoreWithRelationService: StoreWithRelationGetService,
     private readonly getStoreListService: StoreListGetService,
     private readonly getStoreListWithRelationService: StoreListWithRelationGetService,
     private readonly getStoreListBySettlementRefService: StoreListGetBySettlementRefService,
@@ -33,6 +35,13 @@ export class StoreController extends Controller {
 
         return storeSchema.parse(result);
       }),
+      getRelation: publicProcedure
+        .input(getInputSchema)
+        .query(async ({ input }) => {
+          const result = await this.getStoreWithRelationService.execute(input);
+
+          return storeRelationSchema.parse(result);
+        }),
       getListBySettlementRef: publicProcedure
         .input(getBySettlementRefInputSchema)
         .query(async ({ input }) => {

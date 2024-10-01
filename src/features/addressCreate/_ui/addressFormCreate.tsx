@@ -29,6 +29,7 @@ export const AddressFormCreate: FC<AddressFormCreateProps> = (props) => {
     onSuccess,
     callbackUrl,
   });
+
   if (isPendingCreate) {
     return <Spinner aria-label="Loading profile..." />;
   }

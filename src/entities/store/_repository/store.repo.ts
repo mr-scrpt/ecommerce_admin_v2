@@ -21,6 +21,15 @@ export class StoreRepository implements IStoreRepository {
     });
   }
 
+  async getWithRelation<T>(dto: StoreGetDTO, db: Tx = this.db): Promise<T> {
+    return db.store.findUniqueOrThrow({
+      where: dto,
+      include: {
+        settlement: true,
+      },
+    }) as unknown as T;
+  }
+
   async getListBySettlementRef(
     dto: StoreGetBySettlementRefDTO,
     db: Tx = this.db,
@@ -76,10 +85,14 @@ export class StoreRepository implements IStoreRepository {
   }
 
   async update(dto: StoreUpdateDTO, db: Tx = this.db): Promise<StoreEntity> {
-    const { data, selector } = dto;
+    const { data, selector, relations } = dto;
+    const { settlementRef } = relations;
     return await db.store.update({
       where: selector,
-      data,
+      data: {
+        ...data,
+        settlementRef,
+      },
     });
   }
 

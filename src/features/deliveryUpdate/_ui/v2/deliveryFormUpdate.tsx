@@ -1,14 +1,13 @@
 "use client";
 import { DeliveryFormElements } from "@/entities/delivery";
-import { ReceiverFormElements } from "@/entities/receiver";
 import { SettlementFormElements } from "@/entities/settlement";
 import { FC, HTMLAttributes, memo } from "react";
 import { deliveryUpdateFormSchema } from "../../_domain/form.schema";
 import { useDeliveryFormDefaultValues } from "../../_vm/useDeliveryFormDefaultValues.model";
+import { useDeliveryUpdateHandler } from "../../_vm/useDeliveryUpdate.handler";
 import { DeliveryFormUpdateElements } from "./deliveryFormUpdateElements";
 
 interface DeliveryFormProps extends HTMLAttributes<HTMLDivElement> {
-  userId: string;
   deliveryId: string;
   callbackUrl?: string;
   className?: string;
@@ -16,16 +15,20 @@ interface DeliveryFormProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 export const DeliveryFormUpdate: FC<DeliveryFormProps> = memo((props) => {
-  const { deliveryId, userId, callbackUrl, className, onSuccess } = props;
+  const { deliveryId, callbackUrl, className, onSuccess } = props;
 
   const { defaultValues, isPending } = useDeliveryFormDefaultValues({
     deliveryId,
   });
 
+  const { handleDeliveryUpdate, isPendingUpdate, isSuccessUpdate } =
+    useDeliveryUpdateHandler({ data: { deliveryId }, onSuccess, callbackUrl });
+
   return (
     <DeliveryFormElements
       defaultValues={defaultValues}
       schema={deliveryUpdateFormSchema}
+      handleSubmit={handleDeliveryUpdate}
     >
       <SettlementFormElements.FieldSettlementSelectSearch />
       <DeliveryFormElements.FieldDeliveryTypeSelect />
@@ -33,7 +36,11 @@ export const DeliveryFormUpdate: FC<DeliveryFormProps> = memo((props) => {
       <DeliveryFormUpdateElements.FieldDeliveryTypeRadioSection
         deliveryId={deliveryId}
       />
-      {/* <ReceiverFormElements.FieldReceiverSelect userId={userId} /> */}
+      <DeliveryFormElements.SubmitButton
+        isPending={isPending || isPendingUpdate}
+        className={className}
+        submitText="Update Delivery"
+      />
     </DeliveryFormElements>
   );
 });

@@ -1,12 +1,10 @@
 import { useProductWithRelationQuery } from "@/entities/product";
-// import { usePropertyListByProductQuery } from "@/entities/property";
-import { productDefaultFieldsValues } from "@/entities/product/_domain/form.schema";
+import { buildCategoryOptionsArray } from "@/kernel/domain/category/form.schema";
 import {
   ProductUpdateFormValues,
   productUpdateFieldsValues,
 } from "../_domain/form.schema";
-import { buildPropertyItemOptionsArray } from "@/entities/property";
-import { buildCategoryOptionsArray } from "@/kernel/domain/category/form.schema";
+import { buildPropertyItemOptionsArray } from "@/kernel/domain/property/form.schema";
 
 interface ProductDefaultValueProps {
   productId: string;

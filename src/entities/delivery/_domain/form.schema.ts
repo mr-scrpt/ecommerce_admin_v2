@@ -5,6 +5,7 @@ import { z } from "zod";
 // NOTE: Main information
 export const deliveryFormDefaultSchema = z.object({
   deliveryType: deliveryTypeDefaultSelectOptionSchema.nullable(),
+  // deliveryType: deliveryTypeDefaultSelectOptionSchema,
 });
 
 export type DeliveryFormDefaultValues<

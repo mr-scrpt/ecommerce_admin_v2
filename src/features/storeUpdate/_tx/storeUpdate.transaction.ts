@@ -15,13 +15,17 @@ export class StoreUpdateTx extends Transaction implements IStoreUpdateTx {
   }
 
   async update(dto: StoreUpdateTxDTO): Promise<StoreEntity> {
-    const { selector, storeData } = dto;
+    const { selector, storeData, settlementData } = dto;
+    const { settlementRef } = settlementData;
 
     const action = async (tx: Tx) => {
       await this.storeRepo.update(
         {
           selector,
           data: storeData,
+          relations: {
+            settlementRef,
+          },
         },
         tx,
       );

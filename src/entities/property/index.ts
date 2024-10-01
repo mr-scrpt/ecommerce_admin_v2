@@ -1,5 +1,3 @@
-export { buildPropertyItemOptionsArray } from "./_domain/propertyItem/form.schema";
-
 export { usePropertyItemListToSelectModel } from "./_vm/propertyItem/usePropertyItemListToSelect.model";
 
 export { propertyFormDefaultSchema } from "./_domain/property/form.schema";

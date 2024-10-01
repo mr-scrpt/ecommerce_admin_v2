@@ -8,11 +8,13 @@ import { StoreListGetService } from "./_service/storeListGet.service";
 import { StoreListGetBySettlementRefService } from "./_service/storeListGetBySettlementRef.service";
 import { StoreListGetBySettlementRefWithRelationService } from "./_service/storeListGetBySettlementRefWithRelation.service";
 import { StoreListWithRelationGetService } from "./_service/storeListWithRelationGet.service";
+import { StoreWithRelationGetService } from "./_service/storeGetWithRelation.service";
 
 export const StoreModule = new ContainerModule((bind) => {
   bind(IStoreRepository).to(StoreRepository);
 
   bind(StoreGetService).toSelf();
+  bind(StoreWithRelationGetService).toSelf();
   bind(StoreListGetBySettlementRefService).toSelf();
   bind(StoreListGetService).toSelf();
   bind(StoreListWithRelationGetService).toSelf();

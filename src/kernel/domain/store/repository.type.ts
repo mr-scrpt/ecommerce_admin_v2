@@ -12,6 +12,8 @@ import { StoreRelationEntity } from "../../../entities/store/_domain/types";
 export abstract class IStoreRepository {
   abstract get(dto: StoreGetDTO, db?: Tx): Promise<StoreEntity>;
 
+  abstract getWithRelation<T>(dto: StoreGetDTO, db?: Tx): Promise<T>;
+
   abstract getListBySettlementRef(
     dto: StoreGetBySettlementRefDTO,
     db?: Tx,

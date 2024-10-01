@@ -25,19 +25,3 @@ export const propertyItemDefaultFieldsValues: PropertyItemFormDefaultValues = {
 //   value: "",
 //   label: "",
 // };
-// NOTE: Build Post Office Option
-export const buildPropertyItemOption = (
-  property?: PropertyItem | null,
-): PropertyItemDefaultSelectOption | null =>
-  property
-    ? {
-        value: property.id,
-        label: property.name,
-        propertyId: property.propertyId,
-      }
-    : null;
-
-export const buildPropertyItemOptionsArray = (
-  property?: Array<PropertyItem> | null,
-): PropertyItemDefaultSelectOption[] =>
-  property ? filterNullValues(property.map(buildPropertyItemOption)) : [];
