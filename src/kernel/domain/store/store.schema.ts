@@ -4,7 +4,7 @@ import { z } from "zod";
 export const storeBaseSchema = z.object({
   name: z.string(),
   // settlementRef: z.string(),
-  address: z.string(),
+  addressLine: z.string(),
 });
 
 // NOTE: Projetions

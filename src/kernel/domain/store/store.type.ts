@@ -1,7 +1,7 @@
 // NOTE: Base
 export type StoreBase = {
   name: string;
-  address: string;
+  addressLine: string;
 };
 
 // NOTE: Entity

@@ -67,7 +67,7 @@ type StoreFormElementsComponent = <
 
 type StoreFormFields = {
   FieldName: FC;
-  FieldAddress: FC;
+  FieldAddressLine: FC;
   FieldStoreSelect: FC<StoreFormSelectProps>;
   SubmitButton: ButtonSubmitComponentType;
 };
@@ -131,16 +131,17 @@ StoreFormElements.FieldName = function FieldName() {
   );
 };
 
-StoreFormElements.FieldAddress = function FieldAddress() {
+StoreFormElements.FieldAddressLine = function FieldAddressLine() {
   const { control } = useFormContext<StoreFormDefaultValues>();
   return (
     <FormField
       control={control}
-      name="address"
+      name="addressLine"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>Store name</FormLabel>
-          <StoreAddressElement
+          <FormLabel>Address line</FormLabel>
+          <Input
+            className="w-full"
             onChange={field.onChange}
             defaultValue={field.value}
           />
@@ -149,7 +150,25 @@ StoreFormElements.FieldAddress = function FieldAddress() {
     />
   );
 };
-
+// StoreFormElements.FieldAddress = function FieldAddress() {
+//   const { control } = useFormContext<StoreFormDefaultValues>();
+//   return (
+//     <FormField
+//       control={control}
+//       name="address"
+//       render={({ field }) => (
+//         <FormItem>
+//           <FormLabel>Store name</FormLabel>
+//           <StoreAddressElement
+//             onChange={field.onChange}
+//             defaultValue={field.value}
+//           />
+//         </FormItem>
+//       )}
+//     />
+//   );
+// };
+//
 interface StoreFormSelectProps {
   settlementRef: string;
 }

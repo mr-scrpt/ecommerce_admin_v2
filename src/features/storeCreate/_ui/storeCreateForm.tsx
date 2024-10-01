@@ -51,7 +51,7 @@ export const StoreCreateForm: FC<StoreCreateFormProps> = (props) => {
         <SettlementFormElements.FieldSettlementSelectSearch />
         <StoreFormElements.FieldName />
         {/* <StoreFormElements.FieldStoreList /> */}
-        <StoreFormElements.FieldAddress />
+        <StoreFormElements.FieldAddressLine />
         <StoreFormElements.SubmitButton
           isPending={isPendingComplexible}
           submitText={"Save change"}

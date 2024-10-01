@@ -22,8 +22,8 @@ export const buildStoreOption = (
   store
     ? {
         value: store.id,
-        label: store.address,
-        address: store.address,
+        label: store.addressLine,
+        address: store.addressLine,
         name: store.name,
       }
     : null;

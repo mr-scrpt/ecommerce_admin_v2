@@ -333,7 +333,7 @@ model Store {
   settlement    Settlement @relation(fields: [settlementRef], references: [ref], onDelete: Cascade)
   settlementRef String
 
-  address      String
+  addressLine      String
 
   deliveryList Delivery[]
 

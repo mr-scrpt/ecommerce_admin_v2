@@ -6,7 +6,7 @@ import { z } from "zod";
 
 export const storeFormDefaultSchema = z.object({
   name: z.string(),
-  store: z.string(),
+  addressLine: z.string(),
   storeList: z.array(storeDefaultSelectOptionSchema).optional(),
 });
 
@@ -15,7 +15,7 @@ export type StoreFormDefaultValues = z.infer<typeof storeFormDefaultSchema>;
 // TODO: DefaultValues
 export const storeDefaultFieldsValues: StoreFormDefaultValues = {
   name: "",
-  store: "",
+  addressLine: "",
 
   storeList: [],
 };
