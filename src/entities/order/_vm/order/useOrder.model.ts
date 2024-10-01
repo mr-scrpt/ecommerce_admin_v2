@@ -3,7 +3,7 @@
 import { useOrderQuery } from "../../_query/order/useOrder.query";
 
 export const useOrderModel = (orderId: string) => {
-  const { isPending, isSuccess, order, isFetchedAfterMount } =
+  const { isPending, isSuccess, isError, order, isFetchedAfterMount } =
     useOrderQuery(orderId);
 
   // const orderStatusGroup = order
@@ -14,8 +14,9 @@ export const useOrderModel = (orderId: string) => {
   //   : null;
 
   return {
-    isPending,
-    isSuccess,
+    isPendingOrder: isPending,
+    isSuccessOrder: isSuccess,
+    isErrorOrder: isError,
     order,
     isFetchedAfterMount,
   };

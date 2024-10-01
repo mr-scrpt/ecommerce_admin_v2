@@ -42,17 +42,28 @@ export class OrderRepository implements IOrderRepository {
     return result as T;
   }
 
-  async getListByConsumer(
+  async getListByConsumer<T>(
     dto: OrderGetByConsumerDTO,
     db: Tx = this.db,
-  ): Promise<OrderEntity[]> {
+  ): Promise<Array<T>> {
     const { consumerId: ownerId } = dto;
     const orderList = await db.order.findMany({
       where: {
         userId: ownerId,
       },
+      include: {
+        orderRowList: true,
+        delivery: {
+          include: {
+            address: true,
+          },
+        },
+        receiver: true,
+        orderStatusState: true,
+        orderStatusPayment: true,
+      },
     });
-    return orderList;
+    return orderList as Array<T>;
   }
 
   async getList(db: Tx = this.db): Promise<OrderEntity[]> {
@@ -60,12 +71,56 @@ export class OrderRepository implements IOrderRepository {
     return orderList;
   }
 
+  async getListWithRelation<T>(dto: OrderGetDTO, db: Tx = this.db): Promise<T> {
+    const { id } = dto;
+    const orderList = await db.order.findMany({
+      where: {
+        id,
+      },
+      include: {
+        orderRowList: true,
+        delivery: {
+          include: {
+            address: true,
+          },
+        },
+        receiver: true,
+        orderStatusState: true,
+        orderStatusPayment: true,
+      },
+    });
+    return orderList as T;
+  }
+  // async getListWithRelationByConsumer<T>(
+  //   dto: OrderGetByConsumerDTO,
+  //   db: Tx = this.db,
+  // ): Promise<T> {
+  //   const { consumerId } = dto;
+  //   const orderList = await db.order.findMany({
+  //     where: {
+  //       userId: consumerId,
+  //     },
+  //     include: {
+  //       orderRowList: true,
+  //       delivery: {
+  //         include: {
+  //           address: true,
+  //         },
+  //       },
+  //       receiver: true,
+  //       orderStatusState: true,
+  //       orderStatusPayment: true,
+  //     },
+  //   });
+  //   return orderList as T;
+  // }
+
   async createEmpty(
     dto: OrderCreateEmptyWithReceiverDTO,
     db: Tx = this.db,
   ): Promise<OrderEntity> {
     const {
-      data: { userId, receiverId, ...rest },
+      data: { receiverId, userId, ...rest },
     } = dto;
     return await db.order.create({
       data: {

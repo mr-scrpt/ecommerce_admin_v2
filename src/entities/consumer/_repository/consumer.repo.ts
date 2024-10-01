@@ -48,7 +48,13 @@ export class ConsumerRepository implements IConsumerRepository {
     const user = await db.user.findUniqueOrThrow({
       where: { ...dto, role: RoleEnum.CONSUMER },
       include: {
-        orderList: true,
+        orderList: {
+          include: {
+            orderRowList: true,
+            orderStatusState: true,
+            orderStatusPayment: true,
+          },
+        },
         cart: {
           include: {
             cartRowList: true,

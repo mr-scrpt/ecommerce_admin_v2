@@ -20,7 +20,7 @@ import {
   useFormContext,
 } from "react-hook-form";
 import { Country } from "react-phone-number-input";
-import { ZodTypeAny } from "zod";
+import { ZodType, ZodTypeAny, z } from "zod";
 import {
   ConsumerFormDefaultValues,
   consumerFormDefaultSchema,
@@ -31,16 +31,19 @@ import { ConsumerLastNameElement } from "./elements/consumerLastNameElement";
 import { ConsumerNameElement } from "./elements/consumerNameElement";
 import { ConsumerPhoneElement } from "./elements/consumerPhoneElement";
 import { ConsumerSelectSearchElement } from "./elements/consumerSelectSearchElement";
+import { cn } from "@/shared/ui/utils";
 
-interface ConsumerFormElementsProps<T extends ConsumerFormDefaultValues>
-  extends HTMLAttributes<HTMLFormElement> {
+interface ConsumerFormElementsProps<
+  T extends Partial<ConsumerFormDefaultValues>,
+> extends HTMLAttributes<HTMLFormElement> {
   handleSubmit?: (data: T) => void;
   defaultValues?: DefaultValues<T>;
-  schema?: ZodTypeAny;
+  // schema?: ZodTypeAny;
+  schema?: ZodType<T>;
 }
 
 type ConsumerFormElementsComponent = <
-  T extends ConsumerFormDefaultValues = ConsumerFormDefaultValues,
+  T extends Partial<ConsumerFormDefaultValues> = ConsumerFormDefaultValues,
 >(
   props: ConsumerFormElementsProps<T>,
 ) => React.ReactElement;
@@ -50,14 +53,14 @@ type ConsumerFormFields = {
   FieldLastName: FC;
   FieldEmail: FC;
   FieldPhone: FC<{ countryDefault?: Country }>;
-  FieldConsumerSelectSearch: FC;
+  FieldConsumerSelectSearch: FC<HTMLAttributes<HTMLDivElement>>;
   SubmitButton: ButtonSubmitComponentType;
 };
 
 type ConsumerFormElementsType = ConsumerFormElementsComponent &
   ConsumerFormFields;
 
-const getDefaultFormValues = <T extends ConsumerFormDefaultValues>(
+const getDefaultFormValues = <T extends Partial<ConsumerFormDefaultValues>>(
   defaultValues?: DefaultValues<T> | undefined,
 ): DefaultValues<T> => {
   return {
@@ -67,11 +70,17 @@ const getDefaultFormValues = <T extends ConsumerFormDefaultValues>(
 };
 
 export const ConsumerFormElements: ConsumerFormElementsType = <
-  T extends ConsumerFormDefaultValues,
+  T extends Partial<ConsumerFormDefaultValues>,
 >(
   props: ConsumerFormElementsProps<T>,
 ) => {
-  const { defaultValues, handleSubmit: onSubmit, children, schema } = props;
+  const {
+    defaultValues,
+    handleSubmit: onSubmit,
+    children,
+    schema,
+    className,
+  } = props;
 
   const form = useForm<T>({
     resolver: zodResolver(schema ?? consumerFormDefaultSchema),
@@ -89,7 +98,7 @@ export const ConsumerFormElements: ConsumerFormElementsType = <
   return (
     <FormProvider {...form}>
       <Form {...form}>
-        <form onSubmit={handleSubmit} className="space-y-8">
+        <form onSubmit={handleSubmit} className={cn("space-y-8", className)}>
           {children}
         </form>
       </Form>
@@ -179,7 +188,8 @@ ConsumerFormElements.FieldPhone = function FieldPhone(props) {
 };
 
 ConsumerFormElements.FieldConsumerSelectSearch =
-  function FieldConsumerSelectSearch() {
+  function FieldConsumerSelectSearch(props) {
+    const { className } = props;
     const { control } = useFormContext<ConsumerFormDefaultValues>();
 
     return (
@@ -187,7 +197,7 @@ ConsumerFormElements.FieldConsumerSelectSearch =
         control={control}
         name="consumer"
         render={({ field }) => (
-          <FormItem className="flex flex-col items-start">
+          <FormItem className={cn("flex flex-col items-start", className)}>
             <FormLabel className="text-left">Consumer</FormLabel>
             <FormControl className="w-full">
               <ConsumerSelectSearchElement

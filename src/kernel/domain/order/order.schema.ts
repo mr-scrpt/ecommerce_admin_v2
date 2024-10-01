@@ -4,6 +4,7 @@ import { z } from "zod";
 export const orderBaseSchema = z.object({
   orderNo: z.string(),
   userId: z.string(),
+  receiverId: z.string(),
   priceTotal: z.number(),
   orderStatusStateId: z.string(),
   orderStatusPaymentId: z.string(),

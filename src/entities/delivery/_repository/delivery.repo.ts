@@ -5,7 +5,10 @@ import {
   DeliveryGetDTO,
   DeliveryUpdateDTO,
 } from "@/kernel/domain/delivery/delivery.dto";
-import { DeliveryEntity } from "@/kernel/domain/delivery/delivery.type";
+import {
+  DELIVERY_TYPE,
+  DeliveryEntity,
+} from "@/kernel/domain/delivery/delivery.type";
 import { IDeliveryRepository } from "@/kernel/domain/delivery/repository.type";
 import { DBClient, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";

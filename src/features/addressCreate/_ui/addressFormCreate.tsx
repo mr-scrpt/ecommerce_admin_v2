@@ -10,6 +10,7 @@ import {
   addressCreateDefaultFieldsValues,
   addressCreateFormSchema,
 } from "../_domain/form.schema";
+import { useAddressCreateHandler } from "../_vm/useAddressCreate.handler";
 
 interface AddressFormCreateProps extends HTMLAttributes<HTMLDivElement> {
   userId: string;
@@ -22,35 +23,20 @@ interface AddressFormCreateProps extends HTMLAttributes<HTMLDivElement> {
 export const AddressFormCreate: FC<AddressFormCreateProps> = (props) => {
   const { userId, settlementRef, callbackUrl, className, onSuccess } = props;
 
-  const router = useRouter();
-
-  const { addressCreate, isPending: isPendingCreate } =
-    useAddressCreateMutation();
-
+  const { handleAddressCreate, isPendingCreate } = useAddressCreateHandler({
+    userId,
+    settlementRef,
+    onSuccess,
+    callbackUrl,
+  });
   if (isPendingCreate) {
     return <Spinner aria-label="Loading profile..." />;
   }
 
-  const handleSubmit = async (data: AddressCreateFormValues) => {
-    await addressCreate({
-      addressData: {
-        ...data,
-        userId,
-        settlementRef,
-      },
-    });
-
-    onSuccess?.();
-
-    if (callbackUrl) {
-      router.push(callbackUrl);
-    }
-  };
-
   return (
     <div className={cn(className, "w-full")}>
       <AddressFormElements<AddressCreateFormValues>
-        handleSubmit={handleSubmit}
+        handleSubmit={handleAddressCreate}
         schema={addressCreateFormSchema}
         defaultValues={addressCreateDefaultFieldsValues}
       >

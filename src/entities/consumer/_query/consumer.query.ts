@@ -4,7 +4,7 @@ import { consumerApi } from "../_api/consumer.api";
 import { useListenConsumerUpdate } from "../_vm/event/useListenConsumerUpdate";
 
 export const useConsumerQuery = (id: string) => {
-  const { isPending, isSuccess, isFetchedAfterMount, data } =
+  const { isPending, isSuccess, isFetchedAfterMount, isError, data } =
     consumerApi.consumer.get.useQuery<Consumer>({ id });
 
   useListenConsumerUpdate();
@@ -12,6 +12,7 @@ export const useConsumerQuery = (id: string) => {
   return {
     isPending,
     isSuccess,
+    isError,
     isFetchedAfterMount,
     consumer: data ?? null,
   };

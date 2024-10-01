@@ -17,7 +17,7 @@ interface OrderDeliveryFormProps extends HTMLAttributes<HTMLDivElement> {
   callbackUrl?: string;
   className?: string;
   onSuccess?: () => void;
-  addressAddModal: (props: AddressCreateProps) => void;
+  addressCreateModal: (props: AddressCreateProps) => void;
   receiverAddModal: (props: ReceiverCreateProps) => void;
 }
 
@@ -27,7 +27,7 @@ export const DeliveryFormUpdate: FC<OrderDeliveryFormProps> = (props) => {
     callbackUrl,
     className,
     onSuccess,
-    addressAddModal,
+    addressCreateModal,
     receiverAddModal,
   } = props;
 
@@ -75,7 +75,7 @@ export const DeliveryFormUpdate: FC<OrderDeliveryFormProps> = (props) => {
     <div className={cn(className, "w-full")}>
       <DeliveryUpdateFormElements
         handleSubmit={handleSubmit}
-        addressAddModal={addressAddModal}
+        addressCreateModal={addressCreateModal}
         receiverAddModal={receiverAddModal}
         delivery={delivery}
         schema={deliveryUpdateFormSchema}

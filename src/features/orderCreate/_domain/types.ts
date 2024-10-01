@@ -14,11 +14,20 @@ type OrderDeliveryDTO = Pick<
   | "addressId"
 >;
 
+type OrderStatusDataDTO = Pick<
+  OrderBase,
+  "orderStatusStateId" | "orderStatusPaymentId"
+>;
+
+type OrderUserDataDTO = Pick<OrderBase, "userId">;
+
 export type OrderCreateEmptyTxPayload = {
   orderData: OrderCreateEmptyPayload;
 };
 
 export type OrderEmptyCreateTxDTO = {
   orderData: OrderCreateEmptyDTO["data"];
+  userData: OrderUserDataDTO;
   deliveryData: OrderDeliveryDTO;
+  statusData: OrderStatusDataDTO;
 };

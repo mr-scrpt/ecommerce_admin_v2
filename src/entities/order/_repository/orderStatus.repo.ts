@@ -1,5 +1,7 @@
 import { OrderStatusGetDTO } from "@/kernel/domain/order/orderStatus.dto";
 import {
+  ORDER_STATUS_PAYMENT,
+  ORDER_STATUS_STATE,
   OrderStatusPaymentEntity,
   OrderStatusStateEntity,
 } from "@/kernel/domain/order/orderStatus.type";
@@ -44,6 +46,28 @@ export class OrderStatusRepository implements IOrderStatusRepository {
     db: Tx = this.db,
   ): Promise<Array<OrderStatusPaymentEntity>> {
     const orderStatusPayment = await db.orderStatusPayment.findMany();
+    return orderStatusPayment;
+  }
+
+  async getStatusDefaultState(
+    db: Tx = this.db,
+  ): Promise<OrderStatusStateEntity> {
+    const orderStatusState = await db.orderStatusState.findFirstOrThrow({
+      where: {
+        status: ORDER_STATUS_STATE.TEMP,
+      },
+    });
+    return orderStatusState;
+  }
+
+  async getStatusDefaultPayment(
+    db: Tx = this.db,
+  ): Promise<OrderStatusPaymentEntity> {
+    const orderStatusPayment = await db.orderStatusPayment.findFirstOrThrow({
+      where: {
+        status: ORDER_STATUS_PAYMENT.TEMP,
+      },
+    });
     return orderStatusPayment;
   }
 }

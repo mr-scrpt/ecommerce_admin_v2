@@ -38,5 +38,6 @@ export abstract class IDeliveryRepository {
 
 export abstract class IDeliveryTypeRepository {
   abstract getList(db?: Tx): Promise<DeliveryTypeEntity[]>;
+  abstract getDefault(db?: Tx): Promise<DeliveryTypeEntity>;
   // abstract getAvailableList(db?: Tx): Promise<DeliveryTypeEntity[]>;
 }

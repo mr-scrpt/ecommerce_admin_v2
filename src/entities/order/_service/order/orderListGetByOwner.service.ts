@@ -4,7 +4,7 @@ import { Order } from "@/kernel/domain/order/order.type";
 import { IOrderRepository } from "@/kernel/domain/order/repository.type";
 
 @injectable()
-export class OrderListGetByOwnerService {
+export class OrderListGetByConsumerService {
   constructor(private readonly orderRepo: IOrderRepository) {}
 
   async execute(selector: OrderGetByConsumerSelector): Promise<Array<Order>> {

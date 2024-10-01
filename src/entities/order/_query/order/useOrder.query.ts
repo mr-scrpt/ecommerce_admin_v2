@@ -4,7 +4,7 @@ import { orderApi } from "../../_api/order.api";
 import { useListenOrderUpdate } from "../../_vm/order/event/useListenOrderUpdate";
 
 export const useOrderQuery = (orderId: string) => {
-  const { isPending, isSuccess, data, isFetchedAfterMount } =
+  const { isPending, isSuccess, data, isFetchedAfterMount, isError } =
     orderApi.order.get.useQuery<Order>({ id: orderId });
 
   useListenOrderUpdate();
@@ -12,6 +12,7 @@ export const useOrderQuery = (orderId: string) => {
   return {
     isPending,
     isSuccess,
+    isError,
     order: data ?? null,
     isFetchedAfterMount,
   };

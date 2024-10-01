@@ -19,9 +19,8 @@ import {
 } from "../../_domain/form.schema";
 import { DeliveryTypeRadioSectionElement } from "./elements/deliveryTypeRadioSectionElement";
 
-interface DeliveryFormUpdateElementsProps<
-  T extends DeliveryUpdateFormValues,
-> extends HTMLAttributes<HTMLFormElement> {
+interface DeliveryFormUpdateElementsProps<T extends DeliveryUpdateFormValues>
+  extends HTMLAttributes<HTMLFormElement> {
   handleSubmit?: (data: T) => void;
   defaultValues?: DefaultValues<T>;
   schema?: ZodTypeAny;
@@ -83,6 +82,7 @@ export const DeliveryFormUpdateElements: DeliveryFormUpdateElementsType = <
 interface FieldDeliveryTypeRadioSectionProps {
   deliveryId: string;
 }
+
 DeliveryFormUpdateElements.FieldDeliveryTypeRadioSection =
   function fieldDeliveryTypeRadioSection(
     props: FieldDeliveryTypeRadioSectionProps,

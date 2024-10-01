@@ -99,11 +99,15 @@ DeliveryFormElements.FieldDeliveryTypeSelect = function FieldDeliverySelect() {
         return (
           <FormItem>
             <FormLabel>Delivery type select</FormLabel>
-            <DeliveryTypeSelectElement
-              deliveryActive={field.value}
-              onSelectDelivery={field.onChange}
-              settlementRef={settlement?.value}
-            />
+            {!settlement ? (
+              <FormMessage>Please select settlement before</FormMessage>
+            ) : (
+              <DeliveryTypeSelectElement
+                deliveryActive={field.value}
+                onSelectDelivery={field.onChange}
+                settlementRef={settlement?.value}
+              />
+            )}
           </FormItem>
         );
       }}
@@ -128,11 +132,15 @@ DeliveryFormElements.FieldDeliveryTypeRadio = function FieldDeliveryRadio() {
         return (
           <FormItem>
             <FormLabel>Delivery type select</FormLabel>
-            <DeliveryTypeRadioElement
-              deliveryActive={field.value}
-              onSelectDelivery={field.onChange}
-              settlementRef={settlement?.value}
-            />
+            {!settlement ? (
+              <FormMessage>Please select settlement before</FormMessage>
+            ) : (
+              <DeliveryTypeRadioElement
+                deliveryActive={field.value}
+                onSelectDelivery={field.onChange}
+                settlementRef={settlement?.value}
+              />
+            )}
           </FormItem>
         );
       }}

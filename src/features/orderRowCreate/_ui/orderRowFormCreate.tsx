@@ -1,7 +1,7 @@
 "use client";
 import {
   OrderRowFormElements,
-  useOrderRowListIdByOrderModel,
+  useOrderRowListProductIdByOrderModel,
 } from "@/entities/order";
 import { ProductFormElements } from "@/entities/product";
 import { cn } from "@/shared/ui/utils";
@@ -24,7 +24,7 @@ export const OrderRowFormCreate: FC<OrderRowFormCreateProps> = (props) => {
   const { handleOrderRowCreate, isSuccessCreate, isPendingCreate } =
     useOrderRowCreateHandler({ data: { orderId }, onSuccess, callbackUrl });
 
-  const { orderRowListId } = useOrderRowListIdByOrderModel(orderId);
+  const { orderRowListId } = useOrderRowListProductIdByOrderModel(orderId);
 
   return (
     <div className={cn(className, "w-full")}>

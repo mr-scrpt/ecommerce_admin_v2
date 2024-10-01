@@ -1,4 +1,10 @@
-export { useOrderRowListProductIdByOrderModel as useOrderRowListIdByOrderModel } from "./_vm/orderRow/useOrderRowListIdByOrder.model";
+export { OrderListProvideByOrder } from "./_hoc/withOrderListData.hoc";
+
+export { useOrderListWithRelationByOrderModel } from "./_vm/order/useOrderListWithRelationByOrder.model";
+
+export { OrderListPresentation } from "./_ui/order/presentation/orderListPresentation";
+
+export { useOrderRowListProductIdByOrderModel } from "./_vm/orderRow/useOrderRowListIdByOrder.model";
 export type { OrderRowListProps } from "./_ui/orderRow/orderRowList";
 
 export { OrderRowFormElements } from "./_ui/orderRow/form/orderRowFormElements";

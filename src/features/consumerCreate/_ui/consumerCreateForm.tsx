@@ -5,45 +5,34 @@ import {
   ConsumerCreateFormValues,
   consumerCreateFormSchema,
 } from "../_domain/form.schema";
-import { ConsumerCreateForm } from "../_domain/ui.type";
-import { useRouter } from "next/navigation";
+import { useConsumerCreateHandler } from "../_vm/useConsumerCreate.handler";
 
 interface ConsumerCreateFormProps extends HTMLAttributes<HTMLDivElement> {
   callbackUrl?: string;
   className?: string;
   onSuccess?: () => void;
-  onConsumerCreate: (consumerData: ConsumerCreateForm) => void;
-  isPending: boolean;
 }
 
-export const ConsumerFormCreate: FC<ConsumerCreateFormProps> = (props) => {
-  const { className, onConsumerCreate, onSuccess, callbackUrl, isPending } =
-    props;
+export const ConsumerCreateForm: FC<ConsumerCreateFormProps> = (props) => {
+  const { className, onSuccess } = props;
 
-  const router = useRouter();
-
-  const handleSubmit = async (consumerData: ConsumerCreateFormValues) => {
-    onConsumerCreate({ consumerData });
-
-    onSuccess?.();
-    if (callbackUrl) {
-      router.push(callbackUrl);
-    }
-  };
+  const { handleConsumerCreate, isPendingCreate } = useConsumerCreateHandler({
+    onSuccess,
+  });
 
   return (
     <div className={cn(className, "w-full")}>
       <ConsumerFormElements<ConsumerCreateFormValues>
-        handleSubmit={handleSubmit}
+        handleSubmit={handleConsumerCreate}
         schema={consumerCreateFormSchema}
       >
         <ConsumerFormElements.FieldEmail />
         <ConsumerFormElements.FieldName />
         <ConsumerFormElements.FieldLastName />
         <ConsumerFormElements.FieldPhone />
-        <ConsumerFormElements.FieldConsumerSelectSearch />
+        {/* <ConsumerFormElements.FieldConsumerSelectSearch /> */}
         <ConsumerFormElements.SubmitButton
-          isPending={isPending}
+          isPending={isPendingCreate}
           submitText="Create consumer"
         />
       </ConsumerFormElements>

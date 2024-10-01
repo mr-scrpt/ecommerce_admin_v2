@@ -5,7 +5,7 @@ import { OrderRepository } from "./_repository/order.repo";
 import { OrderRowRepository } from "./_repository/orderRow.repo";
 import { OrderGetService } from "./_service/order/orderGet.service";
 import { OrderRelationGetService } from "./_service/order/orderRelationGet.service";
-import { OrderListGetByOwnerService } from "./_service/order/orderListGetByOwner.service";
+import { OrderListGetByConsumerService } from "./_service/order/orderListGetByOwner.service";
 import { OrderListGetService } from "./_service/order/orderListGet.service";
 import {
   IOrderRepository,
@@ -20,6 +20,8 @@ import { OrderStatusRepository } from "./_repository/orderStatus.repo";
 import { OrderStatusAvailableGetService } from "./_service/orderStatus/orderStatusAvailableGet.service";
 import { OrderStatusPaymentListGetService } from "./_service/orderStatus/orderStatusPaymentListGet.service";
 import { OrderStatusStateListGetService } from "./_service/orderStatus/orderStatusStateListGet.service";
+import { OrderListWithRelationGetByConsumerService } from "./_service/order/orderListWithRelationGetByConsumer.service";
+import { OrderListGetByOrderService } from "./_service/order/orderListGetByOrder.service";
 
 export const OrderModule = new ContainerModule((bind) => {
   bind(IOrderRepository).to(OrderRepository);
@@ -27,7 +29,9 @@ export const OrderModule = new ContainerModule((bind) => {
 
   bind(OrderGetService).toSelf();
   bind(OrderRelationGetService).toSelf();
-  bind(OrderListGetByOwnerService).toSelf();
+  bind(OrderListWithRelationGetByConsumerService).toSelf();
+  bind(OrderListGetByOrderService).toSelf();
+  bind(OrderListGetByConsumerService).toSelf();
   bind(OrderListGetService).toSelf();
 
   bind(Controller).to(OrderController);

@@ -6,9 +6,13 @@ export const deliveryBaseSchema = z.object({
   userId: z.string(),
   // receiverId: z.string(),
   deliveryTypeId: z.string(),
-  settlementRef: z.string().optional().nullable(),
-  storeId: z.string().optional().nullable(),
-  addressId: z.string().optional().nullable(),
+  // settlementRef: z.string().optional().nullable(),
+  // storeId: z.string().optional().nullable(),
+  // addressId: z.string().optional().nullable(),
+
+  settlementRef: z.string().nullable(),
+  storeId: z.string().nullable(),
+  addressId: z.string().nullable(),
 
   postOfficeId: z.string().nullable(),
 });

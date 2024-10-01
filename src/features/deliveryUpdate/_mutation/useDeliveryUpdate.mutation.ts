@@ -11,7 +11,7 @@ export const useDeliveryUpdateMutation = () => {
       },
     });
   return {
-    mutateAsync,
+    deliveryUpdate: mutateAsync,
     isPending,
   };
 };

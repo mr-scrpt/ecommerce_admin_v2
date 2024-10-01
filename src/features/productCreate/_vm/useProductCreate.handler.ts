@@ -16,7 +16,7 @@ export const useProductCreateHandler = (
 
   const handleProductCreate = async (data: ProductCreateFormValues) => {
     const { propertyItemList, categoryList, ...productData } = data;
-    console.log(propertyItemList, categoryList, productData);
+
     await productCreate({
       productData,
       categoryData: categoryList.map(({ value }) => ({

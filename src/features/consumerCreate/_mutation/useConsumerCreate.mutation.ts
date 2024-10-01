@@ -4,7 +4,7 @@ import { consumerCreateApi } from "../_api/consumerCreate.api";
 export const useConsumerCreateMutation = () => {
   const { consumerUpdateEvent } = useEmitConsumerUpdate();
 
-  const { mutateAsync, isPending } =
+  const { mutateAsync, isPending, isSuccess } =
     consumerCreateApi.consumerCreate.create.useMutation({
       onSuccess: async ({ id }) => {
         consumerUpdateEvent(id);
@@ -13,5 +13,6 @@ export const useConsumerCreateMutation = () => {
   return {
     consumerCreate: mutateAsync,
     isPending,
+    isSuccess,
   };
 };

@@ -5,7 +5,7 @@ import { HTMLAttributes } from "react";
 
 export interface AddressCreateModalProviderProps
   extends HTMLAttributes<HTMLDivElement> {
-  addressAddModal: (props: AddressCreateProps) => void;
+  addressCreateModal: (props: AddressCreateProps) => void;
 }
 const AddressCreateModalContext =
   createStrictContext<AddressCreateModalProviderProps>();
@@ -13,17 +13,17 @@ const AddressCreateModalContext =
 export const AddressCreateModalProvider = (
   props: AddressCreateModalProviderProps,
 ) => {
-  const { addressAddModal, children } = props;
+  const { addressCreateModal, children } = props;
   return (
-    <AddressCreateModalContext.Provider value={{ addressAddModal }}>
+    <AddressCreateModalContext.Provider value={{ addressCreateModal }}>
       {children}
     </AddressCreateModalContext.Provider>
   );
 };
 
-export const useAddressAddModal = () => {
-  const { addressAddModal } = useStrictContext(AddressCreateModalContext);
+export const useAddressCreateModal = () => {
+  const { addressCreateModal } = useStrictContext(AddressCreateModalContext);
   return {
-    addressAddModal,
+    addressCreateModal,
   };
 };

@@ -3,7 +3,7 @@ import { useDeliveryQuery } from "@/entities/delivery";
 import { FC, useCallback } from "react";
 import { DeliveryCommonSectionProps } from "../../../../_domain/ui.type";
 import { Button } from "@/shared/ui/button";
-import { useAddressAddModal } from "@/kernel/domain/address/address.provider";
+import { useAddressCreateModal } from "@/kernel/domain/address/address.provider";
 import { AddressCreateProps } from "@/kernel/domain/address/ui.type";
 
 export const DeliveryCourierSection: FC<DeliveryCommonSectionProps> = (
@@ -12,16 +12,16 @@ export const DeliveryCourierSection: FC<DeliveryCommonSectionProps> = (
   const { settlementRef, deliveryId } = props;
 
   const { delivery } = useDeliveryQuery(deliveryId);
-  const { addressAddModal } = useAddressAddModal();
+  const { addressCreateModal } = useAddressCreateModal();
 
   const openAddressCreateModal = useCallback(
     ({ userId, settlementRef }: AddressCreateProps) => {
-      addressAddModal({
+      addressCreateModal({
         userId,
         settlementRef,
       });
     },
-    [addressAddModal],
+    [addressCreateModal],
   );
 
   // TODO: add ui block

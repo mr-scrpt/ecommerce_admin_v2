@@ -26,9 +26,9 @@ export class OrderCreateTx extends Transaction implements IOrderCreateTx {
   }
 
   async createEmpty(dto: OrderEmptyCreateTxDTO): Promise<OrderEntity> {
-    const { orderData, deliveryData } = dto;
+    const { orderData, deliveryData, userData } = dto;
     const action = async (tx: Tx) => {
-      const { userId } = orderData;
+      const { userId } = userData;
 
       const user =
         await this.consumerRepo.getWithRelation<ConsumerRelationEntity>(
@@ -53,7 +53,7 @@ export class OrderCreateTx extends Transaction implements IOrderCreateTx {
       }
 
       const { id } = await this.orderRepo.createEmpty(
-        { data: { ...orderData, receiverId: receiver.id } },
+        { data: { ...orderData, receiverId: receiver.id, userId } },
         tx,
       );
 
@@ -61,7 +61,6 @@ export class OrderCreateTx extends Transaction implements IOrderCreateTx {
         {
           data: {
             ...deliveryData,
-            receiverId: receiver.id,
             orderId: id,
           },
         },

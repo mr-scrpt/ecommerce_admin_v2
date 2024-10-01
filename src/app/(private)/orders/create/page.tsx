@@ -8,7 +8,7 @@ const OrderCreatePage: FC = () => {
     <main className="flex min-h-screen flex-col gap-4 p-8">
       <TitlePage title="Order create" description="Create order item" />
 
-      <OrderCreate callbackUrl={RoutePathEnum.ORDERS} />
+      <OrderCreate callbackUrl={RoutePathEnum.ORDER_UPDATE} />
     </main>
   );
 };

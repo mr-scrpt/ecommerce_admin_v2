@@ -28,7 +28,7 @@ export const OrderDeliveryItem: FC<OrderDeliveryItemProps> = (props) => {
   return (
     <DeliveryFormUpdate
       deliveryId={delivery.id}
-      addressAddModal={openAddressCreateModal}
+      addressCreateModal={openAddressCreateModal}
       receiverAddModal={openReceiverCreateModal}
     />
   );

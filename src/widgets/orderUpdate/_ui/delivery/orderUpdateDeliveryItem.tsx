@@ -22,7 +22,7 @@ export const OrderUpdateDeliveryItem: FC<OrderUpdateDeliveryItemProps> = memo(
     const { id, userId } = delivery;
 
     return (
-      <AddressCreateModalProvider addressAddModal={openAddressCreateModal}>
+      <AddressCreateModalProvider addressCreateModal={openAddressCreateModal}>
         <DeliveryFormUpdate deliveryId={id} userId={userId} />
       </AddressCreateModalProvider>
     );

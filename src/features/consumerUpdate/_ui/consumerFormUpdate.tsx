@@ -1,14 +1,14 @@
-import { ConsumerFormElements, useGetConsumerModel } from "@/entities/consumer";
+import { ConsumerFormElements, useConsumerModel } from "@/entities/consumer";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
-import { FC, HTMLAttributes, useMemo } from "react";
+import { FC, HTMLAttributes } from "react";
 import {
   ConsumerUpdateFormValues,
   consumerUpdateFormSchema,
 } from "../_domain/form.schema";
-import { useConsumerUpdateModel } from "../_vm/useConsumerUpdate.model";
 import { useConsumerDefaultValues } from "../_vm/useConsumerDefaultValues.model";
+import { useConsumerUpdateModel } from "../_vm/useConsumerUpdate.model";
 
 interface ConsumerFormProps extends HTMLAttributes<HTMLDivElement> {
   consumerId: string;
@@ -20,8 +20,8 @@ interface ConsumerFormProps extends HTMLAttributes<HTMLDivElement> {
 export const ConsumerFormUpdate: FC<ConsumerFormProps> = (props) => {
   const { consumerId, callbackUrl, className, onSuccess } = props;
 
-  const { isAppearancePending, isFetchedAfterMount, consumer } =
-    useGetConsumerModel(consumerId);
+  const { isAppearancePendingConsumer, isFetchedAfterMountConsumer, consumer } =
+    useConsumerModel(consumerId);
 
   const router = useRouter();
 
@@ -31,7 +31,9 @@ export const ConsumerFormUpdate: FC<ConsumerFormProps> = (props) => {
   const defaultValues = useConsumerDefaultValues(consumer);
 
   const isPendingComplexible =
-    isPendingUpdate || isAppearancePending || !isFetchedAfterMount;
+    isPendingUpdate ||
+    isAppearancePendingConsumer ||
+    !isFetchedAfterMountConsumer;
 
   if (isPendingComplexible) {
     return <Spinner aria-label="Loading profile..." />;

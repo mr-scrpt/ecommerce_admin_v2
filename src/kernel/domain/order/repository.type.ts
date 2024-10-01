@@ -27,12 +27,13 @@ export abstract class IOrderRepository {
 
   abstract getWithRelation<T>(dto: OrderGetDTO, db?: Tx): Promise<T>;
 
-  abstract getListByConsumer(
+  abstract getListByConsumer<T>(
     dto: OrderGetByConsumerDTO,
     db?: Tx,
-  ): Promise<OrderEntity[]>;
+  ): Promise<Array<T>>;
 
   abstract getList(db?: Tx): Promise<OrderEntity[]>;
+  abstract getListWithRelation<T>(dto: OrderGetDTO, db?: Tx): Promise<T>;
 
   abstract createEmpty(
     dto: OrderCreateEmptyWithReceiverDTO,
@@ -88,4 +89,8 @@ export abstract class IOrderStatusRepository {
   abstract getStatusPaymentList(
     db?: Tx,
   ): Promise<Array<OrderStatusPaymentEntity>>;
+
+  abstract getStatusDefaultState(db?: Tx): Promise<OrderStatusStateEntity>;
+
+  abstract getStatusDefaultPayment(db?: Tx): Promise<OrderStatusPaymentEntity>;
 }

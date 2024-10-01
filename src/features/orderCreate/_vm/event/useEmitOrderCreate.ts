@@ -5,7 +5,7 @@ export const useEmitOrderCreate = () => {
   const socket = useSocket();
 
   return {
-    orderCreateStausEvent: (orderId: string) => {
+    orderCreateEvent: (orderId: string) => {
       socket.emit(WSEventEnum.ORDER_CREATE, orderId);
     },
   };
