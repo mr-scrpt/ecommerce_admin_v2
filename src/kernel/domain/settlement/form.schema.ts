@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { Settlement } from "./settlement.type";
+import { filterNullValues } from "@/shared/lib/filter";
 
 // NOTE: Select Settlement Option
 export const settlementDefaultSelectOptionSchema = z.object({
@@ -26,3 +27,10 @@ export const buildSettlementOption = (
         region: settlement.regionsDescription,
       }
     : null;
+
+export const buildSettlementOptionsArray = (
+  settlementList?: Array<Settlement | null | undefined> | null,
+): Array<SettlementDefaultSelectOption> =>
+  settlementList
+    ? filterNullValues(settlementList.map(buildSettlementOption))
+    : [];

@@ -1,5 +1,7 @@
+import { StoreEntity } from "@/kernel/domain/store/store.type";
 import { DBClient, Tx } from "@/shared/lib/db/db";
 import { injectable } from "inversify";
+import { IStoreRepository } from "../../../kernel/domain/store/repository.type";
 import {
   StoreCreateDTO,
   StoreGetBySettlementRefDTO,
@@ -7,8 +9,6 @@ import {
   StoreRemoveDTO,
   StoreUpdateDTO,
 } from "../../../kernel/domain/store/store.dto";
-import { IStoreRepository } from "../../../kernel/domain/store/repository.type";
-import { StoreEntity } from "@/kernel/domain/store/store.type";
 import { StoreRelationEntity } from "../_domain/types";
 
 @injectable()

@@ -1,8 +1,8 @@
+import { buildSettlementOptionsArray } from "@/kernel/domain/settlement/form.schema";
 import { inputDebounce } from "@/shared/lib/debounce";
 import { useAppearanceDelay } from "@/shared/lib/react";
 import { useMemo } from "react";
 import { useSettlemenListSearchToSelectQuery } from "../_query/getSettlementListSearch.query";
-import { SettlementDefaultSelectOption } from "@/kernel/domain/settlement/form.schema";
 
 export const useSettlementListSearchToSelectModel = (
   settlementDefault: string = "",
@@ -16,16 +16,7 @@ export const useSettlementListSearchToSelectModel = (
     isFetchedAfterMount,
   } = useSettlemenListSearchToSelectQuery(settlementDefault);
 
-  const settlementListToSelect = useMemo(
-    () =>
-      settlementList.map<SettlementDefaultSelectOption>((settlement) => ({
-        value: settlement.ref,
-        area: settlement.areaDescription,
-        region: settlement.regionsDescription,
-        label: settlement.description,
-      })),
-    [settlementList],
-  );
+  const settlementListToSelect = buildSettlementOptionsArray(settlementList);
 
   const debouncedToSearch = useMemo(
     () => inputDebounce((search) => toSearch?.(search)),

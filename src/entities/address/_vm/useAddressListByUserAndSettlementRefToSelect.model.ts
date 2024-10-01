@@ -1,5 +1,6 @@
 "use client";
 
+import { buildAddressOptionsArray } from "@/kernel/domain/address/form.schema";
 import { useAppearanceDelay } from "@/shared/lib/react";
 import { useAddressListByUserAndSettlementRefQuery } from "../_query/useAddressListByUserAndSettlementRef.query";
 
@@ -14,12 +15,7 @@ export const useAddressListByUserAndSettlementRefToSelectModel = (
   const { addressList, isPending, isSuccess, isFetchedAfterMount } =
     useAddressListByUserAndSettlementRefQuery(data);
 
-  const sotoreListToSelect = addressList.map((address) => {
-    return {
-      value: address.id,
-      label: `${address.street}, ${address.house} ${address.apartment}`,
-    };
-  });
+  const addressListToSelect = buildAddressOptionsArray(addressList);
 
   const isAppearancePending = useAppearanceDelay(isPending);
 
@@ -27,6 +23,6 @@ export const useAddressListByUserAndSettlementRefToSelectModel = (
     isAppearancePending,
     isSuccess,
     isFetchedAfterMount,
-    addressListToSelect: sotoreListToSelect || [],
+    addressListToSelect,
   };
 };

@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { Product } from "./product.type";
 import { filterNullValues } from "@/shared/lib/filter";
+import { ProductSelectListOptionExtended } from "@/kernel/domain/product/ui.type";
 
 // NOTE: Select Product Option
 export const productDefaultSelectOptionSchema = z.object({
@@ -32,6 +33,25 @@ export const buildProductOption = (
     : null;
 
 export const buildProductOptionsArray = (
-  postOffice?: Array<Product | null | undefined> | null,
+  productList?: Array<Product | null | undefined> | null,
 ): Array<ProductDefaultSelectOption> =>
-  postOffice ? filterNullValues(postOffice.map(buildProductOption)) : [];
+  productList ? filterNullValues(productList.map(buildProductOption)) : [];
+
+export const buildProductOptionsExtendedArray = (
+  productList: Array<ProductDefaultSelectOption> | undefined,
+  productInOrder: Array<string> | undefined,
+): Array<ProductSelectListOptionExtended> =>
+  productList?.map((product) => ({
+    ...product,
+    disabled: !!productInOrder?.find((row) => row === product.value),
+  })) || [];
+
+export const buildProductOptionsGroupArray = (
+  productList: Array<ProductSelectListOptionExtended>,
+) => ({
+  available: productList.filter(
+    (product) => !product.disabled && product.inStock,
+  ),
+  inOrder: productList.filter((product) => product.disabled),
+  outOfStock: productList.filter((product) => !product.inStock),
+});

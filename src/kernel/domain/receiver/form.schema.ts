@@ -22,8 +22,8 @@ export const buildReceiverOption = (
 ): ReceiverDefaultSelectOption | null =>
   receiver
     ? {
-        label: receiver.name,
         value: receiver.id,
+        label: `${receiver.name} ${receiver.lastName}`,
         name: receiver.name,
         lastName: receiver.lastName,
         phone: receiver.phone,
@@ -31,6 +31,6 @@ export const buildReceiverOption = (
     : null;
 
 export const buildReceiverOptionsArray = (
-  receiver?: Array<Receiver | null | undefined> | null,
-): ReceiverDefaultSelectOption[] =>
-  receiver ? filterNullValues(receiver.map(buildReceiverOption)) : [];
+  receiverList?: Array<Receiver | null | undefined> | null,
+): Array<ReceiverDefaultSelectOption> =>
+  receiverList ? filterNullValues(receiverList.map(buildReceiverOption)) : [];

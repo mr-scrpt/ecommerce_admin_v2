@@ -93,6 +93,9 @@ export const ProductSelectSearchElement: FC<ProductSelectSearchElementProps> = (
                         onSelectProduct({
                           label: product.label,
                           value: product.value,
+                          name: product.name,
+                          article: product.article,
+                          inStock: product.inStock,
                         });
                         setOpen(false);
                       }}

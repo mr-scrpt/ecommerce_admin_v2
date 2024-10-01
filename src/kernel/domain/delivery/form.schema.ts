@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { DELIVERY_TYPE } from "./delivery.type";
 import { DeliveryType } from "./deliveryType.type";
+import { filterNullValues } from "@/shared/lib/filter";
 
 // NOTE: Select Delivery Type Option
 export const deliveryTypeDefaultSelectOptionSchema = z.object({
@@ -25,3 +26,10 @@ export const buildDeliveryTypeOption = (
         type: deliveryType.type,
       }
     : null;
+
+export const buildDeliveryTypeOptionsArray = (
+  deliveryList?: Array<DeliveryType | null | undefined> | null,
+): DeliveryTypeDefaultSelectOption[] =>
+  deliveryList
+    ? filterNullValues(deliveryList.map(buildDeliveryTypeOption))
+    : [];

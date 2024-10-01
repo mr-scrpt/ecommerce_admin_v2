@@ -1,8 +1,8 @@
+import { buildConsumerOptionsArray } from "@/kernel/domain/consumer/form.schema";
 import { inputDebounce } from "@/shared/lib/debounce";
 import { useAppearanceDelay } from "@/shared/lib/react";
 import { useMemo } from "react";
 import { useSettlemenListSearchToSelectQuery } from "../_query/getConsumerListSearch.query";
-import { ConsumerDefaultSelectOption } from "@/kernel/domain/consumer/form.schema";
 
 export const useConsumerListSearchToSelectModel = (
   consumerDefault: string = "",
@@ -16,17 +16,7 @@ export const useConsumerListSearchToSelectModel = (
     isFetchedAfterMount,
   } = useSettlemenListSearchToSelectQuery(consumerDefault);
 
-  const consumerListToSelect: Array<ConsumerDefaultSelectOption> = useMemo(
-    () =>
-      consumerList.map<ConsumerDefaultSelectOption>((consumer) => ({
-        value: consumer.id,
-        name: consumer.name,
-        lastName: consumer.lastName,
-        phone: consumer.phone,
-        label: consumer.name,
-      })),
-    [consumerList],
-  );
+  const consumerListToSelect = buildConsumerOptionsArray(consumerList);
 
   const debouncedToSearch = useMemo(
     () => inputDebounce((search) => toSearch?.(search)),

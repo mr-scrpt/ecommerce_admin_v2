@@ -6,6 +6,7 @@ import { filterNullValues } from "@/shared/lib/filter";
 export const postDefaultSelectOptionSchema = z.object({
   value: z.string(),
   label: z.string(),
+  type: z.string(),
   active: z.boolean().optional(),
 });
 
@@ -30,6 +31,7 @@ export const buildPostOfficeOption = (
   postOffice
     ? {
         value: postOffice.ref,
+        type: postOffice.categoryOfWarehouse,
         label: postOffice.description,
       }
     : null;

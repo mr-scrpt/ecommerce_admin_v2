@@ -1,7 +1,7 @@
 "use client";
+import { buildPostOfficeOptionsArray } from "@/kernel/domain/post/form.schema";
 import { PostOfficeEntity } from "@/kernel/domain/post/post.type";
 import { convertPostToLowerCase } from "../_domain/post.convertor";
-import { PostOfficeToSelect } from "../_domain/post.type";
 import { usePostOfficeListBySettlementRefQuery } from "../_query/usePostOfficeListBySettlementRef.query";
 
 export const usePostListBySettlementRefToSelectModel = (
@@ -16,24 +16,12 @@ export const usePostListBySettlementRefToSelectModel = (
     convertedPostOfficeList.push(convertPostToLowerCase(postOffice));
   }
 
-  const result = mapToSelect(convertedPostOfficeList);
+  const postListToSelect = buildPostOfficeOptionsArray(convertedPostOfficeList);
 
   return {
     isPending,
     isSuccess,
     isFetchedAfterMount,
-    postListToSelect: result || [],
+    postListToSelect,
   };
-};
-
-const mapToSelect = (
-  data: Array<PostOfficeEntity>,
-): Array<PostOfficeToSelect> => {
-  return data.map((postOffice) => {
-    return {
-      value: postOffice.ref,
-      type: postOffice.categoryOfWarehouse,
-      label: postOffice.description,
-    };
-  });
 };

@@ -1,4 +1,5 @@
+import { ProductDefaultSelectOption } from "./form.schema";
 
-export const ProductTypeDefaultOption = {
-  label: DeliveryTypeDefaultElement.value,
-  value: DeliveryTypeDefaultElement.type,
+export type ProductSelectListOptionExtended = ProductDefaultSelectOption & {
+  disabled: boolean;
+};

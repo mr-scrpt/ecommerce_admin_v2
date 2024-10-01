@@ -23,7 +23,8 @@ export const buildAddressOption = (
   address
     ? {
         value: address.id,
-        label: address.street,
+        // label: address.street,
+        label: `${address.street}, ${address.house} ${address.apartment}`,
         street: address.street,
         house: address.house,
         apartment: address.apartment,

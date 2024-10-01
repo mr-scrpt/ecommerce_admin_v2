@@ -103,8 +103,8 @@ export const StoreFormElements: StoreFormElementsType = <
     onSubmit?.(data);
   });
 
-  console.log("output_log: Error =>>>", form.formState.errors);
-  console.log("output_log: VALUES =>>>", form.getValues());
+  // console.log("output_log: Error =>>>", form.formState.errors);
+  // console.log("output_log: VALUES =>>>", form.getValues());
   return (
     <FormProvider {...form}>
       <form onSubmit={handleSubmit} className="space-y-8">

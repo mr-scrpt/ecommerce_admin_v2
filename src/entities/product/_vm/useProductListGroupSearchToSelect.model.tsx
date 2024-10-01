@@ -1,7 +1,9 @@
-import { buildProductOptionsArray } from "@/kernel/domain/product/form.schema";
+import {
+  buildProductOptionsArray,
+  buildProductOptionsExtendedArray,
+  buildProductOptionsGroupArray,
+} from "@/kernel/domain/product/form.schema";
 import { useProductListSearchQuery } from "../_query/productListSearch.query";
-import { buildProductListExtended } from "./buildProductListExtended.model";
-import { groupProductOptionList } from "./groupProductOptionList.model";
 
 export const useProductListGroupSearchToSelectModel = (
   productInOrder: Array<string>,
@@ -13,12 +15,14 @@ export const useProductListGroupSearchToSelectModel = (
     toSearch,
   } = useProductListSearchQuery();
 
-  const orderRowListWithDisabled = buildProductListExtended(
+  const orderRowListWithDisabled = buildProductOptionsExtendedArray(
     buildProductOptionsArray(productList),
     productInOrder,
   );
 
-  const productListGroup = groupProductOptionList(orderRowListWithDisabled);
+  const productListGroup = buildProductOptionsGroupArray(
+    orderRowListWithDisabled,
+  );
 
   return {
     toSearch,

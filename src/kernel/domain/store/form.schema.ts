@@ -22,7 +22,7 @@ export const buildStoreOption = (
   store
     ? {
         value: store.id,
-        label: store.addressLine,
+        label: `"${store.name}", ${store.addressLine}`,
         address: store.addressLine,
         name: store.name,
       }
