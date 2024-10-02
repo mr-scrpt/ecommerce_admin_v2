@@ -20,10 +20,10 @@ export const OrderUpdateConsumerItem: FC<OrderUpdateConsumerProps> = (
 
   return (
     <div className="flex w-full flex-col gap-8">
-      <ConsumerProvideByOrder orderId={orderId}>
+      <ConsumerPresentation.DataByOrder orderId={orderId}>
         <Title title="Consumer Data" />
         <ConsumerPresentation.Tabel className="flex w-full border p-4" />
-      </ConsumerProvideByOrder>
+      </ConsumerPresentation.DataByOrder>
 
       <OrderListProvideByOrder orderId={orderId}>
         <Title title="Order list by consumer" />
