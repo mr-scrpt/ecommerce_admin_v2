@@ -1,26 +1,22 @@
 "use client";
+import { Spinner } from "@/shared/ui/icons/spinner";
+import { cn } from "@/shared/ui/utils";
 import { FC, HTMLAttributes } from "react";
-import { OrderRelation } from "../../..";
+import { OrderTable } from "./elements/orderTable";
+import {
+  OrderListPresentationProps,
+  orderDataListInjector,
+} from "../../../_hoc/withOrderListData.hoc";
 import {
   OrderListContext,
   useOrderListData,
 } from "../../../_vm/order/order.provider";
-import { OrderTable } from "./elements/orderTable";
+import { useOrderListWithRelationByOrderModel } from "@/entities/order";
 
-interface OrderListPresentationProps extends HTMLAttributes<HTMLDivElement> {
-  orderList: Array<OrderRelation>;
-  isPending: boolean;
-  isSuccess: boolean;
-  isFetchedAfterMount: boolean;
-}
+const OrderListPresentationBase: FC<OrderListPresentationProps> = (props) => {
+  const { children, orderList, isPending } = props;
 
-type OrderListPresentationType = FC<OrderListPresentationProps> & {
-  Tabel: FC<HTMLAttributes<HTMLTableElement>>;
-};
-
-export const OrderListPresentation: OrderListPresentationType = (props) => {
-  const { orderList, children, isPending, isSuccess, isFetchedAfterMount } =
-    props;
+  if (isPending) return <Spinner />;
 
   return (
     <OrderListContext.Provider value={orderList}>
@@ -29,10 +25,34 @@ export const OrderListPresentation: OrderListPresentationType = (props) => {
   );
 };
 
-OrderListPresentation.Tabel = function OrderPresentation(props) {
+const Tabel: FC<HTMLAttributes<HTMLTableElement>> = (props) => {
   const { className } = props;
 
   const orderList = useOrderListData();
 
   return <OrderTable orderList={orderList} className={className} />;
 };
+
+const List: FC<HTMLAttributes<HTMLUListElement>> = (props) => {
+  const { className } = props;
+  const orderList = useOrderListData();
+  return (
+    <ul className={cn("flex list-inside list-disc flex-col gap-2", className)}>
+      {orderList.map((order) => (
+        <li key={order.id} className="text-sm">
+          {order.id}
+        </li>
+      ))}
+    </ul>
+  );
+};
+
+const DataListByOrder = orderDataListInjector<{ orderId: string }>(
+  ({ orderId }) => useOrderListWithRelationByOrderModel(orderId),
+)(OrderListPresentationBase);
+
+export const OrderListPresentation = Object.assign(OrderListPresentationBase, {
+  DataListByOrder,
+  Tabel,
+  List,
+});

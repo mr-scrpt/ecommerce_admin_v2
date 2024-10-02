@@ -1,45 +1,55 @@
 import { Spinner } from "@/shared/ui/icons/spinner";
-import React, { ComponentProps, ComponentType } from "react";
+import { ComponentType, HTMLAttributes, ReactNode } from "react";
 
-import { OrderListPresentation } from "../_ui/order/presentation/orderListPresentation";
 import { OrderRelation } from "../_domain/order/order.types";
-import { useOrderListWithRelationByOrderModel } from "../_vm/order/useOrderListWithRelationByOrder.model";
 
-type OrderListPresentationProps = ComponentProps<typeof OrderListPresentation>;
+export interface WithOrderDataListProps {
+  orderList: Array<OrderRelation>;
+  isSuccessOrder: boolean;
+  isAppearancePendingOrder: boolean;
+  isFetchedAfterMountOrder: boolean;
+  isErrorOrder: boolean;
+}
 
-type WithOrderDataProps = {
-  orderList: OrderRelation[];
+export interface OrderListPresentationProps
+  extends HTMLAttributes<HTMLDivElement> {
+  orderList: Array<OrderRelation>;
+  isPending: boolean;
   isSuccess: boolean;
-  isAppearancePending: boolean;
   isFetchedAfterMount: boolean;
-};
+  isError: boolean;
+}
 
-export const withOrderListData = <P extends object>(
-  WrappedComponent: ComponentType<OrderListPresentationProps>,
-  useDataHook: (props: P) => WithOrderDataProps,
+export const orderDataListInjector = <P extends object>(
+  useDataHook: (props: P) => WithOrderDataListProps,
 ) => {
-  return function WithOrderData(
-    props: P & Partial<OrderListPresentationProps>,
+  return function HOC(
+    WrappedComponent: ComponentType<OrderListPresentationProps>,
   ) {
-    const { orderList, isSuccess, isAppearancePending, isFetchedAfterMount } =
-      useDataHook(props);
+    return function WithOrderData(props: P & { children?: ReactNode }) {
+      const { children, ...restProps } = props;
+      const {
+        orderList,
+        isSuccessOrder,
+        isAppearancePendingOrder,
+        isFetchedAfterMountOrder,
+        isErrorOrder,
+      } = useDataHook(restProps as P);
 
-    if (isAppearancePending) return <Spinner />;
+      if (isAppearancePendingOrder) return <Spinner />;
 
-    return (
-      <WrappedComponent
-        {...props}
-        orderList={orderList}
-        isSuccess={isSuccess}
-        isPending={isAppearancePending}
-        isFetchedAfterMount={isFetchedAfterMount}
-      />
-    );
+      return (
+        <WrappedComponent
+          {...restProps}
+          orderList={orderList}
+          isSuccess={isSuccessOrder}
+          isPending={isAppearancePendingOrder}
+          isFetchedAfterMount={isFetchedAfterMountOrder}
+          isError={isErrorOrder}
+        >
+          {children}
+        </WrappedComponent>
+      );
+    };
   };
 };
-
-export const OrderListProvideByOrder = withOrderListData<{
-  orderId: string;
-}>(OrderListPresentation, ({ orderId }) =>
-  useOrderListWithRelationByOrderModel(orderId),
-);

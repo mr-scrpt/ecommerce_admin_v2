@@ -4,9 +4,10 @@ import { ConsumerRelation } from "../_domain/consumer.type";
 
 export interface WithConsumerDataProps {
   consumer: ConsumerRelation | null;
-  isSuccess: boolean;
-  isAppearancePending: boolean;
-  isFetchedAfterMount: boolean;
+  isSuccessConsumer: boolean;
+  isAppearancePendingConsumer: boolean;
+  isFetchedAfterMountConsumer: boolean;
+  isErrorConsumer: boolean;
 }
 
 export interface ConsumerPresentationProps
@@ -15,9 +16,10 @@ export interface ConsumerPresentationProps
   isPending: boolean;
   isSuccess: boolean;
   isFetchedAfterMount: boolean;
+  isError: boolean;
 }
 
-export const consumerDataInject = <P extends object>(
+export const consumerDataInjector = <P extends object>(
   useDataHook: (props: P) => WithConsumerDataProps,
 ) => {
   return function HOC(
@@ -25,19 +27,25 @@ export const consumerDataInject = <P extends object>(
   ) {
     return function WithConsumerData(props: P & { children?: ReactNode }) {
       const { children, ...restProps } = props;
-      const { consumer, isSuccess, isAppearancePending, isFetchedAfterMount } =
-        useDataHook(restProps as P);
+      const {
+        consumer,
+        isSuccessConsumer,
+        isAppearancePendingConsumer,
+        isFetchedAfterMountConsumer,
+        isErrorConsumer,
+      } = useDataHook(restProps as P);
 
       if (!consumer) return null;
-      if (isAppearancePending) return <Spinner />;
+      if (isAppearancePendingConsumer) return <Spinner />;
 
       return (
         <WrappedComponent
           {...restProps}
           consumer={consumer}
-          isSuccess={isSuccess}
-          isPending={isAppearancePending}
-          isFetchedAfterMount={isFetchedAfterMount}
+          isSuccess={isSuccessConsumer}
+          isPending={isAppearancePendingConsumer}
+          isFetchedAfterMount={isFetchedAfterMountConsumer}
+          isError={isErrorConsumer}
         >
           {children}
         </WrappedComponent>

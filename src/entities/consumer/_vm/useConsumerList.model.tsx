@@ -1,14 +1,14 @@
 import { useAppearanceDelay } from "@/shared/lib/react";
-import { useConsumerRelationByOrderQuery } from "../_query/consumerRelationByOrder.query";
+import { useConsumerListQuery } from "../_query/consumerList.query";
 
-export const useConsumerRelationByOrderModel = (orderId: string) => {
-  const { data, isPending, isSuccess, isFetchedAfterMount, isError } =
-    useConsumerRelationByOrderQuery(orderId);
+export const useConsumerListModel = (id: string) => {
+  const { consumerList, isPending, isSuccess, isError, isFetchedAfterMount } =
+    useConsumerListQuery();
 
   const isAppearancePending = useAppearanceDelay(isPending);
 
   return {
-    consumer: data ?? null,
+    consumerList,
     isAppearancePendingConsumer: isAppearancePending,
     isFetchedAfterMountConsumer: isFetchedAfterMount,
     isSuccessConsumer: isSuccess,

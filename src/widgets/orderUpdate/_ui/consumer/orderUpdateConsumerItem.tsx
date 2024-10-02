@@ -1,11 +1,5 @@
-import {
-  ConsumerProvideByOrder,
-  ConsumerPresentation,
-} from "@/entities/consumer";
-import {
-  OrderListPresentation,
-  OrderListProvideByOrder,
-} from "@/entities/order";
+import { ConsumerPresentation } from "@/entities/consumer";
+import { OrderListPresentation } from "@/entities/order";
 import { Title } from "@/shared/ui/title";
 import { FC, HTMLAttributes } from "react";
 
@@ -25,10 +19,10 @@ export const OrderUpdateConsumerItem: FC<OrderUpdateConsumerProps> = (
         <ConsumerPresentation.Tabel className="flex w-full border p-4" />
       </ConsumerPresentation.DataByOrder>
 
-      <OrderListProvideByOrder orderId={orderId}>
+      <OrderListPresentation.DataListByOrder orderId={orderId}>
         <Title title="Order list by consumer" />
         <OrderListPresentation.Tabel className="flex w-full border p-4" />
-      </OrderListProvideByOrder>
+      </OrderListPresentation.DataListByOrder>
     </div>
   );
 };

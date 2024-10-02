@@ -1,15 +1,18 @@
 "use client";
 
+import { useAppearanceDelay } from "@/shared/lib/react";
 import { useOrderWithRelationQuery } from "../..";
 
 export const useOrderWithRelationModel = (orderId: string) => {
-  const { isPending, isSuccess, order, isFetchedAfterMount } =
+  const { isPending, isSuccess, order, isFetchedAfterMount, isError } =
     useOrderWithRelationQuery(orderId);
 
+  const isAppearancePending = useAppearanceDelay(isPending);
   return {
-    isPending,
-    isSuccess,
     order,
-    isFetchedAfterMount,
+    isAppearancePendingOrder: isAppearancePending,
+    isFetchedAfterMountOrder: isFetchedAfterMount,
+    isSuccessOrder: isSuccess,
+    isErrorOrder: isError,
   };
 };

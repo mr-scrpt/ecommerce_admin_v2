@@ -1,44 +1,81 @@
 import { Spinner } from "@/shared/ui/icons/spinner";
-import React, { ComponentProps, ComponentType } from "react";
+import { ComponentType, HTMLAttributes, ReactNode } from "react";
 import { ConsumerRelation } from "../_domain/consumer.type";
 
-import { ConsumerListPresentation } from "../_ui/presentation/consumerListPresentation";
+export interface WithConsumerDataListProps {
+  consumerList: Array<ConsumerRelation>;
+  isSuccessConsumer: boolean;
+  isAppearancePendingConsumer: boolean;
+  isFetchedAfterMountConsumer: boolean;
+  isErrorConsumer: boolean;
+}
 
-type ConsumerListPresentationProps = ComponentProps<
-  typeof ConsumerListPresentation
->;
-
-type WithConsumerListDataProps = {
-  consumerList: ConsumerRelation[];
+export interface ConsumerListPresentationProps
+  extends HTMLAttributes<HTMLDivElement> {
+  consumerList: Array<ConsumerRelation>;
+  isPending: boolean;
   isSuccess: boolean;
-  isAppearancePending: boolean;
   isFetchedAfterMount: boolean;
-};
+  isError: boolean;
+}
 
-export const withConsumerListPresentation = <P extends object>(
-  WrappedComponent: ComponentType<ConsumerListPresentationProps>,
-  useDataHook: (props: P) => WithConsumerListDataProps,
+export const consumerDataListInjector = <P extends object>(
+  useDataHook: (props: P) => WithConsumerDataListProps,
 ) => {
-  return function WithConsumerPresentation(
-    props: P & Partial<ConsumerListPresentationProps>,
+  return function HOC(
+    WrappedComponent: ComponentType<ConsumerListPresentationProps>,
   ) {
-    const {
-      consumerList,
-      isSuccess,
-      isAppearancePending,
-      isFetchedAfterMount,
-    } = useDataHook(props);
+    return function WithConsumerData(props: P & { children?: ReactNode }) {
+      const { children, ...restProps } = props;
+      const {
+        consumerList,
+        isSuccessConsumer,
+        isAppearancePendingConsumer,
+        isFetchedAfterMountConsumer,
+        isErrorConsumer,
+      } = useDataHook(restProps as P);
 
-    if (isAppearancePending) return <Spinner />;
+      if (isAppearancePendingConsumer) return <Spinner />;
 
-    return (
-      <WrappedComponent
-        {...props}
-        consumerList={consumerList}
-        isSuccess={isSuccess}
-        isPending={isAppearancePending}
-        isFetchedAfterMount={isFetchedAfterMount}
-      />
-    );
+      return (
+        <WrappedComponent
+          {...restProps}
+          consumerList={consumerList}
+          isSuccess={isSuccessConsumer}
+          isPending={isAppearancePendingConsumer}
+          isFetchedAfterMount={isFetchedAfterMountConsumer}
+          isError={isErrorConsumer}
+        >
+          {children}
+        </WrappedComponent>
+      );
+    };
   };
 };
+// export const withConsumerListPresentation = <P extends object>(
+//   WrappedComponent: ComponentType<ConsumerListPresentationProps>,
+//   useDataHook: (props: P) => WithConsumerListDataProps,
+// ) => {
+//   return function WithConsumerPresentation(
+//     props: P & Partial<ConsumerListPresentationProps>,
+//   ) {
+//     const {
+//       consumerList,
+//       isSuccess,
+//       isAppearancePending,
+//       isFetchedAfterMount,
+//     } = useDataHook(props);
+//
+//     if (isAppearancePending) return <Spinner />;
+//
+//     return (
+//       <WrappedComponent
+//         {...props}
+//         consumerList={consumerList}
+//         isSuccess={isSuccess}
+//         isPending={isAppearancePending}
+//         isFetchedAfterMount={isFetchedAfterMount}
+//       />
+//     );
+//   };
+// };

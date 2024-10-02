@@ -44,7 +44,6 @@ export class ConsumerRepository implements IConsumerRepository {
   }
 
   async getWithRelation<T>(dto: ConsumerGetDTO, db: Tx = this.db): Promise<T> {
-    console.log("output_log: dto:::  =>>>", dto);
     const user = await db.user.findUniqueOrThrow({
       where: { ...dto, role: RoleEnum.CONSUMER },
       include: {
@@ -77,6 +76,35 @@ export class ConsumerRepository implements IConsumerRepository {
       receiverList,
     } as unknown as T;
     return consumerWithRelation;
+  }
+
+  async getWithRelationList<T>(db: Tx = this.db): Promise<Array<T>> {
+    const userList = await db.user.findMany({
+      where: { role: RoleEnum.CONSUMER },
+      include: {
+        orderList: {
+          include: {
+            orderRowList: true,
+            orderStatusState: true,
+            orderStatusPayment: true,
+          },
+        },
+        cart: {
+          include: {
+            cartRowList: true,
+          },
+        },
+        receiverList: true,
+      },
+    });
+    console.log("output_log: USERLIst =>>>", userList);
+
+    const filteredUserList = this.filterUserEntity(userList);
+    return filteredUserList as unknown as Array<T>;
+
+    // return filteredUserList.map(
+    //   this.buildConsumerFromUser,
+    // ) as unknown as Array<T>;
   }
 
   async searchList(

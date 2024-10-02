@@ -13,6 +13,8 @@ export abstract class IConsumerRepository {
 
   abstract getWithRelation<T>(dto: ConsumerGetDTO, db?: Tx): Promise<T>;
 
+  abstract getWithRelationList<T>(db?: Tx): Promise<Array<T>>;
+
   abstract getList(db?: Tx): Promise<ConsumerEntity[]>;
 
   abstract searchList(

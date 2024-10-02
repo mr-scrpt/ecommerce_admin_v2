@@ -3,7 +3,7 @@ import { orderApi } from "../../_api/order.api";
 import { useListenOrderListUpdate } from "../../_vm/order/event/useListenOrderListUpdate";
 
 export const useOrderListWithRelationByOrderQuery = (id: string) => {
-  const { isPending, isSuccess, isFetchedAfterMount, data } =
+  const { isPending, isSuccess, isFetchedAfterMount, data, isError } =
     orderApi.order.getListByOrder.useQuery({ id });
 
   useListenOrderListUpdate();
@@ -12,6 +12,7 @@ export const useOrderListWithRelationByOrderQuery = (id: string) => {
     isPending,
     isSuccess,
     isFetchedAfterMount,
+    isError,
     orderList: data ?? [],
   };
 };

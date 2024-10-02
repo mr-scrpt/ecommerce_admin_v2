@@ -4,7 +4,7 @@ import { OrderRelation } from "../../_domain/order/order.types";
 import { useListenOrderUpdate } from "../../_vm/order/event/useListenOrderUpdate";
 
 export const useOrderWithRelationQuery = (id: string) => {
-  const { isPending, isSuccess, data, isFetchedAfterMount } =
+  const { isPending, isSuccess, data, isFetchedAfterMount, isError } =
     orderApi.order.getRelation.useQuery<OrderRelation>({ id });
 
   useListenOrderUpdate();
@@ -14,6 +14,7 @@ export const useOrderWithRelationQuery = (id: string) => {
     isSuccess,
     order: data ?? null,
     isFetchedAfterMount,
+    isError,
   };
 };
 

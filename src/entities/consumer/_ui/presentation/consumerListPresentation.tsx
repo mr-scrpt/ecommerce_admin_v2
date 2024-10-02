@@ -1,29 +1,22 @@
 "use client";
 import { Spinner } from "@/shared/ui/icons/spinner";
+import { cn } from "@/shared/ui/utils";
 import { FC, HTMLAttributes } from "react";
-import { ConsumerRelation } from "../../_domain/consumer.type";
+import {
+  ConsumerListPresentationProps,
+  consumerDataListInjector,
+} from "../../_hoc/withConsumerListData.hoc";
 import {
   ConsumerListContext,
   useConsumerListData,
 } from "../../_vm/consumer.provider";
+import { useConsumerRelationListModel } from "../../_vm/useConsumerRelationList.model";
 import { ConsumerTable } from "./elements/consumerTable";
 
-interface ConsumerListPresentation extends HTMLAttributes<HTMLDivElement> {
-  consumerList: Array<ConsumerRelation>;
-  isPending: boolean;
-  isSuccess: boolean;
-  isFetchedAfterMount: boolean;
-}
-
-type ConsumerListPresentationType = FC<ConsumerListPresentation> & {
-  Tabel: FC<HTMLAttributes<HTMLTableElement>>;
-};
-
-export const ConsumerListPresentation: ConsumerListPresentationType = (
+const ConsumerListPresentationBase: FC<ConsumerListPresentationProps> = (
   props,
 ) => {
-  const { children, consumerList, isPending, isSuccess, isFetchedAfterMount } =
-    props;
+  const { children, consumerList, isPending } = props;
 
   if (isPending) return <Spinner />;
 
@@ -34,10 +27,33 @@ export const ConsumerListPresentation: ConsumerListPresentationType = (
   );
 };
 
-ConsumerListPresentation.Tabel = function ConsumerPresentation(props) {
+const Tabel: FC<HTMLAttributes<HTMLTableElement>> = (props) => {
   const { className } = props;
 
   const consumerList = useConsumerListData();
 
   return <ConsumerTable consumerList={consumerList} className={className} />;
 };
+
+const List: FC<HTMLAttributes<HTMLUListElement>> = (props) => {
+  const { className } = props;
+  const consumerList = useConsumerListData();
+  return (
+    <ul className={cn("flex list-inside list-disc flex-col gap-2", className)}>
+      {consumerList.map((consumer) => (
+        <li key={consumer.id} className="text-sm">
+          {consumer.name}
+        </li>
+      ))}
+    </ul>
+  );
+};
+
+const DataList = consumerDataListInjector(useConsumerRelationListModel)(
+  ConsumerListPresentationBase,
+);
+
+export const ConsumerListPresentation = Object.assign(
+  ConsumerListPresentationBase,
+  { DataList, Tabel, List },
+);

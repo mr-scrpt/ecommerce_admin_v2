@@ -1,5 +1,3 @@
-export { OrderListProvideByOrder } from "./_hoc/withOrderListData.hoc";
-
 export { useOrderListWithRelationByOrderModel } from "./_vm/order/useOrderListWithRelationByOrder.model";
 
 export { OrderListPresentation } from "./_ui/order/presentation/orderListPresentation";

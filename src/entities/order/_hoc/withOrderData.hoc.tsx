@@ -1,43 +1,53 @@
 import { Spinner } from "@/shared/ui/icons/spinner";
-import { ComponentProps, ComponentType } from "react";
+import { ComponentType, HTMLAttributes, ReactNode } from "react";
 
 import { OrderRelation } from "../_domain/order/order.types";
-import { OrderPresentation } from "../_ui/order/presentation/orderPresentation";
 
-type OrderPresentationProps = ComponentProps<typeof OrderPresentation>;
-
-type WithOrderPresentationProps = {
+export interface WithOrderDataProps {
   order: OrderRelation | null;
+  isSuccessOrder: boolean;
+  isAppearancePendingOrder: boolean;
+  isFetchedAfterMountOrder: boolean;
+  isErrorOrder: boolean;
+}
+
+export interface OrderPresentationProps extends HTMLAttributes<HTMLDivElement> {
+  order: OrderRelation;
+  isPending: boolean;
   isSuccess: boolean;
-  isAppearancePending: boolean;
   isFetchedAfterMount: boolean;
-};
+  isError: boolean;
+}
 
-export const withOrderPresentation = <P extends object>(
-  WrappedComponent: ComponentType<OrderPresentationProps>,
-  usePresentationHook: (props: P) => WithOrderPresentationProps,
+export const orderDataInjector = <P extends object>(
+  useDataHook: (props: P) => WithOrderDataProps,
 ) => {
-  return function WithOrderPresentation(
-    props: P & Partial<OrderPresentationProps>,
-  ) {
-    const {
-      order: order,
-      isSuccess,
-      isAppearancePending,
-      isFetchedAfterMount,
-    } = usePresentationHook(props);
+  return function HOC(WrappedComponent: ComponentType<OrderPresentationProps>) {
+    return function WithOrderData(props: P & { children?: ReactNode }) {
+      const { children, ...restProps } = props;
+      const {
+        order,
+        isSuccessOrder,
+        isAppearancePendingOrder,
+        isFetchedAfterMountOrder,
+        isErrorOrder,
+      } = useDataHook(restProps as P);
 
-    if (!order) return null;
-    if (isAppearancePending) return <Spinner />;
+      if (!order) return null;
+      if (isAppearancePendingOrder) return <Spinner />;
 
-    return (
-      <WrappedComponent
-        {...props}
-        order={order}
-        isSuccess={isSuccess}
-        isPending={isAppearancePending}
-        isFetchedAfterMount={isFetchedAfterMount}
-      />
-    );
+      return (
+        <WrappedComponent
+          {...restProps}
+          order={order}
+          isSuccess={isSuccessOrder}
+          isPending={isAppearancePendingOrder}
+          isFetchedAfterMount={isFetchedAfterMountOrder}
+          isError={isErrorOrder}
+        >
+          {children}
+        </WrappedComponent>
+      );
+    };
   };
 };

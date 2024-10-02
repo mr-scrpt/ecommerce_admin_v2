@@ -4,7 +4,7 @@ import { ConsumerRelation } from "../_domain/consumer.type";
 import { useListenConsumerUpdate } from "../_vm/event/useListenConsumerUpdate";
 
 export const useConsumerRelationByOrderQuery = (orderId: string) => {
-  const { isPending, isSuccess, data, isFetchedAfterMount } =
+  const { isPending, isSuccess, data, isFetchedAfterMount, isError } =
     consumerApi.consumer.getRelationByOrder.useQuery<ConsumerRelation>({
       orderId,
     });
@@ -17,6 +17,7 @@ export const useConsumerRelationByOrderQuery = (orderId: string) => {
     isSuccess,
     data: data,
     isFetchedAfterMount,
+    isError,
   };
 };
 
