@@ -19,7 +19,6 @@ export const StoreSelectElement: FC<StoreSelectProps> = memo((props) => {
     useStoreListBySettlementRefToSelectModel(settlementRef);
 
   const placeholder = isPending ? "Loading..." : "Select store";
-  console.log("output_log: active store =>>>", storeActive);
 
   if (isPending) {
     return <Spinner />;

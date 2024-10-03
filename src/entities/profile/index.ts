@@ -1,3 +1,5 @@
+export { ProfilePresentation } from "./_ui/presentation/profilePresentation";
+
 export { profileFormDefaultSchema } from "./_domain/form.schema";
 
 export { useInvalidateProfile, useProfileQuery } from "./_query/profile.query";

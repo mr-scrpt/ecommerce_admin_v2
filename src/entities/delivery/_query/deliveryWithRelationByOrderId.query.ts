@@ -9,8 +9,6 @@ export const useDeliveryWithRelationByOrderIdQuery = (orderId: string) => {
       orderId,
     });
 
-  console.log("output_log: DATA DELIVERY =>>>", data);
-
   useListenDeliveryUpdateByOrderId();
 
   return {

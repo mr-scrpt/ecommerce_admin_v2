@@ -1,1 +1,5 @@
-export type HeaderVariantType = "auth" | "private" | "public";
+export enum HeaderVariantEnum {
+  AUTH = "auth",
+  PRIVATE = "private",
+  PUBLIC = "public",
+}

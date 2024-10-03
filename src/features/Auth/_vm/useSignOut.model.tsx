@@ -1,8 +1,9 @@
+"use client";
 import { useMutation } from "@tanstack/react-query";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
-export const UseSignOutModel = () => {
+export const useSignOutModel = () => {
   const router = useRouter();
 
   const mutation = useMutation({
