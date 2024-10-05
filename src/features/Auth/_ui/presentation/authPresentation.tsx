@@ -50,10 +50,8 @@ const ButtonLogIn = forwardRef<
 >((props, ref) => {
   const { children, className, ...rest } = props;
   const { signIn, isPending } = useSignInModel();
-  console.log("output_log:  =>>> INNNN");
 
   const { status } = useAppSession();
-  console.log("output_log: LOGIN STATUS =>>>", status);
 
   if (status === AuthStatus.LOADING) return <Skeleton className="h-8 w-8" />;
   if (status === AuthStatus.AUTHENTICATED) return null;

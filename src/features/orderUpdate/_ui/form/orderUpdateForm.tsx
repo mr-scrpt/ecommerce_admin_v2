@@ -1,7 +1,7 @@
 import { OrderFormElements } from "@/entities/order/_ui/order/form/orderFormElements";
 import { FC, HTMLAttributes } from "react";
-import { useOrderUpdateValues } from "../../_vm/useOrderUpdateValues.model";
 import { useOrderUpdateHandler } from "../../_vm/useOrderUpdate.handler";
+import { useOrderUpdateValues } from "../../_vm/useOrderUpdateValues.model";
 
 interface OrderUpdateFromProps extends HTMLAttributes<HTMLDivElement> {
   orderId: string;
@@ -15,16 +15,16 @@ export const OrderUpdateForm: FC<OrderUpdateFromProps> = (props) => {
 
   const {
     orderUpdateValues,
-    isPendingOrderData,
-    isFetchedAfterMountOrderData,
-    isSuccessOrderData,
+    isSuccessOrder,
+    isAppearancePendingOrder,
+    isFetchedAfterMountOrder,
   } = useOrderUpdateValues(orderId);
 
   const { handleOrderUpdate, isSuccessUpdate, isPendingUpdate } =
     useOrderUpdateHandler({ data: { orderId }, onSuccess, callbackUrl });
 
   const isPending =
-    isPendingOrderData || isPendingUpdate || !isFetchedAfterMountOrderData;
+    isAppearancePendingOrder || isPendingUpdate || !isFetchedAfterMountOrder;
 
   return (
     <OrderFormElements

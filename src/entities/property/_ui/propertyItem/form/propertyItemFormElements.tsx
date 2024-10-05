@@ -1,10 +1,9 @@
 "use client";
+import { usePropertyItemListToSelectModel } from "@/entities/property";
 import { ButtonSubmitComponentType } from "@/shared/type/button";
 import { Button } from "@/shared/ui/button";
 import {
   Form,
-  FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -25,18 +24,15 @@ import { ZodTypeAny } from "zod";
 import {
   PropertyItemFormDefaultValues,
   propertyItemDefaultFieldsValues,
-  propertyItemEmptyRow,
   propertyItemFormSchema,
 } from "../../../_domain/propertyItem/form.schema";
-import { PropertyItemNameElement } from "./elements/propertyItemNameElement";
-import { PropertyItemValueElement } from "./elements/propertyItemValueElement";
-import { PropertyItemSelectElement } from "./elements/propertyItemSelectElement";
-import { PropertyItemMultiSelectElement } from "./elements/propertyItemMultiSelectElement";
-import { PropertyItemRadioElement } from "./elements/propertyItemRadioElement";
 import { PropertyItemCheckboxElement } from "./elements/propertyItemCheckboxElement";
-import { usePropertyItemListToSelectModel } from "@/entities/property";
-import { Checkbox } from "@/shared/ui/checkbox";
-import { PropertyItemDefaultSelectOption } from "@/kernel/domain/property/form.schema";
+import { PropertyItemMultiSelectElement } from "./elements/propertyItemMultiSelectElement";
+import { PropertyItemNameElement } from "./elements/propertyItemNameElement";
+import { PropertyItemRadioElement } from "./elements/propertyItemRadioElement";
+import { PropertyItemSelectElement } from "./elements/propertyItemSelectElement";
+import { PropertyItemValueElement } from "./elements/propertyItemValueElement";
+import { PropertyItemListElement } from "./elements/propertyItemListElement";
 
 interface PropertyItemFormElementsProps<T extends PropertyItemFormDefaultValues>
   extends HTMLAttributes<HTMLFormElement> {
@@ -107,77 +103,10 @@ export const PropertyItemFormElements: PropertyFormElementsType = <
     </FormProvider>
   );
 };
-// TODO: Move to separate file
+
 PropertyItemFormElements.FieldPropertyItemList =
   function FieldPropertyItemList() {
-    const form = useFormContext<PropertyItemFormDefaultValues>();
-
-    const { fields, append, remove } = useFieldArray({
-      name: "propertyItemList",
-      control: form.control,
-    });
-
-    return (
-      <div className="flex w-full flex-col gap-4">
-        {fields.map((item, idx) => {
-          return (
-            <div key={item.id} className="flex w-full gap-4">
-              <FormField
-                control={form.control}
-                name={`propertyItemList.${idx}.label`}
-                render={({ field }) => (
-                  <FormItem className="flex-grow">
-                    <FormLabel>Property name</FormLabel>
-                    <PropertyItemNameElement
-                      onChange={field.onChange}
-                      defaultValue={field.value}
-                    />
-                    <FormMessage />
-                  </FormItem>
-                )}
-              ></FormField>
-              <FormField
-                control={form.control}
-                name={`propertyItemList.${idx}.value`}
-                render={({ field }) => (
-                  <FormItem className="flex-grow">
-                    <FormLabel>Property value</FormLabel>
-                    <PropertyItemValueElement
-                      onChange={field.onChange}
-                      defaultValue={field.value}
-                    />
-                    <FormMessage />
-                  </FormItem>
-                )}
-              ></FormField>
-              {idx > 0 ? (
-                <Button
-                  type="button"
-                  className="mb-0 mt-auto"
-                  variant="destructive"
-                  onClick={() => remove(idx)}
-                >
-                  <MinusIcon size="10" />
-                </Button>
-              ) : (
-                <Button
-                  type="button"
-                  disabled
-                  className="mb-0 mt-auto"
-                  variant="destructive"
-                >
-                  <MinusIcon size="10" />
-                </Button>
-              )}
-            </div>
-          );
-        })}
-
-        <Button type="button" onClick={() => append(propertyItemEmptyRow)}>
-          <PlusIcon size="15" /> Add property line
-        </Button>
-      </div>
-    );
+    return <PropertyItemListElement />;
   };
 
 PropertyItemFormElements.FieldPropertyItemSelect =
@@ -197,7 +126,6 @@ PropertyItemFormElements.FieldPropertyItemSelect =
             <FormItem>
               <FormLabel>PropertyItem</FormLabel>
               <PropertyItemSelectElement
-                // propertyItemActive={activeItem}
                 propertyItemListActive={field.value}
                 onSelectPropertyItem={field.onChange}
                 propertyId={propertyId}

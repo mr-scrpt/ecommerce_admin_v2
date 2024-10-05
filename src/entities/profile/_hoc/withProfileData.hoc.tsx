@@ -39,8 +39,6 @@ export const profileDataInjector = <P extends object>(
       } = useDataHook(restProps as P);
 
       if (isAppearancePendingProfile) return <Spinner />;
-      console.log("output_log: Profile =>>>", profile);
-      console.log("output_log: Children =>>>", children);
 
       return (
         <WrappedComponent

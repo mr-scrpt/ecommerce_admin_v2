@@ -2,9 +2,7 @@
 import { AddressFormElements } from "@/entities/address";
 import { Spinner } from "@/shared/ui/icons/spinner";
 import { cn } from "@/shared/ui/utils";
-import { useRouter } from "next/navigation";
 import { FC, HTMLAttributes } from "react";
-import { useAddressCreateMutation } from "../_mutation/useAddressCreate.mutation";
 import {
   AddressCreateFormValues,
   addressCreateDefaultFieldsValues,
@@ -24,8 +22,7 @@ export const AddressFormCreate: FC<AddressFormCreateProps> = (props) => {
   const { userId, settlementRef, callbackUrl, className, onSuccess } = props;
 
   const { handleAddressCreate, isPendingCreate } = useAddressCreateHandler({
-    userId,
-    settlementRef,
+    data: { userId, settlementRef },
     onSuccess,
     callbackUrl,
   });

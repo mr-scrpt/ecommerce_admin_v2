@@ -1,9 +1,4 @@
-import {
-  PropertyItemDefaultSelectOption,
-  propertyItemDefaultSelectOptionSchema,
-} from "@/kernel/domain/property/form.schema";
-import { PropertyItem } from "@/kernel/domain/property/propertyItem.type";
-import { filterNullValues } from "@/shared/lib/filter";
+import { propertyItemDefaultSelectOptionSchema } from "@/kernel/domain/property/form.schema";
 import { z } from "zod";
 
 // NOTE: FORM

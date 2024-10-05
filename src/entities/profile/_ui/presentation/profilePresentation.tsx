@@ -117,3 +117,5 @@ export const ProfilePresentation = Object.assign(ProfilePresentationBase, {
   UserName,
   DataSession,
 });
+
+ProfilePresentation.displayName = "ProfilePresentation";

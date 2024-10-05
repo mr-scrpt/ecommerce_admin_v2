@@ -19,10 +19,10 @@ interface CategoryCreateFormProps extends HTMLAttributes<HTMLDivElement> {
 export const CategoryCreateForm: FC<CategoryCreateFormProps> = (props) => {
   const { callbackUrl, className, onSuccess } = props;
 
-  const { handleCategoryCreate, isPendingCreate } = useCategoryCreateHandler(
+  const { handleCategoryCreate, isPendingCreate } = useCategoryCreateHandler({
     onSuccess,
     callbackUrl,
-  );
+  });
 
   return (
     <div className={cn(className, "w-full")}>

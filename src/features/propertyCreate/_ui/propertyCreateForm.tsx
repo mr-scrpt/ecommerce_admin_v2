@@ -5,13 +5,13 @@ import {
 } from "@/entities/property";
 import { cn } from "@/shared/ui/utils";
 import { useRouter } from "next/navigation";
-import { FC, HTMLAttributes, useMemo } from "react";
+import { FC, HTMLAttributes } from "react";
 import {
   PropertyCreateFormValues,
   propertyCreateFormSchema,
 } from "../_domain/form.schema";
 import { usePropertyCreateMutation } from "../_mutation/propertyCreate.mutation";
-import { PROPERTY_DATATYPE } from "@prisma/client";
+import { usePropertyCreateHandler } from "../_vm/usePropertyCreate.handler";
 
 interface PropertyCreateFormProps extends HTMLAttributes<HTMLDivElement> {
   callbackUrl?: string;
@@ -22,70 +22,25 @@ interface PropertyCreateFormProps extends HTMLAttributes<HTMLDivElement> {
 export const PropertyFormCreate: FC<PropertyCreateFormProps> = (props) => {
   const { callbackUrl, className, onSuccess } = props;
 
-  const router = useRouter();
-
-  const { propertyCreate, isPending: isPendingUpdate } =
-    usePropertyCreateMutation();
-
-  // TODO: DefaultValues move to hook and data from server
-  const defaultValues: PropertyCreateFormValues = useMemo(() => {
-    return {
-      name: "",
-      datatypeList: [
-        {
-          label: PROPERTY_DATATYPE.SELECT,
-          value: PROPERTY_DATATYPE.SELECT,
-          type: PROPERTY_DATATYPE.SELECT,
-        },
-      ],
-      propertyItemList: [{ label: "", value: "" }],
-    };
-  }, []);
-
-  const handleSubmit = async (data: PropertyCreateFormValues) => {
-    const { name, datatypeList, propertyItemList } = data;
-    const [datatype] = datatypeList;
-
-    await propertyCreate({
-      propertyData: {
-        name,
-        datatype: datatype.type,
-      },
-      propertyItemData: propertyItemList.map(({ value, label }) => ({
-        name: label,
-        value: value,
-      })),
-    });
-
-    onSuccess?.();
-
-    if (callbackUrl) {
-      router.push(callbackUrl);
-    }
-  };
-
-  const isPendingComplexible = isPendingUpdate;
+  const { handlePropertyCreate, isPendingCreate } = usePropertyCreateHandler({
+    callbackUrl,
+    onSuccess,
+  });
 
   return (
     <div className={cn(className, "w-full")}>
       <PropertyFormElements<PropertyCreateFormValues>
-        handleSubmit={handleSubmit}
+        handleSubmit={handlePropertyCreate}
         schema={propertyCreateFormSchema}
-        defaultValues={defaultValues}
       >
         <PropertyFormElements.FieldName />
         <PropertyFormElements.FieldDataType />
         <PropertyItemFormElements.FieldPropertyItemList />
         <PropertyFormElements.SubmitButton
-          isPending={isPendingComplexible}
+          isPending={isPendingCreate}
           submitText="Create property"
         />
       </PropertyFormElements>
-      {/* <PropertyFromLayout */}
-      {/*   handleSubmit={handleSubmit} */}
-      {/*   isPending={isPendingComplexible} */}
-      {/*   submitText={"Create property"} */}
-      {/* /> */}
     </div>
   );
 };

@@ -1,3 +1,6 @@
+export { usePropertyItemListByPropertyModel } from "./_vm/propertyItem/usePropertyItemListByProperty.model";
+
+export { usePropertyModel } from "./_vm/useProperty.model";
 export { usePropertyItemListToSelectModel } from "./_vm/propertyItem/usePropertyItemListToSelect.model";
 
 export { propertyFormDefaultSchema } from "./_domain/property/form.schema";
@@ -8,7 +11,6 @@ export { PropertyFormElements } from "./_ui/property/form/propertyFormElements";
 export { PropertySelectElement } from "./_ui/property/form/elements/propertySelectElement";
 
 export { PropertyItemFormElements } from "./_ui/propertyItem/form/propertyItemFormElements";
-
 export { usePropertyListByCategoryQuery } from "./_query/property/propertyListByCategory.query";
 export { usePropertyListByCategoryIdListModel } from "./_vm/usePropertyListByCategoryIdList.model";
 export { usePropertyListToSelectModel } from "./_vm/usePropertyListToSelect.model";

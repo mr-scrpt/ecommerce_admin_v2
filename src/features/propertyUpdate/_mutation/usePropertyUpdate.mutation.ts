@@ -4,7 +4,7 @@ import { propertyUpdateApi } from "../_api/propertyUpdate.api";
 export const usePropertyUpdateMutation = () => {
   const { propertyUpdateEvent } = useEmitPropertyUpdate();
 
-  const { mutateAsync, isPending } =
+  const { mutateAsync, isPending, isSuccess } =
     propertyUpdateApi.propertyUpdate.update.useMutation({
       onSuccess: async ({ id }) => {
         propertyUpdateEvent(id);
@@ -13,5 +13,6 @@ export const usePropertyUpdateMutation = () => {
   return {
     propertyUpdate: mutateAsync,
     isPending,
+    isSuccess,
   };
 };

@@ -1,11 +1,10 @@
 import { useRouter } from "next/navigation";
 import { CategoryCreateFormValues } from "../_domain/form.schema";
 import { useCategoryCreateMutation } from "../_mutation/useCategoryCreate.mutation";
+import { HandlerFormBaseProps } from "@/shared/lib/hook";
 
-export const useCategoryCreateHandler = (
-  onSuccess?: () => void,
-  callbackUrl?: string,
-) => {
+export const useCategoryCreateHandler = (props: HandlerFormBaseProps) => {
+  const { onSuccess, callbackUrl } = props;
   const {
     categoryCreate,
     isPending: isPendingCreate,

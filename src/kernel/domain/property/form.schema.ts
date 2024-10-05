@@ -13,7 +13,8 @@ export const propertyDefaultSelectOptionSchema = z.object({
 
 export const propertyItemDefaultSelectOptionSchema = z.object({
   value: z.string(),
-  label: z.string(),
+  propertyItemName: z.string(),
+  propertyItemValue: z.string(),
   propertyId: z.string(),
   active: z.boolean().optional(),
 });
@@ -51,23 +52,45 @@ export const buildPropertyOption = (
     : null;
 
 export const buildPropertyOptionsArray = (
-  property?: Array<Property> | null,
+  propertyList?: Array<Property> | null,
 ): PropertyDefaultSelectOption[] =>
-  property ? filterNullValues(property.map(buildPropertyOption)) : [];
+  propertyList ? filterNullValues(propertyList.map(buildPropertyOption)) : [];
 
 // NOTE: Build Property Item Option
 export const buildPropertyItemOption = (
-  property?: PropertyItem | null,
+  propertyItem?: PropertyItem | null,
 ): PropertyItemDefaultSelectOption | null =>
-  property
+  propertyItem
     ? {
-        value: property.id,
-        label: property.name,
-        propertyId: property.propertyId,
+        value: propertyItem.id,
+        propertyItemName: propertyItem.name,
+        propertyItemValue: propertyItem.value,
+        propertyId: propertyItem.propertyId,
       }
     : null;
 
 export const buildPropertyItemOptionsArray = (
-  property?: Array<PropertyItem> | null,
+  propertyItemList?: Array<PropertyItem> | null,
 ): PropertyItemDefaultSelectOption[] =>
-  property ? filterNullValues(property.map(buildPropertyItemOption)) : [];
+  propertyItemList
+    ? filterNullValues(propertyItemList.map(buildPropertyItemOption))
+    : [];
+
+// NOTE: Build Datatype Property Option
+export const buildPropertyDataTypeOption = (
+  property?: Property | null,
+): PropertyDataTypeDefaultSelectOption | null =>
+  property
+    ? {
+        value: property.datatype,
+        label: property.name,
+        type: property.datatype,
+      }
+    : null;
+
+export const buildPropertyDataTypeOptionsArray = (
+  propertyList?: Array<Property | null> | null,
+): PropertyDataTypeDefaultSelectOption[] =>
+  propertyList
+    ? filterNullValues(propertyList.map(buildPropertyDataTypeOption))
+    : [];

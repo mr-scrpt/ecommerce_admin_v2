@@ -8,6 +8,7 @@ export const useOrderWithRelationModel = (orderId: string) => {
     useOrderWithRelationQuery(orderId);
 
   const isAppearancePending = useAppearanceDelay(isPending);
+
   return {
     order,
     isAppearancePendingOrder: isAppearancePending,

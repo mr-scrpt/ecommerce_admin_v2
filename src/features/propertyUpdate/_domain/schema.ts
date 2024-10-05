@@ -7,6 +7,7 @@ export const propertySelectorSchema = z.object({
 });
 
 export const propertyUpdateSchema = propertyBaseSchema;
+
 export const propertyItemUpdateSchema = propertyItemBaseSchema
   .pick({
     name: true,

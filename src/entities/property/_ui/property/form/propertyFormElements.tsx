@@ -83,6 +83,7 @@ export const PropertyFormElements: PropertyFormElementsType = <
   const handleSubmit = form.handleSubmit(async (data: T) => {
     onSubmit?.(data);
   });
+  console.log("output_log: VALUES =>>>", form.getValues());
 
   return (
     <FormProvider {...form}>
@@ -183,87 +184,6 @@ PropertyFormElements.FieldPropertyMultiSelect = function FieldList() {
     />
   );
 };
-
-// PropertyFormElements.FieldSelectPropertyItem = function FieldPropertyItemList({
-//   isPending,
-// }: {
-//   isPending: boolean;
-// }) {
-//   const form = useFormContext<PropertyFormValues>();
-//
-//   const { fields, append, remove } = useFieldArray({
-//     name: "propertyItemList",
-//     control: form.control,
-//   });
-//
-//   return (
-//     <div className="flex w-full flex-col gap-4">
-//       {fields.map((item, idx) => {
-//         return (
-//           <div key={item.id} className="flex w-full gap-4">
-//             <FormField
-//               control={form.control}
-//               name={`propertyItemList.${idx}.name`}
-//               render={({ field }) => (
-//                 <FormItem className="flex-grow">
-//                   <FormLabel>Option name</FormLabel>
-//                   <FormControl>
-//                     <Input
-//                       disabled={isPending}
-//                       placeholder="Enter option name..."
-//                       {...field}
-//                     />
-//                   </FormControl>
-//                   <FormMessage />
-//                 </FormItem>
-//               )}
-//             ></FormField>
-//             <FormField
-//               control={form.control}
-//               name={`propertyItemList.${idx}.value`}
-//               render={({ field }) => (
-//                 <FormItem className="flex-grow">
-//                   <FormLabel>Option value</FormLabel>
-//                   <FormControl>
-//                     <Input
-//                       disabled={isPending}
-//                       placeholder="Enter optin value..."
-//                       {...field}
-//                     />
-//                   </FormControl>
-//                   <FormMessage />
-//                 </FormItem>
-//               )}
-//             ></FormField>
-//             {idx > 0 ? (
-//               <Button
-//                 type="button"
-//                 className="mb-0 mt-auto"
-//                 variant="destructive"
-//                 onClick={() => remove(idx)}
-//               >
-//                 <MinusIcon size="10" />
-//               </Button>
-//             ) : (
-//               <Button
-//                 type="button"
-//                 disabled
-//                 className="mb-0 mt-auto"
-//                 variant="destructive"
-//               >
-//                 <MinusIcon size="10" />
-//               </Button>
-//             )}
-//           </div>
-//         );
-//       })}
-//
-//       <Button type="button" onClick={() => append({ name: "", value: "" })}>
-//         <PlusIcon size="15" /> Add property line
-//       </Button>
-//     </div>
-//   );
-// };
 
 PropertyFormElements.SubmitButton = function SubmitButton({
   isPending,

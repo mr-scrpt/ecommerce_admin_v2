@@ -5,19 +5,19 @@ import {
 } from "@/kernel/domain/order/form.schema";
 import { OrderUpdateFormValues } from "../_domain/form.schema";
 
-interface UseOrderUpdateValues {
-  orderUpdateValues: OrderUpdateFormValues;
-  isPendingOrderData: boolean;
-  isFetchedAfterMountOrderData: boolean;
-  isSuccessOrderData: boolean;
-}
+// interface UseOrderUpdateValues {
+//   orderUpdateValues: OrderUpdateFormValues;
+//   isAppearancePendingOrder: boolean;
+//   isFetchedAfterMountOrder: boolean;
+//   isSuccessOrder: boolean;
+// }
 
-export const useOrderUpdateValues = (orderId: string): UseOrderUpdateValues => {
+export const useOrderUpdateValues = (orderId: string) => {
   const {
     order,
-    isPending: isPendingOrderData,
-    isFetchedAfterMount: isFetchedAfterMountOrderData,
-    isSuccess: isSuccessOrderData,
+    isAppearancePendingOrder,
+    isFetchedAfterMountOrder,
+    isSuccessOrder,
   } = useOrderWithRelationModel(orderId);
 
   const { orderStatusState, orderStatusPayment } = order || {};
@@ -31,8 +31,8 @@ export const useOrderUpdateValues = (orderId: string): UseOrderUpdateValues => {
 
   return {
     orderUpdateValues,
-    isPendingOrderData,
-    isFetchedAfterMountOrderData,
-    isSuccessOrderData,
+    isAppearancePendingOrder,
+    isFetchedAfterMountOrder,
+    isSuccessOrder,
   };
 };

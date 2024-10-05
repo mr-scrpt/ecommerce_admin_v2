@@ -1,13 +1,12 @@
 import { useRouter } from "next/navigation";
 import { CategoryUpdateFormValues } from "../_domain/form.schema";
 import { useCategoryUpdateMutation } from "../_mutation/useCategoryUpdate.mutation";
+import { HandlerFormBaseProps } from "@/shared/lib/hook";
 
-export interface CategoryUpdateHandlerProps {
+export interface CategoryUpdateHandlerProps extends HandlerFormBaseProps {
   data: {
     categoryId: string;
   };
-  onSuccess?: () => void;
-  callbackUrl?: string;
 }
 
 export const useCategoryUpdateHandler = (props: CategoryUpdateHandlerProps) => {

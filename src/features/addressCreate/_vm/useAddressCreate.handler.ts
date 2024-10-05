@@ -1,15 +1,18 @@
 import { useRouter } from "next/navigation";
 import { AddressCreateFormValues } from "../_domain/form.schema";
 import { useAddressCreateMutation } from "../_mutation/useAddressCreate.mutation";
+import { HandlerFormBaseProps } from "@/shared/lib/hook";
 
-interface AddressFormCreateProps {
-  userId: string;
-  settlementRef: string;
-  callbackUrl?: string;
-  onSuccess?: () => void;
+interface AddressFormCreateProps extends HandlerFormBaseProps {
+  data: {
+    userId: string;
+    settlementRef: string;
+  };
 }
+
 export const useAddressCreateHandler = (props: AddressFormCreateProps) => {
-  const { userId, settlementRef, onSuccess, callbackUrl } = props;
+  const { data, onSuccess, callbackUrl } = props;
+  const { userId, settlementRef } = data;
   const {
     addressCreate,
     isPending: isPendingCreate,
