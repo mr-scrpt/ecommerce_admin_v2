@@ -15,6 +15,7 @@ import { OrderGetService } from "../_service/order/orderGet.service";
 import { OrderListGetService } from "../_service/order/orderListGet.service";
 import { OrderListGetByOrderService } from "../_service/order/orderListGetByOrder.service";
 import { OrderListGetByConsumerService } from "../_service/order/orderListGetByOwner.service";
+import { OrderListWithRelationGetService } from "../_service/order/orderListWithRelationGet.service";
 import { OrderRelationGetService } from "../_service/order/orderRelationGet.service";
 import { OrderStatusAvailableGetService } from "../_service/orderStatus/orderStatusAvailableGet.service";
 import { OrderStatusPaymentListGetService } from "../_service/orderStatus/orderStatusPaymentListGet.service";
@@ -26,7 +27,7 @@ export class OrderController extends Controller {
     private readonly getOrderService: OrderGetService,
     private readonly getOrderRelationService: OrderRelationGetService,
     private readonly getOrderListService: OrderListGetService,
-    // private readonly getOrderListWithRelationService: OrderListWithRelationGetByConsumerService,
+    private readonly getOrderListWithRelationService: OrderListWithRelationGetService,
     private readonly getOrderListByOrderService: OrderListGetByOrderService,
     private readonly getOrderByConsumerListService: OrderListGetByConsumerService,
     private readonly getOrderStatusAvailableService: OrderStatusAvailableGetService,
@@ -42,6 +43,7 @@ export class OrderController extends Controller {
         const result = await this.getOrderService.execute(input);
         return orderSchema.parse(result);
       }),
+
       getRelation: publicProcedure
         .input(getInputSchema)
         .query(async ({ input }) => {
@@ -52,6 +54,11 @@ export class OrderController extends Controller {
       getList: publicProcedure.query(async () => {
         const result = await this.getOrderListService.execute();
         return getListOutputSchema.parse(result);
+      }),
+
+      getListRelation: publicProcedure.query(async () => {
+        const result = await this.getOrderListWithRelationService.execute();
+        return getListRelationOutputSchema.parse(result);
       }),
 
       getListByConsumer: publicProcedure

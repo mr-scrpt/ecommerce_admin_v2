@@ -1,3 +1,5 @@
+export { useOrderListWithRelationQuery } from "./_query/order/useOrderListWithRelation.query";
+
 export { useOrderListWithRelationByOrderModel } from "./_vm/order/useOrderListWithRelationByOrder.model";
 
 export { OrderListPresentation } from "./_ui/order/presentation/orderListPresentation";

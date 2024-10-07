@@ -71,12 +71,8 @@ export class OrderRepository implements IOrderRepository {
     return orderList;
   }
 
-  async getListWithRelation<T>(dto: OrderGetDTO, db: Tx = this.db): Promise<T> {
-    const { id } = dto;
+  async getListWithRelation<T>(db: Tx = this.db): Promise<T> {
     const orderList = await db.order.findMany({
-      where: {
-        id,
-      },
       include: {
         orderRowList: true,
         delivery: {

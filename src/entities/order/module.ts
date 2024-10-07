@@ -22,6 +22,7 @@ import { OrderStatusPaymentListGetService } from "./_service/orderStatus/orderSt
 import { OrderStatusStateListGetService } from "./_service/orderStatus/orderStatusStateListGet.service";
 import { OrderListWithRelationGetByConsumerService } from "./_service/order/orderListWithRelationGetByConsumer.service";
 import { OrderListGetByOrderService } from "./_service/order/orderListGetByOrder.service";
+import { OrderListWithRelationGetService } from "./_service/order/orderListWithRelationGet.service";
 
 export const OrderModule = new ContainerModule((bind) => {
   bind(IOrderRepository).to(OrderRepository);
@@ -29,6 +30,7 @@ export const OrderModule = new ContainerModule((bind) => {
 
   bind(OrderGetService).toSelf();
   bind(OrderRelationGetService).toSelf();
+  bind(OrderListWithRelationGetService).toSelf();
   bind(OrderListWithRelationGetByConsumerService).toSelf();
   bind(OrderListGetByOrderService).toSelf();
   bind(OrderListGetByConsumerService).toSelf();

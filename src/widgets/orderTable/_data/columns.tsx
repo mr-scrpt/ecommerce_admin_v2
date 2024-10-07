@@ -9,8 +9,12 @@ export const orderColumns: ColumnDef<OrderColumnType>[] = [
     header: "Order No",
   },
   {
-    accessorKey: "name",
-    header: "Name",
+    accessorKey: "orderStateStatus",
+    header: "State Status",
+  },
+  {
+    accessorKey: "orderPaymentStatus",
+    header: "Payment Status",
   },
   {
     accessorKey: "createdAt",

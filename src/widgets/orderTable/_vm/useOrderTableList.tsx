@@ -1,4 +1,4 @@
-import { useOrderListQuery } from "@/entities/order";
+import { useOrderListWithRelationQuery } from "@/entities/order";
 import { buildDate } from "@/shared/lib/date";
 
 export const useOrderTableList = () => {
@@ -7,14 +7,14 @@ export const useOrderTableList = () => {
     isSuccess,
     isFetchedAfterMount,
     orderList: data,
-  } = useOrderListQuery();
+  } = useOrderListWithRelationQuery();
 
   const orderList = data?.map((item) => ({
     id: item.id,
     name: "",
     orderNo: item.orderNo,
-    status: item.orderStatus,
-    payment: item.paymentStatus,
+    orderStateStatus: item.orderStatusState.status,
+    orderPaymentStatus: item.orderStatusPayment.status,
     createdAt: buildDate(item.createdAt),
   }));
 
