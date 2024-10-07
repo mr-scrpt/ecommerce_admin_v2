@@ -15,6 +15,6 @@ export type StoreCreateFormValues = z.infer<typeof storeCreateFormSchema>;
 // TODO: DefaultValues
 export const storeCreateDefaultFieldsValues: StoreCreateFormValues = {
   name: "",
-  address: "",
+  addressLine: "",
   settlement: null,
 };

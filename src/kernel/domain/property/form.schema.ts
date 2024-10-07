@@ -13,6 +13,7 @@ export const propertyDefaultSelectOptionSchema = z.object({
 
 export const propertyItemDefaultSelectOptionSchema = z.object({
   value: z.string(),
+  label: z.string(),
   propertyItemName: z.string(),
   propertyItemValue: z.string(),
   propertyId: z.string(),
@@ -63,6 +64,7 @@ export const buildPropertyItemOption = (
   propertyItem
     ? {
         value: propertyItem.id,
+        label: propertyItem.name,
         propertyItemName: propertyItem.name,
         propertyItemValue: propertyItem.value,
         propertyId: propertyItem.propertyId,

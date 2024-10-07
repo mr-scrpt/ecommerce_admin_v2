@@ -1,6 +1,6 @@
 "use server";
 
-import { FC, HTMLAttributes } from "react";
+import { FC, HTMLAttributes, Suspense } from "react";
 import { getProviders } from "next-auth/react";
 import { cn } from "@/shared/ui/utils";
 import { Divider } from "./_ui/Divider";
@@ -23,15 +23,17 @@ export const SignInForm: FC<SignInFormProps> = async (props) => {
 
   return (
     <div className={cn("grid gap-6", className)}>
-      {testToken ? (
-        <TestEmailSignInForm testToken={testToken} />
-      ) : (
-        <EmailSignInForm />
-      )}
-      <Divider />
-      {oauthProviders.map((provider) => (
-        <ProviderButton key={provider.id} provider={provider} />
-      ))}
+      <Suspense fallback={<div>Loading...</div>}>
+        {testToken ? (
+          <TestEmailSignInForm testToken={testToken} />
+        ) : (
+          <EmailSignInForm />
+        )}
+        <Divider />
+        {oauthProviders.map((provider) => (
+          <ProviderButton key={provider.id} provider={provider} />
+        ))}
+      </Suspense>
     </div>
   );
 };

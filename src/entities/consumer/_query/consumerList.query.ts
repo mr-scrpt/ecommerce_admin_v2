@@ -1,11 +1,11 @@
 "use client";
-import { Consumer } from "@/kernel/domain/consumer/consumer.type";
 import { consumerApi } from "../_api/consumer.api";
+import { ConsumerRelation } from "../_domain/consumer.type";
 import { useListenConsumerListUpdate } from "../_vm/event/useListenConsumerListUpdate";
 
 export const useConsumerListQuery = () => {
   const { isPending, isFetchedAfterMount, isSuccess, data, isError } =
-    consumerApi.consumer.getRelationList.useQuery<Array<Consumer>>();
+    consumerApi.consumer.getRelationList.useQuery<Array<ConsumerRelation>>();
 
   useListenConsumerListUpdate();
 

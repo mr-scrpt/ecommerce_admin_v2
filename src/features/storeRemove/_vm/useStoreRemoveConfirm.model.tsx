@@ -14,7 +14,7 @@ export const useStoreRemoveConfirmModel = () => {
 
     if (!confirmation) return;
 
-    await storeRemove({ storeId });
+    await storeRemove({ selector: { id: storeId } });
   };
 
   return { isPending, isSuccess, removeStoreConfirm };

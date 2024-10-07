@@ -5,9 +5,9 @@ import { buildReceiverOptionsArray } from "@/kernel/domain/receiver/form.schema"
 export const useOrderReceiverUpdateValues = (orderId: string) => {
   const {
     order,
-    isPending: isPendingOrderData,
-    isFetchedAfterMount: isFetchedAfterMountOrderData,
-    isSuccess: isSuccessOrderData,
+    isFetchedAfterMountOrder,
+    isAppearancePendingOrder,
+    isSuccessOrder,
   } = useOrderWithRelationModel(orderId);
 
   const orderReceiverUpdateValues: OrderReceiverUpdateFormValues = {
@@ -16,8 +16,8 @@ export const useOrderReceiverUpdateValues = (orderId: string) => {
 
   return {
     orderReceiverUpdateValues,
-    isPendingOrderData,
-    isFetchedAfterMountOrderData,
-    isSuccessOrderData,
+    isFetchedAfterMountOrder,
+    isAppearancePendingOrder,
+    isSuccessOrder,
   };
 };

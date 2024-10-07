@@ -19,12 +19,14 @@ export const OrderUpdateDeliveryItem: FC<OrderUpdateDeliveryItemProps> = memo(
 
     // TODO: Add ui component
     if (!delivery) return null;
-    const { id, userId } = delivery;
+    const { id } = delivery;
 
     return (
       <AddressCreateModalProvider addressCreateModal={openAddressCreateModal}>
-        <DeliveryFormUpdate deliveryId={id} userId={userId} />
+        <DeliveryFormUpdate deliveryId={id} />
       </AddressCreateModalProvider>
     );
   },
 );
+
+OrderUpdateDeliveryItem.displayName = "OrderUpdateDeliveryItem";

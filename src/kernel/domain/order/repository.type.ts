@@ -33,7 +33,7 @@ export abstract class IOrderRepository {
   ): Promise<Array<T>>;
 
   abstract getList(db?: Tx): Promise<OrderEntity[]>;
-  abstract getListWithRelation<T>(dto: OrderGetDTO, db?: Tx): Promise<T>;
+  abstract getListWithRelation<T>(db?: Tx): Promise<T>;
 
   abstract createEmpty(
     dto: OrderCreateEmptyWithReceiverDTO,

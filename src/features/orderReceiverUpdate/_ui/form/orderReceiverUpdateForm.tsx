@@ -20,8 +20,9 @@ export const OrderReceiverUpdateForm: FC<ReceiverUpdateFormProps> = (props) => {
 
   const {
     orderReceiverUpdateValues,
-    isPendingOrderData,
-    isFetchedAfterMountOrderData,
+    isSuccessOrder,
+    isAppearancePendingOrder,
+    isFetchedAfterMountOrder,
   } = useOrderReceiverUpdateValues(orderId);
 
   const { handleOrderReceiverUpdate, isPendingUpdate } =
@@ -31,7 +32,7 @@ export const OrderReceiverUpdateForm: FC<ReceiverUpdateFormProps> = (props) => {
       callbackUrl,
     });
 
-  if (isPendingOrderData || !isFetchedAfterMountOrderData) {
+  if (isSuccessOrder || isAppearancePendingOrder) {
     return <Spinner aria-label="Loading profile..." />;
   }
 

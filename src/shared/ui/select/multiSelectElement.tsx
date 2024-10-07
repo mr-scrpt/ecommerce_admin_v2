@@ -149,14 +149,8 @@ export const MultiSelectElementInner = <T extends DefaultSelectOption>(
                       e.stopPropagation();
                     }}
                     onSelect={(_) => {
-                      // console.log(
-                      //   "output_log: ))) in select =>>>",
-                      //   optionItem,
-                      //   !!onSelected,
-                      // );
                       setInputValue("");
                       setSelected((prev) => [...prev, optionItem]);
-                      // setSessionItems((prev) => [...prev, optionItem]);
                       onSelect && onSelect([...selected, optionItem]);
                     }}
                     className={"cursor-pointer"}
@@ -179,4 +173,3 @@ export const MultiSelectElement = memo(MultiSelectElementInner) as <
 ) => JSX.Element;
 
 MultiSelectElementInner.displayName = "MultiSelect";
-// MultiSelectElement.displayName = "MultiSelect";

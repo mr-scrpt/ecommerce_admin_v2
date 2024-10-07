@@ -1,4 +1,4 @@
-import { CartRow, CartRowBase } from "./cartRow.types";
+import { CartRow, CartRowBase } from "./cartRow.type";
 
 // NOTE: Queries
 export type CartRowGetDTO = {

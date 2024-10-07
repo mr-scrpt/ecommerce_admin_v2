@@ -35,7 +35,7 @@ export class OrderRowCreateTx extends Transaction implements IOrderRowCreateTx {
         throw new Error("Product already in order");
       }
 
-      const { name, article, price, img } = await this.productRepo.get(
+      const { name, article, price, imgList } = await this.productRepo.get(
         { id: productId },
         tx,
       );

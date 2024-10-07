@@ -2,7 +2,7 @@ import { injectable } from "inversify";
 
 import { IOrderRowCreateTx } from "../_domain/transaction.type";
 import { OrderRowCreateTxPayload } from "../_domain/types";
-import { Order } from "@prisma/client";
+import { Order } from "@/kernel/domain/order/order.type";
 
 @injectable()
 export class OrderRowCreateService {

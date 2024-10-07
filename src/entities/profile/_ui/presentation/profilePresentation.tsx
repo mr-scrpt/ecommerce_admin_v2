@@ -46,6 +46,8 @@ const Avatar = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
   },
 );
 
+Avatar.displayName = "Avatar";
+
 interface LinkToProfileProps extends HTMLAttributes<HTMLDivElement> {
   textAnchor: string;
 }
@@ -68,6 +70,8 @@ const LinkToProfile = forwardRef<HTMLDivElement, LinkToProfileProps>(
   },
 );
 
+LinkToProfile.displayName = "LinkToProfile";
+
 const UserName = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
   (props, ref) => {
     const { ...rest } = props;
@@ -84,6 +88,8 @@ const UserName = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
     );
   },
 );
+
+UserName.displayName = "UserName";
 
 const DataSession = profileDataInjector(() => {
   const { data, status } = useAppSession();

@@ -1,4 +1,4 @@
-import { UserUpdateDTO } from "@/entities/user/_domain/user.dto";
+import { UserUpdateDTO } from "@/kernel/domain/user/user.dto";
 import { UserBase } from "@/kernel/domain/user/user.type";
 
 type UserUpdatePayload = Partial<UserBase>;

@@ -10,7 +10,6 @@ export const ReceiverModule = new ContainerModule((bind) => {
   bind(IReceiverRepository).to(ReceiverRepository);
   bind(ReceiverListGetByUserService).toSelf();
   bind(ReceiverRelationGetService).toSelf();
-  // bind(ReceiverListGetByOrderService).toSelf();
 
   bind(Controller).to(ReceiverController);
 });

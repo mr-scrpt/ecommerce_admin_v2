@@ -76,6 +76,7 @@ export const PropertyItemListElement: FC = () => {
         onClick={() =>
           append({
             value: "",
+            label: "",
             propertyItemValue: "",
             propertyItemName: "",
             propertyId: "",

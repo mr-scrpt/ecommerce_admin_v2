@@ -1,7 +1,5 @@
 import { Category } from "@/kernel/domain/category/category.type";
-import { PropertyDefaultSelectOption } from "@/kernel/domain/property/form.schema";
 import {
-  PROPERTY_DATATYPE,
   PropertyComposite,
   PropertyCompositeEntity,
 } from "@/kernel/domain/property/property.type";
@@ -10,6 +8,7 @@ import { PropertyItem } from "@/kernel/domain/property/propertyItem.type";
 // NOTE: Relations
 export type PropertyRelationEntity = PropertyCompositeEntity & {
   categoryList: Array<Category>;
+  propertyList: Array<PropertyItem>;
 };
 
 export type PropertyRelation = PropertyComposite & {

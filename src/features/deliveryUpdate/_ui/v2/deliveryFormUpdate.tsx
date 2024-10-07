@@ -44,3 +44,5 @@ export const DeliveryFormUpdate: FC<DeliveryFormProps> = memo((props) => {
     </DeliveryFormElements>
   );
 });
+
+DeliveryFormUpdate.displayName = "DeliveryFormUpdate";

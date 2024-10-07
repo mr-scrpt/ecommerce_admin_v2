@@ -44,6 +44,8 @@ const ButtonLogOut = forwardRef<
   );
 });
 
+ButtonLogOut.displayName = "ButtonLogOut";
+
 const ButtonLogIn = forwardRef<
   HTMLButtonElement,
   HTMLAttributes<HTMLButtonElement>
@@ -69,6 +71,8 @@ const ButtonLogIn = forwardRef<
     </Button>
   );
 });
+
+ButtonLogIn.displayName = "ButtonLogIn";
 
 export const AuthPresentation = Object.assign(AuthPresentationBase, {
   ButtonLogOut,

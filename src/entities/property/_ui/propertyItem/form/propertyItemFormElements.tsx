@@ -198,9 +198,10 @@ PropertyItemFormElements.FieldPropertyItemCheckbox =
     const { control, getFieldState } =
       useFormContext<PropertyItemFormDefaultValues>();
 
-    if (!getFieldState("propertyItemList")) return null;
     const { propertySelectOptionList, isPending, isSuccess } =
       usePropertyItemListToSelectModel(propertyId);
+
+    if (!getFieldState("propertyItemList")) return null;
 
     return (
       <FormField
@@ -214,37 +215,8 @@ PropertyItemFormElements.FieldPropertyItemCheckbox =
               onSelectPropertyItem={field.onChange}
               propertyId={propertyId}
             />
-            {/* <FormMessage /> */}
           </FormItem>
         )}
-        // render={({ field: { onChange, value } }) => (
-        //   <FormItem>
-        //     <div className="mb-4">
-        //       <FormLabel className="text-base">Sidebar</FormLabel>
-        //       <FormDescription>
-        //         Select the items you want to display in the sidebar.
-        //       </FormDescription>
-        //     </div>
-        //     {propertySelectOptionList.map((row) => (
-        //       <FormItem
-        //         key={row.value}
-        //         className="flex flex-row items-start space-x-3 space-y-0"
-        //       >
-        //         {row.value}
-        //         <FormControl>
-        //           <Checkbox
-        //             onCheckedChange={() => {
-        //               console.log("output_log: ROW =>>>", row);
-        //               console.log("output_log:  =>>>", value);
-        //               onChange([...value, row.value]);
-        //             }}
-        //           />
-        //         </FormControl>
-        //         <FormLabel className="font-normal">{row.label}</FormLabel>
-        //       </FormItem>
-        //     ))}
-        //   </FormItem>
-        // )}
       />
     );
   };
