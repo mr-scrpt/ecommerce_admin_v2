@@ -4,7 +4,7 @@ import { PropertyRelation } from "../../_domain/property/property.types";
 import { useListenPropertyUpdate } from "../../_vm/event/useListenPropertyUpdate";
 
 export const usePropertyListByCategoryQuery = (categoryId: string) => {
-  const { isPending, isSuccess, data, isFetchedAfterMount } =
+  const { isPending, isSuccess, data, isFetchedAfterMount, isError, error } =
     propertyApi.property.getListByCategory.useQuery<Array<PropertyRelation>>({
       categoryId,
     });
@@ -15,6 +15,8 @@ export const usePropertyListByCategoryQuery = (categoryId: string) => {
     isPending,
     isSuccess,
     propertyList: data ?? [],
+    isError,
+    error,
     isFetchedAfterMount,
   };
 };

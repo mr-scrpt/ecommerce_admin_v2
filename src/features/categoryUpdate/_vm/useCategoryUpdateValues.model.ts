@@ -14,12 +14,16 @@ export const useCategoryUpdateValues = (props: CategoryDefaultValueProps) => {
     category,
     isPending: isPendingCategory,
     isFetchedAfterMount: isFetchedAfterMountCategory,
+    isError: isErrorCategory,
+    error: errorCategory,
   } = useCategoryQuery(categoryId);
 
   const {
     propertyList,
     isPending: isPendingProperty,
     isFetchedAfterMount: isFetchedAfterMountProperty,
+    isError: isErrorProperty,
+    error: errorProperty,
   } = usePropertyListByCategoryQuery(categoryId);
 
   const categoryUpdateValues: CategoryUpdateFormValues = {

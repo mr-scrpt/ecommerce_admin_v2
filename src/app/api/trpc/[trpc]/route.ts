@@ -16,6 +16,9 @@ const handler = (req: Request) =>
     req,
     router: t.mergeRouters(sharedRouter, ...appRouter),
     createContext: appModule.get(ContextFactory).createContext,
+    // onError({ error }) {
+    //   console.error("interceptor", error);
+    // },
   });
 
 export { handler as GET, handler as POST };

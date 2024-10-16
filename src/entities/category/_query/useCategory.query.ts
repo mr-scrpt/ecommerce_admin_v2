@@ -4,7 +4,7 @@ import { categoryApi } from "../_api/category.api";
 import { useListenCategoryUpdate } from "../_vm/event/useListenCategoryUpdate";
 
 export const useCategoryQuery = (id: string) => {
-  const { data, isPending, isSuccess, isFetchedAfterMount, error } =
+  const { data, isPending, isSuccess, isFetchedAfterMount, isError, error } =
     categoryApi.category.get.useQuery<Category>({ id });
 
   useListenCategoryUpdate();
@@ -13,6 +13,8 @@ export const useCategoryQuery = (id: string) => {
     isPending,
     isSuccess,
     isFetchedAfterMount,
+    isError,
+    error,
     category: data ?? null,
   };
 };
