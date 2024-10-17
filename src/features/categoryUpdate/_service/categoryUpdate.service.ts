@@ -36,12 +36,10 @@ export class CategoryUpdateService {
       selector,
       propertyData,
     );
-    console.log("output_log: BEFORE !!!!!!!!!!!!! =>>>");
 
     if (invariantResultStage.isLeft()) {
       return left(invariantResultStage.value);
     }
-    console.log("output_log: AFTER !!!!!!!!!!!!!! =>>>");
 
     return await this.performUpdate(cartRowUpdateDTO);
   }
@@ -55,9 +53,6 @@ export class CategoryUpdateService {
 
   private build(payload: CategoryUpdateTxPayload): CategoryUpdateTxPayload {
     const { categoryData } = payload;
-    if (!categoryData.name) {
-      return payload;
-    }
 
     return merge({}, payload, {
       categoryData: {
@@ -78,10 +73,11 @@ export class CategoryUpdateService {
       ),
     ]);
 
-    const errors = invariantCheckResults
-      .filter((result) => result.isLeft())
-      .map((result) => result.value as ErrorApp);
+    mergeInMany(invariantCheckResults).mapLeft((e) => (this.errorList = e));
+    if (this.errorList.length > 0) {
+      return left(this.errorList);
+    }
 
-    return errors.length ? left(errors) : right(true);
+    return right(true);
   }
 }
