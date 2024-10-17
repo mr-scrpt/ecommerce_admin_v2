@@ -5,6 +5,7 @@ enum ErrorMessageEnum {
   CATEGORY_NOT_FOUND = "Category not found",
   CATEGORY_NOT_BEEN_CREATED = "Category not been created",
   CATEGORY_ALREADY_EXIST = "Category already exist",
+  CATEGORY_NOT_UNIQUE_NAME = "Category name not unique",
   CATEGORY_NOT_BEEN_BIND_PROPERTY = "Category not been bind property",
   CATEGORY_NOT_BEEN_BIND_PRODUCT = "Category not been bind product",
   CATEGORY_INPUT_VALIDATION_ERROR = "Category input validation error",
@@ -35,6 +36,16 @@ export class CategoryAlreadyExistError extends ErrorApp {
     super({
       code: HTTP_STATUS.CONFLICT,
       message: ErrorMessageEnum.CATEGORY_ALREADY_EXIST,
+      cause,
+    });
+  }
+}
+
+export class CategoryNotUniqueNameError extends ErrorApp {
+  constructor(cause?: unknown) {
+    super({
+      code: HTTP_STATUS.CONFLICT,
+      message: ErrorMessageEnum.CATEGORY_NOT_UNIQUE_NAME,
       cause,
     });
   }

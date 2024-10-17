@@ -3,6 +3,7 @@ import { sharedApi } from "@/kernel/lib/trpc/client";
 import { configPublic } from "@/shared/config/public.config";
 import { buildErrorNotice } from "@/shared/ui/notice/notice";
 import {
+  MutationCache,
   QueryCache,
   QueryClient,
   QueryClientProvider,
@@ -20,6 +21,11 @@ export const ProviderTRPC: FC<ProviderTRPCProps> = (props) => {
     () =>
       new QueryClient({
         queryCache: new QueryCache({
+          onError: async (error) => {
+            buildErrorNotice(error.message);
+          },
+        }),
+        mutationCache: new MutationCache({
           onError: async (error) => {
             buildErrorNotice(error.message);
           },

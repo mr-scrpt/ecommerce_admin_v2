@@ -1,3 +1,4 @@
+import { PropertyNotFoundError } from "@/kernel/domain/property/error";
 import {
   PropertyCreateDTO,
   PropertyGetByCategoryDTO,
@@ -8,19 +9,28 @@ import {
 } from "@/kernel/domain/property/property.dto";
 import { PropertyEntity } from "@/kernel/domain/property/property.type";
 import { IPropertyRepository } from "@/kernel/domain/property/repository.type";
+import { ErrorApp } from "@/shared/error/error";
 import { DBClient, Tx } from "@/shared/lib/db/db";
+import { Either, left, right } from "@sweet-monads/either";
 import { injectable } from "inversify";
 
 @injectable()
 export class PropertyRepository implements IPropertyRepository {
   constructor(readonly db: DBClient) {}
 
-  async get(dto: PropertyGetDTO, db: Tx = this.db): Promise<PropertyEntity> {
-    const property = await db.property.findUniqueOrThrow({
-      where: dto,
-    });
+  async get(
+    dto: PropertyGetDTO,
+    db: Tx = this.db,
+  ): Promise<Either<ErrorApp, PropertyEntity>> {
+    try {
+      const property = await db.property.findUniqueOrThrow({
+        where: dto,
+      });
 
-    return property;
+      return right(property);
+    } catch (e) {
+      return left(new PropertyNotFoundError({ cause: e }));
+    }
   }
 
   async getWithRelation<T>(dto: PropertyGetDTO, db: Tx = this.db): Promise<T> {
@@ -79,12 +89,26 @@ export class PropertyRepository implements IPropertyRepository {
   async getList(db: Tx = this.db): Promise<PropertyEntity[]> {
     const propertyList = await db.property.findMany();
 
-    // return propertyList.map((property) => ({
-    //   ...property,
-    //   datatype: mapPrismaDatatypeToEnum(property.datatype), // Преобразование типа данных
-    // }));
     return propertyList;
   }
+
+  // async getListByIdList(
+  //   dto: PropertyGetListByIdListDTO,
+  //   db: Tx = this.db,
+  // ):Promise<Either<ErrorApp, PropertyEntity[]>> {
+  //   try {
+  //     const propertyList = await db.property.findMany({
+  //       where: {
+  //         id: {
+  //           in: dto.idList,
+  //         },
+  //       },
+  //     });
+  //     return right(propertyList);
+  //   } catch (e) {
+  //     return left(new PropertyNotFoundError({ cause: e }));
+  //   }
+  // }
 
   async create(
     dto: PropertyCreateDTO,

@@ -7,6 +7,7 @@ import {
 
 export const updateInputSchema = z.object({
   selector: categorySelectorSchema,
-  categoryData: categoryUpdateSchema.partial(),
+  categoryData: categoryUpdateSchema,
+  // categoryData: categoryUpdateSchema.partial(),
   propertyData: z.array(categoryPropertyBindSchema),
 });

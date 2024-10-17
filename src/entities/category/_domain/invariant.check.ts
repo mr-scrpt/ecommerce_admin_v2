@@ -1,4 +1,4 @@
-import { CategoryAlreadyExistError } from "@/kernel/domain/category/error";
+import { CategoryNotUniqueNameError } from "@/kernel/domain/category/error";
 import { ICategoryInvariant } from "@/kernel/domain/category/invariant.type";
 import { ICategoryRepository } from "@/kernel/domain/category/repository.type";
 import { ErrorApp } from "@/shared/error/error";
@@ -6,31 +6,24 @@ import { Tx } from "@/shared/lib/db/db";
 import { Either, left, right } from "@sweet-monads/either";
 import { injectable } from "inversify";
 
-type UniqueByName = {
-  name: string;
-};
-
 @injectable()
 export class CategoryInvariant implements ICategoryInvariant {
-  constructor(private readonly categoryRepo: ICategoryRepository) {}
+  constructor(readonly categoryRepo: ICategoryRepository) {}
 
   public async isCategoryUniqueByName(
-    isUniqueByName: UniqueByName,
+    name: string,
+    selector: { id: string },
     tx?: Tx,
-  ): Promise<Either<ErrorApp, void>> {
-    const { name } = isUniqueByName;
+  ): Promise<Either<ErrorApp, boolean>> {
+    const isCategoryQnique = await this.categoryRepo.getByName({ name }, tx);
 
-    const isCategoryQnique = await this.categoryRepo.checkIsUniqueByName(
-      {
-        name,
-      },
-      tx,
-    );
-
-    if (isCategoryQnique.value) {
-      return left(new CategoryAlreadyExistError());
+    if (isCategoryQnique.isRight()) {
+      if (isCategoryQnique.value.id === selector.id) {
+        return right(true);
+      }
+      return left(new CategoryNotUniqueNameError());
     }
 
-    return right(void 0);
+    return right(true);
   }
 }

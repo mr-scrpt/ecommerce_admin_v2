@@ -1,11 +1,13 @@
 import { ErrorApp } from "@/shared/error/error";
-import { Either } from "@sweet-monads/either";
-import { CategoryCheckByNameDTO } from "./category.dto";
 import { Tx } from "@/shared/lib/db/db";
+import { Either } from "@sweet-monads/either";
 
 export abstract class ICategoryInvariant {
   abstract isCategoryUniqueByName(
-    dto: CategoryCheckByNameDTO,
+    name: string,
+    selector: {
+      id: string;
+    },
     db?: Tx,
-  ): Promise<Either<ErrorApp, void>>;
+  ): Promise<Either<ErrorApp, boolean>>;
 }

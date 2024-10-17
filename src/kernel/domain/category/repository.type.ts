@@ -4,8 +4,8 @@ import { Either } from "@sweet-monads/either";
 import {
   CategoryBindToProductListDTO,
   CategoryBindToPropertyListDTO,
-  CategoryCheckByNameDTO,
   CategoryCreateDTO,
+  CategoryGetByNameDTO,
   CategoryGetBySlugDTO,
   CategoryGetDTO,
   CategoryRemoveBySlugDTO,
@@ -26,6 +26,10 @@ export abstract class ICategoryRepository {
     db?: Tx,
   ): Promise<Either<ErrorApp, T>>;
 
+  abstract getByName(
+    dto: CategoryGetByNameDTO,
+    db?: Tx,
+  ): Promise<Either<ErrorApp, CategoryEntity>>;
   abstract getBySlug(
     dto: CategoryGetBySlugDTO,
     db?: Tx,
@@ -66,9 +70,4 @@ export abstract class ICategoryRepository {
     dto: CategoryBindToProductListDTO,
     db?: Tx,
   ): Promise<Either<ErrorApp, CategoryEntity>>;
-
-  abstract checkIsUniqueByName(
-    dto: CategoryCheckByNameDTO,
-    db?: Tx,
-  ): Promise<Either<ErrorApp, boolean>>;
 }

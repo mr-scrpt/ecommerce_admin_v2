@@ -4,6 +4,7 @@ import {
   PropertyGetByCategoryDTO,
   PropertyGetByCategoryIdListDTO,
   PropertyGetDTO,
+  PropertyGetListByIdDTO as PropertyGetListByIdListDTO,
   PropertyRemoveDTO,
   PropertyUpdateDTO,
 } from "./property.dto";
@@ -17,9 +18,14 @@ import {
   PropertyItemUpdateDTO,
 } from "./propertyItem.dto";
 import { PropertyItemEntity } from "./propertyItem.type";
+import { ErrorApp } from "@/shared/error/error";
+import { Either } from "@sweet-monads/either";
 
 export abstract class IPropertyRepository {
-  abstract get(dto: PropertyGetDTO, db?: Tx): Promise<PropertyEntity>;
+  abstract get(
+    dto: PropertyGetDTO,
+    db?: Tx,
+  ): Promise<Either<ErrorApp, PropertyEntity>>;
 
   abstract getWithRelation<T>(dto: PropertyGetDTO, db?: Tx): Promise<T>;
 
@@ -29,6 +35,10 @@ export abstract class IPropertyRepository {
   ): Promise<T[]>;
 
   abstract getList(db?: Tx): Promise<PropertyEntity[]>;
+  // abstract getListById(
+  //   dto: PropertyGetListByIdListDTO,
+  //   db?: Tx,
+  // ): Promise<PropertyEntity[]>;
 
   abstract getListByCategory(
     dto: PropertyGetByCategoryDTO,

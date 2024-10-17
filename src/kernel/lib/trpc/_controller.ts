@@ -10,14 +10,15 @@ import { CategoryInputValidateError } from "@/kernel/domain/category/error";
 @injectable()
 export class ControllerWithValidation {
   protected checkResult<T, E extends ErrorApp>(
-    result: Either<E, T>,
+    result: Either<Array<E>, T>,
     schema: ZodSchema<T>,
   ): T {
     if (result.isLeft()) {
       // TODO: add logger
       throw new TRPCError({
-        code: result.value.code,
-        message: JSON.stringify([result.value.message]),
+        // code: result.value.code,
+        code: HTTP_STATUS.BAD_REQUEST,
+        message: JSON.stringify(result.value.map((e) => e.message)),
       });
     }
 

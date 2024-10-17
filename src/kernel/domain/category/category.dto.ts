@@ -9,6 +9,10 @@ export type CategoryGetBySlugDTO = {
   slug: string;
 };
 
+export type CategoryGetByNameDTO = {
+  name: string;
+};
+
 // NOTE: Mutations
 export type CategoryCreateDTO = {
   data: CategoryBase;
@@ -34,9 +38,9 @@ export type CategoryRemoveBySlugDTO = {
 };
 
 // NOTE: Checks
-export type CategoryCheckByNameDTO = {
-  name: string;
-};
+// export type CategoryCheckByNameDTO = {
+//   name: string;
+// };
 
 // NOTE: Bindings
 export type CategoryBindToProductListDTO = {

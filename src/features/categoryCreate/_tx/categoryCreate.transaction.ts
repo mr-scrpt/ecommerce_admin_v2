@@ -7,7 +7,6 @@ import { Either, left } from "@sweet-monads/either";
 import { injectable } from "inversify";
 import { ICategoryCreateTx } from "../_domain/transaction.type";
 import { CategoryCreateTxDTO } from "../_domain/types";
-import { CategoryBindPropertyError } from "@/kernel/domain/category/error";
 
 @injectable()
 export class CategoryCreateTx extends Transaction implements ICategoryCreateTx {
@@ -27,7 +26,7 @@ export class CategoryCreateTx extends Transaction implements ICategoryCreateTx {
     const action = async (tx: Tx) => {
       const isCategoryUnique =
         await this.categoryInvariant.isCategoryUniqueByName(
-          { name: categoryData.name },
+          categoryData.name,
           tx,
         );
 
