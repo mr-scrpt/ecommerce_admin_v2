@@ -6,5 +6,5 @@ import { ErrorApp } from "@/shared/error/error";
 export abstract class ICategoryUpdateTx {
   abstract update(
     dto: CategoryUpdateTxDTO,
-  ): Promise<Either<ErrorApp, CategoryEntity>>;
+  ): Promise<Either<Array<ErrorApp>, CategoryEntity>>;
 }

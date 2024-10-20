@@ -17,7 +17,6 @@ export class PropertyInvariant implements IPropertyInvariant {
     const isPropertyExist = await this.propertyRepo.get({ id }, tx);
 
     if (!isPropertyExist.isRight()) {
-      console.log(isPropertyExist.value);
       return left(new PropertyNotExistError());
     }
 
@@ -28,11 +27,11 @@ export class PropertyInvariant implements IPropertyInvariant {
     idList: string[],
     tx?: Tx,
   ): Promise<Either<ErrorApp, boolean>> {
-    const resutl = await Promise.all(
+    const result = await Promise.all(
       idList.map((id) => this.isPropertyExist(id, tx)),
     );
 
-    if (!resutl.every((res) => res.isRight())) {
+    if (!result.every((res) => res.isRight())) {
       return left(new PropertyNotExistError());
     }
 

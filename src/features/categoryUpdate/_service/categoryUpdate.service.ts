@@ -14,42 +14,46 @@ import { CategoryUpdateTxPayload } from "../_domain/types";
 export class CategoryUpdateService {
   constructor(
     private readonly categoryUpdateTx: ICategoryUpdateTx,
-    private readonly propertyInvariant: IPropertyInvariant,
-    private readonly categoryInvariant: ICategoryInvariant,
+    // private readonly propertyInvariant: IPropertyInvariant,
+    // private readonly categoryInvariant: ICategoryInvariant,
     readonly categoryRepo: ICategoryRepository,
   ) {}
 
-  errorList: ErrorApp[] = [];
+  // errorList: ErrorApp[] = [];
 
   async execute(
     payload: CategoryUpdateTxPayload,
   ): Promise<Either<Array<ErrorApp>, Category>> {
     const cartRowUpdateDTO = this.build(payload);
-    const {
-      selector,
-      categoryData: { name },
-      propertyData,
-    } = payload;
+    // const {
+    //   selector,
+    //   categoryData: { name },
+    //   propertyData,
+    // } = payload;
 
-    const invariantResultStage = await this.checkInvariantsStage(
-      name,
-      selector,
-      propertyData,
-    );
+    // const invariantResultStage = await this.checkInvariantsStage(
+    //   name,
+    //   selector,
+    //   propertyData,
+    // );
+    //
+    // if (invariantResultStage.isLeft()) {
+    //   return left(invariantResultStage.value);
+    // }
 
-    if (invariantResultStage.isLeft()) {
-      return left(invariantResultStage.value);
-    }
+    // return await this.performUpdate(cartRowUpdateDTO);
+    const result = await this.categoryUpdateTx.update(cartRowUpdateDTO);
+    // console.log("output_log: RESULT =>>>", result);
 
-    return await this.performUpdate(cartRowUpdateDTO);
+    return result;
   }
 
-  private async performUpdate(
-    updateDTO: CategoryUpdateTxPayload,
-  ): Promise<Either<ErrorApp[], Category>> {
-    const categoryUpdateResult = await this.categoryUpdateTx.update(updateDTO);
-    return categoryUpdateResult.mapLeft((error) => [error]);
-  }
+  // private async performUpdate(
+  //   updateDTO: CategoryUpdateTxPayload,
+  // ): Promise<Either<ErrorApp[], Category>> {
+  //   const categoryUpdateResult = await this.categoryUpdateTx.update(updateDTO);
+  //   return categoryUpdateResult.mapLeft((error) => [error]);
+  // }
 
   private build(payload: CategoryUpdateTxPayload): CategoryUpdateTxPayload {
     const { categoryData } = payload;
@@ -61,23 +65,23 @@ export class CategoryUpdateService {
     });
   }
 
-  private async checkInvariantsStage(
-    name: string,
-    selector: { id: string },
-    propertyData: { propertyId: string }[],
-  ): Promise<Either<ErrorApp[], true>> {
-    const invariantCheckResults = await Promise.all([
-      this.categoryInvariant.isCategoryUniqueByName(name, selector),
-      this.propertyInvariant.isPropertyListExist(
-        propertyData.map(({ propertyId }) => propertyId),
-      ),
-    ]);
-
-    mergeInMany(invariantCheckResults).mapLeft((e) => (this.errorList = e));
-    if (this.errorList.length > 0) {
-      return left(this.errorList);
-    }
-
-    return right(true);
-  }
+  // private async checkInvariantsStage(
+  //   name: string,
+  //   selector: { id: string },
+  //   propertyData: { propertyId: string }[],
+  // ): Promise<Either<ErrorApp[], true>> {
+  //   const invariantCheckResults = await Promise.all([
+  //     this.categoryInvariant.isCategoryUniqueByName(name, selector),
+  //     this.propertyInvariant.isPropertyListExist(
+  //       propertyData.map(({ propertyId }) => propertyId),
+  //     ),
+  //   ]);
+  //
+  //   mergeInMany(invariantCheckResults).mapLeft((e) => (this.errorList = e));
+  //   if (this.errorList.length > 0) {
+  //     return left(this.errorList);
+  //   }
+  //
+  //   return right(true);
+  // }
 }
