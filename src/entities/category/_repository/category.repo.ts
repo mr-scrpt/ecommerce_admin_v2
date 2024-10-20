@@ -16,7 +16,6 @@ import {
   CategoryNotBeenCreatedError,
   CategoryNotBeenUpdatedError,
   CategoryNotFoundError,
-  CategoryNotUniqueNameError,
 } from "@/kernel/domain/category/error";
 import { ICategoryRepository } from "@/kernel/domain/category/repository.type";
 import { UnexpectedError } from "@/kernel/error/error.common";
@@ -32,24 +31,30 @@ export class CategoryRepository implements ICategoryRepository {
   async get(
     dto: CategoryGetDTO,
     db: Tx = this.db,
-  ): Promise<Either<CategoryNotFoundError, CategoryEntity>> {
+  ): Promise<Either<ErrorApp, CategoryEntity>> {
     try {
-      const res = await db.category.findUniqueOrThrow({
+      const res = await db.category.findFirst({
         where: dto,
       });
 
+      if (!res) {
+        return left(new CategoryNotFoundError());
+      }
+
       return right(res);
     } catch (e) {
-      return left(new CategoryNotFoundError({ cause: e }));
+      return left(
+        new UnexpectedError({ message: (e as any).message, cause: e }),
+      );
     }
   }
 
   async getWithRelation<T>(
     dto: CategoryGetDTO,
     db: Tx = this.db,
-  ): Promise<Either<CategoryNotFoundError, T>> {
+  ): Promise<Either<ErrorApp, T>> {
     try {
-      const res = (await db.category.findUniqueOrThrow({
+      const res = (await db.category.findFirst({
         where: dto,
         include: {
           propertyList: true,
@@ -57,10 +62,14 @@ export class CategoryRepository implements ICategoryRepository {
         },
       })) as unknown as T;
 
+      if (!res) {
+        return left(new CategoryNotFoundError());
+      }
+
       return right(res);
     } catch (e) {
       return left(
-        new CategoryNotFoundError({ message: (e as any).message, cause: e }),
+        new UnexpectedError({ message: (e as any).message, cause: e }),
       );
     }
   }
@@ -70,13 +79,19 @@ export class CategoryRepository implements ICategoryRepository {
     db: Tx = this.db,
   ): Promise<Either<ErrorApp, CategoryEntity>> {
     try {
-      const res = await db.category.findUniqueOrThrow({
+      const res = await db.category.findFirst({
         where: dto,
       });
 
+      if (!res) {
+        return left(new CategoryNotFoundError());
+      }
+
       return right(res);
     } catch (e) {
-      return left(new CategoryNotFoundError({ cause: e }));
+      return left(
+        new UnexpectedError({ message: (e as any).message, cause: e }),
+      );
     }
   }
 
@@ -92,9 +107,9 @@ export class CategoryRepository implements ICategoryRepository {
   async getBySlugRelation<T>(
     dto: CategoryGetBySlugDTO,
     db: Tx = this.db,
-  ): Promise<Either<CategoryNotBeenCreatedError, T>> {
+  ): Promise<Either<ErrorApp, T>> {
     try {
-      const res = (await db.category.findUniqueOrThrow({
+      const res = (await db.category.findFirst({
         where: dto,
         include: {
           propertyList: true,
@@ -102,9 +117,15 @@ export class CategoryRepository implements ICategoryRepository {
         },
       })) as unknown as T;
 
+      if (!res) {
+        return left(new CategoryNotFoundError());
+      }
+
       return right(res);
     } catch (e) {
-      return left(new CategoryNotFoundError((e as any).message));
+      return left(
+        new UnexpectedError({ message: (e as any).message, cause: e }),
+      );
     }
   }
 
@@ -115,7 +136,7 @@ export class CategoryRepository implements ICategoryRepository {
   async create(
     dto: CategoryCreateDTO,
     db: Tx = this.db,
-  ): Promise<Either<CategoryNotBeenCreatedError, CategoryEntity>> {
+  ): Promise<Either<ErrorApp, CategoryEntity>> {
     const { data } = dto;
 
     try {
@@ -123,9 +144,15 @@ export class CategoryRepository implements ICategoryRepository {
         data,
       });
 
+      if (!res) {
+        return left(new CategoryNotBeenCreatedError());
+      }
+
       return right(res);
     } catch (e) {
-      return left(new CategoryNotBeenCreatedError({ cause: e }));
+      return left(
+        new UnexpectedError({ message: (e as any).message, cause: e }),
+      );
     }
   }
 
@@ -141,9 +168,15 @@ export class CategoryRepository implements ICategoryRepository {
         data,
       });
 
+      if (!res) {
+        return left(new CategoryNotBeenUpdatedError());
+      }
+
       return right(res);
     } catch (e) {
-      return left(new CategoryNotBeenUpdatedError({ cause: e }));
+      return left(
+        new UnexpectedError({ message: (e as any).message, cause: e }),
+      );
     }
   }
 
@@ -184,9 +217,15 @@ export class CategoryRepository implements ICategoryRepository {
         },
       });
 
+      if (!res) {
+        return left(new CategoryNotBeenUpdatedError());
+      }
+
       return right(res);
     } catch (e) {
-      return left(new CategoryBindPropertyError({ cause: e }));
+      return left(
+        new UnexpectedError({ message: (e as any).message, cause: e }),
+      );
     }
   }
 
@@ -207,9 +246,15 @@ export class CategoryRepository implements ICategoryRepository {
         },
       });
 
+      if (!res) {
+        return left(new CategoryBindProductError());
+      }
+
       return right(res);
     } catch (e) {
-      return left(new CategoryBindProductError({ cause: e }));
+      return left(
+        new UnexpectedError({ message: (e as any).message, cause: e }),
+      );
     }
   }
 }

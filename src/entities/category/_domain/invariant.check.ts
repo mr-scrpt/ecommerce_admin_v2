@@ -1,5 +1,8 @@
 import { CategoryNotUniqueNameError } from "@/kernel/domain/category/error";
-import { ICategoryInvariant } from "@/kernel/domain/category/invariant.type";
+import {
+  CategoryUniqueByNameInvariant,
+  ICategoryInvariant,
+} from "@/kernel/domain/category/invariant.type";
 import { ICategoryRepository } from "@/kernel/domain/category/repository.type";
 import { ErrorApp } from "@/shared/error/error";
 import { Tx } from "@/shared/lib/db/db";
@@ -11,10 +14,12 @@ export class CategoryInvariant implements ICategoryInvariant {
   constructor(readonly categoryRepo: ICategoryRepository) {}
 
   public async isCategoryUniqueByName(
-    name: string,
-    selector: { id: string },
+    dto: CategoryUniqueByNameInvariant,
     tx?: Tx,
   ): Promise<Either<ErrorApp, boolean>> {
+    const { data, selector } = dto;
+    const { name } = data;
+
     const isCategoryQnique = await this.categoryRepo.getByName({ name }, tx);
 
     if (isCategoryQnique.isRight()) {

@@ -4,8 +4,9 @@ import { ICategoryRepository } from "@/kernel/domain/category/repository.type";
 import { IPropertyInvariant } from "@/kernel/domain/property/invariant.type";
 import { ErrorApp } from "@/shared/error/error";
 import { DBClient, Transaction, Tx } from "@/shared/lib/db/db";
-import { Either, left, mergeInMany, right } from "@sweet-monads/either";
+import { Either, left, mergeInMany } from "@sweet-monads/either";
 import { injectable } from "inversify";
+import { ICategoryUpdateInvariant } from "../_domain/invariant.type";
 import { ICategoryUpdateTx } from "../_domain/transaction.type";
 import { CategoryUpdateTxDTO } from "../_domain/types";
 
@@ -19,20 +20,25 @@ export class CategoryUpdateTx extends Transaction implements ICategoryUpdateTx {
   ) {
     super(db);
   }
-  errorList: ErrorApp[] = [];
 
   async update(
     dto: CategoryUpdateTxDTO,
-  ): Promise<Either<Array<ErrorApp>, CategoryEntity>> {
+  ): Promise<Either<ErrorApp[], CategoryEntity>> {
     const { selector, categoryData, propertyData } = dto;
 
     const action = async (tx: Tx) => {
       const { name } = categoryData;
 
       const invariantResultStage = await this.checkInvariantsStage(
-        name,
-        selector,
-        propertyData,
+        {
+          categoryUniqueInvariant: {
+            selector,
+            data: { name },
+          },
+          propertExistByListIdInvariant: {
+            data: { idList: propertyData.map(({ propertyId }) => propertyId) },
+          },
+        },
         tx,
       );
 
@@ -48,10 +54,6 @@ export class CategoryUpdateTx extends Transaction implements ICategoryUpdateTx {
         tx,
       );
 
-      if (categoryUpdateResult.isLeft()) {
-        return categoryUpdateResult.mapLeft((error) => [error]);
-      }
-
       const categoryBindPropertyListResult =
         await this.categoryRepo.bindToPropertyList(
           {
@@ -63,36 +65,40 @@ export class CategoryUpdateTx extends Transaction implements ICategoryUpdateTx {
           tx,
         );
 
-      if (categoryBindPropertyListResult.isLeft()) {
-        return categoryBindPropertyListResult.mapLeft((error) => [error]);
-      }
+      const resultGet = await this.categoryRepo.get({ id: selector.id }, tx);
 
-      const res = await this.categoryRepo.get({ id: selector.id }, tx);
-
-      return res.mapLeft((error) => [error]);
+      return mergeInMany([
+        categoryUpdateResult,
+        categoryBindPropertyListResult,
+        resultGet,
+      ])
+        .mapLeft((errors) => errors.flat())
+        .mapRight(() => resultGet.value as CategoryEntity);
     };
 
     return await this.start(action);
   }
 
   private async checkInvariantsStage(
-    name: string,
-    selector: { id: string },
-    propertyData: { propertyId: string }[],
+    invariantData: ICategoryUpdateInvariant,
     tx?: Tx,
   ): Promise<Either<ErrorApp[], true>> {
-    this.errorList = [];
-    const categoryCheckResult =
-      await this.categoryInvariant.isCategoryUniqueByName(name, selector, tx);
+    const { categoryUniqueInvariant, propertExistByListIdInvariant } =
+      invariantData;
 
-    const propertyCheckResult =
-      await this.propertyInvariant.isPropertyListExist(
-        propertyData.map(({ propertyId }) => propertyId),
+    const categoryCheckResult =
+      await this.categoryInvariant.isCategoryUniqueByName(
+        categoryUniqueInvariant,
         tx,
       );
 
-    return mergeInMany([categoryCheckResult, propertyCheckResult])
-      .mapLeft((error) => (this.errorList = error))
-      .mapRight(() => true);
+    const propertyCheckResult =
+      await this.propertyInvariant.isPropertyListExist(
+        propertExistByListIdInvariant,
+      );
+
+    return mergeInMany([categoryCheckResult, propertyCheckResult]).mapRight(
+      () => true,
+    );
   }
 }
