@@ -1,13 +1,13 @@
-import { DBClient, Transaction, Tx } from "@/shared/lib/db/db";
-import { injectable } from "inversify";
-import { CategoryUpdateTxDTO } from "../_domain/types";
-import { ICategoryUpdateTx } from "../_domain/transaction.type";
 import { CategoryEntity } from "@/kernel/domain/category/category.type";
-import { ICategoryRepository } from "@/kernel/domain/category/repository.type";
-import { ErrorApp } from "@/shared/error/error";
-import { Either, left, right, mergeInMany } from "@sweet-monads/either";
-import { IPropertyInvariant } from "@/kernel/domain/property/invariant.type";
 import { ICategoryInvariant } from "@/kernel/domain/category/invariant.type";
+import { ICategoryRepository } from "@/kernel/domain/category/repository.type";
+import { IPropertyInvariant } from "@/kernel/domain/property/invariant.type";
+import { ErrorApp } from "@/shared/error/error";
+import { DBClient, Transaction, Tx } from "@/shared/lib/db/db";
+import { Either, left, mergeInMany, right } from "@sweet-monads/either";
+import { injectable } from "inversify";
+import { ICategoryUpdateTx } from "../_domain/transaction.type";
+import { CategoryUpdateTxDTO } from "../_domain/types";
 
 @injectable()
 export class CategoryUpdateTx extends Transaction implements ICategoryUpdateTx {
@@ -40,7 +40,7 @@ export class CategoryUpdateTx extends Transaction implements ICategoryUpdateTx {
         return left(invariantResultStage.value);
       }
 
-      await this.categoryRepo.update(
+      const categoryUpdateResult = await this.categoryRepo.update(
         {
           selector,
           data: categoryData,
@@ -48,21 +48,28 @@ export class CategoryUpdateTx extends Transaction implements ICategoryUpdateTx {
         tx,
       );
 
-      await this.categoryRepo.bindToPropertyList(
-        {
-          target: selector,
-          data: {
-            propertyListId: propertyData,
-          },
-        },
-        tx,
-      );
+      if (categoryUpdateResult.isLeft()) {
+        return categoryUpdateResult.mapLeft((error) => [error]);
+      }
 
-      const categoryUpdateResult = await this.categoryRepo.get(
-        { id: selector.id },
-        tx,
-      );
-      return categoryUpdateResult.mapLeft((error) => [error]);
+      const categoryBindPropertyListResult =
+        await this.categoryRepo.bindToPropertyList(
+          {
+            target: selector,
+            data: {
+              propertyListId: propertyData,
+            },
+          },
+          tx,
+        );
+
+      if (categoryBindPropertyListResult.isLeft()) {
+        return categoryBindPropertyListResult.mapLeft((error) => [error]);
+      }
+
+      const res = await this.categoryRepo.get({ id: selector.id }, tx);
+
+      return res.mapLeft((error) => [error]);
     };
 
     return await this.start(action);
@@ -77,25 +84,15 @@ export class CategoryUpdateTx extends Transaction implements ICategoryUpdateTx {
     this.errorList = [];
     const categoryCheckResult =
       await this.categoryInvariant.isCategoryUniqueByName(name, selector, tx);
-    if (categoryCheckResult.isLeft()) {
-      this.errorList.push(categoryCheckResult.value);
-    }
 
     const propertyCheckResult =
       await this.propertyInvariant.isPropertyListExist(
         propertyData.map(({ propertyId }) => propertyId),
         tx,
       );
-    if (propertyCheckResult.isLeft()) {
-      this.errorList.push(propertyCheckResult.value);
-    }
 
-    // mergeInMany(invariantCheckResults).mapLeft((e) => (this.errorList = e));
-
-    if (this.errorList.length > 0) {
-      return left(this.errorList);
-    }
-
-    return right(true);
+    return mergeInMany([categoryCheckResult, propertyCheckResult])
+      .mapLeft((error) => (this.errorList = error))
+      .mapRight(() => true);
   }
 }

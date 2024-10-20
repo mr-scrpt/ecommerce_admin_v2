@@ -4,6 +4,7 @@ import { HTTP_STATUS } from "@/kernel/lib/trpc/_status";
 enum ErrorMessageEnum {
   CATEGORY_NOT_FOUND = "Category not found",
   CATEGORY_NOT_BEEN_CREATED = "Category not been created",
+  CATEGORY_NOT_BEEN_UPDATED = "Category not been updated",
   CATEGORY_ALREADY_EXIST = "Category already exist",
   CATEGORY_NOT_UNIQUE_NAME = "Category name not unique",
   CATEGORY_NOT_BEEN_BIND_PROPERTY = "Category not been bind property",
@@ -26,6 +27,16 @@ export class CategoryNotBeenCreatedError extends ErrorApp {
     super({
       code: HTTP_STATUS.CONFLICT,
       message: ErrorMessageEnum.CATEGORY_NOT_BEEN_CREATED,
+      cause,
+    });
+  }
+}
+
+export class CategoryNotBeenUpdatedError extends ErrorApp {
+  constructor(cause?: unknown) {
+    super({
+      code: HTTP_STATUS.CONFLICT,
+      message: ErrorMessageEnum.CATEGORY_NOT_BEEN_UPDATED,
       cause,
     });
   }

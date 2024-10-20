@@ -14,6 +14,7 @@ import {
   CategoryBindProductError,
   CategoryBindPropertyError,
   CategoryNotBeenCreatedError,
+  CategoryNotBeenUpdatedError,
   CategoryNotFoundError,
   CategoryNotUniqueNameError,
 } from "@/kernel/domain/category/error";
@@ -131,13 +132,19 @@ export class CategoryRepository implements ICategoryRepository {
   async update(
     dto: CategoryUpdateDTO,
     db: Tx = this.db,
-  ): Promise<CategoryEntity> {
+  ): Promise<Either<ErrorApp, CategoryEntity>> {
     const { data, selector } = dto;
 
-    return await db.category.update({
-      where: selector,
-      data,
-    });
+    try {
+      const res = await db.category.update({
+        where: selector,
+        data,
+      });
+
+      return right(res);
+    } catch (e) {
+      return left(new CategoryNotBeenUpdatedError({ cause: e }));
+    }
   }
 
   async remove(

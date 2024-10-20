@@ -45,9 +45,12 @@ export abstract class ICategoryRepository {
   abstract create(
     dto: CategoryCreateDTO,
     db?: Tx,
-  ): Promise<Either<CategoryNotBeenCreatedError, CategoryEntity>>;
+  ): Promise<Either<ErrorApp, CategoryEntity>>;
 
-  abstract update(dto: CategoryUpdateDTO, db?: Tx): Promise<CategoryEntity>;
+  abstract update(
+    dto: CategoryUpdateDTO,
+    db?: Tx,
+  ): Promise<Either<ErrorApp, CategoryEntity>>;
 
   abstract remove(dto: CategoryRemoveDTO, db?: Tx): Promise<CategoryEntity>;
 
