@@ -1,10 +1,6 @@
 import { ErrorApp } from "@/shared/error/error";
 import { ZodError, ZodIssue } from "zod";
 
-// export interface IZodErrorAdapter {
-//   adapt(zodError: ZodError): ErrorApp;
-// }
-
 export class ZodErrorAdapter extends ErrorApp {
   constructor(zodError: ZodError) {
     super({
