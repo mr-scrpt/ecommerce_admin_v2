@@ -1,5 +1,6 @@
 import "reflect-metadata";
 
+import { LoggerModule } from "@/kernel/lib/pino/module";
 import { CartModule } from "@/entities/cart/module";
 import { CategoryModule } from "@/entities/category/module";
 import { ConsumerModule } from "@/entities/consumer/module";
@@ -55,7 +56,7 @@ import { UserCreateModule } from "@/features/userCreate/module";
 import { UserUpdateModule } from "@/features/userUpdate/module";
 import { NextAuthModule } from "@/kernel/lib/nextauth/module";
 import { NovaPoshtaModule } from "@/kernel/lib/novaposhta/module";
-import { TrpcModule } from "@/kernel/lib/trpc/module";
+import { TrpcModule, ValidatorModule } from "@/kernel/lib/trpc/module";
 import { HttpClientModule } from "@/shared/api/module";
 import { DbModule } from "@/shared/lib/db/module";
 import { Container } from "inversify";
@@ -66,6 +67,8 @@ export const loadModule = () => {
   const container = new Container();
 
   container.load(
+    LoggerModule,
+    ValidatorModule,
     DbModule,
     NextAuthModule,
     SessionCreateModule,

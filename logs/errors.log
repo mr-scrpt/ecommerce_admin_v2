@@ -1,0 +1,20 @@
+{"level":50,"time":1729509157066,"pid":244869,"hostname":"mr-station","msg":"Category name not unique, Property not exist","args":[{"code":"CONFLICT","name":"App Error"},{"code":"NOT_FOUND","name":"App Error"}]}
+{"level":50,"time":1729509178180,"pid":244869,"hostname":"mr-station","msg":"Category name not unique, Property not exist","args":[{"code":"CONFLICT","name":"App Error"},{"code":"NOT_FOUND","name":"App Error"}]}
+{"level":50,"time":1729509238989,"pid":248579,"hostname":"mr-station","msg":"Category name not unique, Property not exist","args":[{"code":"CONFLICT","name":"App Error"},{"code":"NOT_FOUND","name":"App Error"}]}
+{"level":50,"time":1729509247188,"pid":248579,"hostname":"mr-station","msg":"Category name not unique, Property not exist","args":[{"code":"CONFLICT","name":"App Error"},{"code":"NOT_FOUND","name":"App Error"}]}
+{"level":50,"time":1729509284502,"pid":248579,"hostname":"mr-station","msg":"Category name not unique, Property not exist"}
+{"level":50,"time":1729509416372,"pid":252283,"hostname":"mr-station","msg":"Category name not unique, Property not exist","args":[{"code":"CONFLICT","name":"App Error"},{"code":"NOT_FOUND","name":"App Error"}]}
+{"level":50,"time":1729510588341,"pid":272152,"hostname":"mr-station","msg":"","args":["undefined: Required"]}
+{"level":50,"time":1729511455379,"pid":274552,"hostname":"mr-station","msg":": Required","args":[{"code":"PARSE_ERROR","name":"App Error"}]}
+{"level":50,"time":1729511506135,"pid":274552,"hostname":"mr-station","msg":": Required","args":[{"code":"PARSE_ERROR","name":"App Error"}]}
+{"level":50,"time":1729511610365,"pid":274552,"hostname":"mr-station","msg":": Required | Expected: invalid_type","args":[{"code":"PARSE_ERROR","name":"App Error"}]}
+{"level":50,"time":1729511640088,"pid":274552,"hostname":"mr-station","msg":": Required | Expected: object, Received: undefined","args":[{"code":"PARSE_ERROR","name":"App Error"}]}
+{"level":50,"time":1729511965590,"pid":274552,"hostname":"mr-station","msg":": Required | Expected: object, Received: undefined","args":[{"code":"PARSE_ERROR","name":"App Error"}]}
+{"level":50,"time":1729512379643,"pid":274552,"hostname":"mr-station","msg":": Required | Expected: object, Received: undefined","args":[{"code":"PARSE_ERROR","name":"App Error"}]}
+{"level":50,"time":1729512439654,"pid":274552,"hostname":"mr-station","msg":": Required | Expected: object, Received: undefined","args":[{"code":"PARSE_ERROR","name":"App Error"}]}
+{"level":50,"time":1729512456484,"pid":274552,"hostname":"mr-station","msg":": Required | Expected: object, Received: undefined","args":[{"code":"PARSE_ERROR","name":"App Error"}]}
+{"level":50,"time":1729512610924,"pid":274552,"hostname":"mr-station","msg":"[invalid_type]: : Required | => Expected: object, <=Received: undefined","args":[{"code":"PARSE_ERROR","name":"App Error"}]}
+{"level":50,"time":1729513023399,"pid":274552,"hostname":"mr-station","msg":"[invalid_type] [Message: Required] [Expected: object] [Received: undefined]","args":[{"code":"PARSE_ERROR","name":"App Error"}]}
+{"level":50,"time":1729513062875,"pid":274552,"hostname":"mr-station","msg":"[Code: invalid_type] [Message: Required] [Expected: object] [Received: undefined]","args":[{"code":"PARSE_ERROR","name":"App Error"}]}
+{"level":50,"time":1729513239921,"pid":274552,"hostname":"mr-station","msg":"[Code: invalid_type] [Message: Required] [Expected: object] [Received: undefined]","args":[{"code":"PARSE_ERROR","name":"App Error"}]}
+{"level":50,"time":1729513348802,"pid":274552,"hostname":"mr-station","msg":"[Spot: ZOD Validate Schema] [Code: invalid_type] [Message: Required] [Expected: object] [Received: undefined]","args":[{"code":"PARSE_ERROR","name":"App Error"}]}

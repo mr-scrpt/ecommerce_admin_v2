@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    serverComponentsExternalPackages: ["pino"],
+  },
   reactStrictMode: false,
   images: {
     remotePatterns: [

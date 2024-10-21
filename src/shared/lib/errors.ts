@@ -10,6 +10,7 @@ export class ForbiddenError extends Error {
   }
 }
 
+// TODO: Move to all error
 export class NeedAuthError extends Error {
   constructor(message = "NeedAuthError") {
     super(message);

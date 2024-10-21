@@ -2,7 +2,7 @@ import "reflect-metadata";
 
 import { PrismaClient } from "@prisma/client";
 import { injectable } from "inversify";
-
+// TODO: MOve to kernal lib level
 @injectable()
 export class DBClient extends PrismaClient {
   constructor() {
