@@ -22,12 +22,18 @@ export const ProviderTRPC: FC<ProviderTRPCProps> = (props) => {
       new QueryClient({
         queryCache: new QueryCache({
           onError: async (error) => {
-            buildErrorNotice(error.message);
+            console.log("output_log: ERROR QUERY::: =>>>", error.data.message);
+            buildErrorNotice(error.data.message);
           },
         }),
+
         mutationCache: new MutationCache({
           onError: async (error) => {
-            buildErrorNotice(error.message);
+            console.log(
+              "output_log: ERROR MUTATION::: =>>>",
+              error.data.message,
+            );
+            buildErrorNotice(error.data.message);
           },
         }),
       }),

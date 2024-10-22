@@ -1,36 +1,84 @@
-import { ErrorApp } from "@/shared/error/error";
-import { ZodError, ZodIssue } from "zod";
+import { TRPCError } from "@trpc/server";
+import { injectable } from "inversify";
+import { ZodError } from "zod";
+import { HTTP_STATUS } from "../lib/trpc/_status";
+import { ValidateDataError } from "../lib/trpc/error";
 
-export class ZodErrorAdapter extends ErrorApp {
-  constructor(zodError: ZodError) {
-    super({
-      message: ZodErrorAdapter.formatZodErrors(zodError.errors),
-      code: "PARSE_ERROR",
-      cause: zodError,
-    });
+export interface ErrorAdapterResult {
+  status: string;
+  code: string;
+  message: string;
+  text: string;
+}
+
+export interface ErrorAdapter {
+  canHandle(error: unknown): boolean;
+  adapt(error: unknown): ErrorAdapterResult;
+}
+
+export class ZodErrorAdapter implements ErrorAdapter {
+  canHandle(error: unknown): boolean {
+    return error instanceof ZodError;
   }
-  private static formatZodErrors(errors: ZodIssue[]): string {
-    type Formatter = (err: ZodIssue) => string | undefined;
 
-    const fieldFormatters: Record<string, Formatter> = {
-      spot: () => `[Spot: ZOD Validate Schema]`,
-      code: (err) => err.code && `[Code: ${err.code}]`,
-      path: (err) =>
-        err.path.length > 0 ? `[Path: ${err.path.join(".")}]` : undefined,
-      message: (err) => err.message && `[Message: ${err.message}]`,
-      expected: (err) =>
-        "expected" in err ? `[Expected: ${(err as any).expected}]` : undefined,
-      received: (err) =>
-        "received" in err ? `[Received: ${(err as any).received}]` : undefined,
+  adapt(error: ZodError): ErrorAdapterResult {
+    return {
+      text: "Parse error",
+      status: HTTP_STATUS.PARSE_ERROR,
+      code: "PARSE_ERROR",
+      message: JSON.stringify(
+        error.errors.map(
+          (err) => `Поле "${err.path.join(".")}": ${err.message}`,
+        ),
+      ),
     };
+  }
+}
 
-    return errors
-      .map((err) =>
-        Object.values(fieldFormatters)
-          .map((formatter) => formatter(err))
-          .filter((part): part is string => part !== undefined)
-          .join(" "),
-      )
-      .join(", ");
+export class ValidateErrorAdapter implements ErrorAdapter {
+  canHandle(error: unknown): boolean {
+    return error instanceof ValidateDataError;
+  }
+
+  adapt(error: ValidateDataError): ErrorAdapterResult {
+    return {
+      text: "Validation error",
+      status: HTTP_STATUS.BAD_REQUEST,
+      code: error.code,
+      message: error.message,
+    };
+  }
+}
+
+export class DefaultErrorAdapter implements ErrorAdapter {
+  canHandle(error: unknown): boolean {
+    return true;
+  }
+
+  adapt(error: unknown): ErrorAdapterResult {
+    return {
+      text: "Unknown error",
+      status: HTTP_STATUS.PARSE_ERROR,
+      code: "Unknown error",
+      message: JSON.stringify(["UNKNOWN ERROR"]),
+    };
+  }
+}
+
+@injectable()
+export class ErrorAdapterService {
+  private readonly adapters: ErrorAdapter[];
+
+  constructor() {
+    this.adapters = [
+      new ZodErrorAdapter(),
+      new ValidateErrorAdapter(),
+      new DefaultErrorAdapter(),
+    ];
+  }
+
+  adapt(error: TRPCError): ErrorAdapterResult {
+    const adapter = this.adapters.find((a) => a.canHandle(error.cause));
+    return adapter!.adapt(error.cause);
   }
 }

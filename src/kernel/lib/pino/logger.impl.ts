@@ -26,21 +26,12 @@ export class LoggerImpl implements ILogger {
       ],
     },
   });
-
-  info(message: string, ...args: any[]): void {
-    this.logger.info({ msg: message, args });
+  error(error: { status: string; code: string; message: any }): void {
+    // const message = errorList.map((e) => e.message).join(", ");
+    this.logger.error({ msg: error.message, args: error });
   }
-
-  warn(message: string, ...args: any[]): void {
-    this.logger.warn({ msg: message, args });
-  }
-
-  error(errorList: Array<ErrorApp>): void {
-    const message = errorList.map((e) => e.message).join(", ");
-    this.logger.error({ msg: message, args: errorList });
-  }
-
-  debug(message: string, ...args: any[]): void {
-    this.logger.debug({ msg: message, args });
-  }
+  // error(errorList: Array<ErrorApp>): void {
+  //   const message = errorList.map((e) => e.message).join(", ");
+  //   this.logger.error({ msg: message, args: errorList });
+  // }
 }

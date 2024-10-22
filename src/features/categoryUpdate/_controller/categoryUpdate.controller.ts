@@ -1,7 +1,10 @@
 import { categorySchema } from "@/kernel/domain/category/category.schema";
 import { Controller, publicProcedure, router } from "@/kernel/lib/trpc/server";
 import { injectable } from "inversify";
-import { updateInputSchema } from "../_domain/validator.schema";
+import {
+  updateInputSchema,
+  updateInputSchemaTestError,
+} from "../_domain/validator.schema";
 import { CategoryUpdateService } from "../_service/categoryUpdate.service";
 import { IValidator } from "@/kernel/lib/trpc/validator";
 
@@ -17,18 +20,15 @@ export class CategoryUpdateController extends Controller {
   public router = router({
     categoryUpdate: {
       update: publicProcedure
-        // .input(updateInputSchema)
+        .input(updateInputSchema)
+        // .input(updateInputSchemaTestError)
         .mutation(async ({ input }) => {
-          // console.log("output_log: BEFORE =>>>", input);
-          const inputValid = this.validator.checkInput(
-            input,
-            updateInputSchema,
-          );
-          const result = await this.updateCategoryService.execute(inputValid);
+          const result = await this.updateCategoryService.execute(input);
           const validateResult = this.validator.checkResult(
             result,
             categorySchema,
           );
+
           return validateResult;
         }),
     },

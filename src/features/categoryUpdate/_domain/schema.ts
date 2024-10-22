@@ -5,17 +5,19 @@ export const categorySelectorSchema = z.object({
   id: z.string(),
 });
 
-// export const categoryUpdateSchema = categoryBaseSchema.pick({
-//   name: true,
-//   board: true,
-// });
-export const categoryUpdateSchema = categoryBaseSchema
+export const categoryUpdateSchema = categoryBaseSchema.pick({
+  name: true,
+  board: true,
+});
+
+export const categoryUpdateSchemaTestError = categoryBaseSchema
   .pick({
     name: true,
     board: true,
   })
   .extend({
-    name: z.string().min(3).max(255),
+    name: z.number().min(3).max(255),
+    board: z.number().min(3).max(255),
   });
 
 export const categoryPropertyBindSchema = z.object({
