@@ -1,12 +1,10 @@
 import { appModule } from "@/app/module";
-import { HTTP_STATUS } from "@/kernel/lib/trpc/_status";
 import {
   ContextFactory,
   Controller,
   sharedRouter,
   t,
 } from "@/kernel/lib/trpc/server";
-import { TRPCError } from "@trpc/server";
 import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
 
 const appRouter = appModule.getAll(Controller).map((c) => c.router);
@@ -19,22 +17,22 @@ const handler = (req: Request) =>
     router: t.mergeRouters(sharedRouter, ...appRouter),
     createContext: appModule.get(ContextFactory).createContext,
 
-    onError({ error, type }) {
-      console.log("output_log: TYPE =>>>", type);
-      const newError = new TRPCError({
-        code: HTTP_STATUS.CONFLICT,
-        message: "OOLOL",
-        cause: undefined,
-      });
-
-      return newError;
-      // if(error.cause && error.cause === Error) {
-      //
-      // }
-      // if (error.cause === "ZodError") {
-      //   const adaptedError = new ZodErrorAdapter(error);
-      // }
-    },
+    // onError({ error, type }) {
+    //   console.log("output_log: TYPE =>>>", type);
+    //   const newError = new TRPCError({
+    //     code: HTTP_STATUS.CONFLICT,
+    //     message: "OOLOL",
+    //     cause: undefined,
+    //   });
+    //
+    //   return newError;
+    //   // if(error.cause && error.cause === Error) {
+    //   //
+    //   // }
+    //   // if (error.cause === "ZodError") {
+    //   //   const adaptedError = new ZodErrorAdapter(error);
+    //   // }
+    // },
   });
 
 export { handler as GET, handler as POST };

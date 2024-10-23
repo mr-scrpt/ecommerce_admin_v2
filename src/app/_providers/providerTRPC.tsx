@@ -8,7 +8,11 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
-import { TRPCUntypedClient, httpBatchLink } from "@trpc/client";
+import {
+  TRPCClientError,
+  TRPCUntypedClient,
+  httpBatchLink,
+} from "@trpc/client";
 import { AnyRouter } from "@trpc/server";
 import { FC, HTMLAttributes, useState } from "react";
 import superjson from "superjson";
@@ -22,18 +26,19 @@ export const ProviderTRPC: FC<ProviderTRPCProps> = (props) => {
       new QueryClient({
         queryCache: new QueryCache({
           onError: async (error) => {
-            console.log("output_log: ERROR QUERY::: =>>>", error.data.message);
-            buildErrorNotice(error.data.message);
+            if (error instanceof TRPCClientError) {
+              buildErrorNotice(error.data.message);
+            }
+            buildErrorNotice("Unknown Error emitter instance");
           },
         }),
 
         mutationCache: new MutationCache({
           onError: async (error) => {
-            console.log(
-              "output_log: ERROR MUTATION::: =>>>",
-              error.data.message,
-            );
-            buildErrorNotice(error.data.message);
+            if (error instanceof TRPCClientError) {
+              buildErrorNotice(error.data.message);
+            }
+            buildErrorNotice("Unknown Error emitter instance");
           },
         }),
       }),
