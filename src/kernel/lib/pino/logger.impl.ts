@@ -1,11 +1,11 @@
 import { injectable } from "inversify";
-import { ILogger } from "../../../shared/logger/logger.type";
-import { ErrorApp } from "@/shared/error/error";
 import pino from "pino";
+import { ILogger } from "../../../shared/logger/logger.type";
 
 @injectable()
 export class LoggerImpl implements ILogger {
-  private logger = pino({
+  private errorLogger = pino({
+    level: "error",
     transport: {
       targets: [
         {
@@ -14,24 +14,54 @@ export class LoggerImpl implements ILogger {
         },
         {
           target: "pino-pretty",
-
           options: {
             colorize: true,
             translateTime: "SYS:yyyy-mm-dd HH:MM:ss.l",
             ignore: "pid,hostname,args",
-            // messageFormat: "{msg} - {args}",
             messageFormat: "{msg}",
           },
         },
       ],
     },
   });
+
+  private accessLogger = pino({
+    level: "info",
+    transport: {
+      targets: [
+        {
+          target: "pino/file",
+          options: { destination: `${process.cwd()}/logs/access.log` },
+        },
+        {
+          target: "pino-pretty",
+          options: {
+            colorize: true,
+            translateTime: "SYS:yyyy-mm-dd HH:MM:ss.l",
+            ignore: "pid,hostname,args",
+            messageFormat: "{msg}",
+          },
+        },
+      ],
+    },
+  });
+
   error(error: { status: string; code: string; message: any }): void {
-    // const message = errorList.map((e) => e.message).join(", ");
-    this.logger.error({ msg: error.message, args: error });
+    this.errorLogger.error({ msg: error.message, args: error });
   }
-  // error(errorList: Array<ErrorApp>): void {
-  //   const message = errorList.map((e) => e.message).join(", ");
-  //   this.logger.error({ msg: message, args: errorList });
-  // }
+
+  request(info: {
+    path: string;
+    type: string;
+    durationMs: number;
+    user: { id: string; name: string; lastName: string } | null;
+    input?: any;
+  }): void {
+    const { user } = info;
+    const msg = `[${info.durationMs}ms] ${user ? `USER_ID: ${user.id}, USER_NAME: ${user.name}, USER_LAST_NAME: ${user.lastName}` : null} Request type [${info.type.toUpperCase()}] to [${info.path}]`;
+    this.accessLogger.info({
+      msg,
+      args: info,
+    });
+  }
 }

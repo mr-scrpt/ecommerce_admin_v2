@@ -13,10 +13,11 @@ interface ITRPCFactory {
 export const tFactory = ({ logger, adapter }: ITRPCFactory) => {
   return initTRPC.context<ContextFactory["createContext"]>().create({
     transformer: superjson,
+
     errorFormatter({ shape, error }) {
       const adaptedError = adapter.adapt(error);
 
-      logger.error(adaptedError);
+      // logger.error(adaptedError);
 
       return {
         ...shape,

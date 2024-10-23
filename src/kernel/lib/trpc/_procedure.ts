@@ -1,21 +1,57 @@
 import { SessionEntity } from "@/kernel/domain/session.type";
+import { ILogger } from "@/shared/logger/logger.type";
 import { TRPCError } from "@trpc/server";
 import { ZodTypeAny, z } from "zod";
+import { LoggerImpl } from "../pino/logger.impl";
 import { t } from "./_inti";
+import { ErrorAdapterService } from "@/kernel/error/error.adapter";
 
-export const publicProcedure = t.procedure;
+interface MiddlewareFactory {
+  logger: ILogger;
+  adapter: ErrorAdapterService;
+}
 
-const transformDataMiddleware = t.middleware(async ({ ctx, next }) => {
-  const res = await next();
+const withLoggerMiddleware = ({ logger, adapter }: MiddlewareFactory) =>
+  t.middleware(async (md) => {
+    const { ctx, next, path, type, input } = md;
+    const start = Date.now();
+    const result = await next();
+    const durationMs = Date.now() - start;
 
-  return next({
-    ctx: {
-      session: ctx.session,
-    },
+    const user = ctx.session?.user
+      ? {
+          id: ctx.session.user.id ?? "",
+          name: ctx.session.user.name ?? "",
+          lastName: ctx.session.user.lastName ?? "",
+        }
+      : null;
+
+    if (!result.ok) {
+      const adaptedError = adapter.adapt(result.error);
+
+      logger.error(adaptedError);
+    }
+
+    logger.request({
+      path,
+      type,
+      durationMs,
+      input,
+      user,
+    });
+
+    return result;
   });
+
+const loggerMiddleware = withLoggerMiddleware({
+  logger: new LoggerImpl(),
+  adapter: new ErrorAdapterService(),
 });
 
-export const authorizedProcedure = t.procedure.use(({ ctx, next }) => {
+const baseProcedure = t.procedure.use(loggerMiddleware);
+export const publicProcedure = baseProcedure;
+
+export const authorizedProcedure = baseProcedure.use(({ ctx, next }) => {
   if (!ctx.session) {
     throw new TRPCError({ code: "UNAUTHORIZED" });
   }
@@ -34,7 +70,6 @@ export const checkAbilityProcedure = <Ability>({
   create: (session: SessionEntity) => Ability;
 }) =>
   authorizedProcedure.use(({ ctx, next }) => {
-    console.log("output_log: ctx =>>>", ctx);
     const ability = create(ctx.session);
 
     if (check && !check(ability)) {

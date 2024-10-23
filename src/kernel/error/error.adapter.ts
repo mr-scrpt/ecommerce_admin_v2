@@ -12,12 +12,12 @@ export interface ErrorAdapterResult {
 }
 
 export interface ErrorAdapter {
-  canHandle(error: unknown): boolean;
+  canAdapt(error: unknown): boolean;
   adapt(error: unknown): ErrorAdapterResult;
 }
 
 export class ZodErrorAdapter implements ErrorAdapter {
-  canHandle(error: unknown): boolean {
+  canAdapt(error: unknown): boolean {
     return error instanceof ZodError;
   }
 
@@ -28,7 +28,7 @@ export class ZodErrorAdapter implements ErrorAdapter {
       code: "PARSE_ERROR",
       message: JSON.stringify(
         error.errors.map(
-          (err) => `Поле "${err.path.join(".")}": ${err.message}`,
+          (err) => `Field "${err.path.join(".")}": ${err.message}`,
         ),
       ),
     };
@@ -36,7 +36,7 @@ export class ZodErrorAdapter implements ErrorAdapter {
 }
 
 export class ValidateErrorAdapter implements ErrorAdapter {
-  canHandle(error: unknown): boolean {
+  canAdapt(error: unknown): boolean {
     return error instanceof ValidateDataError;
   }
 
@@ -51,7 +51,7 @@ export class ValidateErrorAdapter implements ErrorAdapter {
 }
 
 export class DefaultErrorAdapter implements ErrorAdapter {
-  canHandle(error: unknown): boolean {
+  canAdapt(error: unknown): boolean {
     return true;
   }
 
@@ -78,7 +78,7 @@ export class ErrorAdapterService {
   }
 
   adapt(error: TRPCError): ErrorAdapterResult {
-    const adapter = this.adapters.find((a) => a.canHandle(error.cause));
+    const adapter = this.adapters.find((a) => a.canAdapt(error.cause));
     return adapter!.adapt(error.cause);
   }
 }
