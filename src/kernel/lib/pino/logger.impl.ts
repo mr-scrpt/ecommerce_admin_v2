@@ -1,64 +1,39 @@
-import { injectable } from "inversify";
-import pino from "pino";
+import { inject, injectable } from "inversify";
+import { Logger } from "pino";
 import { ILogger } from "../../../shared/logger/logger.type";
+import {
+  type ILoggerConfigFactory,
+  LOGGER_TYPES,
+  LoggerType,
+  ILoggerErrorParams,
+  ILoggerRequestParams,
+} from "./type";
 
 @injectable()
 export class LoggerImpl implements ILogger {
-  private errorLogger = pino({
-    level: "error",
-    transport: {
-      targets: [
-        {
-          target: "pino/file",
-          options: { destination: `${process.cwd()}/logs/errors.log` },
-        },
-        {
-          target: "pino-pretty",
-          options: {
-            colorize: true,
-            translateTime: "SYS:yyyy-mm-dd HH:MM:ss.l",
-            ignore: "pid,hostname,args",
-            messageFormat: "{msg}",
-          },
-        },
-      ],
-    },
-  });
+  private readonly errorLogger: Logger;
+  private readonly accessLogger: Logger;
 
-  private accessLogger = pino({
-    level: "info",
-    transport: {
-      targets: [
-        {
-          target: "pino/file",
-          options: { destination: `${process.cwd()}/logs/access.log` },
-        },
-        {
-          target: "pino-pretty",
-          options: {
-            colorize: true,
-            translateTime: "SYS:yyyy-mm-dd HH:MM:ss.l",
-            ignore: "pid,hostname,args",
-            messageFormat: "{msg}",
-          },
-        },
-      ],
-    },
-  });
+  constructor(
+    @inject(LOGGER_TYPES.LoggerConfigFactory)
+    private loggerConfigFactore: ILoggerConfigFactory,
+  ) {
+    this.errorLogger = this.loggerConfigFactore.getLogger(LoggerType.ERROR);
+    this.accessLogger = this.loggerConfigFactore.getLogger(LoggerType.ACCESS);
+  }
 
-  error(error: { status: string; code: string; message: any }): void {
+  error(error: ILoggerErrorParams): void {
     this.errorLogger.error({ msg: error.message, args: error });
   }
 
-  request(info: {
-    path: string;
-    type: string;
-    durationMs: number;
-    user: { id: string; name: string; lastName: string } | null;
-    input?: any;
-  }): void {
+  request(info: ILoggerRequestParams): void {
     const { user } = info;
-    const msg = `[${info.durationMs}ms] ${user ? `USER_ID: ${user.id}, USER_NAME: ${user.name}, USER_LAST_NAME: ${user.lastName}` : null} Request type [${info.type.toUpperCase()}] to [${info.path}]`;
+    const msg = `[${info.durationMs}ms] ${
+      user
+        ? `USER_ID: ${user.id}, USER_NAME: ${user.name}, USER_LAST_NAME: ${user.lastName}`
+        : "Anonymous User"
+    } Request type [${info.type.toUpperCase()}] to [${info.path}]`;
+
     this.accessLogger.info({
       msg,
       args: info,

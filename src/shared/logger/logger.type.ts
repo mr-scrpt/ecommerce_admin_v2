@@ -2,7 +2,6 @@ import { injectable } from "inversify";
 
 @injectable()
 export abstract class ILogger {
-  // abstract debug(...args: any[]): void;
   abstract request(info: {
     path: string;
     type: string;
@@ -10,8 +9,6 @@ export abstract class ILogger {
     user: { id: string; name: string; lastName: string } | null;
     input?: any;
   }): void;
-  // abstract warn(...args: any[]): void;
-  // abstract error(errorList: Array<ErrorApp>): void;
   abstract error(errorList: {
     status: string;
     code: string;

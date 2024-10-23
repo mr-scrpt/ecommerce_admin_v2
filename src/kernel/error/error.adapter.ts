@@ -1,19 +1,11 @@
-import { TRPCError } from "@trpc/server";
-import { injectable } from "inversify";
 import { ZodError } from "zod";
 import { HTTP_STATUS } from "../lib/trpc/_status";
 import { ValidateDataError } from "../lib/trpc/error";
-
-export interface ErrorAdapterResult {
-  status: string;
-  code: string;
-  message: string;
-  text: string;
-}
+import { IErrorAdapterResult } from "./type";
 
 export interface ErrorAdapter {
   canAdapt(error: unknown): boolean;
-  adapt(error: unknown): ErrorAdapterResult;
+  adapt(error: unknown): IErrorAdapterResult;
 }
 
 export class ZodErrorAdapter implements ErrorAdapter {
@@ -21,7 +13,7 @@ export class ZodErrorAdapter implements ErrorAdapter {
     return error instanceof ZodError;
   }
 
-  adapt(error: ZodError): ErrorAdapterResult {
+  adapt(error: ZodError): IErrorAdapterResult {
     return {
       text: "Parse error",
       status: HTTP_STATUS.PARSE_ERROR,
@@ -40,7 +32,7 @@ export class ValidateErrorAdapter implements ErrorAdapter {
     return error instanceof ValidateDataError;
   }
 
-  adapt(error: ValidateDataError): ErrorAdapterResult {
+  adapt(error: ValidateDataError): IErrorAdapterResult {
     return {
       text: "Validation error",
       status: HTTP_STATUS.BAD_REQUEST,
@@ -51,34 +43,16 @@ export class ValidateErrorAdapter implements ErrorAdapter {
 }
 
 export class DefaultErrorAdapter implements ErrorAdapter {
-  canAdapt(error: unknown): boolean {
+  canAdapt(_: unknown): boolean {
     return true;
   }
 
-  adapt(error: unknown): ErrorAdapterResult {
+  adapt(_: unknown): IErrorAdapterResult {
     return {
       text: "Unknown error",
       status: HTTP_STATUS.PARSE_ERROR,
       code: "Unknown error",
       message: JSON.stringify(["UNKNOWN ERROR"]),
     };
-  }
-}
-
-@injectable()
-export class ErrorAdapterService {
-  private readonly adapters: ErrorAdapter[];
-
-  constructor() {
-    this.adapters = [
-      new ZodErrorAdapter(),
-      new ValidateErrorAdapter(),
-      new DefaultErrorAdapter(),
-    ];
-  }
-
-  adapt(error: TRPCError): ErrorAdapterResult {
-    const adapter = this.adapters.find((a) => a.canAdapt(error.cause));
-    return adapter!.adapt(error.cause);
   }
 }
