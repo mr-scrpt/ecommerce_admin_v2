@@ -1,10 +1,10 @@
 import { categoryFormDefaultSchema } from "@/entities/category";
-import { propertyItemDefaultSelectOptionSchema } from "@/kernel/domain/property/form.schema";
+import { propertyDefaultSelectOptionSchema } from "@/kernel/domain/property/form.schema";
 import { z } from "zod";
 
 export const categoryCreateFormSchema = categoryFormDefaultSchema
   .extend({
-    propertyList: z.array(propertyItemDefaultSelectOptionSchema),
+    propertyList: z.array(propertyDefaultSelectOptionSchema),
   })
   .omit({
     categoryList: true,
