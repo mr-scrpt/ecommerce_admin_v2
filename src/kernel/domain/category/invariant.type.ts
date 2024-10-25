@@ -4,7 +4,7 @@ import { Either } from "@sweet-monads/either";
 
 // NOTE: Invariants
 export type CategoryUniqueByNameInvariant = {
-  selector: {
+  selector?: {
     id: string;
   };
   data: {
