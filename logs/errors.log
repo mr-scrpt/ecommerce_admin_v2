@@ -28,3 +28,21 @@
 {"level":50,"time":1729684466049,"pid":245096,"hostname":"mr-station","msg":"[\"Category name not unique\"]","args":{"status":"BAD_REQUEST","code":"PARSE_ERROR","message":"[\"Category name not unique\"]"}}
 {"level":50,"time":1729685251164,"pid":245096,"hostname":"mr-station","msg":"[\"Property not exist\"]","args":{"status":"BAD_REQUEST","code":"PARSE_ERROR","message":"[\"Property not exist\"]"}}
 {"level":50,"time":1729685286236,"pid":245096,"hostname":"mr-station","msg":"[\"Category name not unique\"]","args":{"status":"BAD_REQUEST","code":"PARSE_ERROR","message":"[\"Category name not unique\"]"}}
+{"level":50,"time":1729852722753,"pid":149587,"hostname":"mr-station","msg":"[\"Property not exist\"]","args":{"status":"BAD_REQUEST","code":"PARSE_ERROR","message":"[\"Property not exist\"]"}}
+{"level":50,"time":1729853428448,"pid":149587,"hostname":"mr-station","msg":"[\"Property not exist\"]","args":{"status":"BAD_REQUEST","code":"PARSE_ERROR","message":"[\"Property not exist\"]"}}
+{"level":50,"time":1729853496394,"pid":149587,"hostname":"mr-station","msg":"[\"Property not exist\"]","args":{"status":"BAD_REQUEST","code":"PARSE_ERROR","message":"[\"Property not exist\"]"}}
+{"level":50,"time":1729853535843,"pid":163124,"hostname":"mr-station","msg":"[\"Property not exist\"]","args":{"status":"BAD_REQUEST","code":"PARSE_ERROR","message":"[\"Property not exist\"]"}}
+{"level":50,"time":1729853581741,"pid":163124,"hostname":"mr-station","msg":"[\"Unexpected error\"]","args":{"status":"BAD_REQUEST","code":"PARSE_ERROR","message":"[\"Unexpected error\"]"}}
+{"level":50,"time":1729853643864,"pid":164962,"hostname":"mr-station","msg":"[\"Unexpected error\"]","args":{"status":"BAD_REQUEST","code":"PARSE_ERROR","message":"[\"Unexpected error\"]"}}
+{"level":50,"time":1729853701857,"pid":166079,"hostname":"mr-station","msg":"[\"Unexpected error\"]","args":{"status":"BAD_REQUEST","code":"PARSE_ERROR","message":"[\"Unexpected error\"]"}}
+{"level":50,"time":1729853769865,"pid":167430,"hostname":"mr-station","msg":"[\"Unexpected error\"]","args":{"status":"BAD_REQUEST","code":"PARSE_ERROR","message":"[\"Unexpected error\"]"}}
+{"level":50,"time":1729853881241,"pid":169262,"hostname":"mr-station","msg":"[\"Unexpected error\"]","args":{"status":"BAD_REQUEST","code":"PARSE_ERROR","message":"[\"Unexpected error\"]"}}
+{"level":50,"time":1729853918137,"pid":170098,"hostname":"mr-station","msg":"[\"Unexpected error\"]","args":{"status":"BAD_REQUEST","code":"PARSE_ERROR","message":"[\"Unexpected error\"]"}}
+{"level":50,"time":1729853998614,"pid":171532,"hostname":"mr-station","msg":"[\"Unexpected error\"]","args":{"status":"BAD_REQUEST","code":"PARSE_ERROR","message":"[\"Unexpected error\"]"}}
+{"level":50,"time":1729854041909,"pid":172466,"hostname":"mr-station","msg":"[\"Unexpected error\"]","args":{"status":"BAD_REQUEST","code":"PARSE_ERROR","message":"[\"Unexpected error\"]"}}
+{"level":50,"time":1729854161193,"pid":174412,"hostname":"mr-station","msg":"[\"Category name not unique\"]","args":{"status":"BAD_REQUEST","code":"PARSE_ERROR","message":"[\"Category name not unique\"]"}}
+{"level":50,"time":1729854187699,"pid":174412,"hostname":"mr-station","msg":"[\"Property not exist\"]","args":{"status":"BAD_REQUEST","code":"PARSE_ERROR","message":"[\"Property not exist\"]"}}
+{"level":50,"time":1729854199752,"pid":174412,"hostname":"mr-station","msg":"[\"Property not exist\"]","args":{"status":"BAD_REQUEST","code":"PARSE_ERROR","message":"[\"Property not exist\"]"}}
+{"level":50,"time":1729854230753,"pid":174412,"hostname":"mr-station","msg":"[\"Category name not unique\",\"Property not exist\"]","args":{"status":"BAD_REQUEST","code":"PARSE_ERROR","message":"[\"Category name not unique\",\"Property not exist\"]"}}
+{"level":50,"time":1729854258028,"pid":174412,"hostname":"mr-station","msg":"[\"Category name not unique\",\"Property not exist\"]","args":{"status":"BAD_REQUEST","code":"PARSE_ERROR","message":"[\"Category name not unique\",\"Property not exist\"]"}}
+{"level":50,"time":1729854264114,"pid":174412,"hostname":"mr-station","msg":"[\"Category name not unique\"]","args":{"status":"BAD_REQUEST","code":"PARSE_ERROR","message":"[\"Category name not unique\"]"}}

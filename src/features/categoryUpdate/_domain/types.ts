@@ -1,12 +1,14 @@
 import { CategoryUpdateDTO } from "@/kernel/domain/category/category.dto";
-import { Category } from "@/kernel/domain/category/category.type";
+import { CategoryBase } from "@/kernel/domain/category/category.type";
 import { Property } from "@/kernel/domain/property/property.type";
 
 // type CategoryUpdatePayload = Partial<Category>;
-type CategoryUpdatePayload = Omit<
-  Category,
-  "id" | "slug" | "createdAt" | "updatedAt"
->;
+// type CategoryUpdatePayload = Omit<
+//   Category,
+//   "id" | "slug" | "createdAt" | "updatedAt"
+// >;
+type CategoryUpdatePayload = Omit<CategoryBase, "slug">;
+
 type PropertyList = Array<{ propertyId: Property["id"] }>;
 
 export type CategoryUpdateTxPayload = {

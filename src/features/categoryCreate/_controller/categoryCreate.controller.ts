@@ -3,21 +3,28 @@ import { injectable } from "inversify";
 import { createInputSchema } from "../_domain/validator.schema";
 import { CategoryCreateService } from "../_service/categoryCreate.service";
 import { categorySchema } from "@/kernel/domain/category/category.schema";
+import { IValidator } from "@/kernel/lib/trpc/validator";
 
 @injectable()
 export class CategoryCreateController extends Controller {
-  constructor(private readonly createCategoryService: CategoryCreateService) {
+  constructor(
+    private readonly createCategoryService: CategoryCreateService,
+
+    private readonly validator: IValidator,
+  ) {
     super();
   }
 
   public router = router({
     categoryCreate: {
       create: publicProcedure
-        // .input((input) => this.checkInput(input, createInputSchema))
         .input(createInputSchema)
         .mutation(async ({ input }) => {
           const result = await this.createCategoryService.execute(input);
-          const validateResult = this.checkResult(result, categorySchema);
+          const validateResult = this.validator.checkResult(
+            result,
+            categorySchema,
+          );
           return validateResult;
         }),
     },

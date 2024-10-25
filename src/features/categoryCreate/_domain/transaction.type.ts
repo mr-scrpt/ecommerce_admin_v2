@@ -9,5 +9,5 @@ import { ErrorApp } from "@/shared/error/error";
 export abstract class ICategoryCreateTx {
   abstract create(
     dto: CategoryCreateTxDTO,
-  ): Promise<Either<ErrorApp, CategoryEntity>>; // Promise<CategoryEntity>;
+  ): Promise<Either<Array<ErrorApp>, CategoryEntity>>; // Promise<CategoryEntity>;
 }

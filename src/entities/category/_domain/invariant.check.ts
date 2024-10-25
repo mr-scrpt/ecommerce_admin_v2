@@ -23,7 +23,7 @@ export class CategoryInvariant implements ICategoryInvariant {
     const isCategoryQnique = await this.categoryRepo.getByName({ name }, tx);
 
     if (isCategoryQnique.isRight()) {
-      if (isCategoryQnique.value.id === selector.id) {
+      if (selector && isCategoryQnique.value.id === selector.id) {
         return right(true);
       }
       return left(new CategoryNotUniqueNameError());

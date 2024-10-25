@@ -54,10 +54,18 @@ export class CategoryUpdateTx extends Transaction implements ICategoryUpdateTx {
         tx,
       );
 
+      if (categoryUpdateResult.isLeft()) {
+        return left([categoryUpdateResult.value]);
+      }
+
+      const { id: targetId } = categoryUpdateResult.value;
+
       const categoryBindPropertyListResult =
         await this.categoryRepo.bindToPropertyList(
           {
-            target: selector,
+            target: {
+              id: targetId,
+            },
             data: {
               propertyListId: propertyData,
             },
@@ -65,7 +73,7 @@ export class CategoryUpdateTx extends Transaction implements ICategoryUpdateTx {
           tx,
         );
 
-      const resultGet = await this.categoryRepo.get({ id: selector.id }, tx);
+      const resultGet = await this.categoryRepo.get({ id: targetId }, tx);
 
       return mergeInMany([
         categoryUpdateResult,

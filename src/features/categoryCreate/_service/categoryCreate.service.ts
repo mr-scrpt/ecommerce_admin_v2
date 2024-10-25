@@ -13,7 +13,7 @@ export class CategoryCreateService {
 
   async execute(
     payload: CategoryCreateTxPayload,
-  ): Promise<Either<ErrorApp, Category>> {
+  ): Promise<Either<Array<ErrorApp>, Category>> {
     const categoryCreateDTO = this.build(payload);
     return await this.categoryCreateTx.create(categoryCreateDTO);
   }

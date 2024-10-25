@@ -140,9 +140,12 @@ export class CategoryRepository implements ICategoryRepository {
     const { data } = dto;
 
     try {
+      console.log("output_log: BEFORE CREATE =>>>", data);
       const res = await db.category.create({
         data,
       });
+
+      console.log("output_log: AFTER CREATE =>>>", res);
 
       if (!res) {
         return left(new CategoryNotBeenCreatedError());
