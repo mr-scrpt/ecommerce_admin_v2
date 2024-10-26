@@ -1,4 +1,5 @@
 "use client";
+import { ButtonSubmitComponentType } from "@/shared/type/button";
 import { Button } from "@/shared/ui/button";
 import { FormField, FormItem, FormLabel, FormMessage } from "@/shared/ui/form";
 import { Spinner } from "@/shared/ui/icons/spinner";
@@ -13,14 +14,13 @@ import {
 import { ZodTypeAny } from "zod";
 import {
   CategoryFormDefaultValues,
-  categoryFormDefaultSchema,
   categoryDefaultFieldsValues,
+  categoryFormDefaultSchema,
 } from "../../_domain/form.schema";
 import { CategoryBoardElement } from "./elements/categoryBoardElement";
-import { CategoryNameElement } from "./elements/categoryNameElement";
 import { CategoryMultiSelectElement } from "./elements/categoryMultiSelectElement";
+import { CategoryNameElement } from "./elements/categoryNameElement";
 import { CategorySelectElement } from "./elements/categorySelectElement";
-import { ButtonSubmitComponentType } from "@/shared/type/button";
 
 interface CategoryFormElementsProps<T extends CategoryFormDefaultValues>
   extends HTMLAttributes<HTMLFormElement> {

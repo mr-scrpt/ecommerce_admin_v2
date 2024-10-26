@@ -6,14 +6,20 @@ import {
   CategoryGetSelector,
   CategoryRelation,
 } from "../_domain/category.types";
+import { ServiceUtils } from "@/kernel/service/service.utils";
 
 @injectable()
 export class CategoryRelationGetService {
-  constructor(private readonly categoryRepo: ICategoryRepository) {}
+  constructor(
+    private readonly categoryRepo: ICategoryRepository,
+    private readonly serviceUtils: ServiceUtils,
+  ) {}
 
   async execute(
     selector: CategoryGetSelector,
-  ): Promise<Either<ErrorApp, CategoryRelation>> {
-    return await this.categoryRepo.getWithRelation<CategoryRelation>(selector);
+  ): Promise<Either<Array<ErrorApp>, CategoryRelation>> {
+    const res =
+      await this.categoryRepo.getWithRelation<CategoryRelation>(selector);
+    return this.serviceUtils.buildMonadErrorArray(res);
   }
 }

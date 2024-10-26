@@ -4,14 +4,19 @@ import { ErrorApp } from "@/shared/error/error";
 import { Either } from "@sweet-monads/either";
 import { injectable } from "inversify";
 import { CategoryGetSelector } from "../_domain/category.types";
+import { ServiceUtils } from "@/kernel/service/service.utils";
 
 @injectable()
 export class CategoryGetService {
-  constructor(private readonly categoryRepo: ICategoryRepository) {}
+  constructor(
+    private readonly categoryRepo: ICategoryRepository,
+    private readonly serviceUtils: ServiceUtils,
+  ) {}
 
   async execute(
     selector: CategoryGetSelector,
-  ): Promise<Either<ErrorApp, Category>> {
-    return await this.categoryRepo.get(selector);
+  ): Promise<Either<Array<ErrorApp>, Category>> {
+    const res = await this.categoryRepo.get(selector);
+    return this.serviceUtils.buildMonadErrorArray(res);
   }
 }

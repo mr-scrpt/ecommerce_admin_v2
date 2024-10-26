@@ -12,8 +12,8 @@ import type {
 import { CategoryEntity } from "@/kernel/domain/category/category.type";
 import {
   CategoryBindProductError,
-  CategoryBindPropertyError,
   CategoryNotBeenCreatedError,
+  CategoryNotBeenDeletedError,
   CategoryNotBeenUpdatedError,
   CategoryNotFoundError,
 } from "@/kernel/domain/category/error";
@@ -98,10 +98,22 @@ export class CategoryRepository implements ICategoryRepository {
   async getBySlug(
     dto: CategoryGetBySlugDTO,
     db: Tx = this.db,
-  ): Promise<CategoryEntity> {
-    return db.category.findUniqueOrThrow({
-      where: dto,
-    });
+  ): Promise<Either<ErrorApp, CategoryEntity>> {
+    try {
+      const res = await db.category.findFirst({
+        where: dto,
+      });
+
+      if (!res) {
+        return left(new CategoryNotFoundError());
+      }
+
+      return right(res);
+    } catch (e) {
+      return left(
+        new UnexpectedError({ message: (e as any).message, cause: e }),
+      );
+    }
   }
 
   async getBySlugRelation<T>(
@@ -129,8 +141,21 @@ export class CategoryRepository implements ICategoryRepository {
     }
   }
 
-  async getList(db: Tx = this.db): Promise<CategoryEntity[]> {
-    return db.category.findMany();
+  async getList(
+    db: Tx = this.db,
+  ): Promise<Either<ErrorApp, Array<CategoryEntity>>> {
+    try {
+      const res = await db.category.findMany();
+
+      if (!res) {
+        return left(new CategoryNotFoundError());
+      }
+      return right(res);
+    } catch (e) {
+      return left(
+        new UnexpectedError({ message: (e as any).message, cause: e }),
+      );
+    }
   }
 
   async create(
@@ -140,12 +165,9 @@ export class CategoryRepository implements ICategoryRepository {
     const { data } = dto;
 
     try {
-      console.log("output_log: BEFORE CREATE =>>>", data);
       const res = await db.category.create({
         data,
       });
-
-      console.log("output_log: AFTER CREATE =>>>", res);
 
       if (!res) {
         return left(new CategoryNotBeenCreatedError());
@@ -186,19 +208,42 @@ export class CategoryRepository implements ICategoryRepository {
   async remove(
     dto: CategoryRemoveDTO,
     db: Tx = this.db,
-  ): Promise<CategoryEntity> {
+  ): Promise<Either<ErrorApp, CategoryEntity>> {
     const { selector } = dto;
+    try {
+      const res = await db.category.delete({ where: selector });
 
-    return await db.category.delete({ where: selector });
+      if (!res) {
+        return left(new CategoryNotBeenDeletedError());
+      }
+
+      return right(res);
+    } catch (e) {
+      return left(
+        new UnexpectedError({ message: (e as any).message, cause: e }),
+      );
+    }
   }
 
   async removeBySlug(
     dto: CategoryRemoveBySlugDTO,
     db: Tx = this.db,
-  ): Promise<CategoryEntity> {
+  ): Promise<Either<ErrorApp, CategoryEntity>> {
     const { selector } = dto;
 
-    return await db.category.delete({ where: selector });
+    try {
+      const res = await db.category.delete({ where: selector });
+
+      if (!res) {
+        return left(new CategoryNotBeenDeletedError());
+      }
+
+      return right(res);
+    } catch (e) {
+      return left(
+        new UnexpectedError({ message: (e as any).message, cause: e }),
+      );
+    }
   }
 
   async bindToPropertyList(

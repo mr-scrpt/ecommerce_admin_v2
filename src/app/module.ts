@@ -62,6 +62,7 @@ import { DbModule } from "@/shared/lib/db/module";
 import { Container } from "inversify";
 import { OrderRowCreateModule } from "@/features/orderRowCreate/module";
 import { OrderReceiverUpdateModule } from "@/features/orderReceiverUpdate/module";
+import { ServiceUtilsModule } from "@/kernel/service/module";
 
 export const loadModule = () => {
   const container = new Container();
@@ -70,6 +71,7 @@ export const loadModule = () => {
     LoggerModule,
     ValidatorModule,
     DbModule,
+    ServiceUtilsModule,
     NextAuthModule,
     SessionCreateModule,
     HttpClientModule,

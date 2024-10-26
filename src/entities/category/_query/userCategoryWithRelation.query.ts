@@ -4,7 +4,7 @@ import { CategoryRelation } from "../_domain/category.types";
 import { useListenCategoryUpdate } from "../_vm/event/useListenCategoryUpdate";
 
 export const useCategoryWithRelationQuery = (id: string) => {
-  const { data, isPending, isSuccess, isFetchedAfterMount, error } =
+  const { data, isPending, isSuccess, isFetchedAfterMount, isError, error } =
     categoryApi.category.getRelation.useQuery<CategoryRelation>({ id });
 
   useListenCategoryUpdate();
@@ -13,6 +13,8 @@ export const useCategoryWithRelationQuery = (id: string) => {
     isPending,
     isSuccess,
     isFetchedAfterMount,
+    isError,
+    error,
     category: data ?? null,
   };
 };

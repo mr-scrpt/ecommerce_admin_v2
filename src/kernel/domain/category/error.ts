@@ -5,6 +5,7 @@ enum ErrorMessageEnum {
   CATEGORY_NOT_FOUND = "Category not found",
   CATEGORY_NOT_BEEN_CREATED = "Category not been created",
   CATEGORY_NOT_BEEN_UPDATED = "Category not been updated",
+  CATEGORY_NOT_BEEN_DELETED = "Category not been deleted",
   CATEGORY_ALREADY_EXIST = "Category already exist",
   CATEGORY_NOT_UNIQUE_NAME = "Category name not unique",
   CATEGORY_NOT_BEEN_BIND_PROPERTY = "Category not been bind property",
@@ -42,6 +43,15 @@ export class CategoryNotBeenUpdatedError extends ErrorApp {
   }
 }
 
+export class CategoryNotBeenDeletedError extends ErrorApp {
+  constructor(cause?: unknown) {
+    super({
+      code: HTTP_STATUS.CONFLICT,
+      message: ErrorMessageEnum.CATEGORY_NOT_BEEN_DELETED,
+      cause,
+    });
+  }
+}
 export class CategoryAlreadyExistError extends ErrorApp {
   constructor(cause?: unknown) {
     super({

@@ -13,7 +13,6 @@ import {
   CategoryUpdateDTO,
 } from "./category.dto";
 import { CategoryEntity } from "./category.type";
-import { CategoryNotBeenCreatedError } from "./error";
 
 export abstract class ICategoryRepository {
   abstract get(
@@ -33,14 +32,14 @@ export abstract class ICategoryRepository {
   abstract getBySlug(
     dto: CategoryGetBySlugDTO,
     db?: Tx,
-  ): Promise<CategoryEntity>;
+  ): Promise<Either<ErrorApp, CategoryEntity>>;
 
   abstract getBySlugRelation<T>(
     dto: CategoryGetBySlugDTO,
     db?: Tx,
   ): Promise<Either<ErrorApp, T>>;
 
-  abstract getList(db?: Tx): Promise<CategoryEntity[]>;
+  abstract getList(db?: Tx): Promise<Either<ErrorApp, Array<CategoryEntity>>>;
 
   abstract create(
     dto: CategoryCreateDTO,
@@ -52,17 +51,15 @@ export abstract class ICategoryRepository {
     db?: Tx,
   ): Promise<Either<ErrorApp, CategoryEntity>>;
 
-  abstract remove(dto: CategoryRemoveDTO, db?: Tx): Promise<CategoryEntity>;
+  abstract remove(
+    dto: CategoryRemoveDTO,
+    db?: Tx,
+  ): Promise<Either<ErrorApp, CategoryEntity>>;
 
   abstract removeBySlug(
     dto: CategoryRemoveBySlugDTO,
     db?: Tx,
-  ): Promise<CategoryEntity>;
-
-  // abstract bindToPropertyList(
-  //   dto: CategoryBindToPropertyListDTO,
-  //   db?: Tx,
-  // ): Promise<CategoryEntity>;
+  ): Promise<Either<ErrorApp, CategoryEntity>>;
 
   abstract bindToPropertyList(
     dto: CategoryBindToPropertyListDTO,

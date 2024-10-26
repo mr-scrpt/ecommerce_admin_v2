@@ -50,10 +50,15 @@ export class CategoryController extends Controller {
 
           return categoryRelationSchema.parse(result);
         }),
+
       getList: publicProcedure.query(async () => {
         const result = await this.getCategoryListService.execute();
 
-        return getListOutputSchema.parse(result);
+        const validateResult = this.validator.checkResult(
+          result,
+          getListOutputSchema,
+        );
+        return validateResult;
       }),
     },
   });

@@ -4,7 +4,7 @@ import { categoryApi } from "../_api/category.api";
 import { useListenCategoryListUpdate } from "../_vm/event/useListenCategoryListUpdate";
 
 export const useCategoryListQuery = () => {
-  const { data, isPending, isSuccess, isFetchedAfterMount } =
+  const { data, isPending, isSuccess, isFetchedAfterMount, isError, error } =
     categoryApi.category.getList.useQuery<Array<Category>>();
 
   useListenCategoryListUpdate();
@@ -13,6 +13,8 @@ export const useCategoryListQuery = () => {
     isPending,
     isSuccess,
     isFetchedAfterMount,
+    isError,
+    error,
     categoryList: data ?? [],
   };
 };

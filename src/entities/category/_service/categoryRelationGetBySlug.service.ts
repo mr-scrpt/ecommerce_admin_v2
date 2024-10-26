@@ -1,5 +1,6 @@
-import { CategoryNotFoundError } from "@/kernel/domain/category/error";
 import { ICategoryRepository } from "@/kernel/domain/category/repository.type";
+import { ServiceUtils } from "@/kernel/service/service.utils";
+import { ErrorApp } from "@/shared/error/error";
 import { Either } from "@sweet-monads/either";
 import { injectable } from "inversify";
 import {
@@ -9,14 +10,16 @@ import {
 
 @injectable()
 export class CategoryRelationGetBySlugService {
-  constructor(private readonly categoryRepo: ICategoryRepository) {}
-
+  constructor(
+    private readonly categoryRepo: ICategoryRepository,
+    private readonly serviceUtils: ServiceUtils,
+  ) {}
   async execute(
     selector: CategoryGetBySlugSelector,
-  ): Promise<Either<CategoryNotFoundError, CategoryRelation>> {
+  ): Promise<Either<Array<ErrorApp>, CategoryRelation>> {
     const res =
       await this.categoryRepo.getBySlugRelation<CategoryRelation>(selector);
 
-    return res;
+    return this.serviceUtils.buildMonadErrorArray(res);
   }
 }
