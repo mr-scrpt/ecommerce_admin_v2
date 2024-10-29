@@ -6,7 +6,7 @@ import {
   updateInputSchemaTestError,
 } from "../_domain/validator.schema";
 import { CategoryUpdateService } from "../_service/categoryUpdate.service";
-import { IValidator } from "@/kernel/lib/trpc/validator";
+import { IValidator } from "@/kernel/lib/zod/validator";
 
 @injectable()
 export class CategoryUpdateController extends Controller {

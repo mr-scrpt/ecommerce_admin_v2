@@ -1,6 +1,10 @@
 export interface IErrorAdapterResult {
   status: string;
-  code: string;
-  message: string;
+  message: Array<string>;
   text: string;
+  trace?: Array<{
+    code: string;
+    messageDetail: string;
+    cause: unknown;
+  }>;
 }

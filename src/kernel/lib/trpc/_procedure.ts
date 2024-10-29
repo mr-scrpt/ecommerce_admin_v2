@@ -3,13 +3,14 @@ import { TRPCError } from "@trpc/server";
 import { ZodTypeAny, z } from "zod";
 import { t } from "./_inti";
 import { loggerMiddleware } from "./_middleware";
+import { UnauthorizedError } from "@/kernel/error/error.common";
 
 const baseProcedure = t.procedure.use(loggerMiddleware);
 export const publicProcedure = baseProcedure;
 
 export const authorizedProcedure = baseProcedure.use(({ ctx, next }) => {
   if (!ctx.session) {
-    throw new TRPCError({ code: "UNAUTHORIZED" });
+    throw new UnauthorizedError();
   }
   return next({
     ctx: {
@@ -26,6 +27,7 @@ export const checkAbilityProcedure = <Ability>({
   create: (session: SessionEntity) => Ability;
 }) =>
   authorizedProcedure.use(({ ctx, next }) => {
+    console.log("output_log: SESSION CHECK:: =>>>", ctx.session);
     const ability = create(ctx.session);
 
     if (check && !check(ability)) {

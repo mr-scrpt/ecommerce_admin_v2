@@ -30,7 +30,7 @@ const withLoggerMiddleware = ({ logger, errorAdapter }: MiddlewareFactory) =>
 
       logger.error({
         status: adaptedError.status,
-        code: adaptedError.code,
+        code: adaptedError.text,
         message: adaptedError.message,
       });
     }
@@ -43,7 +43,7 @@ const withLoggerMiddleware = ({ logger, errorAdapter }: MiddlewareFactory) =>
       input,
     });
 
-    return result;
+    return next(md);
   });
 
 export const loggerMiddleware = withLoggerMiddleware({

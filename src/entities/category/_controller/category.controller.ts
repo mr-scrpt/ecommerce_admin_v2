@@ -9,7 +9,7 @@ import { CategoryListGetService } from "../_service/categoryListGet.service";
 import { CategoryRelationGetService } from "../_service/categoryRelationGet.service";
 import { CategoryGetService } from "../_service/categoryGet.service";
 import { categorySchema } from "@/kernel/domain/category/category.schema";
-import { IValidator } from "@/kernel/lib/trpc/validator";
+import { IValidator } from "@/kernel/lib/zod/validator";
 
 @injectable()
 export class CategoryController extends Controller {

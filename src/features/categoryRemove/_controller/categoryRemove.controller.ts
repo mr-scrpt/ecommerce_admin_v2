@@ -1,4 +1,5 @@
 import { createCategoryAbility } from "@/entities/category/server";
+import { categorySchema } from "@/kernel/domain/category/category.schema";
 import {
   Controller,
   checkAbilityProcedure,
@@ -7,7 +8,6 @@ import {
 import { injectable } from "inversify";
 import { removeInputSchema } from "../_domain/validator.schema";
 import { CategoryRemoveService } from "../_service/categoryRemove.service";
-import { categorySchema } from "@/kernel/domain/category/category.schema";
 
 @injectable()
 export class CategoryRemoveController extends Controller {
@@ -23,9 +23,9 @@ export class CategoryRemoveController extends Controller {
       })
         .input(removeInputSchema)
         .mutation(async ({ input }) => {
-          const result = await this.removeCategoryService.execute(input);
-
-          return categorySchema.parse(result);
+          console.log("output_log: INPUT REMOVE =>>>", input);
+          // const result = await this.removeCategoryService.execute(input);
+          // return categorySchema.parse(result);
         }),
     },
   });

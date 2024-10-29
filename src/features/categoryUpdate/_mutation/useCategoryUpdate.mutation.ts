@@ -7,13 +7,15 @@ import { CATEGORY_MESSAGE } from "@/kernel/domain/category/category.message";
 export const useCategoryUpdateMutation = () => {
   const { categoryUpdateEvent } = useEmitCategoryUpdate();
 
-  const { mutateAsync, isPending, isSuccess } =
+  const { mutateAsync, isPending, isSuccess, error } =
     categoryUpdateApi.categoryUpdate.update.useMutation({
       onSuccess: async ({ id }) => {
         categoryUpdateEvent(id);
         buildSuccessNotice(CATEGORY_MESSAGE.UPDATE_SUCCESS);
       },
     });
+
+  console.log("output_log: ERROR_ =>>>", error);
   return {
     categoryUpdate: mutateAsync,
     isPending,

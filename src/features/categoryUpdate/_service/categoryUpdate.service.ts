@@ -1,5 +1,4 @@
 import { Category } from "@/kernel/domain/category/category.type";
-import { ICategoryRepository } from "@/kernel/domain/category/repository.type";
 import { ErrorApp } from "@/shared/error/error";
 import { slugGenerator } from "@/shared/lib/slugGenerator";
 import { Either } from "@sweet-monads/either";
@@ -10,10 +9,7 @@ import { CategoryUpdateTxPayload } from "../_domain/types";
 
 @injectable()
 export class CategoryUpdateService {
-  constructor(
-    private readonly categoryUpdateTx: ICategoryUpdateTx,
-    readonly categoryRepo: ICategoryRepository,
-  ) {}
+  constructor(private readonly categoryUpdateTx: ICategoryUpdateTx) {}
 
   async execute(
     payload: CategoryUpdateTxPayload,

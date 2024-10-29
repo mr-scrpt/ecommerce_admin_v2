@@ -7,6 +7,7 @@ export class ContextFactory {
 
   createContext = async () => {
     const session = await this.sessionService.get();
+    console.log("output_log: IN CONTEXT =>>>", session);
 
     return {
       session,

@@ -55,6 +55,7 @@ export class CategoryUpdateTx extends Transaction implements ICategoryUpdateTx {
       );
 
       if (categoryUpdateResult.isLeft()) {
+        // console.log("output_log: VALUE =>>>", categoryUpdateResult.value);
         return left([categoryUpdateResult.value]);
       }
 
@@ -104,9 +105,27 @@ export class CategoryUpdateTx extends Transaction implements ICategoryUpdateTx {
       await this.propertyInvariant.isPropertyListExist(
         propertExistByListIdInvariant,
       );
+    console.log(
+      "output_log: INVARIANT$ =>>>",
+      categoryCheckResult.value,
+      propertyCheckResult.value,
+    );
 
     return mergeInMany([categoryCheckResult, propertyCheckResult]).mapRight(
       () => true,
     );
   }
 }
+
+//  {
+//   selector: { id: 'cat_585fsddfew7898few' },
+//   categoryData: { name: 'Second category', board: [] },
+//   propertyData: [ { propertyId: 'property_id_1' }, { propertyId: 'property_id_4' } ]
+// }
+// //
+//  {
+//   selector: { id: 'cat_585fsddfew7898few' },
+//   categoryData: { name: 'Second Category', board: [] },
+//   propertyData: [ { propertyId: 'property_id_1' }, { propertyId: 'property_id_4' } ]
+// }
+//

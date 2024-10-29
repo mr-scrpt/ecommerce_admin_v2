@@ -22,7 +22,6 @@ export type CategoryUpdateDTO = {
   selector: {
     id: string;
   };
-  // data: Partial<CategoryBase>;
   data: Omit<CategoryBase, "slug">;
 };
 

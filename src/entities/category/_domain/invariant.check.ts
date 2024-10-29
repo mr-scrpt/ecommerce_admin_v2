@@ -1,5 +1,9 @@
-import { CategoryNotUniqueNameError } from "@/kernel/domain/category/error";
 import {
+  CategoryNotFoundError,
+  CategoryNotUniqueNameError,
+} from "@/kernel/domain/category/error";
+import {
+  CategoryExistInvariant,
   CategoryUniqueByNameInvariant,
   ICategoryInvariant,
 } from "@/kernel/domain/category/invariant.type";
@@ -12,6 +16,23 @@ import { injectable } from "inversify";
 @injectable()
 export class CategoryInvariant implements ICategoryInvariant {
   constructor(readonly categoryRepo: ICategoryRepository) {}
+
+  public async isCategoryExist(
+    dto: CategoryExistInvariant,
+    tx?: Tx,
+  ): Promise<Either<ErrorApp, boolean>> {
+    const {
+      selector: { id },
+    } = dto;
+
+    const isCategoryExist = await this.categoryRepo.get({ id }, tx);
+
+    if (isCategoryExist.isRight()) {
+      return right(true);
+    }
+
+    return left(new CategoryNotFoundError());
+  }
 
   public async isCategoryUniqueByName(
     dto: CategoryUniqueByNameInvariant,

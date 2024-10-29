@@ -56,13 +56,14 @@ import { UserCreateModule } from "@/features/userCreate/module";
 import { UserUpdateModule } from "@/features/userUpdate/module";
 import { NextAuthModule } from "@/kernel/lib/nextauth/module";
 import { NovaPoshtaModule } from "@/kernel/lib/novaposhta/module";
-import { TrpcModule, ValidatorModule } from "@/kernel/lib/trpc/module";
+import { TrpcModule } from "@/kernel/lib/trpc/module";
 import { HttpClientModule } from "@/shared/api/module";
 import { DbModule } from "@/shared/lib/db/module";
 import { Container } from "inversify";
 import { OrderRowCreateModule } from "@/features/orderRowCreate/module";
 import { OrderReceiverUpdateModule } from "@/features/orderReceiverUpdate/module";
 import { ServiceUtilsModule } from "@/kernel/service/module";
+import { ValidatorModule } from "@/kernel/lib/zod/module";
 
 export const loadModule = () => {
   const container = new Container();

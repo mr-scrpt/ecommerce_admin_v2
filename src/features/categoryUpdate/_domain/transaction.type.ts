@@ -1,7 +1,7 @@
 import { CategoryEntity } from "@/kernel/domain/category/category.type";
-import { CategoryUpdateTxDTO } from "./types";
-import { Either } from "@sweet-monads/either";
 import { ErrorApp } from "@/shared/error/error";
+import { Either } from "@sweet-monads/either";
+import { CategoryUpdateTxDTO } from "./types";
 
 export abstract class ICategoryUpdateTx {
   abstract update(

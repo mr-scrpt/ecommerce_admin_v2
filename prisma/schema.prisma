@@ -3,11 +3,13 @@
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["postgresqlExtensions"]
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  extensions = [citext]
 }
 
 enum ROLE {
@@ -50,7 +52,7 @@ enum DELIVERY_TYPE {
 
 model Category {
   id    String   @id @default(uuid())
-  name  String   @unique
+  name  String   @db.Citext @unique
   slug  String   @unique
   board String[]
 
@@ -64,7 +66,7 @@ model Category {
 model Product {
   id          String   @id @default(uuid())
 
-  name        String
+  name        String   @db.Citext @unique
   article     String
   price       Float
   inStock     Int
@@ -328,7 +330,7 @@ model Settlement {
 
 model Store {
   id        String   @id @default(uuid())
-  name      String
+  name      String   @db.Citext @unique
 
   settlement    Settlement @relation(fields: [settlementRef], references: [ref], onDelete: Cascade)
   settlementRef String
@@ -344,7 +346,7 @@ model Store {
 
 model Property {
   id       String   @id @default(uuid())
-  name     String   @unique
+  name     String   @db.Citext @unique
   datatype PROPERTY_DATATYPE
 
   propertyItemList PropertyItem[] @relation("PropertyItemToProperty")
@@ -356,7 +358,7 @@ model Property {
 
 model PropertyItem {
   id    String @id @default(uuid())
-  name  String
+  name  String @db.Citext
   value String
 
   property      Property    @relation("PropertyItemToProperty", fields: [propertyId], references: [id], onDelete: Cascade)
