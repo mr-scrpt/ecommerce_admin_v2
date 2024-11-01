@@ -23,15 +23,15 @@ export class LoggerImpl implements ILogger {
   }
 
   error(error: ILoggerErrorParams): void {
-    this.errorLogger.error({ msg: error.message, args: error });
+    this.errorLogger.error({ msg: error.message, err: error });
   }
 
   request(info: ILoggerRequestParams): void {
     const { user } = info;
     const msg = `[${info.durationMs}ms] ${
       user
-        ? `USER_ID: ${user.id}, USER_NAME: ${user.name}, USER_LAST_NAME: ${user.lastName}`
-        : "Anonymous User"
+        ? `USER_ID: ${user.id}, USER_NAME: ${user.name}, USER_LAST_NAME: ${user.lastName},`
+        : "Anonymous User,"
     } Request type [${info.type.toUpperCase()}] to [${info.path}]`;
 
     this.accessLogger.info({

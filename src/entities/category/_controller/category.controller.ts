@@ -9,7 +9,7 @@ import { CategoryListGetService } from "../_service/categoryListGet.service";
 import { CategoryRelationGetService } from "../_service/categoryRelationGet.service";
 import { CategoryGetService } from "../_service/categoryGet.service";
 import { categorySchema } from "@/kernel/domain/category/category.schema";
-import { IValidator } from "@/kernel/lib/zod/validator";
+import { ICheckService } from "@/kernel/service/type";
 
 @injectable()
 export class CategoryController extends Controller {
@@ -17,7 +17,7 @@ export class CategoryController extends Controller {
     private readonly getCategoryService: CategoryGetService,
     private readonly getCategoryListService: CategoryListGetService,
     private readonly getCategoryRelationService: CategoryRelationGetService,
-    private readonly validator: IValidator,
+    private readonly checkService: ICheckService,
   ) {
     super();
   }
@@ -26,7 +26,7 @@ export class CategoryController extends Controller {
     category: {
       get: publicProcedure.input(getInputSchema).query(async ({ input }) => {
         const result = await this.getCategoryService.execute(input);
-        const validateResult = this.validator.checkResult(
+        const validateResult = this.checkService.checkResult(
           result,
           categorySchema,
         );
@@ -36,7 +36,7 @@ export class CategoryController extends Controller {
         .input(getInputSchema)
         .query(async ({ input }) => {
           const result = await this.getCategoryRelationService.execute(input);
-          const validateResult = this.validator.checkResult(
+          const validateResult = this.checkService.checkResult(
             result,
             categoryRelationSchema,
           );
@@ -54,7 +54,7 @@ export class CategoryController extends Controller {
       getList: publicProcedure.query(async () => {
         const result = await this.getCategoryListService.execute();
 
-        const validateResult = this.validator.checkResult(
+        const validateResult = this.checkService.checkResult(
           result,
           getListOutputSchema,
         );

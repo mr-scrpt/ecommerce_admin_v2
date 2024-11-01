@@ -1,7 +1,7 @@
 export { ContextFactory } from "./_contextFactory";
 
 export {
-  authorizedProcedure,
+  authenticationProcedure as authorizedProcedure,
   checkAbilityInputProcedure,
   checkAbilityProcedure,
   publicProcedure,

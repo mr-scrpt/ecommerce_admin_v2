@@ -16,9 +16,10 @@ import {
   CategoryNotBeenDeletedError,
   CategoryNotBeenUpdatedError,
   CategoryNotFoundError,
+  CategoryNotUniqueNameError,
 } from "@/kernel/domain/category/error";
 import { ICategoryRepository } from "@/kernel/domain/category/repository.type";
-import { UnexpectedError } from "@/kernel/error/error.common";
+import { DatabaseError } from "@/kernel/error/error.common";
 import { ErrorApp } from "@/shared/error/error";
 import { DBClient, Tx } from "@/shared/lib/db/db";
 import { Either, left, right } from "@sweet-monads/either";
@@ -43,9 +44,7 @@ export class CategoryRepository implements ICategoryRepository {
 
       return right(res);
     } catch (e) {
-      return left(
-        new UnexpectedError({ message: (e as any).message, cause: e }),
-      );
+      return left(new DatabaseError({ message: (e as any).message, cause: e }));
     }
   }
 
@@ -68,9 +67,7 @@ export class CategoryRepository implements ICategoryRepository {
 
       return right(res);
     } catch (e) {
-      return left(
-        new UnexpectedError({ message: (e as any).message, cause: e }),
-      );
+      return left(new DatabaseError({ message: (e as any).message, cause: e }));
     }
   }
 
@@ -89,11 +86,28 @@ export class CategoryRepository implements ICategoryRepository {
 
       return right(res);
     } catch (e) {
-      return left(
-        new UnexpectedError({ message: (e as any).message, cause: e }),
-      );
+      return left(new DatabaseError({ message: (e as any).message, cause: e }));
     }
   }
+
+  // async isUniqueName(
+  //   dto: CategoryGetByNameDTO,
+  //   db: Tx = this.db,
+  // ): Promise<Either<ErrorApp, boolean>> {
+  //   try {
+  //     const res = await db.category.findFirst({
+  //       where: dto,
+  //     });
+  //
+  //     if (res) {
+  //       return left(new CategoryNotUniqueNameError());
+  //     }
+  //
+  //     return right(true);
+  //   } catch (e) {
+  //     return left(new DatabaseError({ message: (e as any).message, cause: e }));
+  //   }
+  // }
 
   async getBySlug(
     dto: CategoryGetBySlugDTO,
@@ -110,9 +124,7 @@ export class CategoryRepository implements ICategoryRepository {
 
       return right(res);
     } catch (e) {
-      return left(
-        new UnexpectedError({ message: (e as any).message, cause: e }),
-      );
+      return left(new DatabaseError({ message: (e as any).message, cause: e }));
     }
   }
 
@@ -135,9 +147,7 @@ export class CategoryRepository implements ICategoryRepository {
 
       return right(res);
     } catch (e) {
-      return left(
-        new UnexpectedError({ message: (e as any).message, cause: e }),
-      );
+      return left(new DatabaseError({ message: (e as any).message, cause: e }));
     }
   }
 
@@ -152,9 +162,7 @@ export class CategoryRepository implements ICategoryRepository {
       }
       return right(res);
     } catch (e) {
-      return left(
-        new UnexpectedError({ message: (e as any).message, cause: e }),
-      );
+      return left(new DatabaseError({ message: (e as any).message, cause: e }));
     }
   }
 
@@ -175,9 +183,7 @@ export class CategoryRepository implements ICategoryRepository {
 
       return right(res);
     } catch (e) {
-      return left(
-        new UnexpectedError({ message: (e as any).message, cause: e }),
-      );
+      return left(new DatabaseError({ message: (e as any).message, cause: e }));
     }
   }
 
@@ -193,15 +199,14 @@ export class CategoryRepository implements ICategoryRepository {
         data,
       });
 
+      throw new Error("Not Implemented UPDATE");
       if (!res) {
         return left(new CategoryNotBeenUpdatedError());
       }
 
       return right(res);
     } catch (e) {
-      return left(
-        new UnexpectedError({ message: (e as any).message, cause: e }),
-      );
+      return left(new DatabaseError({ message: (e as any).message, cause: e }));
     }
   }
 
@@ -219,9 +224,7 @@ export class CategoryRepository implements ICategoryRepository {
 
       return right(res);
     } catch (e) {
-      return left(
-        new UnexpectedError({ message: (e as any).message, cause: e }),
-      );
+      return left(new DatabaseError({ message: (e as any).message, cause: e }));
     }
   }
 
@@ -240,9 +243,7 @@ export class CategoryRepository implements ICategoryRepository {
 
       return right(res);
     } catch (e) {
-      return left(
-        new UnexpectedError({ message: (e as any).message, cause: e }),
-      );
+      return left(new DatabaseError({ message: (e as any).message, cause: e }));
     }
   }
 
@@ -271,9 +272,7 @@ export class CategoryRepository implements ICategoryRepository {
 
       return right(res);
     } catch (e) {
-      return left(
-        new UnexpectedError({ message: (e as any).message, cause: e }),
-      );
+      return left(new DatabaseError({ message: (e as any).message, cause: e }));
     }
   }
 
@@ -300,9 +299,7 @@ export class CategoryRepository implements ICategoryRepository {
 
       return right(res);
     } catch (e) {
-      return left(
-        new UnexpectedError({ message: (e as any).message, cause: e }),
-      );
+      return left(new DatabaseError({ message: (e as any).message, cause: e }));
     }
   }
 }

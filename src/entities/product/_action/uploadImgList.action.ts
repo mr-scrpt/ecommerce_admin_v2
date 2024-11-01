@@ -1,5 +1,5 @@
 "use server";
-import { BadRequest } from "@/shared/lib/errors";
+import { BadRequestError } from "@/kernel/error/error.common";
 import { storageFile } from "@/shared/lib/storageFile";
 import { z } from "zod";
 import { PRODUCT_LIST_FILE_KEY } from "../_constant/formData.contstant";
@@ -16,7 +16,7 @@ export const uploadImgListAction = async (formData: FormData) => {
   const fileListUploaded = [];
   for (const file of files) {
     if (!(file instanceof File)) {
-      throw new BadRequest();
+      throw new BadRequestError({ message: "File not be uploaded" });
     }
     const storedFile = await storageFile.uploadImage(file, "avatar");
     fileListUploaded.push(storedFile);

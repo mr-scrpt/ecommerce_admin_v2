@@ -1,5 +1,4 @@
 import { ICategoryRepository } from "@/kernel/domain/category/repository.type";
-import { ServiceUtils } from "@/kernel/service/service.utils";
 import { ErrorApp } from "@/shared/error/error";
 import { Either } from "@sweet-monads/either";
 import { injectable } from "inversify";
@@ -7,12 +6,13 @@ import {
   CategoryGetBySlugSelector,
   CategoryRelation,
 } from "../_domain/category.types";
+import { IUtilsService } from "@/kernel/service/type";
 
 @injectable()
 export class CategoryRelationGetBySlugService {
   constructor(
     private readonly categoryRepo: ICategoryRepository,
-    private readonly serviceUtils: ServiceUtils,
+    private readonly serviceUtils: IUtilsService,
   ) {}
   async execute(
     selector: CategoryGetBySlugSelector,

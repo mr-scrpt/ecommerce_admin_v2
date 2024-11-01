@@ -63,14 +63,12 @@ import { Container } from "inversify";
 import { OrderRowCreateModule } from "@/features/orderRowCreate/module";
 import { OrderReceiverUpdateModule } from "@/features/orderReceiverUpdate/module";
 import { ServiceUtilsModule } from "@/kernel/service/module";
-import { ValidatorModule } from "@/kernel/lib/zod/module";
 
 export const loadModule = () => {
   const container = new Container();
 
   container.load(
     LoggerModule,
-    ValidatorModule,
     DbModule,
     ServiceUtilsModule,
     NextAuthModule,

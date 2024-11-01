@@ -18,13 +18,22 @@ export type CategoryExistInvariant = {
 };
 
 export abstract class ICategoryInvariant {
+  // abstract isCategoryExist(
+  //   invariantData: CategoryExistInvariant,
+  //   db?: Tx,
+  // ): Promise<Either<ErrorApp, boolean>>;
+
+  // abstract isCategoryUniqueByName(
+  //   invariantData: CategoryUniqueByNameInvariant,
+  //   db?: Tx,
+  // ): Promise<Either<ErrorApp, boolean>>;
   abstract isCategoryExist(
-    invariantData: CategoryExistInvariant,
+    dto: CategoryExistInvariant,
     db?: Tx,
   ): Promise<Either<ErrorApp, boolean>>;
 
   abstract isCategoryUniqueByName(
-    invariantData: CategoryUniqueByNameInvariant,
+    dto: CategoryUniqueByNameInvariant,
     db?: Tx,
   ): Promise<Either<ErrorApp, boolean>>;
 }

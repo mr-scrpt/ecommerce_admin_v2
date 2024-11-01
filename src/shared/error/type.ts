@@ -11,6 +11,10 @@ export type AppErrorOptions = {
   cause?: unknown;
 };
 
+export type LayerErrorOptions = {
+  cause?: unknown;
+};
+
 export type AppErrorCombinedOptions = {
   // message: string;
   errors: Array<ErrorAppAbstract>;

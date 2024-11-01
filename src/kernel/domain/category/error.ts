@@ -1,5 +1,6 @@
 import { ErrorApp } from "@/shared/error/error";
 import { HTTP_STATUS } from "@/kernel/lib/trpc/_status";
+import { AppErrorOptions, LayerErrorOptions } from "@/shared/error/type";
 
 enum ErrorMessageEnum {
   CATEGORY_NOT_FOUND = "Category not found",
@@ -14,90 +15,90 @@ enum ErrorMessageEnum {
 }
 
 export class CategoryNotFoundError extends ErrorApp {
-  constructor(cause?: unknown) {
+  constructor(opts?: LayerErrorOptions) {
     super({
       code: HTTP_STATUS.NOT_FOUND,
       message: ErrorMessageEnum.CATEGORY_NOT_FOUND,
-      cause,
+      cause: opts?.cause,
     });
   }
 }
 
 export class CategoryNotBeenCreatedError extends ErrorApp {
-  constructor(cause?: unknown) {
+  constructor(opts?: LayerErrorOptions) {
     super({
       code: HTTP_STATUS.CONFLICT,
       message: ErrorMessageEnum.CATEGORY_NOT_BEEN_CREATED,
-      cause,
+      cause: opts?.cause,
     });
   }
 }
 
 export class CategoryNotBeenUpdatedError extends ErrorApp {
-  constructor(cause?: unknown) {
+  constructor(opts?: LayerErrorOptions) {
     super({
       code: HTTP_STATUS.CONFLICT,
       message: ErrorMessageEnum.CATEGORY_NOT_BEEN_UPDATED,
-      cause,
+      cause: opts?.cause,
     });
   }
 }
 
 export class CategoryNotBeenDeletedError extends ErrorApp {
-  constructor(cause?: unknown) {
+  constructor(opts?: LayerErrorOptions) {
     super({
       code: HTTP_STATUS.CONFLICT,
       message: ErrorMessageEnum.CATEGORY_NOT_BEEN_DELETED,
-      cause,
+      cause: opts?.cause,
     });
   }
 }
 export class CategoryAlreadyExistError extends ErrorApp {
-  constructor(cause?: unknown) {
+  constructor(opts?: LayerErrorOptions) {
     super({
       code: HTTP_STATUS.CONFLICT,
       message: ErrorMessageEnum.CATEGORY_ALREADY_EXIST,
-      cause,
+      cause: opts?.cause,
     });
   }
 }
 
 export class CategoryNotUniqueNameError extends ErrorApp {
-  constructor(cause?: unknown) {
+  constructor(opts?: LayerErrorOptions) {
     super({
       code: HTTP_STATUS.CONFLICT,
       message: ErrorMessageEnum.CATEGORY_NOT_UNIQUE_NAME,
-      cause,
+      cause: opts?.cause,
     });
   }
 }
 
 export class CategoryBindPropertyError extends ErrorApp {
-  constructor(cause?: unknown) {
+  constructor(opts?: LayerErrorOptions) {
     super({
       code: HTTP_STATUS.CONFLICT,
       message: ErrorMessageEnum.CATEGORY_NOT_BEEN_BIND_PROPERTY,
-      cause,
+      cause: opts?.cause,
     });
   }
 }
 
 export class CategoryBindProductError extends ErrorApp {
-  constructor(cause?: unknown) {
+  constructor(opts?: AppErrorOptions) {
     super({
       code: HTTP_STATUS.CONFLICT,
       message: ErrorMessageEnum.CATEGORY_NOT_BEEN_BIND_PRODUCT,
-      cause,
+      cause: opts?.cause,
     });
   }
 }
 
 export class CategoryInputValidateError extends ErrorApp {
-  constructor(cause?: unknown) {
+  constructor(opts?: AppErrorOptions) {
     super({
       code: HTTP_STATUS.BAD_REQUEST,
       message: ErrorMessageEnum.CATEGORY_INPUT_VALIDATION_ERROR,
-      cause,
+      cause: opts?.cause,
     });
   }
 }

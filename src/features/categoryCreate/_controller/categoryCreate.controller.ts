@@ -3,14 +3,14 @@ import { injectable } from "inversify";
 import { createInputSchema } from "../_domain/validator.schema";
 import { CategoryCreateService } from "../_service/categoryCreate.service";
 import { categorySchema } from "@/kernel/domain/category/category.schema";
-import { IValidator } from "@/kernel/lib/zod/validator";
+import { ICheckService } from "@/kernel/service/type";
 
 @injectable()
 export class CategoryCreateController extends Controller {
   constructor(
     private readonly createCategoryService: CategoryCreateService,
 
-    private readonly validator: IValidator,
+    private readonly checkService: ICheckService,
   ) {
     super();
   }
@@ -21,7 +21,7 @@ export class CategoryCreateController extends Controller {
         .input(createInputSchema)
         .mutation(async ({ input }) => {
           const result = await this.createCategoryService.execute(input);
-          const validateResult = this.validator.checkResult(
+          const validateResult = this.checkService.checkResult(
             result,
             categorySchema,
           );

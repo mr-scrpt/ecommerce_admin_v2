@@ -9,9 +9,15 @@ export abstract class ILogger {
     user: { id: string; name: string; lastName: string } | null;
     input?: any;
   }): void;
+
   abstract error(errorList: {
     status: string;
     code: string;
     message: any;
+    trace?: Array<{
+      errorStatus: string;
+      messageDetail: string;
+      cause: unknown;
+    }>;
   }): void;
 }

@@ -1,5 +1,4 @@
 import { createCategoryAbility } from "@/entities/category/server";
-import { categorySchema } from "@/kernel/domain/category/category.schema";
 import {
   Controller,
   checkAbilityProcedure,

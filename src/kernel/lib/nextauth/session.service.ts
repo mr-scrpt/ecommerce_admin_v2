@@ -1,8 +1,8 @@
-import { getServerSession } from "next-auth";
-import { NextAuthConfig } from "./nextAuthConfig";
+import { UnauthorizedError } from "@/kernel/error/error.common";
 import { injectable } from "inversify";
-import { NeedAuthError } from "../../../shared/lib/errors";
+import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
+import { NextAuthConfig } from "./nextAuthConfig";
 
 @injectable()
 export class SessionService {
@@ -16,7 +16,7 @@ export class SessionService {
     const session = await this.get();
 
     if (session === null) {
-      throw new NeedAuthError();
+      throw new UnauthorizedError();
     }
 
     return session;

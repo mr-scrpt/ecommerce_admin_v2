@@ -2,45 +2,30 @@ import { SessionEntity } from "@/kernel/domain/session.type";
 import { TRPCError } from "@trpc/server";
 import { ZodTypeAny, z } from "zod";
 import { t } from "./_inti";
-import { loggerMiddleware } from "./_middleware";
-import { UnauthorizedError } from "@/kernel/error/error.common";
+import {
+  CheckAbility,
+  authMiddleware,
+  checkAbilityInputMiddleware,
+  checkAbilityMiddleware,
+  loggingRequestMiddleware,
+} from "./_middleware";
 
-const baseProcedure = t.procedure.use(loggerMiddleware);
+const baseProcedure = t.procedure.use(loggingRequestMiddleware);
+
 export const publicProcedure = baseProcedure;
 
-export const authorizedProcedure = baseProcedure.use(({ ctx, next }) => {
-  if (!ctx.session) {
-    throw new UnauthorizedError();
-  }
-  return next({
-    ctx: {
-      session: ctx.session,
-    },
-  });
-});
+export const authenticationProcedure = baseProcedure.use(authMiddleware);
 
 export const checkAbilityProcedure = <Ability>({
   check,
   create,
-}: {
-  check?: (ability: Ability) => boolean;
-  create: (session: SessionEntity) => Ability;
-}) =>
-  authorizedProcedure.use(({ ctx, next }) => {
-    console.log("output_log: SESSION CHECK:: =>>>", ctx.session);
-    const ability = create(ctx.session);
-
-    if (check && !check(ability)) {
-      throw new TRPCError({ code: "FORBIDDEN" });
-    }
-
-    return next({
-      ctx: {
-        session: ctx.session,
-        ability,
-      },
-    });
-  });
+}: CheckAbility<Ability>) =>
+  authenticationProcedure.use(
+    checkAbilityMiddleware({
+      check,
+      create,
+    }),
+  );
 
 export const checkAbilityInputProcedure = <Ability, Input extends ZodTypeAny>({
   check,
@@ -51,17 +36,36 @@ export const checkAbilityInputProcedure = <Ability, Input extends ZodTypeAny>({
   check: (ability: Ability, input: z.infer<Input>) => boolean;
   create: (session: SessionEntity) => Ability;
 }) =>
-  authorizedProcedure.input(input).use(({ ctx, next, input: params }) => {
-    const ability = create(ctx.session);
+  authenticationProcedure.input(input).use(
+    checkAbilityInputMiddleware({
+      check,
+      create,
+    }),
+  );
 
-    if (!check(ability, params)) {
-      throw new TRPCError({ code: "FORBIDDEN" });
-    }
-
-    return next({
-      ctx: {
-        session: ctx.session,
-        ability,
-      },
-    });
-  });
+// export const checkAbilityInputProcedureAlt = <
+//   Ability,
+//   Input extends ZodTypeAny,
+// >({
+//   check,
+//   create,
+//   input,
+// }: {
+//   input: Input;
+//   check: (ability: Ability, input: z.infer<Input>) => boolean;
+//   create: (session: SessionEntity) => Ability;
+// }) =>
+//   authenticationProcedure.input(input).use(({ ctx, next, input: params }) => {
+//     const ability = create(ctx.session);
+//
+//     if (!check(ability, params)) {
+//       throw new TRPCError({ code: "FORBIDDEN" });
+//     }
+//
+//     return next({
+//       ctx: {
+//         session: ctx.session,
+//         ability,
+//       },
+//     });
+//   });

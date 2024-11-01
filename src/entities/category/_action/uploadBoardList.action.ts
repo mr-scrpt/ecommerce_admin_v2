@@ -1,7 +1,7 @@
 "use server";
-import { BadRequest } from "@/shared/lib/errors";
-import { z } from "zod";
+import { BadRequestError } from "@/kernel/error/error.common";
 import { storageFile } from "@/shared/lib/storageFile";
+import { z } from "zod";
 import { BOARD_LIST_FILE_KEY } from "../_constant/formData.contstant";
 
 const resultSchema = z.object({
@@ -17,7 +17,7 @@ export const uploadBoardListAction = async (formData: FormData) => {
 
   for (const file of files) {
     if (!(file instanceof File)) {
-      throw new BadRequest();
+      throw new BadRequestError({ message: "File not be uploaded" });
     }
     try {
       const storedFile = await storageFile.uploadImage(file, "CategoryBoard");

@@ -1,6 +1,7 @@
 import { type ILoggerConfig } from "@/shared/config/logger.config";
 import { inject, injectable } from "inversify";
 import pino, { Logger, TransportTargetOptions } from "pino";
+import { err as errSerializer } from "pino-std-serializers";
 import { ILoggerConfigFactory, LOGGER_TYPES, LoggerType } from "./type";
 
 interface LoggerOptions {
@@ -55,6 +56,12 @@ export class LoggerConfigFactory implements ILoggerConfigFactory {
 
     return pino({
       level: options.level,
+      // serializers: {
+      //   err: errSerializer,
+      //   // cause: (cause) => {
+      //   //   console.log("CAUSE ======", cause);
+      //   // },
+      // },
       transport: {
         targets: this.createTransportTargets(options.destination),
       },

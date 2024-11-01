@@ -2,8 +2,9 @@ import { injectable } from "inversify";
 import {
   DefaultErrorAdapter,
   ErrorAdapter,
-  ValidateErrorAdapter,
+  AppCombinedErrorAdapter,
   ZodErrorAdapter,
+  AppErrorAdapter,
 } from "./error.adapter";
 import { TRPCError } from "@trpc/server";
 import { IErrorAdapterResult } from "./type";
@@ -15,7 +16,8 @@ export class ErrorAdapterService {
   constructor() {
     this.adapters = [
       new ZodErrorAdapter(),
-      new ValidateErrorAdapter(),
+      new AppCombinedErrorAdapter(),
+      new AppErrorAdapter(),
       new DefaultErrorAdapter(),
     ];
   }

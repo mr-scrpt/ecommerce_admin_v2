@@ -6,13 +6,13 @@ import {
   CategoryGetSelector,
   CategoryRelation,
 } from "../_domain/category.types";
-import { ServiceUtils } from "@/kernel/service/service.utils";
+import { IUtilsService } from "@/kernel/service/type";
 
 @injectable()
 export class CategoryRelationGetService {
   constructor(
     private readonly categoryRepo: ICategoryRepository,
-    private readonly serviceUtils: ServiceUtils,
+    private readonly serviceUtils: IUtilsService,
   ) {}
 
   async execute(

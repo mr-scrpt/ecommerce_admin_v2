@@ -27,4 +27,9 @@ export interface ILoggerErrorParams {
   status: string;
   code: string;
   message: any;
+  trace?: Array<{
+    errorStatus: string;
+    messageDetail: string;
+    cause: unknown;
+  }>;
 }

@@ -5,7 +5,7 @@ import { CategoryController } from "./_controller/category.controller";
 import { CategoryRepository } from "./_repository/category.repo";
 import { CategoryListGetService } from "./_service/categoryListGet.service";
 import { CategoryRelationGetService } from "./_service/categoryRelationGet.service";
-import { CategoryInvariant } from "./_domain/invariant.check";
+import { CategoryInvariant } from "./_repository/invariant.check";
 import { ICategoryInvariant } from "@/kernel/domain/category/invariant.type";
 import { CategoryGetService } from "./_service/categoryGet.service";
 
