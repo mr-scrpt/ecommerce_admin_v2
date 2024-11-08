@@ -23,7 +23,10 @@ export class LoggerImpl implements ILogger {
   }
 
   error(error: ILoggerErrorParams): void {
-    this.errorLogger.error({ msg: error.message, err: error });
+    // console.dir("ERROR ===== @@@@@", { error });
+    // console.log(JSON.stringify(error, null, 2));
+    // this.errorLogger.error({ msg: error.message, details: error.details });
+    // this.errorLogger.error({ msg: error.message, err: error, details: error.details });
   }
 
   request(info: ILoggerRequestParams): void {

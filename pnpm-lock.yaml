@@ -71,6 +71,9 @@ importers:
       '@sweet-monads/either':
         specifier: ^3.3.1
         version: 3.3.1
+      '@sweet-monads/maybe':
+        specifier: ^3.3.1
+        version: 3.3.1
       '@tanstack/react-query':
         specifier: ^5.37.1
         version: 5.37.1(react@18.2.0)
@@ -1745,6 +1748,9 @@ packages:
 
   '@sweet-monads/interfaces@3.3.0':
     resolution: {integrity: sha512-66akGvjPD4lizQy+w4JSltJilc2w/QPdw8lPAniLJGHwyjmrw9xMJLx76Q/GDnbCU59Werses4aZJLWOlJrL5A==}
+
+  '@sweet-monads/maybe@3.3.1':
+    resolution: {integrity: sha512-aWBg4Uxsw60GEQUByx9nlZ+jhEmQUug6wfDsTNFFH2fRPx3YwwDJAljqYdw3LzYQfAF3a1cyN5VFWDujPPDFpw==}
 
   '@tanstack/query-core@5.36.1':
     resolution: {integrity: sha512-BteWYEPUcucEu3NBcDAgKuI4U25R9aPrHSP6YSf2NvaD2pSlIQTdqOfLRsxH9WdRYg7k0Uom35Uacb6nvbIMJg==}
@@ -7136,6 +7142,10 @@ snapshots:
       '@sweet-monads/interfaces': 3.3.0
 
   '@sweet-monads/interfaces@3.3.0': {}
+
+  '@sweet-monads/maybe@3.3.1':
+    dependencies:
+      '@sweet-monads/interfaces': 3.3.0
 
   '@tanstack/query-core@5.36.1': {}
 

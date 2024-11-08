@@ -16,23 +16,11 @@ export const tFactory = ({ errorAdapter }: ITRPCFactory) => {
 
     errorFormatter({ shape, error }) {
       const adaptedError = errorAdapter.adapt(error);
-
-      logger.error({
-        status: adaptedError.status,
-        code: adaptedError.text,
-        message: adaptedError.message,
-        trace: adaptedError.trace,
-      });
-
-      return {
-        ...shape,
-        message: adaptedError.text,
-        httpStatus: adaptedError.status,
-        httpCode: adaptedError.code,
-        data: {
-          message: adaptedError.message,
-        },
-      };
+      console.log(
+        "output_log: ********___ADAPTED ERROR___********* =>>>",
+        JSON.stringify(adaptedError, null, 2),
+      );
+      return shape;
     },
   });
 };

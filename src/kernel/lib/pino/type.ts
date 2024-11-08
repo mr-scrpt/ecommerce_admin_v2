@@ -1,3 +1,4 @@
+import { IErrorDetail } from "@/kernel/error/type";
 import { Logger } from "pino";
 
 export const LOGGER_TYPES = {
@@ -27,9 +28,5 @@ export interface ILoggerErrorParams {
   status: string;
   code: string;
   message: any;
-  trace?: Array<{
-    errorStatus: string;
-    messageDetail: string;
-    cause: unknown;
-  }>;
+  details?: Array<IErrorDetail>;
 }

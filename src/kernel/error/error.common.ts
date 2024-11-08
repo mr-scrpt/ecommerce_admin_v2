@@ -1,56 +1,93 @@
 import { ErrorApp } from "@/shared/error/error";
-import { HTTP_STATUS } from "../lib/trpc/_status";
+import { HttpStatusCodeEnum, HTTP_STATUS } from "../lib/trpc/_status";
+import {
+  ErrorLayerType,
+  IErrorLayerOptions,
+  LayerErrorOptions,
+} from "@/shared/error/type";
+import { getCauseFromUnknown } from "@/shared/error/error.helper";
 
-export class UnexpectedError extends ErrorApp {
-  constructor(params: { message: string; cause?: unknown }) {
-    const { message, cause } = params;
-    super({
-      code: HTTP_STATUS.INTERNAL_SERVER_ERROR,
-      message: message ? `Unexpected error: ${message}` : "Unexpected error",
-      cause,
-    });
-  }
+enum ErrorMessageEnum {
+  UNEXPECTED_ERROR = "Unexpected error",
+  UNAUTHORIZED = "Unauthorized: Need authentication",
+  FORBIDDEN = "Forbidden: Permission denied",
+  NOT_FOUND = "Not found",
+  METHOD_NOT_SUPPORTED = "Method not supported",
+  TIMEOUT = "Timeout",
+  CONFLICT = "Conflict",
+  PRECONDITION_FAILED = "Precondition failed",
+  UNSUPPORTED_MEDIA_TYPE = "Unsupported media type",
+  PAYLOAD_TOO_LARGE = "Payload too large",
+  UNPROCESSABLE_CONTENT = "Unprocessable content",
+  TOO_MANY_REQUESTS = "Too many requests",
+  CLIENT_CLOSED_REQUEST = "Client closed request",
 }
 
-export class DatabaseError extends ErrorApp {
-  constructor(params: { message: string; cause?: unknown }) {
-    const { message, cause } = params;
+enum ErrorNameEnum {
+  UNEXPECTED_ERROR = "UNEXPECTED_ERROR",
+  UNAUTHORIZED = "UNAUTHORIZED",
+  FORBIDDEN = "FORBIDDEN",
+  NOT_FOUND = "NOT_FOUND",
+  METHOD_NOT_SUPPORTED = "METHOD_NOT_SUPPORTED",
+  TIMEOUT = "TIMEOUT",
+  CONFLICT = "CONFLICT",
+  PRECONDITION_FAILED = "PRECONDITION_FAILED",
+  UNSUPPORTED_MEDIA_TYPE = "UNSUPPORTED_MEDIA_TYPE",
+  PAYLOAD_TOO_LARGE = "PAYLOAD_TOO_LARGE",
+  UNPROCESSABLE_CONTENT = "UNPROCESSABLE_CONTENT",
+  TOO_MANY_REQUESTS = "TOO_MANY_REQUESTS",
+  CLIENT_CLOSED_REQUEST = "CLIENT_CLOSED_REQUEST",
+}
+
+export class UnexpectedError extends ErrorApp {
+  constructor({ layer, cause, details }: IErrorLayerOptions) {
     super({
-      code: HTTP_STATUS.INTERNAL_SERVER_ERROR,
-      message: message ? `Database error: ${message}` : "Database error",
+      layer,
       cause,
+      name: ErrorNameEnum.UNEXPECTED_ERROR,
+      message: ErrorMessageEnum.UNEXPECTED_ERROR,
+      details,
     });
   }
 }
 
 export class UnauthorizedError extends ErrorApp {
-  constructor(cause?: unknown) {
+  constructor(params: LayerErrorOptions) {
+    const { cause, layer } = params;
+
     super({
+      name: ErrorNameEnum.UNAUTHORIZED,
+      message: ErrorMessageEnum.UNAUTHORIZED,
       code: HTTP_STATUS.UNAUTHORIZED,
-      message: "Unauthorized: Need authentication",
+      layer,
       cause,
     });
   }
 }
 
 export class ForbiddenError extends ErrorApp {
-  constructor(message?: string, opts?: { cause?: unknown }) {
+  constructor(params: LayerErrorOptions) {
+    const { cause, layer } = params;
+
     super({
+      name: ErrorNameEnum.FORBIDDEN,
       code: HTTP_STATUS.FORBIDDEN,
-      message: message
-        ? `Forbidden: ${message}`
-        : "Forbidden: Permission denied",
-      cause: opts?.cause,
+      message: ErrorMessageEnum.FORBIDDEN,
+      layer,
+      cause,
     });
   }
 }
 
 export class BadRequestError extends ErrorApp {
-  constructor(params: { message: string; cause?: unknown }) {
-    const { message, cause } = params;
+  constructor(params: LayerErrorOptions) {
+    const { cause, layer } = params;
+
     super({
+      name: ErrorNameEnum.UNPROCESSABLE_CONTENT,
+      message: ErrorMessageEnum.UNPROCESSABLE_CONTENT,
       code: HTTP_STATUS.BAD_REQUEST,
-      message: `Bad request: ${message}`,
+      layer,
       cause,
     });
   }

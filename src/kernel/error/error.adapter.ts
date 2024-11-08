@@ -1,189 +1,41 @@
 import { ErrorApp, ErrorAppCombined } from "@/shared/error/error";
-import ErrorStackParser from "error-stack-parser";
+import {
+  ERROR_APP_LAYER,
+  ErrorAppLayer,
+  IErrorAppBase,
+} from "@/shared/error/type";
 import { ZodError } from "zod";
-import {
-  ErrorCodeKeyType,
-  HTTP_STATUS,
-  HTTP_STATUS_CODE,
-} from "../lib/trpc/_status";
-import {
-  IAccumulator,
-  IErrorAdapter,
-  IErrorAdapterResult,
-  IErrorDetail,
-  IStackTraceFrame,
-} from "./type";
+// import {
+//     IErrorAdapter,
+//     IErrorAdapterResult
+// } from "./type";
 
-enum ErrorTexts {
-  ParseError = "Parse error",
-  ValidationError = "Validation error",
-  UnknownError = "Unknown error instance",
+interface IErrorAdapt {
+  layer: ErrorAppLayer;
+  timestamp: Date;
+  name: string;
+  message: string;
+  details?: string;
+  cause?: IErrorAdapt;
 }
 
-// function parseStackTrace(cause: unknown): IStackTraceFrame[] | undefined {
-//   if (cause && cause instanceof Error) {
-//     const stackFrames = ErrorStackParser.parse(cause);
-//
-//     return stackFrames.map((frame) => ({
-//       functionName: frame.functionName,
-//       fileName: frame.fileName,
-//       lineNumber: frame.lineNumber,
-//       columnNumber: frame.columnNumber,
-//     }));
-//   }
-//   return undefined;
-// }
-export function parseStackTrace(
-  error: Error,
-  maxFrames = 10,
-): IStackTraceFrame[] {
-  try {
-    const stackFrames = ErrorStackParser.parse(error);
-
-    return stackFrames
-      .slice(0, maxFrames)
-      .map((frame) => ({
-        functionName: frame.functionName,
-        fileName: frame.fileName,
-        lineNumber: frame.lineNumber,
-        columnNumber: frame.columnNumber,
-      }))
-      .filter(
-        (frame): frame is IStackTraceFrame =>
-          frame.functionName !== undefined || frame.fileName !== undefined,
-      );
-  } catch (parseError) {
-    console.warn("Could not parse stack trace:", parseError);
-    return [];
-  }
+export interface IErrorAdapterResult {
+  messageList: string;
+  errorList: Array<IErrorAdapt>;
 }
 
-export function formatStackTrace(stackTrace: IStackTraceFrame[]): string {
-  return stackTrace
-    .map(
-      (frame) =>
-        `at ${frame.functionName || "<anonymous>"} (${frame.fileName}:${frame.lineNumber}:${frame.columnNumber})`,
-    )
-    .join("\n");
+export interface IErrorAdapter {
+  canAdapt(error: unknown): boolean;
+  adapt(error: unknown): IErrorAdapterResult;
 }
 
-// function accumulateErrors<T>(
-//   errors: T[],
-//   mapError: (err: T) => {
-//     errorStatus: string;
-//     message: string;
-//     messageDetail: string;
-//     cause?: unknown;
-//   },
-// ): IAccumulator {
-//   return errors.reduce<IAccumulator>(
-//     (acc, err) => {
-//       const { errorStatus, message, messageDetail, cause } = mapError(err);
-//
-//       const stackTrace = parseStackTrace(cause);
-//
-//       acc.message.push(message);
-//       acc.messageDetail.push(messageDetail);
-//       acc.code.push(errorStatus as ErrorCodeKeyType);
-//       acc.details.push({
-//         errorStatus,
-//         messageDetail,
-//         stackTrace: stackTrace ?? [],
-//       });
-//       return acc;
-//     },
-//     {
-//       message: [],
-//       messageDetail: [],
-//       code: [],
-//       details: [],
-//     },
-//   );
-// }
-function accumulateErrors<T>(
-  errors: T[],
-  mapError: (err: T) => {
-    errorStatus: string;
-    message: string;
-    messageDetail: string;
-    cause?: unknown;
-  },
-): IAccumulator {
-  return errors.reduce<IAccumulator>(
-    (acc, err) => {
-      const { errorStatus, message, messageDetail, cause } = mapError(err);
-
-      const errorDetail: IErrorDetail = {
-        errorStatus,
-        messageDetail,
-        stackTrace: cause instanceof Error ? parseStackTrace(cause) : [],
-      };
-
-      acc.message.push(message);
-      acc.messageDetail.push(messageDetail);
-      acc.code.push(errorStatus as ErrorCodeKeyType);
-      acc.details.push(errorDetail);
-
-      return acc;
-    },
-    {
-      message: [],
-      messageDetail: [],
-      code: [],
-      details: [],
-    },
-  );
+enum ErrorMessageEnum {
+  NOT_DEFINED_ERROR_INSTANCE = "Not defined error instance",
 }
 
 abstract class BaseErrorAdapter implements IErrorAdapter {
   abstract canAdapt(error: unknown): boolean;
   abstract adapt(error: unknown): IErrorAdapterResult;
-
-  protected createErrorResult(props: {
-    text: string;
-    status: ErrorCodeKeyType;
-    code: number;
-    accumulator: IAccumulator;
-  }): IErrorAdapterResult {
-    const { text, status, code, accumulator } = props;
-    return {
-      text,
-      status,
-      code,
-      message: accumulator.message,
-      details: accumulator.details.map((item) => ({
-        errorStatus: item.errorStatus,
-        messageDetail: item.messageDetail,
-        stackTrace: item.stackTrace,
-      })),
-    };
-  }
-}
-
-export class ZodErrorAdapter extends BaseErrorAdapter {
-  canAdapt(error: unknown): boolean {
-    return error instanceof ZodError;
-  }
-
-  adapt(error: ZodError): IErrorAdapterResult {
-    const { errors } = error;
-
-    const accumulator = accumulateErrors(errors, (err) => ({
-      errorStatus: "INVALID_TYPE",
-      messageDetail: `Field "${err.path.join(".")}": ${err.message}`,
-      message: `Field "${err.path.at(-1)}": ${err.message}`,
-      cause: undefined,
-    }));
-
-    const res = this.createErrorResult({
-      text: ErrorTexts.ParseError,
-      status: HTTP_STATUS.BAD_REQUEST,
-      code: HTTP_STATUS_CODE[HTTP_STATUS.BAD_REQUEST],
-      accumulator,
-    });
-
-    return res;
-  }
 }
 
 export class AppErrorAdapter extends BaseErrorAdapter {
@@ -191,49 +43,133 @@ export class AppErrorAdapter extends BaseErrorAdapter {
     return error instanceof ErrorApp;
   }
 
-  adapt(error: ErrorApp): IErrorAdapterResult {
-    const accumulator = accumulateErrors([error], (err) => ({
-      errorStatus: "APPLICATION_ERROR",
-      messageDetail: err.message,
-      message: err.message,
-      cause: err.cause,
-    }));
+  adapt(errorApp: ErrorApp): IErrorAdapterResult {
+    const adaptedError = this.adaptSingleError(errorApp);
 
-    const res = this.createErrorResult({
-      text: ErrorTexts.ParseError,
-      status: HTTP_STATUS.BAD_REQUEST,
-      code: HTTP_STATUS_CODE[HTTP_STATUS.BAD_REQUEST],
-      accumulator,
-    });
+    return {
+      messageList: JSON.stringify([errorApp.message]),
+      errorList: [adaptedError],
+    };
+  }
 
-    return res;
+  private adaptSingleError(error: ErrorApp): IErrorAdapt {
+    const adapted: IErrorAdapt = {
+      layer: error.layer,
+      timestamp: error.timestamp,
+      name: error.name,
+      message: error.message,
+      details: error.details,
+    };
+
+    if (error.cause) {
+      adapted.cause = this.adaptCause(error.cause);
+    }
+
+    return adapted;
+  }
+
+  private adaptCause(cause: unknown): IErrorAdapt {
+    return {
+      layer: this.extractErrorField(cause, "layer", ERROR_APP_LAYER.EXTERNAL),
+      timestamp: this.extractTimestamp(cause),
+      name: this.extractErrorField(cause, "name", "UnknownError"),
+      message: this.extractMessage(cause),
+      ...this.extractOptionalField(cause, "details"),
+    };
+  }
+
+  private extractErrorField<T>(
+    error: unknown,
+    field: string,
+    defaultValue: T,
+  ): T {
+    if (this.hasProperty(error, field)) {
+      const value = error[field];
+      if (value !== null && value !== undefined) {
+        return value as T;
+      }
+    }
+    return defaultValue;
+  }
+
+  private extractOptionalField(
+    error: unknown,
+    field: string,
+  ): Record<string, unknown> {
+    if (
+      this.hasProperty(error, field) &&
+      error[field] !== null &&
+      error[field] !== undefined
+    ) {
+      return { [field]: String(error[field]) };
+    }
+    return {};
+  }
+
+  private extractMessage(error: unknown): string {
+    if (error instanceof Error) {
+      return error.message;
+    }
+
+    if (this.hasProperty(error, "message")) {
+      return String(error.message);
+    }
+
+    return String(error);
+  }
+
+  private extractTimestamp(error: unknown): Date {
+    if (this.hasProperty(error, "timestamp")) {
+      const timestamp = error.timestamp;
+
+      if (timestamp instanceof Date) {
+        return timestamp;
+      }
+
+      if (typeof timestamp === "string" || typeof timestamp === "number") {
+        const parsedDate = new Date(timestamp);
+        if (!isNaN(parsedDate.getTime())) {
+          return parsedDate;
+        }
+      }
+    }
+
+    return new Date();
+  }
+
+  private hasProperty(
+    obj: unknown,
+    prop: string,
+  ): obj is { [key: string]: unknown } {
+    return obj !== null && typeof obj === "object" && prop in obj;
   }
 }
 
 export class AppCombinedErrorAdapter extends BaseErrorAdapter {
+  private readonly appErrorAdapter: AppErrorAdapter;
+
+  constructor(appErrorAdapter: AppErrorAdapter) {
+    super();
+    this.appErrorAdapter = appErrorAdapter;
+  }
+
   canAdapt(error: unknown): boolean {
     return error instanceof ErrorAppCombined;
   }
 
-  adapt(error: ErrorAppCombined): IErrorAdapterResult {
-    const { errors } = error;
-
-    const accumulator = accumulateErrors(errors, (err) => ({
-      errorStatus: "APPLICATION_ERROR",
-      messageDetail: `${err.message}`,
-      message: `${err.message}`,
-      cause: err.cause,
-    }));
-
-    const res = this.createErrorResult({
-      text: ErrorTexts.ParseError,
-      status: HTTP_STATUS.BAD_REQUEST,
-      code: HTTP_STATUS_CODE[HTTP_STATUS.BAD_REQUEST],
-      accumulator,
+  adapt(combinedError: ErrorAppCombined): IErrorAdapterResult {
+    const adaptedErrors = combinedError.errorList.map((error) => {
+      const adaptedSingleError = this.appErrorAdapter.adapt(error);
+      const [adaptedError] = adaptedSingleError.errorList;
+      return adaptedError;
     });
-    console.log("output_log: RES =>>>", res);
 
-    return res;
+    const messages = adaptedErrors.map((error) => error.message);
+
+    return {
+      messageList: JSON.stringify(messages),
+      errorList: adaptedErrors,
+    };
   }
 }
 
@@ -244,11 +180,82 @@ export class DefaultErrorAdapter implements IErrorAdapter {
 
   adapt(_: unknown): IErrorAdapterResult {
     return {
-      text: ErrorTexts.UnknownError,
-      code: HTTP_STATUS_CODE[HTTP_STATUS.UNKNOWN_ERROR],
-      status: HTTP_STATUS.UNKNOWN_ERROR,
-      message: [],
-      details: [],
+      messageList: JSON.stringify([ErrorMessageEnum]),
+      errorList: [],
     };
   }
 }
+
+// enum ErrorTexts {
+//   ParseError = "Parse error",
+//   ValidationError = "Validation error",
+//   UnknownError = "Unknown error instance",
+// }
+//
+// export function parseStackTrace(
+//   error: Error,
+//   maxFrames = 10,
+// ): IStackTraceFrame[] {
+//   try {
+//     const stackFrames = ErrorStackParser.parse(error);
+//
+//     return stackFrames
+//       .slice(0, maxFrames)
+//       .map((frame) => ({
+//         functionName: frame.functionName,
+//         fileName: frame.fileName,
+//         lineNumber: frame.lineNumber,
+//         columnNumber: frame.columnNumber,
+//       }))
+//       .filter(
+//         (frame): frame is IStackTraceFrame =>
+//           frame.functionName !== undefined || frame.fileName !== undefined,
+//       );
+//   } catch (parseError) {
+//     console.warn("Could not parse stack trace:", parseError);
+//     return [];
+//   }
+// }
+//
+// export function formatStackTrace(stackTrace: IStackTraceFrame[]): string {
+//   return stackTrace
+//     .map(
+//       (frame) =>
+//         `at ${frame.functionName || "<anonymous>"} (${frame.fileName}:${frame.lineNumber}:${frame.columnNumber})`,
+//     )
+//     .join("\n");
+// }
+//
+// function accumulateErrors<T>(
+//   errors: T[],
+//   mapError: (err: T) => {
+//     // errorStatus: HttpStatusType;
+//     message: string;
+//     messageDetail: string;
+//     cause?: unknown;
+//   },
+// ): IAccumulator {
+//   return errors.reduce<IAccumulator>(
+//     (acc, err) => {
+//       const { message, messageDetail, cause } = mapError(err);
+//
+//       const errorDetail: IErrorDetail = {
+//         messageDetail,
+//         stackTrace: cause instanceof Error ? parseStackTrace(cause) : [],
+//       };
+//
+//       acc.message.push(message);
+//       acc.messageDetail.push(messageDetail);
+//       acc.details.push(errorDetail);
+//
+//       return acc;
+//     },
+//     {
+//       message: [],
+//       messageDetail: [],
+//       code: [],
+//       details: [],
+//     },
+//   );
+// }
+//

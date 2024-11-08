@@ -1,50 +1,37 @@
-import { ErrorCodeKeyType } from "@/kernel/lib/trpc/_status";
+export const ERROR_APP_LAYER = {
+  DB: "DB",
+  TRANSACTION: "TRANSACTION",
+  SERVICE: "SERVICE",
+  TRANSPORT: "TRANSPORT",
+  EXTERNAL: "EXTERNAL",
+} as const;
 
-export const ERROR_NAME = {
-  APP: "App Error",
-  COMBINDED: "Error Combinded",
-};
+export type ErrorAppLayer =
+  (typeof ERROR_APP_LAYER)[keyof typeof ERROR_APP_LAYER];
 
-export type AppErrorOptions = {
-  code: ErrorCodeKeyType;
+export interface IErrorAppBase {
+  layer: ErrorAppLayer;
+  timestamp: Date;
+  name: string;
   message: string;
+  details?: string;
   cause?: unknown;
-};
-
-export type LayerErrorOptions = {
-  cause?: unknown;
-};
-
-export type AppErrorCombinedOptions = {
-  // message: string;
-  errors: Array<ErrorAppAbstract>;
-  text?: string;
-  cause?: unknown;
-};
-
-export abstract class ErrorAppAbstract extends Error {
-  public readonly code: ErrorCodeKeyType;
-
-  constructor(opts: AppErrorOptions) {
-    const { message, code, cause } = opts;
-    super(message, { cause });
-    Object.setPrototypeOf(this, new.target.prototype);
-    this.code = code;
-    this.name = ERROR_NAME.APP;
-  }
+  stack?: string;
 }
 
-export abstract class ErrorAppCombinedAbstract extends Error {
-  public readonly errors: Array<ErrorAppAbstract>;
-  public readonly text?: string;
-
-  constructor(opts: AppErrorCombinedOptions) {
-    const { errors, text, cause } = opts;
-    super("Error App Combined Abstract Constructor", { cause });
-    Object.setPrototypeOf(this, new.target.prototype);
-
-    this.errors = errors;
-    this.text = text;
-    this.name = ERROR_NAME.COMBINDED;
-  }
+export interface IErrorAppCombinedOptions extends IErrorAppOptions {
+  errorList: Array<IErrorAppBase>;
 }
+
+export interface IErrorAppOptions {
+  name: string;
+  layer: ErrorAppLayer;
+  message: string;
+
+  details?: string;
+  cause?: unknown;
+}
+
+export interface IErrorLayerOptions
+  extends Pick<IErrorAppOptions, "cause" | "layer" | "details"> {}
+export interface IErrorAppOptonsCombined extends IErrorAppOptions {}

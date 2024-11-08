@@ -3,6 +3,7 @@ import { Either } from "@sweet-monads/either";
 import { injectable } from "inversify";
 import { ZodSchema } from "zod";
 import { ICheckService } from "./type";
+import { ERROR_APP_LAYER } from "@/shared/error/type";
 
 @injectable()
 export class CheckService implements ICheckService {
@@ -13,7 +14,10 @@ export class CheckService implements ICheckService {
       const errorArray = result.value.map((e) => e);
 
       throw new ErrorAppCombined({
-        errors: errorArray,
+        errorList: errorArray,
+        layer: ERROR_APP_LAYER.SERVICE,
+        name: "CheckService",
+        message: "Check Service Error",
       });
     }
     return result.value;
