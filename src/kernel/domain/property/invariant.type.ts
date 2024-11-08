@@ -4,7 +4,7 @@ import { Either } from "@sweet-monads/either";
 
 // NOTE: Invariants
 export type PropertyExistInvariant = {
-  data: {
+  selector: {
     id: string;
   };
 };

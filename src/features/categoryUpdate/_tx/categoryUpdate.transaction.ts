@@ -9,6 +9,8 @@ import { injectable } from "inversify";
 import { ICategoryUpdateInvariant } from "../_domain/invariant.type";
 import { ICategoryUpdateTx } from "../_domain/transaction.type";
 import { CategoryUpdateTxDTO } from "../_domain/types";
+import { CategoryNotFoundError } from "@/kernel/domain/category/error";
+import { ERROR_APP_LAYER } from "@/shared/error/type";
 
 @injectable()
 export class CategoryUpdateTx extends Transaction implements ICategoryUpdateTx {
@@ -43,6 +45,10 @@ export class CategoryUpdateTx extends Transaction implements ICategoryUpdateTx {
       );
 
       if (invariantResultStage.isLeft()) {
+        // console.log(
+        //   "output_log: IS LEFT !!!!! =>>>",
+        //   invariantResultStage.value,
+        // );
         return left(invariantResultStage.value);
       }
 
@@ -94,45 +100,36 @@ export class CategoryUpdateTx extends Transaction implements ICategoryUpdateTx {
     const { categoryUniqueInvariant, propertExistByListIdInvariant } =
       invariantData;
 
-    // const categoryExistCheckResult =
-    //   await this.categoryInvariant.isCategoryExist(categoryUniqueInvariant, tx);
-    //
-    // if (categoryExistCheckResult.isLeft()) {
-    //   return left([categoryExistCheckResult.value]);
-    // }
-    //
-    // const categoryUniqueCheckResult =
-    //   await this.categoryInvariant.isCategoryUniqueByName(
-    //     categoryUniqueInvariant,
-    //     tx,
-    //   );
-    //
-    // const propertyExistCheckResult =
-    //   await this.propertyInvariant.isPropertyListExist(
-    //     propertExistByListIdInvariant,
-    //     tx,
-    //   );
-    //
-    // return mergeInMany([
-    //   categoryExistCheckResult,
-    //   categoryUniqueCheckResult,
-    //   propertyExistCheckResult,
-    // ]).mapRight(() => true);
     return (
-      await this.categoryInvariant.isCategoryExist(categoryUniqueInvariant, tx)
-    )
-      .mapLeft((error) => [error])
-      .asyncChain(async () => {
-        const uniqueCheck = await this.categoryInvariant.isCategoryUniqueByName(
+      (
+        await this.categoryInvariant.isCategoryExist(
           categoryUniqueInvariant,
           tx,
-        );
-        const propertyCheck = await this.propertyInvariant.isPropertyListExist(
-          propertExistByListIdInvariant,
-          tx,
-        );
+        )
+      )
+        .mapLeft((error) => [error])
+        // .mapLeft((error) => {
+        //   return [
+        //     new CategoryNotFoundError({
+        //       layer: ERROR_LAYER.TRANSACTION,
+        //       cause: error,
+        //     }),
+        //   ];
+        // })
+        .asyncChain(async () => {
+          const uniqueCheck =
+            await this.categoryInvariant.isCategoryUniqueByName(
+              categoryUniqueInvariant,
+              tx,
+            );
+          const propertyCheck =
+            await this.propertyInvariant.isPropertyListExist(
+              propertExistByListIdInvariant,
+              tx,
+            );
 
-        return mergeInMany([uniqueCheck, propertyCheck]).mapRight(() => true);
-      });
+          return mergeInMany([uniqueCheck, propertyCheck]).mapRight(() => true);
+        })
+    );
   }
 }

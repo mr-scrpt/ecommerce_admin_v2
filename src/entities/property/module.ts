@@ -15,7 +15,7 @@ import { PropertyListGetByCategoryService } from "./_service/property/propertyLi
 import { PropertyItemController } from "./_controller/propertyItem.controller";
 import { PropertyItemListGetByPropertyService } from "./_service/propertyItem/propertyItemListGetByProperty.service";
 import { IPropertyInvariant } from "@/kernel/domain/property/invariant.type";
-import { PropertyInvariant } from "./_domain/property/invariant.check";
+import { PropertyInvariant } from "./_repository/invariant.check";
 
 export const PropertyModule = new ContainerModule((bind) => {
   bind(IPropertyRepository).to(PropertyRepository);

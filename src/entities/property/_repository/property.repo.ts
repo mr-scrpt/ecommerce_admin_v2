@@ -9,7 +9,9 @@ import {
 } from "@/kernel/domain/property/property.dto";
 import { PropertyEntity } from "@/kernel/domain/property/property.type";
 import { IPropertyRepository } from "@/kernel/domain/property/repository.type";
+import { UnexpectedError } from "@/kernel/error/error.common";
 import { ErrorApp } from "@/shared/error/error";
+import { ERROR_APP_LAYER } from "@/shared/error/type";
 import { DBClient, Tx } from "@/shared/lib/db/db";
 import { Either, left, right } from "@sweet-monads/either";
 import { injectable } from "inversify";
@@ -23,13 +25,21 @@ export class PropertyRepository implements IPropertyRepository {
     db: Tx = this.db,
   ): Promise<Either<ErrorApp, PropertyEntity>> {
     try {
-      const property = await db.property.findUniqueOrThrow({
+      const res = await db.property.findFirst({
         where: dto,
       });
+      if (!res) {
+        return left(new PropertyNotFoundError({ layer: ERROR_APP_LAYER.DB }));
+      }
 
-      return right(property);
+      return right(res);
     } catch (e) {
-      return left(new PropertyNotFoundError({ cause: e }));
+      return left(
+        new UnexpectedError({
+          cause: e,
+          layer: ERROR_APP_LAYER.DB,
+        }),
+      );
     }
   }
 
