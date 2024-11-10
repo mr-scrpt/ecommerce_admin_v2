@@ -1,13 +1,14 @@
+import { errorAdapter } from "@/kernel/error/container";
+import { IErrorAdapterFacade } from "@/kernel/error/core/facade/types";
+import { ILogger } from "@/shared/logger/logger.type";
 import { initTRPC } from "@trpc/server";
 import superjson from "superjson";
-import { ContextFactory } from "./_contextFactory";
-import { ErrorAdapterService } from "@/kernel/error/error.service";
-import { ILogger } from "@/shared/logger/logger.type";
 import { logger } from "../pino/instans";
+import { ContextFactory } from "./_contextFactory";
 
 interface ITRPCFactory {
-  errorAdapter: ErrorAdapterService;
   logger: ILogger;
+  errorAdapter: IErrorAdapterFacade;
 }
 
 export const tFactory = ({ errorAdapter }: ITRPCFactory) => {
@@ -15,17 +16,18 @@ export const tFactory = ({ errorAdapter }: ITRPCFactory) => {
     transformer: superjson,
 
     errorFormatter({ shape, error }) {
-      const adaptedError = errorAdapter.adapt(error);
-      console.log(
-        "output_log: ********___ADAPTED ERROR___********* =>>>",
-        JSON.stringify(adaptedError, null, 2),
-      );
-      return shape;
+      const adaptedError = errorAdapter.adaptError(error.cause);
+      console.log("output_log: ADAPTED ERROR =>>>", adaptedError);
+
+      return {
+        ...shape,
+        data: adaptedError,
+      };
     },
   });
 };
 
 export const t = tFactory({
-  errorAdapter: new ErrorAdapterService(),
+  errorAdapter,
   logger,
 });

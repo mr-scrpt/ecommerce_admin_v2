@@ -10,9 +10,12 @@ import type {
   CategoryUpdateDTO,
 } from "@/kernel/domain/category/category.dto";
 import { CategoryEntity } from "@/kernel/domain/category/category.type";
-import { CategoryNotFoundError } from "@/kernel/domain/category/error";
+import {
+  CategoryNotFoundError,
+  CategoryUnexpectedError,
+} from "@/kernel/domain/category/error";
 import { ICategoryRepository } from "@/kernel/domain/category/repository.type";
-import { UnexpectedError } from "@/kernel/error/error.common";
+import { UnexpectedError } from "@/kernel/error/errors/error.common";
 import { ErrorApp } from "@/shared/error/error";
 import { ERROR_APP_LAYER } from "@/shared/error/type";
 import { DBClient, Tx } from "@/shared/lib/db/db";
@@ -209,17 +212,23 @@ export class CategoryRepository implements ICategoryRepository {
         data,
       });
 
-      throw new Error("Not Implemented UPDATE");
+      // throw new Error("Not Implemented UPDATE");
       if (!res) {
-        return left(new CategoryNotFoundError({ layer: ERROR_APP_LAYER.DB }));
+        return left(
+          new CategoryNotFoundError({
+            layer: ERROR_APP_LAYER.DB,
+            details: JSON.stringify(dto),
+          }),
+        );
       }
 
       return right(res);
     } catch (e) {
       return left(
-        new UnexpectedError({
+        new CategoryUnexpectedError({
           cause: e,
           layer: ERROR_APP_LAYER.DB,
+          details: JSON.stringify(dto),
         }),
       );
     }

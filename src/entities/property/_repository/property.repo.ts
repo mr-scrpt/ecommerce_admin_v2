@@ -9,7 +9,7 @@ import {
 } from "@/kernel/domain/property/property.dto";
 import { PropertyEntity } from "@/kernel/domain/property/property.type";
 import { IPropertyRepository } from "@/kernel/domain/property/repository.type";
-import { UnexpectedError } from "@/kernel/error/error.common";
+import { UnexpectedError } from "@/kernel/error/errors/error.common";
 import { ErrorApp } from "@/shared/error/error";
 import { ERROR_APP_LAYER } from "@/shared/error/type";
 import { DBClient, Tx } from "@/shared/lib/db/db";

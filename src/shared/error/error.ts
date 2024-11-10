@@ -44,43 +44,43 @@ export class ErrorAppCombined extends Error {
   }
 }
 
-const t = {
-  messageList: '["Unexpected error"]',
-  errorList: [
-    {
-      layer: "DB",
-      timestamp: "2024-11-07T12:00:30.977Z",
-      name: "UNEXPECTED_ERROR",
-      message: "Unexpected error",
-      details:
-        '{"selector":{"id":"cat_585fsddfew7898few"},"data":{"name":"Second category"}}',
-      cause: {
-        layer: "UNKNOWN",
-        timestamp: "2024-11-07T12:00:30.985Z",
-        name: "Error",
-        message: "Not Implemented",
-      },
-    },
-  ],
-};
-
-const t2 = {
-  messageList: '[Category name not unique","Property not exist"]',
-  errorList: [
-    {
-      layer: "DB",
-      timestamp: "2024-11-07T12:08:47.844Z",
-      name: "CATEGORY_NOT_UNIQUE_NAME",
-      message: "Category name not unique",
-      details:
-        '{"selector":{"id":"cat_585fsddfew7898few"},"data":{"name":"Second category"}}',
-    },
-    {
-      layer: "DB",
-      timestamp: "2024-11-07T12:08:47.858Z",
-      name: "PROPERTY_NOT_EXIST",
-      message: "Property not exist",
-      details: '{"selector":{"id":"propertyId_ewe54Tdwo58"}}',
-    },
-  ],
-};
+// const t = {
+//   messageList: '["Unexpected error"]',
+//   errorList: [
+//     {
+//       layer: "DB",
+//       timestamp: "2024-11-07T12:00:30.977Z",
+//       name: "UNEXPECTED_ERROR",
+//       message: "Unexpected error",
+//       details:
+//         '{"selector":{"id":"cat_585fsddfew7898few"},"data":{"name":"Second category"}}',
+//       cause: {
+//         layer: "UNKNOWN",
+//         timestamp: "2024-11-07T12:00:30.985Z",
+//         name: "Error",
+//         message: "Not Implemented",
+//       },
+//     },
+//   ],
+// };
+//
+// const t2 = {
+//   messageList: '[Category name not unique","Property not exist"]',
+//   errorList: [
+//     {
+//       layer: "DB",
+//       timestamp: "2024-11-07T12:08:47.844Z",
+//       name: "CATEGORY_NOT_UNIQUE_NAME",
+//       message: "Category name not unique",
+//       details:
+//         '{"selector":{"id":"cat_585fsddfew7898few"},"data":{"name":"Second category"}}',
+//     },
+//     {
+//       layer: "DB",
+//       timestamp: "2024-11-07T12:08:47.858Z",
+//       name: "PROPERTY_NOT_EXIST",
+//       message: "Property not exist",
+//       details: '{"selector":{"id":"propertyId_ewe54Tdwo58"}}',
+//     },
+//   ],
+// };

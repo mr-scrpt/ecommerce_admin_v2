@@ -1,8 +1,9 @@
-import { UnauthorizedError } from "@/kernel/error/error.common";
 import { injectable } from "inversify";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { NextAuthConfig } from "./nextAuthConfig";
+import { UnauthorizedError } from "@/kernel/error/errors/error.common";
+import { ERROR_APP_LAYER } from "@/shared/error/type";
 
 @injectable()
 export class SessionService {
@@ -16,7 +17,7 @@ export class SessionService {
     const session = await this.get();
 
     if (session === null) {
-      throw new UnauthorizedError();
+      throw new UnauthorizedError({ layer: ERROR_APP_LAYER.SERVICE });
     }
 
     return session;

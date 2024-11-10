@@ -1,10 +1,11 @@
 import { SessionEntity } from "@/kernel/domain/session.type";
-import { ForbiddenError, UnauthorizedError } from "@/kernel/error/error.common";
 import { ILogger } from "@/shared/logger/logger.type";
 import { Session } from "next-auth";
 import { ZodTypeAny, z } from "zod";
 import { logger } from "../pino/instans";
 import { t } from "./_inti";
+import { UnauthorizedError } from "@/kernel/error/errors/error.common";
+import { ERROR_APP_LAYER } from "@/shared/error/type";
 
 interface MiddlewareFactory {
   logger: ILogger;
@@ -46,7 +47,7 @@ export const loggingRequestMiddleware = withLoggingRequestMiddleware({
 
 const checkSessionMiddleware = (session: Session | null) => {
   if (!session) {
-    throw new UnauthorizedError();
+    throw new UnauthorizedError({ layer: ERROR_APP_LAYER.MIDDLEWARE });
   }
 };
 export const authMiddleware = t.middleware(({ ctx, next }) => {

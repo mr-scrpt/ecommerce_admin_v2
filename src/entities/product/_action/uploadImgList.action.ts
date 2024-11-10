@@ -1,8 +1,9 @@
 "use server";
-import { BadRequestError } from "@/kernel/error/error.common";
 import { storageFile } from "@/shared/lib/storageFile";
 import { z } from "zod";
 import { PRODUCT_LIST_FILE_KEY } from "../_constant/formData.contstant";
+import { BadRequestError } from "@/kernel/error/errors/error.common";
+import { ERROR_APP_LAYER } from "@/shared/error/type";
 
 const resultSchema = z.object({
   imgList: z.object({
@@ -16,7 +17,7 @@ export const uploadImgListAction = async (formData: FormData) => {
   const fileListUploaded = [];
   for (const file of files) {
     if (!(file instanceof File)) {
-      throw new BadRequestError({ message: "File not be uploaded" });
+      throw new BadRequestError({ layer: ERROR_APP_LAYER.SERVICE });
     }
     const storedFile = await storageFile.uploadImage(file, "avatar");
     fileListUploaded.push(storedFile);

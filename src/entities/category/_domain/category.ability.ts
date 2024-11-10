@@ -1,6 +1,7 @@
 import { RoleEnum } from "@/kernel/domain/role.type";
 import { SessionEntity } from "@/kernel/domain/session.type";
-import { ForbiddenError, UnauthorizedError } from "@/kernel/error/error.common";
+import { ForbiddenError } from "@/kernel/error/errors/error.common";
+import { ERROR_APP_LAYER } from "@/shared/error/type";
 import { ZodAny } from "zod";
 
 // export const createCategoryAbility = (session: SessionEntity) => ({
@@ -19,19 +20,19 @@ export const createCategoryAbility = (session: SessionEntity) => ({
   },
   canCreateCategory: () => {
     if (session.user.role !== RoleEnum.ADMIN) {
-      throw new ForbiddenError("Недостаточно прав для создания категории");
+      throw new ForbiddenError({ layer: ERROR_APP_LAYER.SERVICE });
     }
     return true;
   },
   canRemoveCategory: () => {
     if (session.user.role !== RoleEnum.ADMIN) {
-      throw new ForbiddenError("Недостаточно прав для удаления категории");
+      throw new ForbiddenError({ layer: ERROR_APP_LAYER.SERVICE });
     }
     return true;
   },
   canUpdateCategory: () => {
     if (session.user.role !== RoleEnum.ADMIN) {
-      throw new ForbiddenError("Недостаточно прав для обновления категории");
+      throw new ForbiddenError({ layer: ERROR_APP_LAYER.SERVICE });
     }
     return true;
   },

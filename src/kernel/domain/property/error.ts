@@ -1,5 +1,4 @@
 import { ErrorApp } from "@/shared/error/error";
-import { HTTP_STATUS } from "@/kernel/lib/trpc/_status";
 import { IErrorLayerOptions } from "@/shared/error/type";
 
 enum ErrorNameEnum {

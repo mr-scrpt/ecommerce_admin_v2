@@ -1,4 +1,4 @@
-import { IErrorDetail } from "@/kernel/error/type";
+import { IErrorDetail } from "@/kernel/_error/type";
 import { injectable } from "inversify";
 
 @injectable()

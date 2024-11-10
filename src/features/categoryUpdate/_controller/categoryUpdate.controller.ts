@@ -36,6 +36,7 @@ export class CategoryUpdateController extends Controller {
         create: createCategoryAbility,
         check: (ability, params) => ability.canUpdateCategory(),
         input: updateInputSchema,
+        // input: updateInputSchemaTestError,
       })
         // .input(updateInputSchemaTestError)
         // .input(updateInputSchema)

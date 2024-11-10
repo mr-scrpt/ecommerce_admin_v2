@@ -3,7 +3,8 @@ import { BadRequest } from "@/shared/lib/errors";
 import { AVATAR_FILE_KEY } from "../_constant/avatar.constant";
 import { z } from "zod";
 import { storageFile } from "@/shared/lib/storageFile";
-import { BadRequestError } from "@/kernel/error/error.common";
+import { BadRequestError } from "@/kernel/error/errors/error.common";
+import { ERROR_APP_LAYER } from "@/shared/error/type";
 
 const resultSchema = z.object({
   avatar: z.object({
@@ -19,7 +20,7 @@ export const uploadProfileAvatarAction = async (
   const file = formData.get(AVATAR_FILE_KEY);
 
   if (!(file instanceof File)) {
-    throw new BadRequestError({ message: "File not be uploaded" });
+    throw new BadRequestError({ layer: ERROR_APP_LAYER.SERVICE });
   }
 
   const storedFile = await storageFile.uploadImage(file, "avatar");

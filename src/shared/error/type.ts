@@ -2,8 +2,10 @@ export const ERROR_APP_LAYER = {
   DB: "DB",
   TRANSACTION: "TRANSACTION",
   SERVICE: "SERVICE",
+  VALIDATION: "VALIDATION",
   TRANSPORT: "TRANSPORT",
   EXTERNAL: "EXTERNAL",
+  MIDDLEWARE: "MIDDLEWARE",
 } as const;
 
 export type ErrorAppLayer =

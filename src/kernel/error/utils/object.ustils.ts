@@ -1,16 +1,8 @@
-import { ErrorApp } from "@/shared/error/error";
-import { Either } from "@sweet-monads/either";
 import { injectable } from "inversify";
-import { IUtilsService } from "./type";
+import { IObjectUtils } from "../core/utils/types";
 
 @injectable()
-export class UtilsService implements IUtilsService {
-  buildMonadErrorArray<T>(
-    input: Either<ErrorApp, T>,
-  ): Either<Array<ErrorApp>, T> {
-    return input.mapLeft((e) => [e]);
-  }
-
+export class ObjectUtils implements IObjectUtils {
   hasProperty(obj: unknown, prop: string): obj is { [key: string]: unknown } {
     return obj !== null && typeof obj === "object" && prop in obj;
   }

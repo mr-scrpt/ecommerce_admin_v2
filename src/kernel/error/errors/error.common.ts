@@ -1,13 +1,7 @@
 import { ErrorApp } from "@/shared/error/error";
-import { HttpStatusCodeEnum, HTTP_STATUS } from "../lib/trpc/_status";
-import {
-  ErrorLayerType,
-  IErrorLayerOptions,
-  LayerErrorOptions,
-} from "@/shared/error/type";
-import { getCauseFromUnknown } from "@/shared/error/error.helper";
+import { IErrorLayerOptions } from "@/shared/error/type";
 
-enum ErrorMessageEnum {
+export enum CommonErrorMessageEnum {
   UNEXPECTED_ERROR = "Unexpected error",
   UNAUTHORIZED = "Unauthorized: Need authentication",
   FORBIDDEN = "Forbidden: Permission denied",
@@ -23,7 +17,7 @@ enum ErrorMessageEnum {
   CLIENT_CLOSED_REQUEST = "Client closed request",
 }
 
-enum ErrorNameEnum {
+export enum CommonErrorNameEnum {
   UNEXPECTED_ERROR = "UNEXPECTED_ERROR",
   UNAUTHORIZED = "UNAUTHORIZED",
   FORBIDDEN = "FORBIDDEN",
@@ -42,53 +36,47 @@ enum ErrorNameEnum {
 export class UnexpectedError extends ErrorApp {
   constructor({ layer, cause, details }: IErrorLayerOptions) {
     super({
+      name: CommonErrorNameEnum.UNEXPECTED_ERROR,
+      message: CommonErrorMessageEnum.UNEXPECTED_ERROR,
       layer,
       cause,
-      name: ErrorNameEnum.UNEXPECTED_ERROR,
-      message: ErrorMessageEnum.UNEXPECTED_ERROR,
       details,
     });
   }
 }
 
 export class UnauthorizedError extends ErrorApp {
-  constructor(params: LayerErrorOptions) {
-    const { cause, layer } = params;
-
+  constructor({ layer, cause, details }: IErrorLayerOptions) {
     super({
-      name: ErrorNameEnum.UNAUTHORIZED,
-      message: ErrorMessageEnum.UNAUTHORIZED,
-      code: HTTP_STATUS.UNAUTHORIZED,
+      name: CommonErrorNameEnum.UNAUTHORIZED,
+      message: CommonErrorMessageEnum.UNAUTHORIZED,
       layer,
       cause,
+      details,
     });
   }
 }
 
 export class ForbiddenError extends ErrorApp {
-  constructor(params: LayerErrorOptions) {
-    const { cause, layer } = params;
-
+  constructor({ layer, cause, details }: IErrorLayerOptions) {
     super({
-      name: ErrorNameEnum.FORBIDDEN,
-      code: HTTP_STATUS.FORBIDDEN,
-      message: ErrorMessageEnum.FORBIDDEN,
+      name: CommonErrorNameEnum.FORBIDDEN,
+      message: CommonErrorMessageEnum.FORBIDDEN,
       layer,
       cause,
+      details,
     });
   }
 }
 
 export class BadRequestError extends ErrorApp {
-  constructor(params: LayerErrorOptions) {
-    const { cause, layer } = params;
-
+  constructor({ layer, cause, details }: IErrorLayerOptions) {
     super({
-      name: ErrorNameEnum.UNPROCESSABLE_CONTENT,
-      message: ErrorMessageEnum.UNPROCESSABLE_CONTENT,
-      code: HTTP_STATUS.BAD_REQUEST,
+      name: CommonErrorNameEnum.UNPROCESSABLE_CONTENT,
+      message: CommonErrorMessageEnum.UNPROCESSABLE_CONTENT,
       layer,
       cause,
+      details,
     });
   }
 }
