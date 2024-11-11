@@ -1,3 +1,26 @@
+export interface IErrorAdapted {
+  layer: ErrorAppLayer;
+  timestamp: Date;
+  name: string;
+  message: string;
+  details?: string;
+  cause?: IErrorAdapted;
+  stack?: IStackFrame[];
+}
+
+export interface IErrorAdapterResult {
+  messageList: string;
+  errorList: Array<IErrorAdapted>;
+}
+
+export interface IStackFrame {
+  fileName: string;
+  lineNumber: number;
+  columnNumber: number;
+  functionName: string;
+  source?: string;
+}
+
 export const ERROR_APP_LAYER = {
   DB: "DB",
   TRANSACTION: "TRANSACTION",

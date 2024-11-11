@@ -1,6 +1,6 @@
 import { ContainerModule } from "inversify";
 import { IErrorDetailsStrategy } from "./core/strategy/types";
-import { TOKENS } from "./core/di/tokens";
+import { ERROR_INJECTION_TOKENS } from "./core/di/tokens";
 import {
   InvalidEnumStrategy,
   InvalidTypeStrategy,
@@ -9,14 +9,10 @@ import {
 import { IErrorDetailsHandler } from "./core/handler/types";
 import { ZodErrorDetailsHandler } from "./impl/handler/ZodHandler";
 import { IFieldExtractor } from "./core/extractor/types";
-import {
-  LayerExtractor,
-  MessageExtractor,
-  TimestampExtractor,
-} from "./impl/extractor/extractor";
-import { ErrorAppLayer } from "@/shared/error/type";
-import { IErrorBuilder } from "./core/builder/types";
-import { ErrorAdaptBuilder } from "./impl/builder/errorAdapt.builder";
+import { LayerExtractor } from "./impl/extractor/layer.extractor";
+import { ErrorAppLayer, IStackFrame } from "@/shared/error/type";
+import { IErrorAdaptBuilder } from "./core/builder/types";
+import { AppErrorAdaptBuilder } from "./impl/builder/appErrorAdapt.builder";
 import { IErrorAdapter } from "./core/common/types";
 import { ZodErrorAdapter } from "./impl/adapter/zodError.adapter";
 import { AppErrorAdapter } from "./impl/adapter/appError.adapter";
@@ -27,67 +23,89 @@ import { IErrorAdapterFacade } from "./core/facade/types";
 import { ErrorAdapterFacade } from "./impl/facade/facade";
 import { ObjectUtils } from "./utils/object.ustils";
 import { IObjectUtils } from "./core/utils/types";
+import { StackExtractor } from "./impl/extractor/stack.extractor";
+import { TimestampExtractor } from "./impl/extractor/timestamp.extractor";
+import { MessageExtractor } from "./impl/extractor/message.extractor";
+import { ZodErrorAdaptBuilder } from "./impl/builder/zodErrorAdapt.builder";
 
 export const ErrorModule = new ContainerModule((bind) => {
   // NOTE: Strategies
-  bind<IErrorDetailsStrategy[]>(TOKENS.ErrorDetailsStrategies)
+  bind<IErrorDetailsStrategy[]>(ERROR_INJECTION_TOKENS.ErrorDetailsStrategies)
     .toDynamicValue((context) => {
       return [
         context.container.get<IErrorDetailsStrategy>(
-          TOKENS.InvalidTypeStrategy,
+          ERROR_INJECTION_TOKENS.InvalidTypeStrategy,
         ),
         context.container.get<IErrorDetailsStrategy>(
-          TOKENS.InvalidEnumStrategy,
+          ERROR_INJECTION_TOKENS.InvalidEnumStrategy,
         ),
         context.container.get<IErrorDetailsStrategy>(
-          TOKENS.SizeConstraintStrategy,
+          ERROR_INJECTION_TOKENS.SizeConstraintStrategy,
         ),
       ];
     })
     .inSingletonScope();
 
-  bind<IErrorDetailsStrategy>(TOKENS.InvalidTypeStrategy)
+  bind<IErrorDetailsStrategy>(ERROR_INJECTION_TOKENS.InvalidTypeStrategy)
     .to(InvalidTypeStrategy)
     .inSingletonScope();
 
-  bind<IErrorDetailsStrategy>(TOKENS.InvalidEnumStrategy)
+  bind<IErrorDetailsStrategy>(ERROR_INJECTION_TOKENS.InvalidEnumStrategy)
     .to(InvalidEnumStrategy)
     .inSingletonScope();
 
-  bind<IErrorDetailsStrategy>(TOKENS.SizeConstraintStrategy)
+  bind<IErrorDetailsStrategy>(ERROR_INJECTION_TOKENS.SizeConstraintStrategy)
     .to(SizeConstraintStrategy)
     .inSingletonScope();
 
   // NOTE: Handlers
-  bind<IErrorDetailsHandler>(TOKENS.ErrorDetailsHandler)
+  bind<IErrorDetailsHandler>(ERROR_INJECTION_TOKENS.ErrorDetailsHandler)
     .to(ZodErrorDetailsHandler)
     .inSingletonScope();
 
   // NOTE: Extractors
-  bind<IFieldExtractor<Date>>(TOKENS.TimestampExtractor).to(TimestampExtractor);
-  bind<IFieldExtractor<string>>(TOKENS.MessageExtractor).to(MessageExtractor);
-  bind<IFieldExtractor<ErrorAppLayer>>(TOKENS.LayerExtractor).to(
-    LayerExtractor,
+  bind<IFieldExtractor<Date>>(ERROR_INJECTION_TOKENS.TimestampExtractor).to(
+    TimestampExtractor,
   );
+  bind<IFieldExtractor<string>>(ERROR_INJECTION_TOKENS.MessageExtractor).to(
+    MessageExtractor,
+  );
+  bind<IFieldExtractor<ErrorAppLayer>>(
+    ERROR_INJECTION_TOKENS.LayerExtractor,
+  ).to(LayerExtractor);
+  bind<IFieldExtractor<IStackFrame[]>>(ERROR_INJECTION_TOKENS.StackExtractor)
+    .to(StackExtractor)
+    .inSingletonScope();
 
   // NOTE: Builder
-  bind<IErrorBuilder>(TOKENS.ErrorBuilder).to(ErrorAdaptBuilder);
+  bind<IErrorAdaptBuilder>(ERROR_INJECTION_TOKENS.AppErrorAdaptBuilder).to(
+    AppErrorAdaptBuilder,
+  );
+  bind<IErrorAdaptBuilder>(ERROR_INJECTION_TOKENS.ZodErrorAdaptBuilder).to(
+    ZodErrorAdaptBuilder,
+  );
 
   // NOTE: Adapters
-  bind<IErrorAdapter>(TOKENS.ZodErrorAdapter).to(ZodErrorAdapter);
-  bind<IErrorAdapter>(TOKENS.AppErrorAdapter).to(AppErrorAdapter);
-  bind<IErrorAdapter>(TOKENS.AppCombinedErrorAdapter).to(
+  bind<IErrorAdapter>(ERROR_INJECTION_TOKENS.ZodErrorAdapter).to(
+    ZodErrorAdapter,
+  );
+  bind<IErrorAdapter>(ERROR_INJECTION_TOKENS.AppErrorAdapter).to(
+    AppErrorAdapter,
+  );
+  bind<IErrorAdapter>(ERROR_INJECTION_TOKENS.AppCombinedErrorAdapter).to(
     AppCombinedErrorAdapter,
   );
 
   // NOTE: Registry
-  bind<IErrorAdapterRegistry>(TOKENS.ErrorAdapterRegistry).to(
+  bind<IErrorAdapterRegistry>(ERROR_INJECTION_TOKENS.ErrorAdapterRegistry).to(
     ErrorAdapterRegistry,
   );
 
   // NOTE: Facade
-  bind<IErrorAdapterFacade>(TOKENS.ErrorAdapterFacade).to(ErrorAdapterFacade);
+  bind<IErrorAdapterFacade>(ERROR_INJECTION_TOKENS.ErrorAdapterFacade).to(
+    ErrorAdapterFacade,
+  );
 
   // // NOTE: Utils
-  bind<IObjectUtils>(TOKENS.ObjectUtils).to(ObjectUtils);
+  bind<IObjectUtils>(ERROR_INJECTION_TOKENS.ObjectUtils).to(ObjectUtils);
 });

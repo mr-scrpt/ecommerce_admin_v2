@@ -1,13 +1,14 @@
 import { ErrorAppCombined } from "@/shared/error/error";
 import { AppErrorAdapter } from "./appError.adapter";
 import { inject, injectable } from "inversify";
-import { IErrorAdapter, IErrorAdapterResult } from "../../core/common/types";
-import { TOKENS } from "../../core/di/tokens";
+import { IErrorAdapter } from "../../core/common/types";
+import { ERROR_INJECTION_TOKENS } from "../../core/di/tokens";
+import { IErrorAdapterResult } from "@/shared/error/type";
 
 @injectable()
 export class AppCombinedErrorAdapter implements IErrorAdapter {
   constructor(
-    @inject(TOKENS.AppErrorAdapter)
+    @inject(ERROR_INJECTION_TOKENS.AppErrorAdapter)
     private readonly appErrorAdapter: AppErrorAdapter,
   ) {}
 

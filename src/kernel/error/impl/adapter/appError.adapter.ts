@@ -1,41 +1,22 @@
 import { ErrorApp } from "@/shared/error/error";
-import type {
-  IErrorAdapter,
-  IErrorAdapterResult,
-  IErrorAdapted,
-} from "../../core/common/types";
-import { TOKENS } from "../../core/di/tokens";
 import { inject, injectable } from "inversify";
-import { ErrorAdaptBuilder } from "../builder/errorAdapt.builder";
+import type { IErrorAdapter } from "../../core/common/types";
+import { ERROR_INJECTION_TOKENS } from "../../core/di/tokens";
+import { AppErrorAdaptBuilder } from "../builder/appErrorAdapt.builder";
+import { IErrorAdapterResult } from "@/shared/error/type";
 
 @injectable()
 export class AppErrorAdapter implements IErrorAdapter {
   constructor(
-    @inject(TOKENS.ErrorBuilder)
-    private readonly errorBuilder: ErrorAdaptBuilder,
+    @inject(ERROR_INJECTION_TOKENS.AppErrorAdaptBuilder)
+    private readonly builder: AppErrorAdaptBuilder,
   ) {}
 
   canAdapt(error: unknown): boolean {
     return error instanceof ErrorApp;
   }
 
-  adapt(errorApp: ErrorApp): IErrorAdapterResult {
-    const adaptedError = this.adaptSingleError(errorApp);
-
-    return {
-      messageList: JSON.stringify([errorApp.message]),
-      errorList: [adaptedError],
-    };
-  }
-
-  private adaptSingleError(error: ErrorApp): IErrorAdapted {
-    console.log("output_log: STACK =>>>", error.stack);
-    const adapted: IErrorAdapted = this.errorBuilder.buildAdaptedError(error);
-
-    if (error.cause) {
-      adapted.cause = this.errorBuilder.buildAdaptedError(error.cause);
-    }
-
-    return adapted;
+  adapt(error: ErrorApp): IErrorAdapterResult {
+    return this.builder.build(error);
   }
 }

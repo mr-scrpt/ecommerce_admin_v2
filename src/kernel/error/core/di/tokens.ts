@@ -1,12 +1,14 @@
-export const TOKENS = {
+export const ERROR_INJECTION_TOKENS = {
   ErrorContainer: Symbol("ErrorContainer"),
   // NOTE: Extractors
   TimestampExtractor: Symbol("TimestampExtractor"),
   MessageExtractor: Symbol("MessageExtractor"),
   LayerExtractor: Symbol("LayerExtractor"),
+  StackExtractor: Symbol("StackExtractor"),
 
   // NOTE: Builders
-  ErrorBuilder: Symbol("ErrorBuilder"),
+  AppErrorAdaptBuilder: Symbol("AppErrorAdaptBuilder"),
+  ZodErrorAdaptBuilder: Symbol("ZodErrorAdaptBuilder"),
 
   // NOTE: Handlers
   ErrorDetailsHandler: Symbol("ErrorDetailsHandler"),

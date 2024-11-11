@@ -1,6 +1,5 @@
 import "reflect-metadata";
 
-import { LoggerModule } from "@/kernel/lib/pino/module";
 import { CartModule } from "@/entities/cart/module";
 import { CategoryModule } from "@/entities/category/module";
 import { ConsumerModule } from "@/entities/consumer/module";
@@ -64,6 +63,7 @@ import { OrderRowCreateModule } from "@/features/orderRowCreate/module";
 import { OrderReceiverUpdateModule } from "@/features/orderReceiverUpdate/module";
 import { ServiceUtilsModule } from "@/kernel/service/module";
 import { ErrorModule } from "@/kernel/error/module";
+import { LoggerModule } from "@/kernel/logger/module";
 
 export const loadModule = () => {
   const container = new Container();

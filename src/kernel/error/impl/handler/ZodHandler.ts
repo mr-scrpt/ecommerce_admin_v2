@@ -1,13 +1,14 @@
 import { inject, injectable } from "inversify";
 import { ZodIssue } from "zod";
 import { IZodErrorDetails } from "../../core/common/types";
-import { TOKENS } from "../../core/di/tokens";
+import { ERROR_INJECTION_TOKENS } from "../../core/di/tokens";
 import { IErrorDetailsStrategy } from "../../core/strategy/types";
+import { IErrorDetailsHandler } from "../../core/handler/types";
 
 @injectable()
-export class ZodErrorDetailsHandler {
+export class ZodErrorDetailsHandler implements IErrorDetailsHandler {
   constructor(
-    @inject(TOKENS.ErrorDetailsStrategies)
+    @inject(ERROR_INJECTION_TOKENS.ErrorDetailsStrategies)
     private readonly strategies: IErrorDetailsStrategy[],
   ) {}
 

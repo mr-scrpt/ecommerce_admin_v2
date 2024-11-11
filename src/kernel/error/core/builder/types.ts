@@ -1,5 +1,5 @@
-import { IErrorAdapted } from "../common/types";
+import { IErrorAdapterResult } from "@/shared/error/type";
 
-export interface IErrorBuilder {
-  buildAdaptedError(error: unknown): IErrorAdapted;
+export interface IErrorAdaptBuilder {
+  build(error: unknown): IErrorAdapterResult;
 }

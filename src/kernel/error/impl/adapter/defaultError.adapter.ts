@@ -1,9 +1,6 @@
 import { injectable } from "inversify";
-import {
-  ErrorMessageEnum,
-  IErrorAdapter,
-  IErrorAdapterResult,
-} from "../../core/common/types";
+import { ErrorMessageEnum, IErrorAdapter } from "../../core/common/types";
+import { IErrorAdapterResult } from "@/shared/error/type";
 
 @injectable()
 export class DefaultErrorAdapter implements IErrorAdapter {

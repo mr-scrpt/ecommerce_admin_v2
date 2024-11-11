@@ -1,6 +1,6 @@
 import { Container } from "inversify";
 import { ErrorModule } from "./module";
-import { TOKENS } from "./core/di/tokens";
+import { ERROR_INJECTION_TOKENS } from "./core/di/tokens";
 import { IErrorAdapterFacade } from "./core/facade/types";
 
 const errorContainer = new Container({
@@ -13,7 +13,7 @@ errorContainer.load(ErrorModule);
 export { errorContainer };
 
 const errorAdapter = errorContainer.get<IErrorAdapterFacade>(
-  TOKENS.ErrorAdapterFacade,
+  ERROR_INJECTION_TOKENS.ErrorAdapterFacade,
 );
 
 export { errorAdapter };

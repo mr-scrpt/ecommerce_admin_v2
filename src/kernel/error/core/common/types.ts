@@ -1,18 +1,4 @@
-import { ErrorAppLayer } from "@/shared/error/type";
-
-export interface IErrorAdapted {
-  layer: ErrorAppLayer;
-  timestamp: Date;
-  name: string;
-  message: string;
-  details?: string;
-  cause?: IErrorAdapted;
-}
-
-export interface IErrorAdapterResult {
-  messageList: string;
-  errorList: Array<IErrorAdapted>;
-}
+import { IErrorAdapterResult } from "@/shared/error/type";
 
 export interface IZodErrorDetails {
   code: string;

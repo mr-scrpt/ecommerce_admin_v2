@@ -1,25 +1,23 @@
 import { inject, injectable } from "inversify";
 import { IErrorAdapterFacade } from "../../core/facade/types";
-import { TOKENS } from "../../core/di/tokens";
+import { ERROR_INJECTION_TOKENS } from "../../core/di/tokens";
 import type { IErrorAdapterRegistry } from "../../core/regestry/types";
-import type {
-  IErrorAdapter,
-  IErrorAdapterResult,
-} from "../../core/common/types";
+import type { IErrorAdapter } from "../../core/common/types";
+import { IErrorAdapterResult } from "@/shared/error/type";
 
 @injectable()
 export class ErrorAdapterFacade implements IErrorAdapterFacade {
   constructor(
-    @inject(TOKENS.ErrorAdapterRegistry)
+    @inject(ERROR_INJECTION_TOKENS.ErrorAdapterRegistry)
     private readonly registry: IErrorAdapterRegistry,
 
-    @inject(TOKENS.AppErrorAdapter)
+    @inject(ERROR_INJECTION_TOKENS.AppErrorAdapter)
     private readonly appErrorAdapter: IErrorAdapter,
 
-    @inject(TOKENS.AppCombinedErrorAdapter)
+    @inject(ERROR_INJECTION_TOKENS.AppCombinedErrorAdapter)
     private readonly combinedErrorAdapter: IErrorAdapter,
 
-    @inject(TOKENS.ZodErrorAdapter)
+    @inject(ERROR_INJECTION_TOKENS.ZodErrorAdapter)
     private readonly zodErrorAdapter: IErrorAdapter,
   ) {
     this.initializeAdapters();
