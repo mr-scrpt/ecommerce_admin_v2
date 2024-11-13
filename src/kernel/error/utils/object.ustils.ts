@@ -1,5 +1,5 @@
 import { injectable } from "inversify";
-import { IObjectUtils } from "../core/utils/types";
+import { IObjectUtils } from "../domain/utils/types";
 
 @injectable()
 export class ObjectUtils implements IObjectUtils {

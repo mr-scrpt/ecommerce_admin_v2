@@ -1,7 +1,7 @@
 import { inject, injectable } from "inversify";
 import { ZodError } from "zod";
-import { IErrorAdapter } from "../../core/common/types";
-import { ERROR_INJECTION_TOKENS } from "../../core/di/tokens";
+import { IErrorAdapter } from "../../domain/common/types";
+import { ERROR_INJECTION_TOKENS } from "../../domain/di/tokens";
 import { ZodErrorAdaptBuilder } from "../builder/zodErrorAdapt.builder";
 import { IErrorAdapterResult } from "@/shared/error/type";
 

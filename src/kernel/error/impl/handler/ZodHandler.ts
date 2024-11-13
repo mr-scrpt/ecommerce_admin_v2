@@ -1,9 +1,9 @@
 import { inject, injectable } from "inversify";
 import { ZodIssue } from "zod";
-import { IZodErrorDetails } from "../../core/common/types";
-import { ERROR_INJECTION_TOKENS } from "../../core/di/tokens";
-import { IErrorDetailsStrategy } from "../../core/strategy/types";
-import { IErrorDetailsHandler } from "../../core/handler/types";
+import { IZodErrorDetails } from "../../domain/common/types";
+import { ERROR_INJECTION_TOKENS } from "../../domain/di/tokens";
+import { IErrorDetailsStrategy } from "../../domain/strategy/types";
+import { IErrorDetailsHandler } from "../../domain/handler/types";
 
 @injectable()
 export class ZodErrorDetailsHandler implements IErrorDetailsHandler {

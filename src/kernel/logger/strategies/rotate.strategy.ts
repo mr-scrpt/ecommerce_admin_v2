@@ -1,3 +1,4 @@
+"use server";
 import type { ILoggerConfig } from "@/shared/config/logger.config";
 import { inject, injectable } from "inversify";
 import { LOGGER_INJECTION_TOKENS } from "../di";
@@ -21,18 +22,19 @@ export class SizeBasedRotationStrategy implements IRotationStrategy {
       this.logDirectory,
       filename,
     );
+    return false;
 
-    try {
-      const stats = await FileSystemUtils.getFileStats(filePath);
-      return stats.size >= this.maxSize;
-    } catch (error) {
-      if ((error as NodeJS.ErrnoException).code === "ENOENT") {
-        await FileSystemUtils.ensureDirectory(this.logDirectory);
-        await FileSystemUtils.writeEmptyFile(filePath);
-        return false;
-      }
-      throw error;
-    }
+    // try {
+    //   const stats = await FileSystemUtils.getFileStats(filePath);
+    //   return stats.size >= this.maxSize;
+    // } catch (error) {
+    //   if ((error as NodeJS.ErrnoException).code === "ENOENT") {
+    //     await FileSystemUtils.ensureDirectory(this.logDirectory);
+    //     await FileSystemUtils.writeEmptyFile(filePath);
+    //     return false;
+    //   }
+    //   throw error;
+    // }
   }
 
   async rotate(filename: string): Promise<void> {

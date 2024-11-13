@@ -6,11 +6,11 @@ import {
 } from "@/shared/error/type";
 import { inject, injectable } from "inversify";
 import { ZodError, ZodInvalidUnionIssue, ZodIssue, ZodIssueCode } from "zod";
-import { IErrorAdaptBuilder } from "../../core/builder/types";
-import { ERROR_INJECTION_TOKENS } from "../../core/di/tokens";
-import type { IFieldExtractor } from "../../core/extractor/types";
-import type { IErrorDetailsHandler } from "../../core/handler/types";
-import { ERROR_NAME_MAP, ZodErrorCode } from "../../core/strategy/types";
+import { IErrorAdaptBuilder } from "../../domain/builder/types";
+import { ERROR_INJECTION_TOKENS } from "../../domain/di/tokens";
+import type { IFieldExtractor } from "../../domain/extractor/types";
+import type { IErrorDetailsHandler } from "../../domain/handler/types";
+import { ERROR_NAME_MAP, ZodErrorCode } from "../../domain/strategy/types";
 
 @injectable()
 export class ZodErrorAdaptBuilder implements IErrorAdaptBuilder {

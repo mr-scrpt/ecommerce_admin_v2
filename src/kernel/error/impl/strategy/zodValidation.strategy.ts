@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { IErrorDetailsStrategy } from "../../core/strategy/types";
-import { IZodErrorDetails } from "../../core/common/types";
+import { IErrorDetailsStrategy } from "../../domain/strategy/types";
+import { IZodErrorDetails } from "../../domain/common/types";
 import { injectable } from "inversify";
 
 @injectable()

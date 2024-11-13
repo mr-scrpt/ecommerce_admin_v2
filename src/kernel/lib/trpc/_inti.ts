@@ -1,13 +1,13 @@
 import { errorAdapter } from "@/kernel/error/container";
-import { IErrorAdapterFacade } from "@/kernel/error/core/facade/types";
-import { ILogger } from "@/shared/logger/logger.type";
+import { IErrorAdapterFacade } from "@/kernel/error/domain/facade/types";
+// import { loggerComplex, loggerNative, loggerPino, loggerPinoFile } from "@/kernel/logger_v2";
 import { initTRPC } from "@trpc/server";
 import superjson from "superjson";
-import { logger } from "../pino/instans";
 import { ContextFactory } from "./_contextFactory";
+import { loggerComplex } from "@/kernel/logger_v2";
 
 interface ITRPCFactory {
-  logger: ILogger;
+  // logger: ILogger;
   errorAdapter: IErrorAdapterFacade;
 }
 
@@ -16,12 +16,22 @@ export const tFactory = ({ errorAdapter }: ITRPCFactory) => {
     transformer: superjson,
 
     errorFormatter({ shape, error }) {
+      // const loggerService = new LoggerService();
       const adaptedError = errorAdapter.adaptError(error.cause);
-      // console.log(
-      //   "output_log: ADAPTED ERROR =>>>",
-      //   adaptedError.errorList.map((error) => error.stack),
-      // );
-      console.log("output_log: ADAPTED ERROR  =>>>", adaptedError);
+
+      // loggerPino.error(adaptedError);
+
+      // loggerPino.info({
+      //   message: "PINO CONSOLE Hello INFO",
+      // });
+      //
+      // loggerNative.error({ message: "NATIVE CONSOLE Hello ERROR" });
+      // loggerNative.info({
+      //   message: "NATIVE CONSOLE Hello INFO",
+      // });
+      //
+      loggerComplex.error(adaptedError);
+      loggerComplex.info(adaptedError);
 
       return {
         ...shape,
@@ -33,5 +43,5 @@ export const tFactory = ({ errorAdapter }: ITRPCFactory) => {
 
 export const t = tFactory({
   errorAdapter,
-  logger,
+  // logger: loggerError,
 });

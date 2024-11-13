@@ -1,28 +1,28 @@
 import { ContainerModule } from "inversify";
-import { IErrorDetailsStrategy } from "./core/strategy/types";
-import { ERROR_INJECTION_TOKENS } from "./core/di/tokens";
+import { IErrorDetailsStrategy } from "./domain/strategy/types";
+import { ERROR_INJECTION_TOKENS } from "./domain/di/tokens";
 import {
   InvalidEnumStrategy,
   InvalidTypeStrategy,
   SizeConstraintStrategy,
 } from "./impl/strategy/zodValidation.strategy";
-import { IErrorDetailsHandler } from "./core/handler/types";
+import { IErrorDetailsHandler } from "./domain/handler/types";
 import { ZodErrorDetailsHandler } from "./impl/handler/ZodHandler";
-import { IFieldExtractor } from "./core/extractor/types";
+import { IFieldExtractor } from "./domain/extractor/types";
 import { LayerExtractor } from "./impl/extractor/layer.extractor";
 import { ErrorAppLayer, IStackFrame } from "@/shared/error/type";
-import { IErrorAdaptBuilder } from "./core/builder/types";
+import { IErrorAdaptBuilder } from "./domain/builder/types";
 import { AppErrorAdaptBuilder } from "./impl/builder/appErrorAdapt.builder";
-import { IErrorAdapter } from "./core/common/types";
+import { IErrorAdapter } from "./domain/common/types";
 import { ZodErrorAdapter } from "./impl/adapter/zodError.adapter";
 import { AppErrorAdapter } from "./impl/adapter/appError.adapter";
 import { AppCombinedErrorAdapter } from "./impl/adapter/appCombineError.adapter";
-import { IErrorAdapterRegistry } from "./core/regestry/types";
+import { IErrorAdapterRegistry } from "./domain/regestry/types";
 import { ErrorAdapterRegistry } from "./impl/regestry/regestry";
-import { IErrorAdapterFacade } from "./core/facade/types";
+import { IErrorAdapterFacade } from "./domain/facade/types";
 import { ErrorAdapterFacade } from "./impl/facade/facade";
 import { ObjectUtils } from "./utils/object.ustils";
-import { IObjectUtils } from "./core/utils/types";
+import { IObjectUtils } from "./domain/utils/types";
 import { StackExtractor } from "./impl/extractor/stack.extractor";
 import { TimestampExtractor } from "./impl/extractor/timestamp.extractor";
 import { MessageExtractor } from "./impl/extractor/message.extractor";

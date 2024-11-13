@@ -1,4 +1,5 @@
-import { Container, inject, injectable } from "inversify";
+import type { ILoggerConfig } from "@/shared/config/logger.config";
+import { inject, injectable } from "inversify";
 import { LOGGER_INJECTION_TOKENS } from "./di";
 import { Logger } from "./logger";
 import { loggerConfigStrategies } from "./strategies";
@@ -11,7 +12,6 @@ import type {
   IRotationStrategy,
   LoggerType,
 } from "./types";
-import type { ILoggerConfig } from "@/shared/config/logger.config";
 
 @injectable()
 export class LoggerFactory implements ILoggerFactory {

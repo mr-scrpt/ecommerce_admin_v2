@@ -1,5 +1,5 @@
 import { injectable } from "inversify";
-import { ErrorMessageEnum, IErrorAdapter } from "../../core/common/types";
+import { ErrorMessageEnum, IErrorAdapter } from "../../domain/common/types";
 import { IErrorAdapterResult } from "@/shared/error/type";
 
 @injectable()

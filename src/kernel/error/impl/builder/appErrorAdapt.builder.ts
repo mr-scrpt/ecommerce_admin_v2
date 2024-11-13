@@ -5,11 +5,11 @@ import {
   IStackFrame,
 } from "@/shared/error/type";
 import { inject, injectable } from "inversify";
-import { ERROR_INJECTION_TOKENS } from "../../core/di/tokens";
-import type { IFieldExtractor } from "../../core/extractor/types";
-import type { IObjectUtils } from "../../core/utils/types";
+import { ERROR_INJECTION_TOKENS } from "../../domain/di/tokens";
+import type { IFieldExtractor } from "../../domain/extractor/types";
+import type { IObjectUtils } from "../../domain/utils/types";
 import { CommonErrorNameEnum } from "../../errors/error.common";
-import { IErrorAdaptBuilder } from "../../core/builder/types";
+import { IErrorAdaptBuilder } from "../../domain/builder/types";
 import { ErrorApp } from "@/shared/error/error";
 
 @injectable()

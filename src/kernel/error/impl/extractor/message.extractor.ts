@@ -1,7 +1,7 @@
 import { inject, injectable } from "inversify";
-import { IFieldExtractor } from "../../core/extractor/types";
-import { ERROR_INJECTION_TOKENS } from "../../core/di/tokens";
-import type { IObjectUtils } from "../../core/utils/types";
+import { IFieldExtractor } from "../../domain/extractor/types";
+import { ERROR_INJECTION_TOKENS } from "../../domain/di/tokens";
+import type { IObjectUtils } from "../../domain/utils/types";
 import { CommonErrorMessageEnum } from "../../errors/error.common";
 
 @injectable()

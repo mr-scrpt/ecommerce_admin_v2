@@ -1,6 +1,6 @@
 import { injectable } from "inversify";
-import { IErrorAdapter } from "../../core/common/types";
-import { IErrorAdapterRegistry } from "../../core/regestry/types";
+import { IErrorAdapter } from "../../domain/common/types";
+import { IErrorAdapterRegistry } from "../../domain/regestry/types";
 
 @injectable()
 export class ErrorAdapterRegistry implements IErrorAdapterRegistry {

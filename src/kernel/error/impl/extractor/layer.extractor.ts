@@ -1,8 +1,8 @@
 import { ERROR_APP_LAYER, ErrorAppLayer } from "@/shared/error/type";
 import { inject, injectable } from "inversify";
-import { ERROR_INJECTION_TOKENS } from "../../core/di/tokens";
-import { IFieldExtractor } from "../../core/extractor/types";
-import type { IObjectUtils } from "../../core/utils/types";
+import { ERROR_INJECTION_TOKENS } from "../../domain/di/tokens";
+import { IFieldExtractor } from "../../domain/extractor/types";
+import type { IObjectUtils } from "../../domain/utils/types";
 
 @injectable()
 export class LayerExtractor implements IFieldExtractor<ErrorAppLayer> {

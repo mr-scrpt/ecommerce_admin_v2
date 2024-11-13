@@ -1,3 +1,4 @@
+"use server";
 import { Stats, promises as fs } from "fs";
 import path from "path";
 
@@ -5,7 +6,6 @@ export class FileSystemUtils {
   private static readonly BASE_DIR = process.cwd();
 
   static getLogFilePath(directory: string, filename: string): string {
-    // Защита от path traversal
     const sanitizedDir = path
       .normalize(directory)
       .replace(/^(\.\.(\/|\\|$))+/, "");
@@ -13,7 +13,10 @@ export class FileSystemUtils {
       .normalize(filename)
       .replace(/^(\.\.(\/|\\|$))+/, "");
 
-    return path.join(this.BASE_DIR, sanitizedDir, sanitizedFilename);
+    const safeFilename = path.basename(sanitizedFilename);
+    const safeDir = path.dirname(sanitizedDir);
+
+    return path.join(this.BASE_DIR, safeDir, safeFilename);
   }
 
   static async getFileStats(filepath: string): Promise<Stats> {

@@ -1,7 +1,7 @@
 import { ErrorApp } from "@/shared/error/error";
 import { inject, injectable } from "inversify";
-import type { IErrorAdapter } from "../../core/common/types";
-import { ERROR_INJECTION_TOKENS } from "../../core/di/tokens";
+import type { IErrorAdapter } from "../../domain/common/types";
+import { ERROR_INJECTION_TOKENS } from "../../domain/di/tokens";
 import { AppErrorAdaptBuilder } from "../builder/appErrorAdapt.builder";
 import { IErrorAdapterResult } from "@/shared/error/type";
 

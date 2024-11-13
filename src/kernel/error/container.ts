@@ -1,7 +1,7 @@
 import { Container } from "inversify";
 import { ErrorModule } from "./module";
-import { ERROR_INJECTION_TOKENS } from "./core/di/tokens";
-import { IErrorAdapterFacade } from "./core/facade/types";
+import { ERROR_INJECTION_TOKENS } from "./domain/di/tokens";
+import { IErrorAdapterFacade } from "./domain/facade/types";
 
 const errorContainer = new Container({
   defaultScope: "Singleton",

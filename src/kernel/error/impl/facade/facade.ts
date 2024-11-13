@@ -1,8 +1,8 @@
 import { inject, injectable } from "inversify";
-import { IErrorAdapterFacade } from "../../core/facade/types";
-import { ERROR_INJECTION_TOKENS } from "../../core/di/tokens";
-import type { IErrorAdapterRegistry } from "../../core/regestry/types";
-import type { IErrorAdapter } from "../../core/common/types";
+import { IErrorAdapterFacade } from "../../domain/facade/types";
+import { ERROR_INJECTION_TOKENS } from "../../domain/di/tokens";
+import type { IErrorAdapterRegistry } from "../../domain/regestry/types";
+import type { IErrorAdapter } from "../../domain/common/types";
 import { IErrorAdapterResult } from "@/shared/error/type";
 
 @injectable()

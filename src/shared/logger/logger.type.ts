@@ -1,20 +1,38 @@
-import { IErrorDetail } from "@/kernel/_error/type";
+// import { IErrorDetail } from "@/kernel/_error/type";
 import { injectable } from "inversify";
-
-@injectable()
-export abstract class ILogger {
-  abstract request(info: {
-    path: string;
-    type: string;
-    durationMs: number;
-    user: { id: string; name: string; lastName: string } | null;
-    input?: any;
-  }): void;
-
-  abstract error(errorList: {
-    status: string;
-    code: string;
-    message: any;
-    details?: Array<IErrorDetail>;
-  }): void;
-}
+//
+// @injectable()
+// export abstract class ILogger {
+//   abstract request(info: {
+//     path: string;
+//     type: string;
+//     durationMs: number;
+//     user: { id: string; name: string; lastName: string } | null;
+//     input?: any;
+//   }): void;
+//
+//   abstract error(errorList: {
+//     status: string;
+//     code: string;
+//     message: any;
+//     details?: Array<IErrorDetail>;
+//   }): void;
+// }
+//
+// @injectable()
+// export abstract class ILogger {
+//   abstract error(info: {
+//     path: string;
+//     type: string;
+//     durationMs: number;
+//     user: { id: string; name: string; lastName: string } | null;
+//     input?: any;
+//   }): void;
+//
+//   abstract request(errorList: {
+//     status: string;
+//     code: string;
+//     message: any;
+//     details?: Array<IErrorDetail>;
+//   }): void;
+// }

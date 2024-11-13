@@ -13,8 +13,10 @@ import {
   ILogger,
   ILoggerConfigStrategy,
   ILoggerFactory,
+  ILoggerProvider,
   IRotationStrategy,
 } from "./types";
+import { PinoLoggerProvider } from "./provider";
 
 export const LoggerModule = new ContainerModule((bind) => {
   bind<ILoggerConfig>(LOGGER_INJECTION_TOKENS.LoggerConfig).toConstantValue(
@@ -37,4 +39,7 @@ export const LoggerModule = new ContainerModule((bind) => {
   });
 
   bind<ILoggerFactory>(LOGGER_INJECTION_TOKENS.LoggerFactory).to(LoggerFactory);
+  bind<ILoggerProvider>(LOGGER_INJECTION_TOKENS.LoggerProvider).to(
+    PinoLoggerProvider,
+  );
 });
