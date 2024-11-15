@@ -167,3 +167,6 @@
 2024-11-11T10:08:15.173Z - Data fetched successfully at 11/11/2024, 12:08:15 PM
 2024-11-12T08:37:18.946Z - Data fetched successfully at 11/12/2024, 10:37:18 AM
 2024-11-13T08:34:43.099Z - Data fetched successfully at 11/13/2024, 10:34:43 AM
+2024-11-14T12:26:42.267Z - Error fetching data at 11/14/2024, 2:26:42 PM: Failed to fetch data
+2024-11-15T08:24:25.624Z - Error fetching data at 11/15/2024, 10:24:25 AM: Failed to fetch data
+2024-11-15T12:00:01.113Z - Error fetching data at 11/15/2024, 2:00:01 PM: Failed to fetch data

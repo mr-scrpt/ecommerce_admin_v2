@@ -1,0 +1,3 @@
+export const CONFIG_INJECTION_TOKENS = {
+  LOGGER_CONFIG: Symbol.for("LOGGER_CONFIG"),
+};

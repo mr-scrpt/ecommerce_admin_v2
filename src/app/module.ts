@@ -63,12 +63,15 @@ import { OrderRowCreateModule } from "@/features/orderRowCreate/module";
 import { OrderReceiverUpdateModule } from "@/features/orderReceiverUpdate/module";
 import { ServiceUtilsModule } from "@/kernel/service/module";
 import { ErrorModule } from "@/kernel/error/module";
-import { LoggerModule } from "@/kernel/logger/module";
+import { ConfigModule } from "@/shared/config/module";
+import { LoggerModule } from "@/kernel/logger_v2/module";
 
-export const loadModule = () => {
+export const loadAppModule = () => {
+  console.log("output_log: LOAD MODULE INIT =>>>");
   const container = new Container();
 
   container.load(
+    ConfigModule,
     ServiceUtilsModule,
     ErrorModule,
     LoggerModule,
@@ -148,4 +151,4 @@ export const loadModule = () => {
   return container;
 };
 
-export const appModule = loadModule();
+export const appModule = loadAppModule();

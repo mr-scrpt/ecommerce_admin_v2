@@ -25,3 +25,5 @@ const configPrivateSchema = z.object({
 });
 
 export const configPrivate = configPrivateSchema.parse(process.env);
+
+export type TConfigPrivate = z.infer<typeof configPrivateSchema>;

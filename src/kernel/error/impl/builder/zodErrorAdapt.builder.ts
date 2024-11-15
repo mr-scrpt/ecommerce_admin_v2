@@ -11,6 +11,7 @@ import { ERROR_INJECTION_TOKENS } from "../../domain/di/tokens";
 import type { IFieldExtractor } from "../../domain/extractor/types";
 import type { IErrorDetailsHandler } from "../../domain/handler/types";
 import { ERROR_NAME_MAP, ZodErrorCode } from "../../domain/strategy/types";
+import { IZodErrorDetails } from "../../domain/common/types";
 
 @injectable()
 export class ZodErrorAdaptBuilder implements IErrorAdaptBuilder {

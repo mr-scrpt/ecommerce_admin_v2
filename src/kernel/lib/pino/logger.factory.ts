@@ -1,4 +1,4 @@
-import { type ILoggerConfig } from "@/shared/config/logger.config";
+import { type TLoggerConfig } from "@/shared/config/logger.config";
 import { inject, injectable } from "inversify";
 import pino, { Logger, TransportTargetOptions } from "pino";
 import { err as errSerializer } from "pino-std-serializers";
@@ -13,7 +13,7 @@ interface LoggerOptions {
 export class LoggerConfigFactory implements ILoggerConfigFactory {
   constructor(
     @inject(LOGGER_TYPES.LoggerConfig)
-    readonly loggerConfig: ILoggerConfig,
+    readonly loggerConfig: TLoggerConfig,
   ) {}
 
   private readonly commonPrettyOptions = {

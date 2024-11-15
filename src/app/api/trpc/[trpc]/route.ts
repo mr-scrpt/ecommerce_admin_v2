@@ -8,6 +8,7 @@ import {
 import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
 
 const appRouter = appModule.getAll(Controller).map((c) => c.router);
+console.log("output_log: INIT APP ROUTER =>>>______");
 // type AppRouter = typeof appRouter;
 
 const handler = (req: Request) =>

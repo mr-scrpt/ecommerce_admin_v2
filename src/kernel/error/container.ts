@@ -12,8 +12,8 @@ errorContainer.load(ErrorModule);
 
 export { errorContainer };
 
-const errorAdapter = errorContainer.get<IErrorAdapterFacade>(
+const errorFacade = errorContainer.get<IErrorAdapterFacade>(
   ERROR_INJECTION_TOKENS.ErrorAdapterFacade,
 );
 
-export { errorAdapter };
+export { errorFacade };
